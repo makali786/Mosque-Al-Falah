@@ -9,7 +9,52 @@ export default function TopBar() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   return (
-    <div className="bg-white flex items-center justify-between px-30 py-3 w-full relative">
+    <div className="bg-white w-full relative">
+      {/* Mobile Layout - Single Row */}
+      <div className="lg:hidden hidden items-center justify-between gap-3 px-4 py-2 overflow-x-auto scrollbar-hide">
+        {/* Left: Dates - Fixed */}
+        <div className="flex flex-col gap-1 shrink-0">
+          <div className="flex items-center gap-1 text-[10px] text-gray-600 whitespace-nowrap">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
+              <rect width="12" height="12" rx="2" fill="#F4F4F5"/>
+            </svg>
+            <span>04 February 2025</span>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] text-gray-600 whitespace-nowrap">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="shrink-0">
+              <rect width="12" height="12" rx="2" fill="#F4F4F5"/>
+            </svg>
+            <span>5 Sha'baan</span>
+          </div>
+        </div>
+
+        {/* Right: Prayer Times - Scrollable */}
+        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
+          <div className="flex flex-col items-center px-2.5 py-1 bg-gray-50 rounded shrink-0 min-w-[50px]">
+            <span className="font-semibold text-[10px] text-black">Fajr</span>
+            <span className="text-[10px] text-gray-600">5:53</span>
+          </div>
+          <div className="flex flex-col items-center px-2.5 py-1 bg-[#005bc4] rounded shrink-0 min-w-[50px]">
+            <span className="font-semibold text-[10px] text-white">Dhur</span>
+            <span className="text-[10px] text-white">12:19</span>
+          </div>
+          <div className="flex flex-col items-center px-2.5 py-1 bg-gray-50 rounded shrink-0 min-w-[50px]">
+            <span className="font-semibold text-[10px] text-black">Asr</span>
+            <span className="text-[10px] text-gray-600">12:19</span>
+          </div>
+          <div className="flex flex-col items-center px-2.5 py-1 bg-gray-50 rounded shrink-0 min-w-[50px]">
+            <span className="font-semibold text-[10px] text-black">Maghrib</span>
+            <span className="text-[10px] text-gray-600">3:6</span>
+          </div>
+          <div className="flex flex-col items-center px-2.5 py-1 bg-gray-50 rounded shrink-0 min-w-[50px]">
+            <span className="font-semibold text-[10px] text-black">Ishā</span>
+            <span className="text-[10px] text-gray-600">6:33</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex items-center justify-between px-30 py-3 w-full">
       {/* Left Section - Date & Location Info */}
       <div className="flex gap-4 items-center relative shrink-0">
         {/* Date 1 */}
@@ -175,6 +220,7 @@ export default function TopBar() {
           </div>
         </button>
       </div>
+    </div>
     </div>
   );
 }

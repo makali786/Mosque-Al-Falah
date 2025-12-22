@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 
 export default function MainHeader() {
   const [aboutUsOpen, setAboutUsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const navItems = [
@@ -30,20 +31,31 @@ export default function MainHeader() {
   ];
 
   return (
-    <header className="bg-black flex items-center justify-between px-30 py-0 w-full relative">
-      {/* Logo */}
-      <div className="relative shrink-0 w-32.25 h-13">
-        <Image
-          src="/assets/header/logo.svg"
-          alt="Masjid Logo"
-          width={129}
-          height={52}
-          className="object-cover"
-        />
-      </div>
+    <header className="bg-black w-full sticky top-0 z-40">
+      <div className="flex items-center justify-between px-4 lg:px-30 py-3 lg:py-0 w-full">
+        {/* Mobile: Hamburger Menu */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="lg:hidden flex flex-col gap-1 w-6 h-5 justify-center"
+          aria-label="Menu"
+        >
+          <span className="w-full h-0.5 bg-white rounded"></span>
+          <span className="w-full h-0.5 bg-white rounded"></span>
+          <span className="w-full h-0.5 bg-white rounded"></span>
+        </button>
 
-      {/* Navigation & Donate Button */}
-      <div className="flex gap-10 items-center relative shrink-0">
+        {/* Logo */}
+        <div className="relative shrink-0 w-24 h-10 lg:w-32.25 lg:h-13">
+          <Image
+            src="/assets/header/logo.svg"
+            alt="Masjid Logo"
+            fill
+            className="object-contain"
+          />
+        </div>
+
+        {/* Desktop: Navigation & Donate Button */}
+        <div className="hidden lg:flex gap-10 items-center relative shrink-0">
         {/* Navigation Menu */}
         <nav className="flex gap-6 items-center relative shrink-0">
           {navItems.map((item) => (
@@ -127,6 +139,92 @@ export default function MainHeader() {
           </div>
         </Link>
       </div>
+
+      {/* Mobile: Donate Button */}
+      <Link
+        href="/donate"
+        className="lg:hidden bg-white flex items-center justify-center px-3 py-1.5 relative rounded-md shrink-0"
+      >
+        <span className="font-medium text-xs text-black whitespace-nowrap">Donate</span>
+      </Link>
+    </div>
+
+      {/* Mobile Menu Drawer */}
+      {mobileMenuOpen && (
+        <>
+          <div
+            className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="lg:hidden fixed top-0 left-0 h-full w-64 bg-black z-50 overflow-y-auto">
+            <div className="flex justify-end p-4">
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-white"
+                aria-label="Close menu"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M18 6L6 18M6 6L18 18"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <nav className="flex flex-col px-6 py-4">
+              {navItems.map((item) => (
+                <div key={item.label} className="py-3 border-b border-gray-800">
+                  {item.hasDropdown ? (
+                    <div>
+                      <button
+                        onClick={() => setAboutUsOpen(!aboutUsOpen)}
+                        className="flex items-center justify-between w-full text-white"
+                      >
+                        <span className="font-normal text-base">{item.label}</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={`transform transition-transform ${aboutUsOpen ? 'rotate-180' : ''}`}>
+                          <path
+                            d="M4 6L8 10L12 6"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                      {aboutUsOpen && (
+                        <div className="mt-2 ml-4 flex flex-col gap-2">
+                          {aboutUsDropdownItems.map((dropdownItem) => (
+                            <Link
+                              key={dropdownItem.label}
+                              href={dropdownItem.href}
+                              className="text-gray-400 hover:text-white py-2"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {dropdownItem.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="text-white font-normal text-base"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
+        </>
+      )}
     </header>
   );
 }
