@@ -73,23 +73,23 @@ export default function Footer() {
     <>
       <footer className="bg-[#27272a] flex flex-col w-full">
         {/* Top Section - Newsletter, Supporters, Donations */}
-        <div className="bg-[#18181b] flex flex-col lg:flex-row gap-6 lg:gap-[60px] items-start lg:items-center justify-center p-8 lg:px-[68px] lg:py-[68px] w-full">
+        <div className="bg-[#18181b] flex flex-col lg:flex-row gap-6 lg:gap-[60px] items-start lg:items-center justify-center p-4 sm:p-8 lg:px-[68px] lg:py-[68px] w-full">
           {/* Newsletter Section */}
-          <div className="flex flex-col gap-6 w-full lg:w-[439px]">
-            <h3 className="font-bold text-base leading-6 text-white">
+          <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-[439px]">
+            <h3 className="font-bold text-sm sm:text-base leading-6 text-white">
               Stay Connected, Join our newsletter
             </h3>
-            <div className="flex flex-col gap-6 w-full">
+            <div className="flex flex-col gap-4 sm:gap-6 w-full">
               {/* Email Input & Subscribe Button */}
-              <div className="flex items-center w-full">
+              <div className="flex items-center w-full min-w-0">
                 <input
                   type="email"
                   placeholder="Email Address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-[#27272a] flex-1 text-base leading-6 text-[#d4d4d8] placeholder:text-[#d4d4d8] px-3 py-2 min-h-[42px] shadow-sm outline-none"
+                  className="bg-[#27272a] flex-1 min-w-0 text-sm sm:text-base leading-6 text-[#d4d4d8] placeholder:text-[#d4d4d8] px-2 sm:px-3 py-2 min-h-[42px] shadow-sm outline-none"
                 />
-                <button className="bg-[#3f3f46] text-white font-normal text-sm leading-5 px-4 h-[42px] shrink-0 hover:bg-[#52525b] transition-colors">
+                <button className="bg-[#3f3f46] text-white font-normal text-xs sm:text-sm leading-5 h-[42px] w-[100px] shrink-0 hover:bg-[#52525b] transition-colors whitespace-nowrap">
                   Subscribe
                 </button>
               </div>
@@ -144,18 +144,7 @@ export default function Footer() {
                     height={16}
                   />
                 </Link>
-                <Link
-                  href="https://whatsapp.com"
-                  className="hidden lg:flex shrink-0 pt-3.5"
-                  aria-label="WhatsApp"
-                >
-                  <Image
-                    src="/assets/common/whatsapp-icon.svg"
-                    alt="WhatsApp"
-                    width={48}
-                    height={48}
-                  />
-                </Link>
+
                 <div className="bg-[#7c3aed] flex items-center justify-center relative rounded-md shrink-0 w-8 h-8">
                   <TbCompass className="text-white text-xl" />
                 </div>
@@ -212,7 +201,7 @@ export default function Footer() {
         </div>
 
         {/* Middle Section - Links */}
-        <div className="flex flex-col lg:flex-row items-start px-6 lg:px-[68px] py-0 w-full">
+        <div className="flex flex-col lg:flex-row items-start px-6 lg:px-4 xl:px-[68px] py-0 w-full">
           {/* Mobile: Logo */}
           <div className="flex flex-col items-center gap-6 py-8 lg:hidden w-full">
             <div className="w-24 h-24">
@@ -227,7 +216,7 @@ export default function Footer() {
           </div>
 
           {/* Desktop: Logo & Copyright Section */}
-          <div className="hidden lg:flex flex-col gap-9 items-center px-6 py-9 flex-1">
+          <div className="hidden lg:flex flex-col gap-9 items-center px-2 xl:px-6 py-9 flex-1">
             <div className="w-32 h-32">
               <Image
                 src="/assets/footer/footer-logo.png"
@@ -272,7 +261,7 @@ export default function Footer() {
           </div>
 
           {/* Services Column */}
-          <div className="flex flex-col h-full px-0 lg:px-6 py-0 lg:py-9 w-full lg:w-[231px]">
+          <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-0 lg:py-9 w-full lg:w-auto xl:w-[231px]">
             <div className="flex items-center justify-between lg:block py-4 lg:py-0 border-b lg:border-0 border-gray-700">
               <h4 className="font-bold text-base lg:text-lg leading-7 text-white">
                 Services
@@ -328,7 +317,7 @@ export default function Footer() {
           </div>
 
           {/* Educations Column */}
-          <div className="flex flex-col h-full px-0 lg:px-6 py-0 lg:py-9 w-full lg:w-[232px]">
+          <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-0 lg:py-9 w-full lg:w-auto xl:w-[232px]">
             <div className="flex items-center justify-between lg:block py-4 lg:py-0 border-b lg:border-0 border-gray-700">
               <h4 className="font-bold text-base lg:text-lg leading-7 text-white">
                 Educations
@@ -378,7 +367,7 @@ export default function Footer() {
           </div>
 
           {/* Donate Column */}
-          <div className="flex flex-col h-full px-0 lg:px-6 py-0 lg:py-9 w-full lg:w-[232px]">
+          <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-0 lg:py-9 w-full lg:w-auto xl:w-[232px]">
             <div className="flex items-center justify-between lg:block py-4 lg:py-0 border-b lg:border-0 border-gray-700">
               <h4 className="font-bold text-base lg:text-lg leading-7 text-white">
                 Donate
@@ -434,13 +423,13 @@ export default function Footer() {
           </div>
 
           {/* Contact Information Column */}
-          <div className="flex flex-col h-full px-0 lg:px-6 py-4 lg:py-9 w-full lg:flex-1">
+          <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-4 lg:py-9 w-full lg:flex-1 lg:min-w-0">
             <h4 className="font-bold text-base lg:text-lg leading-7 text-white mb-3 lg:mb-4">
               Contact information
             </h4>
             <div className="flex flex-col gap-3 lg:gap-4 w-full">
               {/* Address */}
-              <div className="flex gap-2 lg:gap-[10px] items-start py-0 lg:py-1 w-full">
+              <div className="flex gap-2 lg:gap-[10px] items-start py-0 lg:py-1 w-full min-w-0">
                 <div className="shrink-0 pt-0 lg:pt-[2px]">
                   <Image
                     src="/assets/footer/map-icon.svg"
@@ -450,14 +439,14 @@ export default function Footer() {
                     className="lg:w-6 lg:h-6"
                   />
                 </div>
-                <p className="flex-1 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white">
+                <p className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white">
                   Masjid Al-Falah, North Ilford Islamic Centre, 97 Kensington
                   Gardens, Ilford, Essex IG1 3EN
                 </p>
               </div>
 
               {/* Phone */}
-              <div className="flex gap-2 lg:gap-[10px] items-start py-0 lg:py-1 w-full">
+              <div className="flex gap-2 lg:gap-[10px] items-start py-0 lg:py-1 w-full min-w-0">
                 <Image
                   src="/assets/footer/phone-icon.svg"
                   alt=""
@@ -467,14 +456,14 @@ export default function Footer() {
                 />
                 <a
                   href="tel:02035387266"
-                  className="flex-1 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white hover:text-[#006fee]"
+                  className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white hover:text-[#006fee]"
                 >
                   020 3538 7266
                 </a>
               </div>
 
               {/* Email */}
-              <div className="flex gap-2 lg:gap-[10px] items-start py-0 lg:py-1 w-full">
+              <div className="flex gap-2 lg:gap-[10px] items-start py-0 lg:py-1 w-full min-w-0">
                 <Image
                   src="/assets/footer/email-icon.svg"
                   alt=""
@@ -484,7 +473,7 @@ export default function Footer() {
                 />
                 <a
                   href="mailto:info@masjid-alfalah.org.uk"
-                  className="flex-1 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white hover:text-[#006fee]"
+                  className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white hover:text-[#006fee] break-words overflow-wrap-anywhere"
                 >
                   info@masjid-alfalah.org.uk
                 </a>

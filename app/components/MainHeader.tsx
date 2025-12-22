@@ -32,7 +32,7 @@ export default function MainHeader() {
 
   return (
     <header className="bg-black w-full sticky top-0 z-40">
-      <div className="flex items-center justify-between px-4 lg:px-30 py-3 lg:py-0 w-full">
+      <div className="flex items-center justify-between px-4 lg:px-4 xl:px-8 2xl:px-30 py-3 lg:py-0 w-full">
         {/* Mobile: Hamburger Menu */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -45,7 +45,7 @@ export default function MainHeader() {
         </button>
 
         {/* Logo */}
-        <div className="relative shrink-0 w-24 h-10 lg:w-32.25 lg:h-13">
+        <div className="relative shrink-0 w-24 h-10 lg:w-28 xl:w-32.25 lg:h-11 xl:h-13">
           <Image
             src="/assets/header/logo.svg"
             alt="Masjid Logo"
@@ -55,13 +55,13 @@ export default function MainHeader() {
         </div>
 
         {/* Desktop: Navigation & Donate Button */}
-        <div className="hidden lg:flex gap-10 items-center relative shrink-0">
+        <div className="hidden lg:flex gap-3 xl:gap-6 2xl:gap-10 items-center relative shrink-0">
         {/* Navigation Menu */}
-        <nav className="flex gap-6 items-center relative shrink-0">
+        <nav className="flex gap-2 xl:gap-4 2xl:gap-6 items-center relative shrink-0">
           {navItems.map((item) => (
             <div
               key={item.label}
-              className="flex items-center py-7 px-0 relative shrink-0"
+              className="flex items-center py-5 xl:py-7 px-0 relative shrink-0"
             >
               {item.hasDropdown ? (
                 <div className="relative">
@@ -72,7 +72,7 @@ export default function MainHeader() {
                     }`}
                   >
                     <div className="flex flex-col justify-center leading-0 relative shrink-0">
-                      <p className="font-normal text-base leading-6 whitespace-nowrap">
+                      <p className="font-normal text-sm xl:text-base leading-6 whitespace-nowrap">
                         {item.label}
                       </p>
                     </div>
@@ -113,7 +113,7 @@ export default function MainHeader() {
                   className="flex gap-1 items-center relative shrink-0"
                 >
                   <div className="flex flex-col justify-center leading-0 relative shrink-0">
-                    <p className={`font-normal text-base leading-6 whitespace-nowrap ${
+                    <p className={`font-normal text-sm xl:text-base leading-6 whitespace-nowrap ${
                       pathname === item.href ? "text-[#06b7db]" : "text-[#fafafa]"
                     }`}>
                       {item.label}
