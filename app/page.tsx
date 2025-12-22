@@ -1,35 +1,10 @@
+import HeroBanner from "./components/HeroBanner";
+
 export default function Home() {
   return (
     <div className="bg-white dark:bg-gray-950">
-      {/* Hero Section */}
-      <section className="bg-linear-to-b from-emerald-50 to-white py-20 dark:from-gray-900 dark:to-gray-950">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="mb-6 text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-              Welcome to Masjid Al-Falah
-            </h1>
-            <p className="mb-8 text-lg text-gray-600 dark:text-gray-400 md:text-xl">
-              A place of worship, community, and spiritual growth. Join us in
-              building a stronger Muslim community through prayer, education,
-              and service.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <a
-                href="/prayer-times"
-                className="rounded-lg bg-emerald-600 px-8 py-3 text-center font-semibold text-white transition-colors hover:bg-emerald-700"
-              >
-                Prayer Times
-              </a>
-              <a
-                href="/donate"
-                className="rounded-lg border-2 border-emerald-600 px-8 py-3 text-center font-semibold text-emerald-600 transition-colors hover:bg-emerald-50 dark:hover:bg-gray-900"
-              >
-                Support Us
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Banner Carousel */}
+      <HeroBanner />
 
       {/* Services Section */}
       <section className="py-16">

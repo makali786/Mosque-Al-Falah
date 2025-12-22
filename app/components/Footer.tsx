@@ -295,11 +295,6 @@ export default function Footer() {
           </p>
         </div>
       </footer>
-
-      {/* WhatsApp Floating Button */}
-      <a href="https://wa.me/02035387266" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp" className="fixed bottom-0 right-0 z-50 hidden">
-        <Image src="/assets/common/whatsapp-icon.svg" alt="WhatsApp" width={70} height={70} className="hover:scale-110 transition-transform cursor-pointer" />
-      </a>
     </>
   );
 }
