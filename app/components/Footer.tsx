@@ -92,7 +92,7 @@ const SupporterCard = ({ name, amount, time }: SupporterCardProps) => (
     <div className="bg-[#a1a1aa] flex items-center justify-center overflow-hidden rounded-full shrink-0 w-10 h-10">
       <Image src="/assets/footer/supporter-avatar.png" alt={name} width={40} height={40} className="w-full h-full object-cover" />
     </div>
-    <div className="flex flex-col leading-[0]">
+    <div className="flex flex-col leading-0">
       <p className="font-normal text-sm leading-5 text-[#ecedee]">{name}</p>
       <p className="font-normal text-xs leading-4 text-[#a1a1aa]">
         <span className="text-[#a1a1aa]">{amount}</span> <span className="text-[#52525b]">{time}</span>
@@ -126,7 +126,7 @@ interface FooterColumnProps {
 }
 
 const FooterColumn = ({ title, links }: FooterColumnProps) => (
-  <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-0 lg:py-9 w-full lg:w-auto xl:w-[231px]">
+  <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-0 lg:py-9 w-full lg:w-auto xl:w-57.75">
     <div className="flex items-center justify-between lg:block py-4 lg:py-0 border-b lg:border-0 border-gray-700">
       <h4 className="font-bold text-base lg:text-lg leading-7 text-white">{title}</h4>
       <ChevronIcon />
@@ -143,22 +143,20 @@ const FooterColumn = ({ title, links }: FooterColumnProps) => (
   </div>
 );
 
-const ContactItem = ({ icon, text, href }: { icon: string; text: string; href: string | null }) => {
-  const content = (
-    <>
-      <Image src={icon} alt="" width={20} height={20} className="lg:w-6 lg:h-6 shrink-0" />
-      {href ? (
-        <a href={href} className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white hover:text-[#006fee] break-words overflow-wrap-anywhere">
-          {text}
-        </a>
-      ) : (
-        <p className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white">{text}</p>
-      )}
-    </>
-  );
-
-  return <div className="flex gap-2 lg:gap-[10px] items-start py-0 lg:py-1 w-full min-w-0">{content}</div>;
-};
+const ContactItem = ({ icon, text, href }: { icon: string; text: string; href: string | null }) => (
+  <div className="flex gap-2 lg:gap-2.5 py-0 lg:py-1 w-full min-w-0">
+    <div className="shrink-0 w-5 h-5 lg:w-6 lg:h-6 flex items-center justify-center">
+      <img src={icon} alt="" className="w-full h-full object-contain" />
+    </div>
+    {href ? (
+      <a href={href} className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white hover:text-[#006FEE] wrap-break-word overflow-wrap-anywhere">
+        {text}
+      </a>
+    ) : (
+      <p className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white">{text}</p>
+    )}
+  </div>
+);
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -167,9 +165,9 @@ export default function Footer() {
     <>
       <footer className="bg-[#27272a] flex flex-col w-full">
         {/* Top Section - Newsletter, Supporters, Donations */}
-        <div className="bg-[#18181b] flex flex-col lg:flex-row gap-6 lg:gap-[60px] items-start lg:items-center justify-center p-4 sm:p-8 lg:px-[68px] lg:py-[68px] w-full">
+        <div className="bg-[#18181b] flex flex-col lg:flex-row gap-6 lg:gap-15 items-start lg:items-center justify-center p-4 sm:p-8 lg:px-17 lg:py-17 w-full">
           {/* Newsletter Section */}
-          <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-[439px]">
+          <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-109.75">
             <h3 className="font-bold text-sm sm:text-base leading-6 text-white">Stay Connected, Join our newsletter</h3>
             <div className="flex flex-col gap-4 sm:gap-6 w-full">
               <div className="flex items-center w-full min-w-0">
@@ -178,9 +176,9 @@ export default function Footer() {
                   placeholder="Email Address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-[#27272a] flex-1 min-w-0 text-sm sm:text-base leading-6 text-[#d4d4d8] placeholder:text-[#d4d4d8] px-2 sm:px-3 py-2 min-h-[42px] shadow-sm outline-none"
+                  className="bg-[#27272a] flex-1 min-w-0 text-sm sm:text-base leading-6 text-[#d4d4d8] placeholder:text-[#d4d4d8] px-2 sm:px-3 py-2 min-h-10.5 shadow-sm outline-none"
                 />
-                <button className="bg-[#3f3f46] text-white font-normal text-xs sm:text-sm leading-5 h-[42px] w-[100px] shrink-0 hover:bg-[#52525b] transition-colors whitespace-nowrap">
+                <button className="bg-[#3f3f46] text-white font-normal text-xs sm:text-sm leading-5 h-10.5 w-25 shrink-0 hover:bg-[#52525b] transition-colors whitespace-nowrap">
                   Subscribe
                 </button>
               </div>
@@ -197,7 +195,7 @@ export default function Footer() {
           </div>
 
           {/* Recent Supporters Section */}
-          <div className="flex flex-col gap-4 lg:gap-6 w-full lg:w-[506px]">
+          <div className="flex flex-col gap-4 lg:gap-6 w-full lg:w-126.5">
             <h3 className="font-bold text-base leading-6 text-white">Recent supporters</h3>
             <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
               <div className="flex flex-col gap-3 lg:gap-4 flex-1">
@@ -214,7 +212,7 @@ export default function Footer() {
           </div>
 
           {/* Donations & Campaigns Section */}
-          <div className="flex flex-col gap-6 w-full lg:w-[328px]">
+          <div className="flex flex-col gap-6 w-full lg:w-82">
             <h3 className="font-bold text-base leading-6 text-white">Donations & Campaigns</h3>
             <div className="flex items-center justify-between w-full">
               {STATS.map((stat) => (
@@ -233,7 +231,7 @@ export default function Footer() {
         </div>
 
         {/* Middle Section - Links */}
-        <div className="flex flex-col lg:flex-row items-start px-6 lg:px-4 xl:px-[68px] py-0 w-full">
+        <div className="flex flex-col lg:flex-row items-start px-6 lg:px-4 xl:px-17 py-0 w-full">
           {/* Mobile: Logo */}
           <div className="flex flex-col items-center gap-6 py-8 lg:hidden w-full">
             <div className="w-24 h-24">
@@ -287,7 +285,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section - Copyright */}
-        <div className="bg-[#18181b] flex items-center justify-center px-6 lg:px-8 py-6 lg:py-0 lg:h-[101px] w-full">
+        <div className="bg-[#18181b] flex items-center justify-center px-6 lg:px-8 py-6 lg:py-0 lg:h-25.25 w-full">
           <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center">
             COPYRIGHT © 2020{" "}
             <Link href="https://www.masjid-alfalah.org.uk/" className="hover:text-[#006fee]">

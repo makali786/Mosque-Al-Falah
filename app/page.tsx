@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <div className="bg-white dark:bg-gray-950">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-emerald-50 to-white py-20 dark:from-gray-900 dark:to-gray-950">
+      <section className="bg-linear-to-b from-emerald-50 to-white py-20 dark:from-gray-900 dark:to-gray-950">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
