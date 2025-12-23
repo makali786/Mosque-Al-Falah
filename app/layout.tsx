@@ -5,6 +5,7 @@ import TopBar from "./components/layout/TopBar";
 import MainHeader from "./components/layout/MainHeader";
 import Footer from "./components/layout/Footer";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
+import AccessibilityButton from "./components/layout/AccessibilityButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <AccessibilityButton />
       </body>
     </html>
   );

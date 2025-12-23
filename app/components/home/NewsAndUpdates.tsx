@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -91,6 +91,7 @@ const NOTICES: Notice[] = [
 
 export default function NewsAndUpdates() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -100,11 +101,14 @@ export default function NewsAndUpdates() {
     let animationFrameId: number;
 
     const scroll = () => {
-      if (scrollContainer) {
+      if (scrollContainer && !isPaused) {
         scrollContainer.scrollTop += scrollSpeed;
 
-        // Reset scroll when reaching the end of the first set
-        if (scrollContainer.scrollTop >= scrollContainer.scrollHeight / 2) {
+        // Calculate the height of one set of notices (1/3 of total since we have 3 copies)
+        const singleSetHeight = scrollContainer.scrollHeight / 3;
+
+        // Reset scroll seamlessly when reaching end of first set
+        if (scrollContainer.scrollTop >= singleSetHeight) {
           scrollContainer.scrollTop = 0;
         }
       }
@@ -116,7 +120,7 @@ export default function NewsAndUpdates() {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [isPaused]);
 
   return (
     <section className="bg-white w-full py-24 px-4 lg:px-8 xl:px-50">
@@ -192,10 +196,13 @@ export default function NewsAndUpdates() {
           {/* Notices List - Auto Scrolling */}
           <div
             ref={scrollContainerRef}
-            className="flex flex-col gap-3.5 overflow-hidden h-150"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            className="flex flex-col gap-3.5 overflow-y-auto overflow-x-hidden h-150 cursor-pointer scrollbar-hide"
+            style={{ scrollBehavior: 'auto' }}
           >
             {/* Duplicate notices for seamless infinite scroll */}
-            {[...NOTICES, ...NOTICES].map((notice, index) => (
+            {[...NOTICES, ...NOTICES, ...NOTICES].map((notice, index) => (
               <div key={`${notice.id}-${index}`} className="flex flex-col gap-2 shrink-0">
                 {/* Notice Title */}
                 <h3 className="text-lg font-normal text-[#006fee] line-clamp-2 leading-7">

@@ -114,8 +114,13 @@ const SocialIcon = ({ name, icon, url }: { name: string; icon: string; url: stri
   </Link>
 );
 
-const ChevronIcon = () => (
-  <svg className="lg:hidden w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
+  <svg
+    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`}
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
   </svg>
 );
@@ -123,15 +128,22 @@ const ChevronIcon = () => (
 interface FooterColumnProps {
   title: string;
   links: readonly { label: string; href: string }[];
+  isOpen: boolean;
+  onToggle: () => void;
 }
 
-const FooterColumn = ({ title, links }: FooterColumnProps) => (
+const FooterColumn = ({ title, links, isOpen, onToggle }: FooterColumnProps) => (
   <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-0 lg:py-9 w-full lg:w-auto xl:w-57.75">
-    <div className="flex items-center justify-between lg:block py-4 lg:py-0 border-b lg:border-0 border-gray-700">
+    <div
+      className="flex items-center justify-between lg:block py-4 lg:py-0 border-b lg:border-0 border-gray-700 cursor-pointer lg:cursor-default"
+      onClick={onToggle}
+    >
       <h4 className="font-bold text-base lg:text-lg leading-7 text-white">{title}</h4>
-      <ChevronIcon />
+      <ChevronIcon isOpen={isOpen} />
     </div>
-    <div className="hidden lg:flex flex-col gap-6 w-full mt-0 lg:mt-6">
+    <div className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${
+      isOpen ? 'max-h-96 mt-4' : 'max-h-0 lg:max-h-none'
+    }`}>
       <div className="flex flex-col gap-2 w-full">
         {links.map((link) => (
           <Link key={link.href} href={link.href} className="text-white font-normal text-base leading-6 py-1 hover:text-[#006fee]">
@@ -160,6 +172,14 @@ const ContactItem = ({ icon, text, href }: { icon: string; text: string; href: s
 
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const [openColumns, setOpenColumns] = useState<Record<string, boolean>>({});
+
+  const toggleColumn = (title: string) => {
+    setOpenColumns((prev) => ({
+      ...prev,
+      [title]: !prev[title],
+    }));
+  };
 
   return (
     <>
@@ -258,7 +278,12 @@ export default function Footer() {
 
           {/* Footer Columns */}
           {FOOTER_COLUMNS.map((column) => (
-            <FooterColumn key={column.title} {...column} />
+            <FooterColumn
+              key={column.title}
+              {...column}
+              isOpen={openColumns[column.title] || false}
+              onToggle={() => toggleColumn(column.title)}
+            />
           ))}
 
           {/* Contact Information Column */}

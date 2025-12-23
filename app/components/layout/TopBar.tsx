@@ -157,7 +157,7 @@ export default function TopBar() {
       {/* Mobile Layout - Below sm */}
       <div className="sm:hidden px-2 py-3">
         <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between w-full px-2">
+          <div className="flex items-center justify-center w-full px-2">
             <div className="flex items-center justify-center gap-3">
               {DATES.map((date) => (
                 <DateItem
@@ -167,24 +167,6 @@ export default function TopBar() {
                   textClass="text-[11px] text-gray-700"
                 />
               ))}
-            </div>
-            <div className="flex gap-1.5 items-center">
-              {SOCIAL_LINKS.map((social) => (
-                <SocialIcon key={social.name} {...social} size="small" />
-              ))}
-              <Link
-                href="/qibla-finder"
-                className="flex items-center justify-center rounded-full shrink-0"
-                aria-label="Qibla Finder"
-              >
-                <Image
-                  src="/assets/common/qibla.png"
-                  alt="Qibla"
-                  width={24}
-                  height={24}
-                  className="shrink-0"
-                />
-              </Link>
             </div>
           </div>
           <div className="flex items-center justify-center gap-6">
