@@ -95,7 +95,8 @@ export default function Services() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(169.508deg, #0C478A 46.629%, #004797 71.1%)",
+          background:
+            "linear-gradient(169.508deg, #0C478A 46.629%, #004797 71.1%)",
         }}
       >
         <div
@@ -175,7 +176,9 @@ export default function Services() {
                 href={`/services/${service.id}`}
                 className="relative ml-auto z-10 bg-[rgba(63,63,70,0.4)] h-12 px-4 rounded-lg w-40.5 flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
               >
-                <span className="text-base font-normal text-white leading-6">Learn More</span>
+                <span className="text-base font-normal text-white leading-6">
+                  Learn More
+                </span>
                 <div className="w-3.5 h-3.5 relative shrink-0">
                   <Image
                     src="/assets/news/arrow-icon.svg"
@@ -197,10 +200,16 @@ export default function Services() {
             className={`w-12 h-12 rounded-full  flex items-center justify-center transition-all ${
               canScrollLeft
                 ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
-                : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
+                : "bg-[#d4d4d8] cursor-not-allowed"
             }`}
           >
-            <IoArrowBack className="w-5 h-5 text-black" />
+            <Image
+              src="/assets/news/arrow-icon.svg"
+              alt=""
+              height={7}
+              width={7}
+              className="object-contain rotate-180"
+            />
           </button>
 
           <button
@@ -209,10 +218,16 @@ export default function Services() {
             className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
               canScrollRight
                 ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
-                : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
+                : "bg-[#d4d4d8] cursor-not-allowed"
             }`}
           >
-            <IoArrowForward className="w-5 h-5 text-black" />
+            <Image
+              src="/assets/news/arrow-icon.svg"
+              alt=""
+              height={7}
+              width={7}
+              className="object-contain"
+            />
           </button>
         </div>
       </div>

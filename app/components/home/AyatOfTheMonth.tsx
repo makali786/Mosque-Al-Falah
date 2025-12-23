@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { IoMusicalNotes, IoPlayCircle } from "react-icons/io5";
+import ViewToggleButtons from "../common/ViewToggleButtons";
 
 type ViewMode = "default" | "video" | "audio";
 
@@ -11,7 +11,7 @@ export default function AyatOfTheMonth() {
   const [viewMode, setViewMode] = useState<ViewMode>("default");
 
   return (
-    <section className="relative w-full py-18 px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-[791px]">
+    <section className="relative w-full py-18 px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-197.75">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 pointer-events-none">
         <Image
@@ -189,33 +189,11 @@ export default function AyatOfTheMonth() {
 
       {/* View Toggle Buttons - Bottom Right (only show in default view) */}
       {viewMode === "default" && (
-        <div className="absolute bottom-26.75 right-40.25 flex gap-5 z-20">
-          <button
-            onClick={() => setViewMode("video")}
-            className="w-12 h-12 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors"
-          >
-            <Image
-              src="/assets/ayat/video.svg"
-              alt="video"
-              width={16}
-              height={16}
-              className="object-contain"
-            />
-          </button>
-
-          <button
-            onClick={() => setViewMode("audio")}
-            className="w-12 h-12 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors"
-          >
-            <Image
-              src="/assets/ayat/music.svg"
-              alt="audio"
-              width={16}
-              height={16}
-              className="object-contain"
-            />
-          </button>
-        </div>
+        <ViewToggleButtons
+          onAudioClick={() => setViewMode("audio")}
+          onVideoClick={() => setViewMode("video")}
+          className="absolute bottom-26.75 right-40.25 z-20"
+        />
       )}
 
       {/* Back Button (show in video/audio views) */}
