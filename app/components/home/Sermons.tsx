@@ -28,6 +28,7 @@ const sermons: Sermon[] = [
     author: {
       name: "Adil Yousuf",
       initials: "AY",
+      avatar: "/assets/sermons/user-avatar.svg",
     },
   },
   {
@@ -38,7 +39,7 @@ const sermons: Sermon[] = [
     author: {
       name: "Adil Yousuf",
       role: "admin",
-      avatar: "/assets/sermons/user-avatar.png",
+      avatar: "/assets/sermons/user-avatar.svg",
     },
   },
   {
@@ -49,7 +50,7 @@ const sermons: Sermon[] = [
     author: {
       name: "Mawlana Farooq Suleman",
       role: "Imam",
-      avatar: "/assets/sermons/user-avatar.png",
+      avatar: "/assets/sermons/user-avatar.svg",
     },
   },
 ];
@@ -90,15 +91,15 @@ export default function Sermons() {
   };
 
   return (
-    <section className="bg-white w-full px-4 lg:px-8 xl:px-50 py-18">
+    <section className="bg-white w-full px-4 lg:px-8 xl:px-50 py-18 ">
       {/* Header */}
-      <div className="flex flex-col gap-1 mb-15">
+      <div className="flex flex-col gap-1 mb-15 ">
         <div className="flex items-start justify-between gap-4 mb-3">
           <div className="flex flex-col gap-3">
             <p className="text-lg font-medium text-[#006fee] leading-7">
               POWERFUL & LIFE-CHANGING
             </p>
-            <h2 className="text-5xl font-semibold text-[#27272a] leading-[48px] max-w-[507px]">
+            <h2 className="text-5xl font-semibold text-[#27272a] leading-12 max-w-126.75">
               Featured Sermons and Lectures
             </h2>
           </div>
@@ -195,7 +196,13 @@ export default function Sermons() {
             <div className="flex flex-col gap-4">
               {/* Date */}
               <div className="flex items-center gap-2">
-                <IoCalendarOutline className="w-4 h-4 text-[#71717a]" />
+                <Image
+                src={"/assets/topbar/calendar-icon.svg"}
+                alt={"calendar"}
+                width={16}
+                height={16}
+                className="object-cover"
+              />
                 <p className="text-sm font-normal text-[#27272a] leading-5">
                   {sermon.date}
                 </p>
@@ -214,9 +221,9 @@ export default function Sermons() {
                       <Image
                         src={sermon.author.avatar}
                         alt={sermon.author.name}
-                        width={40}
-                        height={40}
-                        className="object-cover"
+                        width={100}
+                        height={100}
+                        className="object-contain"
                       />
                     </div>
                   ) : (

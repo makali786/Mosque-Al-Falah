@@ -4,6 +4,7 @@ import Services from "./components/home/Services";
 import MeetOurImams from "./components/home/MeetOurImams";
 import AyatOfTheMonth from "./components/home/AyatOfTheMonth";
 import Sermons from "./components/home/Sermons";
+import DonationAppeal from "./components/home/DonationAppeal";
 
 export default function Home() {
   return (
@@ -25,6 +26,9 @@ export default function Home() {
 
       {/* Sermons Section */}
       <Sermons />
+
+      {/* Donation Appeal Section */}
+      <DonationAppeal />
     </div>
   );
 }

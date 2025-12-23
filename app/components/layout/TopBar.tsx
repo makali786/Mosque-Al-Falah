@@ -13,20 +13,38 @@ const PRAYER_TIMES = [
   { name: "Ishā", time: "6:33", active: false },
 ] as const;
 
-const DATES = [
-  { label: "04 February 2025" },
-  { label: "5 Sha'baan" },
-] as const;
+const DATES = [{ label: "04 February 2025" }, { label: "5 Sha'baan" }] as const;
 
 const SOCIAL_LINKS = [
-  { name: "Facebook", icon: "/assets/common/facebook-icon.svg", url: "https://facebook.com" },
-  { name: "YouTube", icon: "/assets/common/youtube-icon.svg", url: "https://youtube.com" },
-  { name: "Instagram", icon: "/assets/common/instagram-icon.svg", url: "https://instagram.com" },
+  {
+    name: "Facebook",
+    icon: "/assets/common/facebook-icon.svg",
+    url: "https://facebook.com",
+  },
+  {
+    name: "YouTube",
+    icon: "/assets/common/youtube-icon.svg",
+    url: "https://youtube.com",
+  },
+  {
+    name: "Instagram",
+    icon: "/assets/common/instagram-icon.svg",
+    url: "https://instagram.com",
+  },
+  // { name: "Qibla", icon: "/assets/common/qibla.png", url: "" },
 ] as const;
 
 const NAVIGATION_LINKS = [
-  { name: "Qibla Finder", icon: "/assets/topbar/compass-icon.svg", url: "/qibla-finder" },
-  { name: "Mosque Finder", icon: "/assets/topbar/gps-icon.svg", url: "/mosque-finder" },
+  {
+    name: "Qibla Finder",
+    icon: "/assets/topbar/compass-icon.svg",
+    url: "/qibla-finder",
+  },
+  {
+    name: "Mosque Finder",
+    icon: "/assets/topbar/gps-icon.svg",
+    url: "/mosque-finder",
+  },
 ] as const;
 
 interface DateItemProps {
@@ -35,9 +53,19 @@ interface DateItemProps {
   textClass?: string;
 }
 
-const DateItem = ({ label, iconSize = 16, textClass = "text-xs xl:text-sm text-[#52525b]" }: DateItemProps) => (
+const DateItem = ({
+  label,
+  iconSize = 16,
+  textClass = "text-xs xl:text-sm text-[#52525b]",
+}: DateItemProps) => (
   <div className="flex gap-1 items-center shrink-0">
-    <Image src="/assets/topbar/calendar-icon.svg" alt="" width={iconSize} height={iconSize} className="shrink-0" />
+    <Image
+      src="/assets/topbar/calendar-icon.svg"
+      alt=""
+      width={iconSize}
+      height={iconSize}
+      className="shrink-0"
+    />
     <span className={`${textClass} whitespace-nowrap`}>{label}</span>
   </div>
 );
@@ -61,7 +89,13 @@ const SocialIcon = ({ name, icon, url, size = "default" }: SocialIconProps) => {
       className={`bg-[#e6f1fe] flex items-center justify-center rounded-full shrink-0 ${padding}`}
       aria-label={name}
     >
-      <Image src={icon} alt={name} width={imgSize} height={imgSize} className="shrink-0" />
+      <Image
+        src={icon}
+        alt={name}
+        width={imgSize}
+        height={imgSize}
+        className="shrink-0"
+      />
     </a>
   );
 };
@@ -73,13 +107,20 @@ interface PrayerTimeProps {
   variant?: "mobile" | "tablet" | "desktop";
 }
 
-const PrayerTime = ({ name, time, active, variant = "mobile" }: PrayerTimeProps) => {
+const PrayerTime = ({
+  name,
+  time,
+  active,
+  variant = "mobile",
+}: PrayerTimeProps) => {
   const variants = {
     mobile: {
       container: active
         ? "flex flex-col items-center px-2.5 py-1 bg-[#005bc4] rounded"
         : "flex flex-col items-center",
-      nameClass: `font-semibold text-[11px] ${active ? "text-white" : "text-black"}`,
+      nameClass: `font-semibold text-[11px] ${
+        active ? "text-white" : "text-black"
+      }`,
       timeClass: `text-[11px] ${active ? "text-white" : "text-gray-600"}`,
     },
     tablet: {
@@ -116,10 +157,35 @@ export default function TopBar() {
       {/* Mobile Layout - Below sm */}
       <div className="sm:hidden px-2 py-3">
         <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-center gap-6">
-            {DATES.map((date) => (
-              <DateItem key={date.label} label={date.label} iconSize={14} textClass="text-[11px] text-gray-700" />
-            ))}
+          <div className="flex items-center justify-between w-full px-2">
+            <div className="flex items-center justify-center gap-3">
+              {DATES.map((date) => (
+                <DateItem
+                  key={date.label}
+                  label={date.label}
+                  iconSize={14}
+                  textClass="text-[11px] text-gray-700"
+                />
+              ))}
+            </div>
+            <div className="flex gap-1.5 items-center">
+              {SOCIAL_LINKS.map((social) => (
+                <SocialIcon key={social.name} {...social} size="small" />
+              ))}
+              <Link
+                href="/qibla-finder"
+                className="flex items-center justify-center rounded-full shrink-0"
+                aria-label="Qibla Finder"
+              >
+                <Image
+                  src="/assets/common/qibla.png"
+                  alt="Qibla"
+                  width={24}
+                  height={24}
+                  className="shrink-0"
+                />
+              </Link>
+            </div>
           </div>
           <div className="flex items-center justify-center gap-6">
             {PRAYER_TIMES.map((prayer) => (
@@ -134,16 +200,31 @@ export default function TopBar() {
         <div className="flex items-center justify-between w-full">
           <div className="flex gap-3 items-center">
             {DATES.map((date) => (
-              <DateItem key={date.label} label={date.label} iconSize={16} textClass="text-xs text-[#52525b]" />
+              <DateItem
+                key={date.label}
+                label={date.label}
+                iconSize={16}
+                textClass="text-xs text-[#52525b]"
+              />
             ))}
           </div>
           <div className="flex gap-2 items-center">
             {SOCIAL_LINKS.map((social) => (
               <SocialIcon key={social.name} {...social} size="small" />
             ))}
-            <div className="bg-[#7c3aed] flex items-center justify-center rounded-md shrink-0 w-6 h-6">
-              <TbCompass className="text-white text-lg" />
-            </div>
+            <Link
+              href="/qibla-finder"
+              className="flex items-center justify-center rounded-full shrink-0"
+              aria-label="Qibla Finder"
+            >
+              <Image
+                src="/assets/common/qibla.png"
+                alt="Qibla"
+                width={24}
+                height={24}
+                className="shrink-0"
+              />
+            </Link>
           </div>
         </div>
         <div className="flex items-center justify-center gap-1 w-full">
@@ -154,9 +235,23 @@ export default function TopBar() {
             onClick={() => setIsCalendarOpen(!isCalendarOpen)}
             className="bg-[#f4f4f5] flex gap-1.5 items-center px-2 py-1 rounded-full shrink-0 ml-2"
           >
-            <span className="font-normal text-xs text-[#005bc4] whitespace-nowrap">Calendar</span>
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="w-3 h-3">
-              <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#11181c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <span className="font-normal text-xs text-[#005bc4] whitespace-nowrap">
+              Calendar
+            </span>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 14 14"
+              fill="none"
+              className="w-3 h-3"
+            >
+              <path
+                d="M3.5 5.25L7 8.75L10.5 5.25"
+                stroke="#11181c"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>
@@ -170,9 +265,21 @@ export default function TopBar() {
             <DateItem key={date.label} label={date.label} />
           ))}
           {NAVIGATION_LINKS.map((link) => (
-            <Link key={link.name} href={link.url} className="hidden xl:flex gap-1 items-center shrink-0">
-              <Image src={link.icon} alt="" width={16} height={16} className="shrink-0" />
-              <p className="font-normal text-sm leading-5 text-[#52525b] whitespace-nowrap">{link.name}</p>
+            <Link
+              key={link.name}
+              href={link.url}
+              className="hidden xl:flex gap-1 items-center shrink-0"
+            >
+              <Image
+                src={link.icon}
+                alt=""
+                width={16}
+                height={16}
+                className="shrink-0"
+              />
+              <p className="font-normal text-sm leading-5 text-[#52525b] whitespace-nowrap">
+                {link.name}
+              </p>
             </Link>
           ))}
         </div>
@@ -182,9 +289,19 @@ export default function TopBar() {
           {SOCIAL_LINKS.map((social) => (
             <SocialIcon key={social.name} {...social} />
           ))}
-          <div className="bg-[#7c3aed] flex items-center justify-center rounded-md shrink-0 w-7 h-7">
-            <TbCompass className="text-white text-xl" />
-          </div>
+          <Link
+            href="/qibla-finder"
+            className="flex items-center justify-center rounded-full shrink-0"
+            aria-label="Qibla Finder"
+          >
+            <Image
+              src="/assets/common/qibla.png"
+              alt="Qibla"
+              width={30}
+              height={30}
+              className="shrink-0"
+            />
+          </Link>
         </div>
 
         {/* Right Section - Prayer Times & Calendar */}
@@ -198,9 +315,23 @@ export default function TopBar() {
             onClick={() => setIsCalendarOpen(!isCalendarOpen)}
             className="bg-[#f4f4f5] flex gap-2.5 items-center px-2 py-1 rounded-full shrink-0"
           >
-            <p className="font-normal text-xs leading-3.5 text-[#005bc4] text-center whitespace-nowrap">Calendar</p>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0">
-              <path d="M3.5 5.25L7 8.75L10.5 5.25" stroke="#11181c" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <p className="font-normal text-xs leading-3.5 text-[#005bc4] text-center whitespace-nowrap">
+              Calendar
+            </p>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              className="shrink-0"
+            >
+              <path
+                d="M3.5 5.25L7 8.75L10.5 5.25"
+                stroke="#11181c"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>

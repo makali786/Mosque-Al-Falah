@@ -36,7 +36,7 @@ export default function MeetOurImams() {
       </h2>
 
       {/* Imam Cards */}
-      <div className="flex justify-center flex-col lg:flex-row gap-12 items-center">
+      <div className="flex flex-col lg:flex-row gap-12 items-center">
         {IMAMS.map((imam) => (
           <div key={imam.id} className="relative w-full lg:w-136 h-136">
             {/* Card Container */}
