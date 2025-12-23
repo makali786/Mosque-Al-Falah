@@ -67,7 +67,7 @@ const SLIDES: BannerSlide[] = [
   },
 ];
 
-const AUTO_ROTATE_INTERVAL = 5000; // 5 seconds
+const AUTO_ROTATE_INTERVAL = 5000;
 
 export default function HeroBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -80,7 +80,7 @@ export default function HeroBanner() {
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
     setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 10000); // Resume after 10 seconds
+    setTimeout(() => setIsPaused(false), 10000);
   };
 
   useEffect(() => {
@@ -151,7 +151,7 @@ export default function HeroBanner() {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`transition-all duration-300 rounded-full border-3 w-5 h-5 ${
+            className={`transition-all duration-300 rounded-full border-3 w-7 h-7 ${
               index === currentSlide
                 ? "bg-[#006fee] border-white"
                 : "bg-transparent border-white/50 hover:border-white"

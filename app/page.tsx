@@ -1,10 +1,14 @@
 import HeroBanner from "./components/HeroBanner";
+import NewsAndUpdates from "./components/NewsAndUpdates";
 
 export default function Home() {
   return (
     <div className="bg-white dark:bg-gray-950">
       {/* Hero Banner Carousel */}
       <HeroBanner />
+
+      {/* News and Updates Section */}
+      <NewsAndUpdates />
 
       {/* Services Section */}
       <section className="py-16">
