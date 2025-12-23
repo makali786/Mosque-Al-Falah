@@ -111,7 +111,7 @@ export default function HeroBanner() {
 
       {/* Content */}
       <div className="relative h-full flex items-center">
-        <div className="container mx-auto px-4 lg:px-8 xl:px-32">
+        <div className="container mx-auto px-4 lg:px-8 xl:px-50">
           <div className="max-w-210.25 flex flex-col gap-16">
             {/* Text Content */}
             <div className="flex flex-col gap-10 text-white">

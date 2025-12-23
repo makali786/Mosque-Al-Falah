@@ -9,7 +9,8 @@
       "mcp__figma-dev-mode-mcp-server__get_design_context",
       "Bash(curl:*)",
       "mcp__figma-dev-mode-mcp-server__get_metadata",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "mcp__figma-dev-mode-mcp-server__get_screenshot"
     ]
   },
   "enableAllProjectMcpServers": true,
