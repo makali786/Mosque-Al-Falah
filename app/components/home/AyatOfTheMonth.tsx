@@ -59,7 +59,7 @@ export default function AyatOfTheMonth() {
             {/* Read More Button */}
             <Link
               href="/ayat"
-              className="bg-[#1877f2] h-7.5 sm:h-12 px-6 rounded-1 sm:rounded-lg flex items-center gap-2 hover:bg-[#1565d8] transition-colors"
+              className="bg-[#1877f2] h-9 sm:h-12 px-6 rounded-lg flex items-center gap-2 hover:bg-[#1565d8] transition-colors"
             >
               <span className="text-xs sm:text-base font-normal text-white leading-6">
                 Read More Ayats
@@ -192,7 +192,7 @@ export default function AyatOfTheMonth() {
         <ViewToggleButtons
           onAudioClick={() => setViewMode("audio")}
           onVideoClick={() => setViewMode("video")}
-          className="absolute bottom-10 right-8 sm:bottom-26.75 sm:right-40.25 z-20"
+          className="absolute bottom-10 right-4 sm:right-8 lg:right-40.25 sm:bottom-26.75 z-20"
         />
       )}
 

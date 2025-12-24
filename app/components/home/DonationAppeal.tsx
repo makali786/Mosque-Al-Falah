@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function DonationAppeal() {
   return (
-    <section className=" hidden sm:relative w-full px-4 lg:px-8 xl:px-50 py-22.5 bg-linear-to-r from-[#165273] to-[#153595]">
+    <section className="relative w-full px-4 lg:px-8 xl:px-50 py-8 lg:py-22.5 bg-gradient-to-br from-[#165273] to-[#153595]">
       <div className="container mx-auto">
       {/* Pattern Overlay */}
       <div
-        className="absolute  inset-0 opacity-30 pointer-events-none"
+        className="absolute inset-0 opacity-30 pointer-events-none"
         style={{
           backgroundImage: "url('/assets/donation/pattern.png')",
           backgroundRepeat: "repeat",
@@ -16,22 +16,22 @@ export default function DonationAppeal() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col gap-12">
+      <div className="relative z-10 flex flex-col gap-6 lg:gap-12">
         {/* Header */}
         <div className="flex items-center justify-between">
           {/* Left side - Title */}
-          <div className="flex flex-col gap-5 max-w-192.75 text-white">
-            <h2 className="text-5xl font-semibold leading-12">
+          <div className="flex flex-col gap-4 lg:gap-5 max-w-full lg:max-w-192.75 text-white">
+            <h2 className="text-2xl lg:text-5xl font-medium lg:font-semibold leading-8 lg:leading-14">
               Together for a New Beginning: Masjid Redevelopment Initiative
             </h2>
-            <p className="text-lg font-medium leading-7">
+            <p className="text-sm lg:text-lg font-medium leading-5 lg:leading-7">
               Your generosity – past, present, and future is greatly appreciated!
             </p>
           </div>
 
           {/* Right side - View All Appeals Button */}
           <div className="relative">
-            <div className="w-50 h-50 relative">
+            <div className="w-31.5 h-31.5 lg:w-50 lg:h-50 relative">
               <Image
                 src="/assets/services/circle-bg.svg"
                 alt=""
@@ -41,7 +41,7 @@ export default function DonationAppeal() {
             </div>
             <Link
               href="/appeals"
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-medium text-white text-center leading-7 whitespace-nowrap"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base lg:text-lg font-medium text-white text-center leading-6 lg:leading-7 max-w-[72px] lg:max-w-none lg:whitespace-nowrap"
             >
               View All Appeals
             </Link>
@@ -49,9 +49,9 @@ export default function DonationAppeal() {
         </div>
 
         {/* Donation Card */}
-        <div className="bg-white rounded-[15px] max-w-fit shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] flex gap-0 overflow-hidden">
+        <div className="bg-white rounded-[15px] w-full lg:w-auto shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] flex flex-col lg:flex-row gap-0 overflow-hidden">
           {/* Left side - Image */}
-          <div className="relative w-110.5 h-110.5 shrink-0">
+          <div className="relative w-full lg:w-110.5 h-58.5 lg:h-110.5 shrink-0">
             <div className="absolute inset-0 overflow-hidden">
               <div
                 className="absolute w-full max-w-none"
@@ -97,9 +97,9 @@ export default function DonationAppeal() {
           </div>
 
           {/* Right side - Content */}
-          <div className="flex flex-col gap-16.5 px-5 pt-4 pb-9">
+          <div className="flex flex-col gap-4 lg:gap-16.5 px-5 pt-4 pb-9">
             {/* Top section */}
-            <div className="flex flex-col gap-5 w-full">
+            <div className="flex flex-col gap-4 lg:gap-5 w-full">
               {/* Organization and Title */}
               <div className="flex flex-col gap-2 w-full">
                 {/* Organization */}
@@ -113,13 +113,13 @@ export default function DonationAppeal() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-base font-medium text-[#71717a] leading-6">
+                  <p className="text-sm lg:text-sm font-normal text-[#71717a] leading-5">
                     Masjid Al Falah
                   </p>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl font-semibold text-[#27272a] leading-8 h-7 overflow-hidden text-ellipsis whitespace-nowrap w-full">
+                <h3 className="text-xl lg:text-2xl font-semibold text-[#27272a] leading-7 lg:leading-8 overflow-hidden text-ellipsis whitespace-nowrap w-full">
                   Help Build a Lasting Legacy
                 </h3>
               </div>
@@ -139,7 +139,7 @@ export default function DonationAppeal() {
                       />
                     </div>
                     <p className="text-base font-normal text-[#71717a] leading-6">
-                      10
+                      105
                     </p>
                   </div>
 
@@ -161,41 +161,39 @@ export default function DonationAppeal() {
 
                 {/* Progress Bar */}
                 <div className="flex flex-col gap-2 w-full">
-                  <div className="w-full h-3 bg-[#e4e4e7] rounded-full flex items-start overflow-hidden">
-                    <div className="h-3 w-40 bg-[#006fee] rounded-full shrink-0" />
+                  <div className="w-full h-1 bg-[#e4e4e7] rounded-full flex items-start overflow-hidden">
+                    <div className="h-1 w-50 lg:w-40 bg-[#006fee] rounded-full shrink-0" />
                   </div>
                 </div>
               </div>
 
               {/* Description */}
-              <div className="flex items-center justify-center gap-1 pr-1 w-full">
-                <p className="flex-1 min-w-0 text-base font-normal text-[#11181c] leading-6 overflow-hidden text-ellipsis">
-                  The Masjid has always been a beacon of faith, community, and
-                  service. Now, as we embark on a transformative journey to
-                  redevelop and enhance this sacred space, we invite you to be a
-                  part of something truly special.
-                </p>
-              </div>
+              <p className="text-base font-normal text-[#11181c] leading-6 h-12 overflow-hidden w-full">
+                The Masjid has always been a beacon of faith, community, and
+                service. Now, as we embark on a transformative journey to
+                redevelop and enhance this sacred space, we invite you to be a
+                part of something truly special.
+              </p>
             </div>
 
             {/* Bottom section - Amount and Buttons */}
-            <div className="flex items-end justify-between w-full">
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 w-full">
               {/* Fund Raised */}
               <div className="flex flex-col gap-1">
                 <p className="text-2xl font-semibold text-black leading-8">
                   £18,402
                 </p>
-                <p className="text-base font-normal text-[#71717a] leading-6">
+                <p className="text-base font-normal text-[#71717a] leading-6 text-center lg:text-left">
                   funded of £87K
                 </p>
               </div>
 
               {/* Buttons */}
-              <div className="flex items-start gap-7">
+              <div className="flex items-start gap-4 w-full lg:w-auto">
                 {/* Learn More */}
                 <Link
                   href="/appeal/details"
-                  className="h-12 px-6 bg-[#3f3f46] text-white rounded-lg flex items-center justify-center hover:bg-[#2f2f36] transition-colors"
+                  className="flex-1 lg:flex-none h-12 px-6 bg-[#3f3f46] text-white rounded-xl flex items-center justify-center hover:bg-[#2f2f36] transition-colors"
                 >
                   <span className="text-base font-normal text-white leading-6">
                     Learn More
@@ -205,7 +203,7 @@ export default function DonationAppeal() {
                 {/* Donate Now */}
                 <Link
                   href="/donate"
-                  className="h-12 px-6 bg-[#006fee] text-white rounded-xl flex items-center justify-center hover:bg-[#0060d8] transition-colors"
+                  className="flex-1 lg:flex-none h-12 px-6 bg-[#006fee] text-white rounded-xl flex items-center justify-center hover:bg-[#0060d8] transition-colors"
                 >
                   <span className="text-base font-normal text-white leading-6">
                     Donate Now
