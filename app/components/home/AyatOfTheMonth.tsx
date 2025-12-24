@@ -11,7 +11,7 @@ export default function AyatOfTheMonth() {
   const [viewMode, setViewMode] = useState<ViewMode>("default");
 
   return (
-    <section className="relative w-full py-18 px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-197.75">
+    <section className="hidden relative w-full py-18 px-4 lg:px-8 xl:px-50 sm:flex items-center justify-center min-h-197.75">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 pointer-events-none">
         <Image

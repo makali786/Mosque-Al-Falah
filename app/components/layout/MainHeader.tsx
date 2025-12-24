@@ -100,11 +100,7 @@ const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, 
 };
 
 const HamburgerIcon = () => (
-  <>
-    <span className="w-full h-0.5 bg-white rounded" />
-    <span className="w-full h-0.5 bg-white rounded" />
-    <span className="w-full h-0.5 bg-white rounded" />
-  </>
+  <Image src="/assets/common/hamburger-icon.svg" alt="Menu" width={24} height={24} />
 );
 
 export default function MainHeader() {
@@ -156,33 +152,40 @@ export default function MainHeader() {
       </div>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <>
-          <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setMobileMenuOpen(false)} />
-          <div className="lg:hidden fixed top-0 left-0 h-full w-64 bg-black z-50 overflow-y-auto">
-            <div className="flex justify-end p-4">
-              <button onClick={() => setMobileMenuOpen(false)} className="text-white" aria-label="Close menu">
-                <CloseIcon />
-              </button>
-            </div>
-
-            <nav className="flex flex-col px-6 py-4">
-              {NAV_ITEMS.map((item) => (
-                <div key={item.label} className="py-3 border-b border-gray-800">
-                  <NavItem
-                    item={item}
-                    pathname={pathname}
-                    dropdownOpen={aboutUsOpen}
-                    onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
-                    onCloseMenu={() => setMobileMenuOpen(false)}
-                    isMobile
-                  />
-                </div>
-              ))}
-            </nav>
+      <>
+        <div
+          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-9998 ${
+            mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+        <div
+          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-9999 overflow-y-auto transition-transform duration-300 ease-in-out ${
+            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <div className="flex justify-end p-4">
+            <button onClick={() => setMobileMenuOpen(false)} className="text-white" aria-label="Close menu">
+              <CloseIcon />
+            </button>
           </div>
-        </>
-      )}
+
+          <nav className="flex flex-col px-6 py-4">
+            {NAV_ITEMS.map((item) => (
+              <div key={item.label} className="py-3 border-b border-gray-800">
+                <NavItem
+                  item={item}
+                  pathname={pathname}
+                  dropdownOpen={aboutUsOpen}
+                  onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
+                  onCloseMenu={() => setMobileMenuOpen(false)}
+                  isMobile
+                />
+              </div>
+            ))}
+          </nav>
+        </div>
+      </>
     </header>
   );
 }

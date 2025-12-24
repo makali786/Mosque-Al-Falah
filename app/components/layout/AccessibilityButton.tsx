@@ -31,18 +31,18 @@ export default function AccessibilityButton() {
       <div className="fixed right-0 top-52 -translate-y-1/2 z-50">
         <button
           onClick={handleToggle}
-          className="bg-[#002e62] hover:bg-[#001b3d] flex items-center justify-center transition-all duration-300 rounded-bl-[50px] rounded-tl-[50px] shadow-[0px_4px_6px_-1px_rgba(0,112,243,0.4),0px_2px_4px_-1px_rgba(0,0,0,0.06)] hover:shadow-[0px_6px_8px_-1px_rgba(0,112,243,0.5),0px_3px_5px_-1px_rgba(0,0,0,0.08)]"
+          className="bg-[#002e62] hover:bg-[#001b3d] flex items-center justify-center transition-all duration-300 rounded-bl-[50px] rounded-tl-[50px] shadow-[0px_4px_6px_-1px_rgba(0,112,243,0.4),0px_2px_4px_-1px_rgba(0,0,0,0.06)] hover:shadow-[0px_6px_8px_-1px_rgba(0,112,243,0.5),0px_3px_5px_-1px_rgba(0,0,0,0.08)] sm:w-17.5 w-12 sm:h-14 h-10"
           aria-label="Prayer Times"
           style={{
-            width: isScrolled ? "56px" : "70px",
-            height: isScrolled ? "45px" : "56px",
+            width: isScrolled ? "56px" : undefined,
+            height: isScrolled ? "45px" : undefined,
           }}
         >
           {/* Prayer Times Icon */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300"
+            className="absolute top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 sm:left-5.5 left-3.5"
             style={{
-              left: isScrolled ? "18px" : "22px",
+              left: isScrolled ? "18px" : undefined,
               width: isScrolled ? "20px" : "24px",
               height: isScrolled ? "34px" : "42px",
             }}
@@ -53,7 +53,7 @@ export default function AccessibilityButton() {
                 alt=""
                 width={isScrolled ? 16 : 20}
                 height={isScrolled ? 27 : 34}
-                className="object-contain"
+                className="object-contain sm:w-5 w-3 sm:h-8.5 h-5.5"
               />
             </div>
           </div>

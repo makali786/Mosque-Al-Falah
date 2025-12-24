@@ -91,7 +91,7 @@ export default function Sermons() {
   };
 
   return (
-    <section className="bg-white w-full px-4 lg:px-8 xl:px-50 py-18 ">
+    <section className="bg-white sm:block hidden w-full px-4 lg:px-8 xl:px-50 py-18 ">
       <div className="container mx-auto">
       {/* Header */}
       <div className="flex flex-col gap-1 mb-15 ">
