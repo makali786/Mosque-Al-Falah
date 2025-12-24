@@ -92,6 +92,7 @@ export default function Sermons() {
 
   return (
     <section className="bg-white w-full px-4 lg:px-8 xl:px-50 py-18 ">
+      <div className="container mx-auto">
       {/* Header */}
       <div className="flex flex-col gap-1 mb-15 ">
         <div className="flex items-start justify-between gap-4 mb-3">
@@ -249,6 +250,7 @@ export default function Sermons() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

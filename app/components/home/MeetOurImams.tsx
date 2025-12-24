@@ -30,6 +30,7 @@ const IMAMS: Imam[] = [
 export default function MeetOurImams() {
   return (
     <section className="bg-white w-full py-22.5 px-4 lg:px-8 xl:px-50">
+      <div className="container mx-auto">
       {/* Title */}
       <h2 className="text-5xl font-semibold leading-none text-black mb-12">
         Meet Our Imams
@@ -88,6 +89,7 @@ export default function MeetOurImams() {
             </Link>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

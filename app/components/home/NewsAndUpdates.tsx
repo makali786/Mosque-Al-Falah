@@ -124,7 +124,7 @@ export default function NewsAndUpdates() {
 
   return (
     <section className="bg-white w-full py-24 px-4 lg:px-8 xl:px-50">
-      <div className=" flex flex-col lg:flex-row gap-12 w-full">
+      <div className="container mx-auto flex flex-col lg:flex-row gap-12 w-full">
         {/* Left Section - Upcoming Events */}
         <div className="flex-[1.6] flex flex-col gap-8">
           {/* Header */}

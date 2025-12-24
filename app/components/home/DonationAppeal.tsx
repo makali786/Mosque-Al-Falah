@@ -4,6 +4,7 @@ import Link from "next/link";
 export default function DonationAppeal() {
   return (
     <section className=" relative w-full px-4 lg:px-8 xl:px-50 py-22.5 bg-linear-to-r from-[#165273] to-[#153595]">
+      <div className="container mx-auto">
       {/* Pattern Overlay */}
       <div
         className="absolute  inset-0 opacity-30 pointer-events-none"
@@ -96,7 +97,7 @@ export default function DonationAppeal() {
           </div>
 
           {/* Right side - Content */}
-          <div className="flex flex-col gap-16.5 px-5 pt-4 pb-9 w-173.5">
+          <div className="flex flex-col gap-16.5 px-5 pt-4 pb-9">
             {/* Top section */}
             <div className="flex flex-col gap-5 w-full">
               {/* Organization and Title */}
@@ -214,6 +215,7 @@ export default function DonationAppeal() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
