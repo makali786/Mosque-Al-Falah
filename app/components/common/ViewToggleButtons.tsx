@@ -12,11 +12,11 @@ export default function ViewToggleButtons({
   className = "",
 }: ViewToggleButtonsProps) {
   return (
-    <div className={`flex gap-5 ${className}`}>
+    <div className={`flex sm:gap-5 gap-2 ${className}`}>
       {/* Audio button first */}
       <button
         onClick={onAudioClick}
-        className="w-12 h-12 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors"
+        className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors"
       >
         <Image
           src="/assets/ayat/video.svg"
@@ -30,7 +30,7 @@ export default function ViewToggleButtons({
       {/* Video button second */}
       <button
         onClick={onVideoClick}
-        className="w-12 h-12 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors"
+        className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors"
       >
         <Image
           src="/assets/ayat/music.svg"

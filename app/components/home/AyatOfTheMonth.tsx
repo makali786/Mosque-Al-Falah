@@ -11,7 +11,7 @@ export default function AyatOfTheMonth() {
   const [viewMode, setViewMode] = useState<ViewMode>("default");
 
   return (
-    <section className="hidden relative w-full py-18 px-4 lg:px-8 xl:px-50 sm:flex items-center justify-center min-h-197.75">
+    <section className="relative w-full py-8 pb-32 px-4 sm:py-18 sm:px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-112.5 sm:min-h-197.75">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 pointer-events-none">
         <Image
@@ -24,18 +24,18 @@ export default function AyatOfTheMonth() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full max-w-178.5 flex flex-col items-center gap-15">
+      <div className="relative z-10 w-full max-w-78 sm:max-w-178.5 flex flex-col items-center gap-4.5 sm:gap-15">
         {viewMode === "default" && (
           <>
             {/* Default View - Arabic Calligraphy & Quote */}
-            <div className="flex flex-col items-center gap-8.25 w-full">
-              <p className="text-xl font-normal text-white leading-7 text-center">
+            <div className="flex flex-col items-center gap-4.5 sm:gap-8.25 w-full">
+              <p className="text-base sm:text-xl font-medium sm:font-normal text-white leading-4 sm:leading-7 text-center">
                 AYAT OF THE MONTH
               </p>
 
-              <div className="flex flex-col items-center gap-7 w-full">
+              <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-69 sm:max-w-full">
                 {/* Arabic Calligraphy */}
-                <div className="w-[477.66px] h-[143.3px] relative">
+                <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
                   <Image
                     src="/assets/ayat/arabic-text.svg"
                     alt="Arabic Calligraphy"
@@ -45,12 +45,12 @@ export default function AyatOfTheMonth() {
                 </div>
 
                 {/* English Quote */}
-                <p className="text-4xl font-bold text-white leading-13 text-center">
+                <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
                   "And when I am ill, it is He who cures me"
                 </p>
 
                 {/* Citation */}
-                <p className="text-lg font-normal italic text-white leading-7 text-center">
+                <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
                   — Surah Ash-Shu'ara (26:80)
                 </p>
               </div>
@@ -59,10 +59,10 @@ export default function AyatOfTheMonth() {
             {/* Read More Button */}
             <Link
               href="/ayat"
-              className="bg-[#1877f2] h-12 px-6 rounded-lg flex items-center gap-2 hover:bg-[#1565d8] transition-colors"
+              className="bg-[#1877f2] h-7.5 sm:h-12 px-6 rounded-1 sm:rounded-lg flex items-center gap-2 hover:bg-[#1565d8] transition-colors"
             >
-              <span className="text-base font-normal text-white leading-6">
-                Read More
+              <span className="text-xs sm:text-base font-normal text-white leading-6">
+                Read More Ayats
               </span>
             </Link>
           </>
@@ -71,12 +71,12 @@ export default function AyatOfTheMonth() {
         {viewMode === "video" && (
           <>
             {/* Video View */}
-            <p className="text-lg font-medium text-white leading-7">
+            <p className="text-base sm:text-lg font-medium text-white leading-4 sm:leading-7">
               AYAT OF THE MONTH
             </p>
 
-            <div className="flex flex-col gap-6.25 w-full max-w-[735.5px]">
-              <h3 className="text-4xl font-bold text-white leading-13 text-center overflow-hidden text-ellipsis whitespace-nowrap">
+            <div className="flex flex-col gap-4 sm:gap-6.25 w-full max-w-full sm:max-w-[735.5px]">
+              <h3 className="text-xl sm:text-4xl font-bold text-white leading-7 sm:leading-13 text-center overflow-hidden text-ellipsis whitespace-nowrap px-4">
                 Lessons from Surah Al-Fatihah
               </h3>
 
@@ -105,14 +105,14 @@ export default function AyatOfTheMonth() {
         {viewMode === "audio" && (
           <>
             {/* Audio View */}
-            <div className="flex flex-col items-center gap-8.25 w-full">
-              <p className="text-xl font-normal text-white leading-7 text-center">
+            <div className="flex flex-col items-center gap-4.5 sm:gap-8.25 w-full">
+              <p className="text-base sm:text-xl font-medium sm:font-normal text-white leading-4 sm:leading-7 text-center">
                 AYAT OF THE MONTH
               </p>
 
-              <div className="flex flex-col items-center gap-7 w-full">
+              <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-69 sm:max-w-full">
                 {/* Arabic Calligraphy */}
-                <div className="w-[477.66px] h-[143.3px] relative">
+                <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
                   <Image
                     src="/assets/ayat/arabic-text.svg"
                     alt="Arabic Calligraphy"
@@ -122,12 +122,12 @@ export default function AyatOfTheMonth() {
                 </div>
 
                 {/* English Quote */}
-                <p className="text-4xl font-bold text-white leading-13 text-center">
+                <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
                   "And when I am ill, it is He who cures me"
                 </p>
 
                 {/* Citation */}
-                <p className="text-lg font-normal italic text-white leading-7 text-center">
+                <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
                   — Surah Ash-Shu'ara (26:80)
                 </p>
               </div>
@@ -192,7 +192,7 @@ export default function AyatOfTheMonth() {
         <ViewToggleButtons
           onAudioClick={() => setViewMode("audio")}
           onVideoClick={() => setViewMode("video")}
-          className="absolute bottom-26.75 right-40.25 z-20"
+          className="absolute bottom-10 right-8 sm:bottom-26.75 sm:right-40.25 z-20"
         />
       )}
 
@@ -200,7 +200,7 @@ export default function AyatOfTheMonth() {
       {viewMode !== "default" && (
         <button
           onClick={() => setViewMode("default")}
-          className="absolute top-4 right-4 z-20 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-colors"
+          className="absolute sm:top-4 top-2 sm:right-4 right-2 z-20 bg-white/20 hover:bg-white/30 text-white sm:px-4 px-3 sm:py-2 py-1.5 sm:rounded-lg rounded-md sm:text-base text-sm transition-colors"
         >
           Back
         </button>

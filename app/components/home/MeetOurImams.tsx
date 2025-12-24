@@ -32,7 +32,7 @@ export default function MeetOurImams() {
     <section className="bg-white w-full pb-8 sm:py-22.5 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-50">
       <div className="container mx-auto">
         {/* Title */}
-        <h2 className="text-xl leading-7 font-bold sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 lg:text-5xl lg:leading-none sm:font-semibold text-[#18181b] sm:text-black mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+        <h2 className="text-xl leading-7 font-bold sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 lg:text-5xl lg:leading-none sm:font-semibold text-[#18181b] sm:text-black sm:pt-0 pt-12 mb-6 sm:mb-8 md:mb-10 lg:mb-12">
           Meet Our Imams
         </h2>
 

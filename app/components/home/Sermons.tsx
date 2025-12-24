@@ -91,34 +91,38 @@ export default function Sermons() {
   };
 
   return (
-    <section className="bg-white sm:block hidden w-full px-4 lg:px-8 xl:px-50 py-18 ">
+    <section className="bg-white w-full px-4 lg:px-8 xl:px-50 py-6 md:py-12 lg:py-18">
       <div className="container mx-auto">
       {/* Header */}
-      <div className="flex flex-col gap-1 mb-15 ">
-        <div className="flex items-start justify-between gap-4 mb-3">
-          <div className="flex flex-col gap-3">
-            <p className="text-lg font-medium text-[#006fee] leading-7">
+      <div className="flex flex-col gap-4 md:gap-2 lg:gap-1 mb-8 md:mb-12 lg:mb-15">
+        {/* Mobile: Stacked layout, Desktop: Side by side */}
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-0 md:mb-2 lg:mb-3">
+          <div className="flex flex-col gap-2 md:gap-2.5 lg:gap-3">
+            <p className="text-sm md:text-base lg:text-lg font-normal lg:font-medium text-[#006fee] leading-5 md:leading-6 lg:leading-7 sm:pt-0 pt-5">
               POWERFUL & LIFE-CHANGING
             </p>
-            <h2 className="text-5xl font-semibold text-[#27272a] leading-12 max-w-126.75">
+            <h2 className="text-xl md:text-3xl lg:text-5xl font-bold lg:font-semibold text-[#27272a] leading-7 md:leading-9 lg:leading-12 max-w-full lg:max-w-126.75">
               Featured Sermons and Lectures
             </h2>
           </div>
 
           {/* Right side buttons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center justify-end gap-4 sm:justify-start md:justify-end lg:justify-start">
             {/* Discover More Button */}
             <Link
               href="/sermons"
-              className="h-12 px-6 rounded-xl flex items-center gap-2 hover:bg-gray-50 transition-colors"
+              className="h-10 lg:h-12 px-0 lg:px-4 rounded-xl flex items-center gap-2 hover:bg-gray-50 transition-colors"
             >
-              <span className="text-base font-normal text-black leading-6">
+              <span className="text-sm lg:text-base font-normal text-[#006fee] underline leading-5 lg:leading-6">
                 Discover More
               </span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 15L12.5 10L7.5 5" stroke="#006fee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
             </Link>
 
-            {/* Navigation Arrows */}
-            <div className="flex items-center gap-8">
+            {/* Navigation Arrows - Hidden on mobile */}
+            <div className="hidden lg:flex items-center gap-8">
               <button
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
@@ -162,22 +166,24 @@ export default function Sermons() {
       {/* Sermons Container */}
       <div
         ref={scrollContainerRef}
-        className="flex gap-9 overflow-x-auto scrollbar-hide scroll-smooth"
+        className="flex flex-col sm:flex-row gap-9 sm:overflow-x-auto scrollbar-hide scroll-smooth"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {sermons.map((sermon) => (
           <div
             key={sermon.id}
-            className="flex flex-col gap-6.25 shrink-0 w-88.75"
+            className="flex flex-col gap-6.25 shrink-0 w-full sm:w-88.75"
           >
             {/* Image with overlay buttons */}
-            <div className="relative w-full h-[199.5px] rounded-[14px] overflow-hidden">
-              <Image
-                src={sermon.image}
-                alt={sermon.title}
-                fill
-                className="object-cover"
-              />
+            <div className="relative w-full h-[199.5px] rounded-[14px] overflow-visible">
+              <div className="relative w-full h-full rounded-[14px] overflow-hidden">
+                <Image
+                  src={sermon.image}
+                  alt={sermon.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
 
               {/* Audio and Video buttons - bottom right */}
               <ViewToggleButtons
@@ -189,7 +195,7 @@ export default function Sermons() {
                   // Handle video click
                   console.log("Video clicked for sermon:", sermon.id);
                 }}
-                className="absolute bottom-6 right-3.75"
+                className="absolute -bottom-6 right-4 lg:bottom-6 lg:right-3.75"
               />
             </div>
 
@@ -210,8 +216,8 @@ export default function Sermons() {
               </div>
 
               {/* Title and Author */}
-              <div className="flex flex-col gap-4">
-                <h3 className="text-2xl font-semibold text-black leading-8">
+              <div className="flex flex-col gap-3 lg:gap-4">
+                <h3 className="text-xl lg:text-2xl font-medium lg:font-semibold text-black leading-7 lg:leading-8">
                   {sermon.title}
                 </h3>
 
