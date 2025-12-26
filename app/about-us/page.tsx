@@ -3,7 +3,7 @@
 import PageHero from "../components/common/PageHero";
 import ContentImageSection from "../components/common/ContentImageSection";
 import { CoreValuesSection } from "../components/about/OurCoreValue";
-import { TeamMemberCard } from "../components/about/CommitiesCard";
+import { CommitteesSection } from "../components/about/CommitiesCard";
 import ConnectWithUsSection from "../components/about/ConnectWithUs";
 import { QuoteSection } from "../components/common/QuoteSection";
 
@@ -109,6 +109,7 @@ export default function AboutUsPage() {
         }
       />
       <CoreValuesSection />
+      <CommitteesSection />
       <QuoteSection
         quote="Whoever guides someone to goodness will have a reward like the one who did it."
         attribution="Prophet Muhammad"

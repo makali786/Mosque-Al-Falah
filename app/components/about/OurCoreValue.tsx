@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
 
 interface AccordionItem {
   id: string;
@@ -47,7 +46,7 @@ export function CoreValuesSection() {
   const [expandedId, setExpandedId] = useState<string>("maf");
 
   return (
-    <section className="relative w-full px-6 py-16 md:px-12 lg:px-50 lg:py-22.5 overflow-hidden">
+    <section className="relative w-full px-6 py-12 sm:px-8 sm:py-16 md:px-12 md:py-20 lg:px-20 lg:py-22.5 xl:px-50 overflow-hidden">
       {/* Background with gradient and pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -65,58 +64,76 @@ export function CoreValuesSection() {
         />
       </div>
 
-      <div className="relative">
+      {/* Content Container */}
+      <div className="relative flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
         {/* Header */}
-        <div className="mb-10 md:mb-12 max-w-full md:max-w-[650px]">
-          <h1 className="mb-5 text-4xl font-semibold text-white md:text-5xl leading-tight md:leading-[48px]">
-            Our Core Values
-          </h1>
-          <p className="text-lg text-white font-medium leading-7">
-            Learn more about our values and our story about MAF's by visiting
-            the about us page.
-          </p>
+        <div className="flex items-center w-full">
+          <div className="flex flex-col gap-4 sm:gap-4 md:gap-5 lg:gap-5 w-full lg:w-162.5">
+            <h1 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 lg:text-[48px] lg:leading-12 text-white">
+              Our Core Values
+            </h1>
+            <p className="text-base leading-6 font-medium sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-white">
+              Learn more about our values and our story about MAF's by visiting
+              the about us page.
+            </p>
+          </div>
         </div>
 
         {/* Accordion */}
-        <div className="rounded-[14px] bg-white px-8 md:px-16 py-8 md:py-11 shadow-lg">
-          <div className="space-y-0">
+        <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-[14px] px-6 py-8 sm:px-8 sm:py-9 md:px-12 md:py-10 lg:px-16 lg:py-11 w-full">
+          <div className="flex flex-col px-2 lg:px-2">
             {faqItems.map((item, index) => (
-              <div key={item.id}>
+              <div key={item.id} className="flex flex-col gap-2 lg:gap-2">
                 <button
                   onClick={() =>
                     setExpandedId(expandedId === item.id ? "" : item.id)
                   }
-                  className="flex w-full items-center justify-between py-5 text-left transition-all hover:bg-gray-50"
+                  className="flex items-center justify-between w-full py-3 sm:py-4 lg:py-4 cursor-pointer hover:opacity-80 transition-opacity"
                 >
-                  <h3 className="text-lg font-bold text-gray-900">
-                    {item.question}
-                  </h3>
-                  {/* <FaChevronDown
-                    size={15}
-                    className={`transition-transform duration-300 ${
-                      expandedId === item.id ? "rotate-90" : ""
-                    }`}
-                    color="#A1A1AA"
-                  /> */}
-                  <Image
-                    src="/assets/common/arrow-left.svg"
-                    width={24}
-                    height={24}
-                    alt="Arrow Icon"
-                    className={`object-contain transition-transform duration-300 ${
-                      expandedId === item.id ? "-rotate-90" : ""
-                    }`}
-                  />
+                  <div className="flex-1 flex flex-col items-start justify-center">
+                    <h3 className="text-left text-base leading-6 font-bold sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-[#11181c]">
+                      {item.question}
+                    </h3>
+                  </div>
+                  <div className="flex items-center justify-center pl-3 lg:pl-3">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 lg:w-6 lg:h-6 relative transition-transform duration-300">
+                      <Image
+                        src={
+                          expandedId === item.id
+                            ? "/assets/common/arrow-down.svg"
+                            : "/assets/common/arrow-left.svg"
+                        }
+                        alt="Arrow Icon"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
                 </button>
 
-                {expandedId === item.id && (
-                  <div className="overflow-hidden">
-                    <p className="pb-2.5 text-[#11181C]">{item.answer}</p>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    expandedId === item.id
+                      ? "max-h-96 opacity-100"
+                      : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="flex items-center w-full pb-2">
+                    <div className="flex-1 flex flex-col justify-center">
+                      <p className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-6 text-[#11181c]">
+                        {item.answer}
+                      </p>
+                    </div>
                   </div>
-                )}
+                </div>
 
                 {index < faqItems.length - 1 && (
-                  <div className="border-b border-gray-200" />
+                  <div
+                    className="h-px w-full"
+                    style={{
+                      backgroundColor: "rgba(17, 17, 17, 0.15)",
+                    }}
+                  />
                 )}
               </div>
             ))}
