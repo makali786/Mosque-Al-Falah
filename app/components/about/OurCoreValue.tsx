@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
@@ -47,19 +48,18 @@ export function CoreValuesSection() {
 
   return (
     <section
-      className="w-full px-6 py-16 md:px-12 lg:px-20 lg:py-24"
+      className="w-full px-6 py-16 md:px-12 lg:px-50 lg:py-24"
       style={{
-        background:
-          "linear-gradient(162.05deg, #0C478A 46.63%, #004797 71.1%)",
+        background: "linear-gradient(169.508deg, #0C478A 46.629%, #004797 71.1%)",
       }}
     >
-      <div className="mx-auto max-w-4xl">
+      <div>
         {/* Header */}
-        <div className="mb-10">
-          <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
+        <div className="mb-10 max-w-[650px] w-[650px]">
+          <h1 className="mb-5 text-4xl font-bold text-white md:text-5xl">
             Our Core Values
           </h1>
-          <p className="text-lg text-blue-100">
+          <p className="text-lg text-blue-100 font-[500]">
             Learn more about our values and our story about MAF's by visiting
             the about us page.
           </p>
@@ -76,20 +76,30 @@ export function CoreValuesSection() {
                   }
                   className="flex w-full items-center justify-between py-5 text-left transition-all hover:bg-gray-50"
                 >
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <h3 className="text-lg font-bold text-gray-900">
                     {item.question}
                   </h3>
-                  <FaChevronDown
-                    size={24}
-                    className={`flex-shrink-0 text-gray-400 transition-transform duration-300 ${
+                  {/* <FaChevronDown
+                    size={15}
+                    className={`transition-transform duration-300 ${
                       expandedId === item.id ? "rotate-90" : ""
+                    }`}
+                    color="#A1A1AA"
+                  /> */}
+                  <Image
+                    src="/assets/common/arrow-left.svg"
+                    width={15}
+                    height={15}
+                    alt="Arrow Icon"
+                    className={`object-contain transition-transform duration-300 ${
+                      expandedId === item.id ? "-rotate-90" : ""
                     }`}
                   />
                 </button>
 
                 {expandedId === item.id && (
                   <div className="overflow-hidden">
-                    <p className="pb-5 text-gray-700">{item.answer}</p>
+                    <p className="pb-2.5 text-[#11181C]">{item.answer}</p>
                   </div>
                 )}
 
