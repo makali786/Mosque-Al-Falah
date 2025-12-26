@@ -14,10 +14,10 @@ interface TeamMemberCardProps {
 
 export function TeamMemberCard({ name, title, description, imageUrl, whatsappLink, emailLink }: TeamMemberCardProps) {
   return (
-    <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+    <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-6">
       {/* Image Container */}
       <div className="mb-4 overflow-hidden rounded-lg">
-        <img src={imageUrl || "/placeholder.svg"} alt={name} className="h-48 w-full object-cover" />
+        <img src={"assets/about-us/team-card-img.png"} alt={name} className="h-48 w-full object-cover" />
       </div>
 
       {/* Name and Title */}
