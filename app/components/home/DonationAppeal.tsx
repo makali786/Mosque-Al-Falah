@@ -18,19 +18,19 @@ export default function DonationAppeal() {
       {/* Content */}
       <div className="relative z-10 flex flex-col gap-6 lg:gap-12">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
           {/* Left side - Title */}
           <div className="flex flex-col gap-4 lg:gap-5 max-w-full lg:max-w-192.75 text-white">
-            <h2 className="text-2xl lg:text-5xl font-medium lg:font-semibold leading-8 lg:leading-14">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-medium lg:font-semibold leading-8 sm:leading-12 lg:leading-14">
               Together for a New Beginning: Masjid Redevelopment Initiative
             </h2>
-            <p className="text-sm lg:text-lg font-medium leading-5 lg:leading-7">
+            <p className="sm:text-base text-sm lg:text-lg font-medium leading-5 lg:leading-7">
               Your generosity – past, present, and future is greatly appreciated!
             </p>
           </div>
 
           {/* Right side - View All Appeals Button */}
-          <div className="relative">
+          <div className="relative sm:ml-0 ml-auto">
             <div className="w-31.5 h-31.5 lg:w-50 lg:h-50 relative">
               <Image
                 src="/assets/services/circle-bg.svg"
@@ -53,8 +53,9 @@ export default function DonationAppeal() {
           {/* Left side - Image */}
           <div className="relative w-full lg:w-110.5 h-58.5 lg:h-110.5 shrink-0">
             <div className="absolute inset-0 overflow-hidden">
+              {/* Desktop Image with specific positioning */}
               <div
-                className="absolute w-full max-w-none"
+                className="hidden lg:block absolute w-full max-w-none"
                 style={{
                   height: "178.24%",
                   left: "-0.63%",
@@ -68,15 +69,25 @@ export default function DonationAppeal() {
                   className="object-cover"
                 />
               </div>
+
+              {/* Mobile Image - Standard Cover */}
+              <div className="lg:hidden absolute inset-0 w-full h-full">
+                <Image
+                  src="/assets/donation/donation-image-1.png"
+                  alt="Masjid"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
             <div
-              className="absolute inset-0"
+              className="absolute inset-0 hidden lg:block"
               style={{
                 backgroundImage:
                   "linear-gradient(180.093deg, rgba(255, 255, 255, 0) 26.41%, rgb(232, 232, 232) 73.008%)",
               }}
             />
-            <div className="absolute inset-0 mix-blend-multiply overflow-hidden">
+            <div className="absolute inset-0 mix-blend-multiply overflow-hidden hidden lg:block">
               <div
                 className="absolute max-w-none"
                 style={{
@@ -119,7 +130,7 @@ export default function DonationAppeal() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl lg:text-2xl font-semibold text-[#27272a] leading-7 lg:leading-8 overflow-hidden text-ellipsis whitespace-nowrap w-full">
+                <h3 className="text-xl lg:text-2xl font-semibold text-[#27272a] leading-7 lg:leading-8 overflow-hidden text-ellipsis whitespace-normal lg:whitespace-nowrap w-full">
                   Help Build a Lasting Legacy
                 </h3>
               </div>
@@ -195,7 +206,7 @@ export default function DonationAppeal() {
                   href="/appeal/details"
                   className="flex-1 lg:flex-none h-12 px-6 bg-[#3f3f46] text-white rounded-xl flex items-center justify-center hover:bg-[#2f2f36] transition-colors"
                 >
-                  <span className="text-base font-normal text-white leading-6">
+                  <span className="text-sm sm:text-base font-normal text-white leading-6 whitespace-nowrap">
                     Learn More
                   </span>
                 </Link>
@@ -205,7 +216,7 @@ export default function DonationAppeal() {
                   href="/donate"
                   className="flex-1 lg:flex-none h-12 px-6 bg-[#006fee] text-white rounded-xl flex items-center justify-center hover:bg-[#0060d8] transition-colors"
                 >
-                  <span className="text-base font-normal text-white leading-6">
+                  <span className="text-sm sm:text-base font-normal text-white leading-6 whitespace-nowrap">
                     Donate Now
                   </span>
                 </Link>
