@@ -116,12 +116,12 @@ const CountdownDisplay = ({ countdown, prayerName }: CountdownDisplayProps) => {
 
   return (
     <div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:w-93.5 w-[calc(100%-2rem)] backdrop-blur-[6.65px] bg-[#18181b]/80 flex flex-col gap-0 items-center md:p-6 p-3 rounded-[14px] sm:mt-0 mt-10"
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-93.5 md:w-72 w-[calc(100%-2rem)] backdrop-blur-[6.65px] bg-[#18181b]/80 flex flex-col gap-0 items-center lg:p-6 md:p-4 p-4 rounded-[14px]"
       style={{ backdropFilter: "blur(6.65px)" }}
     >
       <div className="flex flex-col md:gap-2 gap-1 items-center">
         {/* Timer Title */}
-        <div className="flex md:gap-2 gap-1 items-center md:text-lg text-sm text-[#fafafa] text-center md:leading-7 leading-5">
+        <div className="flex lg:gap-2 gap-1 items-center lg:text-lg md:text-base text-sm text-[#fafafa] text-center lg:leading-7 md:leading-6 leading-5">
           <p className="font-normal">The Athan of</p>
           <p className="font-semibold">{prayerName}</p>
           <p className="font-normal">is in</p>
@@ -129,14 +129,14 @@ const CountdownDisplay = ({ countdown, prayerName }: CountdownDisplayProps) => {
 
         {/* Countdown Display */}
         <div className="flex flex-col gap-1 items-start w-full">
-          <div className="flex items-center justify-center md:text-5xl text-2xl font-semibold text-[#fafafa] w-full md:leading-12 leading-8">
+          <div className="flex items-center justify-center lg:text-5xl md:text-3xl text-2xl font-semibold text-[#fafafa] w-full lg:leading-12 md:leading-10 leading-8">
             {timeUnits.map((unit, index) => (
               <div key={unit.label} className="flex items-center">
-                <div className="flex justify-center text-center md:w-17 w-10">
+                <div className="flex justify-center text-center lg:w-17 md:w-12 w-10">
                   <p>{unit.value}</p>
                 </div>
                 {index < timeUnits.length - 1 && (
-                  <div className="flex justify-center text-center md:px-1 px-0.5">
+                  <div className="flex justify-center text-center lg:px-1 px-0.5">
                     <p>:</p>
                   </div>
                 )}
@@ -145,13 +145,13 @@ const CountdownDisplay = ({ countdown, prayerName }: CountdownDisplayProps) => {
           </div>
 
           {/* Labels */}
-          <div className="flex md:gap-3.5 gap-1.5 items-center w-full justify-center">
+          <div className="flex lg:gap-3.5 gap-1.5 items-center w-full justify-center">
             {timeUnits.map((unit) => (
               <div
                 key={unit.label}
-                className="bg-[#27272a] md:h-6.25 h-4 rounded-lg overflow-hidden shrink-0 md:w-17 w-10 flex items-center justify-center"
+                className="bg-[#27272a] lg:h-6.25 md:h-5 h-4 rounded-lg overflow-hidden shrink-0 lg:w-17 md:w-12 w-10 flex items-center justify-center"
               >
-                <p className="md:text-sm text-[10px] font-normal text-[#a1a1aa] md:leading-5 leading-3">
+                <p className="lg:text-sm md:text-xs text-[10px] font-normal text-[#a1a1aa] lg:leading-5 leading-3">
                   {unit.label}
                 </p>
               </div>
@@ -170,7 +170,7 @@ interface DateNavigationProps {
 }
 
 const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) => (
-  <div className="absolute md:top-31.75 top-4 left-1/2 -translate-x-1/2 flex items-center justify-between md:w-81.5 w-[calc(100%-2rem)] z-10">
+  <div className="absolute lg:top-31.75 md:top-24 top-4 left-1/2 -translate-x-1/2 flex items-center justify-between lg:w-81.5 md:w-72 w-[calc(100%-2rem)] z-10">
     <button
       onClick={onPrevious}
       className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
@@ -179,8 +179,8 @@ const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) =
       <IoChevronBack className="md:w-6 md:h-6 w-5 h-5" />
     </button>
 
-    <div className="flex flex-col gap-1 items-center text-center md:w-42.5 flex-1">
-      <p className="md:text-sm text-xs font-semibold text-[#fafafa] md:leading-5 leading-4 w-full">
+    <div className="flex flex-col gap-1 items-center text-center lg:w-42.5 md:w-36 flex-1">
+      <p className="lg:text-sm md:text-xs text-xs font-semibold text-[#fafafa] md:leading-5 leading-4 w-full">
         {dateInfo.gregorian}
       </p>
       <p className="text-xs font-medium text-[#006fee] leading-4 w-full">
@@ -209,7 +209,7 @@ const PrayerTimeRow = ({ prayer }: PrayerTimeRowProps) => {
   const labelColor = isActive ? "text-[#a1a1aa]" : "text-[#71717a]";
 
   return (
-    <div className={`${bgColor} flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-2.5 rounded-lg w-full`}>
+    <div className={`${bgColor} flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full`}>
       <p className={`md:text-base text-sm font-bold ${nameColor} md:leading-6 leading-5 md:w-24 w-16`}>
         {prayer.name}
       </p>
@@ -240,7 +240,7 @@ interface JumuahTimeRowProps {
 }
 
 const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
-  <div className="bg-[#fafafa] flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-2.5 rounded-lg w-full">
+  <div className="bg-[#fafafa] flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full">
     <p className="md:text-base text-sm font-bold text-black md:leading-6 leading-5 md:w-24 w-16">
       {jumuah.name}
     </p>
@@ -334,7 +334,7 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
         <div className="bg-white flex md:flex-row flex-col md:gap-6 gap-0 items-start overflow-hidden md:overflow-visible overflow-y-auto relative md:rounded-3xl rounded-2xl shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] max-h-[90vh]">
 
           {/* Left side - Image with countdown */}
-          <div className="md:flex-1 w-full min-w-0 relative self-stretch md:min-h-150 min-h-48 bg-[#1a2332] overflow-hidden">
+          <div className="md:flex-1 w-full min-w-0 relative self-stretch md:min-h-150 min-h-[280px] bg-[#1a2332] overflow-hidden rounded-t-2xl md:rounded-l-3xl md:rounded-tr-none">
             <Image
               src="/assets/prayer-times/mosque-bg.png"
               alt="Mosque background"
@@ -381,10 +381,10 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute md:top-0 top-1 md:right-0 right-1 bg-[#f4f4f5] flex items-center justify-center p-0 rounded-full shrink-0 md:w-12 md:h-12 sm:w-9 sm:h-9 w-4 h-4 cursor-pointer hover:bg-[#e4e4e7] transition-colors focus:outline-none focus:ring-2 focus:ring-[#006fee] focus:ring-offset-2"
+            className="absolute md:top-0 top-3 md:right-0 right-3 bg-[#f4f4f5] flex items-center justify-center p-0 rounded-full shrink-0 md:w-12 md:h-12 w-8 h-8 cursor-pointer hover:bg-[#e4e4e7] transition-colors focus:outline-none focus:ring-2 focus:ring-[#006fee] focus:ring-offset-2 z-20"
             aria-label="Close prayer times panel"
           >
-            <div className="md:w-5 md:h-5 sm:w-4 sm:h-4 w-3.5 h-3.5 relative">
+            <div className="md:w-5 md:h-5 w-3.5 h-3.5 relative">
               <Image
                 src="/assets/prayer-times/close-icon.svg"
                 alt=""
