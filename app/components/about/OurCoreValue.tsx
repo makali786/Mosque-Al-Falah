@@ -88,8 +88,8 @@ export function CoreValuesSection() {
                   /> */}
                   <Image
                     src="/assets/common/arrow-left.svg"
-                    width={15}
-                    height={15}
+                    width={24}
+                    height={24}
                     alt="Arrow Icon"
                     className={`object-contain transition-transform duration-300 ${
                       expandedId === item.id ? "-rotate-90" : ""

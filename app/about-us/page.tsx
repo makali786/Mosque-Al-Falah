@@ -1,6 +1,8 @@
 import PageHero from "../components/common/PageHero";
 import ContentImageSection from "../components/common/ContentImageSection";
 import { CoreValuesSection } from "../components/about/OurCoreValue";
+import { TeamMemberCard } from "../components/about/CommitiesCard";
+import ConnectWithUsSection from "../components/about/ConnectWithUs";
 
 export default function AboutUsPage() {
   return (
@@ -82,6 +84,17 @@ export default function AboutUsPage() {
       />
 
       <CoreValuesSection />
+
+      {/* <TeamMemberCard 
+        name="Umar Farooq"    
+        title="Community Leader"
+        description="Umar Farooq has been a dedicated community leader for over a decade, spearheading numerous initiatives to support and uplift the local Muslim community."
+        imageUrl="/assets/about-us/team/umar-farooq.jpg"
+        whatsappLink="https://wa.me/1234567890"
+        emailLink="mailto:umarabid709@gmail.com"
+        /> */}
+
+        <ConnectWithUsSection />
     </div>
   );
 }
