@@ -13,7 +13,7 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about", hasDropdown: true },
+  { label: "About Us", href: "/about-us", hasDropdown: true },
   { label: "Our Services", href: "/services" },
   { label: "Appeals", href: "/appeals" },
   { label: "Madrasah", href: "/madrasah" },
@@ -24,11 +24,11 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const ABOUT_DROPDOWN = [
-  { label: "About Us", href: "/about" },
-  { label: "History", href: "/about/history" },
-  { label: "Mission", href: "/about/mission" },
-  { label: "Staff", href: "/about/staff" },
-  { label: "Contact Us", href: "/about/contact" },
+  { label: "About Us", href: "/about-us" },
+  { label: "History", href: "/about-us/history" },
+  { label: "Mission", href: "/about-us/mission" },
+  { label: "Staff", href: "/about-us/staff" },
+  { label: "Contact Us", href: "/about-us/contact" },
 ] as const;
 
 const ChevronIcon = ({ className = "" }: { className?: string }) => (
@@ -110,7 +110,7 @@ export default function MainHeader() {
 
   return (
     <header className="bg-black w-full sticky top-0 z-40">
-      <div className="flex items-center justify-between px-4 lg:px-4 xl:px-8 2xl:px-30 py-3 lg:py-0 w-full">
+      <div className="flex items-center justify-between px-4 lg:px-4 xl:px-30 2xl:px-30 py-3 lg:py-0 w-full">
         {/* Hamburger Menu */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
