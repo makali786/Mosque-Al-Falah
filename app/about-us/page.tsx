@@ -36,12 +36,13 @@ export default function AboutUsPage() {
         ]}
         backgroundImage="/assets/about-us/about-us.jpg"
       />
-      imageSrc="/assets/about-us/mosque-history.jpg"
       <ContentImageSection
         heading="Our History"
         imageSrc="/assets/about-us/our-history.png"
         imageAlt="Masjid Al-Falah - Historical view"
         layout="image-right"
+        imageWidth={664}
+        imageHeight={498}
         content={
           <>
             <p>
@@ -76,6 +77,8 @@ export default function AboutUsPage() {
         imageSrc="/assets/about-us/our-mission.png"
         imageAlt="Masjid Al-Falah - Our Mission"
         layout="image-left"
+        imageWidth={584}
+        imageHeight={438}
         content={
           <>
             <p>

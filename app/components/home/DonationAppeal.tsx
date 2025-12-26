@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function DonationAppeal() {
   return (
-    <section className="relative w-full px-4 lg:px-8 xl:px-50 py-8 lg:py-22.5 bg-gradient-to-br from-[#165273] to-[#153595]">
+    <section className="relative w-full px-4 lg:px-8 xl:px-50 py-8 lg:py-22.5 bg-linear-to-br from-[#165273] to-[#153595]">
       <div className="container mx-auto">
       {/* Pattern Overlay */}
       <div
@@ -41,7 +41,7 @@ export default function DonationAppeal() {
             </div>
             <Link
               href="/appeals"
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base lg:text-lg font-medium text-white text-center leading-6 lg:leading-7 max-w-[72px] lg:max-w-none lg:whitespace-nowrap"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-base lg:text-lg font-medium text-white text-center leading-6 lg:leading-7 max-w-18 lg:max-w-none lg:whitespace-nowrap"
             >
               View All Appeals
             </Link>

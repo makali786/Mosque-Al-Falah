@@ -45,6 +45,12 @@ interface ContentImageSectionProps {
    * Image styling - 'rounded' (default) or 'square'
    */
   imageStyle?: "rounded" | "square";
+
+  /**
+   * Custom image dimensions for desktop
+   */
+  imageWidth?: number;
+  imageHeight?: number;
 }
 
 export default function ContentImageSection({
@@ -56,42 +62,61 @@ export default function ContentImageSection({
   backgroundColor = "#ffffff",
   className = "",
   imageStyle = "rounded",
+  imageWidth = 664,
+  imageHeight = 498,
 }: ContentImageSectionProps) {
+  const uniqueId = `img-container-${Math.random().toString(36).substr(2, 9)}`;
+
   return (
     <section
-      className={`w-full py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-30 ${className}`}
+      className={`w-full py-12 sm:py-16 md:py-20 lg:py-[86px] px-6 sm:px-8 md:px-12 lg:px-20 xl:px-[120px] ${className}`}
       style={{ backgroundColor }}
     >
-      <div>
+      {/* Container with max-width */}
+      <div className="w-full max-w-[1296px] mx-auto">
         <div
           className={`flex flex-col ${
             layout === "image-left" ? "lg:flex-row-reverse" : "lg:flex-row"
-            } gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 items-center`}
+          } gap-8 sm:gap-10 md:gap-12 lg:gap-[48px] items-start`}
         >
-          {/* Text Content */}
-          <div className="flex-1 w-full">
-            <h2 className="text-2xl leading-8 font-bold sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 lg:text-5xl lg:leading-none text-[#18181b] mb-4 sm:mb-5 md:mb-6 lg:mb-8">
+          {/* Text Content - Takes remaining space */}
+          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-[32px]">
+            <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-[44px] lg:text-[48px] lg:leading-[48px] text-black">
               {heading}
             </h2>
-            <div className="text-sm leading-6 sm:text-base sm:leading-7 md:text-base md:leading-7 lg:text-lg lg:leading-8 text-[#3f3f46] space-y-4 sm:space-y-5 md:space-y-6">
+            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-[28px] text-black [&>p]:mb-0 [&>p+p]:mt-4 sm:[&>p+p]:mt-5 md:[&>p+p]:mt-6 [&>ul]:list-disc [&>ul]:ml-6 [&>ul>li]:leading-[28px]">
               {content}
             </div>
           </div>
 
-          {/* Image */}
-          <div className="flex-1 w-full">
+          {/* Image - Responsive width */}
+          <div className={`w-full lg:shrink-0 ${uniqueId}`}>
             <div
-              className={`relative w-full aspect-[16/9] sm:aspect-[4/3] ${imageStyle === "rounded" ? "rounded-xl overflow-hidden" : ""
-                }`}
+              className={`relative w-full ${
+                imageStyle === "rounded"
+                  ? "rounded-lg sm:rounded-xl lg:rounded-[14px] overflow-hidden"
+                  : ""
+              }`}
+              style={{
+                aspectRatio: `${imageWidth} / ${imageHeight}`,
+              }}
             >
-              <Image
-                src={imageSrc}
-                alt={imageAlt}
-                fill
-                className="object-cover xl:w-[664px] xl:h-[448px]"
-              />
+              <Image src={imageSrc} alt={imageAlt} fill className="object-cover" />
             </div>
           </div>
+          <style jsx>{`
+            @media (min-width: 1024px) and (max-width: 1519px) {
+              .${uniqueId} {
+                width: ${Math.round(imageWidth * 0.75)}px;
+                max-width: 45%;
+              }
+            }
+            @media (min-width: 1520px) {
+              .${uniqueId} {
+                width: ${imageWidth}px;
+              }
+            }
+          `}</style>
         </div>
       </div>
     </section>
