@@ -128,16 +128,23 @@ export default function MainHeader() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex gap-3 xl:gap-6 2xl:gap-10 items-center shrink-0">
           <nav className="flex gap-2 xl:gap-4 2xl:gap-6 items-center shrink-0">
-            {NAV_ITEMS.map((item) => (
-              <div key={item.label} className="flex items-center py-5 xl:py-7 px-0 shrink-0">
-                <NavItem
-                  item={item}
-                  pathname={pathname}
-                  dropdownOpen={aboutUsOpen}
-                  onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
-                />
-              </div>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isActive = item.hasDropdown ? pathname.startsWith("/about") : pathname === item.href;
+              return (
+                <div
+                  key={item.label}
+                  className="flex flex-col gap-6 items-start pt-7 px-0 shrink-0"
+                >
+                  <NavItem
+                    item={item}
+                    pathname={pathname}
+                    dropdownOpen={aboutUsOpen}
+                    onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
+                  />
+                  <div className={`h-1 w-full ${isActive ? 'bg-[#06b7db]' : 'bg-transparent'}`} />
+                </div>
+              );
+            })}
           </nav>
 
           <Link href="/donate" className="bg-white flex items-center justify-center px-3 rounded-lg shrink-0 h-8">
