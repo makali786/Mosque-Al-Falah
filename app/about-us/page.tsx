@@ -49,7 +49,37 @@ export default function AboutUsPage() {
         }
       />
 
-      {/* Add more sections here as needed */}
+      {/* Our Mission Section */}
+      <ContentImageSection
+        heading="Our Mission"
+        imageSrc="/assets/about-us/our-mission.png"
+        imageAlt="Masjid Al-Falah - Our Mission"
+        layout="image-left"
+        content={
+          <>
+            <p>
+              Masjid Al-Falah, North Ilford Islamic Centre, is dedicated to serving the religious, spiritual, educational, and communal needs of the local community by:
+            </p>
+            <ul>
+              <li>
+                <strong>Inspiring faith:</strong> in the Almighty and following the teachings of Prophet Muhammad (ﷺ).
+              </li>
+              <li>
+                <strong>Educating:</strong> on the true teachings of Islam through the <strong>Qur'an and Sunnah</strong>.
+              </li>
+              <li>
+                <strong>Fostering well-being:</strong> through communal worship.
+              </li>
+              <li>
+                <strong>Serving:</strong> our neighbors and community.
+              </li>
+              <li>
+                <strong>Promoting:</strong> peace, harmony, respect, and mercy.
+              </li>
+            </ul>
+          </>
+        }
+      />
 
       <CoreValuesSection />
     </div>

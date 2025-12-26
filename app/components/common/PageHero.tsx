@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 interface Breadcrumb {
@@ -20,16 +19,17 @@ export default function PageHero({
   backgroundImage,
 }: PageHeroProps) {
   return (
-    <section className="relative w-full h-[50vh] md:h-[60vh] lg:h-[75vh] xl:h-[90vh] overflow-hidden">
+    <section className="relative w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[550px] 2xl:h-[650px] overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
+      <div className="absolute inset-0 overflow-hidden">
+        <img
           src={backgroundImage}
           alt={title}
-          fill
-          className="object-cover"
-          priority
-          quality={100}
+          className="absolute left-0 w-full max-w-none object-cover"
+          style={{
+            height: '177.78%',
+            top: '-68.57%',
+          }}
         />
       </div>
 
@@ -38,36 +38,36 @@ export default function PageHero({
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(76.67deg, #000000 7.37%, rgba(0, 0, 0, 0) 100%)",
+            "linear-gradient(58.7957deg, rgb(0, 0, 0) 7.3664%, rgba(0, 0, 0, 0) 100%)",
         }}
       />
 
       {/* Content */}
-      <div className="relative h-full flex items-end pb-10 sm:pb-16 xl:pb-20">
-        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-30">
-          <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+      <div className="relative h-full flex items-end">
+        <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-[120px] py-6 sm:py-10 md:py-12 lg:py-16 xl:py-[80px]">
+          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 xl:gap-[24px]">
             {/* Title */}
-            <h1 className="font-bold text-white text-xl leading-9 sm:text-2xl sm:leading-tight md:text-3xl md:leading-tight lg:text-4xl lg:leading-tight xl:text-5xl">
+            <h1 className="font-extrabold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48px] leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[48px]">
               {title}
             </h1>
 
             {/* Breadcrumbs */}
             <nav aria-label="Breadcrumb">
-              <ol className="flex items-center gap-2 sm:gap-2.5 md:gap-3">
+              <ol className="flex items-center gap-0">
                 {breadcrumbs.map((crumb, index) => (
-                  <li key={index} className="flex items-center gap-2 sm:gap-2.5 md:gap-3">
+                  <li key={index} className="flex items-center gap-0">
                     {index > 0 && (
                       <svg
-                        width="8"
-                        height="14"
-                        viewBox="0 0 8 14"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="w-2 h-3.5 sm:w-2 sm:h-3.5 flex-shrink-0"
+                        className="shrink-0 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
                       >
                         <path
-                          d="M1 1L7 7L1 13"
-                          stroke="white"
+                          d="M9 5L15 12L9 19"
+                          stroke="#71717A"
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -75,13 +75,13 @@ export default function PageHero({
                       </svg>
                     )}
                     {index === breadcrumbs.length - 1 ? (
-                      <span className="font-medium text-white text-xs sm:text-sm lg:text-base">
+                      <span className="font-normal text-[#ecedee] text-xs sm:text-sm lg:text-base xl:text-[16px] leading-relaxed xl:leading-[24px] px-0.5 sm:px-1">
                         {crumb.label}
                       </span>
                     ) : (
                       <Link
                         href={crumb.href}
-                        className="font-medium text-[#006fee] hover:text-[#0056cc] text-xs sm:text-sm lg:text-base transition-colors"
+                        className="font-normal text-[#006fee] hover:text-[#0056cc] text-xs sm:text-sm lg:text-base xl:text-[16px] leading-relaxed xl:leading-[24px] transition-colors px-0.5 sm:px-1"
                       >
                         {crumb.label}
                       </Link>
