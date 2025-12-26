@@ -13,7 +13,7 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about", hasDropdown: true },
+  { label: "About Us", href: "/about-us", hasDropdown: true },
   { label: "Our Services", href: "/services" },
   { label: "Appeals", href: "/appeals" },
   { label: "Madrasah", href: "/madrasah" },
@@ -24,11 +24,11 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const ABOUT_DROPDOWN = [
-  { label: "About Us", href: "/about" },
-  { label: "History", href: "/about/history" },
-  { label: "Mission", href: "/about/mission" },
-  { label: "Staff", href: "/about/staff" },
-  { label: "Contact Us", href: "/about/contact" },
+  { label: "About Us", href: "/about-us" },
+  { label: "History", href: "/about-us/history" },
+  { label: "Mission", href: "/about-us/mission" },
+  { label: "Staff", href: "/about-us/staff" },
+  { label: "Contact Us", href: "/about-us/contact" },
 ] as const;
 
 const ChevronIcon = ({ className = "" }: { className?: string }) => (
@@ -110,7 +110,7 @@ export default function MainHeader() {
 
   return (
     <header className="bg-black w-full sticky top-0 z-40">
-      <div className="flex items-center justify-between px-4 lg:px-4 xl:px-8 2xl:px-30 py-3 lg:py-0 w-full">
+      <div className="flex items-center justify-between px-4 lg:px-4 xl:px-30 2xl:px-30 py-3 lg:py-0 w-full">
         {/* Hamburger Menu */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -128,16 +128,23 @@ export default function MainHeader() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex gap-3 xl:gap-6 2xl:gap-10 items-center shrink-0">
           <nav className="flex gap-2 xl:gap-4 2xl:gap-6 items-center shrink-0">
-            {NAV_ITEMS.map((item) => (
-              <div key={item.label} className="flex items-center py-5 xl:py-7 px-0 shrink-0">
-                <NavItem
-                  item={item}
-                  pathname={pathname}
-                  dropdownOpen={aboutUsOpen}
-                  onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
-                />
-              </div>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isActive = item.hasDropdown ? pathname.startsWith("/about") : pathname === item.href;
+              return (
+                <div
+                  key={item.label}
+                  className="flex flex-col gap-6 items-start pt-7 px-0 shrink-0"
+                >
+                  <NavItem
+                    item={item}
+                    pathname={pathname}
+                    dropdownOpen={aboutUsOpen}
+                    onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
+                  />
+                  <div className={`h-1 w-full ${isActive ? 'bg-[#06b7db]' : 'bg-transparent'}`} />
+                </div>
+              );
+            })}
           </nav>
 
           <Link href="/donate" className="bg-white flex items-center justify-center px-3 rounded-lg shrink-0 h-8">

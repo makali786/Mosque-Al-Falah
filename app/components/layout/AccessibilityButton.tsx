@@ -28,10 +28,10 @@ export default function AccessibilityButton() {
 
   return (
     <>
-      <div className="fixed right-0 top-52 -translate-y-1/2 z-50">
+      <div className="fixed right-0 top-52 -translate-y-1/2 z-50 ">
         <button
           onClick={handleToggle}
-          className="bg-[#002e62] hover:bg-[#001b3d] flex items-center justify-center transition-all duration-300 rounded-bl-[50px] rounded-tl-[50px] shadow-[0px_4px_6px_-1px_rgba(0,112,243,0.4),0px_2px_4px_-1px_rgba(0,0,0,0.06)] hover:shadow-[0px_6px_8px_-1px_rgba(0,112,243,0.5),0px_3px_5px_-1px_rgba(0,0,0,0.08)] sm:w-17.5 w-12 sm:h-14 h-10"
+          className="bg-[#002e62] hover:bg-[#001b3d] flex items-center justify-center transition-all duration-300 rounded-bl-[50px] rounded-tl-[50px] shadow-[0px_4px_6px_-1px_rgba(0,112,243,0.4),0px_2px_4px_-1px_rgba(0,0,0,0.06)] hover:shadow-[0px_6px_8px_-1px_rgba(0,112,243,0.5),0px_3px_5px_-1px_rgba(0,0,0,0.08)] sm:w-17.5 w-12 sm:h-14 h-10 cursor-pointer"
           aria-label="Prayer Times"
           style={{
             width: isScrolled ? "56px" : undefined,
