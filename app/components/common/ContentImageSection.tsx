@@ -69,22 +69,22 @@ export default function ContentImageSection({
 
   return (
     <section
-      className={`w-full py-12 sm:py-16 md:py-20 lg:py-[86px] px-6 sm:px-8 md:px-12 lg:px-20 xl:px-[120px] ${className}`}
+      className={`w-full py-12 sm:py-16 md:py-20 lg:py-21.5 px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30 ${className}`}
       style={{ backgroundColor }}
     >
       {/* Container with max-width */}
-      <div className="w-full max-w-[1296px] mx-auto">
+      <div className="w-full max-w-324 mx-auto">
         <div
           className={`flex flex-col ${
             layout === "image-left" ? "lg:flex-row-reverse" : "lg:flex-row"
-          } gap-8 sm:gap-10 md:gap-12 lg:gap-[48px] items-start`}
+          } gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start`}
         >
           {/* Text Content - Takes remaining space */}
-          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-[32px]">
-            <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-[44px] lg:text-[48px] lg:leading-[48px] text-black">
+          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-8">
+            <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 lg:text-[48px] lg:leading-12 text-black">
               {heading}
             </h2>
-            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-[28px] text-black [&>p]:mb-0 [&>p+p]:mt-4 sm:[&>p+p]:mt-5 md:[&>p+p]:mt-6 [&>ul]:list-disc [&>ul]:ml-6 [&>ul>li]:leading-[28px]">
+            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black [&>p]:mb-0 [&>p+p]:mt-4 sm:[&>p+p]:mt-5 md:[&>p+p]:mt-6 [&>ul]:list-disc [&>ul]:ml-6 [&>ul>li]:leading-7">
               {content}
             </div>
           </div>

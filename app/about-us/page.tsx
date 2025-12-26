@@ -110,6 +110,7 @@ export default function AboutUsPage() {
       />
       <CoreValuesSection />
       <CommitteesSection />
+      <ConnectWithUsSection />
       <QuoteSection
         quote="Whoever guides someone to goodness will have a reward like the one who did it."
         attribution="Prophet Muhammad"
@@ -119,7 +120,6 @@ export default function AboutUsPage() {
         shareButtonText="Share this page"
         donateButtonText="Donate Now"
       />
-      <ConnectWithUsSection />
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function PageHero({
   backgroundImage,
 }: PageHeroProps) {
   return (
-    <section className="relative w-full h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px] xl:h-[550px] 2xl:h-[650px] overflow-hidden">
+    <section className="relative w-full h-75 sm:h-87.5 md:h-100 lg:h-125 xl:h-137.5 2xl:h-162.5 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 overflow-hidden">
         <img
@@ -44,10 +44,10 @@ export default function PageHero({
 
       {/* Content */}
       <div className="relative h-full flex items-end">
-        <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-[120px] py-6 sm:py-10 md:py-12 lg:py-16 xl:py-[80px]">
-          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 xl:gap-[24px]">
+        <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-30 py-6 sm:py-10 md:py-12 lg:py-16 xl:py-20">
+          <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 xl:gap-6">
             {/* Title */}
-            <h1 className="font-extrabold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48px] leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-[48px]">
+            <h1 className="font-extrabold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48px] leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-12">
               {title}
             </h1>
 
@@ -75,13 +75,13 @@ export default function PageHero({
                       </svg>
                     )}
                     {index === breadcrumbs.length - 1 ? (
-                      <span className="font-normal text-[#ecedee] text-xs sm:text-sm lg:text-base xl:text-[16px] leading-relaxed xl:leading-[24px] px-0.5 sm:px-1">
+                      <span className="font-normal text-[#ecedee] text-xs sm:text-sm lg:text-base xl:text-[16px] leading-relaxed xl:leading-6 px-0.5 sm:px-1">
                         {crumb.label}
                       </span>
                     ) : (
                       <Link
                         href={crumb.href}
-                        className="font-normal text-[#006fee] hover:text-[#0056cc] text-xs sm:text-sm lg:text-base xl:text-[16px] leading-relaxed xl:leading-[24px] transition-colors px-0.5 sm:px-1"
+                        className="font-normal text-[#006fee] hover:text-[#0056cc] text-xs sm:text-sm lg:text-base xl:text-[16px] leading-relaxed xl:leading-6 transition-colors px-0.5 sm:px-1"
                       >
                         {crumb.label}
                       </Link>
