@@ -47,26 +47,38 @@ export function CoreValuesSection() {
   const [expandedId, setExpandedId] = useState<string>("maf");
 
   return (
-    <section
-      className="w-full px-6 py-16 md:px-12 lg:px-50 lg:py-24"
-      style={{
-        background: "linear-gradient(169.508deg, #0C478A 46.629%, #004797 71.1%)",
-      }}
-    >
-      <div>
+    <section className="relative w-full px-6 py-16 md:px-12 lg:px-50 lg:py-22.5 overflow-hidden">
+      {/* Background with gradient and pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(170.61deg, rgb(12, 71, 138) 46.629%, rgb(0, 71, 151) 71.1%)",
+        }}
+      >
+        <div
+          className="absolute inset-0 opacity-30 bg-repeat"
+          style={{
+            backgroundImage: "url('/assets/services/bg-pattern.png')",
+            backgroundSize: "154px 154px",
+          }}
+        />
+      </div>
+
+      <div className="relative">
         {/* Header */}
-        <div className="mb-10 max-w-[650px] w-[650px]">
-          <h1 className="mb-5 text-4xl font-bold text-white md:text-5xl">
+        <div className="mb-10 md:mb-12 max-w-full md:max-w-[650px]">
+          <h1 className="mb-5 text-4xl font-semibold text-white md:text-5xl leading-tight md:leading-[48px]">
             Our Core Values
           </h1>
-          <p className="text-lg text-blue-100 font-[500]">
+          <p className="text-lg text-white font-medium leading-7">
             Learn more about our values and our story about MAF's by visiting
             the about us page.
           </p>
         </div>
 
         {/* Accordion */}
-        <div className="rounded-2xl bg-white p-8 shadow-lg">
+        <div className="rounded-[14px] bg-white px-8 md:px-16 py-8 md:py-11 shadow-lg">
           <div className="space-y-0">
             {faqItems.map((item, index) => (
               <div key={item.id}>
