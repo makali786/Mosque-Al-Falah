@@ -7,7 +7,7 @@ import { FiPhone, FiMail } from "react-icons/fi";
 const ContactInformation = () => {
   return (
     <section className="w-full bg-white dark:bg-gray-950 py-20 md:py-24 lg:py-28">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-8 lg:px-12">
+      <div className="px-6 md:px-8 lg:px-12 xl:px-30">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-9 items-start">
           {/* Left Column - Contact Details */}
           <div className="flex flex-col">

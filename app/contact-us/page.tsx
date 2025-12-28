@@ -1,6 +1,8 @@
 import React from 'react'
 import PageHero from '../components/common/PageHero'
 import ContactInformation from '../components/contact/ContactInformation'
+import BrothersEntrance from '../components/contact/BrothersEntrance'
+import SistersEntrance from '../components/contact/SistersEntrance'
 
 const contact = () => {
   return (
@@ -14,6 +16,10 @@ const contact = () => {
         backgroundImage="/assets/about-us/about-us.jpg"
       />
       <ContactInformation />
+          <div className="flex flex-col md:flex-row md:justify-center gap-12 xl:px-30">
+              <BrothersEntrance />
+              <SistersEntrance />
+          </div>
     </div>
   )
 }
