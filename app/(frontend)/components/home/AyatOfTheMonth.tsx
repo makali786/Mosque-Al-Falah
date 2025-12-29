@@ -46,12 +46,12 @@ export default function AyatOfTheMonth() {
 
                 {/* English Quote */}
                 <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
-                  "And when I am ill, it is He who cures me"
+                  &quot;And when I am ill, it is He who cures me&quot;
                 </p>
 
                 {/* Citation */}
                 <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  — Surah Ash-Shu'ara (26:80)
+                  — Surah Ash-Shu&apos;ara (26:80)
                 </p>
               </div>
             </div>
@@ -123,12 +123,12 @@ export default function AyatOfTheMonth() {
 
                 {/* English Quote */}
                 <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
-                  "And when I am ill, it is He who cures me"
+                  &quot;And when I am ill, it is He who cures me&quot;
                 </p>
 
                 {/* Citation */}
                 <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  — Surah Ash-Shu'ara (26:80)
+                  — Surah Ash-Shu&apos;ara (26:80)
                 </p>
               </div>
             </div>

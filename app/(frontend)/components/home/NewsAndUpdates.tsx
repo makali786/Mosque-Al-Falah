@@ -99,7 +99,7 @@ export default function NewsAndUpdates() {
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
-    let scrollSpeed = 0.5; // pixels per frame
+    const scrollSpeed = 0.5; // pixels per frame
     let animationFrameId: number;
 
     const scroll = () => {

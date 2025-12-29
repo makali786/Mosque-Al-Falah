@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { TbCompass } from "react-icons/tb";
 
 const SUPPORTERS = [
   { name: "Mahfuzur Rahman", amount: "£50 GBP,", time: "10 seconds ago" },

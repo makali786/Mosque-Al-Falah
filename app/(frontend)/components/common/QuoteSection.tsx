@@ -31,7 +31,7 @@ export function QuoteSection({
         <div className="flex-1 w-full">
           <blockquote className="text-lg leading-7 font-medium sm:text-xl sm:leading-8 md:text-[22px] md:leading-7.5 lg:text-[24px] lg:leading-8 text-black">
             <p className="mb-0">
-              "{quote}"
+              &quot;{quote}&quot;
               <br />— {attribution}{" "}
               {showAttributionSymbol && <span>ﷺ</span>}
             </p>

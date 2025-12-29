@@ -73,7 +73,7 @@ export function CoreValuesSection() {
               Our Core Values
             </h1>
             <p className="text-base leading-6 font-medium sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-white">
-              Learn more about our values and our story about MAF's by visiting
+              Learn more about our values and our story about MAF&apos;s by visiting
               the about us page.
             </p>
           </div>

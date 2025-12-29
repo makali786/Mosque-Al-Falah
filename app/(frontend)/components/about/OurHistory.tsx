@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import ContentImageSection from "@/app/components/common/ContentImageSection";
+import ContentImageSection from '@/components/common/ContentImageSection';
 
 export default function OurHistory() {
   return (
@@ -12,25 +12,25 @@ export default function OurHistory() {
       content={
         <>
           <p className="text-lg">
-            In <strong>1996</strong>, a building at{" "}
+            In <strong>1996</strong>, a building at{' '}
             <strong>97 Empress Avenue, Ilford</strong> was purchased by a few
             dedicated Muslims to establish a Masjid for the local community. It
-            hosted prayers, children's Islamic classes, and Taraweeh during
-            Ramadan. However, due to planning restrictions, a mosque couldn't be
+            hosted prayers, children&apos;s Islamic classes, and Taraweeh during
+            Ramadan. However, due to planning restrictions, a mosque couldn&apos;t be
             established there.
           </p>
           <p>
-            Undeterred, the founders sought a new location.{" "}
+            Undeterred, the founders sought a new location.{' '}
             <strong>Alhamdulillah, in 2007</strong>, they secured a
             purpose-built property at <strong>97 Kensington Gardens</strong>,
-            originally a <strong>Jehovah's Witness Church</strong> since the
-            1960s. The building was converted into{" "}
+            originally a <strong>Jehovah&apos;s Witness Church</strong> since the
+            1960s. The building was converted into{' '}
             <strong>Masjid Al-Falah (North Ilford Islamic Centre)</strong>, and
             daily prayers began immediately.
           </p>
           <p>
             To accommodate the growing Muslim community, neighboring buildings
-            were acquired in <strong>2009</strong> and <strong>2011</strong>.{" "}
+            were acquired in <strong>2009</strong> and <strong>2011</strong>.{' '}
             <strong>Masjid Al-Falah</strong> continues to thrive, serving and
             supporting the local community.
           </p>

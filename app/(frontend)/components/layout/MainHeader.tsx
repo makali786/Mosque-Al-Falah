@@ -121,9 +121,9 @@ export default function MainHeader() {
         </button>
 
         {/* Logo */}
-        <div className="relative shrink-0 w-24 h-10 lg:w-28 xl:w-32.25 lg:h-11 xl:h-13">
+        <Link href="/" className="relative shrink-0 w-24 h-10 lg:w-28 xl:w-32.25 lg:h-11 xl:h-13">
           <Image src="/assets/header/logo.svg" alt="Masjid Logo" fill className="object-contain" />
-        </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex gap-3 xl:gap-6 2xl:gap-10 items-center shrink-0">

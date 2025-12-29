@@ -225,7 +225,7 @@ const PrayerTimeRow = ({ prayer }: PrayerTimeRowProps) => {
 
       <div className={`flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end ${!prayer.jamaah ? 'opacity-0' : ''}`}>
         <p className={`md:text-xs text-[10px] font-normal ${labelColor} md:leading-4 leading-3`}>
-          Jama'ah
+          Jama&apos;ah
         </p>
         <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
           {formatTime(prayer.jamaah || prayer.begins)}
@@ -256,7 +256,7 @@ const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
 
     <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
       <p className="md:text-xs text-[10px] font-normal text-[#71717a] md:leading-4 leading-3">
-        Jama'ah
+        Jama&apos;ah
       </p>
       <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
         {formatTime(jumuah.jamaah)}
