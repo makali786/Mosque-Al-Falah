@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ViewToggleButtons from "../common/ViewToggleButtons";
-import { IoCalendarOutline } from "react-icons/io5";
 
 interface Sermon {
   id: number;

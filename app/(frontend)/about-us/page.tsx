@@ -49,15 +49,15 @@ export default function AboutUsPage() {
               In <strong>1996</strong>, a building at{" "}
               <strong>97 Empress Avenue, Ilford</strong> was purchased by a few
               dedicated Muslims to establish a Masjid for the local community.
-              It hosted prayers, children's Islamic classes, and Taraweeh during
-              Ramadan. However, due to planning restrictions, a mosque couldn't
+              It hosted prayers, children&apos;s Islamic classes, and Taraweeh during
+              Ramadan. However, due to planning restrictions, a mosque couldn&apos;t
               be established there.
             </p>
             <p>
               Undeterred, the founders sought a new location.{" "}
               <strong>Alhamdulillah, in 2007</strong>, they secured a
               purpose-built property at <strong>97 Kensington Gardens</strong>,
-              originally a <strong>Jehovah's Witness Church</strong> since the
+              originally a <strong>Jehovah&apos;s Witness Church</strong> since the
               1960s. The building was converted into{" "}
               <strong>Masjid Al-Falah (North Ilford Islamic Centre)</strong>,
               and daily prayers began immediately.
@@ -93,7 +93,7 @@ export default function AboutUsPage() {
               </li>
               <li>
                 <strong>Educating:</strong> on the true teachings of Islam
-                through the <strong>Qur'an and Sunnah</strong>.
+                through the <strong>Qur&apos;an and Sunnah</strong>.
               </li>
               <li>
                 <strong>Fostering well-being:</strong> through communal worship.
