@@ -35,7 +35,7 @@ export function AskQuestionSection() {
   const uniqueId = `ask-question-img-${Math.random().toString(36).substr(2, 9)}`;
 
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 lg:py-21.5 px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30 bg-white">
+    <section className="w-full py-12 sm:py-16 md:py-20 lg:py-32 px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30 bg-white">
       {/* Container with max-width */}
       <div className="w-full max-w-324 mx-auto">
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-start">
