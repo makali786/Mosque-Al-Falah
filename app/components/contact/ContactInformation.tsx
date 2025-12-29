@@ -6,18 +6,18 @@ import { FiPhone, FiMail } from "react-icons/fi";
 
 const ContactInformation = () => {
   return (
-    <section className="w-full bg-white dark:bg-gray-950 py-20 md:py-24 lg:py-28">
-      <div className="px-6 md:px-8 lg:px-12 xl:px-30">
+    <section className="w-full bg-white dark:bg-gray-950 py-12 sm:py-16 md:py-20 lg:py-28 px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30">
+      <div className="w-full max-w-324 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-9 items-start">
           {/* Left Column - Contact Details */}
           <div className="flex flex-col">
             {/* Title */}
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-8">
+            <h2 className="text-3xl font-semibold sm:text-4xl lg:text-5xl text-black mb-6 sm:mb-7 md:mb-8">
               Contact Information
             </h2>
 
             {/* Description */}
-            <p className="text-sm md:text-base lg:text-lg text-black mb-[42px]">
+            <p className="text-base sm:text-base lg:text-lg text-black mb-8 sm:mb-10 md:mb-[42px]">
               We're here to serve our community. Feel free to reach out to us for any
               inquiries, support, or suggestions.
             </p>
@@ -27,7 +27,7 @@ const ContactInformation = () => {
               <h3 className="text-sm lg:text-base font-bold text-black uppercase mb-4">
                 ADDRESS:
               </h3>
-              <div className="text-sm sm:text-base lg:text-lg text-black]">
+              <div className="text-sm sm:text-base lg:text-lg text-black">
                 <p>Masjid Al-Falah</p>
                 <p>North Ilford Islamic Centre</p>
                 <p>97 Kensington Gardens, Ilford, Essex IG1 3EN</p>
@@ -47,7 +47,7 @@ const ContactInformation = () => {
                 width={20}
                 height={20}
                 />
-                <span className="text-base">020 8518 5868</span>
+                <span className="text-sm sm:text-base text-black">020 8518 5868</span>
               </button>
 
               {/* Email Button */}
@@ -61,7 +61,7 @@ const ContactInformation = () => {
                 width={20}
                 height={20}
                 />
-                <span className="text-base">info@masjid-alfalah.org.uk</span>
+                <span className="text-sm sm:text-base text-black">info@masjid-alfalah.org.uk</span>
               </button>
             </div>
           </div>

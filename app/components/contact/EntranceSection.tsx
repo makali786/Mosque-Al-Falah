@@ -27,13 +27,13 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
     <section>
       <div>
         {/* Hero Image */}
-        <div className="w-full mb-8 md:mb-10 overflow-hidden">
+        <div className="w-full mb-6 sm:mb-7 md:mb-8 lg:mb-10 overflow-hidden">
           <Image
             src={imageSrc}
             alt={imageAlt}
             width={624}
             height={380}
-            className="w-full h-auto object-cover lg:w-[624px] lg:h-[380px]"
+            className="w-full h-auto object-cover xl:w-[624px] xl:h-[380px]"
             priority
           />
         </div>
