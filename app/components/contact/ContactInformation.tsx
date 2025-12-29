@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import React from "react";
-import { FiPhone, FiMail } from "react-icons/fi";
 
 const ContactInformation = () => {
   return (
-    <section className="w-full bg-white dark:bg-gray-950 py-12 sm:py-16 md:py-20 lg:py-28 px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30">
+    <section className="w-full bg-white py-12 sm:py-16 md:py-20 lg:py-28 px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30">
       <div className="w-full max-w-324 mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-9 items-start">
           {/* Left Column - Contact Details */}

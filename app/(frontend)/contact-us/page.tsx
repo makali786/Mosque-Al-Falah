@@ -1,10 +1,10 @@
 "use client"
-import PageHero from '../components/common/PageHero'
-import ContactInformation from '../components/contact/ContactInformation'
-import EntranceSection from '../components/contact/EntranceSection'
-import { ParkingNoticeSection } from '../components/contact/ParkingNoticeSection'
-import { AskQuestionSection } from '../components/contact/AskQuestionSection'
-import { QuoteSection } from '../components/common/QuoteSection'
+import PageHero from '@/components/common/PageHero'
+import ContactInformation from '../../components/contact/ContactInformation'
+import EntranceSection from '../../components/contact/EntranceSection'
+import { ParkingNoticeSection } from '../../components/contact/ParkingNoticeSection'
+import { AskQuestionSection } from '../../components/contact/AskQuestionSection'
+import { QuoteSection } from '@/components/common/QuoteSection'
 
 const contact = () => {
     const handleShare = () => {
@@ -25,7 +25,7 @@ const contact = () => {
         window.location.href = "/donate"
     }
     return (
-        <div className="bg-white dark:bg-gray-950">
+        <div className="bg-white">
             <PageHero
                 title="Contact Us"
                 breadcrumbs={[
