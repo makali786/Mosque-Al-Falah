@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { ReactNode } from "react";
 
@@ -65,8 +63,6 @@ export default function ContentImageSection({
   imageWidth = 664,
   imageHeight = 498,
 }: ContentImageSectionProps) {
-  const uniqueId = `img-container-${Math.random().toString(36).substr(2, 9)}`;
-
   return (
     <section
       className={`w-full py-12 sm:py-16 md:py-20 lg:py-21.5 px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30 ${className}`}
@@ -90,7 +86,14 @@ export default function ContentImageSection({
           </div>
 
           {/* Image - Responsive width */}
-          <div className={`w-full lg:shrink-0 ${uniqueId}`}>
+          <div
+            className="w-full lg:shrink-0 lg:w-[45%] lg:max-w-124.5 2xl:max-w-166"
+            style={{
+              // @ts-expect-error CSS custom properties
+              "--img-width": `${imageWidth}px`,
+              "--img-width-sm": `${Math.round(imageWidth * 0.75)}px`,
+            }}
+          >
             <div
               className={`relative w-full ${
                 imageStyle === "rounded"
@@ -104,19 +107,6 @@ export default function ContentImageSection({
               <Image src={imageSrc} alt={imageAlt} fill className="object-cover" />
             </div>
           </div>
-          <style jsx>{`
-            @media (min-width: 1024px) and (max-width: 1519px) {
-              .${uniqueId} {
-                width: ${Math.round(imageWidth * 0.75)}px;
-                max-width: 45%;
-              }
-            }
-            @media (min-width: 1520px) {
-              .${uniqueId} {
-                width: ${imageWidth}px;
-              }
-            }
-          `}</style>
         </div>
       </div>
     </section>

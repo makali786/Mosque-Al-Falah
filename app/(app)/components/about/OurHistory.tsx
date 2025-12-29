@@ -1,6 +1,6 @@
 "use client";
 
-import ContentImageSection from "@/app/components/common/ContentImageSection";
+import ContentImageSection from "@/app/(app)/components/common/ContentImageSection";
 
 export default function OurHistory() {
   return (
