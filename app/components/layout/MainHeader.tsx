@@ -28,7 +28,7 @@ const ABOUT_DROPDOWN = [
   { label: "History", href: "/about-us/history" },
   { label: "Mission", href: "/about-us/mission" },
   { label: "Staff", href: "/about-us/staff" },
-  { label: "Contact Us", href: "/about-us/contact" },
+  { label: "Contact Us", href: "/contact-us" },
 ] as const;
 
 const ChevronIcon = ({ className = "" }: { className?: string }) => (
