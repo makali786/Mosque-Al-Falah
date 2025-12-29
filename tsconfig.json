@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./app/(frontend)/*"],
+      "@payload-config": ["./payload.config.ts"],
+      "@payload-config/*": ["./payload.config.ts"]
     }
   },
   "include": [
