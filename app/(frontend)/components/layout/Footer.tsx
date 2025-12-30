@@ -264,9 +264,10 @@ export default function Footer() {
     <>
       <footer className="bg-[#27272a] flex flex-col w-full">
         {/* Top Section - Newsletter, Supporters, Donations */}
-        <div className="bg-[#18181b] flex flex-col lg:flex-row gap-6 lg:gap-15 items-start lg:items-center justify-center p-4 sm:p-8 lg:px-17 lg:py-17 w-full">
+        <div className="bg-[#18181b] ">
           {/* Newsletter Section */}
-          <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-109.75">
+          <div className="hn-container flex flex-col lg:flex-row gap-6 lg:gap-15 items-start lg:items-center justify-center p-4 sm:p-8 lg:px-17 lg:py-17 w-full">
+            <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-109.75">
             <h3 className="font-bold text-sm sm:text-base leading-6 text-white">
               Stay Connected, Join our newsletter
             </h3>
@@ -337,24 +338,25 @@ export default function Footer() {
             <div className="flex gap-5 w-full">
               <Link
                 href="/discover"
-                className="flex-1 bg-[#3f3f46] text-white font-normal text-base leading-6 px-6 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
+                  className="flex-1 bg-[#3f3f46] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
               >
                 Discover
               </Link>
               <Link
                 href="/donate"
-                className="flex-1 bg-[#006fee] text-white font-normal text-base leading-6 px-6 h-12 flex items-center justify-center rounded-xl hover:bg-[#0056cc] transition-colors"
+                  className="flex-1 bg-[#006fee] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-xl hover:bg-[#0056cc] transition-colors"
               >
                 Donate Now
               </Link>
             </div>
           </div>
         </div>
+        </div>
 
         {/* Middle Section - Links */}
-        <div className="flex flex-col lg:flex-row items-start px-6 lg:px-4 xl:px-17 py-0 w-full">
+        <div className="flex flex-col lg:flex-row items-start py-0 w-full hn-container ">
           {/* Mobile: Logo */}
-          <div className="flex flex-col items-center gap-6 py-8 lg:hidden w-full">
+          <div className="flex flex-col items-center gap-6 py-8 lg:hidden w-full hn-container ">
             <div className="w-24 h-24">
               <Image
                 src="/assets/footer/footer-logo.png"
@@ -441,7 +443,7 @@ export default function Footer() {
 
         {/* Bottom Section - Copyright */}
         <div className="bg-[#18181b] flex items-center justify-center px-6 lg:px-8 py-6 lg:py-0 lg:h-25.25 w-full">
-          <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center">
+          <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center hn-container">
             COPYRIGHT © 2020{" "}
             <Link
               href="https://www.masjid-alfalah.org.uk/"
