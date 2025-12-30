@@ -5,7 +5,7 @@ import React from "react";
 
 const ContactInformation = () => {
   return (
-    <section className="w-full bg-white py-12 sm:py-16 md:py-20 lg:py-28 container mx-auto">
+    <section className="w-full bg-white py-12 sm:py-16 md:py-20 lg:py-28 hn-container">
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 lg:gap-9 items-start">
           {/* Left Column - Contact Details */}

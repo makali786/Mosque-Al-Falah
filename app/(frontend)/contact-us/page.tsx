@@ -35,7 +35,7 @@ const contact = () => {
                 backgroundImage="/assets/about-us/about-us.jpg"
             />
             <ContactInformation />
-            <div className="flex flex-col lg:flex-row lg:justify-center gap-8 md:gap-10 lg:gap-12 container mx-auto py-12 sm:py-16 md:py-20 lg:py-28">
+            <div className="flex flex-col lg:flex-row lg:justify-center gap-8 md:gap-10 lg:gap-12 hn-container py-12 sm:py-16 md:py-20 lg:py-28">
                 <EntranceSection
                     title="Brothers Entrance"
                     description={"North Ilford Islamic Centre \n97 Kensington Gardens, Ilford, Essex, IG1 3EN"}

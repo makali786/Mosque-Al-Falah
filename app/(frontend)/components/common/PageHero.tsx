@@ -44,7 +44,7 @@ export default function PageHero({
 
       {/* Content */}
       <div className="relative h-full flex items-end">
-        <div className="w-full container mx-auto py-6 sm:py-10 md:py-12 lg:py-16 xl:py-20">
+        <div className="w-full hn-container py-6 sm:py-10 md:py-12 lg:py-16 xl:py-20">
           <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 xl:gap-6">
             {/* Title */}
             <h1 className="font-extrabold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48px] leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-12">

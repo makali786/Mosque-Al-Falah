@@ -34,7 +34,7 @@ export function AskQuestionSection() {
   const imageHeight = 610;
 
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 lg:py-32 container mx-auto bg-white">
+    <section className="w-full py-12 sm:py-16 md:py-20 lg:py-32 hn-container bg-white">
       {/* Container with max-width */}
       <div className="w-full">
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start">

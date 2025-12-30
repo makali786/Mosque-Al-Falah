@@ -22,7 +22,7 @@ export function ParkingNoticeSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative w-full container mx-auto">
+      <div className="relative w-full hn-container">
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start lg:items-center">
           {/* Left Side - Text Content */}
           <div>

@@ -110,7 +110,7 @@ export default function MainHeader() {
 
   return (
     <header className="bg-black w-full sticky top-0 z-40">
-      <div className="flex items-center justify-between container mx-auto py-3 lg:py-0 w-full">
+      <div className="flex items-center justify-between hn-container py-3 lg:py-0 w-full">
         {/* Hamburger Menu */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
