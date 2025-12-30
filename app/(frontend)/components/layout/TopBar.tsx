@@ -246,7 +246,7 @@ export default function TopBar() {
             <DateItem key={date.label} label={date.label} />
           ))}
           {NAVIGATION_LINKS.map((link) => (
-            <Link
+            <Link 
               key={link.name}
               href={link.url}
               className="hidden xl:flex gap-1 items-center shrink-0"
