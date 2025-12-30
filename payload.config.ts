@@ -5,8 +5,22 @@ import { buildConfig } from 'payload';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 
+// Core Collections
 import { Media } from './collections/Media';
 import { Users } from './collections/Users';
+
+// Content Collections
+import { AyatOfTheMonth } from './collections/AyatOfTheMonth';
+import { Banners } from './collections/Banners';
+import { Committees } from './collections/Committees';
+import { CoreValues } from './collections/CoreValues';
+import { DonationAppeals } from './collections/DonationAppeals';
+import { Events } from './collections/Events';
+import { Imams } from './collections/Imams';
+import { Notices } from './collections/Notices';
+import { PageSections } from './collections/PageSections';
+import { Sermons } from './collections/Sermons';
+import { Services } from './collections/Services';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -17,15 +31,46 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    // Custom Meta - Branding
+    meta: {
+      titleSuffix: '- Masjid Al-Falah CMS',
+    },
+    // Custom Logo (Optional)
+    // components: {
+    //   graphics: {
+    //     Logo: '/app/(payload)/components/Logo',
+    //     Icon: '/app/(payload)/components/Icon',
+    //   },
+    // },
   },
-  collections: [Users, Media],
+  collections: [
+    // Core Collections
+    Users,
+    Media,
+
+    // Homepage Content
+    Banners,
+    Events,
+    Notices,
+    Services,
+    Imams,
+    AyatOfTheMonth,
+    Sermons,
+    DonationAppeals,
+
+    // About Page Content
+    CoreValues,
+    Committees,
+    PageSections,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: mongooseAdapter({
-    url: 'mongodb://127.0.0.1:27017/mosque-al-falah',
+    // url: 'mongodb://127.0.0.1:27017/mosque-al-falah',
+    url: 'mongodb+srv://mosque-admin:mosque123@cluster0.oggca09.mongodb.net/mosque-al-falah',
   }),
   sharp,
   plugins: [],

@@ -1,0 +1,444 @@
+// /* ============================================================================
+//    Masjid Al-Falah - Force Light Theme Everywhere
+//    ============================================================================ */
+
+// /* Force light theme globally - Override Payload's dark mode */
+// html,
+// body,
+// #app,
+// [data-theme],
+// [data-theme='light'],
+// [data-theme='dark'] {
+//   background: #ffffff !important;
+//   color: #1f2937 !important;
+//   color-scheme: light !important;
+// }
+
+// /* Force all containers to be light */
+// .app,
+// .template-default,
+// .template-default__wrap,
+// .template-default__main,
+// .doc-header,
+// .collection-list,
+// .edit-view,
+// .list-view {
+//   background: #f9fafb !important;
+//   color: #1f2937 !important;
+// }
+
+// /* Main content wrapper */
+// main,
+// .render-fields,
+// .payload-settings,
+// .dashboard {
+//   background: #f9fafb !important;
+//   color: #1f2937 !important;
+// }
+
+// /* ============================================================================
+//    Sidebar - Clean White
+//    ============================================================================ */
+
+// nav,
+// .nav,
+// .nav-wrapper,
+// aside {
+//   background: #ffffff !important;
+//   border-right: 1px solid #e5e7eb !important;
+//   color: #374151 !important;
+// }
+
+// .nav a,
+// .nav__list a {
+//   color: #374151 !important;
+// }
+
+// .nav a:hover,
+// .nav__list a:hover {
+//   background: #f3f4f6 !important;
+//   color: #006fee !important;
+// }
+
+// .nav a.active,
+// .nav__list a.active {
+//   background: #eff6ff !important;
+//   color: #006fee !important;
+//   border-left: 3px solid #006fee;
+//   font-weight: 500;
+// }
+
+// .nav__label {
+//   color: #9ca3af !important;
+// }
+
+// /* ============================================================================
+//    Header - White Background
+//    ============================================================================ */
+
+// header,
+// .app-header,
+// .doc-header,
+// .doc-header__wrapper,
+// .list-controls,
+// .template-default__header {
+//   background: #ffffff !important;
+//   border-bottom: 1px solid #e5e7eb !important;
+//   color: #1f2937 !important;
+// }
+
+// /* ============================================================================
+//    All Panels and Cards - White
+//    ============================================================================ */
+
+// .card,
+// .panel,
+// .doc-fields,
+// .field-type,
+// .dashboard__card,
+// .collection-card {
+//   background: #ffffff !important;
+//   border: 1px solid #e5e7eb !important;
+//   border-radius: 8px !important;
+//   color: #1f2937 !important;
+// }
+
+// /* ============================================================================
+//    Forms and Inputs - Light Background
+//    ============================================================================ */
+
+// input,
+// textarea,
+// select,
+// .input,
+// .text-input,
+// .textarea {
+//   background: #ffffff !important;
+//   border: 1px solid #d1d5db !important;
+//   color: #1f2937 !important;
+//   border-radius: 6px !important;
+// }
+
+// input::placeholder,
+// textarea::placeholder {
+//   color: #9ca3af !important;
+// }
+
+// input:focus,
+// textarea:focus,
+// select:focus {
+//   border-color: #006fee !important;
+//   box-shadow: 0 0 0 3px rgba(0, 111, 238, 0.1) !important;
+//   outline: none !important;
+// }
+
+// /* Field Labels */
+// label,
+// .field-label,
+// .field__label {
+//   color: #374151 !important;
+//   font-weight: 500 !important;
+// }
+
+// /* Field Description */
+// .field-description,
+// .field__description {
+//   color: #6b7280 !important;
+// }
+
+// /* ============================================================================
+//    Tables - Light Theme
+//    ============================================================================ */
+
+// table,
+// .table,
+// .table-wrapper {
+//   background: #ffffff !important;
+//   border: 1px solid #e5e7eb !important;
+//   border-radius: 8px !important;
+//   overflow: hidden;
+// }
+
+// thead,
+// .table-header,
+// th {
+//   background: #f9fafb !important;
+//   color: #374151 !important;
+//   border-bottom: 1px solid #e5e7eb !important;
+//   font-weight: 600 !important;
+// }
+
+// tbody,
+// tr,
+// td {
+//   background: #ffffff !important;
+//   color: #1f2937 !important;
+//   border-bottom: 1px solid #f3f4f6 !important;
+// }
+
+// tr:hover {
+//   background: #f9fafb !important;
+// }
+
+// /* ============================================================================
+//    Buttons - Brand Colors
+//    ============================================================================ */
+
+// button,
+// .btn {
+//   border-radius: 6px !important;
+//   font-weight: 500 !important;
+//   transition: all 0.2s ease !important;
+// }
+
+// button[type="submit"],
+// .btn--style-primary,
+// .btn-primary,
+// .form-submit button {
+//   background: #006fee !important;
+//   color: #ffffff !important;
+//   border: none !important;
+// }
+
+// button[type="submit"]:hover,
+// .btn--style-primary:hover,
+// .btn-primary:hover {
+//   background: #0056cc !important;
+// }
+
+// .btn--style-secondary,
+// .btn-secondary {
+//   background: #ffffff !important;
+//   color: #374151 !important;
+//   border: 1px solid #d1d5db !important;
+// }
+
+// .btn--style-secondary:hover,
+// .btn-secondary:hover {
+//   background: #f9fafb !important;
+//   border-color: #9ca3af !important;
+// }
+
+// /* ============================================================================
+//    Payload Default Elements Override
+//    ============================================================================ */
+
+// /* Override all default backgrounds */
+// div[class*="payload"],
+// div[class*="doc"],
+// div[class*="field"],
+// div[class*="block"],
+// div[class*="array"],
+// div[class*="group"] {
+//   color: #1f2937 !important;
+// }
+
+// /* Ensure text is always dark */
+// h1, h2, h3, h4, h5, h6,
+// p, span, label, li, a {
+//   color: inherit !important;
+// }
+
+// /* Specific overrides for Payload's dark theme classes */
+// .payload-settings,
+// .doc-fields__wrapper,
+// .render-fields__wrapper {
+//   background: #f9fafb !important;
+// }
+
+// /* ============================================================================
+//    Rich Text Editor
+//    ============================================================================ */
+
+// .lexical-editor,
+// .rich-text-lexical,
+// .editor-container {
+//   background: #ffffff !important;
+//   border: 1px solid #d1d5db !important;
+//   border-radius: 6px !important;
+//   color: #1f2937 !important;
+// }
+
+// .lexical-editor .toolbar,
+// .rich-text-lexical .toolbar {
+//   background: #f9fafb !important;
+//   border-bottom: 1px solid #e5e7eb !important;
+// }
+
+// /* ============================================================================
+//    Upload Fields
+//    ============================================================================ */
+
+// .upload,
+// .file-field,
+// .upload__drop-zone {
+//   background: #fafafa !important;
+//   border: 2px dashed #d1d5db !important;
+//   border-radius: 8px !important;
+//   color: #374151 !important;
+// }
+
+// .upload__drop-zone:hover {
+//   border-color: #006fee !important;
+//   background: #f0f9ff !important;
+// }
+
+// /* ============================================================================
+//    Array and Block Fields
+//    ============================================================================ */
+
+// .array-field,
+// .blocks-field,
+// .array-field__row,
+// .blocks-field__block {
+//   background: #ffffff !important;
+//   border: 1px solid #e5e7eb !important;
+//   border-radius: 6px !important;
+//   color: #1f2937 !important;
+// }
+
+// /* ============================================================================
+//    Modals and Popups
+//    ============================================================================ */
+
+// .popup,
+// .modal,
+// .drawer,
+// .tooltip {
+//   background: #ffffff !important;
+//   border: 1px solid #e5e7eb !important;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+//   color: #1f2937 !important;
+// }
+
+// /* ============================================================================
+//    Status Pills
+//    ============================================================================ */
+
+// .pill,
+// .tag,
+// .badge {
+//   border-radius: 6px !important;
+//   padding: 4px 12px !important;
+//   font-size: 12px !important;
+//   font-weight: 500 !important;
+// }
+
+// .pill--success { background: #10b981 !important; color: #ffffff !important; }
+// .pill--warning { background: #f59e0b !important; color: #ffffff !important; }
+// .pill--error { background: #ef4444 !important; color: #ffffff !important; }
+// .pill--info { background: #3b82f6 !important; color: #ffffff !important; }
+
+// /* ============================================================================
+//    Login Page
+//    ============================================================================ */
+
+// .template-minimal {
+//   background: #f9fafb !important;
+// }
+
+// .template-minimal .card,
+// .account-card,
+// .login-card {
+//   background: #ffffff !important;
+//   border: 1px solid #e5e7eb !important;
+//   border-radius: 12px !important;
+//   color: #1f2937 !important;
+// }
+
+// /* ============================================================================
+//    Scrollbars
+//    ============================================================================ */
+
+// ::-webkit-scrollbar {
+//   width: 8px;
+//   height: 8px;
+// }
+
+// ::-webkit-scrollbar-track {
+//   background: #f3f4f6 !important;
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   background: #d1d5db !important;
+//   border-radius: 4px;
+// }
+
+// ::-webkit-scrollbar-thumb:hover {
+//   background: #9ca3af !important;
+// }
+
+// /* ============================================================================
+//    Force Override Any Remaining Dark Elements
+//    ============================================================================ */
+
+// * {
+//   scrollbar-color: #d1d5db #f3f4f6 !important;
+// }
+
+// /* Remove any dark backgrounds */
+// [style*="background: rgb(17"] {
+//   background: #ffffff !important;
+// }
+
+// [style*="background-color: rgb(17"] {
+//   background-color: #ffffff !important;
+// }
+
+// /* ============================================================================
+//    Search and Filter Components
+//    ============================================================================ */
+
+// .search-filter,
+// .list-controls__wrap,
+// .list-controls__filter {
+//   background: #ffffff !important;
+//   border: 1px solid #e5e7eb !important;
+//   color: #1f2937 !important;
+// }
+
+// /* ============================================================================
+//    Relationship and Select Fields
+//    ============================================================================ */
+
+// .relationship-field,
+// .select-field,
+// .react-select {
+//   background: #ffffff !important;
+//   color: #1f2937 !important;
+// }
+
+// .react-select__control {
+//   background: #ffffff !important;
+//   border: 1px solid #d1d5db !important;
+//   color: #1f2937 !important;
+// }
+
+// .react-select__menu {
+//   background: #ffffff !important;
+//   border: 1px solid #e5e7eb !important;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+// }
+
+// .react-select__option {
+//   background: #ffffff !important;
+//   color: #1f2937 !important;
+// }
+
+// .react-select__option:hover {
+//   background: #f3f4f6 !important;
+// }
+
+// /* ============================================================================
+//    Final Catch-All
+//    ============================================================================ */
+
+// /* Force everything to light if still dark */
+// body * {
+//   background-color: inherit;
+// }
+
+// /* Ensure proper text color hierarchy */
+// body {
+//   color: #1f2937;
+// }
