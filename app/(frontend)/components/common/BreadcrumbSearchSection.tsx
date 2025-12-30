@@ -48,7 +48,7 @@ export default function BreadcrumbSearchSection({
 
   return (
     <section
-      className={`w-full py-6 sm:py-7 md:pt-8 lg:pt-10 lg:pb-11  ${className}`}
+      className={`w-full py-6 sm:py-7 md:pt-8 lg:pt-10 lg:pb-11 ${className}`}
     >
       <div className="hn-container">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
@@ -90,7 +90,7 @@ export default function BreadcrumbSearchSection({
           {/* Search Bar */}
           <form
             onSubmit={handleSearch}
-            className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full sm:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#FAFAFA]"
+            className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full sm:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
           >
             <Image
               src="/assets/common/search-icon.svg"
@@ -103,7 +103,7 @@ export default function BreadcrumbSearchSection({
               placeholder={searchPlaceholder}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#A1A1AA] bg-transparent outline-none min-w-0"
+              className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
             />
           </form>
         </div>

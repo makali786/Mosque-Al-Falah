@@ -50,9 +50,9 @@ export default function OurServicesPage() {
                 </div>
 
                 {/* Content Container */}
-                <div className="relative hn-container flex flex-col gap-3 items-center justify-center text-center">
+                <div className="relative hn-container flex flex-col gap-3 sm:items-center justify-center sm:text-center">
                     {/* Greeting */}
-                    <p className="text-sm sm:text-base md:text-lg font-medium text-[#CCE3FD] uppercase tracking-wide">
+                    <p className="text-sm sm:text-base md:text-lg font-medium sm:text-center text-[#CCE3FD] uppercase tracking-wide">
                         ASSALAMU ALAIKUM!
                     </p>
 
