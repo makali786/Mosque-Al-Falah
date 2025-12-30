@@ -54,8 +54,8 @@ export function ParkingNoticeSection() {
                   <p className="mb-2">
                     The Prophet peace be upon him said:{" "}
                     <strong className="font-bold">
-                      "He Will not enter Jannah Whose neighbour is not secure
-                      from his wrongful conduct."
+                      &quot;He Will not enter Jannah Whose neighbour is not secure
+                      from his wrongful conduct.&quot;
                     </strong>
                   </p>
                   <p className="text-sm sm:text-[14px] md:text-[15px] font-medium">

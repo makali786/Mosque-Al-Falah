@@ -17,7 +17,7 @@ const ContactInformation = () => {
 
             {/* Description */}
             <p className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black mb-8 sm:mb-10 md:mb-[42px]">
-              We're here to serve our community. Feel free to reach out to us for any
+              We&apos;re here to serve our community. Feel free to reach out to us for any
               inquiries, support, or suggestions.
             </p>
 

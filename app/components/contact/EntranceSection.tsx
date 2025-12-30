@@ -11,7 +11,7 @@ interface EntranceSectionProps {
   whatsappGroupLabel: string;
   directionsUrl?: string;
   whatsappUrl?: string;
-  description?: any
+  description?: string;
 }
 
 const EntranceSection: React.FC<EntranceSectionProps> = ({
