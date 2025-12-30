@@ -1,11 +1,11 @@
 "use client";
 
-import PageHero from "../components/common/PageHero";
-import ContentImageSection from "../components/common/ContentImageSection";
-import { CoreValuesSection } from "../components/about/OurCoreValue";
-import { CommitteesSection } from "../components/about/CommitiesCard";
-import ConnectWithUsSection from "../components/about/ConnectWithUs";
-import { QuoteSection } from "../components/common/QuoteSection";
+import PageHero from "@/components/common/PageHero";
+import ContentImageSection from "@/components/common/ContentImageSection";
+import { CoreValuesSection } from "@/components/about/OurCoreValue";
+import { CommitteesSection } from "@/components/about/CommitiesCard";
+import ConnectWithUsSection from "@/components/about/ConnectWithUs";
+import { QuoteSection } from "@/components/common/QuoteSection";
 
 export default function AboutUsPage() {
   const handleShare = () => {
