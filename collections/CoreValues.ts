@@ -3,41 +3,46 @@ import type { CollectionConfig } from 'payload';
 export const CoreValues: CollectionConfig = {
   slug: 'core-values',
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'order', 'isActive'],
-    description: 'Mosque core values displayed on About Us page',
+    useAsTitle: 'question',
+    defaultColumns: ['question', 'order', 'isActive'],
+    description: 'FAQ-style core values and organizational information',
   },
   access: {
     read: () => true,
   },
   fields: [
     {
-      name: 'title',
+      name: 'question',
       type: 'text',
       required: true,
-      label: 'Value Title',
-    },
-    {
-      name: 'description',
-      type: 'textarea',
-      required: true,
-      label: 'Description',
-    },
-    {
-      name: 'icon',
-      type: 'upload',
-      relationTo: 'media',
-      label: 'Icon/Image',
+      label: 'Question',
       admin: {
-        description: 'SVG or image representing this value',
+        description: 'e.g., "What is the Masjid Al-Falah (MAF)?"',
       },
     },
     {
-      name: 'iconName',
-      type: 'text',
-      label: 'Icon Name (React Icons)',
+      name: 'answer',
+      type: 'richText',
+      required: true,
+      label: 'Answer',
       admin: {
-        description: 'Alternative: React Icons name (e.g., "FaHeart")',
+        description: 'Detailed answer to the question',
+      },
+    },
+    {
+      name: 'category',
+      type: 'select',
+      options: [
+        { label: 'About MAF', value: 'about-maf' },
+        { label: 'Organization', value: 'organization' },
+        { label: 'History', value: 'history' },
+        { label: 'Funding', value: 'funding' },
+        { label: 'Community', value: 'community' },
+        { label: 'Values', value: 'values' },
+      ],
+      label: 'Category',
+      admin: {
+        description: 'Group related questions together',
       },
     },
     {
@@ -46,12 +51,18 @@ export const CoreValues: CollectionConfig = {
       required: true,
       defaultValue: 0,
       label: 'Display Order',
+      admin: {
+        description: 'Order in which questions appear (lower numbers first)',
+      },
     },
     {
       name: 'isActive',
       type: 'checkbox',
       defaultValue: true,
       label: 'Active',
+      admin: {
+        description: 'Show this question in the FAQ section',
+      },
     },
   ],
 };

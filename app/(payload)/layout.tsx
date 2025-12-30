@@ -7,6 +7,7 @@ import type { ServerFunctionClient } from 'payload';
 import React from 'react';
 
 import { importMap } from './admin/importMap.js';
+import BackgroundAnimation from './components/payload/BackgroundAnimation';
 import './custom.scss';
 type Args = {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ const Layout = ({ children }: Args) => (
     importMap={importMap}
     serverFunction={serverFunction}
   >
+    <BackgroundAnimation />
     {children}
   </RootLayout>
 );

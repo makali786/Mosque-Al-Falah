@@ -22,6 +22,13 @@ import { PageSections } from './collections/PageSections';
 import { Sermons } from './collections/Sermons';
 import { Services } from './collections/Services';
 
+// Globals
+import { AboutPage } from './globals/AboutPage';
+import { ContactPage } from './globals/ContactPage';
+import { EventsPage } from './globals/EventsPage';
+import { HomePage } from './globals/HomePage';
+import { ServicesPage } from './globals/ServicesPage';
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -35,13 +42,13 @@ export default buildConfig({
     meta: {
       titleSuffix: '- Masjid Al-Falah CMS',
     },
-    // Custom Logo (Optional)
-    // components: {
-    //   graphics: {
-    //     Logo: '/app/(payload)/components/Logo',
-    //     Icon: '/app/(payload)/components/Icon',
-    //   },
-    // },
+    // Custom Logo
+    components: {
+      graphics: {
+        Logo: './app/(payload)/components/payload/Logo',
+        Icon: './app/(payload)/components/payload/Icon',
+      },
+    },
   },
   collections: [
     // Core Collections
@@ -63,6 +70,7 @@ export default buildConfig({
     Committees,
     PageSections,
   ],
+  globals: [AboutPage, ContactPage, EventsPage, HomePage, ServicesPage],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
