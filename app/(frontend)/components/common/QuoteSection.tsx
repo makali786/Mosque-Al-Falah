@@ -33,7 +33,7 @@ export function QuoteSection({
             <p className="mb-0">
               &quot;{quote}&quot;
               <br />— {attribution}{" "}
-              {showAttributionSymbol && <span className="text-xs">ﷺ</span>}
+              {showAttributionSymbol && <span className="font-normal text-base">ﷺ</span>}
             </p>
           </blockquote>
         </div>
