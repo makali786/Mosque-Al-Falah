@@ -23,10 +23,10 @@ export function QuoteSection({
 }: QuoteSectionProps) {
   return (
     <section
-      className="w-full px-6 py-10 sm:px-8 sm:py-11 md:px-12 md:py-12 lg:px-20 lg:py-12 xl:px-50"
+      className="w-full py-10 sm:py-11 lg:py-12"
       style={{ backgroundColor }}
     >
-      <div className="w-full flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start lg:items-center lg:justify-end">
+      <div className="w-full hn-container !px-18 flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start lg:items-center lg:justify-end">
         {/* Quote and Attribution */}
         <div className="flex-1 w-full">
           <blockquote className="text-lg leading-7 font-medium sm:text-xl sm:leading-8 md:text-[22px] md:leading-7.5 lg:text-[24px] lg:leading-8 text-black">

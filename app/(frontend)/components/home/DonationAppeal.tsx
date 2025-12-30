@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function DonationAppeal() {
   return (
-    <section className="relative w-full px-4 lg:px-8 xl:px-50 py-8 lg:py-22.5 bg-linear-to-br from-[#165273] to-[#153595]">
-      <div className="container mx-auto">
+    <section className="relative w-full py-8 lg:py-22.5 bg-linear-to-br from-[#165273] to-[#153595]">
+      <div className="hn-container px-4 sm:!px-18">
       {/* Pattern Overlay */}
       <div
         className="absolute inset-0 opacity-30 pointer-events-none"

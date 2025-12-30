@@ -161,8 +161,8 @@ export function TeamMemberCard({ member }: { member: TeamMember }) {
 
 export function CommitteesSection() {
   return (
-    <section className="w-full bg-white px-6 py-16 sm:px-8 sm:py-20 md:px-12 md:py-24 lg:px-20 lg:py-28 xl:px-30 xl:py-33">
-      <div className="w-full max-w-300 mx-auto flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
+    <section className="w-full bg-white py-16 sm:py-20 md:py-24 lg:py-28 xl:py-33">
+      <div className="w-full hn-container flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
         {/* Header */}
         <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-6 max-w-full lg:max-w-139">
           <h2 className="text-2xl leading-8 font-bold sm:text-3xl sm:leading-9 md:text-[32px] md:leading-9 lg:text-[36px] lg:leading-10 text-[#27272a]">

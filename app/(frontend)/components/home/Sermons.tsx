@@ -90,8 +90,8 @@ export default function Sermons() {
   };
 
   return (
-    <section className="bg-white w-full px-4 lg:px-8 xl:px-50 py-6 md:py-12 lg:py-18">
-      <div className="container mx-auto">
+    <section className="bg-white w-full py-6 md:py-12 lg:py-18">
+      <div className="hn-container px-4 sm:!px-18">
       {/* Header */}
       <div className="flex flex-col gap-4 md:gap-2 lg:gap-1 mb-8 md:mb-12 lg:mb-15">
         {/* Mobile: Stacked layout, Desktop: Side by side */}

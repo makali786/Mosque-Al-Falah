@@ -46,7 +46,7 @@ export function CoreValuesSection() {
   const [expandedId, setExpandedId] = useState<string>("maf");
 
   return (
-    <section className="relative w-full px-6 py-12 sm:px-8 sm:py-16 md:px-12 md:py-20 lg:px-20 lg:py-22.5 xl:px-50 overflow-hidden">
+    <section className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden">
       {/* Background with gradient and pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -65,7 +65,7 @@ export function CoreValuesSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
+      <div className="relative hn-container !px-20 flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
         {/* Header */}
         <div className="flex items-center w-full">
           <div className="flex flex-col gap-4 sm:gap-4 md:gap-5 lg:gap-5 w-full lg:w-162.5">

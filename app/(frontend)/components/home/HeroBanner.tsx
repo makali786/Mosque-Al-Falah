@@ -145,8 +145,8 @@ export default function HeroBanner() {
 
       {/* Content */}
       <div className="relative h-full flex items-center">
-        <div className="w-full px-4 py-4 sm:px-6 sm:py-8 md:px-8 md:py-10 lg:px-12 lg:py-12 xl:px-50 xl:py-0">
-          <div className="max-w-full sm:max-w-120 md:max-w-140 lg:max-w-162.5 flex flex-col gap-3 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16">
+        <div className="w-full hn-container px-4 sm:!px-18 py-4 sm:py-8 md:py-10 lg:py-12">
+          <div className="max-w-full flex flex-col gap-3 sm:gap-8 md:gap-10 lg:gap-12">
             {/* Carousel Navigation Dots - Top on mobile */}
             <div className="flex sm:hidden items-center justify-center gap-1 h-2">
               {SLIDES.map((_, index) => (
