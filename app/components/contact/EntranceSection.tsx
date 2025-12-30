@@ -24,24 +24,28 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
   description
 }) => {
   return (
-    <section>
+    <section className="lg:w-[48%]">
       <div>
         {/* Hero Image */}
-        <div className="w-full mb-6 sm:mb-7 md:mb-8 lg:mb-10 overflow-hidden">
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            width={624}
-            height={380}
-            className="w-full h-auto object-cover xl:w-[624px] xl:h-[380px]"
-            priority
-          />
+        <div className="w-full mb-6 sm:mb-7 md:mb-8 lg:mb-10 overflow-hidden xl:w-[624px]">
+          <div
+            className="relative w-full"
+            style={{ aspectRatio: "624 / 380" }}
+          >
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
 
         {/* Content Section */}
         <div className="max-w-[600px]">
           {/* Heading */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 md:mb-8">
+          <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-[48px] lg:leading-12 text-black mb-6 md:mb-8">
             {title}
           </h2>
 
@@ -50,7 +54,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
             <h3 className="text-sm md:text-base font-bold text-black uppercase mb-4">
               ADDRESS:
             </h3>
-            <div className="text-base md:text-lg text-black mb-8 whitespace-pre-line">
+            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black mb-8 whitespace-pre-line">
               <p>{description}</p>
             </div>
           </div>
@@ -60,10 +64,10 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
             {/* Get Directions Button - Blue */}
             <button
               onClick={() => window.open(directionsUrl, "_blank")}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#006FEE33] text-[#006FEE] text-sm md:text-base"
+              className="inline-flex items-center justify-center gap-1.5 px-5 lg:px-3 xl:px-5 py-3 bg-[#006FEE33] text-[#006FEE] text-sm md:text-base"
             >
               <FiMap className="w-[18px] h-[18px]" color="#006FEE" />
-              <span>Get Directions</span>
+              <span className="text-xs xl:text-base">Get Directions</span>
             </button>
 
             {/* WhatsApp Group Button - Light Gray */}
@@ -77,7 +81,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
                 width={20}
                 height={20}
               />
-              <span>{whatsappGroupLabel}</span>
+              <span className="text-sm xl:text-base text-black">{whatsappGroupLabel}</span>
             </button>
           </div>
         </div>

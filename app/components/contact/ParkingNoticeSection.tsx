@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function ParkingNoticeSection() {
   return (
-    <section className="relative w-full px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30 py-12 sm:py-16 md:py-20 lg:pt-32 lg:pb-42 overflow-hidden">
+    <section className="relative w-full py-12 sm:py-16 md:py-20 lg:pt-32 lg:pb-42 overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -22,22 +22,22 @@ export function ParkingNoticeSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative w-full max-w-324 mx-auto">
+      <div className="relative w-full container mx-auto">
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start lg:items-center">
           {/* Left Side - Text Content */}
           <div>
-            <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 lg:text-[48px] lg:leading-12 text-white mb-4 sm:mb-5 md:mb-6 lg:mb-8">
+            <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-5xl lg:leading-12 text-white mb-4 sm:mb-5 md:mb-6 lg:mb-8">
               Please Do Not Park Irresponsibly
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-white font-[500]">
+            <p className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 xl:text-lg lg:leading-7 text-white font-[500]">
               Please DO NOT block any exits, driveways, Junctions or cause any
               other inconvenience to our neighbours when attending the Masjid
             </p>
           </div>
 
           {/* Right Side - Quote Card */}
-          <div className="w-full lg:w-auto lg:shrink-0 lg:max-w-[400px] xl:max-w-[640px]">
-            <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-[14px] px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-10 lg:px-10 lg:py-14 relative">
+          <div className="w-full lg:w-auto lg:shrink-0 lg:max-w-[420px] xl:max-w-[640px]">
+            <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-[14px] px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-10 xl:px-10 xl:py-14 relative">
               {/* Opening Quote Icon */}
               <div className="absolute top-6 left-6 sm:top-8 sm:left-8 lg:top-10 lg:left-10">
                 <Image
@@ -50,7 +50,7 @@ export function ParkingNoticeSection() {
 
               {/* Quote Content */}
               <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 pt-4 sm:pt-4">
-                <div className="text-sm sm:text-base text-black">
+                <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-base xl:text-lg lg:leading-7 text-black">
                   <p className="mb-2">
                     The Prophet peace be upon him said:{" "}
                     <strong className="font-bold">
