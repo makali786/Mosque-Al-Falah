@@ -10,24 +10,9 @@ interface Breadcrumb {
 }
 
 interface BreadcrumbSearchSectionProps {
-  /**
-   * Array of breadcrumb items
-   */
   breadcrumbs: Breadcrumb[];
-
-  /**
-   * Optional placeholder text for search input
-   */
   searchPlaceholder?: string;
-
-  /**
-   * Optional callback when search is submitted
-   */
   onSearch?: (query: string) => void;
-
-  /**
-   * Optional custom class name
-   */
   className?: string;
 }
 

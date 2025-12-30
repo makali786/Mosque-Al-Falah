@@ -177,7 +177,7 @@ export default function TopBar() {
       </div>
 
       {/* Tablet Layout - sm to lg */}
-      <div className="hidden sm:flex lg:hidden flex-col gap-3 px-4 py-3 w-full">
+      <div className="hidden sm:flex lg:hidden flex-col gap-3 hn-container py-3 w-full">
         <div className="flex items-center justify-between w-full">
           <div className="flex gap-3 items-center">
             {DATES.map((date) => (
@@ -239,7 +239,7 @@ export default function TopBar() {
       </div>
 
       {/* Desktop Layout - lg and above */}
-      <div className="hidden lg:flex items-center justify-between px-4 xl:px-8 2xl:px-30 py-3 w-full">
+      <div className="hidden lg:flex items-center justify-between hn-container py-3 w-full">
         {/* Left Section - Date & Location Info */}
         <div className="flex gap-2 xl:gap-4 items-center shrink-0">
           {DATES.map((date) => (
