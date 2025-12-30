@@ -666,6 +666,7 @@ export const Services: CollectionConfig = {
     {
       name: 'relatedServices',
       type: 'relationship',
+      // @ts-expect-error - Collection slug will be valid after types regeneration
       relationTo: 'services',
       hasMany: true,
       label: 'Related Services',
