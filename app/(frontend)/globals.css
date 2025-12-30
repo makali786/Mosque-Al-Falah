@@ -36,3 +36,8 @@ body {
 .hn-container {
   @apply sm:container w-full px-6 mx-auto;
 }
+@media screen and (max-width: 340px) {
+  .contact-title {
+    @apply text-[26px]
+  }
+}

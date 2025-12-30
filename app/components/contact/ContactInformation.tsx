@@ -11,7 +11,7 @@ const ContactInformation = () => {
           {/* Left Column - Contact Details */}
           <div className="flex flex-col">
             {/* Title */}
-            <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-[48px] lg:leading-12 text-black mb-6 sm:mb-7 md:mb-8">
+            <h2 className="contact-title text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-[48px] lg:leading-12 text-black mb-6 sm:mb-7 md:mb-8">
               Contact Information
             </h2>
 
