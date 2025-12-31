@@ -17,6 +17,7 @@ import { CoreValues } from './collections/CoreValues';
 import { DonationAppeals } from './collections/DonationAppeals';
 import { Events } from './collections/Events';
 import { Imams } from './collections/Imams';
+import { MediaItems } from './collections/MediaItems';
 import { Notices } from './collections/Notices';
 import { PageSections } from './collections/PageSections';
 import { Sermons } from './collections/Sermons';
@@ -27,6 +28,7 @@ import { AboutPage } from './globals/AboutPage';
 import { ContactPage } from './globals/ContactPage';
 import { EventsPage } from './globals/EventsPage';
 import { HomePage } from './globals/HomePage';
+import { MediaPage } from './globals/MediaPage';
 import { ServicesPage } from './globals/ServicesPage';
 
 const filename = fileURLToPath(import.meta.url);
@@ -63,6 +65,7 @@ export default buildConfig({
     Imams,
     AyatOfTheMonth,
     Sermons,
+    MediaItems,
     DonationAppeals,
 
     // About Page Content
@@ -70,7 +73,14 @@ export default buildConfig({
     Committees,
     PageSections,
   ],
-  globals: [AboutPage, ContactPage, EventsPage, HomePage, ServicesPage],
+  globals: [
+    AboutPage,
+    ContactPage,
+    EventsPage,
+    HomePage,
+    MediaPage,
+    ServicesPage,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
