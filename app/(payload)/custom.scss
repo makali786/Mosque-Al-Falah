@@ -15,6 +15,90 @@
 .nav{
   background-color: #e7efff;
 }
-// .btn__content{
-//   color: white;
-// }
+
+/* ============================================================================
+   Login Page Styling
+   ============================================================================ */
+
+/* Login page background */
+.template-minimal {
+  background-image: url('/assets/about-us/connect-with-us.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  position: relative !important;
+}
+
+/* Overlay on background */
+.template-minimal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 16, 35, 0.552) 0%, rgba(1, 18, 65, 0.531) 100%);
+  z-index: 0;
+}
+
+/* Login card container */
+.template-minimal > * {
+  position: relative;
+  z-index: 1;
+}
+.login__form__inputWrap input{
+  background-color: rgba(21, 21, 21, 0.434);
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white
+}
+.login__form a {
+  color: rgba(255, 255, 255, 0.641);
+}
+/* Login card styling */
+.template-minimal .card,
+.template-minimal .account,
+.template-minimal__wrap {
+  background: rgba(33, 33, 33, 0.329) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 24px !important;
+  padding: 3rem !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+  max-width: 480px !important;
+  margin: 0 auto !important;
+}
+
+/* Login button */
+.template-minimal button[type="submit"] {
+  background: linear-gradient(135deg, #006fee 0%, #2155c5 100%) !important;
+  border: none !important;
+ 
+  padding: 0.875rem 1.5rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 111, 238, 0.3) !important;
+}
+
+.template-minimal button[type="submit"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 111, 238, 0.4) !important;
+}
+
+/* Field labels */
+.template-minimal label {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Logo/branding area */
+.template-minimal h1,
+.template-minimal .brand {
+  text-align: center !important;
+  color: #1f2937 !important;
+  font-weight: 700 !important;
+  margin-bottom: 2rem !important;
+}
