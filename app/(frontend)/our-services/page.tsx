@@ -82,7 +82,6 @@ export default function OurServicesPage() {
                 <RequestServiceForm
                     onSubmit={(data) => {
                         console.log("Form submitted:", data);
-                        // Handle form submission
                     }}
                 />
             </div>
