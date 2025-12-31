@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import ServiceEventBanner from "@/components/services/ServiceEventBanner";
+import ServiceDetailHero from "@/components/services/ServiceDetailHero";
 
 // Service data type
 interface ServiceDetail {
@@ -302,6 +303,39 @@ export default function ServiceDetailPage({
           return today;
         })()}
       />
+
+          <ServiceDetailHero
+              heading="Taraweeh & Eid Prayers"
+              subtitle="Experience the Spiritual Essence of Ramadan & Eid 🌙 at Masjid Al-Falah"
+              imageSrc="/assets/about-us/about-us.jpg"
+              imageAlt="Taraweeh Prayer at Masjid Al-Falah"
+              layout="image-left"
+              content={
+                  <>
+                      <p>
+                          Ramadan is a time of deep reflection, devotion, and community, and we
+                          welcome you to join us in observing this sacred month. Engage in the tranquility
+                          of Taraweeh prayers, where the recitation of the Qur'an fills the air with peace
+                          and spiritual enlightenment. Feel the power of collective supplication, drawing
+                          closer to Allah through heartfelt du'as each night.
+                      </p>
+                      <p>
+                          As Ramadan concludes, celebrate Eid with joy and gratitude, embracing the
+                          blessings of this special day with the community. From the serene nights of
+                          worship to the festive Eid gatherings, Masjid Al-Falah is your home for faith,
+                          unity, and devotion. Let's strengthen our connection with Allah and one another.
+                      </p>
+                  </>
+              }
+              primaryButton={{
+                  text: "View Taraweeh Timings",
+                  href: "#timings",
+              }}
+              secondaryButton={{
+                  text: "Check Eid Salah Schedule",
+                  href: "#schedule",
+              }}
+          />
     </div>
   )
 }

@@ -101,7 +101,7 @@ export default function ServiceEventBanner({
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
               00
             </div>
-            <div className="text-xs sm:text-sm text-white mt-1">Hours</div>
+            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Hours</div>
           </div>
           <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
             :
@@ -110,7 +110,7 @@ export default function ServiceEventBanner({
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
               00
             </div>
-            <div className="text-xs sm:text-sm text-white mt-1">Minutes</div>
+            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Minutes</div>
           </div>5
           <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
             :
@@ -119,7 +119,7 @@ export default function ServiceEventBanner({
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
               00
             </div>
-            <div className="text-xs sm:text-sm text-white mt-1">Seconds</div>
+            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Seconds</div>
           </div>
         </div>
       );
@@ -134,7 +134,7 @@ export default function ServiceEventBanner({
           <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
             {String(totalHours).padStart(2, "0")}
           </div>
-          <div className="text-xs sm:text-sm text-white/90 mt-1">Hours</div>
+          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Hours</div>
         </div>
         <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
           :
@@ -143,7 +143,7 @@ export default function ServiceEventBanner({
           <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
             {String(minutes).padStart(2, "0")}
           </div>
-          <div className="text-xs sm:text-sm text-white/90 mt-1">Minutes</div>
+          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Minutes</div>
         </div>
         <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
           :
@@ -152,7 +152,7 @@ export default function ServiceEventBanner({
           <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
             {String(seconds).padStart(2, "0")}
           </div>
-          <div className="text-xs sm:text-sm text-white/90 mt-1">Seconds</div>
+          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Seconds</div>
         </div>
       </div>
     );
