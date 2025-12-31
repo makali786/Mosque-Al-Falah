@@ -34,7 +34,7 @@ body {
 }
 
 .hn-container {
-  @apply sm:container w-full px-6 mx-auto;
+  @apply sm:container w-full px-6 sm:px-2 lg:px-7 xl:px-2 mx-auto;
 }
 @media screen and (max-width: 340px) {
   .contact-title {

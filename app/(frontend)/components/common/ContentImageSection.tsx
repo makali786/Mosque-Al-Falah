@@ -65,11 +65,11 @@ export default function ContentImageSection({
 }: ContentImageSectionProps) {
   return (
     <section
-      className={`w-full py-12 sm:py-16 md:py-20 lg:py-21.5 px-6 sm:px-8 md:px-12 lg:px-20 xl:px-30 ${className}`}
+      className={`w-full py-12 sm:py-16 md:py-20 lg:py-21.5 ${className}`}
       style={{ backgroundColor }}
     >
       {/* Container with max-width */}
-      <div className="w-full max-w-324 mx-auto">
+      <div className="w-full hn-container">
         <div
           className={`flex flex-col ${
             layout === "image-left" ? "lg:flex-row-reverse" : "lg:flex-row"
