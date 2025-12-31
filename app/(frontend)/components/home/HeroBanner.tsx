@@ -164,7 +164,7 @@ export default function HeroBanner() {
             </div>
 
             {/* Text Content */}
-            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-8 xl:gap-10 text-white">
+            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-8 xl:gap-10 text-white lg:max-w-[641px]">
               <h1 className="font-bold text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight xl:font-extrabold xl:text-[60px] xl:leading-15">
                 {currentSlideData.title}
               </h1>
