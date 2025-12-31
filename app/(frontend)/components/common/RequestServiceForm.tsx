@@ -167,7 +167,7 @@ export default function RequestServiceForm({
         <div className="pt-2">
           <button
             type="submit"
-            className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base font-medium rounded-xl "
+            className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base font-medium rounded-xl cursor-pointer"
           >
             Submit
           </button>
