@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { Media } from "../../../../payload-types";
+
 interface Event {
-  id: number;
-  image: string;
+  id: string;
   title: string;
-  description: string;
+  shortDescription?: string;
+  media?: {
+    featuredImage?: Media | string | null;
+  };
 }
 
 interface Notice {
@@ -20,97 +24,52 @@ interface Notice {
   isCancelled?: boolean;
 }
 
-const EVENTS: Event[] = [
-  {
-    id: 1,
-    image: "/assets/news/event-1.png",
-    title: "This Ramadan Let's Start a Journey",
-    description: "ll praise is due to Allah, the Most Merciful, the Most Wise.",
-  },
-  {
-    id: 2,
-    image: "/assets/news/event-2.png",
-    title: "This Ramadan Let's Start a Journey",
-    description: "ll praise is due to Allah, the Most Merciful, the Most Wise.",
-  },
-  {
-    id: 3,
-    image: "/assets/news/event-3.png",
-    title: "This Ramadan Let's Start a Journey",
-    description: "ll praise is due to Allah, the Most Merciful, the Most Wise.",
-  },
-  {
-    id: 4,
-    image: "/assets/news/event-4.png",
-    title: "This Ramadan Let's Start a Journey",
-    description: "ll praise is due to Allah, the Most Merciful, the Most Wise.",
-  },
-];
 
-const NOTICES: Notice[] = [
-  {
-    id: 1,
-    title:
-      "Standing Against Injustice: Reflections on Gaza, and Our Duty to Combat Oppression",
-    date: "14 Feb 2025",
-    tag: "Events",
-    tagColor: "events",
-  },
-  {
-    id: 2,
-    title:
-      "Standing Against Injustice: Reflections on Gaza, and Our Duty to Combat Oppression",
-    date: "14 Feb 2025",
-    tag: "News",
-    tagColor: "news",
-  },
-  {
-    id: 3,
-    title:
-      "Standing Against Injustice: Reflections on Gaza, and Our Duty to Combat Oppression",
-    date: "14 Feb 2025",
-    tag: "News",
-    tagColor: "news",
-  },
-  {
-    id: 4,
-    title:
-      "Standing Against Injustice: Reflections on Gaza, and Our Duty to Combat Oppression",
-    date: "14 Feb 2025",
-    tag: "Events",
-    tagColor: "events",
-    isCancelled: true,
-  },
-  {
-    id: 5,
-    title:
-      "Standing Against Injustice: Reflections on Gaza, and Our Duty to Combat Oppression",
-    date: "14 Feb 2025",
-    tag: "Events",
-    tagColor: "events",
-  },
-];
+interface RawNotice {
+  id: number;
+  title: string;
+  noticeDate?: string;
+  category?: string;
+  isCancelled?: boolean;
+}
 
-export default function NewsAndUpdates() {
+
+export default function NewsAndUpdates({ events = [], notices = [] }: { events?: unknown[], notices?: RawNotice[] }) {
+
+  const typedEvents = events as unknown as Event[];
+  const typedNotices: Notice[] = useMemo(() => notices.map((notice) => ({
+    id: notice?.id,
+    title: notice?.title,
+    date: notice?.noticeDate ? new Date(notice.noticeDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : "",
+    tag: notice?.category ? notice?.category.charAt(0).toUpperCase() + notice?.category.slice(1) : "News",
+    tagColor: notice?.category === 'events' ? 'events' : 'news',
+    isCancelled: notice?.isCancelled
+  })), [notices]);
+
+  const displayNotices = useMemo(() => typedNotices.length > 0 ? typedNotices : [], [typedNotices]);
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
-    if (!scrollContainer) return;
+    if (!scrollContainer || displayNotices.length === 0) return;
 
     const scrollSpeed = 0.5; // pixels per frame
     let animationFrameId: number;
+    let currentScroll = scrollContainer.scrollTop;
 
     const scroll = () => {
       if (scrollContainer && !isPaused) {
-        scrollContainer.scrollTop += scrollSpeed;
+        currentScroll += scrollSpeed;
+        scrollContainer.scrollTop = currentScroll;
 
         // Calculate the height of one set of notices (1/3 of total since we have 3 copies)
         const singleSetHeight = scrollContainer.scrollHeight / 3;
 
         // Reset scroll seamlessly when reaching end of first set
-        if (scrollContainer.scrollTop >= singleSetHeight) {
+        if (currentScroll >= singleSetHeight) {
+          currentScroll = 0;
           scrollContainer.scrollTop = 0;
         }
       }
@@ -122,7 +81,7 @@ export default function NewsAndUpdates() {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isPaused]);
+  }, [isPaused, displayNotices]);
 
   return (
     <section className="bg-white w-full py-12 sm:py-24">
@@ -153,16 +112,23 @@ export default function NewsAndUpdates() {
 
           {/* Events Grid - Show only 1 on mobile, 2 on md, 4 on lg+ */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-x-11 sm:gap-y-8">
-            {EVENTS.slice(0, 1).map((event) => (
+            {typedEvents.slice(0, 1).map((event) => {
+              const imageUrl = typeof event.media?.featuredImage === 'object' && event.media?.featuredImage?.url
+                ? event.media.featuredImage.url
+                : null;
+
+              return (
               <div key={event.id} className="flex flex-col gap-4 sm:hidden">
                 {/* Event Image with Gradient Overlay (Mobile only) */}
                 <div className="relative w-full h-50.5 overflow-hidden">
-                  <Image
-                    src={event.image}
-                    alt={event.title}
-                    fill
-                    className="object-cover"
-                  />
+                    {imageUrl && (
+                      <Image
+                      src={imageUrl}
+                        alt={event?.title}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-linear-to-t from-black via-[rgba(0,0,0,0.68)] to-transparent" />
                 </div>
@@ -170,27 +136,35 @@ export default function NewsAndUpdates() {
                 {/* Event Info */}
                 <div className="flex flex-col gap-3">
                   <h3 className="text-xl font-semibold text-[#27272a] leading-7">
-                    {event.title}
+                      {event?.title}
                   </h3>
                   <p className="text-base text-[#3f3f46] leading-6 line-clamp-2">
-                    {event.description}
+                      {event?.shortDescription || event?.title}
                   </p>
                 </div>
               </div>
-            ))}
+              )
+            })}
 
             {/* Desktop Events Grid */}
-            {EVENTS.map((event) => (
+            {typedEvents.map((event) => {
+              const imageUrl = typeof event.media?.featuredImage === 'object' && event.media?.featuredImage?.url
+                ? event.media.featuredImage.url
+                : null;
+
+              return (
               <div key={event.id} className="hidden sm:flex flex-col gap-4">
                 {/* Event Image with Play Button */}
                 <div className="relative w-full h-45.25 overflow-hidden">
-                  <Image
-                    src={event.image}
-                    alt={event.title}
-                    fill
-                    className="object-cover"
-                  />
-                  {/* Play Button Overlay */}
+                    {imageUrl && (
+                      <Image
+                      src={imageUrl}
+                        alt={event?.title}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
+                    {/* Play Button Overlay - Optional, keeping as per original design */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-11 h-11 relative">
                       <Image
@@ -206,14 +180,15 @@ export default function NewsAndUpdates() {
                 {/* Event Info */}
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg font-semibold text-black line-clamp-1">
-                    {event.title}
+                      {event?.title}
                   </h3>
                   <p className="text-sm text-[#27272a] line-clamp-2 leading-5">
-                    {event.description}
+                      {event?.shortDescription || event?.title}
                   </p>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
 
@@ -226,11 +201,11 @@ export default function NewsAndUpdates() {
 
           {/* Notices List - Mobile: Static (4 items), Desktop: Auto Scrolling */}
           <div className="sm:hidden flex flex-col gap-6 max-h-140.25 overflow-y-auto">
-            {NOTICES.slice(0, 4).map((notice) => (
+            {displayNotices.slice(0, 4).map((notice) => (
               <div key={notice.id} className="flex flex-col gap-2">
                 {/* Notice Title */}
                 <h3 className="text-lg font-normal text-[#006fee] line-clamp-2 leading-7">
-                  {notice.title}
+                  {notice?.title}
                 </h3>
 
                 {/* Date and Tags */}
@@ -245,7 +220,7 @@ export default function NewsAndUpdates() {
                       className="object-contain"
                     />
                     <span className="text-sm text-[#27272a] leading-5">
-                      {notice.date}
+                      {notice?.date}
                     </span>
                   </div>
 
@@ -278,14 +253,14 @@ export default function NewsAndUpdates() {
             style={{ scrollBehavior: "auto" }}
           >
             {/* Duplicate notices for seamless infinite scroll */}
-            {[...NOTICES, ...NOTICES, ...NOTICES].map((notice, index) => (
+            {[...displayNotices, ...displayNotices, ...displayNotices].map((notice, index) => (
               <div
                 key={`${notice.id}-${index}`}
                 className="flex flex-col gap-2 shrink-0"
               >
                 {/* Notice Title */}
                 <h3 className="text-lg font-normal text-[#006fee] line-clamp-2 leading-7">
-                  {notice.title}
+                  {notice?.title}
                 </h3>
 
                 {/* Date and Tags */}
@@ -300,7 +275,7 @@ export default function NewsAndUpdates() {
                       className="object-contain"
                     />
                     <span className="text-sm text-[#27272a] leading-5">
-                      {notice.date}
+                      {notice?.date}
                     </span>
                   </div>
 
@@ -315,7 +290,7 @@ export default function NewsAndUpdates() {
                     )}
                     <div className="bg-[rgba(120,40,200,0.2)] px-2 py-1 rounded-lg">
                       <span className="text-xs text-[#301050] leading-4">
-                        {notice.tag}
+                        {notice?.tag}
                       </span>
                     </div>
                   </div>

@@ -1,7 +1,46 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getMediaUrl } from "../../../../lib/helper";
 
-export default function DonationAppeal() {
+import { Media } from "../../../../payload-types";
+
+interface DonationAppealData {
+  title?: string;
+  shortDescription?: string;
+  funding?: {
+    targetAmount?: number;
+    currentAmount?: number;
+    totalDonors?: number;
+  };
+  timeline?: {
+    endDate?: string;
+  };
+  heroMedia?: {
+    heroImage?: string | Media;
+  };
+}
+
+export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal: DonationAppealData[] }) {
+  if (!donationAppeal || donationAppeal.length === 0) return null;
+  const appeal = donationAppeal[0];
+
+  const title = appeal.title || "";
+  const shortDescription = appeal.shortDescription || "";
+  const description = appeal.shortDescription || "";
+
+  const target = appeal.funding?.targetAmount || 0;
+  const funded = appeal.funding?.currentAmount || 0;
+  const progressPercentage = target > 0 ? Math.min((funded / target) * 100, 100) : 0;
+  const donorsCount = appeal.funding?.totalDonors || 0;
+
+  // Calculate days left
+  const endDate = appeal.timeline?.endDate ? new Date(appeal.timeline.endDate) : null;
+  const daysLeft = endDate
+    ? Math.max(0, Math.ceil((endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))
+    : 0; 
+
+  const image1 = getMediaUrl(appeal.heroMedia?.heroImage);
+  console.log("image1", image1)
   return (
     <section className="relative w-full py-8 lg:py-22.5 bg-linear-to-br from-[#165273] to-[#153595]">
       <div className="hn-container px-4 sm:!px-18">
@@ -22,10 +61,10 @@ export default function DonationAppeal() {
           {/* Left side - Title */}
           <div className="flex flex-col gap-4 lg:gap-5 max-w-full lg:max-w-192.75 text-white">
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-medium lg:font-semibold leading-8 sm:leading-12 lg:leading-14">
-              Together for a New Beginning: Masjid Redevelopment Initiative
-            </h2>
+                {title}
+              </h2> 
             <p className="sm:text-base text-sm lg:text-lg font-medium leading-5 lg:leading-7">
-              Your generosity – past, present, and future is greatly appreciated!
+                {shortDescription}
             </p>
           </div>
 
@@ -54,31 +93,35 @@ export default function DonationAppeal() {
           <div className="relative w-full lg:w-110.5 h-58.5 lg:h-110.5 shrink-0">
             <div className="absolute inset-0 overflow-hidden">
               {/* Desktop Image with specific positioning */}
-              <div
-                className="hidden lg:block absolute w-full max-w-none"
-                style={{
-                  height: "178.24%",
-                  left: "-0.63%",
-                  top: "-70.34%",
-                }}
-              >
-                <Image
-                  src="/assets/donation/donation-image-1.png"
-                  alt="Masjid"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+                {image1 && (
+                  <div
+                    className="hidden lg:block absolute w-full max-w-none"
+                    style={{
+                      height: "178.24%",
+                      left: "-0.63%",
+                      top: "-70.34%",
+                    }}
+                  >
+                    <Image
+                      src={image1}
+                      alt={title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
 
               {/* Mobile Image - Standard Cover */}
-              <div className="lg:hidden absolute inset-0 w-full h-full">
-                <Image
-                  src="/assets/donation/donation-image-1.png"
-                  alt="Masjid"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+                {image1 && (
+                  <div className="lg:hidden absolute inset-0 w-full h-full">
+                    <Image
+                      src={image1}
+                      alt={title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                )}
             </div>
             <div
               className="absolute inset-0 hidden lg:block"
@@ -131,7 +174,7 @@ export default function DonationAppeal() {
 
                 {/* Title */}
                 <h3 className="text-xl lg:text-2xl font-semibold text-[#27272a] leading-7 lg:leading-8 overflow-hidden text-ellipsis whitespace-normal lg:whitespace-nowrap w-full">
-                  Help Build a Lasting Legacy
+                    {title}
                 </h3>
               </div>
 
@@ -150,7 +193,7 @@ export default function DonationAppeal() {
                       />
                     </div>
                     <p className="text-base font-normal text-[#71717a] leading-6">
-                      105
+                        {donorsCount}
                     </p>
                   </div>
 
@@ -165,7 +208,7 @@ export default function DonationAppeal() {
                       />
                     </div>
                     <p className="text-base font-normal text-[#71717a] leading-6">
-                      50 days left
+                        {daysLeft} days left
                     </p>
                   </div>
                 </div>
@@ -173,17 +216,17 @@ export default function DonationAppeal() {
                 {/* Progress Bar */}
                 <div className="flex flex-col gap-2 w-full">
                   <div className="w-full h-1 bg-[#e4e4e7] rounded-full flex items-start overflow-hidden">
-                    <div className="h-1 w-50 lg:w-40 bg-[#006fee] rounded-full shrink-0" />
+                      <div
+                        className="h-1 bg-[#006fee] rounded-full shrink-0"
+                        style={{ width: `${progressPercentage}%` }}
+                      />
                   </div>
                 </div>
               </div>
 
               {/* Description */}
               <p className="text-base font-normal text-[#11181c] leading-6 h-12 overflow-hidden w-full">
-                The Masjid has always been a beacon of faith, community, and
-                service. Now, as we embark on a transformative journey to
-                redevelop and enhance this sacred space, we invite you to be a
-                part of something truly special.
+                  {description}
               </p>
             </div>
 
@@ -192,15 +235,15 @@ export default function DonationAppeal() {
               {/* Fund Raised */}
               <div className="flex flex-col gap-1">
                 <p className="text-2xl font-semibold text-black leading-8">
-                  £18,402
+                    £{funded.toLocaleString()}
                 </p>
-                <p className="text-base font-normal text-[#71717a] leading-6 text-center lg:text-left">
-                  funded of £87K
+                  <p className="text-base font-normal text-[#71717a] leading-6 text-left">
+                    funded of £{(target / 1000).toFixed(0)}K
                 </p>
               </div>
 
               {/* Buttons */}
-              <div className="flex items-start gap-4 w-full lg:w-auto">
+                <div className="flex items-start gap-4 w-full lg:w-auto appeal-buttons">
                 {/* Learn More */}
                 <Link
                   href="/appeal/details"

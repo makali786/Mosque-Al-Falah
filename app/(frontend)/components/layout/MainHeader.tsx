@@ -13,8 +13,8 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us", hasDropdown: true },
-  { label: "Our Services", href: "/our-services" },
+  { label: "About Us", href: "/about", hasDropdown: true },
+  { label: "Our Services", href: "/services" },
   { label: "Appeals", href: "/appeals" },
   { label: "Madrasah", href: "/madrasah" },
   { label: "Sermons", href: "/sermons" },
@@ -24,10 +24,10 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const ABOUT_DROPDOWN = [
-  { label: "About Us", href: "/about-us" },
-  { label: "History", href: "/about-us/history" },
-  { label: "Mission", href: "/about-us/mission" },
-  { label: "Staff", href: "/about-us/staff" },
+  { label: "About Us", href: "/about" },
+  { label: "History", href: "/about/history" },
+  { label: "Mission", href: "/about/mission" },
+  { label: "Staff", href: "/about/staff" },
   { label: "Contact Us", href: "/contact-us" },
 ] as const;
 

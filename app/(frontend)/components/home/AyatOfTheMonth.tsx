@@ -1,14 +1,87 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ViewToggleButtons from "../common/ViewToggleButtons";
+import dynamic from 'next/dynamic';
+import { FaPause } from "react-icons/fa6";
+
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.ComponentType<any>;
+
+interface Ayat {
+  arabicCalligraphyImage?: { url?: string; alt?: string };
+  englishTranslation?: string;
+  surahName?: string;
+  videoTitle?: string;
+  videoThumbnail?: { url?: string };
+  videoUrl?: string;
+  audioUrl?: string;
+}
 
 type ViewMode = "default" | "video" | "audio";
 
-export default function AyatOfTheMonth() {
+export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth: Ayat[] }) {
+
   const [viewMode, setViewMode] = useState<ViewMode>("default");
+
+  // Audio Player State
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [played, setPlayed] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [seeking, setSeeking] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const playerRef = useRef<any>(null);
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleProgress = (state: { played: number }) => {
+    if (!seeking) {
+      setPlayed(state.played);
+    }
+  };
+
+  const handleDuration = (duration: number) => {
+    setDuration(duration);
+  };
+
+  const handleSeekMouseDown = () => {
+    setSeeking(true);
+  };
+
+  const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPlayed(parseFloat(e.target.value));
+  };
+
+  const handleSeekMouseUp = (e: React.MouseEvent<HTMLInputElement>) => {
+    setSeeking(false);
+    playerRef.current?.seekTo(parseFloat((e.target as HTMLInputElement).value));
+  };
+
+  const formatTime = (seconds: number) => {
+    if (!seconds) return "0:00";
+    const min = Math.floor(seconds / 60);
+    const sec = Math.floor(seconds % 60);
+    return `${min}:${sec < 10 ? "0" + sec : sec}`;
+  };
+
+  const currentTime = duration * played;
+
+  if (!ayatOfTheMonth || ayatOfTheMonth.length === 0) return null;
+  const data = ayatOfTheMonth[0];
+  // Mapping logic
+  const arabicImage = data?.arabicCalligraphyImage?.url ? data?.arabicCalligraphyImage?.url : null;
+  const englishText = data?.englishTranslation || "";
+  const citation = data?.surahName || "";
+  const videoTitle = data?.videoTitle || "";
+  const videoThumbnail = data?.videoThumbnail?.url || null;
+  const videoUrl = data?.videoUrl || "";
+  const audioUrl = data.audioUrl || "";
+
+  console.log("ayatOfTheMonth ", ayatOfTheMonth)
+
 
   return (
     <section className="relative w-full py-8 pb-32 px-4 sm:py-18 sm:px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-112.5 sm:min-h-197.75">
@@ -35,23 +108,26 @@ export default function AyatOfTheMonth() {
 
               <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-69 sm:max-w-full">
                 {/* Arabic Calligraphy */}
-                <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
-                  <Image
-                    src="/assets/ayat/arabic-text.svg"
-                    alt="Arabic Calligraphy"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+                {arabicImage && (
+                  <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
+                    <Image
+                      src={arabicImage}
+                      alt={data?.arabicCalligraphyImage?.alt || ""}
+                      fill
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                )}
 
                 {/* English Quote */}
                 <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
-                  &quot;And when I am ill, it is He who cures me&quot;
+                  &quot;{englishText}&quot;
                 </p>
 
                 {/* Citation */}
                 <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  — Surah Ash-Shu&apos;ara (26:80)
+                  {citation}
                 </p>
               </div>
             </div>
@@ -77,26 +153,31 @@ export default function AyatOfTheMonth() {
 
             <div className="flex flex-col gap-4 sm:gap-6.25 w-full max-w-full sm:max-w-[735.5px]">
               <h3 className="text-xl sm:text-4xl font-bold text-white leading-7 sm:leading-13 text-center overflow-hidden text-ellipsis whitespace-nowrap px-4">
-                Lessons from Surah Al-Fatihah
+                {videoTitle}
               </h3>
 
               {/* Video Player */}
-              <div className="relative w-full aspect-780/438 bg-white rounded-xl overflow-hidden">
-                <Image
-                  src="/assets/ayat/video-thumbnail.png"
-                  alt="Video Thumbnail"
-                  fill
-                  className="object-cover"
+              <div className="relative w-full aspect-780/438 bg-white rounded-xl overflow-hidden text-black/50">
+                <ReactPlayer
+                  url={videoUrl}
+                  width="100%"
+                  height="100%"
+                  controls={true}
+                  light={videoThumbnail || false}
+                  playIcon={
+                    <div className="absolute inset-0 w-full h-full flex items-center justify-center group">
+                      <div className="absolute inset-0 bg-black/32" />
+                        <button className="w-14 h-14 relative z-10 transition-transform group-hover:scale-110">
+                          <Image
+                            src="/assets/ayat/play-circle.svg"
+                            alt="Play"
+                            fill
+                            className="object-contain"
+                          />
+                        </button>
+                    </div>
+                  }
                 />
-                <div className="absolute inset-0 bg-black/32" />
-                <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14">
-                  <Image
-                    src="/assets/ayat/play-circle.svg"
-                    alt="Play"
-                    fill
-                    className="object-contain"
-                  />
-                </button>
               </div>
             </div>
           </>
@@ -112,29 +193,46 @@ export default function AyatOfTheMonth() {
 
               <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-69 sm:max-w-full">
                 {/* Arabic Calligraphy */}
-                <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
-                  <Image
-                    src="/assets/ayat/arabic-text.svg"
-                    alt="Arabic Calligraphy"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+                {arabicImage && (
+                  <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
+                    <Image
+                      src={arabicImage}
+                      alt="Arabic Calligraphy"
+                      fill
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                )}
 
                 {/* English Quote */}
                 <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
-                  &quot;And when I am ill, it is He who cures me&quot;
+                  &quot;{englishText}&quot;
                 </p>
 
                 {/* Citation */}
                 <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  — Surah Ash-Shu&apos;ara (26:80)
+                  — {citation}
                 </p>
               </div>
             </div>
 
             {/* Audio Player */}
-            <div className="bg-black/30 rounded-xl p-6 flex flex-col gap-2 w-full">
+            <div className="bg-black/30 rounded-xl p-6 flex flex-col gap-2 w-full relative">
+              <div className="hidden">
+                <ReactPlayer
+                  ref={playerRef}
+                  url={audioUrl}
+                  playing={isPlaying}
+                  controls={false}
+                  width="0"
+                  height="0"
+                  onProgress={handleProgress}
+                  onDuration={handleDuration}
+                  onEnded={() => setIsPlaying(false)}
+                />
+              </div>
+
               {/* Controls */}
               <div className="flex items-center justify-center gap-4 w-full">
                 <div className="flex-1 flex justify-end gap-2">
@@ -149,14 +247,21 @@ export default function AyatOfTheMonth() {
                   </button>
                 </div>
 
-                <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                  <Image
-                    src="/assets/ayat/play-small.svg"
-                    alt="Play"
-                    width={16}
-                    height={16}
-                    className="object-contain"
-                  />
+                <button
+                  onClick={handlePlayPause}
+                  className="w-8 h-8 bg-white rounded-full flex items-center justify-center"
+                >
+                  {isPlaying ? (
+                    <FaPause className="text-black w-3 h-3" />
+                  ) : (
+                    <Image
+                      src="/assets/ayat/play-small.svg"
+                      alt="Play"
+                      width={16}
+                      height={16}
+                      className="object-contain"
+                    />
+                  )}
                 </button>
 
                 <div className="flex-1 flex gap-2">
@@ -174,13 +279,29 @@ export default function AyatOfTheMonth() {
 
               {/* Seekbar */}
               <div className="flex items-center gap-2 w-full">
-                <span className="text-xs text-[#a7a7a7] min-w-6.5 text-right">
-                  0:00
+                <span className="text-xs text-[#a7a7a7] min-w-6.5 text-right whitespace-nowrap">
+                  {formatTime(currentTime)}
                 </span>
                 <div className="flex-1 h-3 bg-white/30 rounded relative">
-                  <div className="absolute top-1/2 -translate-y-1/2 left-0 h-1 w-0 bg-white rounded" />
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 left-0 h-1 bg-white rounded pointer-events-none"
+                    style={{ width: `${played * 100}%` }}
+                  />
+                  <input
+                    type="range"
+                    min={0}
+                    max={0.999999}
+                    step="any"
+                    value={played}
+                    onMouseDown={handleSeekMouseDown}
+                    onChange={handleSeekChange}
+                    onMouseUp={handleSeekMouseUp}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                  />
                 </div>
-                <span className="text-xs text-[#a7a7a7] min-w-6.5">2:33</span>
+                <span className="text-xs text-[#a7a7a7] min-w-6.5 whitespace-nowrap">
+                  {formatTime(duration)}
+                </span>
               </div>
             </div>
           </>

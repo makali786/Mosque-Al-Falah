@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 interface Breadcrumb {
   label: string;
@@ -22,15 +23,15 @@ export default function PageHero({
     <section className="relative w-full h-75 sm:h-87.5 md:h-100 lg:h-125 xl:h-137.5 2xl:h-162.5 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 overflow-hidden">
-        <img
-          src={backgroundImage}
-          alt={title}
-          className="absolute left-0 w-full max-w-none object-cover"
-          style={{
-            height: '177.78%',
-            top: '-68.57%',
-          }}
-        />
+        <div className="relative w-full h-full">
+          <Image
+            src={backgroundImage}
+            alt={title}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
       </div>
 
       {/* Gradient Overlay */}
