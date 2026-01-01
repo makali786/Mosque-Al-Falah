@@ -68,8 +68,8 @@ export default function Services({ services = [] }: { services: any[] }) {
       </div>
 
       {/* Header Section - Responsive */}
-      <div className="relative hn-container !px-18 mb-6 sm:mb-8 md:mb-10 lg:mb-12">
-        <div className="flex items-center justify-between h-32 sm:h-auto">
+      <div className="relative hn-container px-4 sm:!px-18 mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+        <div className="flex items-center justify-between h-32 sm:h-auto header-style">
           {/* Left: Title and Subtitle */}
           <div className="flex flex-col gap-4 sm:gap-4 md:gap-4.5 lg:gap-5 text-white flex-1 sm:max-w-none md:max-w-140 lg:max-w-162.5">
             <h2 className="text-2xl leading-8 font-medium sm:text-[34px] sm:leading-9 md:text-4xl md:leading-10 lg:text-5xl lg:leading-none sm:font-medium md:font-semibold lg:font-semibold">
@@ -104,7 +104,7 @@ export default function Services({ services = [] }: { services: any[] }) {
 
       {/* Grid Layout - Mobile only */}
       <div className="sm:hidden px-4">
-        <div className="grid grid-cols-2 gap-5 w-full">
+        <div className="grid grid-cols-2 gap-5 w-full grid-style">
           {mappedServices.slice(0, 6).map((service) => (
             <div
               key={service.id}

@@ -219,13 +219,13 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
                 <p className="text-2xl font-semibold text-black leading-8">
                     £{funded.toLocaleString()}
                 </p>
-                <p className="text-base font-normal text-[#71717a] leading-6 text-center lg:text-left">
+                  <p className="text-base font-normal text-[#71717a] leading-6 text-left">
                     funded of £{(target / 1000).toFixed(0)}K
                 </p>
               </div>
 
               {/* Buttons */}
-              <div className="flex items-start gap-4 w-full lg:w-auto">
+                <div className="flex items-start gap-4 w-full lg:w-auto appeal-buttons">
                 {/* Learn More */}
                 <Link
                   href="/appeal/details"
