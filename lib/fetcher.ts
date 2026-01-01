@@ -2,7 +2,7 @@ import { getPayload } from "payload";
 import configPromise from "@payload-config";
 import { Config } from "../payload-types";
 
-export type CollectionSlug = keyof Config["collections"];
+export type CollectionSlug = keyof Config["collections"] | (string & {});
 
 type FindOptions = {
   collection: CollectionSlug;
@@ -23,7 +23,7 @@ export async function findFromPayload<T = any>({
 }: FindOptions): Promise<T[]> {
   const payload = await getPayload({ config: configPromise });
   const { docs } = await payload.find({
-    collection,
+    collection: collection as any,
     limit,
     depth,
     sort,
@@ -32,6 +32,29 @@ export async function findFromPayload<T = any>({
 
   return docs as T[];
 }
+
+
+// pages data fetch page wise 
+
+interface FindGlobalOptions {
+  slug: any;
+  depth?: number;
+}
+
+export const fetchGlobal = async <T = any>({
+  slug,
+  depth = 1,
+}: FindGlobalOptions): Promise<T> => {
+  const payload = await getPayload({ config: configPromise });
+
+  const global = await payload.findGlobal({
+    slug,
+    depth,
+  });
+
+  return global as T;
+};
+
 
 export const fetchUsers = (options: Omit<FindOptions, "collection"> = {}) =>
   findFromPayload({ collection: "users", ...options });
@@ -74,5 +97,6 @@ export const fetchCommittees = (
 ) => findFromPayload({ collection: "committees", ...options });
 
 
+// fetch single document
 
 

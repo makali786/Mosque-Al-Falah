@@ -1,30 +1,17 @@
-"use client";
-
 import PageHero from "@/components/common/PageHero";
 import ContentImageSection from "@/components/common/ContentImageSection";
 import { CoreValuesSection } from "@/components/about/OurCoreValue";
 import { CommitteesSection } from "@/components/about/CommitiesCard";
 import ConnectWithUsSection from "@/components/about/ConnectWithUs";
-import { QuoteSection } from "@/components/common/QuoteSection";
+import AboutQuoteSection from "@/components/about/AboutQuoteSection";
+import { fetchGlobal } from "../../../lib/fetcher";
 
-export default function AboutUsPage() {
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Islamic Guidance",
-          text: "Whoever guides someone to goodness will have a reward like the one who did it.",
-          url: window.location.href,
-        })
-        .catch((err) => console.log("Share failed:", err))
-    } else {
-      alert("Share this page: " + window.location.href)
-    }
-  }
+export default async function AboutUsPage() {
 
-  const handleDonate = () => {
-    window.location.href = "/donate"
-  }
+
+  const aboutUs = await fetchGlobal({ slug: "about-page" });
+
+  console.log("aboutUs", aboutUs)
 
   return (
     <div className="bg-white dark:bg-gray-950">
@@ -111,15 +98,7 @@ export default function AboutUsPage() {
       <CoreValuesSection />
       <CommitteesSection />
       <ConnectWithUsSection />
-      <QuoteSection
-        quote="Whoever guides someone to goodness will have a reward like the one who did it."
-        attribution="Prophet Muhammad"
-        showAttributionSymbol={true}
-        onShare={handleShare}
-        onDonate={handleDonate}
-        shareButtonText="Share this page"
-        donateButtonText="Donate Now"
-      />
+      <AboutQuoteSection />
     </div>
   );
 }
