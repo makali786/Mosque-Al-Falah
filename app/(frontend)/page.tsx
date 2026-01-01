@@ -1,4 +1,4 @@
-import HeroBanner, { BannerSlide } from "./components/home/HeroBanner";
+import HeroBanner from "./components/home/HeroBanner";
 import NewsAndUpdates from "./components/home/NewsAndUpdates";
 import Services from "./components/home/Services";
 import MeetOurImams from "./components/home/MeetOurImams";

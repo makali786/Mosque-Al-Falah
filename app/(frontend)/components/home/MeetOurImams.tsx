@@ -14,11 +14,20 @@ interface Imam {
 // Remove hardcoded IMAMS constant
 
 
-export default function MeetOurImams({ imams = [] }: { imams: any[] }) {
+interface RawImam {
+  id: number;
+  image?: string | { url: string } | null;
+  name?: string;
+  tagline?: string;
+  role?: string;
+  imageStyle?: string;
+}
 
-  const mappedImams: Imam[] = imams.map((imam: any) => ({
+export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
+
+  const mappedImams: Imam[] = imams.map((imam) => ({
     id: imam?.id,
-    name: imam?.name,
+    name: imam?.name || "",
     tagline: imam?.tagline || imam?.role || "", // Fallback if tagline missing
     image: typeof imam?.image === "string" ? imam?.image : imam?.image?.url || null,
     imageStyle: imam?.imageStyle,

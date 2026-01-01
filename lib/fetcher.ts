@@ -9,9 +9,11 @@ type FindOptions = {
   limit?: number;
   depth?: number;
   sort?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   where?: any;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function findFromPayload<T = any>({
   collection,
   limit = 10,

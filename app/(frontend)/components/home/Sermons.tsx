@@ -7,6 +7,8 @@ import ViewToggleButtons from "../common/ViewToggleButtons";
 
 import { getMediaUrl } from "../../../../lib/helper";
 
+import { Media } from "../../../../payload-types";
+
 interface Sermon {
   id: number | string;
   image: string | null;
@@ -24,12 +26,24 @@ interface Sermon {
 // Remove hardcoded sermons constant
 
 
-export default function Sermons({ sermons = [] }: { sermons: any[] }) {
+interface RawSermon {
+  id: number | string;
+  image?: string | { url: string } | null;
+  sermonDate?: string;
+  title: string;
+  guestSpeaker?: {
+    name?: string;
+    title?: string;
+  };
+  videoUrl?: string;
+}
+
+export default function Sermons({ sermons = [] }: { sermons: RawSermon[] }) {
   console.log("sermons", sermons)
 
-  const mappedSermons: Sermon[] = sermons.map((sermon: any) => ({
+  const mappedSermons: Sermon[] = sermons.map((sermon) => ({
     id: sermon.id,
-    image: getMediaUrl(sermon.image),
+    image: getMediaUrl(sermon.image as unknown as Media),
     date: sermon.sermonDate ? new Date(sermon.sermonDate).toLocaleDateString() : "No Date",
     title: sermon.title,
     author: {

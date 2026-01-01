@@ -10,14 +10,25 @@ interface Service {
   title: string;
 }
 
-export default function Services({ services = [] }: { services: any[] }) {
+interface RawService {
+  id: number;
+  title: string;
+  image?: string | { url: string } | null;
+  media?: {
+    cardImage?: {
+      url: string;
+    };
+  };
+}
+
+export default function Services({ services = [] }: { services: RawService[] }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   console.log("services", services)
   // Map incoming services to local format
-  const mappedServices: Service[] = services.map((service: any) => ({
+  const mappedServices: Service[] = services.map((service) => ({
     id: service.id,
     title: service.title,
     image: (typeof service.image === "string" ? service.image : service.image?.url) || (service.media?.cardImage?.url) || null,

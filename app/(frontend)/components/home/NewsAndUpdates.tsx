@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,20 +25,28 @@ interface Notice {
 }
 
 
-export default function NewsAndUpdates({ events = [], notices = [] }: { events?: unknown[], notices?: any[] }) {
+interface RawNotice {
+  id: number;
+  title: string;
+  noticeDate?: string;
+  category?: string;
+  isCancelled?: boolean;
+}
+
+
+export default function NewsAndUpdates({ events = [], notices = [] }: { events?: unknown[], notices?: RawNotice[] }) {
 
   const typedEvents = events as unknown as Event[];
-
-  const typedNotices: Notice[] = notices.map((notice: any) => ({
+  const typedNotices: Notice[] = useMemo(() => notices.map((notice) => ({
     id: notice?.id,
     title: notice?.title,
     date: notice?.noticeDate ? new Date(notice.noticeDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : "",
     tag: notice?.category ? notice?.category.charAt(0).toUpperCase() + notice?.category.slice(1) : "News",
     tagColor: notice?.category === 'events' ? 'events' : 'news',
     isCancelled: notice?.isCancelled
-  }));
+  })), [notices]);
 
-  const displayNotices = typedNotices.length > 0 ? typedNotices : [];
+  const displayNotices = useMemo(() => typedNotices.length > 0 ? typedNotices : [], [typedNotices]);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);

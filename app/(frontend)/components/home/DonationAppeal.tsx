@@ -2,7 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { getMediaUrl } from "../../../../lib/helper";
 
-export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal: any[] }) {
+import { Media } from "../../../../payload-types";
+
+interface DonationAppealData {
+  title?: string;
+  shortDescription?: string;
+  funding?: {
+    targetAmount?: number;
+    currentAmount?: number;
+    totalDonors?: number;
+  };
+  timeline?: {
+    endDate?: string;
+  };
+  heroMedia?: {
+    heroImage?: string | Media;
+  };
+}
+
+export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal: DonationAppealData[] }) {
   if (!donationAppeal || donationAppeal.length === 0) return null;
   const appeal = donationAppeal[0];
 

@@ -23,8 +23,13 @@ export interface BannerSlide {
 
 const AUTO_ROTATE_INTERVAL = 5000;
 
+interface PayloadBanner extends Omit<BannerSlide, 'bannerImage'> {
+  mobileImage?: string | Media | null;
+  bannerImage?: string | Media | null;
+}
+
 interface HeroBannerProps {
-  banners: BannerSlide[];
+  banners: PayloadBanner[];
 }
 
 export default function HeroBanner({ banners = [] }: HeroBannerProps) {
@@ -32,7 +37,7 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
   const [isPaused, setIsPaused] = useState(false);
 
 
-  const slides: BannerSlide[] = banners.map((banner: any) => ({
+  const slides: BannerSlide[] = banners.map((banner) => ({
     id: banner.id,
     title: banner.title,
     description: banner.description,

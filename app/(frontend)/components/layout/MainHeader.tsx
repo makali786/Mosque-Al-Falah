@@ -24,10 +24,10 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const ABOUT_DROPDOWN = [
-  { label: "About Us", href: "/about-us" },
-  { label: "History", href: "/about-us/history" },
-  { label: "Mission", href: "/about-us/mission" },
-  { label: "Staff", href: "/about-us/staff" },
+  { label: "About Us", href: "/about" },
+  { label: "History", href: "/about/history" },
+  { label: "Mission", href: "/about/mission" },
+  { label: "Staff", href: "/about/staff" },
   { label: "Contact Us", href: "/contact-us" },
 ] as const;
 

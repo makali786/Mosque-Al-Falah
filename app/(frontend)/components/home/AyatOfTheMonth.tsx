@@ -9,9 +9,19 @@ import { FaPause } from "react-icons/fa6";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.ComponentType<any>;
 
+interface Ayat {
+  arabicCalligraphyImage?: { url?: string; alt?: string };
+  englishTranslation?: string;
+  surahName?: string;
+  videoTitle?: string;
+  videoThumbnail?: { url?: string };
+  videoUrl?: string;
+  audioUrl?: string;
+}
+
 type ViewMode = "default" | "video" | "audio";
 
-export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth: any[] }) {
+export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth: Ayat[] }) {
 
   const [viewMode, setViewMode] = useState<ViewMode>("default");
 
@@ -20,6 +30,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
   const [played, setPlayed] = useState(0);
   const [duration, setDuration] = useState(0);
   const [seeking, setSeeking] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
 
   const handlePlayPause = () => {
@@ -152,7 +163,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
                   width="100%"
                   height="100%"
                   controls={true}
-                  light={videoThumbnail}
+                  light={videoThumbnail || false}
                   playIcon={
                     <div className="absolute inset-0 w-full h-full flex items-center justify-center group">
                       <div className="absolute inset-0 bg-black/32" />
