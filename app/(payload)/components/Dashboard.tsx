@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
   FaArrowDown,
@@ -81,7 +82,7 @@ const Dashboard = () => {
         const eventsLastMonth = await eventsLastMonthRes.json();
         const services = await servicesRes.json();
         const media = await mediaRes.json();
-        const notices = await noticesRes.json();
+        const _notices = await noticesRes.json();
 
         // Calculate trends
         const donationTrend =
@@ -672,7 +673,7 @@ const Dashboard = () => {
           gap: '1rem',
         }}
       >
-        <a
+        <Link
           href="/admin/collections/events/create"
           style={{
             backgroundColor: 'white',
@@ -717,9 +718,9 @@ const Dashboard = () => {
               Add new event
             </div>
           </div>
-        </a>
+        </Link>
 
-        <a
+        <Link
           href="/admin/collections/donation-appeals/create"
           style={{
             backgroundColor: 'white',
@@ -764,9 +765,9 @@ const Dashboard = () => {
               Create appeal
             </div>
           </div>
-        </a>
+        </Link>
 
-        <a
+        <Link
           href="/admin/collections/notices/create"
           style={{
             backgroundColor: 'white',
@@ -811,7 +812,7 @@ const Dashboard = () => {
               Add announcement
             </div>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   );
