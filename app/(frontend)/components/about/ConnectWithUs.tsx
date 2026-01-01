@@ -1,6 +1,33 @@
-import Image from "next/image";
+"use client";
 
-export default function ConnectWithUsSection() {
+import Image from "next/image";
+import { RichTextRenderer } from "@/components/common/RichTextRenderer";
+import Link from "next/link";
+
+interface ConnectWithUsProps {
+  title: string;
+  description: any; // Rich Text
+  image: {
+    src: string;
+    alt: string;
+  };
+  primaryButton: {
+    text: string;
+    url: string;
+  };
+  secondaryButton: {
+    text: string;
+    url?: string;
+  };
+}
+
+export default function ConnectWithUsSection({
+  title,
+  description,
+  image,
+  primaryButton,
+  secondaryButton,
+}: ConnectWithUsProps) {
   return (
     <section className="relative w-full flex flex-col lg:flex-row overflow-hidden">
       {/* Background with gradient and pattern - only on right side for desktop */}
@@ -23,8 +50,8 @@ export default function ConnectWithUsSection() {
       {/* Left side - Image */}
       <div className="relative w-full lg:w-1/2 h-64 sm:h-80 md:h-96 lg:h-auto lg:min-h-[600px]">
         <Image
-          src="/assets/about-us/connect-with-us.png"
-          alt="Connect with Us"
+          src={image?.src}
+          alt={image?.alt}
           fill
           className="object-cover"
           priority
@@ -36,28 +63,30 @@ export default function ConnectWithUsSection() {
         <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-[24px] w-full max-w-full lg:max-w-[556px]">
           {/* Title */}
           <h2 className="text-2xl leading-8 font-bold sm:text-3xl sm:leading-9 md:text-[32px] md:leading-9 lg:text-[36px] lg:leading-[40px] text-white">
-            Connect with Us
+            {title}
           </h2>
 
           {/* Description */}
-          <p className="text-base leading-6 font-medium sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-[28px] text-[#f4f4f5]">
-            Our community makes us unique. They have an energy that reverberates
-            around them. Their mission in life is to ensure the wonder in the
-            world is not overlooked.
-          </p>
+          <div className="text-base leading-6 font-medium sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-[28px] text-[#f4f4f5]">
+            <RichTextRenderer content={description} />
+          </div>
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-[24px]">
-            <button className="flex items-center justify-center h-10 sm:h-11 md:h-12 lg:h-[48px] px-4 sm:px-5 md:px-6 lg:px-[24px] bg-[#fafafa] hover:bg-white text-black rounded-lg sm:rounded-xl lg:rounded-[12px] transition-colors cursor-pointer">
+            {primaryButton && primaryButton.text && (
+              <Link href={primaryButton?.url} className="flex items-center justify-center h-10 sm:h-11 md:h-12 lg:h-[48px] px-4 sm:px-5 md:px-6 lg:px-[24px] bg-[#fafafa] hover:bg-white text-black rounded-lg sm:rounded-xl lg:rounded-[12px] transition-colors cursor-pointer">
               <span className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-[24px]">
-                Contact Us
+                  {primaryButton?.text}
               </span>
-            </button>
-            <button className="flex items-center justify-center h-10 sm:h-11 md:h-12 lg:h-[48px] px-4 sm:px-5 md:px-6 lg:px-[24px] bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg sm:rounded-xl lg:rounded-[12px] transition-colors cursor-pointer">
+              </Link>
+            )}
+            {secondaryButton && secondaryButton?.text && (
+              <Link href={secondaryButton?.url || "#"} className="flex items-center justify-center h-10 sm:h-11 md:h-12 lg:h-[48px] px-4 sm:px-5 md:px-6 lg:px-[24px] bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg sm:rounded-xl lg:rounded-[12px] transition-colors cursor-pointer">
               <span className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-[24px]">
-                Join Our Community
+                  {secondaryButton?.text}
               </span>
-            </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

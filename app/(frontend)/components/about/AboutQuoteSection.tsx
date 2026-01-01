@@ -2,13 +2,19 @@
 
 import { QuoteSection } from "@/components/common/QuoteSection";
 
-export default function AboutQuoteSection() {
+interface AboutQuoteSectionProps {
+  quote: string;
+  attribution: string;
+  donateButtonUrl?: string;
+}
+
+export default function AboutQuoteSection({ quote, attribution, donateButtonUrl }: AboutQuoteSectionProps) {
   const handleShare = () => {
     if (navigator.share) {
       navigator
         .share({
           title: "Islamic Guidance",
-          text: "Whoever guides someone to goodness will have a reward like the one who did it.",
+          text: quote,
           url: window.location.href,
         })
         .catch((err) => console.log("Share failed:", err));
@@ -18,16 +24,18 @@ export default function AboutQuoteSection() {
   };
 
   const handleDonate = () => {
-    window.location.href = "/donate";
+    if (donateButtonUrl) {
+      window.location.href = donateButtonUrl;
+    }
   };
 
   return (
     <QuoteSection
-      quote="Whoever guides someone to goodness will have a reward like the one who did it."
-      attribution="Prophet Muhammad"
-      showAttributionSymbol={true}
+      quote={quote}
+      attribution={attribution}
+      showAttributionSymbol={false} 
       onShare={handleShare}
-      onDonate={handleDonate}
+      onDonate={donateButtonUrl ? handleDonate : undefined}
       shareButtonText="Share this page"
       donateButtonText="Donate Now"
     />

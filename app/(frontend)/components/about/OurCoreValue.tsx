@@ -2,48 +2,24 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { RichTextRenderer } from "@/components/common/RichTextRenderer";
 
-interface AccordionItem {
+interface CoreValueItem {
   id: string;
   question: string;
-  answer: string;
+  answer: any; 
 }
 
-const faqItems: AccordionItem[] = [
-  {
-    id: "maf",
-    question: "What is the Masjid Al-Falah (MAF)?",
-    answer:
-      "Our Madrasa welcomes children from ages 5 and above, with tailored classes for different age groups.",
-  },
-  {
-    id: "organised",
-    question: "How is MAF Organised?",
-    answer:
-      "MAF is organized with a structured curriculum designed to meet the needs of all age groups.",
-  },
-  {
-    id: "founded",
-    question: "How was MCB Founded?",
-    answer:
-      "MCB was founded with a mission to serve and support the Muslim community.",
-  },
-  {
-    id: "funded",
-    question: "How is the MCB Funded?",
-    answer:
-      "MCB is funded through community contributions and charitable donations.",
-  },
-  {
-    id: "relate",
-    question: "How Do You Relate to ordinary British Muslim Individuals?",
-    answer:
-      "We maintain strong connections with British Muslim individuals through community engagement and outreach.",
-  },
-];
+interface CoreValuesSectionProps {
+  title: string;
+  description?: string;
+  items: CoreValueItem[];
+}
 
-export function CoreValuesSection() {
-  const [expandedId, setExpandedId] = useState<string>("maf");
+export function CoreValuesSection({ title, description, items }: CoreValuesSectionProps) {
+  const [expandedId, setExpandedId] = useState<string>(items[0]?.id || "");
+
+  if (!items || items.length === 0) return null;
 
   return (
     <section className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden">
@@ -70,19 +46,20 @@ export function CoreValuesSection() {
         <div className="flex items-center w-full">
           <div className="flex flex-col gap-4 sm:gap-4 md:gap-5 lg:gap-5 w-full lg:w-162.5">
             <h1 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 lg:text-[48px] lg:leading-12 text-white">
-              Our Core Values
+              {title}
             </h1>
-            <p className="text-base leading-6 font-medium sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-white">
-              Learn more about our values and our story about MAF&apos;s by visiting
-              the about us page.
-            </p>
+            {description && (
+              <p className="text-base leading-6 font-medium sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-white">
+                {description}
+              </p>
+            )}
           </div>
         </div>
 
         {/* Accordion */}
         <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-[14px] px-6 py-8 sm:px-8 sm:py-9 md:px-12 md:py-10 lg:px-16 lg:py-11 w-full">
           <div className="flex flex-col px-2 lg:px-2">
-            {faqItems.map((item, index) => (
+            {items.map((item, index) => (
               <div key={item.id} className="flex flex-col gap-2 lg:gap-2">
                 <button
                   onClick={() =>
@@ -119,15 +96,13 @@ export function CoreValuesSection() {
                   }`}
                 >
                   <div className="flex items-center w-full pb-2">
-                    <div className="flex-1 flex flex-col justify-center">
-                      <p className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-6 text-[#11181c]">
-                        {item.answer}
-                      </p>
+                    <div className="flex-1 flex flex-col justify-center text-[#11181c]">
+                      <RichTextRenderer content={item?.answer} className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-6" />
                     </div>
                   </div>
                 </div>
 
-                {index < faqItems.length - 1 && (
+                {index < items?.length - 1 && (
                   <div
                     className="h-px w-full"
                     style={{

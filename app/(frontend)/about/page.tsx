@@ -1,104 +1,115 @@
 import PageHero from "@/components/common/PageHero";
 import ContentImageSection from "@/components/common/ContentImageSection";
 import { CoreValuesSection } from "@/components/about/OurCoreValue";
-import { CommitteesSection } from "@/components/about/CommitiesCard";
+import { CommitteesSection, CommitteeMember } from "@/components/about/CommitiesCard";
 import ConnectWithUsSection from "@/components/about/ConnectWithUs";
 import AboutQuoteSection from "@/components/about/AboutQuoteSection";
-import { fetchGlobal } from "../../../lib/fetcher";
+import { fetchGlobal, fetchCoreValues, fetchCommittees } from "../../../lib/fetcher";
+import { RichTextRenderer } from "@/components/common/RichTextRenderer";
 
 export default async function AboutUsPage() {
-
-
   const aboutUs = await fetchGlobal({ slug: "about-page" });
+  const coreValuesDocs = await fetchCoreValues({ sort: 'order' });
+  const committeesDocs = await fetchCommittees<CommitteeMember>({ sort: 'order', where: { isActive: { equals: true } } });
+  if (!aboutUs) return null;
 
-  console.log("aboutUs", aboutUs)
+  // Transform core values
+  const coreValuesItems = coreValuesDocs.map((doc: any) => ({
+    id: doc?.id,
+    question: doc?.question,
+    answer: doc?.answer,
+  }));
+
+  // Mission Content
+  const missionContent = (
+    <div className="flex flex-col gap-4">
+      <p className="text-base leading-relaxed text-gray-700 dark:text-gray-300">
+        {aboutUs?.mission?.introduction}
+      </p>
+      {aboutUs?.mission?.missionPoints && (
+        <ul className="flex flex-col gap-3 mt-2">
+          {aboutUs?.mission?.missionPoints.map((point: any, index: number) => (
+            <li key={point?.id || index} className="flex gap-2 text-base text-gray-700 dark:text-gray-300">
+              <span className="font-bold whitespace-nowrap">{point.title}</span>
+              <span>{point.description}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 
   return (
     <div className="bg-white dark:bg-gray-950">
       <PageHero
-        title="About Us"
+        title={aboutUs.hero?.title || ""}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "About Us", href: "/about-us" },
         ]}
-        backgroundImage="/assets/about-us/about-us.jpg"
+        backgroundImage={aboutUs.hero?.backgroundImage?.url || ""}
       />
-      <ContentImageSection
-        heading="Our History"
-        imageSrc="/assets/about-us/our-history.png"
-        imageAlt="Masjid Al-Falah - Historical view"
-        layout="image-right"
-        imageWidth={664}
-        imageHeight={498}
-        content={
-          <>
-            <p>
-              In <strong>1996</strong>, a building at{" "}
-              <strong>97 Empress Avenue, Ilford</strong> was purchased by a few
-              dedicated Muslims to establish a Masjid for the local community.
-              It hosted prayers, children&apos;s Islamic classes, and Taraweeh during
-              Ramadan. However, due to planning restrictions, a mosque couldn&apos;t
-              be established there.
-            </p>
-            <p>
-              Undeterred, the founders sought a new location.{" "}
-              <strong>Alhamdulillah, in 2007</strong>, they secured a
-              purpose-built property at <strong>97 Kensington Gardens</strong>,
-              originally a <strong>Jehovah&apos;s Witness Church</strong> since the
-              1960s. The building was converted into{" "}
-              <strong>Masjid Al-Falah (North Ilford Islamic Centre)</strong>,
-              and daily prayers began immediately.
-            </p>
-            <p>
-              To accommodate the growing Muslim community, neighboring buildings
-              were acquired in <strong>2009</strong> and <strong>2011</strong>.{" "}
-              <strong>Masjid Al-Falah</strong> continues to thrive, serving and
-              supporting the local community.
-            </p>
-          </>
-        }
-      />
-      {/* Our Mission Section */}
-      <ContentImageSection
-        heading="Our Mission"
-        imageSrc="/assets/about-us/our-mission.png"
-        imageAlt="Masjid Al-Falah - Our Mission"
-        layout="image-left"
-        imageWidth={584}
-        imageHeight={438}
-        content={
-          <>
-            <p>
-              Masjid Al-Falah, North Ilford Islamic Centre, is dedicated to
-              serving the religious, spiritual, educational, and communal needs
-              of the local community by:
-            </p>
-            <ul>
-              <li>
-                <strong>Inspiring faith:</strong> in the Almighty and following
-                the teachings of Prophet Muhammad (ﷺ).
-              </li>
-              <li>
-                <strong>Educating:</strong> on the true teachings of Islam
-                through the <strong>Qur&apos;an and Sunnah</strong>.
-              </li>
-              <li>
-                <strong>Fostering well-being:</strong> through communal worship.
-              </li>
-              <li>
-                <strong>Serving:</strong> our neighbors and community.
-              </li>
-              <li>
-                <strong>Promoting:</strong> peace, harmony, respect, and mercy.
-              </li>
-            </ul>
-          </>
-        }
-      />
-      <CoreValuesSection />
-      <CommitteesSection />
-      <ConnectWithUsSection />
-      <AboutQuoteSection />
+
+      {aboutUs.history?.enableSection && (
+        <ContentImageSection
+          heading={aboutUs.history.sectionTitle}
+          imageSrc={aboutUs.history.image?.url || ""}
+          imageAlt={aboutUs.history.image?.alt || ""}
+          layout="image-right"
+          imageWidth={664}
+          imageHeight={498}
+          content={<RichTextRenderer content={aboutUs.history.content} />}
+        />
+      )}
+
+      {aboutUs.mission?.enableSection && (
+        <ContentImageSection
+          heading={aboutUs.mission.sectionTitle}
+          imageSrc={aboutUs.mission.image?.url || ""}
+          imageAlt={aboutUs.mission.image?.alt || ""}
+          layout="image-left"
+          imageWidth={584}
+          imageHeight={438}
+          content={missionContent}
+        />
+      )}
+
+      {aboutUs.coreValues?.enableSection && (
+        <CoreValuesSection
+          title={aboutUs.coreValues.sectionTitle}
+          description={aboutUs.coreValues.description}
+          items={coreValuesItems}
+        />
+      )}
+
+      {aboutUs.committeesSection?.enableSection && (
+        <CommitteesSection
+          title={aboutUs.committeesSection.sectionTitle}
+          description={aboutUs.committeesSection.description}
+          members={committeesDocs}
+        />
+      )}
+
+      {aboutUs.connect?.enableSection && (
+        <ConnectWithUsSection
+          title={aboutUs.connect.sectionTitle}
+          description={aboutUs.connect.description}
+          image={{
+            src: aboutUs.connect.image?.url || "",
+            alt: aboutUs.connect.image?.alt || "Connect with Us"
+          }}
+          primaryButton={aboutUs.connect.primaryButton}
+          secondaryButton={aboutUs.connect.secondaryButton}
+        />
+      )}
+
+      {aboutUs.quote?.enableSection && (
+        <AboutQuoteSection
+          quote={aboutUs.quote.quoteText}
+          attribution={aboutUs.quote.author}
+          donateButtonUrl={aboutUs.quote.donateButtonUrl}
+        />
+      )}
     </div>
   );
 }

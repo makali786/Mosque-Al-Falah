@@ -92,11 +92,9 @@ export const fetchCoreValues = (
   options: Omit<FindOptions, "collection"> = {}
 ) => findFromPayload({ collection: "core-values", ...options });
 
-export const fetchCommittees = (
+export const fetchCommittees = <T = any>(
   options: Omit<FindOptions, "collection"> = {}
-) => findFromPayload({ collection: "committees", ...options });
+) => findFromPayload<T>({ collection: "committees", ...options });
 
-
-// fetch single document
 
 
