@@ -272,6 +272,7 @@ export const BlogPosts: CollectionConfig = {
     {
       name: 'relatedPosts',
       type: 'relationship',
+      // @ts-expect-error - blog-posts collection slug type issue
       relationTo: 'blog-posts',
       hasMany: true,
       label: 'Related Posts',
