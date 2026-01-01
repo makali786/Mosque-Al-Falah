@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getMediaUrl } from "../../../../lib/helper";
 
 export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal: any[] }) {
   if (!donationAppeal || donationAppeal.length === 0) return null;
@@ -7,15 +8,17 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
 
   const title = appeal.title || "";
   const shortDescription = appeal.shortDescription || "";
-  const description = appeal.description || "";
+  const description = appeal.shortDescription || "";
 
-  const target = appeal.targetAmount || 0;
-  const funded = appeal.fundRaised || 0;
+  const target = appeal.funding?.targetAmount || 0;
+  const funded = appeal.funding?.currentAmount || 0;
   const progressPercentage = target > 0 ? Math.min((funded / target) * 100, 100) : 0;
-  const donorsCount = appeal.donorsCount || 0;
-  const daysLeft = appeal.daysLeft || 0;
+  const donorsCount = appeal.funding?.totalDonors || 0;
 
-  const image1 = typeof appeal.image === 'string' ? appeal.image : appeal.image?.url || null;
+  const daysLeft = 0; 
+
+  const image1 = getMediaUrl(appeal.heroMedia?.heroImage);
+  console.log("image1", image1)
   return (
     <section className="relative w-full py-8 lg:py-22.5 bg-linear-to-br from-[#165273] to-[#153595]">
       <div className="hn-container px-4 sm:!px-18">

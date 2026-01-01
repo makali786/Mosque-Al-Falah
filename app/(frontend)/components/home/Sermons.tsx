@@ -156,7 +156,7 @@ export default function Sermons({ sermons = [] }: { sermons: any[] }) {
           {mappedSermons.map((sermon) => (
           <div
             key={sermon.id}
-            className="flex flex-col gap-6.25 shrink-0 w-full sm:w-88.75"
+              className="flex flex-col gap-6.25 shrink-0 w-full sm:w-88.75 lg:w-[calc((100%-72px)/3)]"
           >
             {/* Image with overlay buttons */}
             <div className="relative w-full h-[199.5px] rounded-[14px] overflow-visible">
