@@ -13,8 +13,8 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us", hasDropdown: true },
-  { label: "Our Services", href: "/our-services" },
+  { label: "About Us", href: "/about", hasDropdown: true },
+  { label: "Our Services", href: "/services" },
   { label: "Appeals", href: "/appeals" },
   { label: "Madrasah", href: "/madrasah" },
   { label: "Sermons", href: "/sermons" },

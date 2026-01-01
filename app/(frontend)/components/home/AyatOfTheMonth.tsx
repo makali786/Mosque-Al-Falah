@@ -7,8 +7,21 @@ import ViewToggleButtons from "../common/ViewToggleButtons";
 
 type ViewMode = "default" | "video" | "audio";
 
-export default function AyatOfTheMonth() {
+export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth: any[] }) {
+
   const [viewMode, setViewMode] = useState<ViewMode>("default");
+
+  if (!ayatOfTheMonth || ayatOfTheMonth.length === 0) return null;
+  const data = ayatOfTheMonth[0];
+
+  console.log("ayatOfTheMonth", ayatOfTheMonth)
+  // Mapping logic
+  const arabicImage = data.arabicCalligraphyImage?.url || null;
+  const englishText = data.englishTranslation || "";
+  const citation = data.surahName || "";
+  const videoTitle = data.videoTitle || "";
+  const videoThumbnail = data.videoThumbnail?.url || null;
+
 
   return (
     <section className="relative w-full py-8 pb-32 px-4 sm:py-18 sm:px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-112.5 sm:min-h-197.75">
@@ -35,23 +48,26 @@ export default function AyatOfTheMonth() {
 
               <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-69 sm:max-w-full">
                 {/* Arabic Calligraphy */}
-                <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
-                  <Image
-                    src="/assets/ayat/arabic-text.svg"
-                    alt="Arabic Calligraphy"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+                {arabicImage && (
+                  <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
+                    <Image
+                      src={arabicImage}
+                      alt={data.arabicCalligraphyImage?.alt || ""}
+                      fill
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                )}
 
                 {/* English Quote */}
                 <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
-                  &quot;And when I am ill, it is He who cures me&quot;
+                  &quot;{englishText}&quot;
                 </p>
 
                 {/* Citation */}
                 <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  — Surah Ash-Shu&apos;ara (26:80)
+                  {citation}
                 </p>
               </div>
             </div>
@@ -77,17 +93,20 @@ export default function AyatOfTheMonth() {
 
             <div className="flex flex-col gap-4 sm:gap-6.25 w-full max-w-full sm:max-w-[735.5px]">
               <h3 className="text-xl sm:text-4xl font-bold text-white leading-7 sm:leading-13 text-center overflow-hidden text-ellipsis whitespace-nowrap px-4">
-                Lessons from Surah Al-Fatihah
+                {videoTitle}
               </h3>
 
               {/* Video Player */}
               <div className="relative w-full aspect-780/438 bg-white rounded-xl overflow-hidden">
-                <Image
-                  src="/assets/ayat/video-thumbnail.png"
-                  alt="Video Thumbnail"
-                  fill
-                  className="object-cover"
-                />
+                {videoThumbnail && (
+                  <Image
+                    src={videoThumbnail}
+                    alt="Video Thumbnail"
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                )}
                 <div className="absolute inset-0 bg-black/32" />
                 <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14">
                   <Image
@@ -112,23 +131,26 @@ export default function AyatOfTheMonth() {
 
               <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-69 sm:max-w-full">
                 {/* Arabic Calligraphy */}
-                <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
-                  <Image
-                    src="/assets/ayat/arabic-text.svg"
-                    alt="Arabic Calligraphy"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+                {arabicImage && (
+                  <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
+                    <Image
+                      src={arabicImage}
+                      alt="Arabic Calligraphy"
+                      fill
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                )}
 
                 {/* English Quote */}
                 <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
-                  &quot;And when I am ill, it is He who cures me&quot;
+                  &quot;{englishText}&quot;
                 </p>
 
                 {/* Citation */}
                 <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  — Surah Ash-Shu&apos;ara (26:80)
+                  — {citation}
                 </p>
               </div>
             </div>

@@ -5,29 +5,29 @@ import Link from "next/link";
 
 interface Imam {
   id: number;
-  image: string;
+  image: string | null;
   name: string;
   tagline: string;
   imageStyle?: string;
 }
 
-const IMAMS: Imam[] = [
-  {
-    id: 1,
-    image: "/assets/imams/imam-1.png",
-    name: "Adil Yousuf",
-    tagline: "Imam & Quarry",
-    imageStyle: "object-[50%_-14%] scale-150",
-  },
-  {
-    id: 2,
-    image: "/assets/imams/imam-2.png",
-    name: "Adil Yousuf",
-    tagline: "Imam & Quarry",
-  },
-];
+// Remove hardcoded IMAMS constant
 
-export default function MeetOurImams() {
+
+export default function MeetOurImams({ imams = [] }: { imams: any[] }) {
+
+  const mappedImams: Imam[] = imams.map((imam: any) => ({
+    id: imam.id,
+    name: imam.name,
+    tagline: imam.tagline || imam.role || "", // Fallback if tagline missing
+    image: typeof imam.image === "string" ? imam.image : imam.image?.url || null,
+    imageStyle: imam.imageStyle,
+  }));
+
+  const hasImams = mappedImams.length > 0;
+
+  if (!hasImams) return null;
+
   return (
     <section className="bg-white w-full pb-8 sm:py-22.5">
       <div className="hn-container px-4 sm:!px-18">
@@ -37,18 +37,20 @@ export default function MeetOurImams() {
         </h2>
 
         {/* Imam Cards */}
-        <div className="flex flex-col lg:flex-row gap-10 sm:gap-10 md:gap-11 lg:gap-12 items-center pb-8 sm:pb-0">
-          {IMAMS.map((imam) => (
+        <div className="flex flex-col items-center lg:justify-center xl:justify-start lg:flex-row lg:flex-wrap gap-10 sm:gap-10 md:gap-11 lg:gap-12 items-center pb-8 sm:pb-0">
+          {mappedImams.map((imam) => (
             <div key={imam.id} className="relative w-full aspect-square lg:w-136 lg:h-136 lg:aspect-auto">
               {/* Card Container */}
               <div className="relative w-full h-full rounded-xl overflow-hidden">
                 {/* Background Image */}
-                <Image
-                  src={imam.image}
-                  alt={imam.name}
-                  fill
-                  className={`object-cover ${imam.imageStyle || ""}`}
-                />
+                {imam.image && (
+                  <Image
+                    src={imam.image}
+                    alt={imam.name}
+                    fill
+                    className={`object-cover ${imam.imageStyle || ""}`}
+                  />
+                )}
 
                 {/* Gradient Overlay */}
                 <div

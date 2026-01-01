@@ -6,62 +6,22 @@ import Link from "next/link";
 
 interface Service {
   id: number;
-  image: string;
+  image: string | null;
   title: string;
 }
 
-const SERVICES: Service[] = [
-  {
-    id: 1,
-    image: "/assets/services/service-1.png",
-    title: "Five Daily Prayers",
-  },
-  {
-    id: 2,
-    image: "/assets/services/service-2.png",
-    title: "Friday Jumua'ah sermon",
-  },
-  {
-    id: 3,
-    image: "/assets/services/service-3.png",
-    title: "Taraweeh and Eid Prayers",
-  },
-  {
-    id: 4,
-    image: "/assets/services/service-4.png",
-    title: "Food bank",
-  },
-  {
-    id: 5,
-    image: "/assets/services/service-5.png",
-    title: "Madrasah & Hifdh Class",
-  },
-  {
-    id: 6,
-    image: "/assets/services/service-6.png",
-    title: "Weekly Adult Classes",
-  },
-  {
-    id: 7,
-    image: "/assets/services/service-7.png",
-    title: "Nikaah Marriage Service",
-  },
-  {
-    id: 8,
-    image: "/assets/services/service-8.png",
-    title: "Regular Educational Events",
-  },
-  {
-    id: 9,
-    image: "/assets/services/service-9.png",
-    title: "Youth Activities",
-  },
-];
-
-export default function Services() {
+export default function Services({ services = [] }: { services: any[] }) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  console.log("services", services)
+  // Map incoming services to local format
+  const mappedServices: Service[] = services.map((service: any) => ({
+    id: service.id,
+    title: service.title,
+    image: (typeof service.image === "string" ? service.image : service.image?.url) || (service.media?.cardImage?.url) || null,
+  }));
 
   const checkScrollPosition = () => {
     if (scrollContainerRef.current) {
@@ -145,18 +105,20 @@ export default function Services() {
       {/* Grid Layout - Mobile only */}
       <div className="sm:hidden px-4">
         <div className="grid grid-cols-2 gap-5 w-full">
-          {SERVICES.slice(0, 6).map((service) => (
+          {mappedServices.slice(0, 6).map((service) => (
             <div
               key={service.id}
               className="relative w-full h-51.5 rounded-lg overflow-hidden px-2 py-3 flex flex-col justify-between"
             >
               {/* Background Image */}
-              <Image
-                src={service.image}
-                alt={service.title}
-                fill
-                className="object-cover"
-              />
+              {service.image && (
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover"
+                />
+              )}
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-transparent rounded-lg" />
 
@@ -195,19 +157,20 @@ export default function Services() {
           className="flex gap-6 sm:gap-6 md:gap-7 lg:gap-8 px-6 sm:px-8 md:px-10 lg:px-12 overflow-x-auto scrollbar-hide"
           style={{ scrollbarWidth: "none" }}
         >
-          {SERVICES.map((service) => (
+          {mappedServices.map((service) => (
             <div
               key={service.id}
               className="relative shrink-0 w-65 h-95 sm:w-70 sm:h-100 md:w-75 md:h-106.25 lg:w-80 lg:h-112.5 rounded-xl overflow-hidden p-4 sm:p-4 md:p-4.5 lg:p-5 flex flex-col justify-between"
             >
               {/* Background Image */}
-              <Image
-                src={service.image}
-                alt={service.title}
-                fill
-                className="object-cover"
-              />
-              {/* Gradient Overlay */}
+              {service.image && (
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover"
+                />
+              )}              {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-transparent rounded-xl" />
 
               {/* Title */}
