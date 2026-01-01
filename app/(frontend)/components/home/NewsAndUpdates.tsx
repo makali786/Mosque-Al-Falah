@@ -45,20 +45,23 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
-    if (!scrollContainer) return;
+    if (!scrollContainer || displayNotices.length === 0) return;
 
     const scrollSpeed = 0.5; // pixels per frame
     let animationFrameId: number;
+    let currentScroll = scrollContainer.scrollTop;
 
     const scroll = () => {
       if (scrollContainer && !isPaused) {
-        scrollContainer.scrollTop += scrollSpeed;
+        currentScroll += scrollSpeed;
+        scrollContainer.scrollTop = currentScroll;
 
         // Calculate the height of one set of notices (1/3 of total since we have 3 copies)
         const singleSetHeight = scrollContainer.scrollHeight / 3;
 
         // Reset scroll seamlessly when reaching end of first set
-        if (scrollContainer.scrollTop >= singleSetHeight) {
+        if (currentScroll >= singleSetHeight) {
+          currentScroll = 0;
           scrollContainer.scrollTop = 0;
         }
       }
@@ -70,7 +73,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isPaused]);
+  }, [isPaused, displayNotices]);
 
   return (
     <section className="bg-white w-full py-12 sm:py-24">
