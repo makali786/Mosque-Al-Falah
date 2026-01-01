@@ -29,7 +29,10 @@ export default async function AboutUsPage() {
       {aboutUs?.mission?.missionPoints && (
         <ul className="flex flex-col gap-3 mt-2">
           {aboutUs?.mission?.missionPoints.map((point: any, index: number) => (
-            <li key={point?.id || index} className="flex gap-2 text-base text-gray-700 dark:text-gray-300">
+            <li
+              key={point?.id || index}
+              className="flex gap-2"
+            >
               <span className="font-bold whitespace-nowrap">{point.title}</span>
               <span>{point.description}</span>
             </li>
