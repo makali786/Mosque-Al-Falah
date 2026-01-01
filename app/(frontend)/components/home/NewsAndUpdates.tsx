@@ -30,12 +30,12 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
   const typedEvents = events as unknown as Event[];
 
   const typedNotices: Notice[] = notices.map((notice: any) => ({
-    id: notice.id,
-    title: notice.title,
-    date: notice.noticeDate ? new Date(notice.noticeDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : "",
-    tag: notice.category ? notice.category.charAt(0).toUpperCase() + notice.category.slice(1) : "News",
-    tagColor: notice.category === 'events' ? 'events' : 'news',
-    isCancelled: notice.isCancelled
+    id: notice?.id,
+    title: notice?.title,
+    date: notice?.noticeDate ? new Date(notice.noticeDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : "",
+    tag: notice?.category ? notice?.category.charAt(0).toUpperCase() + notice?.category.slice(1) : "News",
+    tagColor: notice?.category === 'events' ? 'events' : 'news',
+    isCancelled: notice?.isCancelled
   }));
 
   const displayNotices = typedNotices.length > 0 ? typedNotices : [];
@@ -113,7 +113,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                     {imageUrl && (
                       <Image
                       src={imageUrl}
-                        alt={event.title}
+                        alt={event?.title}
                         fill
                         className="object-cover"
                       />
@@ -125,10 +125,10 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                 {/* Event Info */}
                 <div className="flex flex-col gap-3">
                   <h3 className="text-xl font-semibold text-[#27272a] leading-7">
-                    {event.title}
+                      {event?.title}
                   </h3>
                   <p className="text-base text-[#3f3f46] leading-6 line-clamp-2">
-                      {event.shortDescription || event.title}
+                      {event?.shortDescription || event?.title}
                   </p>
                 </div>
               </div>
@@ -148,7 +148,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                     {imageUrl && (
                       <Image
                       src={imageUrl}
-                        alt={event.title}
+                        alt={event?.title}
                         fill
                         className="object-cover"
                       />
@@ -169,10 +169,10 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                 {/* Event Info */}
                 <div className="flex flex-col gap-1">
                   <h3 className="text-lg font-semibold text-black line-clamp-1">
-                    {event.title}
+                      {event?.title}
                   </h3>
                   <p className="text-sm text-[#27272a] line-clamp-2 leading-5">
-                      {event.shortDescription || event.title}
+                      {event?.shortDescription || event?.title}
                   </p>
                 </div>
               </div>
@@ -194,7 +194,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
               <div key={notice.id} className="flex flex-col gap-2">
                 {/* Notice Title */}
                 <h3 className="text-lg font-normal text-[#006fee] line-clamp-2 leading-7">
-                  {notice.title}
+                  {notice?.title}
                 </h3>
 
                 {/* Date and Tags */}
@@ -209,7 +209,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                       className="object-contain"
                     />
                     <span className="text-sm text-[#27272a] leading-5">
-                      {notice.date}
+                      {notice?.date}
                     </span>
                   </div>
 
@@ -249,7 +249,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
               >
                 {/* Notice Title */}
                 <h3 className="text-lg font-normal text-[#006fee] line-clamp-2 leading-7">
-                  {notice.title}
+                  {notice?.title}
                 </h3>
 
                 {/* Date and Tags */}
@@ -264,7 +264,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                       className="object-contain"
                     />
                     <span className="text-sm text-[#27272a] leading-5">
-                      {notice.date}
+                      {notice?.date}
                     </span>
                   </div>
 
@@ -279,7 +279,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                     )}
                     <div className="bg-[rgba(120,40,200,0.2)] px-2 py-1 rounded-lg">
                       <span className="text-xs text-[#301050] leading-4">
-                        {notice.tag}
+                        {notice?.tag}
                       </span>
                     </div>
                   </div>

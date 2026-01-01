@@ -113,8 +113,8 @@ export default function Services({ services = [] }: { services: any[] }) {
               {/* Background Image */}
               {service.image && (
                 <Image
-                  src={service.image}
-                  alt={service.title}
+                  src={service?.image}
+                  alt={service?.title}
                   fill
                   className="object-cover"
                 />
@@ -124,12 +124,12 @@ export default function Services({ services = [] }: { services: any[] }) {
 
               {/* Title */}
               <h3 className="relative text-base font-semibold text-white leading-6 z-10">
-                {service.title}
+                {service?.title}
               </h3>
 
               {/* Learn More Button */}
               <Link
-                href={`/services/${service.id}`}
+                href={`/services/${service?.id}`}
                 className="relative z-10 bg-[rgba(63,63,70,0.4)] h-8 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
               >
                 <span className="text-xs font-normal text-white leading-4">
@@ -159,14 +159,14 @@ export default function Services({ services = [] }: { services: any[] }) {
         >
           {mappedServices.map((service) => (
             <div
-              key={service.id}
+              key={service?.id}
               className="relative shrink-0 w-65 h-95 sm:w-70 sm:h-100 md:w-75 md:h-106.25 lg:w-80 lg:h-112.5 rounded-xl overflow-hidden p-4 sm:p-4 md:p-4.5 lg:p-5 flex flex-col justify-between"
             >
               {/* Background Image */}
-              {service.image && (
+              {service?.image && (
                 <Image
-                  src={service.image}
-                  alt={service.title}
+                  src={service?.image}
+                  alt={service?.title}
                   fill
                   className="object-cover"
                 />
@@ -175,12 +175,12 @@ export default function Services({ services = [] }: { services: any[] }) {
 
               {/* Title */}
               <h3 className="relative text-lg leading-7 sm:text-xl sm:leading-7 md:text-xl md:leading-7.5 lg:text-2xl lg:leading-8 font-semibold text-white z-10">
-                {service.title}
+                {service?.title}
               </h3>
 
               {/* Learn More Button */}
               <Link
-                href={`/services/${service.id}`}
+                href={`/services/${service?.id}`}
                 className="relative ml-auto z-10 bg-[rgba(63,63,70,0.4)] h-10 sm:h-10.5 md:h-11 lg:h-12 px-3 sm:px-3.5 md:px-3.5 lg:px-4 rounded-lg w-35 sm:w-37.5 md:w-39 lg:w-40.5 flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
               >
                 <span className="text-sm leading-5 sm:text-sm sm:leading-5 md:text-base md:leading-6 lg:text-base lg:leading-6 font-normal text-white">

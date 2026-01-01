@@ -15,7 +15,11 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
   const progressPercentage = target > 0 ? Math.min((funded / target) * 100, 100) : 0;
   const donorsCount = appeal.funding?.totalDonors || 0;
 
-  const daysLeft = 0; 
+  // Calculate days left
+  const endDate = appeal.timeline?.endDate ? new Date(appeal.timeline.endDate) : null;
+  const daysLeft = endDate
+    ? Math.max(0, Math.ceil((endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))
+    : 0; 
 
   const image1 = getMediaUrl(appeal.heroMedia?.heroImage);
   console.log("image1", image1)

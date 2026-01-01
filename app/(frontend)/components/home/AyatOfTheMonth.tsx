@@ -13,14 +13,16 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
 
   if (!ayatOfTheMonth || ayatOfTheMonth.length === 0) return null;
   const data = ayatOfTheMonth[0];
-
-  console.log("ayatOfTheMonth", ayatOfTheMonth)
   // Mapping logic
-  const arabicImage = data.arabicCalligraphyImage?.url || null;
-  const englishText = data.englishTranslation || "";
-  const citation = data.surahName || "";
-  const videoTitle = data.videoTitle || "";
-  const videoThumbnail = data.videoThumbnail?.url || null;
+  const arabicImage = data?.arabicCalligraphyImage?.url ? data?.arabicCalligraphyImage?.url : null;
+  const englishText = data?.englishTranslation || "";
+  const citation = data?.surahName || "";
+  const videoTitle = data?.videoTitle || "";
+  const videoThumbnail = data?.videoThumbnail?.url || null;
+  const videoUrl = data?.videoUrl || "";
+  const audioUrl = data.audioUrl || "";
+
+  console.log("ayatOfTheMonth ", ayatOfTheMonth)
 
 
   return (
@@ -52,7 +54,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
                   <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
                     <Image
                       src={arabicImage}
-                      alt={data.arabicCalligraphyImage?.alt || ""}
+                      alt={data?.arabicCalligraphyImage?.alt || ""}
                       fill
                       className="object-contain"
                       unoptimized
