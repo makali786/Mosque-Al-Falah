@@ -15,8 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "mosque-al-falah.vercel.app",
         pathname: "/api/media/**",
+        search: "",
       },
     ],
+    unoptimized: true
   },
 };
 
