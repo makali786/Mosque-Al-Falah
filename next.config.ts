@@ -9,6 +9,15 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "mosque-al-falah.vercel.app",
+        pathname: "/api/media/**",
+      },
+    ],
+  },
 };
 
 export default withPayload(nextConfig);
