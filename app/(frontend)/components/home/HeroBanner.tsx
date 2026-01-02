@@ -3,11 +3,12 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Media } from "../../../../payload-types";
 
-interface BannerSlide {
-  id: number;
-  image: string;
-  bannerImage: string;
+export interface BannerSlide {
+  id: number | string;
+  image: string | Media;
+  bannerImage?: string | Media | null;
   title: string;
   description: string;
   primaryButton: {
@@ -20,82 +21,38 @@ interface BannerSlide {
   };
 }
 
-const SLIDES: BannerSlide[] = [
-  {
-    id: 1,
-    image: "/assets/hero/banner-1.jpg",
-    bannerImage: "/assets/hero/banner-1.jpg",
-    title: "Welcome to Masjid Al-Falah",
-    description:
-      "Masjids, the Arabic word for mosque, serve as places of worship and social centers of Islam, but they also provide in-depth history lessons on architecture and art.",
-    primaryButton: {
-      text: "Donate",
-      href: "/donate",
-    },
-    secondaryButton: {
-      text: "Learn More",
-      href: "/about",
-    },
-  },
-  {
-    id: 2,
-    image: "/assets/hero/banner-1.jpg",
-    bannerImage: "/assets/hero/banner-1.jpg",
-    title: "Join Our Community",
-    description:
-      "Be part of a vibrant community dedicated to faith, knowledge, and service. Experience the warmth of brotherhood and sisterhood.",
-    primaryButton: {
-      text: "Donate",
-      href: "/donate",
-    },
-    secondaryButton: {
-      text: "Learn More",
-      href: "/about",
-    },
-  },
-  {
-    id: 3,
-    image: "/assets/hero/banner-1.jpg",
-    bannerImage: "/assets/hero/banner-1.jpg",
-    title: "Support Our Mission",
-    description:
-      "Your generous donations help us serve the community through education, outreach, and maintaining our facilities for all to benefit.",
-    primaryButton: {
-      text: "Donate",
-      href: "/donate",
-    },
-    secondaryButton: {
-      text: "Learn More",
-      href: "/about",
-    },
-  },
-  {
-    id: 4,
-    image: "/assets/hero/banner-1.jpg",
-    bannerImage: "/assets/hero/banner-1.jpg",
-    title: "Monthly Real Talk Programme",
-    description:
-      "Masjids, the Arabic word for mosque, serve as places of worship and social centers of Islam, but they also provide in-depth history lessons on architecture and art.",
-    primaryButton: {
-      text: "Donate",
-      href: "/donate",
-    },
-    secondaryButton: {
-      text: "Learn More",
-      href: "/about",
-    },
-  },
-];
-
 const AUTO_ROTATE_INTERVAL = 5000;
 
-export default function HeroBanner() {
+interface PayloadBanner extends Omit<BannerSlide, 'bannerImage'> {
+  mobileImage?: string | Media | null;
+  bannerImage?: string | Media | null;
+}
+
+interface HeroBannerProps {
+  banners: PayloadBanner[];
+}
+
+export default function HeroBanner({ banners = [] }: HeroBannerProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+
+  const slides: BannerSlide[] = banners.map((banner) => ({
+    id: banner.id,
+    title: banner.title,
+    description: banner.description,
+    image: banner.image,
+    bannerImage: banner.mobileImage,
+    primaryButton: banner.primaryButton,
+    secondaryButton: banner.secondaryButton,
+  }))
+  // If no slides are provided, don't render anything or render a placeholder
+  const hasSlides = slides && slides.length > 0;
+
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
-  }, []);
+    if (!hasSlides) return;
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  }, [slides.length, hasSlides]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -104,26 +61,42 @@ export default function HeroBanner() {
   };
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || !hasSlides) return;
 
     const interval = setInterval(nextSlide, AUTO_ROTATE_INTERVAL);
     return () => clearInterval(interval);
-  }, [isPaused, nextSlide]);
+  }, [isPaused, nextSlide, hasSlides]);
 
-  const currentSlideData = SLIDES[currentSlide];
+  if (!hasSlides) {
+    return null;
+  }
+
+  const currentSlideData = slides[currentSlide];
+
+  // Helper to get image URL
+  const getImageUrl = (img: string | Media | null | undefined) => {
+    if (!img) return "";
+    if (typeof img === "string") return img;
+    return img.url || "";
+  };
+
+  const desktopImage = getImageUrl(currentSlideData?.image);
+  const mobileImage = getImageUrl(currentSlideData?.bannerImage) || desktopImage;
 
   return (
     <section className="relative w-full h-auto sm:h-125 md:h-137.5 lg:h-150 xl:h-175 overflow-hidden">
       {/* Background Image - Hidden on mobile */}
       <div className="absolute inset-0 hidden sm:block">
-        <Image
-          src={currentSlideData.image}
-          alt={currentSlideData.title}
-          fill
-          className="object-cover object-center"
-          priority
-          quality={100}
-        />
+        {desktopImage && (
+          <Image
+            src={desktopImage}
+            alt={currentSlideData?.title}
+            fill
+            className="object-cover object-center"
+            priority
+            quality={100}
+          />
+        )}
       </div>
 
       {/* Gradient Background - Full gradient on mobile, overlay on desktop */}
@@ -132,14 +105,16 @@ export default function HeroBanner() {
       {/* Mobile Banner Image - Above carousel dots */}
       <div className="relative w-full sm:hidden">
         <div className="relative w-full aspect-[392/260]">
-          <Image
-            src={currentSlideData.bannerImage}
-            alt={currentSlideData.title}
-            fill
-            className="object-cover object-center"
-            priority
-            quality={100}
-          />
+          {mobileImage && (
+            <Image
+              src={mobileImage}
+              alt={currentSlideData.title}
+              fill
+              className="object-cover object-center"
+              priority
+              quality={100}
+            />
+          )}
         </div>
       </div>
 
@@ -149,7 +124,7 @@ export default function HeroBanner() {
           <div className="max-w-full flex flex-col gap-3 sm:gap-8 md:gap-10 lg:gap-12">
             {/* Carousel Navigation Dots - Top on mobile */}
             <div className="flex sm:hidden items-center justify-center gap-1 h-2">
-              {SLIDES.map((_, index) => (
+              {slides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
@@ -164,12 +139,12 @@ export default function HeroBanner() {
             </div>
 
             {/* Text Content */}
-            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-8 xl:gap-10 text-white">
+            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-8 xl:gap-10 text-white lg:max-w-[641px]">
               <h1 className="font-bold text-2xl leading-8 sm:text-3xl sm:leading-9 md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight xl:font-extrabold xl:text-[60px] xl:leading-15">
-                {currentSlideData.title}
+                {currentSlideData?.title}
               </h1>
               <p className="font-medium text-sm leading-5 sm:text-base sm:leading-6 md:text-lg md:leading-7 lg:text-xl lg:leading-relaxed xl:text-2xl xl:leading-8">
-                {currentSlideData.description}
+                {currentSlideData?.description}
               </p>
             </div>
 
@@ -177,18 +152,18 @@ export default function HeroBanner() {
             <div className="flex items-start gap-4 sm:gap-4 md:gap-5 lg:gap-6 xl:gap-7">
               {/* Secondary Button - Learn More */}
               <Link
-                href={currentSlideData.secondaryButton.href}
+                href={currentSlideData?.secondaryButton?.href}
                 className="bg-[#fafafa] hover:bg-white text-black font-normal text-sm leading-5 px-4 py-0 h-10.5 sm:text-sm sm:leading-5 sm:px-5 sm:h-11 md:text-base md:leading-6 md:px-5.5 md:h-11.5 lg:px-6 lg:h-12 xl:text-base xl:leading-6 xl:px-6 xl:h-12 flex items-center justify-center rounded-lg sm:rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-xl transition-colors"
               >
-                {currentSlideData.secondaryButton.text}
+                {currentSlideData?.secondaryButton?.text}
               </Link>
 
               {/* Primary Button - Donate */}
               <Link
-                href={currentSlideData.primaryButton.href}
+                href={currentSlideData?.primaryButton?.href}
                 className="bg-[#006fee] hover:bg-[#0056cc] text-white font-normal text-sm leading-5 px-4 py-0 h-10.5 sm:text-sm sm:leading-5 sm:px-5 sm:h-11 md:text-base md:leading-6 md:px-5.5 md:h-11.5 lg:px-6 lg:h-12 xl:text-base xl:leading-6 xl:px-6 xl:h-12 flex items-center justify-center rounded-lg sm:rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-xl transition-colors"
               >
-                {currentSlideData.primaryButton.text}
+                {currentSlideData?.primaryButton?.text}
               </Link>
             </div>
           </div>
@@ -197,7 +172,7 @@ export default function HeroBanner() {
 
       {/* Carousel Navigation Dots - Bottom right on desktop */}
       <div className="absolute bottom-4 right-4 sm:bottom-5 sm:right-5 md:bottom-6 md:right-6 hidden sm:flex items-center gap-2 md:gap-3 lg:gap-4">
-        {SLIDES.map((_, index) => (
+        {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}

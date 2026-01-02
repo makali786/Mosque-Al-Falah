@@ -73,6 +73,16 @@ export interface Config {
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+    banners: any;
+    events: any;
+    notices: any;
+    services: any;
+    imams: any;
+    'ayat-of-the-month': any;
+    sermons: any;
+    'donation-appeals': any;
+    'core-values': any;
+    committees: any;
   };
   collectionsJoins: {};
   collectionsSelect: {

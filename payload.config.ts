@@ -12,11 +12,13 @@ import { Users } from './collections/Users';
 // Content Collections
 import { AyatOfTheMonth } from './collections/AyatOfTheMonth';
 import { Banners } from './collections/Banners';
+import { BlogPosts } from './collections/BlogPosts';
 import { Committees } from './collections/Committees';
 import { CoreValues } from './collections/CoreValues';
 import { DonationAppeals } from './collections/DonationAppeals';
 import { Events } from './collections/Events';
 import { Imams } from './collections/Imams';
+import { MediaItems } from './collections/MediaItems';
 import { Notices } from './collections/Notices';
 import { PageSections } from './collections/PageSections';
 import { Sermons } from './collections/Sermons';
@@ -24,9 +26,13 @@ import { Services } from './collections/Services';
 
 // Globals
 import { AboutPage } from './globals/AboutPage';
+import { BlogsPage } from './globals/BlogsPage';
 import { ContactPage } from './globals/ContactPage';
+import { DonationAppealsPage } from './globals/DonationAppealsPage';
 import { EventsPage } from './globals/EventsPage';
 import { HomePage } from './globals/HomePage';
+import { MediaPage } from './globals/MediaPage';
+import { SermonsPage } from './globals/SermonsPage';
 import { ServicesPage } from './globals/ServicesPage';
 
 const filename = fileURLToPath(import.meta.url);
@@ -42,12 +48,13 @@ export default buildConfig({
     meta: {
       titleSuffix: '- Masjid Al-Falah CMS',
     },
-    // Custom Logo
+    // Custom Logo and Dashboard
     components: {
       graphics: {
         Logo: './app/(payload)/components/payload/Logo',
         Icon: './app/(payload)/components/payload/Icon',
       },
+      beforeDashboard: ['./app/(payload)/components/Dashboard'],
     },
   },
   collections: [
@@ -63,16 +70,28 @@ export default buildConfig({
     Imams,
     AyatOfTheMonth,
     Sermons,
+    MediaItems,
     DonationAppeals,
+    BlogPosts,
 
     // About Page Content
     CoreValues,
     Committees,
     PageSections,
   ],
-  globals: [AboutPage, ContactPage, EventsPage, HomePage, ServicesPage],
+  globals: [
+    AboutPage,
+    BlogsPage,
+    ContactPage,
+    DonationAppealsPage,
+    EventsPage,
+    HomePage,
+    MediaPage,
+    SermonsPage,
+    ServicesPage,
+  ],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: 'mosque-al-falah-secret-key-change-in-production',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

@@ -10,8 +10,6 @@ interface ServiceCardProps {
   imageAlt: string;
   href: string;
   className?: string;
-  imageWidth?: number;
-  imageHeight?: number;
 }
 
 export default function ServiceCard({
@@ -20,8 +18,6 @@ export default function ServiceCard({
   imageAlt,
   href,
   className = "",
-  imageWidth = 410,
-  imageHeight = 450,
 }: ServiceCardProps) {
   return (
     <Link

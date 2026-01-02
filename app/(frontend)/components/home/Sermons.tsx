@@ -5,9 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import ViewToggleButtons from "../common/ViewToggleButtons";
 
+import { getMediaUrl } from "../../../../lib/helper";
+
+import { Media } from "../../../../payload-types";
+
 interface Sermon {
-  id: number;
-  image: string;
+  id: number | string;
+  image: string | null;
   date: string;
   title: string;
   author: {
@@ -16,45 +20,40 @@ interface Sermon {
     avatar?: string;
     initials?: string;
   };
+  videoUrl?: string;
 }
 
-const sermons: Sermon[] = [
-  {
-    id: 1,
-    image: "/assets/sermons/sermon-1.png",
-    date: "14 February 2024",
-    title: "The Quran is the Words of Allah",
-    author: {
-      name: "Adil Yousuf",
-      initials: "AY",
-      avatar: "/assets/sermons/user-avatar.svg",
-    },
-  },
-  {
-    id: 2,
-    image: "/assets/sermons/sermon-2.png",
-    date: "14 February 2024",
-    title: "The Quran is the Words of Allah",
-    author: {
-      name: "Adil Yousuf",
-      role: "admin",
-      avatar: "/assets/sermons/user-avatar.svg",
-    },
-  },
-  {
-    id: 3,
-    image: "/assets/sermons/sermon-3.png",
-    date: "14 February 2024",
-    title: "Respecting the Sacred Month of Rajab (English)",
-    author: {
-      name: "Mawlana Farooq Suleman",
-      role: "Imam",
-      avatar: "/assets/sermons/user-avatar.svg",
-    },
-  },
-];
+// Remove hardcoded sermons constant
 
-export default function Sermons() {
+
+interface RawSermon {
+  id: number | string;
+  image?: string | { url: string } | null;
+  sermonDate?: string;
+  title: string;
+  guestSpeaker?: {
+    name?: string;
+    title?: string;
+  };
+  videoUrl?: string;
+}
+
+export default function Sermons({ sermons = [] }: { sermons: RawSermon[] }) {
+  console.log("sermons", sermons)
+
+  const mappedSermons: Sermon[] = sermons.map((sermon) => ({
+    id: sermon.id,
+    image: getMediaUrl(sermon.image as unknown as Media),
+    date: sermon.sermonDate ? new Date(sermon.sermonDate).toLocaleDateString() : "No Date",
+    title: sermon.title,
+    author: {
+      name: sermon.guestSpeaker?.name || "Unknown",
+      role: sermon.guestSpeaker?.title || "",
+      avatar: undefined, // guestSpeaker in payload doesn't seem to have an image
+      initials: sermon.guestSpeaker?.name ? sermon.guestSpeaker.name.substring(0, 2).toUpperCase() : "NA",
+    },
+    videoUrl: sermon.videoUrl
+  }));
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -168,20 +167,22 @@ export default function Sermons() {
         className="flex flex-col sm:flex-row gap-9 sm:overflow-x-auto scrollbar-hide scroll-smooth"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {sermons.map((sermon) => (
+          {mappedSermons.map((sermon) => (
           <div
             key={sermon.id}
-            className="flex flex-col gap-6.25 shrink-0 w-full sm:w-88.75"
+              className="flex flex-col gap-6.25 shrink-0 w-full sm:w-88.75 lg:w-[calc((100%-72px)/3)]"
           >
             {/* Image with overlay buttons */}
             <div className="relative w-full h-[199.5px] rounded-[14px] overflow-visible">
               <div className="relative w-full h-full rounded-[14px] overflow-hidden">
-                <Image
-                  src={sermon.image}
-                  alt={sermon.title}
-                  fill
-                  className="object-cover"
-                />
+                  {sermon.image && (
+                    <Image
+                      src={sermon.image}
+                      alt={sermon.title}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
               </div>
 
               {/* Audio and Video buttons - bottom right */}
@@ -190,11 +191,8 @@ export default function Sermons() {
                   // Handle audio click
                   console.log("Audio clicked for sermon:", sermon.id);
                 }}
-                onVideoClick={() => {
-                  // Handle video click
-                  console.log("Video clicked for sermon:", sermon.id);
-                }}
-                className="absolute -bottom-6 right-4 lg:bottom-6 lg:right-3.75"
+                  videoUrl={sermon.videoUrl || ""}
+                  className="absolute -bottom-6 right-4 lg:-bottom-6 lg:right-3.75"
               />
             </div>
 

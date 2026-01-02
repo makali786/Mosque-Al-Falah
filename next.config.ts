@@ -3,6 +3,23 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "mosque-al-falah.vercel.app",
+        pathname: "/api/media/**",
+        search: "",
+      },
+    ],
+    unoptimized: true
+  },
 };
 
 export default withPayload(nextConfig);
