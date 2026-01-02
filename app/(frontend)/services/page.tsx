@@ -1,6 +1,5 @@
 import { fetchGlobal, fetchServices } from "../../../lib/fetcher";
-import ServicesSection from "../components/services/ServicesSection";
-import BreadcrumbSearchSection from "../components/common/BreadcrumbSearchSection";
+import ServicesFilterableList from "../components/services/ServicesFilterableList";
 import RequestServiceForm from "@/components/common/RequestServiceForm";
 import { QuoteSection } from "@/components/common/QuoteSection";
 
@@ -119,17 +118,15 @@ export default async function OurServicesPage() {
                 </div>
             </section>
 
-            {/* Breadcrumb and Search Section */}
-            <BreadcrumbSearchSection
+            {/* Filterable Services List */}
+            <ServicesFilterableList
+                services={transformedServices}
                 breadcrumbs={[
                     { label: "Home", href: "/" },
                     { label: "Our Services", href: "/our-services" },
                 ]}
                 searchPlaceholder="Search"
             />
-
-            {/* Services Section */}
-            <ServicesSection services={transformedServices} />
 
             <div className="hn-container py-17">
                 <RequestServiceForm
