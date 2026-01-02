@@ -1,9 +1,47 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { submitContactForm } from "../../actions/contact";
 
-export function AskQuestionSection() {
+interface AskQuestionProps {
+  title: string;
+  description: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+  formSettings: {
+    nameLabel: string;
+    emailLabel: string;
+    topicLabel: string;
+    messageLabel: string;
+    submitButtonText: string;
+  };
+  topicOptions?: string[];
+  successMessage?: string;
+  recipientEmail?: string;
+}
+
+const initialState = {
+  success: false,
+  message: "",
+  errors: {},
+};
+
+export function AskQuestionSection({
+  title,
+  description,
+  image,
+  formSettings,
+  topicOptions = [],
+  successMessage: defaultSuccessMessage,
+  recipientEmail,
+}: AskQuestionProps) {
+  const [state, formAction, isPending] = useActionState(
+    submitContactForm,
+    initialState
+  );
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,11 +49,17 @@ export function AskQuestionSection() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-  };
+  // Reset form on success
+  useEffect(() => {
+    if (state.success) {
+      setFormData({
+        name: "",
+        email: "",
+        topic: "",
+        message: "",
+      });
+    }
+  }, [state.success]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -29,6 +73,21 @@ export function AskQuestionSection() {
     }));
   };
 
+  // Default topics if none provided
+  const defaultTopics = [
+    { value: "general", label: "General Inquiry" },
+    { value: "prayer", label: "Prayer Times" },
+    { value: "events", label: "Events" },
+    { value: "donations", label: "Donations" },
+    { value: "education", label: "Education" },
+    { value: "other", label: "Other" },
+  ];
+
+  const topicsToRender =
+    topicOptions && topicOptions.length > 0
+      ? topicOptions.map((t) => ({ value: t, label: t }))
+      : defaultTopics;
+
   // Image dimensions
   const imageWidth = 766;
   const imageHeight = 610;
@@ -40,7 +99,7 @@ export function AskQuestionSection() {
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start">
           {/* Left Side - Image */}
           <div
-            className="w-full lg:shrink-0 lg:w-[45%] lg:max-w-124.5 2xl:max-w-166"
+            className="hidden lg:block w-full lg:shrink-0 lg:w-[45%] lg:max-w-124.5 2xl:max-w-166"
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,
@@ -54,8 +113,8 @@ export function AskQuestionSection() {
               }}
             >
               <Image
-                src="/assets/contact-us/contact-img.png"
-                alt="Ask a Question - Masjid Al-Falah"
+                src={image.url}
+                alt={image.alt}
                 fill
                 className="object-cover"
               />
@@ -64,20 +123,34 @@ export function AskQuestionSection() {
 
           {/* Right Side - Form Section */}
           <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-[42px]">
-
             {/* Heading */}
             <div className="flex flex-col gap-5 sm:gap-7">
               <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 xl:text-5xl lg:leading-12 text-black">
-                Ask a Question
+                {title}
               </h2>
               <p className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 xl:text-lg lg:leading-7 text-[#666666]">
-                If you have any questions, you can contact us. Please, fill out
-                the form below.
+                {description}
               </p>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5 sm:gap-6 lg:gap-5 xl:gap-6">
+            <form
+              action={formAction}
+              className="flex flex-col gap-5 sm:gap-6 lg:gap-5 xl:gap-6"
+            >
+              <input type="hidden" name="recipientEmail" value={recipientEmail || ""} />
+
+              {state.success && (
+                <div className="p-4 bg-green-50 text-green-700 rounded-xl border border-green-200">
+                  {defaultSuccessMessage || state.message}
+                </div>
+              )}
+              {state.errors && Object.keys(state.errors).length > 0 && !state.success && (
+                <div className="p-4 bg-red-50 text-red-700 rounded-xl border border-red-200">
+                  Please correct the errors below.
+                </div>
+              )}
+
               {/* Name and Email Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                 {/* Name Input */}
@@ -86,7 +159,8 @@ export function AskQuestionSection() {
                     htmlFor="name"
                     className="text-xs sm:text-xs text-[#52525B]"
                   >
-                    Name <span className="text-red-500">*</span>
+                    {formSettings.nameLabel}{" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -95,9 +169,11 @@ export function AskQuestionSection() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black outline-none"
+                    className={`w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black outline-none ${state.errors?.name ? "border-2 border-red-500" : ""
+                      }`}
                     placeholder="Enter your name"
                   />
+                  {state.errors?.name && <span className="text-red-500 text-xs">{state.errors.name}</span>}
                 </div>
 
                 {/* Email Input */}
@@ -106,7 +182,8 @@ export function AskQuestionSection() {
                     htmlFor="email"
                     className="text-xs sm:text-xs text-[#52525B]"
                   >
-                    E-Mail <span className="text-red-500">*</span>
+                    {formSettings.emailLabel}{" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="email"
@@ -115,9 +192,11 @@ export function AskQuestionSection() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F5F5F5] rounded-lg sm:rounded-xl text-base text-black placeholder:text-[#999999] outline-none"
+                    className={`w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F5F5F5] rounded-lg sm:rounded-xl text-base text-black placeholder:text-[#999999] outline-none ${state.errors?.email ? "border-2 border-red-500" : ""
+                      }`}
                     placeholder="Enter your email"
                   />
+                  {state.errors?.email && <span className="text-red-500 text-xs">{state.errors.email}</span>}
                 </div>
               </div>
 
@@ -127,7 +206,7 @@ export function AskQuestionSection() {
                   htmlFor="topic"
                   className="text-xs sm:text-xs text-[#52525B]"
                 >
-                  Select Topic
+                  {formSettings.topicLabel}
                 </label>
                 <div className="relative">
                   <select
@@ -138,16 +217,20 @@ export function AskQuestionSection() {
                     className="w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black appearance-none cursor-pointer outline-none"
                   >
                     <option value="">Select a topic</option>
-                    <option value="general">General Inquiry</option>
-                    <option value="prayer">Prayer Times</option>
-                    <option value="events">Events</option>
-                    <option value="donations">Donations</option>
-                    <option value="education">Education</option>
-                    <option value="other">Other</option>
+                    {topicsToRender.map((topic) => (
+                      <option key={topic.value} value={topic.value}>
+                        {topic.label}
+                      </option>
+                    ))}
                   </select>
                   {/* Custom Dropdown Arrow */}
                   <div className="absolute right-4 sm:right-5 top-1/2 -translate-y-1/2 pointer-events-none">
-                  <Image src="/assets/common/down-arrow.svg" alt="Down Arrow" width={10.56} height={5.05} />
+                    <Image
+                      src="/assets/common/down-arrow.svg"
+                      alt="Down Arrow"
+                      width={10.56}
+                      height={5.05}
+                    />
                   </div>
                 </div>
               </div>
@@ -158,7 +241,7 @@ export function AskQuestionSection() {
                   htmlFor="message"
                   className="text-xs sm:text-xs text-[#52525B]"
                 >
-                  Your Message
+                  {formSettings.messageLabel}
                 </label>
                 <textarea
                   id="message"
@@ -166,18 +249,21 @@ export function AskQuestionSection() {
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-4 sm:px-5 py-3 sm:py-4 bg-[#F4F4F5] rounded-xl text-base text-black focus:outline-none resize-none"
+                  className={`w-full px-4 sm:px-5 py-3 sm:py-4 bg-[#F4F4F5] rounded-xl text-base text-black focus:outline-none resize-none ${state.errors?.message ? "border-2 border-red-500" : ""
+                    }`}
                   placeholder="Enter your message"
                 />
+                {state.errors?.message && <span className="text-red-500 text-xs">{state.errors.message}</span>}
               </div>
 
               {/* Submit Button */}
               <div className="flex items-start">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-base sm:text-lg font-semibold rounded-xl"
+                  disabled={isPending}
+                  className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-base sm:text-lg font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isPending ? "Sending..." : formSettings.submitButtonText}
                 </button>
               </div>
             </form>
@@ -185,7 +271,7 @@ export function AskQuestionSection() {
         </div>
         <style jsx>{`
           @media (min-width: 1024px) and (max-width: 1519px) {
-          
+          }
         `}</style>
       </div>
     </section>

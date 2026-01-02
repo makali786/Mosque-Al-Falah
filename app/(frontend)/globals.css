@@ -34,18 +34,39 @@ body {
 }
 
 .hn-container {
-  @apply sm:container w-full px-6 sm:px-2 lg:px-7 xl:px-2 mx-auto;
+  @apply px-8;
 }
+
+.section-padding {
+  @apply px-8;
+}
+
+@media (min-width: 1320px) {
+  .hn-container {
+    padding-left: calc((100% - 1296px) / 2);
+    padding-right: calc((100% - 1296px) / 2);
+  }
+}
+
+@media (min-width: 1200px) {
+  .section-padding {
+    padding-left: calc((100% - 1136px) / 2);
+    padding-right: calc((100% - 1136px) / 2);
+  }
+}
+
 @media screen and (max-width: 340px) {
   .grid-style {
-      @apply !grid-cols-1
-    }
+    @apply !grid-cols-1
+  }
+
   .contact-title {
     @apply text-[26px]
   }
-.header-style {
-  @apply flex-col !h-auto gap-5
-}
+
+  .header-style {
+    @apply flex-col !h-auto gap-5
+  }
 }
 
 .appeal-buttons {

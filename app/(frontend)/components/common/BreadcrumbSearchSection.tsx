@@ -14,6 +14,7 @@ interface BreadcrumbSearchSectionProps {
   searchPlaceholder?: string;
   onSearch?: (query: string) => void;
   className?: string;
+  liveSearch?: boolean;
 }
 
 export default function BreadcrumbSearchSection({
@@ -21,6 +22,7 @@ export default function BreadcrumbSearchSection({
   searchPlaceholder = "Search",
   onSearch,
   className = "",
+  liveSearch = false,
 }: BreadcrumbSearchSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -28,6 +30,14 @@ export default function BreadcrumbSearchSection({
     e.preventDefault();
     if (onSearch) {
       onSearch(searchQuery);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    if (liveSearch && onSearch) {
+      onSearch(value);
     }
   };
 
@@ -87,7 +97,7 @@ export default function BreadcrumbSearchSection({
               type="text"
               placeholder={searchPlaceholder}
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleInputChange}
               className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
             />
           </form>

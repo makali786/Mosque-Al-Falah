@@ -79,7 +79,7 @@ export default function Services({ services = [] }: { services: RawService[] }) 
       </div>
 
       {/* Header Section - Responsive */}
-      <div className="relative hn-container px-4 sm:!px-18 mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+      <div className="relative section-padding mb-6 sm:mb-8 md:mb-10 lg:mb-12">
         <div className="flex items-center justify-between h-32 sm:h-auto header-style">
           {/* Left: Title and Subtitle */}
           <div className="flex flex-col gap-4 sm:gap-4 md:gap-4.5 lg:gap-5 text-white flex-1 sm:max-w-none md:max-w-140 lg:max-w-162.5">

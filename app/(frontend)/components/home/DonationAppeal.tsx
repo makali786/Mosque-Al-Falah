@@ -43,7 +43,7 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
   console.log("image1", image1)
   return (
     <section className="relative w-full py-8 lg:py-22.5 bg-linear-to-br from-[#165273] to-[#153595]">
-      <div className="hn-container px-4 sm:!px-18">
+      <div className="section-padding">
       {/* Pattern Overlay */}
       <div
         className="absolute inset-0 opacity-30 pointer-events-none"
