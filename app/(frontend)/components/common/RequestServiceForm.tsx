@@ -3,6 +3,17 @@
 import { useState } from "react";
 import Separator from "./Separator";
 
+interface FormFields {
+  fullNameLabel?: string;
+  fullNamePlaceholder?: string;
+  emailLabel?: string;
+  emailPlaceholder?: string;
+  phoneLabel?: string;
+  phonePlaceholder?: string;
+  commentLabel?: string;
+  submitButtonText?: string;
+}
+
 interface RequestServiceFormProps {
   /**
    * Optional custom class name
@@ -13,6 +24,10 @@ interface RequestServiceFormProps {
    * Optional callback when form is submitted
    */
   onSubmit?: (data: FormData) => void;
+
+  sectionTitle?: string;
+  description?: string;
+  formFields?: FormFields;
 }
 
 interface FormData {
@@ -25,7 +40,20 @@ interface FormData {
 export default function RequestServiceForm({
   className = "",
   onSubmit,
+  sectionTitle = "Request a service",
+  description = "Connect our Masjid for personalized assistance and discover how we can help you.",
+  formFields = {},
 }: RequestServiceFormProps) {
+  const {
+    fullNameLabel = "Full Name",
+    fullNamePlaceholder = "Toufik Hasan",
+    emailLabel = "Email",
+    emailPlaceholder = "Enter your Email",
+    phoneLabel = "Phone Number",
+    phonePlaceholder = "+880 123 456 789",
+    commentLabel = "Comments",
+    submitButtonText = "Submit",
+  } = formFields;
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -67,11 +95,10 @@ export default function RequestServiceForm({
       {/* Header */}
       <div className="w-full lg:w-[37%] px-4 sm:px-6 lg:p-6 mb-6 lg:mb-0 py-6 md:py-8">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#000000] mb-6">
-          Request a service
+          {sectionTitle}
         </h2>
         <p className="text-sm sm:text-base text-[#000000]">
-          Connect our Masjid for personalized assistance and discover how we can
-          help you.
+          {description}
         </p>
       </div>
 
@@ -90,7 +117,7 @@ export default function RequestServiceForm({
               htmlFor="fullName"
               className="text-xs font-normal text-[#52525B]"
             >
-              Full Name <span className="text-[#EF4444]">*</span>
+              {fullNameLabel} <span className="text-[#EF4444]">*</span>
             </label>
             <input
               type="text"
@@ -98,7 +125,7 @@ export default function RequestServiceForm({
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              placeholder="Toufik Hasan"
+              placeholder={fullNamePlaceholder}
               required
               className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none"
             />
@@ -110,7 +137,7 @@ export default function RequestServiceForm({
               htmlFor="email"
               className="text-xs font-normal text-[#52525B]"
             >
-              Email <span className="text-[#EF4444]">*</span>
+              {emailLabel} <span className="text-[#EF4444]">*</span>
             </label>
             <input
               type="email"
@@ -118,7 +145,7 @@ export default function RequestServiceForm({
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Enter your Email"
+              placeholder={emailPlaceholder}
               required
               className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none"
             />
@@ -131,7 +158,7 @@ export default function RequestServiceForm({
             htmlFor="phoneNumber"
             className="text-xs font-normal text-[#52525B]"
           >
-            Phone Number
+            {phoneLabel}
           </label>
           <input
             type="tel"
@@ -139,7 +166,7 @@ export default function RequestServiceForm({
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
-            placeholder="+880 123 456 789"
+            placeholder={phonePlaceholder}
             className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none"
           />
         </div>
@@ -150,7 +177,7 @@ export default function RequestServiceForm({
             htmlFor="comments"
             className="text-xs font-normal text-[#52525B]"
           >
-            Comments
+            {commentLabel}
           </label>
           <textarea
             id="comments"
@@ -169,7 +196,7 @@ export default function RequestServiceForm({
             type="submit"
             className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base font-medium rounded-xl cursor-pointer"
           >
-            Submit
+            {submitButtonText}
           </button>
         </div>
       </form>

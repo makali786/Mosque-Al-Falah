@@ -1,38 +1,97 @@
-"use client";
-
+import { fetchGlobal, fetchServices } from "../../../lib/fetcher";
 import ServicesSection from "../components/services/ServicesSection";
 import BreadcrumbSearchSection from "../components/common/BreadcrumbSearchSection";
 import RequestServiceForm from "@/components/common/RequestServiceForm";
 import { QuoteSection } from "@/components/common/QuoteSection";
 
-export default function OurServicesPage() {
-    const handleSearch = (query: string) => {
-        console.log("Search query:", query);
-        // Implement search functionality here
+// Define types based on Payload response structure
+interface ServicesPageData {
+    hero?: {
+        greeting?: string;
+        visionStatement?: string;
+        backgroundColor?: string;
     };
-    const handleShare = () => {
-        if (navigator.share) {
-            navigator
-                .share({
-                    title: "Islamic Guidance",
-                    text: "Whoever guides someone to goodness will have a reward like the one who did it.",
-                    url: window.location.href,
-                })
-                .catch((err) => console.log("Share failed:", err))
-        } else {
-            alert("Share this page: " + window.location.href)
-        }
-    }
+    breadcrumb?: {
+        showBreadcrumb?: boolean;
+        breadcrumbText?: string;
+    };
+    servicesGrid?: {
+        displayMode?: string;
+        gridColumns?: string;
+        sortBy?: string;
+        showSearch?: boolean;
+    };
+    requestForm?: {
+        sectionTitle?: string;
+        description?: string;
+        formFields?: any;
+    };
+    bottomQuote?: {
+        quoteText?: string;
+        author?: string;
+        showShareButton?: boolean;
+        shareButtonText?: string;
+        showDonateButton?: boolean;
+        donateButtonText?: string;
+        donateButtonUrl?: string;
+    };
+    seo?: any;
+}
 
-    const handleDonate = () => {
-        window.location.href = "/donate"
+export default async function OurServicesPage() {
+    const servicesPage = await fetchGlobal({
+        slug: "services-page",
+    }) as ServicesPageData;
+
+    const servicesDocs = await fetchServices({
+        sort: "order",
+    }) as any[];
+
+    // Map Services Data
+    const transformedServices = servicesDocs?.map((doc: any) => {
+        const cardImage = doc?.media?.cardImage;
+        return {
+            id: doc?.id,
+            title: doc?.title,
+            imageSrc: (typeof cardImage === 'object' ? cardImage?.url : cardImage) || "/assets/placeholder.png",
+            imageAlt: (typeof cardImage === 'object' ? cardImage?.alt : doc?.title) || "Service Image",
+            href: `/our-services/${doc?.slug}`,
+        };
+    }) || [];
+
+    // Extract Hero Data
+    const greeting = servicesPage?.hero?.greeting || "";
+    const vision = servicesPage?.hero?.visionStatement || "";
+
+    // Extract Request Form Data
+    const requestFormFields = servicesPage?.requestForm?.formFields;
+    const requestFormTitle = servicesPage?.requestForm?.sectionTitle;
+    const requestFormDesc = servicesPage?.requestForm?.description;
+
+    // Extract Quote Data
+    const quoteText = servicesPage?.bottomQuote?.quoteText || "";
+    const quoteAuthor = servicesPage?.bottomQuote?.author || "";
+    const donateUrl = servicesPage?.bottomQuote?.donateButtonUrl;
+    const shareButtonText = servicesPage?.bottomQuote?.shareButtonText;
+    const donateButtonText = servicesPage?.bottomQuote?.donateButtonText;
+
+    const shareData = {
+        title: "Our Services | Mosque Al-Falah",
+        text: quoteText,
+        url: "", // Client will handle URL
+    };
+
+    // Server Action for form submission
+    async function handleFormSubmit(data: any) {
+        "use server";
+        console.log("Form submitted:", data);
     }
 
     return (
         <div className="bg-white">
-            {/* Vision Section with Blue Background */}
+            {/* Vision Section */}
             <section className="relative w-full py-12 sm:py-16 md:py-20 lg:py-18 overflow-hidden">
-                {/* Background with gradient and pattern */}
+                {/* Background */}
                 <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
@@ -51,15 +110,11 @@ export default function OurServicesPage() {
 
                 {/* Content Container */}
                 <div className="relative hn-container flex flex-col gap-3 sm:items-center justify-center sm:text-center">
-                    {/* Greeting */}
                     <p className="text-sm sm:text-base md:text-lg font-medium sm:text-center text-[#CCE3FD] uppercase tracking-wide">
-                        ASSALAMU ALAIKUM!
+                        {greeting}
                     </p>
-
-                    {/* Vision Statement */}
                     <h2 className="text-2xl leading-8 font-semibold sm:text-3xl md:text-4xl lg:text-2xl xl:text-3xl text-white max-w-[712px]">
-                        Our vision is to be a leader in providing Islamic guidance and
-                        services that contributes to the Muslim community.
+                        {vision}
                     </h2>
                 </div>
             </section>
@@ -71,28 +126,28 @@ export default function OurServicesPage() {
                     { label: "Our Services", href: "/our-services" },
                 ]}
                 searchPlaceholder="Search"
-                onSearch={handleSearch}
             />
 
             {/* Services Section */}
-            <ServicesSection />
-
+            <ServicesSection services={transformedServices} />
 
             <div className="hn-container py-17">
                 <RequestServiceForm
-                    onSubmit={(data) => {
-                        console.log("Form submitted:", data);
-                    }}
+                    sectionTitle={requestFormTitle}
+                    description={requestFormDesc}
+                    formFields={requestFormFields}
+                    onSubmit={handleFormSubmit}
                 />
             </div>
+
             <QuoteSection
-                quote="Whoever guides someone to goodness will have a reward like the one who did it."
-                attribution="Prophet Muhammad"
+                quote={quoteText}
+                attribution={quoteAuthor}
                 showAttributionSymbol={true}
-                onShare={handleShare}
-                onDonate={handleDonate}
-                shareButtonText="Share this page"
-                donateButtonText="Donate Now"
+                shareButtonText={shareButtonText}
+                donateButtonText={donateButtonText}
+                donateButtonUrl={donateUrl}
+                shareData={shareData}
             />
         </div>
     );
