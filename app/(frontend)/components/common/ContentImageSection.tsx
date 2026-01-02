@@ -76,7 +76,7 @@ export default function ContentImageSection({
           } gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start`}
         >
           {/* Text Content - Takes remaining space */}
-          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-8">
+          <div className="w-full flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-8 lg:w-[48%]">
             <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 lg:text-[48px] lg:leading-12 text-black">
               {heading}
             </h2>
@@ -87,7 +87,7 @@ export default function ContentImageSection({
 
           {/* Image - Responsive width */}
           <div
-            className="w-full lg:shrink-0 lg:w-[45%] lg:max-w-124.5 2xl:max-w-166"
+            className="w-full lg:w-[48%]"
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,

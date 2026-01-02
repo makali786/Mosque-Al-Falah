@@ -41,7 +41,7 @@ export function CoreValuesSection({ title, description, items }: CoreValuesSecti
       </div>
 
       {/* Content Container */}
-      <div className="relative hn-container !px-20 flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
+      <div className="relative hn-container !px-6 sm:!px-20 flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
         {/* Header */}
         <div className="flex items-center w-full">
           <div className="flex flex-col gap-4 sm:gap-4 md:gap-5 lg:gap-5 w-full lg:w-162.5">

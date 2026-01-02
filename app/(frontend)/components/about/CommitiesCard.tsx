@@ -151,7 +151,7 @@ export function CommitteesSection({ title, description, members }: CommitteesSec
         </div>
 
         {/* Members Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-6 w-full">
           {members.map((member) => (
             <TeamMemberCard key={member?.id} member={member} />
           ))}
