@@ -58,9 +58,6 @@ export default function PrayerReminder({
     year: "numeric",
   });
 
-  // Hardcoded time/hijri as per pixel perfect request (or could be props)
-  // Image shows: "Tuesday, February 4, 2025" (Left) "18:01" (Center) "Arabic..." (Right)
-  // I will use Flexbox space-between or similar.
   const timeString = "18:01";
   const hijriString = "الثلاثاء 5 شعبان 1446"; 
 
@@ -82,57 +79,57 @@ export default function PrayerReminder({
 
     if (completed) {
       return (
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center">
           <div className="flex flex-col items-center">
-            <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black tracking-tight">00</span>
-            <span className="text-xs sm:text-sm text-gray-600 bg-gray-200 px-3 py-1 rounded mt-2 font-medium">Hours</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight">00</span>
+            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">Hours</span>
           </div>
-          <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black mb-8">:</span>
+          <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-8">:</span>
           <div className="flex flex-col items-center">
-            <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black tracking-tight">00</span>
-            <span className="text-xs sm:text-sm text-gray-600 bg-gray-200 px-3 py-1 rounded mt-2 font-medium">Minutes</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight">00</span>
+            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">Minutes</span>
           </div>
-          <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black mb-8">:</span>
+          <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-8">:</span>
           <div className="flex flex-col items-center">
-            <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black tracking-tight">00</span>
-            <span className="text-xs sm:text-sm text-gray-600 bg-gray-200 px-3 py-1 rounded mt-2 font-medium">Seconds</span>
+            <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight">00</span>
+            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">Seconds</span>
           </div>
         </div>
       );
     }
 
     return (
-      <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex items-center">
         {/* Hours */}
-        <div className="flex flex-col items-center w-20 sm:w-24">
-          <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black tracking-tight">
+        <div className="flex flex-col items-center">
+          <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
             {String(totalHours).padStart(2, "0")}
           </span>
-          <span className="text-xs sm:text-sm text-gray-600 bg-gray-200 px-3 py-1 rounded mt-2 font-medium">
+          <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
             Hours
           </span>
         </div>
 
-        <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black mb-8">:</span>
+        <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black mb-8">:</span>
 
         {/* Minutes */}
         <div className="flex flex-col items-center w-20 sm:w-24">
-          <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black tracking-tight">
+          <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
             {String(minutes).padStart(2, "0")}
           </span>
-          <span className="text-xs sm:text-sm text-gray-600 bg-gray-200 px-3 py-1 rounded mt-2 font-medium">
+          <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
             Minutes
           </span>
         </div>
 
-        <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black mb-8">:</span>
+        <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black mb-8">:</span>
 
         {/* Seconds */}
         <div className="flex flex-col items-center w-20 sm:w-24">
-          <span className="text-4xl sm:text-5xl md:text-6xl font-bold text-black tracking-tight">
+          <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
             {String(seconds).padStart(2, "0")}
           </span>
-          <span className="text-xs sm:text-sm text-gray-600 bg-gray-200 px-3 py-1 rounded mt-2 font-medium">
+          <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
             Seconds
           </span>
         </div>
@@ -141,17 +138,17 @@ export default function PrayerReminder({
   };
 
   return (
-    <section className={`w-full bg-[#111111] py-12 md:py-20 ${className}`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className={`w-full bg-[#18181B] py-12 md:py-24 ${className}`}>
+      <div className="hn-container">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
 
           {/* Left Side: Card */}
-          <div className="w-full lg:w-1/2 max-w-xl">
-            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+          <div className="w-full lg:max-w-[583px]">
+            <div className="bg-white rounded-2xl shadow-2xl relative overflow-hidden pb-12">
               {/* Header Info */}
-              <div className="flex flex-wrap items-center justify-between text-xs sm:text-sm text-gray-600 mb-8 pb-4 border-b border-gray-100 gap-2">
+              <div className="flex flex-wrap items-center justify-center text-xs sm:text-sm  mb-8 pb-4 bg-[#F4F4F5] py-4  gap-10">
                 <span className="font-medium">{dateString}</span>
-                <div className="flex gap-4">
+                <div className="flex gap-16">
                   <span className="font-medium">{timeString}</span>
                   <span className="font-medium font-arabic">{hijriString}</span>
                 </div>
@@ -159,12 +156,12 @@ export default function PrayerReminder({
 
               {/* Main Content */}
               <div className="text-center flex flex-col items-center space-y-8">
-                <p className="text-gray-800 text-lg sm:text-xl font-medium max-w-md leading-relaxed selection:bg-black selection:text-white">
+                <p className="text-gray-800 text-sm sm:text-base font-medium">
                   {cardMessage}
                 </p>
 
-                <div className="space-y-4">
-                  <p className="text-gray-500 font-medium uppercase tracking-wider text-sm sm:text-base">
+                <div className="space-y-2">
+                  <p className="font-medium text-sm sm:text-base">
                     {countdownLabel}
                   </p>
 
@@ -182,23 +179,23 @@ export default function PrayerReminder({
 
           {/* Right Side: Content & Form */}
           <div className="w-full lg:w-1/2 text-white">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">
               {title}
             </h2>
-            <p className="text-gray-400 text-lg mb-8 max-w-lg leading-relaxed">
+            <p className="text-lg mb-[58px]">
               {description}
             </p>
 
-            <form className="flex flex-col sm:flex-row gap-3 w-full max-w-lg" onSubmit={(e) => e.preventDefault()}>
+            <form className="flex flex-col sm:flex-row w-full max-w-[503px]" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="email"
                 placeholder="Email Address"
-                className="flex-1 bg-[#222222] border border-[#333333] text-white px-4 py-3 rounded-lg focus:outline-none focus:border-white transition-colors placeholder-gray-500"
+                className="flex-1 bg-[#222222] border border-[#333333] text-white px-3 py-2 placeholder-white"
                 required
               />
               <button
                 type="submit"
-                className="bg-[#333333] hover:bg-[#444444] text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap"
+                className="bg-[#333333] text-white px-4 py-3 font-medium transition-colors whitespace-nowrap"
               >
                 Subscribe
               </button>

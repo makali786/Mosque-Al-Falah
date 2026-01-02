@@ -295,7 +295,7 @@ export default function Footer() {
                   aria-label="Qibla Finder"
                 >
                   <Image
-                    src="/assets/common/qibla.png"
+                      src="/assets/common/qibla.svg"
                     alt="Qibla"
                     width={34}
                     height={34}

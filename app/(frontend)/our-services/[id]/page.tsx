@@ -2,6 +2,10 @@ import { notFound } from "next/navigation";
 import ServiceEventBanner from "@/components/services/ServiceEventBanner";
 import ServiceDetailHero from "@/components/services/ServiceDetailHero";
 import PrayerReminder from "@/components/services/PrayerReminder";
+import LiveStreaming from "@/components/services/LiveStreaming";
+import BreadcrumbSearchSection from "@/components/common/BreadcrumbSearchSection";
+import EidSalahSchedule from "@/components/services/EidSalahSchedule";
+import OtherServices from "@/components/services/OtherServices";
 
 // Service data type
 interface ServiceDetail {
@@ -305,6 +309,16 @@ export default function ServiceDetailPage({
         })()}
       />
 
+      <BreadcrumbSearchSection
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Our Services", href: "/services" },
+          { label: service.title, href: `/our-services/${params.id}` },
+        ]}
+        className="!pb-0 !pt-6 sm:!pt-8 bg-white"
+        showSearch={false}
+      />
+
       <ServiceDetailHero
         heading="Taraweeh & Eid Prayers"
         imageSrc="/assets/about-us/about-us.jpg"
@@ -345,6 +359,19 @@ export default function ServiceDetailPage({
           today.setHours(20, 0, 0, 0); // 8:00 PM today
           return today;
         })()}
+      />
+
+      <LiveStreaming
+        thumbnailUrl="/assets/about-us/about-us.jpg"
+      />
+
+      <EidSalahSchedule
+        title="Eid Salah Schedule"
+        description="Check the schedule for Eid Salah prayers at Masjid Al-Falah."
+        schedule={[
+          { day: "Distribution", time: "Saturdays 10:00 AM - 12:00 PM" },
+          { day: "Donations Accepted", time: "Daily during prayer times" },
+        ]}
       />
     </div>
   )

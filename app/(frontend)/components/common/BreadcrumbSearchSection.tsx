@@ -14,6 +14,7 @@ interface BreadcrumbSearchSectionProps {
   searchPlaceholder?: string;
   onSearch?: (query: string) => void;
   className?: string;
+  showSearch?: boolean;
 }
 
 export default function BreadcrumbSearchSection({
@@ -21,6 +22,7 @@ export default function BreadcrumbSearchSection({
   searchPlaceholder = "Search",
   onSearch,
   className = "",
+  showSearch = true,
 }: BreadcrumbSearchSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -73,24 +75,26 @@ export default function BreadcrumbSearchSection({
           </nav>
 
           {/* Search Bar */}
-          <form
-            onSubmit={handleSearch}
-            className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full sm:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
-          >
-            <Image
-              src="/assets/common/search-icon.svg"
-              alt="Search"
-              width={24}
-              height={24}
-            />
-            <input
-              type="text"
-              placeholder={searchPlaceholder}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
-            />
-          </form>
+          {showSearch && (
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full sm:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
+            >
+              <Image
+                src="/assets/common/search-icon.svg"
+                alt="Search"
+                width={24}
+                height={24}
+              />
+              <input
+                type="text"
+                placeholder={searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
+              />
+            </form>
+          )}
         </div>
       </div>
     </section>
