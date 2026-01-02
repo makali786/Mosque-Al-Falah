@@ -1,5 +1,6 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 import path from 'path';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
@@ -16,6 +17,8 @@ import { BlogPosts } from './collections/BlogPosts';
 import { Committees } from './collections/Committees';
 import { CoreValues } from './collections/CoreValues';
 import { DonationAppeals } from './collections/DonationAppeals';
+import { Donations } from './collections/Donations';
+import { Donors } from './collections/Donors';
 import { Events } from './collections/Events';
 import { Imams } from './collections/Imams';
 import { MediaItems } from './collections/MediaItems';
@@ -78,6 +81,10 @@ export default buildConfig({
     CoreValues,
     Committees,
     PageSections,
+
+    // Donations
+    Donations,
+    Donors,
   ],
   globals: [
     AboutPage,
@@ -100,5 +107,13 @@ export default buildConfig({
     url: 'mongodb+srv://mosque-admin:mosque123@cluster0.oggca09.mongodb.net/mosque-al-falah',
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    vercelBlobStorage({
+      enabled: true,
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+    }),
+  ],
 });
