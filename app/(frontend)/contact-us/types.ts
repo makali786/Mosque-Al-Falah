@@ -65,6 +65,7 @@ export interface ContactPageData {
       submitButtonText: string;
     };
     topicOptions: string[];
+    recipientEmail?: string;
     successMessage: string;
   };
   bottomQuote: {

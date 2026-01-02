@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useActionState, useEffect, useState } from "react";
+import { submitContactForm } from "../../actions/contact";
 
 interface AskQuestionProps {
   title: string;
@@ -19,7 +20,14 @@ interface AskQuestionProps {
   };
   topicOptions?: string[];
   successMessage?: string;
+  recipientEmail?: string;
 }
+
+const initialState = {
+  success: false,
+  message: "",
+  errors: {},
+};
 
 export function AskQuestionSection({
   title,
@@ -27,8 +35,13 @@ export function AskQuestionSection({
   image,
   formSettings,
   topicOptions = [],
-  successMessage,
+  successMessage: defaultSuccessMessage,
+  recipientEmail,
 }: AskQuestionProps) {
+  const [state, formAction, isPending] = useActionState(
+    submitContactForm,
+    initialState
+  );
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,14 +49,17 @@ export function AskQuestionSection({
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    if (successMessage) {
-      alert(successMessage);
+  // Reset form on success
+  useEffect(() => {
+    if (state.success) {
+      setFormData({
+        name: "",
+        email: "",
+        topic: "",
+        message: "",
+      });
     }
-  };
+  }, [state.success]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -119,9 +135,22 @@ export function AskQuestionSection({
 
             {/* Form */}
             <form
-              onSubmit={handleSubmit}
+              action={formAction}
               className="flex flex-col gap-5 sm:gap-6 lg:gap-5 xl:gap-6"
             >
+              <input type="hidden" name="recipientEmail" value={recipientEmail || ""} />
+
+              {state.success && (
+                <div className="p-4 bg-green-50 text-green-700 rounded-xl border border-green-200">
+                  {defaultSuccessMessage || state.message}
+                </div>
+              )}
+              {state.errors && Object.keys(state.errors).length > 0 && !state.success && (
+                <div className="p-4 bg-red-50 text-red-700 rounded-xl border border-red-200">
+                  Please correct the errors below.
+                </div>
+              )}
+
               {/* Name and Email Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                 {/* Name Input */}
@@ -140,9 +169,11 @@ export function AskQuestionSection({
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black outline-none"
+                    className={`w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black outline-none ${state.errors?.name ? "border-2 border-red-500" : ""
+                      }`}
                     placeholder="Enter your name"
                   />
+                  {state.errors?.name && <span className="text-red-500 text-xs">{state.errors.name}</span>}
                 </div>
 
                 {/* Email Input */}
@@ -161,9 +192,11 @@ export function AskQuestionSection({
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F5F5F5] rounded-lg sm:rounded-xl text-base text-black placeholder:text-[#999999] outline-none"
+                    className={`w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F5F5F5] rounded-lg sm:rounded-xl text-base text-black placeholder:text-[#999999] outline-none ${state.errors?.email ? "border-2 border-red-500" : ""
+                      }`}
                     placeholder="Enter your email"
                   />
+                  {state.errors?.email && <span className="text-red-500 text-xs">{state.errors.email}</span>}
                 </div>
               </div>
 
@@ -216,18 +249,21 @@ export function AskQuestionSection({
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-4 sm:px-5 py-3 sm:py-4 bg-[#F4F4F5] rounded-xl text-base text-black focus:outline-none resize-none"
+                  className={`w-full px-4 sm:px-5 py-3 sm:py-4 bg-[#F4F4F5] rounded-xl text-base text-black focus:outline-none resize-none ${state.errors?.message ? "border-2 border-red-500" : ""
+                    }`}
                   placeholder="Enter your message"
                 />
+                {state.errors?.message && <span className="text-red-500 text-xs">{state.errors.message}</span>}
               </div>
 
               {/* Submit Button */}
               <div className="flex items-start">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-base sm:text-lg font-semibold rounded-xl"
+                  disabled={isPending}
+                  className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-base sm:text-lg font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {formSettings.submitButtonText}
+                  {isPending ? "Sending..." : formSettings.submitButtonText}
                 </button>
               </div>
             </form>

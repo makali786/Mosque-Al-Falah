@@ -81,6 +81,7 @@ const ContactUsPage = async () => {
                     formSettings={contactUs.contactForm.formSettings}
                     topicOptions={contactUs.contactForm.topicOptions}
                     successMessage={contactUs.contactForm.successMessage}
+                    recipientEmail={contactUs.contactForm.recipientEmail}
                 />
             )}
 
