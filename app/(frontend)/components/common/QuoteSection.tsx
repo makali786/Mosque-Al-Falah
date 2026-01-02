@@ -52,7 +52,7 @@ export function QuoteSection({
       className="w-full py-10 sm:py-11 lg:py-12"
       style={{ backgroundColor }}
     >
-      <div className="w-full hn-container px-4 sm:!px-18 flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start lg:items-center lg:justify-end">
+      <div className="w-full section-padding flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start lg:items-center lg:justify-end">
         {/* Quote and Attribution */}
         <div className="flex-1 w-full">
           <blockquote className="text-lg leading-7 font-medium sm:text-xl sm:leading-8 md:text-[22px] md:leading-7.5 lg:text-[24px] lg:leading-8 text-black">
