@@ -96,15 +96,14 @@ export default function ServiceDetailHero({
       style={{ backgroundColor }}
     >
       {/* Container with max-width */}
-      <div className="w-full hn-container">
+      <div className="w-full hn-container !px-6 sm:!px-18">
         <div
           className={`flex flex-col ${
             layout === "image-left" ? "lg:flex-row" : "lg:flex-row-reverse"
-          } gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-start`}
+            } gap-6 sm:gap-7 md:gap-8 lg:gap-9 items-start`}
         >
           {/* Image - Responsive width */}
-          <div
-            className="w-full lg:shrink-0 lg:w-[45%] lg:max-w-[420px] lg:max-h-[424px]"
+          <div className="w-full lg:max-w-[420px] lg:max-h-[424px]"
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,
@@ -126,38 +125,33 @@ export default function ServiceDetailHero({
           </div>
 
           {/* Text Content - Takes remaining space */}
-          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-8">
-            <div className="flex flex-col gap-4">
-              <h1 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 lg:text-[48px] lg:leading-12 text-black">
+          <div className="w-full flex flex-col gap-3 md:gap-3 lg:max-w-[680px]">
+            <div>
+              <h1 className="text-3xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl text-black">
                 {heading}
               </h1>
-              {subtitle && (
-                <p className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-[#52525B]">
-                  {subtitle}
-                </p>
-              )}
             </div>
 
-            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black [&>p]:mb-0 [&>p+p]:mt-4 sm:[&>p+p]:mt-5 md:[&>p+p]:mt-6">
+            <div className="text-base sm:text-base md:text-base lg:text-lg text-[#27272A]">
               {content}
             </div>
 
             {/* Buttons */}
             {(primaryButton || secondaryButton) && (
-              <div className="flex flex-col sm:flex-row gap-4 mt-2">
+              <div className="flex flex-col sm:flex-row gap-9 mt-6">
                 {primaryButton && (
                   <>
                     {primaryButton.href ? (
                       <Link
                         href={primaryButton.href}
-                        className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base font-medium rounded-lg hover:bg-[#0062D1] active:bg-[#0056B8] transition-colors duration-200 text-center"
+                        className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base"
                       >
                         {primaryButton.text}
                       </Link>
                     ) : (
                       <button
                         onClick={primaryButton.onClick}
-                        className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base font-medium rounded-lg hover:bg-[#0062D1] active:bg-[#0056B8] transition-colors duration-200"
+                          className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base"
                       >
                         {primaryButton.text}
                       </button>
@@ -169,14 +163,14 @@ export default function ServiceDetailHero({
                     {secondaryButton.href ? (
                       <Link
                         href={secondaryButton.href}
-                        className="px-6 py-3 bg-white text-[#006FEE] text-sm sm:text-base font-medium rounded-lg border border-[#006FEE] hover:bg-[#F0F7FF] active:bg-[#E6F2FF] transition-colors duration-200 text-center"
+                        className="px-6 py-3 bg-[#D4D4D866] text-sm sm:text-base"
                       >
                         {secondaryButton.text}
                       </Link>
                     ) : (
                       <button
                         onClick={secondaryButton.onClick}
-                        className="px-6 py-3 bg-white text-[#006FEE] text-sm sm:text-base font-medium rounded-lg border border-[#006FEE] hover:bg-[#F0F7FF] active:bg-[#E6F2FF] transition-colors duration-200"
+                          className="px-6 py-3 bg-[#D4D4D866] text-sm sm:text-base"
                       >
                         {secondaryButton.text}
                       </button>
