@@ -99,7 +99,7 @@ export function AskQuestionSection({
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start">
           {/* Left Side - Image */}
           <div
-            className="w-full lg:shrink-0 lg:w-[45%] lg:max-w-124.5 2xl:max-w-166"
+            className="hidden lg:block w-full lg:shrink-0 lg:w-[45%] lg:max-w-124.5 2xl:max-w-166"
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,

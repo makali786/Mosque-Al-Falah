@@ -35,7 +35,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
     <section className="lg:w-[48%]">
       <div>
         {/* Hero Image */}
-        <div className="w-full mb-6 sm:mb-7 md:mb-8 lg:mb-10 overflow-hidden xl:w-[624px]">
+        <div className="hidden lg:block w-full mb-6 sm:mb-7 md:mb-8 lg:mb-10 overflow-hidden xl:w-[624px]">
           <div
             className="relative w-full"
             style={{ aspectRatio: "624 / 380" }}
