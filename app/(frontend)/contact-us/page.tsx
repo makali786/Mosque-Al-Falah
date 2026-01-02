@@ -1,74 +1,100 @@
-"use client"
-import PageHero from '@/components/common/PageHero'
-import ContactInformation from '../../components/contact/ContactInformation'
-import EntranceSection from '../../components/contact/EntranceSection'
-import { ParkingNoticeSection } from '../../components/contact/ParkingNoticeSection'
-import { AskQuestionSection } from '../../components/contact/AskQuestionSection'
-import { QuoteSection } from '@/components/common/QuoteSection'
+import PageHero from '@/components/common/PageHero';
+import ContactInformation from '../../components/contact/ContactInformation';
+import EntranceSection from '../../components/contact/EntranceSection';
+import { ParkingNoticeSection } from '../../components/contact/ParkingNoticeSection';
+import { AskQuestionSection } from '../../components/contact/AskQuestionSection';
+import { QuoteSectionWrapper } from '../../components/contact/QuoteSectionWrapper';
+import { fetchGlobal } from '../../../lib/fetcher';
+import { ContactPageData } from './types';
 
-const contact = () => {
-    const handleShare = () => {
-        if (navigator.share) {
-            navigator
-                .share({
-                    title: "Islamic Guidance",
-                    text: "Whoever guides someone to goodness will have a reward like the one who did it.",
-                    url: window.location.href,
-                })
-                .catch((err) => console.log("Share failed:", err))
-        } else {
-            alert("Share this page: " + window.location.href)
-        }
+const ContactUsPage = async () => {
+    const contactUs = await fetchGlobal({ slug: "contact-page" }) as ContactPageData;
+
+    if (!contactUs) {
+        return null;
     }
 
-    const handleDonate = () => {
-        window.location.href = "/donate"
-    }
+    const breadcrumbString = contactUs.hero.breadcrumb || "Home > Contact Us";
+    const breadcrumbs = breadcrumbString.split('>').map((item) => {
+        const label = item.trim();
+        const href = label.toLowerCase() === 'home' ? '/' : `/${label.toLowerCase().replace(/\s+/g, '-')}`;
+        return { label, href };
+    });
+
     return (
         <div className="bg-white">
             <PageHero
-                title="Contact Us"
-                breadcrumbs={[
-                    { label: "Home", href: "/" },
-                    { label: "Contact Us", href: "/contact-us" },
-                ]}
-                backgroundImage="/assets/about-us/about-us.jpg"
+                title={contactUs.hero.title}
+                breadcrumbs={breadcrumbs}
+                backgroundImage={contactUs.hero.backgroundImage?.url || ""}
             />
-            <ContactInformation />
-            <div className="flex flex-col lg:flex-row lg:justify-center gap-8 md:gap-10 lg:gap-12 hn-container py-12 sm:py-16 md:py-20 lg:py-28">
-                <EntranceSection
-                    title="Brothers Entrance"
-                    description={"North Ilford Islamic Centre \n97 Kensington Gardens, Ilford, Essex, IG1 3EN"}
-                    imageSrc="/assets/contact-us/brother-enterence.png"
-                    imageAlt="Brothers Entrance - Masjid Al-Falah"
-                    whatsappGroupLabel="Join Al-Falah Sisters Group"
-                    directionsUrl="https://maps.google.com/?q=97+Kensington+Gardens,+Ilford,+Essex,+IG1+3EN"
-                    whatsappUrl="https://chat.whatsapp.com/your-brothers-group-link"
-                />
-                <EntranceSection
-                    title="Sisters Entrance"
-                    description={"North Ilford Islamic Centre\n97 Kensington Gardens, Ilford, Essex, IG1 3EN"}
-                    imageSrc="/assets/contact-us/sister-entrance.png"
-                    imageAlt="Sisters Entrance - Masjid Al-Falah"
-                    whatsappGroupLabel="Join Al-Falah Sisters Group"
-                    directionsUrl="https://maps.google.com/..."
-                    whatsappUrl="https://chat.whatsapp.com/..."
-                />
-            </div>
-            <ParkingNoticeSection />
-            <AskQuestionSection />
-            <QuoteSection
-                quote="Whoever guides someone to goodness will have a reward like the one who did it."
-                attribution="Prophet Muhammad"
-                showAttributionSymbol={true}
-                onShare={handleShare}
-                onDonate={handleDonate}
-                shareButtonText="Share this page"
-                donateButtonText="Donate Now"
-                backgroundColor="#F4F4F5"
-            />
-        </div>
-    )
-}
 
-export default contact
+            <ContactInformation
+                title={contactUs.contactInfo.sectionTitle}
+                description={contactUs.contactInfo.description}
+                address={contactUs.contactInfo.mainAddress}
+                phone={contactUs.contactInfo.phone}
+                email={contactUs.contactInfo.email}
+                mapEmbed={contactUs.contactInfo.showMap ? contactUs.contactInfo.mapEmbed : undefined}
+            />
+
+            <div className="flex flex-col lg:flex-row lg:justify-center gap-8 md:gap-10 lg:gap-12 hn-container py-12 sm:py-16 md:py-20 lg:py-28">
+                {contactUs.brothersEntrance.enableSection && (
+                    <EntranceSection
+                        title={contactUs.brothersEntrance.title}
+                        address={contactUs.brothersEntrance.address}
+                        imageSrc={contactUs.brothersEntrance.image?.url || ""}
+                        imageAlt={contactUs.brothersEntrance.image?.alt || "Brothers Entrance"}
+                        whatsappGroupLabel={contactUs.brothersEntrance.whatsappGroup.buttonText}
+                        whatsappUrl="#"
+                    />
+                )}
+
+                {contactUs.sistersEntrance.enableSection && (
+                    <EntranceSection
+                        title={contactUs.sistersEntrance.title}
+                        address={contactUs.sistersEntrance.address}
+                        imageSrc={contactUs.sistersEntrance.image?.url || ""}
+                        imageAlt={contactUs.sistersEntrance.image?.alt || "Sisters Entrance"}
+                        whatsappGroupLabel={contactUs.sistersEntrance.whatsappGroup.buttonText}
+                        whatsappUrl="#"
+                    />
+                )}
+            </div>
+
+            {contactUs.parkingNotice.enableSection && (
+                <ParkingNoticeSection
+                    title={contactUs.parkingNotice.title}
+                    message={contactUs.parkingNotice.message}
+                    quote={{
+                        quoteText: contactUs.parkingNotice.hadithQuote?.quoteText || "",
+                        source: contactUs.parkingNotice.hadithQuote?.source || ""
+                    }}
+                />
+            )}
+
+            {contactUs.contactForm.enableSection && (
+                <AskQuestionSection
+                    title={contactUs.contactForm.sectionTitle}
+                    description={contactUs.contactForm.description}
+                    image={contactUs.contactForm.image}
+                    formSettings={contactUs.contactForm.formSettings}
+                    topicOptions={contactUs.contactForm.topicOptions}
+                    successMessage={contactUs.contactForm.successMessage}
+                />
+            )}
+
+            {contactUs.bottomQuote.enableSection && (
+                <QuoteSectionWrapper
+                    quote={contactUs.bottomQuote.quoteText}
+                    attribution={contactUs.bottomQuote.author}
+                    donateButtonUrl={contactUs.bottomQuote.donateButtonUrl}
+                    showShareButton={contactUs.bottomQuote.showShareButton}
+                    showDonateButton={contactUs.bottomQuote.showDonateButton}
+                />
+            )}
+        </div>
+    );
+};
+
+export default ContactUsPage;
