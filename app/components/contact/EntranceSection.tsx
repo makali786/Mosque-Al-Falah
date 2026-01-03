@@ -9,9 +9,12 @@ interface EntranceSectionProps {
   imageSrc: string;
   imageAlt: string;
   whatsappGroupLabel: string;
+  address: {
+    line1: string;
+    line2: string;
+  };
   directionsUrl?: string;
   whatsappUrl?: string;
-  description?: string;
 }
 
 const EntranceSection: React.FC<EntranceSectionProps> = ({
@@ -19,15 +22,20 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
   imageSrc,
   imageAlt,
   whatsappGroupLabel,
-  directionsUrl = "https://maps.google.com/?q=97+Kensington+Gardens,+Ilford,+Essex,+IG1+3EN",
-  whatsappUrl = "#",
-  description
+  address,
+  directionsUrl,
+  whatsappUrl,
 }) => {
+  const fullAddress = `${address.line1}, ${address.line2}`;
+  const mapsUrl =
+    directionsUrl ||
+    `https://maps.google.com/?q=${encodeURIComponent(fullAddress)}`;
+
   return (
     <section className="lg:w-[48%]">
       <div>
         {/* Hero Image */}
-        <div className="w-full mb-6 sm:mb-7 md:mb-8 lg:mb-10 overflow-hidden xl:w-[624px]">
+        <div className="hidden lg:block w-full mb-6 sm:mb-7 md:mb-8 lg:mb-10 overflow-hidden xl:w-[624px]">
           <div
             className="relative w-full"
             style={{ aspectRatio: "624 / 380" }}
@@ -55,7 +63,8 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
               ADDRESS:
             </h3>
             <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black mb-8 whitespace-pre-line">
-              <p>{description}</p>
+              <p>{address.line1}</p>
+              <p>{address.line2}</p>
             </div>
           </div>
 
@@ -63,7 +72,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             {/* Get Directions Button - Blue */}
             <button
-              onClick={() => window.open(directionsUrl, "_blank")}
+              onClick={() => window.open(mapsUrl, "_blank")}
               className="inline-flex items-center justify-center gap-1.5 px-5 lg:px-3 xl:px-5 py-3 bg-[#006FEE33] text-[#006FEE] text-sm md:text-base"
             >
               <FiMap className="w-[18px] h-[18px]" color="#006FEE" />
@@ -71,18 +80,24 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
             </button>
 
             {/* WhatsApp Group Button - Light Gray */}
-            <button
-              onClick={() => window.open(whatsappUrl, "_blank")}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#D4D4D866] text-sm md:text-base"
-            >
-              <Image
-                src="/assets/common/whatsapp-button-icon.svg"
-                alt="WhatsApp icon"
-                width={20}
-                height={20}
-              />
-              <span className="text-sm xl:text-base text-black">{whatsappGroupLabel}</span>
-            </button>
+            {whatsappGroupLabel && (
+              <button
+                onClick={() =>
+                  whatsappUrl ? window.open(whatsappUrl, "_blank") : null
+                }
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#D4D4D866] text-sm md:text-base"
+              >
+                <Image
+                  src="/assets/common/whatsapp-button-icon.svg"
+                  alt="WhatsApp icon"
+                  width={20}
+                  height={20}
+                />
+                <span className="text-sm xl:text-base text-black">
+                  {whatsappGroupLabel}
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </div>

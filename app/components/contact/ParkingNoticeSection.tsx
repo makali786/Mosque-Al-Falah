@@ -1,8 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { RichTextRenderer } from "@/components/common/RichTextRenderer";
 
-export function ParkingNoticeSection() {
+interface ParkingNoticeProps {
+  title: string;
+  message: any;
+  quote: {
+    quoteText: string;
+    source: string;
+  };
+}
+
+export function ParkingNoticeSection({ title, message, quote }: ParkingNoticeProps) {
   return (
     <section className="relative w-full py-12 sm:py-16 md:py-20 lg:pt-32 lg:pb-42 overflow-hidden">
       <div
@@ -25,14 +35,13 @@ export function ParkingNoticeSection() {
       <div className="relative w-full hn-container">
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start lg:items-center">
           {/* Left Side - Text Content */}
-          <div>
+          <div className="w-full lg:flex-1">
             <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-5xl lg:leading-12 text-white mb-4 sm:mb-5 md:mb-6 lg:mb-8">
-              Please Do Not Park Irresponsibly
+              {title}
             </h2>
-            <p className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 xl:text-lg lg:leading-7 text-white font-[500]">
-              Please DO NOT block any exits, driveways, Junctions or cause any
-              other inconvenience to our neighbours when attending the Masjid
-            </p>
+            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 xl:text-lg lg:leading-7 text-white font-[500]">
+              <RichTextRenderer content={message} />
+            </div>
           </div>
 
           {/* Right Side - Quote Card */}
@@ -52,21 +61,19 @@ export function ParkingNoticeSection() {
               <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 pt-4 sm:pt-4">
                 <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-base xl:text-lg lg:leading-7 text-black">
                   <p className="mb-2">
-                    The Prophet peace be upon him said:{" "}
                     <strong className="font-bold">
-                      &quot;He Will not enter Jannah Whose neighbour is not secure
-                      from his wrongful conduct.&quot;
+                      &quot;{quote.quoteText}&quot;
                     </strong>
                   </p>
                   <p className="text-sm sm:text-[14px] md:text-[15px] font-medium">
-                    - Bukhari & Muslim
+                    {quote.source}
                   </p>
                 </div>
               </div>
 
               {/* Closing Quote Icon */}
               <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 lg:bottom-10 lg:right-10">
-              <Image
+                <Image
                   src="/assets/common/double-quote-right.svg"
                   alt="Quote Icon"
                   width={24}

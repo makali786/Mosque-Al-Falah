@@ -15,6 +15,7 @@ interface BreadcrumbSearchSectionProps {
   onSearch?: (query: string) => void;
   className?: string;
   showSearch?: boolean;
+  liveSearch?: boolean;
 }
 
 export default function BreadcrumbSearchSection({
@@ -23,6 +24,7 @@ export default function BreadcrumbSearchSection({
   onSearch,
   className = "",
   showSearch = true,
+  liveSearch = false,
 }: BreadcrumbSearchSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -30,6 +32,14 @@ export default function BreadcrumbSearchSection({
     e.preventDefault();
     if (onSearch) {
       onSearch(searchQuery);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    if (liveSearch && onSearch) {
+      onSearch(value);
     }
   };
 
@@ -75,26 +85,24 @@ export default function BreadcrumbSearchSection({
           </nav>
 
           {/* Search Bar */}
-          {showSearch && (
-            <form
-              onSubmit={handleSearch}
-              className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full sm:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
-            >
-              <Image
-                src="/assets/common/search-icon.svg"
-                alt="Search"
-                width={24}
-                height={24}
-              />
-              <input
-                type="text"
-                placeholder={searchPlaceholder}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
-              />
-            </form>
-          )}
+          <form
+            onSubmit={handleSearch}
+            className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full sm:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
+          >
+            <Image
+              src="/assets/common/search-icon.svg"
+              alt="Search"
+              width={24}
+              height={24}
+            />
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              value={searchQuery}
+              onChange={handleInputChange}
+              className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
+            />
+          </form>
         </div>
       </div>
     </section>

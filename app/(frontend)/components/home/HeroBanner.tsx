@@ -120,7 +120,7 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
 
       {/* Content */}
       <div className="relative h-full flex items-center">
-        <div className="w-full hn-container px-4 sm:!px-18 py-4 sm:py-8 md:py-10 lg:py-12">
+        <div className="w-full section-padding py-4 sm:py-8 md:py-10 lg:py-12">
           <div className="max-w-full flex flex-col gap-3 sm:gap-8 md:gap-10 lg:gap-12">
             {/* Carousel Navigation Dots - Top on mobile */}
             <div className="flex sm:hidden items-center justify-center gap-1 h-2">
