@@ -199,7 +199,7 @@ export default function TopBar() {
               aria-label="Qibla Finder"
             >
               <Image
-                src="/assets/common/qibla.png"
+                src="/assets/common/qibla.svg"
                 alt="Qibla"
                 width={24}
                 height={24}
@@ -276,7 +276,7 @@ export default function TopBar() {
             aria-label="Qibla Finder"
           >
             <Image
-              src="/assets/common/qibla.png"
+              src="/assets/common/qibla.svg"
               alt="Qibla"
               width={30}
               height={30}
