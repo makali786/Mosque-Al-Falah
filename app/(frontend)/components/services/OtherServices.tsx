@@ -82,18 +82,38 @@ export default function OtherServices() {
       </div>
 
       <div className="relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mb-8 sm:mb-12">
+        <div className="hn-container mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white">
             Other Services
           </h2>
         </div>
 
         {/* Carousel */}
-        <div className="relative">
+        {/* Carousel */}
+        <div className="flex items-center gap-4 relative px-4 sm:px-6 lg:px-8">
+          {/* Navigation Arrows - Left */}
+          <button
+            onClick={() => scroll("left")}
+            disabled={!canScrollLeft}
+            className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
+              canScrollLeft
+                ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
+                : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
+            }`}
+          >
+            <Image
+              src="/assets/news/arrow-icon.svg"
+              alt=""
+              height={7}
+              width={7}
+              className="object-contain rotate-180"
+            />
+          </button>
+
           <div
             ref={scrollContainerRef}
             onScroll={checkScrollPosition}
-            className="flex gap-6 sm:gap-6 md:gap-7 lg:gap-8 px-6 sm:px-8 md:px-10 lg:px-12 overflow-x-auto scrollbar-hide"
+            className="flex-1 flex gap-6 sm:gap-6 md:gap-7 lg:gap-8 overflow-x-auto scrollbar-hide"
             style={{ scrollbarWidth: "none" }}
           >
             {SERVICES.map((service) => (
@@ -137,33 +157,15 @@ export default function OtherServices() {
             ))}
           </div>
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={() => scroll("left")}
-            disabled={!canScrollLeft}
-            className={`absolute top-1/2 -translate-y-1/2 left-4 lg:left-8 xl:left-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
-              canScrollLeft
-                ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
-                : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
-              }`}
-          >
-            <Image
-              src="/assets/news/arrow-icon.svg"
-              alt=""
-              height={7}
-              width={7}
-              className="object-contain rotate-180"
-            />
-          </button>
-
+          {/* Navigation Arrows - Right */}
           <button
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
-            className={`absolute top-1/2 -translate-y-1/2 right-4 lg:right-8 xl:right-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
+            className={`shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
               canScrollRight
                 ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
                 : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
-              }`}
+            }`}
           >
             <Image
               src="/assets/news/arrow-icon.svg"

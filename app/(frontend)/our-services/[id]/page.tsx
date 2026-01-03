@@ -8,6 +8,8 @@ import ServiceQuote from "@/components/services/ServiceQuote";
 
 import EidSalahSchedule from "@/components/services/EidSalahSchedule";
 import OtherServices from "@/components/services/OtherServices";
+import { QuoteSection } from "@/components/common/QuoteSection";
+import AboutQuoteSection from "@/components/about/AboutQuoteSection";
 
 // Service data type
 interface ServiceDetail {
@@ -384,6 +386,14 @@ export default function ServiceDetailPage({
         description="Eid is a time of joy, gratitude, and unity. Join us for a spiritually uplifting Eid Salah as we come together to celebrate this blessed day with prayers and community spirit."
       />
       <OtherServices />
+      {/* <QuoteSection  */}
+
+      <AboutQuoteSection
+        quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
+        attribution={"— Prophet Muhammad ﷺ"}
+        donateButtonUrl={"/donate"}
+      />
+
     </div>
   )
 }
