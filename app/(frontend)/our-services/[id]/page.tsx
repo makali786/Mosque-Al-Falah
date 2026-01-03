@@ -4,6 +4,8 @@ import ServiceDetailHero from "@/components/services/ServiceDetailHero";
 import PrayerReminder from "@/components/services/PrayerReminder";
 import LiveStreaming from "@/components/services/LiveStreaming";
 import BreadcrumbSearchSection from "@/components/common/BreadcrumbSearchSection";
+import ServiceQuote from "@/components/services/ServiceQuote";
+
 import EidSalahSchedule from "@/components/services/EidSalahSchedule";
 import OtherServices from "@/components/services/OtherServices";
 
@@ -365,14 +367,23 @@ export default function ServiceDetailPage({
         thumbnailUrl="/assets/about-us/about-us.jpg"
       />
 
-      <EidSalahSchedule
-        title="Eid Salah Schedule"
-        description="Check the schedule for Eid Salah prayers at Masjid Al-Falah."
-        schedule={[
-          { day: "Distribution", time: "Saturdays 10:00 AM - 12:00 PM" },
-          { day: "Donations Accepted", time: "Daily during prayer times" },
+      <ServiceQuote
+        quote={service.quote || {
+          text: "Indeed, prayer prohibits immorality and wrongdoing, and the remembrance of Allah is greater.",
+          attribution: "Quran 29:45"
+        }}
+        images={[
+          service.heroImage,
+          "/assets/about-us/our-history.png",
+          "/assets/about-us/our-mission.png"
         ]}
       />
+
+      <EidSalahSchedule
+        title="Eid Salah Schedule at Masjid Al-Falah"
+        description="Eid is a time of joy, gratitude, and unity. Join us for a spiritually uplifting Eid Salah as we come together to celebrate this blessed day with prayers and community spirit."
+      />
+      <OtherServices />
     </div>
   )
 }

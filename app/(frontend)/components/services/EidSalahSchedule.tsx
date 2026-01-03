@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 interface JamaahTime {
@@ -20,7 +21,7 @@ interface EidSalahScheduleProps {
 
 export default function EidSalahSchedule({
   title = "Eid Salah Schedule at Masjid Al-Falah",
-  description = "Eid is a time of joy, gratitude, and unity. Join us for a spiritually uplifting Eid Salah as we come together to celebrate this blessed day with prayers and community spirit.",
+  description = "🎉 Celebrate Eid with Us! Eid is a time of joy, gratitude, and unity. Join us for a spiritually uplifting Eid Salah as we come together to celebrate this blessed day with prayers and community spirit.",
   venueName = "North Ilford Islamic Centre",
   venueAddress = "97 Kensington Gardens, Ilford, Essex IG1 3EN",
   schedule = [
@@ -48,31 +49,31 @@ export default function EidSalahSchedule({
   ],
 }: EidSalahScheduleProps) {
   return (
-    <section className="w-full py-16 md:py-20 bg-[#F5F5F7]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+    <section className="w-full py-16 md:py-20 bg-[#F4F4F5]">
+      <div className="hn-container">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
           
           {/* Left Side: Text Content */}
           <div className="w-full lg:w-1/2 flex flex-col gap-8">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#11181C] leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold">
               {title}
             </h2>
 
-            <div className="flex flex-col gap-4">
-              <p className="text-sm font-semibold text-[#11181C] flex items-center gap-2">
+            <div>
+              <p className="text-base sm:text-lg flex items-center gap-2">
                 <span>🎉</span> Celebrate Eid with Us!
               </p>
-              <p className="text-base sm:text-lg text-[#687076] leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg">
                 {description}
               </p>
             </div>
 
             <div className="flex flex-col gap-3">
-              <div className="flex items-center gap-2 text-[#11181C] font-semibold">
-                <FaMapMarkerAlt />
+              <div className="flex items-center gap-1 text-base sm:text-lg font-medium">
+                <Image src="/assets/common/map-pin.svg" alt="map-pin" width={24} height={24} />
                 <span>Venue</span>
               </div>
-              <div className="text-[#687076] text-base">
+              <div className="text-base sm:text-lg">
                 <p>{venueName}</p>
                 <p>{venueAddress}</p>
               </div>

@@ -81,65 +81,58 @@ export default function OtherServices() {
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative">
-        {/* Header */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-10 sm:mb-14">
-          Other Services
-        </h2>
+      <div className="relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white">
+            Other Services
+          </h2>
+        </div>
 
-        {/* Carousel Container */}
+        {/* Carousel */}
         <div className="relative">
           <div
             ref={scrollContainerRef}
             onScroll={checkScrollPosition}
-            className="flex gap-6 sm:gap-6 md:gap-8 overflow-x-auto scrollbar-hide pb-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            className="flex gap-6 sm:gap-6 md:gap-7 lg:gap-8 px-6 sm:px-8 md:px-10 lg:px-12 overflow-x-auto scrollbar-hide"
+            style={{ scrollbarWidth: "none" }}
           >
             {SERVICES.map((service) => (
               <div
                 key={service.id}
-                className="relative shrink-0 w-[280px] h-[400px] sm:w-[320px] sm:h-[460px] md:w-[360px] md:h-[500px] rounded-2xl overflow-hidden group border border-white/10"
+                className="relative shrink-0 w-65 h-95 sm:w-70 sm:h-100 md:w-75 md:h-106.25 lg:w-80 lg:h-112.5 rounded-xl overflow-hidden p-4 sm:p-4 md:p-4.5 lg:p-5 flex flex-col justify-between"
               >
                 {/* Background Image */}
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  // Using placeholder image if specific ones don't exist
-                  onError={(e) => {
-                    e.currentTarget.src = "/assets/about-us/about-us.jpg";
-                  }}
+                  className="object-cover"
                 />
-                
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-transparent rounded-xl" />
 
-                {/* Content */}
-                <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white leading-tight z-10 transition-transform duration-300 group-hover:-translate-y-1">
-                    {service.title}
-                  </h3>
+                {/* Title */}
+                <h3 className="relative text-lg sm:text-xl md:text-xl lg:text-2xl font-semibold text-white z-10">
+                  {service.title}
+                </h3>
 
-                  <Link
-                    href={service.link}
-                    className="self-end mt-auto flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-md px-4 py-2.5 rounded-lg text-white text-sm sm:text-base font-medium transition-all group-hover:bg-white/40"
-                  >
-                    <span>Learn More</span>
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    >
-                      <path d="M9 18l6-6-6-6"/>
-                    </svg>
-                  </Link>
-                </div>
+                {/* Learn More Button */}
+                <Link
+                  href={service.link}
+                  className="relative ml-auto z-10 bg-[rgba(63,63,70,0.4)] h-10 sm:h-10.5 md:h-11 lg:h-12 px-3 sm:px-3.5 md:px-3.5 lg:px-4 rounded-lg w-35 sm:w-37.5 md:w-39 lg:w-40.5 flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
+                >
+                  <span className="text-sm leading-5 sm:text-sm sm:leading-5 md:text-base md:leading-6 lg:text-base lg:leading-6 font-normal text-white">
+                    Learn More
+                  </span>
+                  <div className="w-3 h-3 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 lg:w-3.5 lg:h-3.5 relative shrink-0">
+                    <Image
+                      src="/assets/news/arrow-icon.svg"
+                      alt=""
+                      fill
+                      className="object-contain brightness-0 invert"
+                    />
+                  </div>
+                </Link>
               </div>
             ))}
           </div>
@@ -148,31 +141,37 @@ export default function OtherServices() {
           <button
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
-            className={`absolute top-1/2 -translate-y-1/2 -left-4 sm:-left-12 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
+            className={`absolute top-1/2 -translate-y-1/2 left-4 lg:left-8 xl:left-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
               canScrollLeft
-                ? "bg-white/20 hover:bg-white/30 text-white backdrop-blur-md cursor-pointer border border-white/10"
-                : "bg-white/5 text-white/30 cursor-not-allowed border border-white/5"
-            }`}
-            aria-label="Scroll left"
+                ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
+                : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
+              }`}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rotate-180">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
+            <Image
+              src="/assets/news/arrow-icon.svg"
+              alt=""
+              height={7}
+              width={7}
+              className="object-contain rotate-180"
+            />
           </button>
 
           <button
             onClick={() => scroll("right")}
             disabled={!canScrollRight}
-            className={`absolute top-1/2 -translate-y-1/2 -right-4 sm:-right-12 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
+            className={`absolute top-1/2 -translate-y-1/2 right-4 lg:right-8 xl:right-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
               canScrollRight
-                ? "bg-white/20 hover:bg-white/30 text-white backdrop-blur-md cursor-pointer border border-white/10"
-                : "bg-white/5 text-white/30 cursor-not-allowed border border-white/5"
-            }`}
-             aria-label="Scroll right"
+                ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
+                : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
+              }`}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
+            <Image
+              src="/assets/news/arrow-icon.svg"
+              alt=""
+              height={7}
+              width={7}
+              className="object-contain"
+            />
           </button>
         </div>
       </div>
