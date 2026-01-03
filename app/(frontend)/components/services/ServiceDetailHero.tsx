@@ -96,7 +96,7 @@ export default function ServiceDetailHero({
       style={{ backgroundColor }}
     >
       {/* Container with max-width */}
-      <div className="w-full hn-container !px-6 sm:!px-18">
+      <div className="w-full section-padding">
         <div
           className={`flex flex-col ${
             layout === "image-left" ? "lg:flex-row" : "lg:flex-row-reverse"
@@ -138,7 +138,7 @@ export default function ServiceDetailHero({
 
             {/* Buttons */}
             {(primaryButton || secondaryButton) && (
-              <div className="flex flex-col sm:flex-row gap-9 mt-6">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-9 mt-6">
                 {primaryButton && (
                   <>
                     {primaryButton.href ? (

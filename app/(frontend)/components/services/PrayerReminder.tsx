@@ -139,7 +139,7 @@ export default function PrayerReminder({
 
   return (
     <section className={`w-full bg-[#18181B] py-12 md:py-24 ${className}`}>
-      <div className="hn-container">
+      <div className="section-padding">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
 
           {/* Left Side: Card */}

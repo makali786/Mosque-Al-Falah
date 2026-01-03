@@ -24,7 +24,7 @@ export default function ServiceQuote({ quote, images }: ServiceQuoteProps) {
   };
 
   return (
-    <section className="w-full py-16 lg:max-h-[400px]">
+    <section className="w-full my-16 lg:max-h-[400px]">
       <div className="section-padding">
         <div className="flex flex-col lg:flex-row border border-[#CCE3FD] bg-white rounded-lg  shadow-sm overflow-hidden">
           {/* Quote Section */}
@@ -59,7 +59,7 @@ export default function ServiceQuote({ quote, images }: ServiceQuoteProps) {
           </div>
 
           {/* Carousel Section */}
-          <div className="w-full lg:max-w-[640px] w-[640px] relative min-h-[300px] lg:min-h-full">
+          <div className="w-full lg:flex-1 relative min-h-[300px] lg:min-h-full">
             <div className="absolute inset-0">
               <Image
                 src={images[currentSlide]}

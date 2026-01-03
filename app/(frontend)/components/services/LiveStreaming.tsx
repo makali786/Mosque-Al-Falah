@@ -38,7 +38,7 @@ export default function LiveStreaming({
 
   return (
     <section className="w-full py-16 md:py-20 bg-white max-w-[741px] mx-auto">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div className="section-padding">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-black mb-8">

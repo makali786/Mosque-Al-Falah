@@ -82,15 +82,60 @@ export default function OtherServices() {
       </div>
 
       <div className="relative">
-        <div className="hn-container mb-8 sm:mb-12">
+        <div className="section-padding mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white">
             Other Services
           </h2>
         </div>
 
         {/* Carousel */}
-        {/* Carousel */}
-        <div className="flex items-center gap-4 relative px-4 sm:px-6 lg:px-8">
+        {/* Grid Layout - Mobile only */}
+        <div className="sm:hidden px-4 mb-8 hn-container">
+          <div className="grid grid-cols-2 gap-5 w-full grid-style">
+            {SERVICES.map((service) => (
+              <div
+                key={service.id}
+                className="relative w-full h-51.5 rounded-lg overflow-hidden px-2 py-3 flex flex-col justify-between"
+              >
+                {/* Background Image */}
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover"
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-transparent rounded-lg" />
+
+                {/* Title */}
+                <h3 className="relative text-base font-semibold text-white leading-6 z-10">
+                  {service.title}
+                </h3>
+
+                {/* Learn More Button */}
+                <Link
+                  href={service.link}
+                  className="relative z-10 bg-[rgba(63,63,70,0.4)] h-8 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
+                >
+                  <span className="text-xs font-normal text-white leading-4">
+                    Learn More
+                  </span>
+                  <div className="w-3.5 h-3.5 relative shrink-0">
+                    <Image
+                      src="/assets/news/arrow-icon.svg"
+                      alt=""
+                      fill
+                      className="object-contain brightness-0 invert"
+                    />
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Carousel - Desktop */}
+        <div className="hidden sm:flex items-center gap-4 relative px-4 sm:px-6 lg:px-8 hn-container">
           {/* Navigation Arrows - Left */}
           <button
             onClick={() => scroll("left")}

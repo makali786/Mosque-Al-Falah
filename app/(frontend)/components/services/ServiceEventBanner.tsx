@@ -180,7 +180,7 @@ export default function ServiceEventBanner({
       </div>
 
       {/* Content Container */}
-      <div className="relative hn-container px-6 sm:!px-18">
+      <div className="relative section-padding">
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 xl:gap-0">
           {/* Left Section - Title and Description */}
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center w-full xl:w-auto">

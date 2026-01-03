@@ -50,7 +50,7 @@ export default function EidSalahSchedule({
 }: EidSalahScheduleProps) {
   return (
     <section className="w-full py-16 md:py-20 bg-[#F4F4F5]">
-      <div className="hn-container">
+      <div className="section-padding">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
           
           {/* Left Side: Text Content */}
@@ -107,20 +107,20 @@ export default function EidSalahSchedule({
                     key={slot.id}
                     className={`flex items-center justify-between p-6 sm:p-8 ${
                       index !== schedule.length - 1
-                        ? "border-b border-white/10"
+                      ? "border-b border-[#11111126]"
                         : ""
                     } hover:bg-white/5 transition-colors`}
                   >
                     <div className="flex flex-col gap-1 text-white">
-                      <h3 className="text-lg font-bold uppercase tracking-wide">
+                      <h3 className="text-base sm:text-lg font-bold uppercase tracking-wide">
                         {slot.label}
                       </h3>
-                      <div className="text-[10px] sm:text-xs text-blue-100 flex flex-col gap-0.5 opacity-90 font-medium">
+                      <div className="text-[10px] sm:text-xs flex flex-col uppercase gap-0.5">
                         <span>IMAM: {slot.imam}</span>
                         <span>KHUTBAH: {slot.khutbahLanguage}</span>
                       </div>
                     </div>
-                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
+                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
                       {slot.time}
                     </div>
                   </div>
