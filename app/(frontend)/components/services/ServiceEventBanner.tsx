@@ -28,13 +28,18 @@ interface ServiceEventBannerProps {
   /**
    * Countdown label (e.g., "Next Taraweeh Prayer in")
    */
-  countdownLabel: string;
+  countdownLabel?: string;
 
   /**
    * Target date for countdown (ISO string or Date)
    * If the time has passed today, it will automatically calculate for tomorrow
    */
-  targetDate: Date | string;
+  targetDate?: Date | string;
+
+  /**
+   * Custom content for the right section, replacing the countdown
+   */
+  rightContent?: React.ReactNode;
 
   /**
    * Optional custom class name
@@ -46,6 +51,7 @@ interface ServiceEventBannerProps {
    * @default true
    */
   autoCalculateNext?: boolean;
+  customStyleLeftSection?: any
 }
 
 export default function ServiceEventBanner({
@@ -57,9 +63,13 @@ export default function ServiceEventBanner({
   targetDate,
   className = "",
   autoCalculateNext = true,
+  rightContent,
+  customStyleLeftSection
 }: ServiceEventBannerProps) {
   // Calculate the next occurrence of the target time
   const nextOccurrence = useMemo(() => {
+    if (!targetDate) return new Date();
+
     const target = new Date(targetDate);
     const now = new Date();
 
@@ -184,7 +194,7 @@ export default function ServiceEventBanner({
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 xl:gap-0">
           {/* Left Section - Title and Description */}
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center w-full xl:w-auto">
-            <div className="w-full md:max-w-[495px] xl:min-w-[495px]">
+            <div className={`w-full md:max-w-[495px] xl:min-w-[495px] ${customStyleLeftSection}`}>
               <div className="flex items-center gap-3 mb-3 sm:mb-4">
                 {/* Update Badge */}
                 {updateDate && (
@@ -219,12 +229,20 @@ export default function ServiceEventBanner({
             <Separator orientation="vertical" className="w-px h-full" color="#FFFFFF26" thickness={1} />
           </div>
 
-          {/* Right Section - Countdown Timer */}
-          <div className="w-full md:w-auto xl:max-w-[232.5px] xl:w-[232.5px]">
-            <p className="text-sm text-start sm:text-base text-white font-semibold mb-3 sm:mb-4">
-              {countdownLabel}
-            </p>
-            <Countdown date={nextOccurrence} renderer={renderer} />
+          {/* Right Section - Countdown Timer or Custom Content */}
+          <div className={`w-full md:w-auto ${rightContent ? '' : 'xl:max-w-[232.5px] xl:w-[232.5px]'}`}>
+            {rightContent ? (
+              rightContent
+            ) : (
+              <>
+                {countdownLabel && (
+                  <p className="text-sm text-start sm:text-base text-white font-semibold mb-3 sm:mb-4">
+                    {countdownLabel}
+                  </p>
+                )}
+                {targetDate && <Countdown date={nextOccurrence} renderer={renderer} />}
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -72,7 +72,8 @@ interface ServiceDetailHeroProps {
     text: string;
     href?: string;
     onClick?: () => void;
-  };
+  },
+  primaryButtonClassName?: string;
 }
 
 export default function ServiceDetailHero({
@@ -89,6 +90,7 @@ export default function ServiceDetailHero({
   imageHeight = 424,
   primaryButton,
   secondaryButton,
+  primaryButtonClassName,
 }: ServiceDetailHeroProps) {
   return (
     <section
@@ -144,14 +146,14 @@ export default function ServiceDetailHero({
                     {primaryButton.href ? (
                       <Link
                         href={primaryButton.href}
-                        className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base"
+                        className={`px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base ${primaryButtonClassName}`}
                       >
                         {primaryButton.text}
                       </Link>
                     ) : (
                       <button
                         onClick={primaryButton.onClick}
-                          className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base"
+                          className={`px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base ${primaryButtonClassName}`}
                       >
                         {primaryButton.text}
                       </button>

@@ -1,16 +1,6 @@
 import { notFound } from "next/navigation";
-import ServiceEventBanner from "@/components/services/ServiceEventBanner";
-import ServiceDetailHero from "@/components/services/ServiceDetailHero";
-import PrayerReminder from "@/components/services/PrayerReminder";
-import LiveStreaming from "@/components/services/LiveStreaming";
-import BreadcrumbSearchSection from "@/components/common/BreadcrumbSearchSection";
-import ServiceQuote from "@/components/services/ServiceQuote";
 
-import EidSalahSchedule from "@/components/services/EidSalahSchedule";
-import OtherServices from "@/components/services/OtherServices";
-import { QuoteSection } from "@/components/common/QuoteSection";
-import AboutQuoteSection from "@/components/about/AboutQuoteSection";
-import TaraweehEidPrayers from "@/components/services/serviceDetail/TaraweehEidPrayers";
+import NikaahMarriage from "@/components/services/serviceDetail/NikaahMarriage";
 
 // Service data type
 export interface ServiceDetail {
@@ -301,7 +291,8 @@ export default function ServiceDetailPage({
 
   return (
     <div className="bg-white">
-      <TaraweehEidPrayers service={service} params={params} />
+      {/* <TaraweehEidPrayers service={service} params={params} /> */}
+      <NikaahMarriage service={service} params={params} />
     </div>
   )
 }

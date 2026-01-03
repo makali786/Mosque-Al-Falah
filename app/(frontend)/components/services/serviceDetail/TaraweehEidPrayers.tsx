@@ -20,7 +20,7 @@ const TaraweehEidPrayers = ({service,params}: {service: ServiceDetail,params: {i
             countdownLabel="Next Taraweeh Prayer in"
             targetDate={(() => {
               const today = new Date();
-              today.setHours(20, 0, 0, 0); // 8:00 PM today
+                today.setHours(20, 0, 0, 0);
               return today;
             })()}
           />
