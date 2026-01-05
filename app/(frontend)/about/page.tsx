@@ -53,27 +53,31 @@ export default async function AboutUsPage() {
       />
 
       {aboutUs.history?.enableSection && (
-        <ContentImageSection
-          heading={aboutUs.history.sectionTitle}
-          imageSrc={aboutUs.history.image?.url || ""}
-          imageAlt={aboutUs.history.image?.alt || ""}
-          layout="image-right"
-          imageWidth={664}
-          imageHeight={498}
-          content={<RichTextRenderer content={aboutUs.history.content} />}
-        />
+        <div id="history">
+          <ContentImageSection
+            heading={aboutUs.history.sectionTitle}
+            imageSrc={aboutUs.history.image?.url || ""}
+            imageAlt={aboutUs.history.image?.alt || ""}
+            layout="image-right"
+            imageWidth={664}
+            imageHeight={498}
+            content={<RichTextRenderer content={aboutUs.history.content} />}
+          />
+        </div>
       )}
 
       {aboutUs.mission?.enableSection && (
-        <ContentImageSection
-          heading={aboutUs.mission.sectionTitle}
-          imageSrc={aboutUs.mission.image?.url || ""}
-          imageAlt={aboutUs.mission.image?.alt || ""}
-          layout="image-left"
-          imageWidth={584}
-          imageHeight={438}
-          content={missionContent}
-        />
+        <div id="mission">
+          <ContentImageSection
+            heading={aboutUs.mission.sectionTitle}
+            imageSrc={aboutUs.mission.image?.url || ""}
+            imageAlt={aboutUs.mission.image?.alt || ""}
+            layout="image-left"
+            imageWidth={584}
+            imageHeight={438}
+            content={missionContent}
+          />
+        </div>
       )}
 
       {aboutUs.coreValues?.enableSection && (
@@ -85,11 +89,13 @@ export default async function AboutUsPage() {
       )}
 
       {aboutUs.committeesSection?.enableSection && (
-        <CommitteesSection
-          title={aboutUs.committeesSection.sectionTitle}
-          description={aboutUs.committeesSection.description}
-          members={committeesDocs}
-        />
+        <div id="committees">
+          <CommitteesSection
+            title={aboutUs.committeesSection.sectionTitle}
+            description={aboutUs.committeesSection.description}
+            members={committeesDocs}
+          />
+        </div>
       )}
 
       {aboutUs.connect?.enableSection && (

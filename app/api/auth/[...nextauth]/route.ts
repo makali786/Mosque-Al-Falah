@@ -2,7 +2,7 @@
  * NextAuth API Route Handler
  */
 
-import { authOptions } from '@/lib/auth/auth-options';
+import { authOptions } from '@lib/auth/auth-options';
 import NextAuth from 'next-auth';
 
 const handler = NextAuth(authOptions);

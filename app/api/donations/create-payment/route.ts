@@ -9,9 +9,20 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPayload } from 'payload';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-12-18.acacia',
-});
+// Lazy initialization to avoid build-time errors when env vars aren't available
+let stripe: Stripe | null = null;
+
+function getStripe(): Stripe {
+  if (!stripe) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY is not configured');
+    }
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-12-15.clover',
+    });
+  }
+  return stripe;
+}
 
 interface DonationRequest {
   amount: number; // in pence/cents
@@ -116,7 +127,7 @@ export async function POST(req: NextRequest) {
     let stripeCustomerId = donor.stripeCustomerId;
 
     if (!stripeCustomerId) {
-      const customer = await stripe.customers.create({
+      const customer = await getStripe().customers.create({
         email,
         name: `${firstName || ''} ${lastName || ''}`.trim() || undefined,
         phone,
@@ -153,7 +164,7 @@ export async function POST(req: NextRequest) {
 
     // One-time donation - Create Payment Intent
     if (frequency === 'one-time') {
-      const paymentIntent = await stripe.paymentIntents.create({
+      const paymentIntent = await getStripe().paymentIntents.create({
         amount: totalAmount,
         currency: currency.toLowerCase(),
         customer: stripeCustomerId,
@@ -238,7 +249,7 @@ export async function POST(req: NextRequest) {
     const subscriptionInterval = intervalMap[frequency];
 
     // Create a price for this subscription
-    const price = await stripe.prices.create({
+    const price = await getStripe().prices.create({
       unit_amount: totalAmount,
       currency: currency.toLowerCase(),
       recurring: {
@@ -255,7 +266,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Create subscription
-    const subscription = await stripe.subscriptions.create({
+    const subscription = await getStripe().subscriptions.create({
       customer: stripeCustomerId,
       items: [{ price: price.id }],
       payment_behavior: 'default_incomplete',
