@@ -3,6 +3,7 @@
 import Countdown from "react-countdown";
 import { useMemo } from "react";
 import Separator from "../common/Separator";
+import moment from "moment";
 
 interface ServiceEventBannerProps {
   /**
@@ -206,7 +207,7 @@ export default function ServiceEventBanner({
                       </span>
                     </div>
                     <span className="text-xs sm:text-sm text-white">
-                      {updateDate}
+                      {moment(updateDate).format("D MMMM YYYY")}
                     </span>
                   </>
                 )}

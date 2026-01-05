@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
+import moment from "moment";
 
 interface ServiceDetailHeroProps {
   /**
@@ -14,6 +15,11 @@ interface ServiceDetailHeroProps {
    * Subtitle or tagline
    */
   subtitle?: string;
+
+  /**
+   * Date of last update
+   */
+  updatedAt?: string | Date;
 
   /**
    * The content paragraphs - can be plain text or JSX
@@ -79,6 +85,7 @@ interface ServiceDetailHeroProps {
 export default function ServiceDetailHero({
   heading,
   subtitle,
+  updatedAt,
   content,
   imageSrc,
   imageAlt,
@@ -127,8 +134,18 @@ export default function ServiceDetailHero({
           </div>
 
           {/* Text Content - Takes remaining space */}
-          <div className="w-full flex flex-col gap-3 md:gap-3 lg:max-w-[680px]">
+          <div className="w-full flex flex-col gap-3 justify-between md:gap-3 lg:max-w-[680px] lg:h-[424px] lg:max-h-[424px]">
             <div>
+              {updatedAt && (
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="bg-white px-3 py-1 text-black text-sm font-medium">
+                    • Update
+                  </div>
+                  <span className="text-white text-sm font-medium">
+                    {moment(updatedAt).format("D MMMM YYYY")}
+                  </span>
+                </div>
+              )}
               <h1 className="text-3xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl text-black">
                 {heading}
               </h1>

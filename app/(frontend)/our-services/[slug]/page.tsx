@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { fetchServices } from "../../../../lib/fetcher";
+import { fetchServices } from "../../../../lib/fetcher"
 import NikaahMarriage from "@/components/services/serviceDetail/NikaahMarriage";
 import TaraweehEidPrayers from "@/components/services/serviceDetail/TaraweehEidPrayers";
 

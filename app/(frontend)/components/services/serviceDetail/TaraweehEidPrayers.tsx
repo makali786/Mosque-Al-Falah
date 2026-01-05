@@ -9,6 +9,7 @@ import ServiceQuote from '../ServiceQuote';
 import OtherServices from '../OtherServices';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
+import LiveStreaming from '../LiveStreaming';
 
 // Helper to extract simple text from Payload Rich Text
 const extractTextFromRichText = (richText: any) => {
@@ -35,6 +36,7 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
   const bannerDescription = service?.shortDescription || "";
   const targetDateStr = service?.taraweehEid?.countdownTargetDate;
   const targetDate = targetDateStr ? new Date(targetDateStr) : undefined;
+  const updateAt = service?.updatedAt || "";
 
   const heroImage = service?.media?.heroImage?.url || "";
   const heroImageAlt = service?.media?.heroImage?.alt || "";
@@ -49,53 +51,53 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
   const quoteText = service.quote?.text || "";
   const quoteAttribution = service.quote?.attribution || "";
 
+  const venueName = service?.venue?.venueName || "";
+  const venueAddress = service?.venue?.fullAddress || "";
+
+
   return (
     <div><ServiceEventBanner
       title={title}
       description={bannerDescription}
-            updateLabel="Update"
-            updateDate="8 February 2025"
+      updateLabel="Update"
+      updateDate={updateAt}
       countdownLabel={service.taraweehEid?.enableCountdown ? "Next Taraweeh Prayer in" : undefined}
-      targetDate={service.taraweehEid?.enableCountdown ? (targetDate || (() => {
-              const today = new Date();
-                today.setHours(20, 0, 0, 0);
-              return today;
-      })()) : undefined}
-          />
-    
-          <BreadcrumbSearchSection
-            breadcrumbs={[
-              { label: "Home", href: "/" },
-              { label: "Our Services", href: "/services" },
+      targetDate={service.taraweehEid?.countdownTargetDate ? (targetDate || "") : undefined}
+    />
+
+      <BreadcrumbSearchSection
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Our Services", href: "/services" },
           { label: title, href: `/our-services/${params.id}` },
-            ]}
-            className="!pb-0 !pt-6 sm:!pt-8 bg-white section-padding"
-            showSearch={false}
-          />
-    
-          <ServiceDetailHero
+        ]}
+        className="!pb-0 !pt-6 sm:!pt-8 bg-white section-padding"
+        showSearch={false}
+      />
+
+      <ServiceDetailHero
         heading={herosectionTitle}
         imageSrc={heroImage}
         imageAlt={heroImageAlt}
-            layout="image-left"
-            content={
-              <div className="text-base text-[#52525B] space-y-4">
-                {service.fullDescription ? (
-                  <RichTextRenderer content={service.fullDescription} />
-                ) : (
-                  ""
-                )}
-              </div>
-            }
-            primaryButton={{
-              text: "View Taraweeh Timings",
-              href: "#timings",
-            }}
-            secondaryButton={{
-              text: "Check Eid Salah Schedule",
-              href: "#schedule",
-            }}
-          />
+        layout="image-left"
+        content={
+          <div className="text-base text-[#52525B] space-y-4">
+            {service.fullDescription ? (
+              <RichTextRenderer content={service.fullDescription} />
+            ) : (
+              ""
+            )}
+          </div>
+        }
+        primaryButton={{
+          text: "View Taraweeh Timings",
+          href: "#timings",
+        }}
+        secondaryButton={{
+          text: "Check Eid Salah Schedule",
+          href: "#schedule",
+        }}
+      />
 
       {service.notifications?.enableNotifications && (
         <PrayerReminder
@@ -103,46 +105,50 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
           description={notificationDesc}
           cardMessage="The time for Taraweeh begins after the Isha prayer"
           countdownLabel="TARAWEEH 01 is in"
-          targetDate={targetDate || (() => {
-            const today = new Date();
-            today.setHours(20, 0, 0, 0); // 8:00 PM today
-            return today;
-          })()}
+          targetDate={targetDate || ""}
         />
       )}
-    
-      <EventMediaSection
+
+      <LiveStreaming
         title="Live Taraweeh Streaming"
-        description={service.taraweehEid?.liveStreamInstructions || "For those unable to attend in person, join us via live stream..."}
-        videoThumbnail={heroImage}
-        // videoUrl={service.taraweehEid?.liveStreamUrl} // Pass if component supports it
+        description={service.taraweehEid?.liveStreamInstructions || ""}
+        thumbnailUrl={heroImage}
+        videoUrl={service.taraweehEid?.liveStreamUrl}
       />
-          <EidSalahSchedule
+      <EidSalahSchedule
         title={eidScheduleTitle}
-        description={eidScheduleDesc}
-          />
-    
-          <ServiceQuote
+        description={
+          service.taraweehEid?.eidNote ? (
+            <RichTextRenderer content={service.taraweehEid.eidNote} />
+          ) : (
+            ""
+          )
+        }
+        venueName={venueName}
+        venueAddress={venueAddress}
+      />
+
+      <ServiceQuote
         quote={{
           text: quoteText,
           attribution: quoteAttribution
-            }}
-            images={[
-              heroImage,
-              "",
-              ""
-            ]}
-          />
-    
-          <OtherServices />
-          {/* <QuoteSection  */}
-    
-    
-          <AboutQuoteSection
-            quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
-            attribution={"— Prophet Muhammad ﷺ"}
-            donateButtonUrl={"/donate"}
-          />
+        }}
+        images={[
+          heroImage,
+          "",
+          ""
+        ]}
+      />
+
+      <OtherServices />
+      {/* <QuoteSection  */}
+
+
+      <AboutQuoteSection
+        quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
+        attribution={"— Prophet Muhammad ﷺ"}
+        donateButtonUrl={"/donate"}
+      />
     </div>
   )
 }

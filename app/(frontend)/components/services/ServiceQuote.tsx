@@ -13,6 +13,7 @@ interface ServiceQuoteProps {
 }
 
 export default function ServiceQuote({ quote, images }: ServiceQuoteProps) {
+  console.log("quote", quote)
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
@@ -41,9 +42,6 @@ export default function ServiceQuote({ quote, images }: ServiceQuoteProps) {
                 <p className="text-base md:text-base">
                   <span className="font-bold text-black">{quote.attribution}</span>
                   {quote.text}
-                </p>
-                <p>
-                  - Sahih al-Bukhari
                 </p>
               </div>
 

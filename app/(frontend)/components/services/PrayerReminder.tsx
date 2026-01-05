@@ -1,6 +1,7 @@
 "use client";
 
 import Countdown from "react-countdown";
+import moment from "moment";
 import { useMemo, useState, useEffect } from "react";
 
 interface ServiceEventBannerProps {
@@ -49,17 +50,31 @@ export default function PrayerReminder({
     return target;
   }, [targetDate]);
 
-  // Current date formatting
-  const today = new Date();
-  const dateString = today.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
 
-  const timeString = "18:01";
-  const hijriString = "الثلاثاء 5 شعبان 1446"; 
+  // Current date formatting
+  const dateString = useMemo(() => {
+    return moment(nextOccurrence).format("dddd, MMMM D, YYYY");
+  }, [nextOccurrence]);
+
+  const timeString = useMemo(() => {
+    return moment(nextOccurrence).format("HH:mm");
+  }, [nextOccurrence]);
+
+  const hijriString = useMemo(() => {
+    const parts = new Intl.DateTimeFormat("ar-SA-u-ca-islamic", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      weekday: "long",
+    }).formatToParts(nextOccurrence);
+
+    const weekday = parts.find((p) => p.type === "weekday")?.value;
+    const day = parts.find((p) => p.type === "day")?.value;
+    const month = parts.find((p) => p.type === "month")?.value;
+    const year = parts.find((p) => p.type === "year")?.value;
+
+    return `${weekday} ${day} ${month} ${year}`;
+  }, [nextOccurrence]);
 
   // Countdown renderer
   const renderer = ({

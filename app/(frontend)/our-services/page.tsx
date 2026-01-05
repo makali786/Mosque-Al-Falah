@@ -1,7 +1,8 @@
 import { fetchGlobal, fetchServices } from "../../../lib/fetcher";
-import ServicesFilterableList from "../components/services/ServicesFilterableList";
+
 import RequestServiceForm from "@/components/common/RequestServiceForm";
 import { QuoteSection } from "@/components/common/QuoteSection";
+import ServicesFilterableList from "@/components/services/ServicesFilterableList";
 
 // Define types based on Payload response structure
 interface ServicesPageData {
@@ -123,7 +124,7 @@ export default async function OurServicesPage() {
                 services={transformedServices}
                 breadcrumbs={[
                     { label: "Home", href: "/" },
-                    { label: "Our Services", href: "/our-services" },
+                    { label: "Our Services", href: "/services" },
                 ]}
                 searchPlaceholder="Search"
             />

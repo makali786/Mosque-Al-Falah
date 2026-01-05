@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { FaMapMarkerAlt } from "react-icons/fa";
+
+import { ReactNode } from "react";
 
 interface JamaahTime {
   id: string;
@@ -13,17 +14,17 @@ interface JamaahTime {
 
 interface EidSalahScheduleProps {
   title?: string;
-  description?: string;
+  description?: ReactNode;
   venueName?: string;
   venueAddress?: string;
   schedule?: JamaahTime[];
 }
 
 export default function EidSalahSchedule({
-  title = "Eid Salah Schedule at Masjid Al-Falah",
-  description = "🎉 Celebrate Eid with Us! Eid is a time of joy, gratitude, and unity. Join us for a spiritually uplifting Eid Salah as we come together to celebrate this blessed day with prayers and community spirit.",
-  venueName = "North Ilford Islamic Centre",
-  venueAddress = "97 Kensington Gardens, Ilford, Essex IG1 3EN",
+  title = "",
+  description = null,
+  venueName = "",
+  venueAddress = "",
   schedule = [
     {
       id: "1",
@@ -60,12 +61,9 @@ export default function EidSalahSchedule({
             </h2>
 
             <div>
-              <p className="text-base sm:text-lg flex items-center gap-2">
-                <span>🎉</span> Celebrate Eid with Us!
-              </p>
-              <p className="text-base sm:text-lg">
+              <div className="text-base sm:text-lg">
                 {description}
-              </p>
+              </div>
             </div>
 
             <div className="flex flex-col gap-3">
