@@ -39,7 +39,19 @@ interface RawSermon {
   videoUrl?: string;
 }
 
-export default function Sermons({ sermons = [] }: { sermons: RawSermon[] }) {
+interface SermonsProps {
+  sermons: RawSermon[];
+  title?: string;
+  subtitle?: string;
+  showDiscoverMore?: boolean;
+}
+
+export default function Sermons({
+  sermons = [],
+  title = "Featured Sermons and Lectures",
+  subtitle = "POWERFUL & LIFE-CHANGING",
+  showDiscoverMore = true
+}: SermonsProps) {
   console.log("sermons", sermons)
 
   const mappedSermons: Sermon[] = sermons.map((sermon) => ({
@@ -97,28 +109,32 @@ export default function Sermons({ sermons = [] }: { sermons: RawSermon[] }) {
         {/* Mobile: Stacked layout, Desktop: Side by side */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-0 md:mb-2 lg:mb-3">
           <div className="flex flex-col gap-2 md:gap-2.5 lg:gap-3">
-            <p className="text-sm md:text-base lg:text-lg font-normal lg:font-medium text-[#006fee] leading-5 md:leading-6 lg:leading-7 sm:pt-0 pt-5">
-              POWERFUL & LIFE-CHANGING
-            </p>
+              {subtitle && (
+                <p className="text-sm md:text-base lg:text-lg font-normal lg:font-medium text-[#006fee] leading-5 md:leading-6 lg:leading-7 sm:pt-0 pt-5">
+                  {subtitle}
+                </p>
+              )}
             <h2 className="text-xl md:text-3xl lg:text-5xl font-bold lg:font-semibold text-[#27272a] leading-7 md:leading-9 lg:leading-12 max-w-full lg:max-w-126.75">
-              Featured Sermons and Lectures
+                {title}
             </h2>
           </div>
 
           {/* Right side buttons */}
           <div className="flex items-center justify-end gap-4 sm:justify-start md:justify-end lg:justify-start">
             {/* Discover More Button */}
-            <Link
-              href="/sermons"
-              className="h-10 lg:h-12 px-0 lg:px-4 rounded-xl flex items-center gap-2 hover:bg-gray-50 transition-colors"
-            >
-              <span className="text-sm lg:text-base font-normal text-[#006fee] underline leading-5 lg:leading-6">
-                Discover More
-              </span>
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7.5 15L12.5 10L7.5 5" stroke="#006fee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
+              {showDiscoverMore && (
+                <Link
+                  href="/sermons"
+                  className="h-10 lg:h-12 px-0 lg:px-4 rounded-xl flex items-center gap-2 hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-sm lg:text-base font-normal text-[#006fee] underline leading-5 lg:leading-6">
+                    Discover More
+                  </span>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 15L12.5 10L7.5 5" stroke="#006fee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              )}
 
             {/* Navigation Arrows - Hidden on mobile */}
             <div className="hidden lg:flex items-center gap-8">

@@ -81,25 +81,25 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
 
       {/* Why Your Support Matters */}
       {appeal.whyMatters?.enableSection && (
-        <section className="section-padding py-16 sm:py-20">
+        <section className="section-padding pt-16 sm:pt-20 lg:pt-24">
           <div className="flex flex-col gap-12">
             <h2 className="text-3xl font-bold sm:text-5xl">
                {appeal.whyMatters.sectionTitle}
             </h2>
             
             {/* Split content if image exists, or centered text */}
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-12">
                <div className="prose max-w-none text-lg text-[#52525b] leading-relaxed">
                   <RichTextRenderer content={appeal.whyMatters.content} />
                </div>
 
-               {appeal.featuredImage && (
-                  <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden mt-6">
+              {appeal.whyMatters?.featuredImage && (
+                <div className="relative w-full h-[300px] sm:h-[400px] llg:max-h-[565px] rounded-[14px] overflow-hidden">
                       <Image 
                         src={appeal?.whyMatters?.featuredImage?.url || ""}
                         alt={appeal?.whyMatters?.featuredImage?.alt || "Featured Impact Image"}
                         fill
-                        className="object-cover"
+                    className="object-cover lg:max-h-[565px]"
                       />
                   </div>
                )}
