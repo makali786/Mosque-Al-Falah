@@ -58,7 +58,7 @@ export function AppealHero({ title, description, heroImage, stats }: AppealHeroP
         </div>
 
         {/* Right Side - Content with Blue Background */}
-        <div className="relative flex flex-col justify-center px-6 py-22 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="relative flex flex-col justify-center px-6 py-12 sm:py-16 lg:py-20 lg:px-8 overflow-hidden">
           {/* Background Strategy from OurCoreValues */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -88,7 +88,7 @@ export function AppealHero({ title, description, heroImage, stats }: AppealHeroP
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-4 gap-4 py-[22px] px-8 bg-[#001731] rounded-xl backdrop-blur-sm">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-[22px] px-4 sm:px-8 bg-[#001731] rounded-xl backdrop-blur-sm">
               <div className="flex flex-col items-center justify-center text-center gap-1">
                 <span className="text-lg sm:text-2xl md:text-[30px] font-bold">£{stats.raised.toLocaleString()}</span>
                 <span className="text-sm sm:text-lg font-medium uppercase">Raised</span>

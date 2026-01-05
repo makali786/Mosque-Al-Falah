@@ -94,12 +94,12 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
                </div>
 
               {appeal.whyMatters?.featuredImage && (
-                <div className="relative w-full h-[300px] sm:h-[400px] llg:max-h-[565px] rounded-[14px] overflow-hidden">
+                <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[565px] rounded-[14px] overflow-hidden">
                       <Image 
                         src={appeal?.whyMatters?.featuredImage?.url || ""}
                         alt={appeal?.whyMatters?.featuredImage?.alt || "Featured Impact Image"}
                         fill
-                    className="object-cover lg:max-h-[565px]"
+                    className="object-cover"
                       />
                   </div>
                )}
