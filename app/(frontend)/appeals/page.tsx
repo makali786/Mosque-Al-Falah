@@ -76,6 +76,7 @@ export default function AppealsPage() {
           { label: "Home", href: "/" },
           { label: "Appeals", href: "/appeals" },
         ]}
+        showSearch={false}
       />
 
       <section className="pb-16 pt-2 flex-grow">
