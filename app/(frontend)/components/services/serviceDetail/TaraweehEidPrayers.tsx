@@ -3,7 +3,7 @@ import ServiceEventBanner from '../ServiceEventBanner';
 import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection';
 import ServiceDetailHero from '../ServiceDetailHero';
 import PrayerReminder from '../PrayerReminder';
-import LiveStreaming from '../LiveStreaming';
+import EventMediaSection from '../EventMediaSection';
 import EidSalahSchedule from '../EidSalahSchedule';
 import ServiceQuote from '../ServiceQuote';
 import OtherServices from '../OtherServices';
@@ -77,9 +77,11 @@ const TaraweehEidPrayers = ({service,params}: {service: ServiceDetail,params: {i
             })()}
           />
     
-          <LiveStreaming
-            thumbnailUrl="/assets/about-us/about-us.jpg"
-          />
+      <EventMediaSection
+        title="Live Taraweeh Streaming"
+        description="For those unable to attend in person, join us via live stream and immerse yourself in the spiritual atmosphere from anywhere. Experience the tranquility of the recitation and the unity of the community."
+        videoThumbnail="/assets/about-us/about-us.jpg"
+      />
           <EidSalahSchedule
             title="Eid Salah Schedule at Masjid Al-Falah"
             description="Eid is a time of joy, gratitude, and unity. Join us for a spiritually uplifting Eid Salah as we come together to celebrate this blessed day with prayers and community spirit."

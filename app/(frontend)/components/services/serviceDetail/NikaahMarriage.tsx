@@ -6,6 +6,7 @@ import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection
 import ServiceDetailHero from '../ServiceDetailHero';
 import OtherServices from '../OtherServices';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
+import EventMediaSection from '../EventMediaSection';
 
 interface ServiceDetail {
     id: string;
@@ -109,6 +110,13 @@ const NikaahMarriage = ({ service, params }: { service: ServiceDetail, params: {
                     href: "#register",
                 }}
             
+            />
+
+            <EventMediaSection
+                title="Live Taraweeh Streaming"
+                description="For those unable to attend in person, join us via live stream and immerse yourself in the spiritual atmosphere from anywhere. Experience the tranquility of the recitation and the unity of the community."
+                videoThumbnail="/assets/about-us/about-us.jpg"
+            // videoUrl="https://www.youtube.com/watch?v=9bZkp7q19f0"
             />
 
             <ServiceContentCarousel 

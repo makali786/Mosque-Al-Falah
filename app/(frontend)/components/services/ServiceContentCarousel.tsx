@@ -25,9 +25,9 @@ export default function ServiceContentCarousel({ items }: ServiceContentCarousel
   };
 
   return (
-    <section className="w-full my-16 lg:max-h-[400px] relative">
+    <section className="w-full my-16 relative">
       <div className="section-padding">
-        <div className="flex flex-col lg:flex-row border border-[#CCE3FD] bg-[#EBF5FF] shadow-sm overflow-hidden lg:min-h-[400px]">
+        <div className="flex flex-col lg:flex-row border border-[#CCE3FD] bg-[#EBF5FF] shadow-sm overflow-hidden lg:min-h-[400px] lg:max-h-[400px]">
           {/* Text Section */}
           <div className="w-full lg:max-w-[496px] p-8 md:p-12 lg:px-6 lg:py-[116px] flex flex-col  relative">
             <div className="space-y-6">
