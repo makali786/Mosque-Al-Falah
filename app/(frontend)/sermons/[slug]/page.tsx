@@ -103,7 +103,7 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
       </div>
 
       {/* 2. Main Title Area */}
-      <div className="lg:max-w-[940px] mx-auto pt-[44px]">
+      <div className="w-full xl:max-w-[940px] px-4 md:px-0 mx-auto pt-[44px]">
         <div className="section-padding pb-8 text-center flex flex-col items-center">
          <h1 className="text-4xl md:text-5xl font-semibold lg:mb-9">
             {title}

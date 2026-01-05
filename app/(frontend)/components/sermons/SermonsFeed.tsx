@@ -4,6 +4,8 @@ import { useState } from "react";
 import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
 import SermonCard, { SermonCardProps } from "../common/SermonCard";
 
+import Image from "next/image";
+
 interface SermonsFeedProps {
   initialSermons: SermonCardProps["sermon"][]; 
   viewOptions: {
@@ -49,15 +51,38 @@ export default function SermonsFeed({
          breadcrumbs={breadcrumbs}
          searchPlaceholder={viewOptions.searchPlaceholder}
         onSearch={(val) => { setQuery(val); setVisibleCount(3); }}
-         showSearch={viewOptions.showSearch}
+        showSearch={false}
          liveSearch={false}
          className="section-padding"
       />
       
       <div className="section-padding py-6 lg:py-10 bg-white min-h-[600px]">
-          {/* View Toggle - Top Right */}
-          <div className="flex justify-end mb-8">
-             <div className="flex items-center gap-4">
+        {/* Search and View Toggle Bar */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
+
+          {/* Search Bar - Responsive: Full width on mobile, auto on desktop */}
+          {viewOptions.showSearch && (
+            <div className="w-full md:w-auto relative">
+              <div className="flex items-center gap-2.5 bg-white rounded-lg px-3 sm:px-4 py-2 w-full md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]">
+                <Image
+                  src="/assets/common/search-icon.svg"
+                  alt="Search"
+                  width={24}
+                  height={24}
+                />
+                <input
+                  type="text"
+                  placeholder={viewOptions.searchPlaceholder}
+                  value={query}
+                  onChange={(e) => { setQuery(e.target.value); setVisibleCount(3); }}
+                  className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* View Toggles */}
+          <div className="flex items-center gap-4 self-end md:self-auto">
                  <button 
                    onClick={() => setView("list")}
                    className={`flex items-center gap-2 transition-colors ${view === "list" ? "text-gray-900" : "text-gray-400"}`}
