@@ -22,6 +22,7 @@ interface Sermon {
     initials?: string;
   };
   videoUrl?: string;
+  slug?: string;
 }
 
 // Remove hardcoded sermons constant
@@ -37,6 +38,7 @@ interface RawSermon {
     title?: string;
   };
   videoUrl?: string;
+  slug?: string;
 }
 
 interface SermonsProps {
@@ -56,6 +58,7 @@ export default function Sermons({
 
   const mappedSermons: Sermon[] = sermons.map((sermon) => ({
     id: sermon.id,
+    slug: sermon.slug,
     image: getMediaUrl(sermon.image as unknown as Media),
     date: sermon.sermonDate ? new Date(sermon.sermonDate).toLocaleDateString() : "No Date",
     title: sermon.title,

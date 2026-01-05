@@ -48,7 +48,7 @@ export default function BreadcrumbSearchSection({
       className={`w-full py-6 sm:py-7 md:pt-8 lg:pt-10 lg:pb-11 hn-container ${className}`}
     >
       <div>
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+        <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 xl:gap-6">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-2">
             {breadcrumbs.map((crumb, index) => (
@@ -88,7 +88,7 @@ export default function BreadcrumbSearchSection({
           {showSearch && (
             <form
               onSubmit={handleSearch}
-              className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full sm:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
+              className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full xl:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
             >
               <Image
                 src="/assets/common/search-icon.svg"

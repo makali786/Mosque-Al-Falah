@@ -10,37 +10,55 @@ import { RichTextRenderer } from "../../components/common/RichTextRenderer";
 
 interface DetailedSermonPageProps {
   params: {
-    id: string; // Using ID for now as per context, but could be slug
+    slug: string; 
   };
 }
 
 export default async function SermonDetailPage({ params }: DetailedSermonPageProps) {
-    const { id } = params;
+    const { slug } = await params;
 
     // Fetch data
-    // We need to fetch the specific sermon. Since fetchSermons usually filters, we can use it.
-    // If fetchSermons supports 'where', we use it.
-    const sermonsData = await fetchSermons({ 
-        where: { 
-            id: { equals: id } 
-        },
-        limit: 1
-    });
+    let sermonsData = null;
+    
+    try {
+        sermonsData = await fetchSermons({ 
+            where: { 
+                slug: { equals: slug } 
+            },
+            limit: 1
+        });
+    } catch (error) {
+        console.warn("Error fetching sermon by slug, attempting fallback to ID:", error);
+    }
 
     if (!sermonsData || sermonsData.length === 0) {
-        notFound();
+        // Fallback: Try fetching by ID
+         try {
+             sermonsData = await fetchSermons({ 
+                where: { 
+                     id: { equals: slug }
+                },
+                limit: 1
+            });
+         } catch (error) {
+             console.error("Error fetching sermon by ID:", error);
+         }
+
+        if (!sermonsData || sermonsData.length === 0) {
+            notFound();
+        }
     }
 
     const sermon = sermonsData[0];
     
     // Fetch Global Data for Related Sermons logic styling/config if needed, 
     // but we can just fetch random/latest sermons for "Related".
-    // Let's fetch related sermons (excluding current one).
+    // Let's fetch related sermons (excluding current one by ID).
     const relatedSermons = await fetchSermons({
         limit: 10,
         sort: "-sermonDate",
         where: {
-            id: { not_equals: id }
+            id: { not_equals: sermon.id }
         }
     });
 
@@ -85,19 +103,20 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
       </div>
 
       {/* 2. Main Title Area */}
-      <div className="section-padding pb-8 text-center flex flex-col items-center max-w-4xl mx-auto">
-         <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold text-gray-900 tracking-tight leading-tight mb-6">
+      <div className="lg:max-w-[940px] mx-auto pt-[44px]">
+        <div className="section-padding pb-8 text-center flex flex-col items-center">
+         <h1 className="text-4xl md:text-5xl font-semibold lg:mb-9">
             {title}
          </h1>
          {description && (
-             <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-2xl">
+             <p className="text-sm md:text-base">
                 {description}
              </p>
          )}
       </div>
 
       {/* 3. Media Player / Hero Image */}
-        <div className="section-padding pb-12">
+        <div className="section-padding pb-12 lg:max-h-[527px]">
             <div className="relative w-full max-w-[1000px] mx-auto aspect-video bg-gray-900 rounded-[20px] overflow-hidden shadow-2xl group">
                 {/* Background Image */}
                 {mediaUrl && (
@@ -112,7 +131,7 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
                 {/* Play Button Overlay - If Video URL exists */}
                 {videoUrl && (
                     <div className="absolute inset-0 flex items-center justify-center">
-                         <Link href={videoUrl} target="_blank" className="relative z-10 w-20 h-20 md:w-24 md:h-24 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-all duration-300 shadow-xl group-hover:scale-110">
+                         <Link href={videoUrl} target="_blank" className="relative z-10 w-[36px] h-[36px] md:w-[56px] md:h-[56px] bg-white rounded-full flex items-center justify-center">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-gray-900 ml-1">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
@@ -125,15 +144,12 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
                  {/* Fallback for no video: Just Image covers it */}
             </div>
         </div>
+      </div>
 
       {/* 4. Content Body */}
-      <div className="section-padding pb-20">
-          <div className="max-w-3xl mx-auto text-gray-800 leading-relaxed text-lg">
+      <div className="section-padding py-12">
+          <div className="text-lg">
                {sermon.content && <RichTextRenderer content={sermon.content} />}
-               
-               {/* Extra Info: Note/Warning if any (hardcoded or from content) */}
-               {/* As per design: "Note: The person who is praying..." */}
-               {/* Since I don't see a specific 'note' field, I'll rely on RichText content containing it, or just render children. */}
           </div>
       </div>
 

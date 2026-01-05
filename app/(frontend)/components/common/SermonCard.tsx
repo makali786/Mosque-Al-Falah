@@ -1,7 +1,9 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import ViewToggleButtons from "./ViewToggleButtons";
+import Link from "next/link";
 import { Media } from "../../../../payload-types";
 import { getMediaUrl } from "../../../../lib/helper";
 
@@ -23,15 +25,12 @@ export interface SermonCardProps {
     };
     videoUrl?: string;
     description?: string; // Sometimes needed for list view
+     slug?: string;
   };
   layout?: "grid" | "list";
 }
 
 export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps) {
-  // Normalize data if necessary (handling raw sermon vs simplified)
-  // The 'Sermons.tsx' mapped it before rendering, so we should probably accept the Mapped format or handle mapping inside.
-  // To correspond with existing Sermons.tsx usage, let's keep the logic close.
-  
   const imageUrl = typeof sermon.image === 'string' 
     ? sermon.image 
     : getMediaUrl(sermon.image as unknown as Media);
@@ -40,22 +39,35 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
     day: "numeric",
     month: "long",
     year: "numeric"
-  }) : (sermon as any).date || "No Date"; // Fallback if pre-formatted
+  }) : (sermon as any).date || "No Date"; 
 
   const title = sermon.title;
-  
-  // Author handling
+
   const authorName = sermon.author?.name || sermon.guestSpeaker?.name || "Unknown";
   const authorRole = sermon.author?.role || sermon.guestSpeaker?.title || "";
   const authorInitials = sermon.author?.initials || (authorName ? authorName.substring(0, 2).toUpperCase() : "NA");
   const authorAvatar = sermon.author?.avatar; 
 
-  const videoUrl = sermon.videoUrl || "";
+   const videoUrl = sermon.videoUrl || "";
+   const slug = sermon.slug || sermon.id;
+
+   const CardWrapper = ({ children, className }: { children: React.ReactNode, className?: string }) => {
+      const finalClassName = `${className || ""} ${slug ? "cursor-pointer" : ""}`;
+
+      if (slug) {
+         return (
+            <Link href={`/sermons/${slug}`} className={finalClassName}>
+               {children}
+            </Link>
+         );
+      }
+
+      return <div className={finalClassName}>{children}</div>
+   }
 
   if (layout === "list") {
     return (
-      <div className="flex flex-col md:flex-row w-full gap-6 bg-white rounded-[14px] overflow-hidden group hover:shadow-lg transition-shadow duration-300">
-        {/* Image Section */}
+       <CardWrapper className="flex flex-col md:flex-row w-full gap-6 bg-white rounded-[14px] overflow-hidden relative">
         <div className="relative w-full md:w-[300px] lg:w-[350px] aspect-[16/9] md:h-auto shrink-0">
              {imageUrl && (
                 <Image
@@ -65,18 +77,16 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
                   className="object-cover rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none"
                 />
               )}
-             {/* Audio/Video Buttons for List View could be overlaid or separate. 
-                 Design usually puts them on image or bottom. Let's keep consistency with grid. */}
-              <ViewToggleButtons
-                onAudioClick={() => console.log("Audio clicked:", sermon.id)}
-                videoUrl={videoUrl}
-                className="absolute bottom-3 right-3"
-              />
-        </div>
+             <div onClick={(e) => e.stopPropagation()}>
+                <ViewToggleButtons
+                   onAudioClick={(e) => { e?.preventDefault(); console.log("Audio clicked:", sermon.id) }}
+                   videoUrl={videoUrl}
+                   className="absolute bottom-3 right-3"
+                />
+             </div>
+          </div>
 
-        {/* Content Section */}
-        <div className="flex flex-col flex-1 p-4 md:py-6 md:pr-6 justify-center gap-4">
-             {/* Date */}
+          <div className="flex flex-col flex-1 p-4 md:py-6 md:pr-6 justify-center gap-4">
               <div className="flex items-center gap-2">
                 <Image
                   src={"/assets/topbar/calendar-icon.svg"}
@@ -90,19 +100,16 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
                 </p>
               </div>
 
-               {/* Title */}
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 leading-tight group-hover:text-primary transition-colors">
                   {title}
               </h3>
-              
-              {/* Description (if available) - only for list view usually */}
+
                {sermon.description && (
                    <p className="text-sm text-gray-600 line-clamp-2">
                        {sermon.description}
                    </p>
                )}
 
-              {/* Author */}
               <div className="flex items-center gap-3 mt-auto">
                   {authorAvatar ? (
                     <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
@@ -132,14 +139,12 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
                   </div>
               </div>
         </div>
-      </div>
+       </CardWrapper>
     );
   }
 
-  // Grid Layout (Original)
   return (
-    <div className="flex flex-col gap-6.25 w-full group">
-       {/* Image with overlay buttons */}
+     <CardWrapper className="flex flex-col gap-6.25 w-full group relative">
        <div className="relative w-full aspect-[4/3] rounded-[14px] overflow-visible">
           <div className="relative w-full h-full rounded-[14px] overflow-hidden">
              {imageUrl && (
@@ -152,16 +157,16 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
              )}
           </div>
 
-          <ViewToggleButtons
-             onAudioClick={() => console.log("Audio clicked:", sermon.id)}
-             videoUrl={videoUrl}
-             className="absolute -bottom-6 right-4 lg:-bottom-6 lg:right-3.75"
-          />
+           <div onClick={(e) => e.stopPropagation()}>
+              <ViewToggleButtons
+                 onAudioClick={(e) => { e?.preventDefault(); console.log("Audio clicked:", sermon.id) }}
+                 videoUrl={videoUrl}
+                 className="absolute -bottom-6 right-4 lg:-bottom-6 lg:right-3.75"
+              />
+           </div>
        </div>
 
-       {/* Content */}
-       <div className="flex flex-col gap-4">
-          {/* Date */}
+        <div className="flex flex-col gap-4">
           <div className="flex items-center gap-2">
              <Image
                 src={"/assets/topbar/calendar-icon.svg"}
@@ -175,13 +180,11 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
              </p>
           </div>
 
-          {/* Title and Author */}
           <div className="flex flex-col gap-3 lg:gap-4">
              <h3 className="text-xl lg:text-2xl font-medium lg:font-semibold text-black leading-7 lg:leading-8 group-hover:text-blue-600 transition-colors">
                 {title}
              </h3>
 
-             {/* Author */}
              <div className="flex items-center gap-2">
                 {authorAvatar ? (
                    <div className="w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa]">
@@ -214,6 +217,6 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
              </div>
           </div>
        </div>
-    </div>
+     </CardWrapper>
   );
 }

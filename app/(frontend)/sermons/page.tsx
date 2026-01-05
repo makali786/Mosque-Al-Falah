@@ -41,7 +41,9 @@ export default async function SermonsPage() {
     const speakerName = sermon.speaker?.name || sermon.guestSpeaker?.name || "Unknown Author";
     const speakerRole = sermon.speaker?.title || sermon.guestSpeaker?.title || "";
     // speaker.image might be a Media object or ID. getMediaUrl handles Media object.
-    const speakerAvatar = sermon.speaker?.image ? getMediaUrl(sermon.speaker.image) : undefined;
+    const speakerAvatar = sermon.speaker?.image
+      ? getMediaUrl(sermon.speaker.image) || undefined
+      : undefined;
     
     return {
       id: sermon.id,
@@ -55,7 +57,8 @@ export default async function SermonsPage() {
         initials: speakerName.substring(0, 2).toUpperCase()
       },
       videoUrl: sermon.videoUrl,
-      description: sermon.description
+      description: sermon.description,
+      slug: sermon.slug
     };
   });
 

@@ -25,11 +25,18 @@ export default function SermonsFeed({
 }: SermonsFeedProps) {
   const [view, setView] = useState<"grid" | "list">((viewOptions.defaultView as "grid" | "list") || "grid");
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(3);
   
   const filteredSermons = initialSermons.filter(sermon => 
     sermon.title.toLowerCase().includes(query.toLowerCase()) || 
     sermon.author?.name?.toLowerCase().includes(query.toLowerCase())
   );
+
+  const displayedSermons = filteredSermons.slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 3);
+  };
 
   const breadcrumbs = [
       { label: "Home", href: "/" },
@@ -41,7 +48,7 @@ export default function SermonsFeed({
       <BreadcrumbSearchSection 
          breadcrumbs={breadcrumbs}
          searchPlaceholder={viewOptions.searchPlaceholder}
-         onSearch={setQuery}
+        onSearch={(val) => { setQuery(val); setVisibleCount(3); }}
          showSearch={viewOptions.showSearch}
          liveSearch={false}
          className="section-padding"
@@ -68,9 +75,9 @@ export default function SermonsFeed({
              </div>
           </div>
           
-          {filteredSermons.length > 0 ? (
+        {displayedSermons.length > 0 ? (
              <div className={view === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" : "flex flex-col gap-6"}>
-                 {filteredSermons.map((s, i) => (
+            {displayedSermons.map((s, i) => (
                     <SermonCard key={s.id || i} sermon={s} layout={view} />
                  ))}
              </div>
@@ -80,11 +87,16 @@ export default function SermonsFeed({
              </div>
           )}
           
+        {visibleCount < filteredSermons.length && (
           <div className="mt-12 flex justify-center">
-             <button className="px-6 py-3 bg-gray-100 items-center rounded-lg text-sm font-medium text-gray-900">
-                {loadMoreText}
-             </button>
+            <button
+              onClick={handleLoadMore}
+              className="px-6 py-3 bg-gray-100 items-center rounded-lg text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors"
+            >
+              {loadMoreText}
+            </button>
           </div>
+        )}
       </div>
     </>
   );
