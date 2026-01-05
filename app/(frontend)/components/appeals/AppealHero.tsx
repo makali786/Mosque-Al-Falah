@@ -23,7 +23,7 @@ export function AppealHero({ title, description, heroImage, stats }: AppealHeroP
 
   return (
     <section className="w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-2 max-h-[756px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:max-h-[756px]">
         {/* Left Side - Image */}
         <div className="relative w-full h-[400px] lg:h-full">
           {imageUrl ? (

@@ -48,10 +48,10 @@ export function WaysToGive({
         </div>
 
       <div className="relative section-padding py-16 sm:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20 items-center">
              
           {/* Left Side: Image (Mosque Arch) - Hidden on mobile if needed, or shown top */}
-          <div className="relative h-[400px] w-full lg:h-[600px] lg:max-w-[528px] lg:block rounded-[14px] overflow-hidden">
+          <div className="relative h-[300px] sm:h-[400px] w-full lg:h-[600px] lg:max-w-[528px] lg:block rounded-[14px] overflow-hidden">
              {image ? (
                 <Image
                   src={image || ""}

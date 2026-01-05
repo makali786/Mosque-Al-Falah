@@ -23,7 +23,7 @@ export function ImpactGallery({
 
   return (
     <section className="section-padding py-16 sm:py-20 bg-white">
-      <div className="flex flex-col lg:gap-[60px]">
+      <div className="flex flex-col gap-8 lg:gap-[60px]">
         {/* Header */}
         <div className="flex flex-col gap-6 max-w-[594px]">
           <h2 className="text-3xl font-bold sm:text-5xl">
