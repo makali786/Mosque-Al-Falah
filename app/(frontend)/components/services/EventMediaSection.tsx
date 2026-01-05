@@ -115,11 +115,11 @@ export default function EventMediaSection({
                 </div>
 
                 {/* Actions */}
-                <div className="flex gap-3">
-                  <button className="px-4 py-3 bg-[#3F3F46] text-white text-sm font-medium rounded-[8px] ">
+                <div className="flex gap-3 flex-wrap">
+                  <button className="w-full sm:w-auto px-4 py-3 bg-[#3F3F46] text-white text-sm font-medium rounded-[8px] ">
                     View on Map
                   </button>
-                  <button className="px-4 py-3 bg-[#006FEE] text-white text-sm font-medium rounded-[8px]">
+                  <button className="w-full sm:w-auto px-4 py-3 bg-[#006FEE] text-white text-sm font-medium rounded-[8px]">
                     Get Directions
                   </button>
                 </div>
@@ -139,7 +139,7 @@ export default function EventMediaSection({
 
               <div className="space-y-3">
                 <span className="text-xs font-medium text-[#52525B] ">Amount:</span>
-                <div className="flex gap-3 !mt-3">
+                <div className="flex gap-3 flex-wrap !mt-3">
                   {amounts.map((amount) => (
                     <button
                       key={amount}

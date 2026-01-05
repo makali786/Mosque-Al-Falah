@@ -29,7 +29,7 @@ export default function ServiceContentCarousel({ items }: ServiceContentCarousel
       <div className="section-padding">
         <div className="flex flex-col lg:flex-row border border-[#CCE3FD] bg-[#EBF5FF] shadow-sm overflow-hidden lg:min-h-[400px] lg:max-h-[400px]">
           {/* Text Section */}
-          <div className="w-full lg:max-w-[496px] p-8 md:p-12 lg:px-6 lg:py-[116px] flex flex-col  relative">
+          <div className="w-full lg:max-w-[496px] px-8 pt-[86px] pb-[72px] md:px-12 md:pt-[90px] md:pb-[80px] lg:px-6 lg:py-[116px] flex flex-col relative">
             <div className="space-y-6">
               {/* Number Badge */}
               <div className="absolute top-0 left-0 h-[70px] w-[70px] bg-[#D1E9FF] flex items-center justify-center">

@@ -7,45 +7,47 @@ import ServiceDetailHero from '../ServiceDetailHero';
 import OtherServices from '../OtherServices';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
 import EventMediaSection from '../EventMediaSection';
+import { RichTextRenderer } from '@/components/common/RichTextRenderer';
 
-interface ServiceDetail {
-    id: string;
-    title: string;
-    subtitle: string;
-    heroImage: string;
-    heroImageAlt: string;
-    description: string;
-    sections: {
-        heading: string;
-        content: string;
-        image?: string;
-        imageAlt?: string;
-        layout?: "image-right" | "image-left";
-    }[];
-    timings?: {
-        title: string;
-        schedule: {
-            day: string;
-            time: string;
-        }[];
-    };
-    features?: string[];
-    quote?: {
-        text: string;
-        attribution: string;
-    };
-}
+// Helper to extract simple text from Payload Rich Text for banner descriptions
+const extractTextFromRichText = (richText: any) => {
+    if (!richText || !richText.root || !richText.root.children) return "";
+    try {
+        // Attempt to find the first text node
+        for (const child of richText.root.children) {
+            if (child.children) {
+                for (const nested of child.children) {
+                    if (nested.text) return nested.text;
+                }
+            }
+        }
+    } catch (e) {
+        return "";
+    }
+    return "";
+};
 
-const NikaahMarriage = ({ service, params }: { service: ServiceDetail, params: { id: string } }) => {
+const NikaahMarriage = ({ service, params }: { service: any, params: { id: string } }) => {
+
+    // Extract data from the dynamic service object
+    const title = service.title || "Nikaah Marriage";
+    // Description: try shortDescription -> then fullDescription extract -> then fallback
+    const bannerDescription = service.shortDescription || extractTextFromRichText(service.fullDescription) || "Nikaah Marriage Service.";
+    const heroImage = service.media?.heroImage?.url || "/assets/common/marrige-and-nikah.svg";
+    const heroImageAlt = service.media?.heroImage?.alt || "Nikaah Service";
+
+    const quoteText = service.quote?.text || "When a man marries, he has fulfilled half of his religion...";
+    const quoteAttribution = service.quote?.attribution || "Prophet Muhammad (ﷺ)";
+
     return (
         <div>
             <ServiceEventBanner
-                title="Nikah Booking now available."
-                description="Nikaah Marriage Service. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+                title={title}
+                description={bannerDescription}
                 updateLabel="Update"
-                updateDate="8 February 2025"
+                updateDate="8 February 2025" // Static for now, or map from updatedAt if desired
                 rightContent={
-                    <div className="flex items-center gap-6 sm:gap-8.5">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-6 sm:gap-8.5">
                         <div className="flex flex-col items-center gap-3">
                             <Image
                                 src="/assets/common/marrige-and-nikah.svg"
@@ -71,64 +73,66 @@ const NikaahMarriage = ({ service, params }: { service: ServiceDetail, params: {
                         </div>
                     </div>
                 }
-                customStyleLeftSection={"md:!max-w-[340px] xl:!min-w-[340px]"}
+                customStyleLeftSection={"xl:!min-w-[340px] xl:!max-w-[340px]"}
             />
 
             <BreadcrumbSearchSection
                 breadcrumbs={[
                     { label: "Home", href: "/" },
                     { label: "Our Services", href: "/services" },
-                    { label: service.title, href: `/our-services/${params.id}` },
+                    { label: title, href: `/our-services/${params.id}` },
                 ]}
                 className="!pb-0 !pt-6 sm:!pt-8 bg-white section-padding"
                 showSearch={false}
             />
 
             <ServiceDetailHero
-                heading="Nikaah Marriage"
-                imageSrc={service.heroImage || "/assets/common/marrige-and-nikah.svg"}
-                imageAlt="Nikaah Marriage Service"
+                heading={title}
+                imageSrc={heroImage}
+                imageAlt={heroImageAlt}
                 layout="image-left"
                 content={
-                    <>
-                        <p>
-                            Nikaah Marriage Service. It is a long established fact that a reader will be
-                            distracted by the readable content of a page when looking at its layout. The
-                            point of using Lorem Ipsum is that it has a more-or-less normal distribution of
-                            letters, as opposed to using 'Content here, content here', making it look like
-                            readable English. Many desktop publishing packages and web page editors
-                            now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum'
-                            will uncover many web sites still in their infancy. Various versions have evolved
-                            over the years, sometimes by accident, sometimes on purpose (injected
-                            humour and the like).
-                        </p>
-                    </>
+                    <div className="text-base text-[#52525B] space-y-4">
+                        {service.fullDescription ? (
+                            <RichTextRenderer content={service.fullDescription} />
+                        ) : (
+                            <p>
+                                Nikaah Marriage Service. It is a long established fact that a reader will be
+                                    distracted by the readable content of a page when looking at its layout.
+                                </p>
+                        )}
+                    </div>
                 }
-                primaryButtonClassName="rounded-[12px] !mt-9"
-                primaryButton={{
-                    text: "Register your interest",
+                primaryButtonClassName="rounded-[12px] sm:!mt-9"
+                primaryButton={service.registration?.enableRegistration ? {
+                    text: service.registration?.registrationButtonText || "Register your interest",
                     href: "#register",
-                }}
+                } : undefined}
             
             />
 
             <EventMediaSection
-                title="Live Taraweeh Streaming"
-                description="For those unable to attend in person, join us via live stream and immerse yourself in the spiritual atmosphere from anywhere. Experience the tranquility of the recitation and the unity of the community."
-                videoThumbnail="/assets/about-us/about-us.jpg"
-            // videoUrl="https://www.youtube.com/watch?v=9bZkp7q19f0"
+                title="Live Taraweeh Streaming" 
+                // Note: The original static comp had this. 
+                // If this is specific to Taraweeh usage but copied here, we might want to hide it if !enableLiveStream
+                // For Nikaah, the JSON says enableLiveStream: false in 'taraweehEid' object, but check specific fields?
+                // The provided JSON for Nikaah has 'media.videoUrl' and 'media.isLive: true'.
+                // I'll render it if videoUrl exists.
+                description="Join us via live stream and immerse yourself in the spiritual atmosphere."
+                videoThumbnail={service.media?.heroImage?.url || "/assets/about-us/about-us.jpg"}
+                // videoUrl={service.media?.videoUrl} // Uncomment when prop is supported
             />
 
             <ServiceContentCarousel 
                 items={[
                     {
                         id: 1,
-                        text: "Aisha reported: The Messenger of Allah, peace and blessings be upon him, said, \" There is no marriage unless with a guardian and two credible witnesses. Any marriage contracted with less than that is invalid. If there is a dispute, the ruler is the guardian for one without a guardian.",
-                        image: service.heroImage || "/assets/common/marrige-and-nikah.svg"
+                        text: quoteText,
+                        image: heroImage
                     },
                     {
                         id: 2,
-                        text: "And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy. Indeed in that are signs for a people who give thought.",
+                        text: "And of His signs is that He created for you from yourselves mates that you may find tranquility in them...",
                         image: "/assets/about-us/about-us.jpg"
                     }
                 ]}

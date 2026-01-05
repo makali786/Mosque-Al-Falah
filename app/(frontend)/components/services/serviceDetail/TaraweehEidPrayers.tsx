@@ -8,53 +8,84 @@ import EidSalahSchedule from '../EidSalahSchedule';
 import ServiceQuote from '../ServiceQuote';
 import OtherServices from '../OtherServices';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
-import { ServiceDetail } from '@/our-services/[id]/page';
+import { RichTextRenderer } from '@/components/common/RichTextRenderer';
 
-const TaraweehEidPrayers = ({service,params}: {service: ServiceDetail,params: {id: string}}) => {
+// Helper to extract simple text from Payload Rich Text
+const extractTextFromRichText = (richText: any) => {
+  if (!richText || !richText.root || !richText.root.children) return "";
+  try {
+    for (const child of richText.root.children) {
+      if (child.children) {
+        for (const nested of child.children) {
+          if (nested.text) return nested.text;
+        }
+      }
+    }
+  } catch (e) {
+    return "";
+  }
+  return "";
+};
+
+const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: string } }) => {
+  console.log("service", service)
+
+  const title = service?.title || "";
+  // Attempt to extract text for banner description
+  const bannerDescription = service?.shortDescription || "";
+  const targetDateStr = service?.taraweehEid?.countdownTargetDate;
+  const targetDate = targetDateStr ? new Date(targetDateStr) : undefined;
+
+  const heroImage = service?.media?.heroImage?.url || "";
+  const heroImageAlt = service?.media?.heroImage?.alt || "";
+  const herosectionTitle = service?.serviceType || "";
+
+  const eidScheduleTitle = service?.taraweehEid?.eidScheduleTitle || "";
+  const eidScheduleDesc = extractTextFromRichText(service?.taraweehEid?.eidNote) || "";
+
+  const notificationTitle = service.notifications?.notificationTitle || "";
+  const notificationDesc = service.notifications?.notificationDescription || "";
+
+  const quoteText = service.quote?.text || "";
+  const quoteAttribution = service.quote?.attribution || "";
+
   return (
     <div><ServiceEventBanner
-            title="Taraweeh & Eid Prayers at Masjid Al-Falah"
-            description="Join us for spiritually uplifting Taraweeh prayers during Ramadan and joyous Eid celebrations."
+      title={title}
+      description={bannerDescription}
             updateLabel="Update"
             updateDate="8 February 2025"
-            countdownLabel="Next Taraweeh Prayer in"
-            targetDate={(() => {
+      countdownLabel={service.taraweehEid?.enableCountdown ? "Next Taraweeh Prayer in" : undefined}
+      targetDate={service.taraweehEid?.enableCountdown ? (targetDate || (() => {
               const today = new Date();
                 today.setHours(20, 0, 0, 0);
               return today;
-            })()}
+      })()) : undefined}
           />
     
           <BreadcrumbSearchSection
             breadcrumbs={[
               { label: "Home", href: "/" },
               { label: "Our Services", href: "/services" },
-              { label: service.title, href: `/our-services/${params.id}` },
+          { label: title, href: `/our-services/${params.id}` },
             ]}
             className="!pb-0 !pt-6 sm:!pt-8 bg-white section-padding"
             showSearch={false}
           />
     
           <ServiceDetailHero
-            heading="Taraweeh & Eid Prayers"
-            imageSrc="/assets/sermons/taraweeh-sermons.png"
-            imageAlt="Taraweeh Prayer at Masjid Al-Falah"
+        heading={herosectionTitle}
+        imageSrc={heroImage}
+        imageAlt={heroImageAlt}
             layout="image-left"
             content={
-              <>
-                <p>
-                  Experience the Spiritual Essence of Ramadan & Eid 🌙 at Masjid Al-Falah
-                  Ramadan is a time of deep reflection, devotion, and community, and we
-                  welcome you to join us in observing this sacred month. Engage in the tranquility
-                  of Taraweeh prayers, where the recitation of the Qur'an fills the air with peace
-                  and spiritual enlightenment. Feel the power of collective supplication, drawing
-                  closer to Allah through heartfelt du'as each night.
-                  As Ramadan concludes, celebrate Eid with joy and gratitude, embracing the
-                  blessings of this special day with the community. From the serene nights of
-                  worship to the festive Eid gatherings, Masjid Al-Falah is your home for faith,
-                  unity, and devotion. Let's strengthen our connection with Allah and one another.
-                </p>
-              </>
+              <div className="text-base text-[#52525B] space-y-4">
+                {service.fullDescription ? (
+                  <RichTextRenderer content={service.fullDescription} />
+                ) : (
+                  ""
+                )}
+              </div>
             }
             primaryButton={{
               text: "View Taraweeh Timings",
@@ -65,37 +96,41 @@ const TaraweehEidPrayers = ({service,params}: {service: ServiceDetail,params: {i
               href: "#schedule",
             }}
           />
-          <PrayerReminder
-            title="Prayer Reminders & Notifications"
-            description="Sign up for daily alerts on Taraweeh timings, special supplications, and community updates."
-            cardMessage="The time for Taraweeh begins after the Isha prayer"
-            countdownLabel="TARAWEEH 01 is in"
-            targetDate={(() => {
-              const today = new Date();
-              today.setHours(20, 0, 0, 0); // 8:00 PM today
-              return today;
-            })()}
-          />
+
+      {service.notifications?.enableNotifications && (
+        <PrayerReminder
+          title={notificationTitle}
+          description={notificationDesc}
+          cardMessage="The time for Taraweeh begins after the Isha prayer"
+          countdownLabel="TARAWEEH 01 is in"
+          targetDate={targetDate || (() => {
+            const today = new Date();
+            today.setHours(20, 0, 0, 0); // 8:00 PM today
+            return today;
+          })()}
+        />
+      )}
     
       <EventMediaSection
         title="Live Taraweeh Streaming"
-        description="For those unable to attend in person, join us via live stream and immerse yourself in the spiritual atmosphere from anywhere. Experience the tranquility of the recitation and the unity of the community."
-        videoThumbnail="/assets/about-us/about-us.jpg"
+        description={service.taraweehEid?.liveStreamInstructions || "For those unable to attend in person, join us via live stream..."}
+        videoThumbnail={heroImage}
+        // videoUrl={service.taraweehEid?.liveStreamUrl} // Pass if component supports it
       />
           <EidSalahSchedule
-            title="Eid Salah Schedule at Masjid Al-Falah"
-            description="Eid is a time of joy, gratitude, and unity. Join us for a spiritually uplifting Eid Salah as we come together to celebrate this blessed day with prayers and community spirit."
+        title={eidScheduleTitle}
+        description={eidScheduleDesc}
           />
     
           <ServiceQuote
-            quote={service.quote || {
-              text: "Indeed, prayer prohibits immorality and wrongdoing, and the remembrance of Allah is greater.",
-              attribution: "Quran 29:45"
+        quote={{
+          text: quoteText,
+          attribution: quoteAttribution
             }}
             images={[
-              service.heroImage,
-              "/assets/about-us/our-history.png",
-              "/assets/about-us/our-mission.png"
+              heroImage,
+              "",
+              ""
             ]}
           />
     
