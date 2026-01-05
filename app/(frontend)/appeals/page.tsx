@@ -15,11 +15,43 @@ const getDaysLeft = (dateString?: string) => {
 };
 
 export default async function AppealsPage() {
-  const appealsPage = await fetchGlobal({ slug: "donation-appeals-page" });
+  // Use simple fallback data to debug 500 error
+  let appealsPage = {
+    pageHeader: {
+      pageTitle: "Appeals",
+      pageDescription: null
+    },
+    filterOptions: { showSearch: false },
+    gridSettings: { gridColumns: "3", itemsPerPage: 6 },
+    bottomQuote: {
+      enableSection: false,
+      quoteText: "Default quote",
+      author: "Default author",
+      shareButtonText: "Share",
+      donateButtonText: "Donate"
+    },
+    emptyStates: { noAppealsMessage: "No appeals found." }
+  };
 
-  const appealsData = await fetchDonationAppeals(
-    { limit: appealsPage?.gridSettings?.itemsPerPage || 12, depth: 1, where: { isActive: { equals: true, }, }, }
-  );
+  let appealsData: any[] = [];
+
+  /* 
+  // FETCH RESTORED WITH TRY/CATCH
+  */
+  try {
+    const fetchedPage = await fetchGlobal({ slug: "donation-appeals-page" });
+    if (fetchedPage) {
+      // Merge fetched page with defaults to safeguard against missing nested props
+      appealsPage = { ...appealsPage, ...fetchedPage };
+    }
+
+    // Simplifed query syntax to be safer
+    appealsData = await fetchDonationAppeals(
+      { limit: appealsPage.gridSettings?.itemsPerPage || 12, depth: 1, where: { isActive: { equals: true } } }
+    );
+  } catch (error) {
+    console.error("Error fetching appeals data:", error);
+  }
 
   // Safe access to page data
   const { pageHeader, bottomQuote, emptyStates, filterOptions, gridSettings } = appealsPage || {};
@@ -40,31 +72,32 @@ export default async function AppealsPage() {
           { label: "Appeals", href: "/appeals" },
         ]}
         showSearch={false}
+        className="section-padding"
       />
 
-      <section className="pb-16 pt-2 flex-grow">
-        <div className="section-padding">
+      <section className="pb-16 pt-2 flex-grow section-padding">
+        <div>
           <div className="flex flex-col gap-6 mb-12">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#27272A]">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-[#27272A]">
               {pageHeader?.pageTitle || "Appeals"}
             </h1>
             <div className="text-[#52525B] font-semibold text-xl">
               {pageHeader?.pageDescription && (
                 <RichTextRenderer content={pageHeader.pageDescription} />
-              ) || "The Prophet (peace be upon him) said: “Charity does not reduce wealth” (Bukhari) Please donate generously to Masjid Al-Falah, Ilford. All proceeds go towards the upkeep of the Masjid and helping us to serve the wider community. May Allah reward you greatly for all your donations"}
+              ) || "The Prophet (peace be upon him) said: “Charity does not reduce wealth” (Bukhari) Please donate generously to Masjid Al-Falah, Ilford. All proceeds go towards the upkeep of the Masjid and helping us to serve the wider community. May Allah reward you greatly for all your donations"}
             </div>
           </div>
 
           {appealsData && appealsData.length > 0 ? (
             <div className={`grid grid-cols-1 md:grid-cols-2 ${gridClass} gap-6`}>
               {appealsData.map((appeal: any, index: number) => (
-                <AppealCard
+                <AppealCard 
                   key={appeal.id || index}
                   title={appeal?.title}
                   description={appeal?.shortDescription}
                   image={appeal?.heroMedia?.heroImage}
                   organization={{
-                    name: "Masjid Al-Falah",
+                    name: "Masjid Al-Falah", 
                     logo: "/assets/common/logo-small.svg",
                   }}
                   stats={{
@@ -85,7 +118,7 @@ export default async function AppealsPage() {
             </div>
           ) : (
             <div className="py-12 text-center text-gray-500">
-              {emptyStates?.noAppealsMessage || "No donation appeals available at this time."}
+                {emptyStates?.noAppealsMessage || "No donation appeals available at this time."}
             </div>
           )}
         </div>
@@ -101,7 +134,7 @@ export default async function AppealsPage() {
           shareData={{
             title: pageHeader?.pageTitle || "Appeals",
             text: "Please donate to Masjid Al-Falah",
-            url: "https://masjidalfalah.org/appeals"
+            url: "https://masjidalfalah.org/appeals" 
           }}
           donateButtonUrl="/donate"
         />

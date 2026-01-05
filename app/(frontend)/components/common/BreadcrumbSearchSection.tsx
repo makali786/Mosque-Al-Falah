@@ -45,9 +45,9 @@ export default function BreadcrumbSearchSection({
 
   return (
     <section
-      className={`w-full py-6 sm:py-7 md:pt-8 lg:pt-10 lg:pb-11 ${className}`}
+      className={`w-full py-6 sm:py-7 md:pt-8 lg:pt-10 lg:pb-11 hn-container ${className}`}
     >
-      <div className="hn-container">
+      <div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-2">

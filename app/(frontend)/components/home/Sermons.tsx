@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ViewToggleButtons from "../common/ViewToggleButtons";
+import SermonCard from "../common/SermonCard";
 
 import { getMediaUrl } from "../../../../lib/helper";
 
@@ -168,91 +169,13 @@ export default function Sermons({ sermons = [] }: { sermons: RawSermon[] }) {
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
           {mappedSermons.map((sermon) => (
-          <div
-            key={sermon.id}
-              className="flex flex-col gap-6.25 shrink-0 w-full sm:w-88.75 lg:w-[calc((100%-72px)/3)]"
-          >
-            {/* Image with overlay buttons */}
-            <div className="relative w-full h-[199.5px] rounded-[14px] overflow-visible">
-              <div className="relative w-full h-full rounded-[14px] overflow-hidden">
-                  {sermon.image && (
-                    <Image
-                      src={sermon.image}
-                      alt={sermon.title}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-              </div>
-
-              {/* Audio and Video buttons - bottom right */}
-              <ViewToggleButtons
-                onAudioClick={() => {
-                  // Handle audio click
-                  console.log("Audio clicked for sermon:", sermon.id);
-                }}
-                  videoUrl={sermon.videoUrl || ""}
-                  className="absolute -bottom-6 right-4 lg:-bottom-6 lg:right-3.75"
-              />
+            <div
+              key={sermon.id}
+              className="shrink-0 w-full sm:w-88.75 lg:w-[calc((100%-72px)/3)]"
+            >
+              <SermonCard sermon={sermon} layout="grid" />
             </div>
-
-            {/* Content */}
-            <div className="flex flex-col gap-4">
-              {/* Date */}
-              <div className="flex items-center gap-2">
-                <Image
-                src={"/assets/topbar/calendar-icon.svg"}
-                alt={"calendar"}
-                width={16}
-                height={16}
-                className="object-cover"
-              />
-                <p className="text-sm font-normal text-[#27272a] leading-5">
-                  {sermon.date}
-                </p>
-              </div>
-
-              {/* Title and Author */}
-              <div className="flex flex-col gap-3 lg:gap-4">
-                <h3 className="text-xl lg:text-2xl font-medium lg:font-semibold text-black leading-7 lg:leading-8">
-                  {sermon.title}
-                </h3>
-
-                {/* Author */}
-                <div className="flex items-center gap-2">
-                  {sermon.author.avatar ? (
-                    <div className="w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa]">
-                      <Image
-                        src={sermon.author.avatar}
-                        alt={sermon.author.name}
-                        width={100}
-                        height={100}
-                        className="object-contain"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-[#d4d4d8] flex items-center justify-center">
-                      <span className="text-xs font-normal text-[#11181c]">
-                        {sermon.author.initials}
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="flex flex-col">
-                    <p className="text-sm font-normal text-[#11181c] leading-5">
-                      {sermon.author.name}
-                    </p>
-                    {sermon.author.role && (
-                      <p className="text-xs font-normal text-[#a1a1aa] leading-4">
-                        {sermon.author.role}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
       </div>
     </section>

@@ -55,7 +55,7 @@ export default function AppealCard({
   return (
     <div className={`bg-white rounded-[15px] overflow-hidden flex flex-col lg:max-w-[357px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] ${className}`}>
       {/* Image Section */}
-      <div className="relative w-full h-[234px] overflow-hidden">
+      <Link href={links.details || "/appeals"} className="relative w-full h-[234px] overflow-hidden block">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -68,10 +68,10 @@ export default function AppealCard({
               <span className="text-gray-400">No Image</span>
             </div>
         )}
-      </div>
+      </Link>
 
       {/* Content Section */}
-      <div className="flex flex-col gap-6 p-5 sm:p-6">
+      <div className="flex flex-col gap-6 sm:px-5 pt-4 pb-9 px-4">
         {/* Header: Organization & Title */}
         <div className="flex flex-col gap-2">
           {/* Organization */}
@@ -80,20 +80,22 @@ export default function AppealCard({
               <Image
                 src={organization.logo || ""}
                 alt={organization.name}
-                width={24}
-                height={24}
+                width={20}
+                height={20}
                 className="object-cover"
               />
             </div>
-            <p className="text-sm font-normal text-[#71717a] leading-5">
+            <p className="text-sm text-[#71717A]">
               {organization.name}
             </p>
           </div>
 
           {/* Title */}
-          <h3 className="text-xl font-semibold text-[#27272a] leading-7 line-clamp-1">
-            {title}
-          </h3>
+          <Link href={links.details || "/appeals"} className="block group">
+            <h3 className="text-xl font-semibold text-[#27272A] line-clamp-1">
+              {title}
+            </h3>
+          </Link>
         </div>
 
         {/* Stats & Progress */}
@@ -110,7 +112,7 @@ export default function AppealCard({
                   className="object-contain"
                 />
               </div>
-              <span className="text-base font-normal leading-6">{donorsCount}</span>
+              <span className="text-base text-[#71717A]">{donorsCount}</span>
             </div>
 
             {/* Days Left */}
@@ -123,7 +125,7 @@ export default function AppealCard({
                   className="object-contain"
                 />
               </div>
-              <span className="text-base font-normal leading-6">{daysLeft} days left</span>
+              <span className="text-base text-[#71717A]">{daysLeft} days left</span>
             </div>
           </div>
 
@@ -138,19 +140,27 @@ export default function AppealCard({
 
         {/* Description (Optional) */}
         {description && (
-          <p className="text-base text-[#71717a] leading-6 line-clamp-3">
+          <div className="flex gap-1 items-center">
+            <p className="text-sm text-[#11181C] line-clamp-3 max-w-[297px]">
             {description}
           </p>
+            {/* <Image
+              src={"/assets/common/export-icon.svg"}
+              alt="Export"
+              fill
+              className="object-contain h-[7.5px] w-[7.5px]"
+            /> */}
+          </div>
         )}
 
         {/* Footer: Amount & Donate Button */}
-        <div className="flex items-center justify-between gap-4 mt-auto pt-2">
+        <div className="flex items-center justify-between flex-wrap gap-4 mt-auto pt-2">
           {/* Raised Amount */}
           <div className="flex flex-col gap-1">
             <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-semibold text-[#18181b] leading-8">£{raised.toLocaleString()}</span>
+              <span className="text-2xl font-semibold">£{raised.toLocaleString()}</span>
             </div>
-            <p className="text-sm font-normal text-[#71717a] leading-5">
+            <p className="text-sm font-normal text-[#71717a]">
               funded of £{target >= 1000 ? (target / 1000).toLocaleString() + 'K' : target.toLocaleString()}
             </p>
           </div>
@@ -158,9 +168,9 @@ export default function AppealCard({
           {/* Donate Button */}
           <Link
             href={links.donate || "/donate"}
-            className={`px-6 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors shrink-0 ${buttonVariant === 'secondary'
-              ? 'bg-[#a1a1aa] hover:bg-[#71717a] text-white'
-              : 'bg-[#006fee] hover:bg-[#0056cc] text-white'
+            className={`px-6 py-3 rounded-[12px] flex items-center justify-center text-sm font-medium transition-colors shrink-0 ${buttonVariant === 'secondary'
+              ? 'bg-[#3F3F4666] text-white'
+              : 'bg-[#006FEE] text-white'
               }`}
           >
             Donate Now
