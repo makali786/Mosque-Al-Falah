@@ -84,8 +84,8 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
     <div className="bg-white min-h-screen">
       
       {/* 1. Header & Breadcrumbs */}
-      <div className="section-padding py-6">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2">
+      <div className="hn-container !px-4 md:!px-8 py-4 md:py-6">
+        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2">
             {breadcrumbs.map((crumb, index) => (
               <div key={index} className="flex items-center gap-2">
                 {index > 0 && (
@@ -93,7 +93,7 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
                 )}
                 <Link 
                     href={crumb.href} 
-                    className={`text-sm ${index === breadcrumbs.length - 1 ? "text-gray-900 font-medium" : "text-blue-600 hover:underline"}`}
+                  className={`text-sm ${index === breadcrumbs.length - 1 ? "text-gray-900 font-medium" : "text-blue-600 hover:underline"} whitespace-normal`}
                 >
                     {crumb.label}
                 </Link>
@@ -103,20 +103,21 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
       </div>
 
       {/* 2. Main Title Area */}
-      <div className="w-full xl:max-w-[940px] px-4 md:px-0 mx-auto pt-[44px]">
-        <div className="section-padding pb-8 text-center flex flex-col items-center">
-         <h1 className="text-4xl md:text-5xl font-semibold lg:mb-9">
+      <div className="hn-container !px-4 md:!px-8 pt-6 md:pt-[44px]">
+        <div className="w-full max-w-[940px] mx-auto text-center flex flex-col items-center pb-6 md:pb-8">
+          <h1 className="text-3xl md:text-5xl font-semibold mb-4 lg:mb-9 text-balance">
             {title}
-         </h1>
-         {description && (
-             <p className="text-sm md:text-base">
-                {description}
-             </p>
-         )}
+          </h1>
+          {description && (
+            <p className="text-sm md:text-base text-gray-600 max-w-[90%] md:max-w-full">
+              {description}
+            </p>
+          )}
+        </div>
       </div>
 
       {/* 3. Media Player / Hero Image */}
-        <div className="section-padding pb-12 lg:max-h-[527px]">
+      <div className="hn-container !px-4 md:!px-8 pb-12 lg:max-h-[527px]">
             <div className="relative w-full max-w-[1000px] mx-auto aspect-video bg-gray-900 rounded-[20px] overflow-hidden shadow-2xl group">
                 {/* Background Image */}
                 {mediaUrl && (
@@ -142,13 +143,12 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
                 )}
                  
                  {/* Fallback for no video: Just Image covers it */}
-            </div>
         </div>
       </div>
 
       {/* 4. Content Body */}
-      <div className="section-padding py-12">
-          <div className="text-lg">
+      <div className="hn-container !px-4 md:!px-8 py-12">
+        <div className="w-full max-w-[940px] mx-auto text-lg leading-relaxed text-gray-800">
                {sermon.content && <RichTextRenderer content={sermon.content} />}
           </div>
       </div>
