@@ -66,9 +66,9 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
 
   if (layout === "list") {
      return (
-        <Wrapper className="flex flex-col md:flex-row w-full gap-6 bg-white overflow-hidden cursor-pointer shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A]">
+       <Wrapper className="flex flex-col md:flex-row w-full gap-6 bg-white overflow-hidden cursor-pointer shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A] lg:max-w-[357px]">
            {/* Image Section */}
-           <div className="relative w-full md:w-[300px] lg:w-[350px] aspect-[16/9] md:h-auto">
+         <div className="relative w-full aspect-[16/9] md:h-auto">
               {image && (
                  <Image
                     src={image}
@@ -96,7 +96,7 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
            <div className="flex flex-col flex-1 p-4 md:py-6 md:pr-6 gap-3">
               {/* Type Badge */}
               <div className="flex items-center gap-2">
-                 <div className="flex items-center justify-center w-9 h-9 bg-[#E6F1FE] rounded-full shrink-0">
+             <div className="flex items-center justify-center w-5 h-5 bg-[#E6F1FE] rounded-full shrink-0">
                     <Image src={icon} alt={label} width={18} height={18} />
                  </div>
                  <span className="text-sm font-medium text-[#3F3F46]">{label}</span>
@@ -152,10 +152,10 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
       <div className="flex flex-col gap-2 sm:p-4">
         {/* Type Badge */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-9 h-9 bg-[#E6F1FE] rounded-full shrink-0">
+          <div className="flex items-center justify-center w-5 h-5 bg-[#E6F1FE] rounded-full shrink-0">
             <Image src={icon} alt={label} width={18} height={18} />
           </div>
-          <span className="text-sm font-medium text-gray-900">{label}</span>
+          <span className="text-sm font-medium text-[#3F3F46]">{label}</span>
         </div>
 
         {/* Title */}

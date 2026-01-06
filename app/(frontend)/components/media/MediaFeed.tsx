@@ -16,14 +16,14 @@ interface MediaFeedProps {
     showViewToggle?: boolean;
   };
   filterTabs: {
-      showAllTab: boolean;
-      allTabLabel: string;
-      showVideosTab: boolean;
-      videosTabLabel: string;
-      showPhotoGalleryTab: boolean;
-      photoGalleryTabLabel: string;
-      showAudioPodcastTab: boolean;
-      audioPodcastTabLabel: string;
+    showAllTab: boolean;
+    allTabLabel: string;
+    showVideosTab: boolean;
+    videosTabLabel: string;
+    showPhotoGalleryTab: boolean;
+    photoGalleryTabLabel: string;
+    showAudioPodcastTab: boolean;
+    audioPodcastTabLabel: string;
   };
   loadMoreText?: string;
   emptyStateMessage?: string;
@@ -47,16 +47,16 @@ export default function MediaFeed({
   const filteredMedia = initialMedia.filter(item => {
     // Search Filter
     const matchesSearch = item.title.toLowerCase().includes(query.toLowerCase()) ||
-                          (item.description && item.description.toLowerCase().includes(query.toLowerCase()));
-    
+      (item.description && item.description.toLowerCase().includes(query.toLowerCase()));
+
     // Tab Filter
     let matchesTab = true;
     if (selectedTab !== "all") {
-        if (selectedTab === 'audio' || selectedTab === 'podcast') {
-            matchesTab = item.type === 'audio' || item.type === 'podcast';
-        } else {
-            matchesTab = item.type === selectedTab;
-        }
+      if (selectedTab === 'audio' || selectedTab === 'podcast') {
+        matchesTab = item.type === 'audio' || item.type === 'podcast';
+      } else {
+        matchesTab = item.type === selectedTab;
+      }
     }
 
     return matchesSearch && matchesTab;
@@ -75,10 +75,10 @@ export default function MediaFeed({
 
   // Tabs Configuration
   const tabs = [
-      filterTabs.showAllTab && { id: 'all', label: filterTabs.allTabLabel },
-      filterTabs.showVideosTab && { id: 'video', label: filterTabs.videosTabLabel },
-      filterTabs.showPhotoGalleryTab && { id: 'gallery', label: filterTabs.photoGalleryTabLabel },
-      filterTabs.showAudioPodcastTab && { id: 'audio', label: filterTabs.audioPodcastTabLabel }, // bundling audio/podcast
+    filterTabs.showAllTab && { id: 'all', label: filterTabs.allTabLabel },
+    filterTabs.showVideosTab && { id: 'video', label: filterTabs.videosTabLabel },
+    filterTabs.showPhotoGalleryTab && { id: 'gallery', label: filterTabs.photoGalleryTabLabel },
+    filterTabs.showAudioPodcastTab && { id: 'audio', label: filterTabs.audioPodcastTabLabel }, // bundling audio/podcast
   ].filter(Boolean) as { id: string; label: string }[];
 
 
@@ -94,87 +94,86 @@ export default function MediaFeed({
 
       <div className="section-padding pb-6 lg:pb-10 bg-white min-h-[600px]">
         {/* Controls Header: Tabs + Search + View */}
-        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 mb-8">
-            
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap items-center gap-2 p-1 bg-[#F4F4F5] rounded-lg">
-                {tabs.map((tab) => {
-                    const isActive = selectedTab === tab.id || (tab.id === 'audio' && (selectedTab === 'podcast')); 
-                    // Simplifying selection logic: we set 'audio' for the combined tab. 
-                    // If we had separate 'podcast' media items, we filter for both when 'audio' tab is selected.
+        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 mb-8 sm:mb-12">
 
-                    return (
-                        <button
-                            key={tab.id}
-                            onClick={() => {
-                                setSelectedTab(tab.id as any);
-                                setVisibleCount(6);
-                            }}
-                            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
-                                isActive 
-                                ? "bg-white text-black shadow-sm" 
-                                : "text-gray-500 hover:text-black hover:bg-white/50"
-                            }`}
-                        >
-                            {tab.label}
-                        </button>
-                    )
-                })}
-            </div>
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-2 p-1 bg-[#F4F4F5] rounded-[12px]">
+            {tabs.map((tab) => {
+              const isActive = selectedTab === tab.id || (tab.id === 'audio' && (selectedTab === 'podcast'));
+          // Simplifying selection logic: we set 'audio' for the combined tab. 
+          // If we had separate 'podcast' media items, we filter for both when 'audio' tab is selected.
 
-            <div className="flex flex-col sm:flex-row gap-4 w-full xl:w-auto">
-                {/* Search Bar */}
-                {viewOptions.showSearch && (
-                    <div className="relative w-full sm:w-auto">
-                    <div className="flex items-center gap-2.5 bg-[#FAFAFA] rounded-lg px-3 sm:px-4 py-2 w-full sm:min-w-[300px] border border-[#E4E4E7]">
-                        <Image
-                        src="/assets/common/search-icon.svg"
-                        alt="Search"
-                        width={20}
-                        height={20}
-                        />
-                        <input
-                        type="text"
-                        placeholder={viewOptions.searchPlaceholder}
-                        value={query}
-                        onChange={(e) => { setQuery(e.target.value); setVisibleCount(6); }}
-                        className="flex-1 text-sm leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
-                        />
-                    </div>
-                    </div>
-                )}
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setSelectedTab(tab.id as any);
+                    setVisibleCount(6);
+                  }}
+                  className={`px-4 py-1.5 text-lg font-medium rounded-xl transition-all ${isActive
+                    ? "bg-white text-black shadow-sm"
+                    : "text-[#71717A]"
+                    }`}
+                >
+                  {tab.label}
+                </button>
+              )
+            })}
+          </div>
 
-                {/* View Toggles */}
-                {viewOptions.showViewToggle && (
-                    <div className="flex items-center gap-6 shrink-0 self-end sm:self-center">
-                        <button
-                        onClick={() => setView("list")}
-                        className={`flex items-center gap-2 ${view === "list" ? "text-[#006fee]" : "text-[#71717A]"}`}
-                        >
-                        <Image
-                            src="/assets/common/list-icon.svg"
-                            alt="List"
-                            width={20}
-                            height={20}
-                            className={view === "list" ? "opacity-100" : "opacity-60"}
-                        />
-                        <span className="text-sm font-medium hidden sm:block">{viewOptions.listViewLabel}</span>
-                        </button>
-                        <button
-                        onClick={() => setView("grid")}
-                        className={`flex items-center gap-2 ${view === "grid" ? "text-[#006fee]" : "text-[#71717A]"}`}
-                        >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "opacity-100" : "opacity-60"}>
-                                <rect x="3" y="3" width="7" height="7"></rect>
-                                <rect x="14" y="3" width="7" height="7"></rect>
-                                <rect x="14" y="14" width="7" height="7"></rect>
-                                <rect x="3" y="14" width="7" height="7"></rect>
-                            </svg>
-                            <span className="text-sm font-medium hidden sm:block">{viewOptions.gridViewLabel}</span>
-                        </button>
-                    </div>
-                )}
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 w-full xl:w-auto">
+            {/* Search Bar */}
+            {viewOptions.showSearch && (
+              <div className="relative w-full sm:w-auto">
+                <div className="flex items-center gap-2.5 bg-[#FAFAFA] rounded-lg px-3 sm:px-4 py-2 w-full sm:min-w-[300px] border border-[#E4E4E7]">
+                  <Image
+                    src="/assets/common/search-icon.svg"
+                    alt="Search"
+                    width={20}
+                    height={20}
+                  />
+                  <input
+                    type="text"
+                    placeholder={viewOptions.searchPlaceholder}
+                    value={query}
+                    onChange={(e) => { setQuery(e.target.value); setVisibleCount(6); }}
+                    className="flex-1 text-sm leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* View Toggles */}
+            {viewOptions.showViewToggle && (
+              <div className="flex items-center gap-6 shrink-0 self-end sm:self-center">
+                <button
+                  onClick={() => setView("list")}
+                  className={`flex items-center gap-2 ${view === "list" ? "text-[#006fee]" : "text-[#71717A]"}`}
+                >
+                  <Image
+                    src="/assets/common/list-icon.svg"
+                    alt="List"
+                    width={20}
+                    height={20}
+                    className={view === "list" ? "opacity-100" : "opacity-60"}
+                  />
+                  <span className="text-sm font-medium hidden sm:block">{viewOptions.listViewLabel}</span>
+                </button>
+                <button
+                  onClick={() => setView("grid")}
+                  className={`flex items-center gap-2 ${view === "grid" ? "text-[#006fee]" : "text-[#71717A]"}`}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "opacity-100" : "opacity-60"}>
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                  </svg>
+                  <span className="text-sm font-medium hidden sm:block">{viewOptions.gridViewLabel}</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Media Grid/List */}

@@ -62,11 +62,11 @@ export default function MediaCarousel({
   return (
     <div className="w-full">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{title}</h2>
+      <div className="flex items-center justify-between gap-2 sm:gap-0 flex-wrap mb-6 sm:mb-8">
+        <h2 className="text-2xl md:text-3xl font-semibold">{title}</h2>
 
             {/* Navigation Arrows */}
-            <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 self-end">
               <button
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
@@ -111,7 +111,7 @@ export default function MediaCarousel({
       {/* Carousel Container */}
       <div
         ref={scrollContainerRef}
-        className="flex flex-row gap-6 lg:gap-8 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
+        className="flex flex-row gap-4 sm:gap-6 lg:gap-8 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
           {items.map((item) => (
