@@ -131,15 +131,17 @@ interface CommitteesSectionProps {
   title: string;
   description?: string;
   members: CommitteeMember[];
+  className?: string;
+  headerStyle?: string;
 }
 
-export function CommitteesSection({ title, description, members }: CommitteesSectionProps) {
+export function CommitteesSection({ title, description, members, className, headerStyle }: CommitteesSectionProps) {
   if (!members || members.length === 0) return null;
   return (
-    <section className="w-full bg-white py-16 sm:py-20 md:py-24 lg:py-28 xl:py-33">
+    <section className={`w-full bg-white py-16 sm:py-20 md:py-24 lg:py-28 xl:py-33 ${className}`}>
       <div className="w-full hn-container flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
         {/* Header */}
-        <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-6 max-w-full lg:max-w-139">
+        <div className={`flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-6 max-w-full lg:max-w-139 ${headerStyle}`}>
           <h2 className="text-2xl leading-8 font-bold sm:text-3xl sm:leading-9 md:text-[32px] md:leading-9 lg:text-[36px] lg:leading-10 text-[#27272a]">
             {title}
           </h2>
