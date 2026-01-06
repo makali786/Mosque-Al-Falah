@@ -92,12 +92,12 @@ export default function MediaFeed({
         />
       )}
 
-      <div className="section-padding pb-6 lg:pb-10 bg-white min-h-[600px]">
+      <div className="section-padding pb-6 lg:pb-10 bg-white min-h-150">
         {/* Controls Header: Tabs + Search + View */}
         <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 mb-8 sm:mb-12">
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2 p-1 bg-[#F4F4F5] rounded-[12px]">
+          <div className="flex flex-wrap items-center gap-2 p-1 bg-[#F4F4F5] rounded-xl">
             {tabs.map((tab) => {
               const isActive = selectedTab === tab.id || (tab.id === 'audio' && (selectedTab === 'podcast'));
           // Simplifying selection logic: we set 'audio' for the combined tab. 
@@ -110,7 +110,7 @@ export default function MediaFeed({
                     setSelectedTab(tab.id as any);
                     setVisibleCount(6);
                   }}
-                  className={`px-4 py-1.5 text-lg font-medium rounded-xl transition-all ${isActive
+                  className={`px-4 py-1.5 text-lg font-medium rounded-xl transition-all cursor-pointer ${isActive
                     ? "bg-white text-black shadow-sm"
                     : "text-[#71717A]"
                     }`}
