@@ -103,7 +103,8 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: mongooseAdapter({
-    url: process.env.DATABASE_URL || process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/mosque-al-falah',
+    // url: 'mongodb://127.0.0.1:27017/mosque-al-falah',
+    url: 'mongodb+srv://mosque-admin:mosque123@cluster0.oggca09.mongodb.net/mosque-al-falah',
   }),
   sharp,
   plugins: [
