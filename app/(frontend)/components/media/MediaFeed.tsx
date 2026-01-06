@@ -27,6 +27,7 @@ interface MediaFeedProps {
   };
   loadMoreText?: string;
   emptyStateMessage?: string;
+  showBreadcrumbs?: boolean;
 }
 
 export default function MediaFeed({
@@ -34,7 +35,8 @@ export default function MediaFeed({
   viewOptions,
   filterTabs,
   loadMoreText = "Load More",
-  emptyStateMessage = "No media items available."
+  emptyStateMessage = "No media items available.",
+  showBreadcrumbs = true
 }: MediaFeedProps) {
   const [view, setView] = useState<"grid" | "list">((viewOptions.defaultView as "grid" | "list") || "grid");
   const [query, setQuery] = useState("");
@@ -82,11 +84,13 @@ export default function MediaFeed({
 
   return (
     <>
-      <BreadcrumbSearchSection
-        breadcrumbs={breadcrumbs}
-        showSearch={false}
-        className="section-padding pb-0"
-      />
+      {showBreadcrumbs && (
+        <BreadcrumbSearchSection
+          breadcrumbs={breadcrumbs}
+          showSearch={false}
+          className="section-padding pb-0"
+        />
+      )}
 
       <div className="section-padding pb-6 lg:pb-10 bg-white min-h-[600px]">
         {/* Controls Header: Tabs + Search + View */}
