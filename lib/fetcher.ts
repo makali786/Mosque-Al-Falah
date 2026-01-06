@@ -96,5 +96,3 @@ export const fetchCommittees = <T = any>(
   options: Omit<FindOptions, "collection"> = {}
 ) => findFromPayload<T>({ collection: "committees", ...options });
 
-
-

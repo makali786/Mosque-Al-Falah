@@ -15,6 +15,7 @@ interface BreadcrumbSearchSectionProps {
   onSearch?: (query: string) => void;
   className?: string;
   liveSearch?: boolean;
+  showSearch?: boolean;
 }
 
 export default function BreadcrumbSearchSection({
@@ -23,6 +24,7 @@ export default function BreadcrumbSearchSection({
   onSearch,
   className = "",
   liveSearch = false,
+  showSearch = true,
 }: BreadcrumbSearchSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -43,10 +45,10 @@ export default function BreadcrumbSearchSection({
 
   return (
     <section
-      className={`w-full py-6 sm:py-7 md:pt-8 lg:pt-10 lg:pb-11 ${className}`}
+      className={`w-full py-6 sm:py-7 md:pt-8 lg:pt-10 lg:pb-11 hn-container ${className}`}
     >
-      <div className="hn-container">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+      <div>
+        <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 xl:gap-6">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-2">
             {breadcrumbs.map((crumb, index) => (
@@ -83,24 +85,26 @@ export default function BreadcrumbSearchSection({
           </nav>
 
           {/* Search Bar */}
-          <form
-            onSubmit={handleSearch}
-            className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full sm:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
-          >
-            <Image
-              src="/assets/common/search-icon.svg"
-              alt="Search"
-              width={24}
-              height={24}
-            />
-            <input
-              type="text"
-              placeholder={searchPlaceholder}
-              value={searchQuery}
-              onChange={handleInputChange}
-              className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
-            />
-          </form>
+          {showSearch && (
+            <form
+              onSubmit={handleSearch}
+              className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full xl:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
+            >
+              <Image
+                src="/assets/common/search-icon.svg"
+                alt="Search"
+                width={24}
+                height={24}
+              />
+              <input
+                type="text"
+                placeholder={searchPlaceholder}
+                value={searchQuery}
+                onChange={handleInputChange}
+                className="flex-1 text-sm sm:text-base leading-6 text-[#18181B] placeholder:text-[#11181C] bg-transparent outline-none min-w-0"
+              />
+            </form>
+          )}
         </div>
       </div>
     </section>
