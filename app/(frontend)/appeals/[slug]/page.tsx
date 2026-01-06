@@ -78,7 +78,7 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
 
       {/* Why Your Support Matters */}
       {appeal.whyMatters?.enableSection && (
-        <section className="section-padding pt-12 sm:pt-16 lg:pt-24">
+        <section className="section-padding pt-12 sm:pt-16 lg:pt-24 pb-6 lg:pb-8">
           <div className="flex flex-col gap-10 sm:gap-12">
             <h2 className="text-3xl font-bold sm:text-5xl">
                {appeal.whyMatters.sectionTitle}
