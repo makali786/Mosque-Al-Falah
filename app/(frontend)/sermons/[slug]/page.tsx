@@ -84,7 +84,7 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
     <div className="bg-white min-h-screen">
       
       {/* 1. Header & Breadcrumbs */}
-      <div className="hn-container !px-4 md:!px-8 py-4 md:py-6">
+      <div className="section-padding pt-6 sm:pt-8 lg:pt-12">
         <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2">
             {breadcrumbs.map((crumb, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -103,13 +103,13 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
       </div>
 
       {/* 2. Main Title Area */}
-      <div className="hn-container !px-4 md:!px-8 pt-6 md:pt-[44px]">
-        <div className="w-full max-w-[940px] mx-auto text-center flex flex-col items-center pb-6 md:pb-8">
-          <h1 className="text-3xl md:text-5xl font-semibold mb-4 lg:mb-9 text-balance">
+      <div className="section-padding pt-6 md:pt-[44px]">
+        <div className="w-full max-w-[940px] mx-auto text-start sm:text-center flex flex-col items-center pb-6 md:pb-8">
+          <h1 className="text-2xl md:text-5xl font-semibold mb-4 lg:mb-9 text-balance">
             {title}
           </h1>
           {description && (
-            <p className="text-sm md:text-base text-gray-600 max-w-[90%] md:max-w-full">
+            <p className="text-sm md:text-base md:max-w-full">
               {description}
             </p>
           )}
@@ -117,7 +117,7 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
       </div>
 
       {/* 3. Media Player / Hero Image */}
-      <div className="hn-container !px-4 md:!px-8 pb-12 lg:max-h-[527px]">
+      <div className="section-padding pb-12 lg:max-h-[527px]">
             <div className="relative w-full max-w-[1000px] mx-auto aspect-video bg-gray-900 rounded-[20px] overflow-hidden shadow-2xl group">
                 {/* Background Image */}
                 {mediaUrl && (
@@ -147,8 +147,8 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
       </div>
 
       {/* 4. Content Body */}
-      <div className="hn-container !px-4 md:!px-8 py-12">
-        <div className="w-full max-w-[940px] mx-auto text-lg leading-relaxed text-gray-800">
+      <div className="section-padding my-4 sm:my-12">
+        <div className="w-full text-lg text-[#27272A] sm:pt-12">
                {sermon.content && <RichTextRenderer content={sermon.content} />}
           </div>
       </div>

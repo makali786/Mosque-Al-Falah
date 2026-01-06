@@ -38,9 +38,6 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
 
   
   const appeal = appeals[0];
-  console.log("appeal?.whyMatters?.featuredImage?.url",appeal?.whyMatters?.featuredImage?.url)
-
-  console.log("appeal?.waysToGive?.sectionImage?.url", appeal?.waysToGive?.sectionImage?.url)
 
   if (!appeal) {
     notFound();
