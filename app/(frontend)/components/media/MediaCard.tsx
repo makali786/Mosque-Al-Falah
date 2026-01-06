@@ -128,7 +128,7 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
             src={image}
             alt={title}
             fill
-            className="object-cover lg:max-h-[357px] max-w-[357px]"
+                      className="object-cover"
           />
         )}
         
