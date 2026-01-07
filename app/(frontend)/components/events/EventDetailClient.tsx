@@ -36,6 +36,9 @@ const formatTime = (dateString: string) => {
 
 export default function EventDetailClient({ event, config, relatedEvents }: any) {
     const [activeTab, setActiveTab] = useState<"video" | "photos" | "audio">("video");
+    const [donationAmount, setDonationAmount] = useState<number | string | null>(null);
+    const [guestCount, setGuestCount] = useState<number>(1);
+    const amounts = [10, 20, 50, 100];
 
     // Safe accessors
     const title = event?.title || "";
@@ -78,7 +81,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
             {/* 1. Breadcrumbs */}
             <BreadcrumbSearchSection
                 breadcrumbs={breadcrumbs}
-                className="section-padding !py-6"
+                className="section-padding py-12"
                 showSearch={false}
             />
 
@@ -115,15 +118,38 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         <div className="flex items-center gap-2 mb-4">
                             <span className="text-[#A1A1AA] text-xs">Platform:</span>
                             <div className="flex items-center gap-3">
-                                {event?.platforms?.map((p: any, i: number) => (
-                                    <div key={i} className="flex items-center gap-1.5">
-                                        {/* Icon placeholder logic */}
-                                        {p.platform.includes('zoom') && <Image src="/assets/common/zoom-logo.svg" alt="Zoom" width={18} height={18} />}
-                                        {p.platform.includes('person') && <Image src="/assets/common/people-icon.svg" alt="In-person" width={18} height={18} />}
-                                        {p.platform.includes('live') && <MdOutlineOndemandVideo className="text-red-500 w-[18px] h-[18px]" />}
-                                        <span className="text-[#52525B] text-[13px] capitalize">{p.platform.replace('-', ' ')}</span>
-                                    </div>
-                                ))}
+                                {event?.platforms?.map((p: any, i: number) => {
+                                    let iconSrc = "";
+                                    let label = p.platform;
+
+                                    if (p.platform.includes('zoom')) {
+                                        iconSrc = "/assets/common/zoom-logo.svg";
+                                        label = "Zoom";
+                                    } else if (p.platform.includes('youtube')) {
+                                        iconSrc = "/assets/common/youtube-icon.svg";
+                                        label = "Youtube Live";
+                                    } else if (p.platform.includes('facebook')) {
+                                        iconSrc = "/assets/common/facebook-icon.svg";
+                                        label = "Facebook Live";
+                                    } else if (p.platform.includes('emasjid')) {
+                                        iconSrc = "/assets/common/qibla.svg";
+                                        label = "Emasjid Live";
+                                    } else if (p.platform.includes('person')) {
+                                        iconSrc = "/assets/common/people-icon.svg";
+                                        label = "In-person";
+                                    }
+
+                                    return (
+                                        <div key={i} className="flex items-center gap-1.5">
+                                            {iconSrc ? (
+                                                <Image src={iconSrc} alt={label} width={18} height={18} />
+                                            ) : (
+                                                p.platform.includes('live') && <MdOutlineOndemandVideo className="text-red-500 w-[18px] h-[18px]" />
+                                            )}
+                                            <span className="text-[#52525B] text-[13px] capitalize">{label.replace('-', ' ')}</span>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
 
@@ -168,6 +194,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         </div>
                     </div>
                 </div>
+                <Separator className="my-12" />
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     {/* Left Column: 2/3 */}
@@ -175,7 +202,6 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                         {/* Media Tabs & Player */}
                         <div className="space-y-6">
-                            {/* Tabs */}
                             {/* Tabs */}
                             <div className="flex bg-[#F4F4F5] p-1 rounded-[14px] w-fit">
                                 {[
@@ -203,7 +229,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                         <div className="w-full h-full flex items-center justify-center relative bg-black group">
                                             <video
                                                 controls
-                                                className="w-full h-full object-contain"
+                                                className="w-full h-full lg:max-w-[735px] lg:h-[412px] object-contain"
                                                 poster={featuredImage}
                                                 preload="metadata"
                                             >
@@ -211,8 +237,8 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                                 Your browser does not support the video tag.
                                             </video>
                                             {event?.media?.isLive && (
-                                                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-2.5 py-1 rounded-md flex items-center gap-1.5 text-xs font-bold text-red-500 shadow-sm z-10 pointer-events-none">
-                                                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                                <div className="absolute top-4 right-4 bg-[#FAFAFA] backdrop-blur px-2.5 py-1 rounded-md flex items-center gap-1.5 text-sm text-[#11181C] z-10 pointer-events-none">
+                                                    <span className="w-2 h-2 rounded-full bg-[#F31260]" />
                                                     Live
                                                 </div>
                                             )}
@@ -254,15 +280,29 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                         {/* Booking Form */}
                         <div className="pt-8">
-                            <h3 className="text-xl font-bold text-[#18181B] mb-8">Book a place</h3>
+                            <h3 className="text-[24px] font-semibold mb-8">Book a place</h3>
                             <form className="lg:max-w-[735px] space-y-4 border border-[#E6F1FE] rounded-xl px-6 py-8">
                                 <div className="flex gap-4">
                                     <div className="flex-1 bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5">
                                         <label className="text-xs text-gray-500 block mb-1">Full Name <span className="text-red-500">*</span></label>
                                         <input type="text" defaultValue="Toufik Hasan" className="w-full bg-transparent outline-none text-sm font-medium text-gray-900" />
                                     </div>
-                                    <div className="w-[180px] bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 flex items-center justify-between cursor-pointer">
-                                        <span className="text-sm font-medium text-gray-900">Number of Guest</span>
+                                    <div className="w-[180px] bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 flex items-center justify-between cursor-pointer relative">
+                                        <select
+                                            value={guestCount}
+                                            onChange={(e) => setGuestCount(Number(e.target.value))}
+                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer appearance-none z-10"
+                                        >
+                                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                                <option key={num} value={num}>
+                                                    {num} {num === 1 ? 'Guest' : 'Guests'}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <div>
+                                            <span className="text-xs text-gray-500 block mb-0.5">Guests</span>
+                                            <span className="text-sm font-medium text-gray-900">{guestCount} {guestCount === 1 ? 'Guest' : 'Guests'}</span>
+                                        </div>
                                         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                                     </div>
                                 </div>
@@ -286,46 +326,97 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                     {/* Right Column: 1/3 sidebar */}
                     <div className="space-y-8">
-                        <h3 className="text-lg font-bold text-[#18181B] pb-4 border-b border-gray-100">Event details</h3>
+                        <div>
+                            <h3 className="text-lg font-semibold pb-3">Event details</h3>
+                            <Separator />
 
-                        {/* Where */}
-                        <div className="space-y-4">
-                            <h4 className="text-base font-medium text-[#18181B]">Where</h4>
-                            <p className="text-sm text-[#52525B] leading-relaxed">
-                                {address || "North Ilford Islamic Centre, 97 Kensington Gardens, Ilford, Essex IG1 3EN"}
-                            </p>
+                            <div className="space-y-8">
+                                {/* Where */}
+                                <div className="space-y-4">
+                                    <h4 className="text-lg font-medium text-[#27272A] mt-4">Where</h4>
+                                    <p className="text-base text-[#3F3F46]">
+                                        {address || ""}
+                                    </p>
 
-                            {/* Map Placeholder */}
-                            <div className="w-full h-[180px] bg-[#E4E4E7] rounded-xl mb-4"></div>
+                                    {/* Map Placeholder */}
+                                    <div className="w-full h-[198px] bg-[#E4E4E7] mb-4 relative overflow-hidden">
+                                        <div className="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=Ilford,Essex&zoom=14&size=600x300&sensor=false')] bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                                    </div>
 
-                            <div className="flex gap-3">
-                                <button className="flex-1 py-2.5 bg-[#3F3F46] text-white text-xs font-medium rounded-lg hover:bg-black transition-colors">
-                                    View on Map
-                                </button>
-                                <button className="flex-1 py-2.5 bg-[#006FEE] text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors">
-                                    Get Directions
-                                </button>
+                                    <div className="flex gap-3">
+                                        <button className="py-3 px-4 bg-[#3F3F46] text-white text-sm rounded-lg">
+                                            View on Map
+                                        </button>
+                                        <button className="py-3 px-4 bg-[#006FEE] text-white text-sm rounded-lg">
+                                            Get Directions
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* When */}
+                                <div className="space-y-4">
+                                    <h4 className="text-lg font-medium text-[#27272A]">When</h4>
+                                    <div className="space-y-4 text-sm text-[#3F3F46]">
+                                        <p><span className="font-semibold">Start:</span> {formatDate(startDate)} at {formatTime(startDate)}</p>
+                                        <p><span className="font-semibold">End:</span> {formatDate(endDate)} at {formatTime(endDate)}</p>
+                                    </div>
+                                    <button className="w-fit py-3 px-4 bg-[#006FEE] text-white text-sm font-medium rounded-lg">
+                                        Add to calendar
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
-                        {/* When */}
-                        <div className="space-y-4">
-                            <h4 className="text-base font-medium text-[#18181B]">When</h4>
-                            <div className="space-y-2 text-sm text-[#52525B]">
-                                <p><span className="font-semibold text-[#18181B]">Start:</span> {formatDate(startDate)} at {formatTime(startDate)}</p>
-                                <p><span className="font-semibold text-[#18181B]">End:</span> {formatDate(endDate)} at {formatTime(endDate)}</p>
+                        {/* Donate Section */}
+                        <div className="space-y-3">
+                            <div className="border-b border-gray-100 pb-3">
+                                <h3 className="text-lg font-semibold mb-2">Donate to Masjid Al Falah</h3>
+                                <p className="text-sm text-[#3F3F46]">Support our community services and events. Your contribution makes a difference.</p>
                             </div>
-                            <button className="w-full py-2.5 bg-[#006FEE] text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors">
-                                Add to calendar
+                            <div className="space-y-3">
+                                <span className="text-xs font-medium text-[#52525B]">Amount:</span>
+                                <div className="flex gap-2 flex-wrap mt-3">
+                                    {amounts.map((amount) => (
+                                        <button
+                                            key={amount}
+                                            onClick={() => setDonationAmount(amount)}
+                                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${donationAmount === amount ? 'bg-[#18181B] text-white' : 'bg-[#E4E4E7] text-black hover:bg-gray-200'}`}
+                                        >
+                                            £{amount}
+                                        </button>
+                                    ))}
+                                    <button
+                                        onClick={() => setDonationAmount("Other")}
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${donationAmount === "Other" ? 'bg-[#18181B] text-white' : 'bg-[#E4E4E7] text-black hover:bg-gray-200'}`}
+                                    >
+                                        Other
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Privacy / Profile */}
+                            <div className="space-y-2">
+                                <span className="text-xs font-medium text-[#52525B]">Your donation will appear as:</span>
+                                <div className="flex items-center justify-between px-3 py-2 bg-[#F4F4F5] rounded-lg mt-3">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-8 h-8 rounded-full overflow-hidden relative bg-gray-200">
+                                            <Image src="/assets/sermons/taraweeh-sermons.png" alt="Avatar" fill className="object-cover" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-medium text-[#18181B]">Anonymous kind soul</span>
+                                            <span className="text-[10px] text-[#A1A1AA]">£35 GBP, a few moments ago</span>
+                                        </div>
+                                    </div>
+                                    <button className="text-xs font-medium text-[#18181B] hover:underline">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Donate Button */}
+                            <button className="py-3 px-4 bg-[#006FEE] text-white rounded-lg text-sm mt-1">
+                                Donate
                             </button>
-                        </div>
-
-                        {/* Donation */}
-                        <div className="pt-4">
-                            <MediaDonationSidebar
-                                donationSettings={config?.requestForm /* Reuse random config for now or empty */}
-                                className="!p-0 !shadow-none ring-0 border-none"
-                            />
                         </div>
                     </div>
                 </div>
@@ -337,10 +428,10 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                             <h2 className="text-2xl font-bold text-[#18181B]">Upcoming events</h2>
                             <div className="flex gap-2">
                                 <button className="w-10 h-10 rounded-full bg-[#E4E4E7] flex items-center justify-center hover:bg-gray-300 transition-colors">
-                                    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                                    <Image src="/assets/sermons/arrow-left.svg" alt="Previous" width={20} height={20} />
                                 </button>
                                 <button className="w-10 h-10 rounded-full bg-[#006FEE] flex items-center justify-center hover:bg-blue-700 transition-colors">
-                                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                    <Image src="/assets/sermons/arrow-right.svg" alt="Next" width={20} height={20} className="brightness-0 invert" />
                                 </button>
                             </div>
                         </div>
@@ -352,21 +443,21 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                     </div>
                 )}
 
-                {/* Quote */}
-                {config?.bottomQuote?.enableSection && (
-                    <div className="mt-24">
-                        <QuoteSection
-                            quote={config.bottomQuote.quoteText}
-                            attribution={config.bottomQuote.author}
-                            shareButtonText={config.bottomQuote.shareButtonText}
-                            donateButtonText={config.bottomQuote.donateButtonText}
-                            donateButtonUrl={config.bottomQuote.donateButtonUrl}
-                            backgroundColor="#F4F4F5"
-                        />
-                    </div>
-                )}
-
             </div>
+
+            {/* Quote */}
+            {config?.bottomQuote?.enableSection && (
+                <div className="mt-24">
+                    <QuoteSection
+                        quote={config.bottomQuote.quoteText}
+                        attribution={config.bottomQuote.author}
+                        shareButtonText={config.bottomQuote.shareButtonText}
+                        donateButtonText={config.bottomQuote.donateButtonText}
+                        donateButtonUrl={config.bottomQuote.donateButtonUrl}
+                        backgroundColor="#F4F4F5"
+                    />
+                </div>
+            )}
         </div>
     );
 }
