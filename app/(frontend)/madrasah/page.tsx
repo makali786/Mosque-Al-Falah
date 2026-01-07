@@ -93,13 +93,10 @@ export default async function MadrasahPage() {
     const classesData = await findFromPayload({ collection: "madrasah-classes" });
     const testimonialsData = await findFromPayload({ collection: "madrasah-testimonials" });
 
-    // Default to 'madrasah' or 'education' if not set, preventing empty results if possible
-    const committeeFilter = pageData?.committeeSection?.committeeType || 'madrasah';
-
     const committeeMembers = await fetchCommittees<CommitteeMember>({ sort: 'order', where: { isActive: { equals: true } } });
 
     if (!pageData) {
-        return <div>Loading...</div>; // Or notFound()
+        return <div>Loading...</div>;
     }
 
     return (
@@ -111,7 +108,7 @@ export default async function MadrasahPage() {
                     { label: "Home", href: "/" },
                     { label: pageData.hero?.title || "Madrasah", href: "/madrasah" },
                 ]}
-                backgroundImage={pageData.hero?.backgroundImage?.url || "/assets/madrasah/hero-bg.jpg"}
+                backgroundImage={pageData.hero?.backgroundImage?.url || ""}
             />
 
             {/* 2. Classes Section */}
