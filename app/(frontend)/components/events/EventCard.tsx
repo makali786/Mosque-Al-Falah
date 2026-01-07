@@ -41,6 +41,7 @@ export interface EventCardProps {
 }
 
 export default function EventCard({ event, layout = "grid" }: EventCardProps) {
+
   const { title, slug, timing, platforms, media } = event;
   
   const imageUrl = getMediaUrl(media?.featuredImage);
@@ -141,9 +142,9 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
 
   // Grid View
   return (
-    <CardWrapper className="flex flex-col w-full bg-white overflow-hidden border border-[#E4E4E7] hover:shadow-md transition-all duration-300 group h-full">
+    <CardWrapper className="flex flex-col w-full bg-white overflow-hidden h-full">
       {/* Image Container */}
-      <div className="relative w-full aspect-[4/5] bg-gray-100">
+      <div className="relative w-full aspect-[4/5] lg:max-w-[357px] lg:max-h-[357px]">
         {imageUrl && (
           <Image
             src={imageUrl}
