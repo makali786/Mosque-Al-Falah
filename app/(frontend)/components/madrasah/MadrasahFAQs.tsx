@@ -3,41 +3,27 @@
 import Image from "next/image";
 import { useState } from "react";
 
-const faqItems = [
-  {
-    id: "1",
-    question: "What age groups can enroll in the Madrasah?",
-    answer: "Our Madrasah welcomes children from ages 5 and above, with tailored classes for different age groups."
-  },
-  {
-    id: "2",
-    question: "What subjects are taught at the Madrasah?",
-    answer: "We teach Quranic recitation, Tajweed, Islamic studies including Fiore, Seerah, and Adaab (etiquette)."
-  },
-  {
-    id: "3",
-    question: "What are the class timings?",
-    answer: "Classes are held on weekdays from 5:00 PM to 7:00 PM and on weekends from 10:00 AM to 1:00 PM."
-  },
-  {
-    id: "4",
-    question: "Is there a registration fee?",
-    answer: "Yes, there is a one-time registration fee of £20. Monthly fees are £30 per child."
-  },
-   {
-    id: "5",
-    question: "Do you have separate classes for boys and girls?",
-    answer: "Yes, we maintain separate classrooms for boys and girls to ensure a comfortable learning environment."
-  },
-  {
-    id: "6",
-    question: "How can I enroll my child?",
-    answer: "You can enroll your child by filling out the online application form or visiting the Madrasah office during operating hours."
-  }
-];
+import { RichTextRenderer } from "../common/RichTextRenderer";
 
-export default function MadrasahFAQs() {
-  const [expandedId, setExpandedId] = useState<string>(faqItems[0].id);
+interface FAQItem {
+  id: string;
+  question: string;
+  answer: any;
+}
+
+interface MadrasahFAQsProps {
+  faqs?: FAQItem[];
+  title?: string;
+  description?: string;
+}
+
+export default function MadrasahFAQs({
+  faqs = [],
+  title = "Frequently Asked Questions (FAQs)",
+  description = "Find answers to common questions about our Madrasa programs."
+}: MadrasahFAQsProps) {
+  const [expandedId, setExpandedId] = useState<string>("");
+
 
   return (
     <section className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden bg-[#004E93]">
@@ -62,10 +48,10 @@ export default function MadrasahFAQs() {
         <div className="flex items-center w-full">
           <div className="flex flex-col gap-4 w-full">
             <h1 className="text-3xl font-semibold sm:text-4xl text-white">
-              Frequently Asked Questions (FAQs)
+              {title}
             </h1>
             <p className="text-base font-medium text-white/90">
-                Find answers to common questions about our Madrasah programs.
+              {description}
             </p>
           </div>
         </div>
@@ -73,8 +59,8 @@ export default function MadrasahFAQs() {
         {/* Accordion */}
         <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-[14px] px-6 py-8 sm:px-8 sm:py-9 md:px-12 md:py-10 lg:px-16 lg:py-11 w-full">
           <div className="flex flex-col px-2 lg:px-2">
-            {faqItems.map((item, index) => (
-              <div key={item.id} className="flex flex-col gap-2 lg:gap-2">
+            {faqs.map((item, index) => (
+              <div key={item.id || index} className="flex flex-col gap-2 lg:gap-2">
                 <button
                   onClick={() =>
                     setExpandedId(expandedId === item.id ? "" : item.id)
@@ -101,16 +87,20 @@ export default function MadrasahFAQs() {
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${
                     expandedId === item.id
-                      ? "max-h-40 opacity-100"
+                    ? "max-h-[500px] opacity-100" // Increased max-height for rich text potential content
                       : "max-h-0 opacity-0"
                   }`}
                 >
                   <div className="pb-4 text-[#52525b] text-base leading-relaxed">
-                    {item.answer}
+                    {typeof item.answer === 'string' ? (
+                      item.answer
+                    ) : (
+                      <RichTextRenderer content={item.answer} />
+                    )}
                   </div>
                 </div>
 
-                {index < faqItems.length - 1 && (
+                {index < faqs.length - 1 && (
                   <div className="h-px w-full bg-gray-200" />
                 )}
               </div>

@@ -1,4 +1,4 @@
-import { CommitteesSection } from "@/components/about/CommitiesCard";
+import { CommitteeMember, CommitteesSection } from "@/components/about/CommitiesCard";
 import PageHero from "@/components/common/PageHero";
 import RequestServiceForm from "@/components/common/RequestServiceForm";
 import { QuoteSectionWrapper } from "../../components/contact/QuoteSectionWrapper";
@@ -7,161 +7,185 @@ import MadrasahFAQs from "../components/madrasah/MadrasahFAQs";
 import MadrasahGallery from "../components/madrasah/MadrasahGallery";
 import ParentReviews from "../components/madrasah/ParentReviews";
 
-// Hardcoded Committee Members
-const committeeMembers = [
-    {
-        id: "1",
-        name: "Mr. Sharafat Khan",
-        role: "Head of Committee",
-        committeeType: "Madrasah",
-        photo: {
-            url: "/assets/madrasah/committee-1.jpg",
-            alt: "Mr. Sharafat Khan",
-            id: "1",
-            filename: "c1.jpg",
-            mimeType: "image/jpeg",
-            filesize: 1000,
-            width: 300,
-            height: 300
-        },
-        bio: "Responsible for the strategic direction and overall management of the mosque.",
-        contact: {
-            enableWhatsApp: true,
-            whatsappNumber: "1234567890",
-            enableEmail: false,
-        },
-        order: 1,
-        isFeatured: true,
-        isActive: true
-    },
-    {
-        id: "2",
-        name: "Mr. Sharafat Khan",
-        role: "Head of Committee",
-        committeeType: "Madrasah",
-        photo: {
-            url: "/assets/madrasah/committee-2.jpg",
-            alt: "Mr. Sharafat Khan",
-            id: "2",
-            filename: "c2.jpg",
-            mimeType: "image/jpeg",
-            filesize: 1000,
-            width: 300,
-            height: 300
-        },
-        bio: "Responsible for the strategic direction and overall management of the mosque.",
-        contact: {
-            enableWhatsApp: true,
-            whatsappNumber: "1234567890",
-            enableEmail: false,
-        },
-        order: 2,
-        isFeatured: true,
-        isActive: true
-    },
-    {
-        id: "3",
-        name: "Mr. Sharafat Khan",
-        role: "Head of Committee",
-        committeeType: "Madrasah",
-        photo: {
-            url: "/assets/madrasah/committee-3.jpg",
-            alt: "Mr. Sharafat Khan",
-            id: "3",
-            filename: "c3.jpg",
-            mimeType: "image/jpeg",
-            filesize: 1000,
-            width: 300,
-            height: 300
-        },
-        bio: "Responsible for the strategic direction and overall management of the mosque.",
-        contact: {
-            enableWhatsApp: true,
-            whatsappNumber: "1234567890",
-            enableEmail: false,
-        },
-        order: 3,
-        isFeatured: true,
-        isActive: true
-    },
-    {
-        id: "4",
-        name: "Mr. Sharafat Khan",
-        role: "Head of Committee",
-        committeeType: "Madrasah",
-        photo: {
-            url: "/assets/madrasah/committee-4.jpg",
-            alt: "Mr. Sharafat Khan",
-            id: "4",
-            filename: "c4.jpg",
-            mimeType: "image/jpeg",
-            filesize: 1000,
-            width: 300,
-            height: 300
-        },
-        bio: "Responsible for the strategic direction and overall management of the mosque.",
-        contact: {
-            enableWhatsApp: true,
-            whatsappNumber: "1234567890",
-            enableEmail: false,
-        },
-        order: 4,
-        isFeatured: true,
-        isActive: true
-    }
-];
+import { Metadata } from 'next';
+import { fetchCommittees, fetchGlobal, findFromPayload } from "@lib/fetcher";
 
-export default function MadrasahPage() {
+// Define Interfaces based on API response
+
+interface MadrasahPageGlobal {
+    hero: {
+        title: string;
+        showBreadcrumb: boolean;
+        breadcrumbText: string;
+        backgroundImage?: { url: string } | null;
+    };
+    classesSection: {
+        enableSection: boolean;
+        sectionTitle: string;
+        displayMode: string;
+        gridColumns: string;
+    };
+    committeeSection: {
+        enableSection: boolean;
+        sectionTitle: string;
+        description: string;
+        gridColumns: string;
+        committeeType?: string;
+    };
+    gallerySection: {
+        enableSection: boolean;
+        sectionLabel: string;
+        sectionTitle: string;
+        description: string;
+        galleryImages: any[];
+        contactButtonText: string;
+        contactButtonUrl: string;
+        enrollButtonText: string;
+        enrollButtonUrl: string;
+    };
+    testimonialsSection: {
+        enableSection: boolean;
+        sectionLabel: string;
+        sectionTitle: string;
+    };
+    faqsSection: {
+        enableSection: boolean;
+        sectionTitle: string;
+        sectionDescription: string;
+        faqs: Array<{
+            id: string;
+            question: string;
+            answer: any;
+        }>;
+    };
+    contactSection: {
+        enableSection: boolean;
+        sectionTitle: string;
+        description: string;
+    };
+    bottomQuote: {
+        enableSection: boolean;
+        quoteText: string;
+        author: string;
+        donateButtonUrl: string;
+        showShareButton: boolean;
+        showDonateButton: boolean;
+    };
+    seo: {
+        metaTitle: string;
+        metaDescription: string;
+    };
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+    const data = await fetchGlobal<MadrasahPageGlobal>({ slug: 'madrasah-page' });
+    return {
+        title: data?.seo?.metaTitle || 'Madrasah - Masjid Al-Falah',
+        description: data?.seo?.metaDescription || 'Explore our Madrasah programs.',
+    };
+}
+
+export default async function MadrasahPage() {
+    // 1. Fetch Global Data
+    const pageData = await fetchGlobal<MadrasahPageGlobal>({ slug: "madrasah-page" });
+
+    // 2. Fetch Collections
+    const classesData = await findFromPayload({ collection: "madrasah-classes" });
+    const testimonialsData = await findFromPayload({ collection: "madrasah-testimonials" });
+
+    // Default to 'madrasah' or 'education' if not set, preventing empty results if possible
+    const committeeFilter = pageData?.committeeSection?.committeeType || 'madrasah';
+
+    const committeeMembers = await fetchCommittees<CommitteeMember>({ sort: 'order', where: { isActive: { equals: true } } });
+
+    if (!pageData) {
+        return <div>Loading...</div>; // Or notFound()
+    }
+
     return (
         <div className="bg-white">
             {/* 1. Hero Section */}
             <PageHero
-                title="Madrasah"
+                title={pageData.hero?.title || "Madrasah"}
                 breadcrumbs={[
                     { label: "Home", href: "/" },
-                    { label: "Madrasah", href: "/madrasah" },
+                    { label: pageData.hero?.title || "Madrasah", href: "/madrasah" },
                 ]}
-                backgroundImage="/assets/madrasah/hero-bg.jpg"
+                backgroundImage={pageData.hero?.backgroundImage?.url || "/assets/madrasah/hero-bg.jpg"}
             />
 
             {/* 2. Classes Section */}
-            <MadrasahClasses />
+            {pageData.classesSection?.enableSection && (
+                <MadrasahClasses
+                    classes={classesData}
+                    sectionTitle={pageData.classesSection.sectionTitle}
+                />
+            )}
 
             {/* 3. Committee Section */}
-            <CommitteesSection
-                title="Madrasah Commitee"
-                description="Masjid Al Falah is run under the management of Masjid Al Falah under which there is a group of people who gives their valuable time to look after the needs of our Madrasah n a daily basis, these people are working as Madrasah Commitee and they are as follow;"
-                members={committeeMembers as any}
-                className="!bg-[#E6F1FE] section-padding"
-                headerStyle="!lg:max-w-full lg:min-w-full"
-
-            />
+            {pageData.committeeSection?.enableSection && (
+                <CommitteesSection
+                    title={pageData.committeeSection.sectionTitle}
+                    description={pageData.committeeSection.description}
+                    members={committeeMembers as any}
+                    className="!bg-[#E6F1FE] section-padding"
+                    headerStyle="!lg:max-w-full lg:min-w-full"
+                />
+            )}
 
             {/* 4. Gallery Section */}
-            <MadrasahGallery />
+            {pageData.gallerySection?.enableSection && (
+                <MadrasahGallery
+                    galleryImages={pageData.gallerySection.galleryImages}
+                    sectionLabel={pageData.gallerySection.sectionLabel}
+                    sectionTitle={pageData.gallerySection.sectionTitle}
+                    description={pageData.gallerySection.description}
+                    contactButtonText={pageData.gallerySection.contactButtonText}
+                    contactButtonUrl={pageData.gallerySection.contactButtonUrl}
+                    enrollButtonText={pageData.gallerySection.enrollButtonText}
+                    enrollButtonUrl={pageData.gallerySection.enrollButtonUrl}
+                />
+            )}
 
             {/* 5. What Parents Say Section */}
-            <ParentReviews />
+            {pageData.testimonialsSection?.enableSection && (
+                <ParentReviews
+                    testimonials={testimonialsData}
+                    sectionLabel={pageData.testimonialsSection.sectionLabel}
+                    sectionTitle={pageData.testimonialsSection.sectionTitle}
+                />
+            )}
 
             {/* 6. FAQs Section */}
-            <MadrasahFAQs />
+            {pageData.faqsSection?.enableSection && (
+                <MadrasahFAQs
+                    faqs={pageData.faqsSection.faqs}
+                    title={pageData.faqsSection.sectionTitle}
+                    description={pageData.faqsSection.sectionDescription}
+                />
+            )}
 
             {/* 7. Contact Section */}
-            <div className="section-padding">
-            <RequestServiceForm
-                sectionTitle="Contact Us"
-                description="Connect our Masjid for personalized assistance and discover how we can help you."
-                className="my-8 lg:my-[72px] "
-            />
-            </div>
+            {pageData.contactSection?.enableSection && (
+                <div className="section-padding">
+                    <RequestServiceForm
+                        sectionTitle={pageData.contactSection.sectionTitle}
+                        description={pageData.contactSection.description}
+                        className="my-8 lg:my-[72px] "
+                    />
+                </div>
+            )}
+
             {/* 8. Quote Section */}
-            <QuoteSectionWrapper
-                quote="Whoever guides someone to goodness will have a reward like the one who did it."
-                attribution="Prophet Muhammad ﷺ"
-                donateButtonUrl="/donate"
-                showShareButton={true}
-                showDonateButton={true}
-            />
+            {pageData.bottomQuote?.enableSection && (
+                <QuoteSectionWrapper
+                    quote={pageData.bottomQuote.quoteText}
+                    attribution={pageData.bottomQuote.author}
+                    donateButtonUrl={pageData.bottomQuote.donateButtonUrl}
+                    showShareButton={pageData.bottomQuote.showShareButton}
+                    showDonateButton={pageData.bottomQuote.showDonateButton}
+                />
+            )}
         </div>
     );
 }

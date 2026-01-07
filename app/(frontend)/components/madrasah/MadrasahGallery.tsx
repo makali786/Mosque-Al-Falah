@@ -3,23 +3,52 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const galleryImages = [
-  "/assets/madrasah/gallery-1.jpg",
-  "/assets/madrasah/gallery-2.jpg",
-  "/assets/madrasah/gallery-3.jpg",
-  "/assets/madrasah/gallery-4.jpg",
-  "/assets/madrasah/gallery-5.jpg",
-];
+// const defaultGalleryImages = [
+//   "/assets/madrasah/gallery-1.jpg",
+//   "/assets/madrasah/gallery-2.jpg",
+//   "/assets/madrasah/gallery-3.jpg",
+//   "/assets/madrasah/gallery-4.jpg",
+//   "/assets/madrasah/gallery-5.jpg",
+// ];
 
-export default function MadrasahGallery() {
+interface GalleryProps {
+  galleryImages?: Array<{
+    id?: string;
+    url: string;
+    alt?: string;
+  }>;
+  sectionLabel?: string;
+  sectionTitle?: string;
+  description?: string;
+  contactButtonText?: string;
+  contactButtonUrl?: string;
+  enrollButtonText?: string;
+  enrollButtonUrl?: string;
+}
+
+export default function MadrasahGallery({
+  galleryImages = [],
+  sectionLabel = "OUR MADRASAH MOMENTS",
+  sectionTitle = "Madrasah Gallery",
+  description = "Explore our gallery showcasing the vibrant learning environment, engaging Islamic lessons, interactive activities, and more. See the dedication of our students and teachers in nurturing faith, knowledge, and community spirit.",
+  contactButtonText = "Contact Us",
+  contactButtonUrl = "/contact",
+  enrollButtonText = "Book Your Tour",
+  enrollButtonUrl = "/contact" // assuming separate link or same
+}: GalleryProps) {
+  // Use provided images or fallback to default if empty
+  const images = galleryImages.length > 0 ? galleryImages.map(img => img?.image?.url) : [];
+
+
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   const nextImage = () => {
-    setActiveIndex((prev) => (prev + 1) % galleryImages.length);
+    setActiveIndex((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = () => {
-    setActiveIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
   return (
@@ -28,21 +57,21 @@ export default function MadrasahGallery() {
         {/* Left Content */}
         <div className="flex flex-col lg:w-1/2 justify-center">
             <div className="flex flex-col gap-3">
-                <h4 className="text-[#006FEE] font-medium text-lg uppercase">OUR MADRASAH MOMENTS</h4>
+            <h4 className="text-[#006FEE] font-medium text-lg uppercase">{sectionLabel}</h4>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#27272a]">
-                    Madrasah Gallery
+              {sectionTitle}
                 </h2>
             </div>
             <p className="text-base sm:text-lg mt-8">
-                Explore our gallery showcasing the vibrant learning environment, engaging Islamic lessons, interactive activities, and more. See the dedication of our students and teachers in nurturing faith, knowledge, and community spirit.
+            {description}
             </p>
             <div className="flex flex-wrap gap-6 mt-16">
-                <button className="bg-[#3F3F46] text-white px-6 py-3 rounded-lg font-medium hover:bg-black transition-colors">
-                    Contact Us
-                </button>
-                <button className="bg-[#006FEE] text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors">
-                    Book Your Tour
-                </button>
+            <a href={contactButtonUrl} className="bg-[#3F3F46] text-white px-6 py-3 rounded-lg font-medium hover:bg-black transition-colors text-center">
+              {contactButtonText}
+            </a>
+            <a href={enrollButtonUrl} className="bg-[#006FEE] text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors text-center">
+              {enrollButtonText}
+            </a>
             </div>
         </div>
 
@@ -52,7 +81,7 @@ export default function MadrasahGallery() {
             <div className="relative w-full aspect-video rounded-2xl overflow-hidden lg:max-h-[359px]">
                  <div className="absolute inset-0 bg-gray-200" />
                  <Image
-                    src={galleryImages[activeIndex]}
+              src={images[activeIndex]}
                     alt="Madrasah Gallery"
                     fill
                     className="object-cover"
@@ -86,7 +115,7 @@ export default function MadrasahGallery() {
 
                  {/* Dots */}
                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-                    {galleryImages.map((_, idx) => (
+              {images.map((_, idx) => (
                         <button
                             key={idx}
                             onClick={() => setActiveIndex(idx)}
@@ -103,7 +132,7 @@ export default function MadrasahGallery() {
 
             {/* Thumbnails */}
             <div className="grid grid-cols-5 gap-3">
-                {galleryImages.map((img, idx) => (
+            {images.map((img, idx) => (
                     <button 
                         key={idx}
                         onClick={() => setActiveIndex(idx)}
