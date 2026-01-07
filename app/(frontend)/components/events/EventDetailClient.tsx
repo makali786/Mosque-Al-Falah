@@ -83,6 +83,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                 breadcrumbs={breadcrumbs}
                 className="section-padding py-12"
                 showSearch={false}
+                breadcrumbsItemsStyle={"flex-wrap"}
             />
 
             <div className="section-padding pb-12 sm:pb-20">
@@ -117,7 +118,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         {/* Platforms */}
                         <div className="flex items-center gap-2 mb-4">
                             <span className="text-[#A1A1AA] text-xs">Platform:</span>
-                            <div className="flex items-center gap-3">
+                            <div className="flex flex-wrap items-center gap-3">
                                 {event?.platforms?.map((p: any, i: number) => {
                                     let iconSrc = "";
                                     let label = p.platform;
@@ -203,7 +204,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         {/* Media Tabs & Player */}
                         <div className="space-y-6">
                             {/* Tabs */}
-                            <div className="flex bg-[#F4F4F5] p-1 rounded-[14px] w-fit">
+                            <div className="flex bg-[#F4F4F5] p-1 rounded-[14px] w-full sm:w-fit overflow-x-auto scrollbar-hide">
                                 {[
                                     { id: "video", label: "Video" },
                                     { id: "photos", label: "Photos" },
@@ -212,7 +213,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                     <button
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id as any)}
-                                        className={`px-6 py-2 text-base font-medium rounded-[12px] transition-all duration-200 ${activeTab === tab.id
+                                        className={`px-3 sm:px-6 py-2 text-base font-medium rounded-[12px] transition-all duration-200 whitespace-nowrap ${activeTab === tab.id
                                             ? "bg-white text-[#18181B] shadow-[0_1px_2px_rgba(0,0,0,0.06)]"
                                             : "text-[#71717A] hover:text-[#18181B]"
                                             }`}
@@ -282,12 +283,12 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         <div>
                             <h3 className="text-[24px] font-semibold mb-8">Book a place</h3>
                             <form className="lg:max-w-[735px] space-y-4 border border-[#E6F1FE] rounded-xl px-6 py-8">
-                                <div className="flex gap-4">
+                                <div className="flex flex-col sm:flex-row gap-4">
                                     <div className="flex-1 bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
                                         <label className="text-xs font-normal text-[#52525B]">Full Name <span className="text-[#EF4444]">*</span></label>
                                         <input type="text" defaultValue="Toufik Hasan" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
                                     </div>
-                                    <div className="w-[180px] bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit flex items-center justify-between cursor-pointer relative">
+                                    <div className="w-full sm:w-[180px] bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit flex items-center justify-between cursor-pointer relative">
                                         <select
                                             value={guestCount}
                                             onChange={(e) => setGuestCount(Number(e.target.value))}

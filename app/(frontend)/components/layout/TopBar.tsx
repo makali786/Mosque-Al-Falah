@@ -116,7 +116,7 @@ const PrayerTime = ({
   const variants = {
     mobile: {
       container: active
-        ? "flex flex-col items-center px-2.5 py-1 bg-[#005bc4] rounded"
+        ? "flex flex-col items-center px-0.5 py-1 bg-[#005bc4] rounded"
         : "flex flex-col items-center",
       nameClass: `font-semibold text-[11px] ${
         active ? "text-white" : "text-black"
@@ -169,7 +169,7 @@ export default function TopBar() {
               ))}
             </div>
           </div>
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center justify-between gap-1 w-full px-1">
             {PRAYER_TIMES.map((prayer) => (
               <PrayerTime key={prayer.name} {...prayer} variant="mobile" />
             ))}
@@ -316,10 +316,10 @@ export default function TopBar() {
               />
             </svg>
           </button>
-
-          <PrayerTimesPanel isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
         </div>
       </div>
+
+      <PrayerTimesPanel isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
     </div>
   );
 }

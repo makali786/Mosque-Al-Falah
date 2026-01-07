@@ -4,9 +4,6 @@ import Image from "next/image";
 import { useState, useMemo, useCallback } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
-// ============================================================================
-// Types & Interfaces
-// ============================================================================
 
 interface PrayerTime {
   name: string;
@@ -31,9 +28,6 @@ interface PrayerTimesPanelProps {
   onClose: () => void;
 }
 
-// ============================================================================
-// Data Configuration (Ready for API integration)
-// ============================================================================
 
 const MOCK_PRAYER_TIMES: PrayerTime[] = [
   { name: "Fajr", begins: "5:01", jamaah: "5:01" },
@@ -140,7 +134,7 @@ const PrayerTimeRow = ({ prayer }: PrayerTimeRowProps) => {
   const timeColor = "#006FEE"; // Blue for times in both active and inactive states based on my interpretation of "consistent design" and common practices, though image shows distinct blue.
 
   return (
-    <div className={`${bgColor} flex items-center justify-between px-4 py-3.5 rounded-xl w-full `}>
+    <div className={`${bgColor} flex items-center justify-between px-2 lg:px-4 py-3.5 rounded-xl w-full `}>
       <p className={`text-base font-semibold ${nameColor} lg:w-[96px] lg:max-w-[96px]`}>
         {prayer.name}
       </p>
@@ -229,13 +223,13 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
 
       {/* Panel - Dropdown */}
       <div
-        className={`fixed top-[56px] xl:top-[60px] right-8 min-[1320px]:right-[calc((100vw-1296px)/2)] z-50 transform transition-all duration-200 ease-out origin-top-right ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none lg:max-w-[430px]"
+        className={`fixed top-[72px] xl:top-[60px] right-2 sm:right-8 min-[1320px]:right-[calc((100vw-1296px)/2)] z-50 transform transition-all duration-200 ease-out origin-top-right w-[calc(100vw-16px)] max-w-[380px] lg:max-w-none lg:w-[430px] ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
           }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="prayer-times-title"
       >
-        <div className="bg-white p-6 rounded-3xl shadow-[0px_25px_50px_-12px_#00000040] w-full border border-gray-100">
+        <div className="bg-white p-6 rounded-3xl shadow-[0px_25px_50px_-12px_#00000040] w-full border border-gray-100 max-h-[85vh] overflow-y-auto scrollbar-hide">
 
           <DateNavigation
             dateInfo={dateInfo}
