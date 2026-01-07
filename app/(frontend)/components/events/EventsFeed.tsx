@@ -130,10 +130,10 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
       <div className="section-padding py-8 bg-[#fff] min-h-screen">
         {/* Filters and View Controls */}
-        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 mb-8">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
 
           {/* Left: Tabs & Dropdowns */}
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-full xl:w-auto">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-full lg:w-auto">
 
             {/* Tabs */}
             <div className="flex bg-[#F4F4F5] p-1 rounded-[14px]">
@@ -199,7 +199,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
           {/* Right: View Toggles */}
           {viewOptions.showViewToggle && (
-            <div className="flex items-center gap-6 ml-auto">
+            <div className="flex items-center gap-6 lg:ml-auto">
 
               {filterOptions.enableCalendarView && (
                 <div className="relative">
@@ -265,7 +265,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
         {/* Request Form */}
         {requestForm?.enableSection && (
-          <div className="mt-16">
+          <div className="mt-6 mb-12">
             <RequestServiceForm
               sectionTitle={requestForm.sectionTitle}
               description={requestForm.description}
