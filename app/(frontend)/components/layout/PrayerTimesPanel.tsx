@@ -100,20 +100,20 @@ interface DateNavigationProps {
 }
 
 const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) => (
-  <div className="flex items-center justify-between w-full mb-8 pt-2">
+  <div className="flex items-center justify-between w-full mb-[36px] pt-8">
     <button
       onClick={onPrevious}
       className="p-1 text-[#18181B] hover:text-[#006FEE] transition-colors"
       aria-label="Previous day"
     >
-      <IoChevronBack className="w-6 h-6" />
+      <Image src="/assets/common/left-arrows-calender.svg" alt="Previous day" width={32} height={32} />
     </button>
 
     <div className="text-center">
-      <h2 className="text-base font-bold text-[#18181B] mb-1">
+      <h2 className="text-sm font-semibold mb-1">
         {dateInfo.gregorian}
       </h2>
-      <p className="text-sm font-medium text-[#006FEE]">
+      <p className="text-xs font-medium text-[#006FEE]">
         {dateInfo.hijri}
       </p>
     </div>
@@ -123,7 +123,7 @@ const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) =
       className="p-1 text-[#18181B] hover:text-[#006FEE] transition-colors"
       aria-label="Next day"
     >
-      <IoChevronForward className="w-6 h-6" />
+      <Image src="/assets/common/right-arrow-calender.svg" alt="Next day" width={32} height={32} />
     </button>
   </div>
 );
@@ -140,15 +140,15 @@ const PrayerTimeRow = ({ prayer }: PrayerTimeRowProps) => {
   const timeColor = "#006FEE"; // Blue for times in both active and inactive states based on my interpretation of "consistent design" and common practices, though image shows distinct blue.
 
   return (
-    <div className={`${bgColor} flex items-center justify-between px-4 py-3.5 rounded-xl w-full`}>
-      <p className={`text-base font-bold ${nameColor} w-24`}>
+    <div className={`${bgColor} flex items-center justify-between px-4 py-3.5 rounded-xl w-full `}>
+      <p className={`text-base font-semibold ${nameColor} lg:w-[96px] lg:max-w-[96px]`}>
         {prayer.name}
       </p>
 
       {/* Logic to align items properly */}
       <div className="flex items-center gap-2">
-        <span className={`text-xs ${labelColor}`}>Begins</span>
-        <span className={`text-base font-bold text-[${timeColor}]`} style={{ color: timeColor }}>{formatTime(prayer.begins)}</span>
+        <span className={`text-xs text-[#71717A] ${labelColor}`}>Begins</span>
+        <span className={`text-base font-bold text-[#006FEE]`} style={{ color: timeColor }}>{formatTime(prayer.begins)}</span>
       </div>
 
       {prayer.jamaah && (
@@ -166,21 +166,19 @@ interface JumuahTimeRowProps {
 }
 
 const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
-  <div className="bg-[#FAFAFA] flex items-center justify-between px-6 py-4 rounded-xl w-full">
-    <p className="text-base font-bold text-[#18181B] w-24">
+  <div className="bg-[#FAFAFA] flex items-center justify-between gap-2 px-6 py-4 rounded-xl w-full">
+    <p className="text-base font-bold lg:w-[96px] lg:max-w-[96px]">
       {jumuah.name}
     </p>
 
-    <div className="flex flex-1 justify-end gap-8">
       <div className="flex items-center gap-2">
-        <span className="text-xs text-[#A1A1AA]">Khutbah</span>
+      <span className="text-xs text-[#71717A]">Khutbah</span>
         <span className="text-base font-bold text-[#006FEE]">{formatTime(jumuah.khutbah)}</span>
       </div>
 
-      <div className="flex items-center gap-2 w-[100px] justify-end">
-        <span className="text-xs text-[#A1A1AA]">Jama&apos;ah</span>
-        <span className="text-base font-bold text-[#006FEE]">{formatTime(jumuah.jamaah)}</span>
-      </div>
+    <div className="flex items-center space-x-2 justify-end">
+      <span className="text-xs text-[#71717A]">Jama&apos;ah</span>
+      <span className="text-base font-bold text-[#006FEE]">{formatTime(jumuah.jamaah)}</span>
     </div>
   </div>
 );
@@ -231,9 +229,9 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
 
       {/* Panel - Dropdown */}
       <div
-        className={`absolute top-full right-0 mt-2 z-50 transform transition-all duration-200 ease-out origin-top-right ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none lg:max-w-[430px]"
+        className={`fixed top-[56px] xl:top-[60px] right-8 min-[1320px]:right-[calc((100vw-1296px)/2)] z-50 transform transition-all duration-200 ease-out origin-top-right ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none lg:max-w-[430px]"
           }`}
-        role="dialog" 
+        role="dialog"
         aria-modal="true"
         aria-labelledby="prayer-times-title"
       >
@@ -243,13 +241,13 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
             dateInfo={dateInfo}
             onPrevious={handlePreviousDay}
             onNext={handleNextDay}
-            />
+          />
 
           <div className="space-y-3">
-              {/* Daily Prayer Times */}
-              {prayerTimes.map((prayer) => (
-                <PrayerTimeRow key={prayer.name} prayer={prayer} />
-              ))}
+            {/* Daily Prayer Times */}
+            {prayerTimes.map((prayer) => (
+              <PrayerTimeRow key={prayer.name} prayer={prayer} />
+            ))}
           </div>
 
           {/* Separator */}
@@ -258,8 +256,8 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
           <div className="space-y-3">
             {/* Jumua'ah Times */}
             {jumuahTimes.map((jumuah) => (
-                <JumuahTimeRow key={jumuah.name} jumuah={jumuah} />
-              ))}
+              <JumuahTimeRow key={jumuah.name} jumuah={jumuah} />
+            ))}
           </div>
         </div>
       </div>
