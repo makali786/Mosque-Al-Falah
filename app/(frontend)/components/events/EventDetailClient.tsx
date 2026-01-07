@@ -279,15 +279,15 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         </div>
 
                         {/* Booking Form */}
-                        <div className="pt-8">
+                        <div>
                             <h3 className="text-[24px] font-semibold mb-8">Book a place</h3>
                             <form className="lg:max-w-[735px] space-y-4 border border-[#E6F1FE] rounded-xl px-6 py-8">
                                 <div className="flex gap-4">
-                                    <div className="flex-1 bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5">
-                                        <label className="text-xs text-gray-500 block mb-1">Full Name <span className="text-red-500">*</span></label>
-                                        <input type="text" defaultValue="Toufik Hasan" className="w-full bg-transparent outline-none text-sm font-medium text-gray-900" />
+                                    <div className="flex-1 bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
+                                        <label className="text-xs font-normal text-[#52525B]">Full Name <span className="text-[#EF4444]">*</span></label>
+                                        <input type="text" defaultValue="Toufik Hasan" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
                                     </div>
-                                    <div className="w-[180px] bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 flex items-center justify-between cursor-pointer relative">
+                                    <div className="w-[180px] bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit flex items-center justify-between cursor-pointer relative">
                                         <select
                                             value={guestCount}
                                             onChange={(e) => setGuestCount(Number(e.target.value))}
@@ -300,24 +300,24 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                             ))}
                                         </select>
                                         <div>
-                                            <span className="text-xs text-gray-500 block mb-0.5">Guests</span>
-                                            <span className="text-sm font-medium text-gray-900">{guestCount} {guestCount === 1 ? 'Guest' : 'Guests'}</span>
+                                            <span className="text-xs font-normal text-[#52525B] block">Guests</span>
+                                            <span className="text-sm text-[#11181C]">{guestCount} {guestCount === 1 ? 'Guest' : 'Guests'}</span>
                                         </div>
-                                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                                        <svg className="w-4 h-4 text-[#71717A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                                     </div>
                                 </div>
 
-                                <div className="bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5">
-                                    <label className="text-xs text-gray-500 block mb-1">Email <span className="text-red-500">*</span></label>
-                                    <input type="email" placeholder="Enter your Email" className="w-full bg-transparent outline-none text-sm font-medium text-gray-900 placeholder:text-gray-400" />
+                                <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
+                                    <label className="text-xs font-normal text-[#52525B]">Email <span className="text-[#EF4444]">*</span></label>
+                                    <input type="email" placeholder="Enter your Email" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
                                 </div>
 
-                                <div className="bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5">
-                                    <label className="text-xs text-gray-500 block mb-1">Phone Number</label>
-                                    <input type="tel" defaultValue="+440 123 456 789" className="w-full bg-transparent outline-none text-sm font-medium text-gray-900 placeholder:text-gray-400" />
+                                <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
+                                    <label className="text-xs font-normal text-[#52525B]">Phone Number</label>
+                                    <input type="tel" defaultValue="+440 123 456 789" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
                                 </div>
 
-                                <button className="px-4 py-2.5 bg-[#D4D4D8] text-sm rounded-xl">
+                                <button className="px-6 py-3 bg-[#D4D4D8] text-sm rounded-xl">
                                     Book Now
                                 </button>
                             </form>

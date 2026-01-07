@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import PrayerTimesPanel from "./PrayerTimesPanel";
 
 const PRAYER_TIMES = [
   { name: "Fajr", time: "5:53", active: false },
@@ -286,7 +287,7 @@ export default function TopBar() {
         </div>
 
         {/* Right Section - Prayer Times & Calendar */}
-        <div className="flex gap-2 xl:gap-4 items-center shrink-0">
+        <div className="flex gap-2 xl:gap-4 items-center shrink-0 relative">
           <div className="flex gap-0.5 xl:gap-1.75 items-center shrink-0">
             {PRAYER_TIMES.map((prayer) => (
               <PrayerTime key={prayer.name} {...prayer} variant="desktop" />
@@ -294,7 +295,7 @@ export default function TopBar() {
           </div>
           <button
             onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-            className="bg-[#f4f4f5] flex gap-2.5 items-center px-2 py-1 rounded-full shrink-0"
+            className="bg-[#f4f4f5] flex gap-2.5 items-center px-2 py-1 rounded-full shrink-0 hover:bg-gray-200 transition-colors"
           >
             <p className="font-normal text-xs leading-3.5 text-[#005bc4] text-center whitespace-nowrap">
               Calendar
@@ -315,6 +316,8 @@ export default function TopBar() {
               />
             </svg>
           </button>
+
+          <PrayerTimesPanel isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
         </div>
       </div>
     </div>

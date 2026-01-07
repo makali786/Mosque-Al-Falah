@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 // ============================================================================
@@ -24,12 +24,6 @@ interface JumuahTime {
 interface DateInfo {
   gregorian: string;
   hijri: string;
-}
-
-interface CountdownTime {
-  hours: string;
-  minutes: string;
-  seconds: string;
 }
 
 interface PrayerTimesPanelProps {
@@ -60,108 +54,44 @@ const MOCK_DATE_INFO: DateInfo = {
   hijri: "Ramadan 3, 1446 AH",
 };
 
-// Next prayer for countdown (will be dynamic in future)
-const NEXT_PRAYER = { name: "ISHA", time: "19:13" };
-
-// ============================================================================
-// Utility Functions
-// ============================================================================
-
-const calculateCountdown = (targetTime: string): CountdownTime => {
-  const now = new Date();
-  const [hours, minutes] = targetTime.split(":").map(Number);
-
-  const target = new Date();
-  target.setHours(hours, minutes, 0, 0);
-
-  // If target time has passed today, set it for tomorrow
-  if (now > target) {
-    target.setDate(target.getDate() + 1);
-  }
-
-  const diff = target.getTime() - now.getTime();
-
-  if (diff <= 0) {
-    return { hours: "00", minutes: "00", seconds: "00" };
-  }
-
-  const h = Math.floor(diff / (1000 * 60 * 60));
-  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-  return {
-    hours: h.toString().padStart(2, "0"),
-    minutes: m.toString().padStart(2, "0"),
-    seconds: s.toString().padStart(2, "0"),
-  };
-};
-
 const formatTime = (time: string): string => time;
 
-// ============================================================================
-// Sub-Components
-// ============================================================================
-
-interface CountdownDisplayProps {
-  countdown: CountdownTime;
-  prayerName: string;
-}
-
-const CountdownDisplay = ({ countdown, prayerName }: CountdownDisplayProps) => {
-  const timeUnits = [
-    { value: countdown.hours, label: "Hours" },
-    { value: countdown.minutes, label: "Minutes" },
-    { value: countdown.seconds, label: "Seconds" },
-  ];
-
-  return (
-    <div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-93.5 md:w-72 w-[calc(100%-2rem)] backdrop-blur-[6.65px] bg-[#18181b]/80 flex flex-col gap-0 items-center lg:p-6 md:p-4 p-4 rounded-[14px]"
-      style={{ backdropFilter: "blur(6.65px)" }}
-    >
-      <div className="flex flex-col md:gap-2 gap-1 items-center">
-        {/* Timer Title */}
-        <div className="flex lg:gap-2 gap-1 items-center lg:text-lg md:text-base text-sm text-[#fafafa] text-center lg:leading-7 md:leading-6 leading-5">
-          <p className="font-normal">The Athan of</p>
-          <p className="font-semibold">{prayerName}</p>
-          <p className="font-normal">is in</p>
-        </div>
-
-        {/* Countdown Display */}
-        <div className="flex flex-col gap-1 items-start w-full">
-          <div className="flex items-center justify-center lg:text-5xl md:text-3xl text-2xl font-semibold text-[#fafafa] w-full lg:leading-12 md:leading-10 leading-8">
-            {timeUnits.map((unit, index) => (
-              <div key={unit.label} className="flex items-center">
-                <div className="flex justify-center text-center lg:w-17 md:w-12 w-10">
-                  <p>{unit.value}</p>
-                </div>
-                {index < timeUnits.length - 1 && (
-                  <div className="flex justify-center text-center lg:px-1 px-0.5">
-                    <p>:</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Labels */}
-          <div className="flex lg:gap-3.5 gap-1.5 items-center w-full justify-center">
-            {timeUnits.map((unit) => (
-              <div
-                key={unit.label}
-                className="bg-[#27272a] lg:h-6.25 md:h-5 h-4 rounded-lg overflow-hidden shrink-0 lg:w-17 md:w-12 w-10 flex items-center justify-center"
-              >
-                <p className="lg:text-sm md:text-xs text-[10px] font-normal text-[#a1a1aa] lg:leading-5 leading-3">
-                  {unit.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+const getOrdinalSuffix = (day: number) => {
+  if (day > 3 && day < 21) return 'th';
+  switch (day % 10) {
+    case 1: return "st";
+    case 2: return "nd";
+    case 3: return "rd";
+    default: return "th";
+  }
 };
+
+const formatGregorianDate = (date: Date): string => {
+  // Format: "Monday, 3rd March 2025"
+  const weekday = date.toLocaleDateString('en-GB', { weekday: 'long' });
+  const day = date.getDate();
+  const month = date.toLocaleDateString('en-GB', { month: 'long' });
+  const year = date.getFullYear();
+
+  return `${weekday}, ${day}${getOrdinalSuffix(day)} ${month} ${year}`;
+};
+
+const formatHijriDate = (date: Date): string => {
+  // Format: "Ramadan 3, 1446 AH"
+  // Using Intl.DateTimeFormat with islamic-umalqura calendar
+  const formatter = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+  const parts = formatter.formatToParts(date);
+  const day = parts.find(p => p.type === 'day')?.value;
+  const month = parts.find(p => p.type === 'month')?.value;
+  const year = parts.find(p => p.type === 'year')?.value;
+
+  return `${month} ${day}, ${year} AH`;
+};
+
 
 interface DateNavigationProps {
   dateInfo: DateInfo;
@@ -170,30 +100,30 @@ interface DateNavigationProps {
 }
 
 const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) => (
-  <div className="absolute lg:top-31.75 md:top-24 top-4 left-1/2 -translate-x-1/2 flex items-center justify-between lg:w-81.5 md:w-72 w-[calc(100%-2rem)] z-10">
+  <div className="flex items-center justify-between w-full mb-8 pt-2">
     <button
       onClick={onPrevious}
-      className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
+      className="p-1 text-[#18181B] hover:text-[#006FEE] transition-colors"
       aria-label="Previous day"
     >
-      <IoChevronBack className="md:w-6 md:h-6 w-5 h-5" />
+      <IoChevronBack className="w-6 h-6" />
     </button>
 
-    <div className="flex flex-col gap-1 items-center text-center lg:w-42.5 md:w-36 flex-1">
-      <p className="lg:text-sm md:text-xs text-xs font-semibold text-[#fafafa] md:leading-5 leading-4 w-full">
+    <div className="text-center">
+      <h2 className="text-base font-bold text-[#18181B] mb-1">
         {dateInfo.gregorian}
-      </p>
-      <p className="text-xs font-medium text-[#006fee] leading-4 w-full">
+      </h2>
+      <p className="text-sm font-medium text-[#006FEE]">
         {dateInfo.hijri}
       </p>
     </div>
 
     <button
       onClick={onNext}
-      className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
+      className="p-1 text-[#18181B] hover:text-[#006FEE] transition-colors"
       aria-label="Next day"
     >
-      <IoChevronForward className="md:w-6 md:h-6 w-5 h-5" />
+      <IoChevronForward className="w-6 h-6" />
     </button>
   </div>
 );
@@ -204,33 +134,29 @@ interface PrayerTimeRowProps {
 
 const PrayerTimeRow = ({ prayer }: PrayerTimeRowProps) => {
   const isActive = prayer.isActive;
-  const bgColor = isActive ? "bg-[#27272a] border border-[#27272a]" : "bg-[#fafafa]";
-  const nameColor = isActive ? "text-white" : "text-black";
-  const labelColor = isActive ? "text-[#a1a1aa]" : "text-[#71717a]";
+  const bgColor = isActive ? "bg-[#18181B]" : "bg-[#FAFAFA]";
+  const nameColor = isActive ? "text-white" : "text-[#18181B]";
+  const labelColor = isActive ? "text-[#A1A1AA]" : "text-[#A1A1AA]"; // Kept consistent as per image (gray looking labels)
+  const timeColor = "#006FEE"; // Blue for times in both active and inactive states based on my interpretation of "consistent design" and common practices, though image shows distinct blue.
 
   return (
-    <div className={`${bgColor} flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full`}>
-      <p className={`md:text-base text-sm font-bold ${nameColor} md:leading-6 leading-5 md:w-24 w-16`}>
+    <div className={`${bgColor} flex items-center justify-between px-4 py-3.5 rounded-xl w-full`}>
+      <p className={`text-base font-bold ${nameColor} w-24`}>
         {prayer.name}
       </p>
 
-      <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
-        <p className={`md:text-xs text-[10px] font-normal ${labelColor} md:leading-4 leading-3`}>
-          Begins
-        </p>
-        <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-          {formatTime(prayer.begins)}
-        </p>
+      {/* Logic to align items properly */}
+      <div className="flex items-center gap-2">
+        <span className={`text-xs ${labelColor}`}>Begins</span>
+        <span className={`text-base font-bold text-[${timeColor}]`} style={{ color: timeColor }}>{formatTime(prayer.begins)}</span>
       </div>
 
-      <div className={`flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end ${!prayer.jamaah ? 'opacity-0' : ''}`}>
-        <p className={`md:text-xs text-[10px] font-normal ${labelColor} md:leading-4 leading-3`}>
-          Jama&apos;ah
-        </p>
-        <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-          {formatTime(prayer.jamaah || prayer.begins)}
-        </p>
-      </div>
+      {prayer.jamaah && (
+        <div className="flex items-center gap-2 w-[100px] justify-end">
+          <span className={`text-xs ${labelColor}`}>Jama&apos;ah</span>
+          <span className={`text-base font-bold text-[${timeColor}]`} style={{ color: timeColor }}>{formatTime(prayer.jamaah)}</span>
+        </div>
+      )}
     </div>
   );
 };
@@ -240,27 +166,21 @@ interface JumuahTimeRowProps {
 }
 
 const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
-  <div className="bg-[#fafafa] flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full">
-    <p className="md:text-base text-sm font-bold text-black md:leading-6 leading-5 md:w-24 w-16">
+  <div className="bg-[#FAFAFA] flex items-center justify-between px-6 py-4 rounded-xl w-full">
+    <p className="text-base font-bold text-[#18181B] w-24">
       {jumuah.name}
     </p>
 
-    <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
-      <p className="md:text-xs text-[10px] font-normal text-[#71717a] md:leading-4 leading-3">
-        Khutbah
-      </p>
-      <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-        {formatTime(jumuah.khutbah)}
-      </p>
-    </div>
+    <div className="flex flex-1 justify-end gap-8">
+      <div className="flex items-center gap-2">
+        <span className="text-xs text-[#A1A1AA]">Khutbah</span>
+        <span className="text-base font-bold text-[#006FEE]">{formatTime(jumuah.khutbah)}</span>
+      </div>
 
-    <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
-      <p className="md:text-xs text-[10px] font-normal text-[#71717a] md:leading-4 leading-3">
-        Jama&apos;ah
-      </p>
-      <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-        {formatTime(jumuah.jamaah)}
-      </p>
+      <div className="flex items-center gap-2 w-[100px] justify-end">
+        <span className="text-xs text-[#A1A1AA]">Jama&apos;ah</span>
+        <span className="text-base font-bold text-[#006FEE]">{formatTime(jumuah.jamaah)}</span>
+      </div>
     </div>
   </div>
 );
@@ -270,129 +190,77 @@ const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
 // ============================================================================
 
 export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelProps) {
-  const [countdown, setCountdown] = useState<CountdownTime>({
-    hours: "00",
-    minutes: "00",
-    seconds: "00",
-  });
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // Date navigation (ready for future implementation)
+  // Date navigation
   const handlePreviousDay = useCallback(() => {
-    // TODO: Implement previous day logic
-    console.log("Navigate to previous day");
+    setSelectedDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setDate(prev.getDate() - 1);
+      return newDate;
+    });
   }, []);
 
   const handleNextDay = useCallback(() => {
-    // TODO: Implement next day logic
-    console.log("Navigate to next day");
+    setSelectedDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setDate(prev.getDate() + 1);
+      return newDate;
+    });
   }, []);
-
-  // Countdown timer effect
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const updateCountdown = () => {
-      setCountdown(calculateCountdown(NEXT_PRAYER.time));
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-
-    return () => clearInterval(interval);
-  }, [isOpen]);
 
   // Prayer times data (will be fetched from API in future)
   const prayerTimes = useMemo(() => MOCK_PRAYER_TIMES, []);
   const jumuahTimes = useMemo(() => MOCK_JUMUAH_TIMES, []);
-  const dateInfo = useMemo(() => MOCK_DATE_INFO, []);
+
+  const dateInfo = useMemo(() => ({
+    gregorian: formatGregorianDate(selectedDate),
+    hijri: formatHijriDate(selectedDate)
+  }), [selectedDate]);
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Invisible Backdrop to handle click outside */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+          className="fixed inset-0 z-40 bg-transparent cursor-default"
           onClick={onClose}
           aria-hidden="true"
         />
       )}
 
-      {/* Panel - Centered Modal */}
+      {/* Panel - Dropdown */}
       <div
-        className={`fixed top-1/2 left-1/2 -translate-x-1/2 z-50 transform transition-transform duration-500 ease-in-out ${
-          isOpen ? "-translate-y-1/2" : "translate-y-[150%]"
-        }`}
-        style={{
-          maxWidth: "1200px",
-          width: "calc(100% - 48px)",
-          maxHeight: "90vh"
-        }}
-        role="dialog"
+        className={`absolute top-full right-0 mt-2 z-50 transform transition-all duration-200 ease-out origin-top-right ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none lg:max-w-[430px]"
+          }`}
+        role="dialog" 
         aria-modal="true"
         aria-labelledby="prayer-times-title"
       >
-        <div className="bg-white flex md:flex-row flex-col md:gap-6 gap-0 items-start overflow-hidden md:overflow-visible overflow-y-auto relative md:rounded-3xl rounded-2xl shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] max-h-[90vh]">
+        <div className="bg-white p-6 rounded-3xl shadow-[0px_25px_50px_-12px_#00000040] w-full border border-gray-100">
 
-          {/* Left side - Image with countdown */}
-          <div className="md:flex-1 w-full min-w-0 relative self-stretch md:min-h-150 min-h-[280px] bg-[#1a2332] overflow-hidden rounded-t-2xl md:rounded-l-3xl md:rounded-tr-none">
-            <Image
-              src="/assets/prayer-times/mosque-bg.png"
-              alt="Mosque background"
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, 50vw"
+          <DateNavigation
+            dateInfo={dateInfo}
+            onPrevious={handlePreviousDay}
+            onNext={handleNextDay}
             />
 
-            {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/40 pointer-events-none" />
-
-            {/* Date Navigation */}
-            <DateNavigation
-              dateInfo={dateInfo}
-              onPrevious={handlePreviousDay}
-              onNext={handleNextDay}
-            />
-
-            {/* Countdown Timer */}
-            <CountdownDisplay countdown={countdown} prayerName={NEXT_PRAYER.name} />
-          </div>
-
-          {/* Right side - Prayer Times List */}
-          <div className="md:flex-1 w-full min-w-0 bg-white md:border border-0 border-[#f4f4f5] flex flex-col gap-0 items-center overflow-hidden md:pl-6 md:pr-28 px-4 md:py-8 py-3 md:rounded-xl rounded-none shrink-0 self-stretch">
-            <div className="flex flex-col md:gap-5 gap-2 items-start w-full">
-              <h2 id="prayer-times-title" className="sr-only">Prayer Times</h2>
-
+          <div className="space-y-3">
               {/* Daily Prayer Times */}
               {prayerTimes.map((prayer) => (
                 <PrayerTimeRow key={prayer.name} prayer={prayer} />
               ))}
-
-              {/* Divider */}
-              <div className="bg-[rgba(17,17,17,0.15)] h-px w-full" role="separator" />
-
-              {/* Jumua'ah Times */}
-              {jumuahTimes.map((jumuah) => (
-                <JumuahTimeRow key={jumuah.name} jumuah={jumuah} />
-              ))}
-            </div>
           </div>
 
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute md:top-0 top-3 md:right-0 right-3 bg-[#f4f4f5] flex items-center justify-center p-0 rounded-full shrink-0 md:w-12 md:h-12 w-8 h-8 cursor-pointer hover:bg-[#e4e4e7] transition-colors focus:outline-none focus:ring-2 focus:ring-[#006fee] focus:ring-offset-2 z-20"
-            aria-label="Close prayer times panel"
-          >
-            <div className="md:w-5 md:h-5 w-3.5 h-3.5 relative">
-              <Image
-                src="/assets/prayer-times/close-icon.svg"
-                alt=""
-                fill
-                className="object-contain"
-              />
-            </div>
-          </button>
+          {/* Separator */}
+          <div className="my-6 border-t border-gray-100 h-px w-full" />
+
+          <div className="space-y-3">
+            {/* Jumua'ah Times */}
+            {jumuahTimes.map((jumuah) => (
+                <JumuahTimeRow key={jumuah.name} jumuah={jumuah} />
+              ))}
+          </div>
         </div>
       </div>
     </>
