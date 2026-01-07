@@ -12,7 +12,7 @@ export default async function EventsPage() {
         <div className="bg-white min-h-screen">
             <EventsFeed 
                 initialEvents={eventData && eventData.length > 0 ? eventData : []}
-                pageData={{ ...eventPage }}
+                pageData={{ ...eventPage, gridSettings: { ...eventPage.gridSettings, eventsPerPage: 3 } }}
             />
             
             {eventPage.bottomQuote?.enableSection && (

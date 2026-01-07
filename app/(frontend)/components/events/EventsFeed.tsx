@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import EventCard, { EventInterface } from "./EventCard";
 import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
@@ -69,6 +69,8 @@ interface EventsFeedProps {
 export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps) {
   const { filterOptions, viewOptions, gridSettings, emptyStates, defaultSettings, requestForm } = pageData;
 
+  const dateInputRef = useRef<HTMLInputElement>(null);
+
   const [view, setView] = useState<"grid" | "list">((viewOptions.defaultView as "grid" | "list") || "grid");
   const [activeTab, setActiveTab] = useState<"upcoming" | "archived">(
     (defaultSettings?.defaultTab as "upcoming" | "archived") ||
@@ -76,6 +78,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
   );
   const [selectedSpeaker, setSelectedSpeaker] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
   const [visibleCount, setVisibleCount] = useState(parseInt(gridSettings.eventsPerPage.toString()) || 6);
 
   // Extract unique speakers and categories for filters
@@ -97,6 +100,13 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
     // Category Filter
     if (selectedCategory && event.category !== selectedCategory) return false;
 
+    // Date Filter
+    if (selectedDate) {
+      const filterDateStr = new Date(selectedDate).toDateString();
+      const eventDateStr = new Date(event.timing.startDate).toDateString();
+      if (filterDateStr !== eventDateStr) return false;
+    }
+
     return true;
   });
 
@@ -110,7 +120,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
   const displayedEvents = filteredEvents.slice(0, visibleCount);
 
   const handleLoadMore = () => {
-    setVisibleCount(prev => prev + parseInt(gridSettings.eventsPerPage.toString()) || 6);
+    setVisibleCount(prev => prev + (Number(gridSettings.eventsPerPage) || 6));
   };
 
   const breadcrumbs = [
@@ -168,7 +178,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
                   <select
                     value={selectedSpeaker}
                     onChange={(e) => setSelectedSpeaker(e.target.value)}
-                    className="appearance-none bg-[#f4f4f5] px-4.5 py-2 text-[#11181C] text-lg rounded-[14px] "
+                    className="appearance-none bg-[#f4f4f5] pl-4.5 pr-10 py-2 text-[#11181C] text-lg rounded-[14px] "
                   >
                     <option value="">{filterOptions.speakerFilterLabel}</option>
                     {speakers.map((s: string, i: number) => <option key={i} value={s}>{s}</option>)}
@@ -184,7 +194,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="appearance-none bg-[#f4f4f5] text-[#11181C] text-lg rounded-[14px] px-4.5 py-2 cursor-pointer"
+                    className="appearance-none bg-[#f4f4f5] text-[#11181C] text-lg rounded-[14px] pl-4.5 pr-10 py-2 cursor-pointer"
                   >
                     <option value="">{filterOptions.categoryFilterLabel}</option>
                     {categories.map((c: string, i: number) => <option key={i} value={c}>{c}</option>)}
@@ -203,9 +213,28 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
               {filterOptions.enableCalendarView && (
                 <div className="relative">
-                  <button className="flex items-center justify-between bg-[#f4f4f5] text-[#11181C] text-lg rounded-[14px] px-4.5 py-2 cursor-pointer">
-                    <span>{filterOptions.calendarViewLabel}</span>
-                    <Image src="/assets/common/down-arrow.svg" alt="arrow" width={10} height={10} className="opacity-50 ml-2" />
+                  <input
+                    ref={dateInputRef}
+                    type="date"
+                    className="absolute inset-0 w-0 h-0 opacity-0 pointer-events-none"
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    value={selectedDate}
+                  />
+                  <button
+                    onClick={() => dateInputRef.current?.showPicker()}
+                    className="flex items-center justify-between bg-[#f4f4f5] text-[#11181C] text-lg rounded-[14px] px-4.5 py-2 cursor-pointer min-w-[140px]"
+                  >
+                    <span>{selectedDate ? new Date(selectedDate).toLocaleDateString() : filterOptions.calendarViewLabel}</span>
+                    {selectedDate ? (
+                      <div
+                        onClick={(e) => { e.stopPropagation(); setSelectedDate(""); }}
+                        className="ml-2 p-0.5 hover:bg-gray-200 rounded-full cursor-pointer flex items-center justify-center h-5 w-5"
+                      >
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </div>
+                    ) : (
+                      <Image src="/assets/common/down-arrow.svg" alt="arrow" width={10} height={10} className="opacity-50 ml-2" />
+                    )}
                   </button>
                 </div>
               )}
