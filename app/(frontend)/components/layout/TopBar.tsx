@@ -209,7 +209,7 @@ export default function TopBar() {
             </Link>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-1 w-full">
+        <div className="flex items-center justify-center gap-1 w-full relative">
           {PRAYER_TIMES.map((prayer) => (
             <PrayerTime key={prayer.name} {...prayer} variant="tablet" />
           ))}
@@ -236,6 +236,7 @@ export default function TopBar() {
               />
             </svg>
           </button>
+          <PrayerTimesPanel isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
         </div>
       </div>
 
@@ -316,10 +317,10 @@ export default function TopBar() {
               />
             </svg>
           </button>
+          <PrayerTimesPanel isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
         </div>
       </div>
 
-      <PrayerTimesPanel isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
     </div>
   );
 }

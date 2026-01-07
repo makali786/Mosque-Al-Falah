@@ -223,7 +223,7 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
 
       {/* Panel - Dropdown */}
       <div
-        className={`fixed top-[72px] xl:top-[60px] right-2 sm:right-8 min-[1320px]:right-[calc((100vw-1296px)/2)] z-50 transform transition-all duration-200 ease-out origin-top-right w-[calc(100vw-16px)] max-w-[380px] lg:max-w-none lg:w-[430px] ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+        className={`absolute top-full right-0 mt-2 z-50 transform transition-all duration-200 ease-out origin-top-right w-[calc(100vw-32px)] sm:w-[380px] lg:w-[430px] ${isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
           }`}
         role="dialog"
         aria-modal="true"

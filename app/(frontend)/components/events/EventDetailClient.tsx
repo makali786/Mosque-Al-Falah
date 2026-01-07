@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FiImage, FiMapPin, FiMic, FiUser, FiVideo } from "react-icons/fi";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
@@ -39,6 +39,43 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
     const [donationAmount, setDonationAmount] = useState<number | string | null>(null);
     const [guestCount, setGuestCount] = useState<number>(1);
     const amounts = [10, 20, 50, 100];
+
+    // Carousel Logic
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(false);
+
+    const checkScroll = () => {
+        if (scrollContainerRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+            setCanScrollLeft(scrollLeft > 0);
+            setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
+        }
+    };
+
+    useEffect(() => {
+        checkScroll();
+        const scrollContainer = scrollContainerRef.current;
+        if (scrollContainer) {
+            scrollContainer.addEventListener("scroll", checkScroll);
+            window.addEventListener("resize", checkScroll);
+            return () => {
+                scrollContainer.removeEventListener("scroll", checkScroll);
+                window.removeEventListener("resize", checkScroll);
+            };
+        }
+    }, [relatedEvents]);
+
+    const scroll = (direction: "left" | "right") => {
+        if (scrollContainerRef.current) {
+            const scrollAmount = 400;
+            const newScrollLeft = scrollContainerRef.current.scrollLeft + (direction === "right" ? scrollAmount : -scrollAmount);
+            scrollContainerRef.current.scrollTo({
+                left: newScrollLeft,
+                behavior: "smooth",
+            });
+        }
+    };
 
     // Safe accessors
     const title = event?.title || "";
@@ -147,7 +184,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                             ) : (
                                                 p.platform.includes('live') && <MdOutlineOndemandVideo className="text-red-500 w-[18px] h-[18px]" />
                                             )}
-                                            <span className="text-[#52525B] text-[13px] capitalize">{label.replace('-', ' ')}</span>
+                                            <span className="text-[#52525B] text-sm capitalize hidden sm:block">{label.replace('-', ' ')}</span>
                                         </div>
                                     );
                                 })}
@@ -282,7 +319,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         {/* Booking Form */}
                         <div>
                             <h3 className="text-[24px] font-semibold mb-8">Book a place</h3>
-                            <form className="lg:max-w-[735px] space-y-4 border border-[#E6F1FE] rounded-xl px-6 py-8">
+                            <form className="lg:max-w-[735px] space-y-4 border border-[#E6F1FE] rounded-xl px-3 py-6 sm:px-6 sm:py-8">
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <div className="flex-1 bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
                                         <label className="text-xs font-normal text-[#52525B]">Full Name <span className="text-[#EF4444]">*</span></label>
@@ -428,17 +465,31 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         <div className="flex items-center justify-between mb-8">
                             <h2 className="text-2xl font-bold text-[#18181B]">Upcoming events</h2>
                             <div className="flex gap-2">
-                                <button className="w-10 h-10 rounded-full bg-[#E4E4E7] flex items-center justify-center hover:bg-gray-300 transition-colors">
+                                <button
+                                    onClick={() => scroll("left")}
+                                    disabled={!canScrollLeft}
+                                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${canScrollLeft ? "bg-[#E4E4E7] hover:bg-gray-300 cursor-pointer" : "bg-[#F4F4F5] opacity-50 cursor-not-allowed"}`}
+                                >
                                     <Image src="/assets/sermons/arrow-left.svg" alt="Previous" width={20} height={20} />
                                 </button>
-                                <button className="w-10 h-10 rounded-full bg-[#006FEE] flex items-center justify-center hover:bg-blue-700 transition-colors">
+                                <button
+                                    onClick={() => scroll("right")}
+                                    disabled={!canScrollRight}
+                                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${canScrollRight ? "bg-[#006FEE] hover:bg-blue-700 cursor-pointer" : "bg-[#006FEE] opacity-50 cursor-not-allowed"}`}
+                                >
                                     <Image src="/assets/sermons/arrow-right.svg" alt="Next" width={20} height={20} className="brightness-0 invert" />
                                 </button>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div
+                            ref={scrollContainerRef}
+                            className="flex overflow-x-auto gap-6 scrollbar-hide pb-4"
+                            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                        >
                             {relatedEvents.map((event: any) => (
-                                <EventCard key={event.id} event={event} layout="grid" />
+                                <div key={event.id} className="min-w-[300px] md:min-w-[350px] lg:min-w-[380px] flex-shrink-0">
+                                    <EventCard event={event} layout="grid" />
+                                </div>
                             ))}
                         </div>
                     </div>
