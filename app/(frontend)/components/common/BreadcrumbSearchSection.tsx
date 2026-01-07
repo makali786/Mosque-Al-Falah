@@ -16,6 +16,7 @@ interface BreadcrumbSearchSectionProps {
   className?: string;
   liveSearch?: boolean;
   showSearch?: boolean;
+  breadcrumbsItemsStyle?: string;
 }
 
 export default function BreadcrumbSearchSection({
@@ -25,6 +26,7 @@ export default function BreadcrumbSearchSection({
   className = "",
   liveSearch = false,
   showSearch = true,
+  breadcrumbsItemsStyle = "",
 }: BreadcrumbSearchSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -50,7 +52,7 @@ export default function BreadcrumbSearchSection({
       <div>
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 xl:gap-6">
           {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2">
+          <nav aria-label="Breadcrumb" className={`flex items-center gap-2 ${breadcrumbsItemsStyle}`}>
             {breadcrumbs.map((crumb, index) => (
               <div key={crumb.href} className="flex items-center gap-2">
                 {index > 0 && (

@@ -75,7 +75,7 @@ export default async function AppealsPage() {
         className="section-padding"
       />
 
-      <section className="pb-16 pt-2 flex-grow section-padding">
+      <section className="pb-16 pt-2 grow section-padding">
         <div>
           <div className="flex flex-col gap-6 mb-12">
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-[#27272A]">

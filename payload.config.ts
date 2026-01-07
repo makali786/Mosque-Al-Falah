@@ -21,6 +21,8 @@ import { Donations } from './collections/Donations';
 import { Donors } from './collections/Donors';
 import { Events } from './collections/Events';
 import { Imams } from './collections/Imams';
+import { MadrasahClasses } from './collections/MadrasahClasses';
+import { MadrasahTestimonials } from './collections/MadrasahTestimonials';
 import { MediaItems } from './collections/MediaItems';
 import { Notices } from './collections/Notices';
 import { PageSections } from './collections/PageSections';
@@ -34,6 +36,7 @@ import { ContactPage } from './globals/ContactPage';
 import { DonationAppealsPage } from './globals/DonationAppealsPage';
 import { EventsPage } from './globals/EventsPage';
 import { HomePage } from './globals/HomePage';
+import { MadrasahPage } from './globals/MadrasahPage';
 import { MediaPage } from './globals/MediaPage';
 import { SermonsPage } from './globals/SermonsPage';
 import { ServicesPage } from './globals/ServicesPage';
@@ -82,6 +85,10 @@ export default buildConfig({
     Committees,
     PageSections,
 
+    // Madrasah
+    MadrasahClasses,
+    MadrasahTestimonials,
+
     // Donations
     Donations,
     Donors,
@@ -93,6 +100,7 @@ export default buildConfig({
     DonationAppealsPage,
     EventsPage,
     HomePage,
+    MadrasahPage,
     MediaPage,
     SermonsPage,
     ServicesPage,

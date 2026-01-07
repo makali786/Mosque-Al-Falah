@@ -53,9 +53,9 @@ export default function AppealCard({
   const donorsCount = stats.donors ?? 0;
 
   return (
-    <div className={`bg-white rounded-[15px] overflow-hidden flex flex-col lg:max-w-[357px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] ${className}`}>
+    <div className={`bg-white rounded-[15px] overflow-hidden flex flex-col lg:max-w-89.25 shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] ${className}`}>
       {/* Image Section */}
-      <Link href={links.details || "/appeals"} className="relative w-full h-[234px] overflow-hidden block">
+      <Link href={links.details || "/appeals"} className="relative w-full h-58.5 overflow-hidden block">
         {imageUrl ? (
           <Image
             src={imageUrl}

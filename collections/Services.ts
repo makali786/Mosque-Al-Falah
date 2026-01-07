@@ -53,6 +53,176 @@ export const Services: CollectionConfig = {
     },
 
     // ============================================================================
+    // Detail Page Banner (Top Header)
+    // ============================================================================
+    {
+      name: 'detailBanner',
+      type: 'group',
+      label: 'Detail Page Banner',
+      admin: {
+        description: 'Top banner/header section shown on service detail pages',
+      },
+      fields: [
+        {
+          name: 'enableBanner',
+          type: 'checkbox',
+          defaultValue: true,
+          label: 'Show Detail Banner',
+        },
+        {
+          name: 'bannerTitle',
+          type: 'text',
+          label: 'Banner Title',
+          admin: {
+            description: 'e.g., "Taraweeh & Eid Prayers at Masjid Al-Falah"',
+            condition: (data, siblingData) => siblingData?.enableBanner,
+          },
+        },
+        {
+          name: 'bannerSubtitle',
+          type: 'textarea',
+          label: 'Banner Subtitle/Description',
+          admin: {
+            description: 'Short description shown below the banner title',
+            condition: (data, siblingData) => siblingData?.enableBanner,
+          },
+        },
+        {
+          name: 'announcementLabel',
+          type: 'group',
+          label: 'Announcement Label',
+          admin: {
+            description:
+              'The label/badge shown on the banner (e.g., "Nikah Booking now available")',
+            condition: (data, siblingData) => siblingData?.enableBanner,
+          },
+          fields: [
+            {
+              name: 'enableLabel',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Show Announcement Label',
+            },
+            {
+              name: 'labelText',
+              type: 'text',
+              label: 'Label Text',
+              admin: {
+                description: 'e.g., "Nikah Booking now available", "Now Open"',
+                condition: (data, siblingData) => siblingData?.enableLabel,
+              },
+            },
+            {
+              name: 'labelStyle',
+              type: 'select',
+              options: [
+                { label: 'Info (Blue)', value: 'info' },
+                { label: 'Success (Green)', value: 'success' },
+                { label: 'Warning (Yellow)', value: 'warning' },
+                { label: 'Primary', value: 'primary' },
+              ],
+              defaultValue: 'info',
+              label: 'Label Style',
+              admin: {
+                condition: (data, siblingData) => siblingData?.enableLabel,
+              },
+            },
+          ],
+        },
+        {
+          name: 'countdown',
+          type: 'group',
+          label: 'Countdown Timer',
+          admin: {
+            description: 'Countdown timer for next prayer/event',
+            condition: (data, siblingData) => siblingData?.enableBanner,
+          },
+          fields: [
+            {
+              name: 'enableCountdown',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Show Countdown Timer',
+            },
+            {
+              name: 'countdownLabel',
+              type: 'text',
+              defaultValue: 'Next Taraweeh Prayer in',
+              label: 'Countdown Label',
+              admin: {
+                description: 'Text shown above the countdown',
+                condition: (data, siblingData) => siblingData?.enableCountdown,
+              },
+            },
+            {
+              name: 'countdownTargetTime',
+              type: 'date',
+              label: 'Countdown Target Date/Time',
+              admin: {
+                date: {
+                  pickerAppearance: 'dayAndTime',
+                },
+                description:
+                  'The date and time the countdown is counting down to',
+                condition: (data, siblingData) => siblingData?.enableCountdown,
+              },
+            },
+          ],
+        },
+        {
+          name: 'quickLinks',
+          type: 'array',
+          label: 'Banner Quick Links',
+          maxRows: 2,
+          admin: {
+            description: 'Quick action links shown in the banner',
+            condition: (data, siblingData) => siblingData?.enableBanner,
+          },
+          fields: [
+            {
+              name: 'icon',
+              type: 'text',
+              label: 'Icon Name',
+              admin: {
+                description: 'Icon identifier or emoji',
+              },
+            },
+            {
+              name: 'label',
+              type: 'text',
+              required: true,
+              label: 'Link Label',
+              admin: {
+                description: 'e.g., "NIKAH SERVICE", "ISLAMIC GUIDANCE"',
+              },
+            },
+            {
+              name: 'url',
+              type: 'text',
+              label: 'Link URL',
+            },
+          ],
+        },
+        {
+          name: 'backgroundColor',
+          type: 'select',
+          options: [
+            { label: 'Blue (Primary)', value: 'blue' },
+            { label: 'Green', value: 'green' },
+            { label: 'Dark', value: 'dark' },
+            { label: 'Light Gray', value: 'gray' },
+            { label: 'White', value: 'white' },
+          ],
+          defaultValue: 'blue',
+          label: 'Banner Background Color',
+          admin: {
+            condition: (data, siblingData) => siblingData?.enableBanner,
+          },
+        },
+      ],
+    },
+
+    // ============================================================================
     // Content & Description
     // ============================================================================
     {
