@@ -131,15 +131,17 @@ export default function MadrasahGallery({
             </div>
 
             {/* Thumbnails */}
-            <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3">
             {images.map((img, idx) => (
                     <button 
                         key={idx}
                         onClick={() => setActiveIndex(idx)}
-                        className={`relative h-[96px] w-[96px] aspect-square rounded-xl overflow-hidden border-2 transition-all ${activeIndex === idx ? 'border-[#006FEE] opacity-100' : 'border-transparent opacity-70 hover:opacity-100'}`}
+                className={`relative w-full aspect-square lg:w-[96px] lg:h-[96px] rounded-xl overflow-hidden border-2 transition-all ${activeIndex === idx ? 'border-[#006FEE] opacity-100' : 'border-transparent opacity-70 hover:opacity-100'}`}
                     >
                          <div className="absolute inset-0 bg-gray-200 " />
-                         <Image src={img} alt="" fill className="object-cover" />
+                {img && (
+                  <Image src={img} alt="" fill className="object-cover" />
+                )}
                     </button>
                 ))}
             </div>

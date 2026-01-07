@@ -114,7 +114,7 @@ export default function WhatParentsSay({
             {reviews.map((review, index) => (
                 <div 
                     key={index} 
-                className="lg:max-w-[357px] p-10 rounded-2xl flex flex-col gap-4 bg-[#FAFAFA] border border-[#E4E4E7]"
+                className="flex-shrink-0 w-[85vw] sm:w-[400px] lg:w-[357px] p-10 rounded-2xl flex flex-col gap-4 bg-[#FAFAFA] border border-[#E4E4E7]"
                 >
                 {/* Top Row: Stars and Quote Icon */}
                 <div className="flex justify-between items-center">
