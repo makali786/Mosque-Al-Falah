@@ -84,7 +84,7 @@ export default function WhatParentsSay({
                 disabled={!canScrollLeft}
                 className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
                   canScrollLeft
-                    ? "bg-[#F4F4F5] hover:bg-[#E4E4E7] text-black cursor-pointer"
+                  ? "bg-[#F4F4F5] text-black cursor-pointer"
                     : "bg-[#F4F4F5] text-gray-300 cursor-not-allowed"
                 }`}
               >
@@ -96,7 +96,7 @@ export default function WhatParentsSay({
                 disabled={!canScrollRight}
                 className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
                   canScrollRight
-                    ? "bg-[#E6F1FE] hover:bg-[#D4E8FE] text-[#006FEE] cursor-pointer"
+                  ? "bg-[#E6F1FE] text-[#006FEE] cursor-pointer"
                     : "bg-[#E6F1FE] text-[#006FEE]/30 cursor-not-allowed"
                 }`}
               >
@@ -114,10 +114,10 @@ export default function WhatParentsSay({
             {reviews.map((review, index) => (
                 <div 
                     key={index} 
-                className="min-w-[320px] md:min-w-[400px] bg-white p-8 rounded-2xl flex flex-col gap-6 border border-[#E4E4E7] shadow-sm hover:shadow-md transition-all"
+                className="lg:max-w-[357px] p-10 rounded-2xl flex flex-col gap-4 bg-[#FAFAFA] border border-[#E4E4E7]"
                 >
                 {/* Top Row: Stars and Quote Icon */}
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-center">
                   {/* Stars */}
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, i) => (
@@ -128,7 +128,7 @@ export default function WhatParentsSay({
                   </div>
 
                   {/* Quote Icon */}
-                  <div className="relative w-8 h-8 opacity-80">
+                  <div className="relative w-6 h-4">
                     <Image
                       src="/assets/common/double-quote-right.svg"
                       alt="Quote"
@@ -140,20 +140,20 @@ export default function WhatParentsSay({
                     
                 {/* Content */}
                 <div className="flex flex-col gap-3">
-                  <h3 className="font-bold text-xl text-[#09090B] leading-snug">
+                  <h3 className="font-medium text-base">
                     {review.title}
                   </h3>
-                  <p className="text-[#52525B] text-base leading-relaxed">
+                  <p className="text-sm">
                     {review.quote}
                   </p>
                 </div>
                     
                 {/* Author */}
-                <div className="flex items-center gap-3 mt-auto pt-2">
-                  <div className="w-12 h-12 rounded-full bg-[#E4E4E7] flex items-center justify-center font-bold text-[#52525B] text-lg">
+                <div className="flex items-center gap-3 mt-auto pt-4">
+                  <div className="w-10 h-10 rounded-full bg-[#D4D4D8] flex items-center justify-center text-[#11181C] text-base">
                     {review.authorInitials}
                         </div>
-                  <span className="font-medium text-[#09090B] text-lg">
+                  <span className="text-[#11181C] text-sm">
                     {review.authorName}
                   </span>
                     </div>
