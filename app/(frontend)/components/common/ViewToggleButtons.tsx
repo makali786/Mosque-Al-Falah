@@ -3,8 +3,8 @@ import Link from "next/link";
 
 interface ViewToggleButtonsProps {
   videoUrl?: string;
-  onVideoClick?: () => void;
-  onAudioClick?: () => void;
+  onVideoClick?: (e?: React.MouseEvent) => void;
+  onAudioClick?: (e?: React.MouseEvent) => void;
   className?: string;
   audioUrl?: string;
 }

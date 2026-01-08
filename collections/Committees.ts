@@ -42,6 +42,7 @@ export const Committees: CollectionConfig = {
         { label: 'Imam & Scholars', value: 'imam-scholars' },
         { label: 'Operations', value: 'operations' },
         { label: 'Education', value: 'education' },
+        { label: 'Madrasah', value: 'madrasah' },
         { label: 'Community Outreach', value: 'outreach' },
         { label: 'Youth', value: 'youth' },
         { label: 'Finance', value: 'finance' },
