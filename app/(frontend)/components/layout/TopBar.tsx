@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import PrayerTimesPanel from "./PrayerTimesPanel";
+import CalendarModal from "./CalendarModal";
 
 const PRAYER_TIMES = [
   { name: "Fajr", time: "5:53", active: false },
@@ -236,7 +236,7 @@ export default function TopBar() {
               />
             </svg>
           </button>
-          <PrayerTimesPanel isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
+          <CalendarModal isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
         </div>
       </div>
 
@@ -317,7 +317,7 @@ export default function TopBar() {
               />
             </svg>
           </button>
-          <PrayerTimesPanel isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
+          <CalendarModal isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
         </div>
       </div>
 

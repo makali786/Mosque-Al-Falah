@@ -334,7 +334,7 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
         <div className="bg-white flex md:flex-row flex-col md:gap-6 gap-0 items-start overflow-hidden md:overflow-visible overflow-y-auto relative md:rounded-3xl rounded-2xl shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] max-h-[90vh]">
 
           {/* Left side - Image with countdown */}
-          <div className="md:flex-1 w-full min-w-0 relative self-stretch md:min-h-150 min-h-[280px] bg-[#1a2332] overflow-hidden rounded-t-2xl md:rounded-l-3xl md:rounded-tr-none">
+          <div className="md:flex-1 w-full min-w-0 relative self-stretch md:min-h-150 min-h-70 bg-[#1a2332] overflow-hidden rounded-t-2xl md:rounded-l-3xl md:rounded-tr-none">
             <Image
               src="/assets/prayer-times/mosque-bg.png"
               alt="Mosque background"
