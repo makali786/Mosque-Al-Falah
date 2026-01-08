@@ -3,11 +3,10 @@ import { fetchServices } from "../../../../lib/fetcher"
 import NikaahMarriage from "@/components/services/serviceDetail/NikaahMarriage";
 import TaraweehEidPrayers from "@/components/services/serviceDetail/TaraweehEidPrayers";
 
-export default async function ServiceDetailPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function ServiceDetailPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const params = await props.params;
   const services = await fetchServices({
     where: {
       slug: {
