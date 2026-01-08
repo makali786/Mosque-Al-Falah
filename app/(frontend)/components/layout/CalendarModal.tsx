@@ -73,7 +73,7 @@ const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) =
       <IoChevronBack className="w-6 h-6" />
     </button>
 
-    <div className="flex flex-col gap-1 items-center text-center w-[170px]" data-node-id="6634:273185">
+    <div className="flex flex-col gap-1 items-center text-center w-42.5" data-node-id="6634:273185">
       <p className="font-semibold text-sm leading-5 text-black w-full" data-node-id="6634:273183">
         {dateInfo.gregorian}
       </p>
@@ -185,20 +185,24 @@ export default function CalendarModal({ isOpen, onClose }: CalendarModalProps) {
     console.log("Navigate to next day");
   }, []);
 
-  if (!isOpen) return null;
-
   return (
     <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      {/* Backdrop - only visible when open */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 transition-opacity duration-200"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
 
-      {/* Modal */}
+      {/* Dropdown Modal */}
       <div
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-md mx-4"
+        className={`absolute top-full right-0 mt-6 w-[min(440px,calc(100vw-2rem))] z-50 origin-top-right transition-all duration-300 ease-out ${
+          isOpen
+            ? "opacity-100 scale-100 translate-y-0"
+            : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+        }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="calendar-modal-title"
