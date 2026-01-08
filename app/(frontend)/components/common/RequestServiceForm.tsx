@@ -40,8 +40,8 @@ interface FormData {
 export default function RequestServiceForm({
   className = "",
   onSubmit,
-  sectionTitle = "Request a service",
-  description = "Connect our Masjid for personalized assistance and discover how we can help you.",
+  sectionTitle = "",
+  description = "",
   formFields = {},
 }: RequestServiceFormProps) {
   const {

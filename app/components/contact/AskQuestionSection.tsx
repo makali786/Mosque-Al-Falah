@@ -18,7 +18,7 @@ interface AskQuestionProps {
     messageLabel: string;
     submitButtonText: string;
   };
-  topicOptions?: string[];
+  topicOptions?: string[] | { label: string; value: string; }[];
   successMessage?: string;
   recipientEmail?: string;
 }
@@ -83,10 +83,12 @@ export function AskQuestionSection({
     { value: "other", label: "Other" },
   ];
 
-  const topicsToRender =
-    topicOptions && topicOptions.length > 0
-      ? topicOptions.map((t) => ({ value: t, label: t }))
-      : defaultTopics;
+  const normalizeTopics = (topics: string[] | { label: string; value: string; }[]) => {
+    if (!topics || topics.length === 0) return defaultTopics;
+    return topics.map((t) => (typeof t === "string" ? { value: t, label: t } : t));
+  };
+
+  const topicsToRender = normalizeTopics(topicOptions);
 
   // Image dimensions
   const imageWidth = 766;
