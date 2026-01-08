@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import dayjs from "dayjs";
 
 // ============================================================================
 // Types & Interfaces
@@ -31,6 +32,47 @@ interface CalendarModalProps {
 }
 
 // ============================================================================
+// Date Utility Functions
+// ============================================================================
+
+const formatGregorianDate = (date: dayjs.Dayjs): string => {
+  const getOrdinalSuffix = (n: number) => {
+    const s = ['th', 'st', 'nd', 'rd'];
+    const v = n % 100;
+    return s[(v - 20) % 10] || s[v] || s[0];
+  };
+
+  const dayName = date.format('dddd');
+  const day = date.date();
+  const month = date.format('MMMM');
+  const year = date.year();
+
+  return `${dayName}, ${day}${getOrdinalSuffix(day)} ${month} ${year}`;
+};
+
+const formatHijriDate = (date: Date): string => {
+  try {
+    // Use Intl API with islamic-umalqura calendar for Hijri dates
+    const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+    const parts = formatter.formatToParts(date);
+    const month = parts.find(p => p.type === 'month')?.value || '';
+    const day = parts.find(p => p.type === 'day')?.value || '';
+    const year = parts.find(p => p.type === 'year')?.value || '';
+
+    return `${month} ${day}, ${year} AH`;
+  } catch (error) {
+    // Fallback if browser doesn't support islamic calendar
+    console.error('Hijri calendar not supported:', error);
+    return 'Hijri date unavailable';
+  }
+};
+
+// ============================================================================
 // Data Configuration (Ready for API integration)
 // ============================================================================
 
@@ -48,11 +90,6 @@ const MOCK_JUMUAH_TIMES: JumuahTime[] = [
   { name: "Jumua'ah 2", khutbah: "12:45", jamaah: "1:15" },
 ];
 
-const MOCK_DATE_INFO: DateInfo = {
-  gregorian: "Monday, 3rd March 2025",
-  hijri: "Ramadan 3, 1446 AH",
-};
-
 // ============================================================================
 // Sub-Components
 // ============================================================================
@@ -67,24 +104,24 @@ const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) =
   <div className="flex items-center justify-between w-full" data-node-id="6634:273190">
     <button
       onClick={onPrevious}
-      className="w-8 h-8 shrink-0 flex items-center justify-center text-black hover:text-[#006fee] transition-colors"
+      className="w-8 h-8 shrink-0 flex items-center justify-center text-black hover:text-[#006fee] transition-colors cursor-pointer"
       aria-label="Previous day"
     >
       <IoChevronBack className="w-6 h-6" />
     </button>
 
-    <div className="flex flex-col gap-1 items-center text-center w-42.5" data-node-id="6634:273185">
+    <div className="flex flex-col gap-1 items-center text-center w-42.5 whitespace-nowrap" data-node-id="6634:273185">
       <p className="font-semibold text-sm leading-5 text-black w-full" data-node-id="6634:273183">
         {dateInfo.gregorian}
       </p>
-      <p className="font-medium text-xs leading-4 text-[#006fee] w-full" data-node-id="6634:273184">
+      <p className="font-medium text-xs text leading-4 text-[#006fee] w-full" data-node-id="6634:273184">
         {dateInfo.hijri}
       </p>
     </div>
 
     <button
       onClick={onNext}
-      className="w-8 h-8 shrink-0 flex items-center justify-center text-black hover:text-[#006fee] transition-colors"
+      className="w-8 h-8 shrink-0 flex items-center justify-center text-black hover:text-[#006fee] transition-colors cursor-pointer"
       aria-label="Next day"
     >
       <IoChevronForward className="w-6 h-6" />
@@ -172,17 +209,27 @@ const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
 // ============================================================================
 
 export default function CalendarModal({ isOpen, onClose }: CalendarModalProps) {
+  // Dynamic date state - starts with today
+  const [selectedDate, setSelectedDate] = useState(() => dayjs());
+
   const [prayerTimes] = useState<PrayerTime[]>(MOCK_PRAYER_TIMES);
   const [jumuahTimes] = useState<JumuahTime[]>(MOCK_JUMUAH_TIMES);
-  const [dateInfo] = useState<DateInfo>(MOCK_DATE_INFO);
 
-  // Date navigation (ready for future implementation)
+  // Calculate formatted dates dynamically
+  const dateInfo = useMemo<DateInfo>(() => {
+    const gregorian = formatGregorianDate(selectedDate);
+    const hijri = formatHijriDate(selectedDate.toDate());
+
+    return { gregorian, hijri };
+  }, [selectedDate]);
+
+  // Date navigation handlers
   const handlePreviousDay = useCallback(() => {
-    console.log("Navigate to previous day");
+    setSelectedDate(prev => prev.subtract(1, 'day'));
   }, []);
 
   const handleNextDay = useCallback(() => {
-    console.log("Navigate to next day");
+    setSelectedDate(prev => prev.add(1, 'day'));
   }, []);
 
   return (
@@ -198,7 +245,7 @@ export default function CalendarModal({ isOpen, onClose }: CalendarModalProps) {
 
       {/* Dropdown Modal */}
       <div
-        className={`absolute top-full right-0 mt-6 w-[min(440px,calc(100vw-2rem))] z-50 origin-top-right transition-all duration-300 ease-out ${
+        className={`absolute top-full right-0 mt-8 lg:mr-16 w-[min(440px,calc(100vw-2rem))] z-50 origin-top-right transition-all duration-300 ease-out ${
           isOpen
             ? "opacity-100 scale-100 translate-y-0"
             : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
@@ -213,7 +260,7 @@ export default function CalendarModal({ isOpen, onClose }: CalendarModalProps) {
           data-node-id="6603:23518"
         >
           <h2 id="calendar-modal-title" className="sr-only">
-            Prayer Times Calendar
+            {/* Prayer Times Calendar */}
           </h2>
 
           {/* Date Navigation */}
