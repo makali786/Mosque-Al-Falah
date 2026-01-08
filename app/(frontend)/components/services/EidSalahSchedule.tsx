@@ -6,10 +6,11 @@ import { ReactNode } from "react";
 
 interface JamaahTime {
   id: string;
-  label: string; // e.g., "1ST JAMA'AH"
-  time: string; // e.g., "07:00"
-  imam: string;
-  khutbahLanguage: string;
+  label: string;
+  time: string;
+  description?: string;
+  imam?: string;
+  khutbahLanguage?: string;
 }
 
 interface EidSalahScheduleProps {
@@ -25,29 +26,7 @@ export default function EidSalahSchedule({
   description = null,
   venueName = "",
   venueAddress = "",
-  schedule = [
-    {
-      id: "1",
-      label: "1ST JAMA'AH",
-      time: "07:00",
-      imam: "MOULANA FAROQ",
-      khutbahLanguage: "ENGLISH",
-    },
-    {
-      id: "2",
-      label: "2ND JAMA'AH",
-      time: "08:30",
-      imam: "MOULANA FAROQ",
-      khutbahLanguage: "ENGLISH",
-    },
-    {
-      id: "3",
-      label: "3RD JAMA'AH",
-      time: "10:00",
-      imam: "MOULANA FAROQ",
-      khutbahLanguage: "ENGLISH",
-    },
-  ],
+  schedule = [],
 }: EidSalahScheduleProps) {
   return (
     <section className="w-full py-16 md:py-20 bg-[#F4F4F5]">
@@ -100,6 +79,7 @@ export default function EidSalahSchedule({
 
               {/* Content */}
               <div className="relative z-10">
+
                 {schedule.map((slot, index) => (
                   <div
                     key={slot.id}
@@ -114,8 +94,11 @@ export default function EidSalahSchedule({
                         {slot.label}
                       </h3>
                       <div className="text-[10px] sm:text-xs flex flex-col uppercase gap-0.5">
-                        <span>IMAM: {slot.imam}</span>
-                        <span>KHUTBAH: {slot.khutbahLanguage}</span>
+                        {slot.imam && <span>IMAM: {slot.imam}</span>}
+                        {slot.khutbahLanguage && <span>KHUTBAH: {slot.khutbahLanguage}</span>}
+                        {slot.description && !slot.imam && !slot.khutbahLanguage && (
+                          <span className="opacity-80">{slot.description}</span>
+                        )}
                       </div>
                     </div>
                     <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">

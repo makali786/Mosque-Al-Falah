@@ -9,6 +9,7 @@ import AboutQuoteSection from '@/components/about/AboutQuoteSection';
 import EventMediaSection from '../EventMediaSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
 
+
 // Helper to extract simple text from Payload Rich Text for banner descriptions
 const extractTextFromRichText = (richText: any) => {
     if (!richText || !richText.root || !richText.root.children) return "";
@@ -108,6 +109,7 @@ const NikaahMarriage = ({ service, params }: { service: any, params: { id: strin
                     text: service.registration?.registrationButtonText || "Register your interest",
                     href: "#register",
                 } : undefined}
+                Separator={true}
             
             />
 

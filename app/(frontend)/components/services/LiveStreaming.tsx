@@ -1,8 +1,6 @@
 "use client";
 
-import { FaPlay } from "react-icons/fa";
 import Image from "next/image";
-import { useState } from "react";
 
 interface LiveStreamingProps {
   /**
@@ -28,13 +26,13 @@ interface LiveStreamingProps {
 }
 
 export default function LiveStreaming({
-  title = "Live Taraweeh Streaming",
-  description = "For those unable to attend in person, join us via live stream and immerse yourself in the spiritual atmosphere from anywhere.",
+  title = "",
+  description = "",
   videoUrl,
   thumbnailUrl,
-  thumbnailAlt = "Live Taraweeh Streaming",
+  thumbnailAlt = "",
 }: LiveStreamingProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
+
 
   return (
     <section className="w-full py-16 md:py-20 bg-white max-w-[741px] mx-auto">
@@ -74,13 +72,20 @@ export default function LiveStreaming({
 
           {/* Play Button */}
           <div className="absolute inset-0 flex items-center justify-center z-10">
-             <button 
-              className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-xl transform transition-all duration-300 group-hover:scale-110 group-hover:bg-gray-50 active:scale-95"
-                aria-label="Play Video"
-                onClick={() => setIsPlaying(true)}
+            <a
+              href={videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full flex items-center justify-center"
+              aria-label="Play Video"
              >
-              <FaPlay className="ml-1 text-xl sm:text-2xl" />
-             </button>
+              <Image
+                src="/assets/common/play-icon.svg"
+                alt="Play Button"
+                width={56}
+                height={56}
+              />
+            </a>
           </div>
         </div>
       </div>

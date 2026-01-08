@@ -5,24 +5,43 @@ import Image from "next/image";
 import { FaQuoteLeft, FaQuoteRight, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 interface ServiceQuoteProps {
-  quote: {
+  quote?: {
     text: string;
     attribution: string;
   };
+  testimonials?: {
+    text: string;
+    attribution: string;
+  }[];
   images: string[];
 }
 
-export default function ServiceQuote({ quote, images }: ServiceQuoteProps) {
-  console.log("quote", quote)
-  const [currentSlide, setCurrentSlide] = useState(0);
+export default function ServiceQuote({ quote, testimonials = [], images }: ServiceQuoteProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Combine single quote and testimonials array, defaulting to empty array if neither exist
+  // If testimonials are provided, use them. If not, use the single quote if available.
+  const allTestimonials = testimonials.length > 0
+    ? testimonials
+    : (quote ? [quote] : []);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % images.length);
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentIndex((prev) => prev - 1);
   };
+
+  const getSafeIndex = (index: number, length: number) => {
+    if (length === 0) return 0;
+    return ((index % length) + length) % length;
+  };
+
+  const currentImageIndex = getSafeIndex(currentIndex, images.length);
+  const currentTestimonialIndex = getSafeIndex(currentIndex, allTestimonials.length);
+
+  const currentTestimonial = allTestimonials[currentTestimonialIndex] || { text: "", attribution: "" };
 
   return (
     <section className="w-full my-16 lg:max-h-[400px]">
@@ -40,8 +59,8 @@ export default function ServiceQuote({ quote, images }: ServiceQuoteProps) {
 
               <div className="space-y-2">
                 <p className="text-base md:text-base">
-                  <span className="font-bold text-black">{quote.attribution}</span>
-                  {quote.text}
+                  <span className="font-bold text-black">{currentTestimonial.attribution}</span>
+                  {currentTestimonial.text}
                 </p>
               </div>
 
@@ -59,13 +78,15 @@ export default function ServiceQuote({ quote, images }: ServiceQuoteProps) {
           {/* Carousel Section */}
           <div className="w-full lg:flex-1 relative min-h-[300px] lg:min-h-full">
             <div className="absolute inset-0">
-              <Image
-                src={images[currentSlide]}
-                alt="Slide"
-                fill
-                className="object-cover"
-                priority
-              />
+              {images.length > 0 && (
+                <Image
+                  src={images[currentImageIndex]}
+                  alt="Slide"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              )}
             </div>
 
             {/* Navigation Buttons */}

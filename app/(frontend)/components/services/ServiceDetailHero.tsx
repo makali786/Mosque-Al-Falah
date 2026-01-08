@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 import moment from "moment";
+import Separator from "../common/Separator";
 
 interface ServiceDetailHeroProps {
   /**
@@ -80,6 +81,7 @@ interface ServiceDetailHeroProps {
     onClick?: () => void;
   },
   primaryButtonClassName?: string;
+  Separator?: boolean;
 }
 
 export default function ServiceDetailHero({
@@ -98,6 +100,7 @@ export default function ServiceDetailHero({
   primaryButton,
   secondaryButton,
   primaryButtonClassName,
+  Separator,
 }: ServiceDetailHeroProps) {
   return (
     <section
@@ -200,6 +203,7 @@ export default function ServiceDetailHero({
             )}
           </div>
         </div>
+        {Separator && <Separator className="mt-[64px]" />}
       </div>
     </section>
   );

@@ -40,7 +40,7 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
 
   const heroImage = service?.media?.heroImage?.url || "";
   const heroImageAlt = service?.media?.heroImage?.alt || "";
-  const herosectionTitle = service?.serviceType || "";
+  const herosectionTitle = service?.title || "";
 
   const eidScheduleTitle = service?.taraweehEid?.eidScheduleTitle || "";
   const eidScheduleDesc = extractTextFromRichText(service?.taraweehEid?.eidNote) || "";
@@ -54,10 +54,12 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
   const venueName = service?.venue?.venueName || "";
   const venueAddress = service?.venue?.fullAddress || "";
 
+  const bannerTitle = service?.detailBanner?.bannerTitle || "";
+
 
   return (
     <div><ServiceEventBanner
-      title={title}
+      title={bannerTitle}
       description={bannerDescription}
       updateLabel="Update"
       updateDate={updateAt}
@@ -109,12 +111,14 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
         />
       )}
 
-      <LiveStreaming
-        title="Live Taraweeh Streaming"
-        description={service.taraweehEid?.liveStreamInstructions || ""}
-        thumbnailUrl={heroImage}
-        videoUrl={service.taraweehEid?.liveStreamUrl}
-      />
+      {service.taraweehEid?.enableLiveStream && service.taraweehEid?.liveStreamUrl && (
+        <LiveStreaming
+          title="Live Taraweeh Streaming"
+          description={service.taraweehEid?.liveStreamInstructions || ""}
+          thumbnailUrl={heroImage}
+          videoUrl={service.taraweehEid?.liveStreamUrl}
+        />
+      )}
       <EidSalahSchedule
         title={eidScheduleTitle}
         description={
@@ -126,6 +130,7 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
         }
         venueName={venueName}
         venueAddress={venueAddress}
+        schedule={service.schedule?.regularTimes || []}
       />
 
       <ServiceQuote
@@ -133,11 +138,15 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
           text: quoteText,
           attribution: quoteAttribution
         }}
+        testimonials={service.testimonials?.map((t: any) => ({
+          text: t.quote,
+          attribution: t.author
+        })) || []}
         images={[
-          heroImage,
-          "",
-          ""
-        ]}
+          heroImage, 
+          ...(service.media?.photoGallery?.map((img: any) => img.url) || []),
+          ...(service.testimonials?.map((t: any) => t.photo?.url).filter(Boolean) || [])
+        ].filter(Boolean)}
       />
 
       <OtherServices />
