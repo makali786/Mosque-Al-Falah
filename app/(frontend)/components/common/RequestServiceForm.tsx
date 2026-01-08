@@ -93,7 +93,7 @@ export default function RequestServiceForm({
       }}
     >
       {/* Header */}
-      <div className="w-full lg:w-[37%] px-4 sm:px-6 lg:p-6 mb-6 lg:mb-0 py-6 md:py-8">
+      <div className="w-full lg:w-[40%] px-4 sm:px-6 lg:p-6 mb-6 lg:mb-0 py-6 md:py-8">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#000000] mb-6">
           {sectionTitle}
         </h2>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import CalendarModal from "./CalendarModal";
 
 const PRAYER_TIMES = [
   { name: "Fajr", time: "5:53", active: false },
@@ -115,7 +116,7 @@ const PrayerTime = ({
   const variants = {
     mobile: {
       container: active
-        ? "flex flex-col items-center px-2.5 py-1 bg-[#005bc4] rounded"
+        ? "flex flex-col items-center px-0.5 py-1 bg-[#005bc4] rounded"
         : "flex flex-col items-center",
       nameClass: `font-semibold text-[11px] ${
         active ? "text-white" : "text-black"
@@ -168,7 +169,7 @@ export default function TopBar() {
               ))}
             </div>
           </div>
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center justify-between gap-1 w-full px-1">
             {PRAYER_TIMES.map((prayer) => (
               <PrayerTime key={prayer.name} {...prayer} variant="mobile" />
             ))}
@@ -212,29 +213,32 @@ export default function TopBar() {
           {PRAYER_TIMES.map((prayer) => (
             <PrayerTime key={prayer.name} {...prayer} variant="tablet" />
           ))}
-          <button
-            onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-            className="bg-[#f4f4f5] flex gap-1.5 items-center px-2 py-1 rounded-full shrink-0 ml-2"
-          >
-            <span className="font-normal text-xs text-[#005bc4] whitespace-nowrap">
-              Calendar
-            </span>
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="w-3 h-3"
+          <div className="relative ml-2">
+            <button
+              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+              className="bg-[#f4f4f5] flex gap-1.5 items-center px-2 py-1 rounded-full shrink-0 cursor-pointer"
             >
-              <path
-                d="M3.5 5.25L7 8.75L10.5 5.25"
-                stroke="#11181c"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+              <span className="font-normal text-xs text-[#005bc4] whitespace-nowrap">
+                Calendar
+              </span>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 14 14"
+                fill="none"
+                className="w-3 h-3"
+              >
+                <path
+                  d="M3.5 5.25L7 8.75L10.5 5.25"
+                  stroke="#11181c"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <CalendarModal isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
+          </div>
         </div>
       </div>
 
@@ -292,31 +296,35 @@ export default function TopBar() {
               <PrayerTime key={prayer.name} {...prayer} variant="desktop" />
             ))}
           </div>
-          <button
-            onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-            className="bg-[#f4f4f5] flex gap-2.5 items-center px-2 py-1 rounded-full shrink-0"
-          >
-            <p className="font-normal text-xs leading-3.5 text-[#005bc4] text-center whitespace-nowrap">
-              Calendar
-            </p>
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              className="shrink-0"
+          <div className="relative">
+            <button
+              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+              className="bg-[#f4f4f5] flex gap-2.5 items-center px-2 py-1 rounded-full shrink-0 hover:bg-gray-200 transition-colors cursor-pointer"
             >
-              <path
-                d="M3.5 5.25L7 8.75L10.5 5.25"
-                stroke="#11181c"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+              <p className="font-normal text-xs leading-3.5 text-[#005bc4] text-center whitespace-nowrap">
+                Calendar
+              </p>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                className="shrink-0"
+              >
+                <path
+                  d="M3.5 5.25L7 8.75L10.5 5.25"
+                  stroke="#11181c"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <CalendarModal isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
+          </div>
         </div>
       </div>
+
     </div>
   );
 }

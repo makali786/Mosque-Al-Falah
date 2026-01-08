@@ -15,7 +15,8 @@
       "Bash(move appcomponentsNewsAndUpdates.tsx appcomponentshome)",
       "Bash(move appcomponentsServices.tsx appcomponentshome)",
       "Bash(move appcomponentsMeetOurImams.tsx appcomponentshome)",
-      "Bash(move appcomponentsAyatOfTheMonth.tsx appcomponentshome)"
+      "Bash(move appcomponentsAyatOfTheMonth.tsx appcomponentshome)",
+      "Bash(cat:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
