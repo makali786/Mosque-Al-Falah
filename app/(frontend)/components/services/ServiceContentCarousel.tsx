@@ -11,10 +11,11 @@ interface CarouselContent {
 
 interface ServiceContentCarouselProps {
   items: CarouselContent[];
+  index?: number;
 }
 
-export default function ServiceContentCarousel({ items }: ServiceContentCarouselProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
+export default function ServiceContentCarousel({ items, index = 0 }: ServiceContentCarouselProps) {
+  const [currentSlide, setCurrentSlide] = useState(index);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % items.length);
@@ -23,6 +24,10 @@ export default function ServiceContentCarousel({ items }: ServiceContentCarousel
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + items.length) % items.length);
   };
+
+  if (!items || items.length === 0) return null;
+
+  const currentItem = items[currentSlide] || items[0];
 
   return (
     <section className="w-full my-16 relative">
@@ -33,12 +38,12 @@ export default function ServiceContentCarousel({ items }: ServiceContentCarousel
             <div className="space-y-6">
               {/* Number Badge */}
               <div className="absolute top-0 left-0 h-[70px] w-[70px] bg-[#D1E9FF] flex items-center justify-center">
-                 <span className="text-[#006FEE] text-2xl sm:text-4xl font-bold">{items[currentSlide].id}</span>
+                <span className="text-[#006FEE] text-2xl sm:text-4xl font-bold">{currentSlide + 1}</span>
               </div>
 
               <div className="space-y-2">
                 <p className="text-base md:text-lg leading-relaxed text-[#1F2937]">
-                  {items[currentSlide].text}
+                  {currentItem?.text}
                 </p>
               </div>
                 <div className="absolute bottom-0 right-0 flex">
@@ -77,8 +82,8 @@ export default function ServiceContentCarousel({ items }: ServiceContentCarousel
             <div className="absolute inset-0">
                {/* Use a key to force re-render/animation if needed, or just src change */}
               <Image
-                src={items[currentSlide].image}
-                alt={`Slide ${items[currentSlide].id}`}
+                src={currentItem?.image}
+                alt={`Slide ${currentItem?.id}`}
                 fill
                 className="object-cover"
                 priority

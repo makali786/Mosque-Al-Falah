@@ -75,6 +75,7 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
         ]}
         className="!pb-0 !pt-6 sm:!pt-8 bg-white section-padding"
         showSearch={false}
+        breadcrumbsItemsStyle={"flex-wrap"}
       />
 
       <ServiceDetailHero
@@ -99,6 +100,7 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
           text: "Check Eid Salah Schedule",
           href: "#schedule",
         }}
+        className='pb-12 sm:pb-16 md:pb-20 lg:pb-21.5'
       />
 
       {service.notifications?.enableNotifications && (

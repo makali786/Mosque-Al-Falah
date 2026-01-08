@@ -220,9 +220,10 @@ export default function ServiceEventBanner({
 
               {/* Description */}
             </div>
-            <p className="text-sm sm:text-base md:text-lg text-white w-full md:max-w-[315px]">
+            <p className="text-sm sm:text-base md:text-lg text-white w-full md:max-w-[315px] line-clamp-4">
               {description}
             </p>
+            
           </div>
           
           {/* Separator - Only visible on XL screens */}

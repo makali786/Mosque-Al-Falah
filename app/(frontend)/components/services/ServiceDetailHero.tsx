@@ -100,11 +100,11 @@ export default function ServiceDetailHero({
   primaryButton,
   secondaryButton,
   primaryButtonClassName,
-  Separator,
+  Separator: showSeparator,
 }: ServiceDetailHeroProps) {
   return (
     <section
-      className={`w-full py-12 sm:py-16 md:py-20 lg:py-21.5 ${className}`}
+      className={`w-full pt-12 sm:pt-16 md:pt-20 lg:pt-21.5 ${className}`}
       style={{ backgroundColor }}
     >
       {/* Container with max-width */}
@@ -139,23 +139,15 @@ export default function ServiceDetailHero({
           {/* Text Content - Takes remaining space */}
           <div className="w-full flex flex-col gap-3 justify-between md:gap-3 lg:max-w-[680px] lg:h-[424px] lg:max-h-[424px]">
             <div>
-              {updatedAt && (
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-white px-3 py-1 text-black text-sm font-medium">
-                    • Update
-                  </div>
-                  <span className="text-white text-sm font-medium">
-                    {moment(updatedAt).format("D MMMM YYYY")}
-                  </span>
-                </div>
-              )}
+              <div>
               <h1 className="text-3xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl text-black">
                 {heading}
               </h1>
             </div>
 
-            <div className="text-base sm:text-base md:text-base lg:text-lg text-[#27272A]">
+              <div className="text-base sm:text-base md:text-base lg:text-lg text-[#27272A] mt-3">
               {content}
+            </div>
             </div>
 
             {/* Buttons */}
@@ -203,7 +195,7 @@ export default function ServiceDetailHero({
             )}
           </div>
         </div>
-        {Separator && <Separator className="mt-[64px]" />}
+        {showSeparator && <Separator className="mt-[64px]" />}
       </div>
     </section>
   );

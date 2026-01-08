@@ -21,17 +21,17 @@ interface EventMediaSectionProps {
 }
 
 export default function EventMediaSection({
-  title = "Event Media",
+  title = "",
   description = "",
   videoThumbnail = "/assets/placeholder.png",
   videoUrl = "",
   isLive = false,
   venueName = "",
-  venueAddress = "Masjid Al-Falah",
-  venueMapsLink = "#",
+  venueAddress = "",
+  venueMapsLink = "",
   donationTitle = "Donate",
   donationDescription = "",
-  donationAmounts = [10, 20, 50, 100],
+  donationAmounts = [],
   className = "",
 }: EventMediaSectionProps) {
   const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Video");
@@ -71,16 +71,6 @@ export default function EventMediaSection({
             {/* Media Player Container */}
             <div className="relative w-full aspect-video rounded-[14px] overflow-hidden">
               {videoUrl && activeTab === 'Video' ? (
-                // Simple video tag for now, or existing player logic. 
-                // Since no player lib is imported other than react-icons, I'll stick to overlay style 
-                // or just iframe/video tag if isPlaying.
-                // The original code just showed thumbnail with Play button.
-                // I'll keep the UI but logically it should play.
-                // For now, I will just keep the existing UI structure but assume clicking play handles it (not implemented fully here as per request scope limiting to "dynamic content", not "video player implementation").
-                // But to be "accurately dynamic", I should probably conditionally show the player if available.
-                // I'll stick to the existing image overlay and assume functionality is handled via the button (or just keep it visual).
-                // Wait, the previous user conversation mentioned "Implement Event Video Player" ... "replace Image component with <video> tag".
-                // So I SHOULD implement a simple video element if videoUrl is present.
                 <video
                   src={videoUrl}
                   controls
@@ -136,9 +126,9 @@ export default function EventMediaSection({
                 className="mb-4" />
               <div className="space-y-4">
                 <div className="space-y-4">
-                  <h4 className="text-lg font-medium text-[#27272A]">{venueName || "Venue"}</h4>
+                  <h4 className="text-lg font-medium text-[#27272A]">{"Where"}</h4>
                   <p className="text-[#3F3F46] text-base">
-                    {venueAddress}
+                    {venueName}
                   </p>
                 </div>
 
@@ -163,7 +153,7 @@ export default function EventMediaSection({
             </div>
 
             {/* Divider */}
-            <div className="h-px w-full bg-[#E4E4E7]" />
+            {/* <div className="h-px w-full bg-[#E4E4E7]" /> */}
 
             {/* Donate Section */}
             <div className="space-y-4">
@@ -175,7 +165,7 @@ export default function EventMediaSection({
 
               <div className="space-y-3">
                 <span className="text-xs font-medium text-[#52525B] ">Amount:</span>
-                <div className="flex gap-3 flex-wrap !mt-3">
+                <div className="flex gap-3 flex-wrap xl:flex-nowrap !mt-3">
                   {amounts.map((amount) => (
                     <button
                       key={amount}
@@ -195,9 +185,25 @@ export default function EventMediaSection({
               </div>
 
               {/* Privacy / Profile - Keep static for now or hide if not needed, simpler to keep for UI completeness */}
-
+              <div className="space-y-2">
+                <span className="text-xs font-medium text-[#52525B]">Your donation will appear as:</span>
+                <div className="flex items-center justify-between px-3 py-2 bg-[#F4F4F5] rounded-lg mt-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full overflow-hidden relative bg-gray-200">
+                      <Image src="/assets/sermons/taraweeh-sermons.png" alt="Avatar" fill className="object-cover" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-[#18181B]">Anonymous kind soul</span>
+                      <span className="text-[10px] text-[#A1A1AA]">£35 GBP, a few moments ago</span>
+                    </div>
+                  </div>
+                  <button className="text-xs font-medium text-[#18181B] hover:underline">
+                    Edit
+                  </button>
+                </div>
+              </div>
               {/* Donate Button */}
-              <button className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm w-full">
+              <button className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm">
                 Donate
               </button>
 
