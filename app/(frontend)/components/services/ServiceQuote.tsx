@@ -57,7 +57,7 @@ export default function ServiceQuote({ quote, testimonials = [], images }: Servi
                 height={24}
               />
 
-              <div className="space-y-2">
+              <div className="space-y-2" key={currentIndex}>
                 <p className="text-base md:text-base">
                   <span className="font-bold text-black">{currentTestimonial.attribution}</span>
                   {currentTestimonial.text}
