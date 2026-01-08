@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Separator from "./Separator";
 
 interface FormFields {
   fullNameLabel?: string;
@@ -87,118 +86,151 @@ export default function RequestServiceForm({
 
   return (
     <div
-      className={`flex flex-col lg:flex-row items-start lg:items-center w-full bg-white rounded-2xl border border-[#D4D4D8] ${className}`}
+      className={`flex flex-col lg:flex-row items-center w-full bg-white rounded-xl border-t border-x border-[#D4D4D8]  ${className}`}
       style={{
-        boxShadow: "0px 4px 6px -4px #0000001A; box-shadow: 0px 10px 15px -3px #0000001A",
+        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.10)",
       }}
     >
       {/* Header */}
-      <div className="w-full lg:w-[40%] px-4 sm:px-6 lg:p-6 mb-6 lg:mb-0 py-6 md:py-8">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#000000] mb-6">
-          {sectionTitle}
-        </h2>
-        <p className="text-sm sm:text-base text-[#000000]">
-          {description}
-        </p>
-      </div>
-
-      {/* Separator - Only visible on lg screens and above */}
-      <div className="hidden lg:flex lg:self-stretch">
-        <Separator orientation="vertical" className="w-px h-full" />
+      <div className="flex flex-row items-center self-stretch">
+        <div className="w-full lg:w-112.25 h-full px-6 pt-6 pb-8 lg:pt-17 lg:pb-8 border-b lg:border-b-0 lg:border-r border-[#F4F4F5] flex flex-col gap-6 shrink-0 ">
+          <div className="flex flex-col font-semibold justify-center shrink-0 text-[30px] w-full">
+            <p className="leading-9 text-black">{sectionTitle}</p>
+          </div>
+          <div className="flex flex-col font-normal justify-center shrink-0 text-base w-full">
+            <p className="leading-6 text-black">{description}</p>
+          </div>
+        </div>
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="w-full lg:w-[60%] px-4 sm:px-6 lg:p-6 space-y-4 sm:space-y-5 py-6 md:py-8">
+      <form onSubmit={handleSubmit} className="flex-1 w-full px-6 py-8 flex flex-col gap-4 ">
         {/* Row 1: Full Name and Email */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+        <div className="flex flex-col sm:flex-row gap-4 items-stretch shrink-0 w-full">
           {/* Full Name */}
-          <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
-            <label
-              htmlFor="fullName"
-              className="text-xs font-normal text-[#52525B]"
-            >
-              {fullNameLabel} <span className="text-[#EF4444]">*</span>
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              placeholder={fullNamePlaceholder}
-              required
-              className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none"
-            />
+          <div className="w-full sm:flex-1 flex flex-col items-start">
+            <div className="bg-[#F4F4F5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] shrink-0 w-full">
+              <div className="basis-0 flex flex-row grow items-center self-stretch shrink-0">
+                <div className="basis-0 flex flex-col grow h-full items-start justify-center min-h-0 min-w-0 pb-0.5 pt-0 px-1.5 shrink-0">
+                  <div className="flex items-center pl-0 pr-2 py-0 shrink-0 w-full">
+                    <label htmlFor="fullName" className="font-normal leading-4 text-xs text-[#52525B] whitespace-nowrap shrink-0">
+                      {fullNameLabel}
+                    </label>
+                    <div className="flex flex-col h-3.5 items-center justify-center pl-0.5 pr-0 py-0 shrink-0 w-1.75">
+                      <span className="font-normal leading-5 text-sm text-[#F31260] w-full shrink-0">*</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center shrink-0 w-full">
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder={fullNamePlaceholder}
+                      required
+                      className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Email */}
-         <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
-            <label
-              htmlFor="email"
-              className="text-xs font-normal text-[#52525B]"
-            >
-              {emailLabel} <span className="text-[#EF4444]">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder={emailPlaceholder}
-              required
-              className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none"
-            />
+          <div className="w-full sm:flex-1 flex flex-col items-start">
+            <div className="bg-[#F4F4F5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] shrink-0 w-full">
+              <div className="basis-0 flex flex-row grow items-center self-stretch shrink-0">
+                <div className="basis-0 flex flex-col grow h-full items-start justify-center min-h-0 min-w-0 pb-0.5 pt-0 px-1.5 shrink-0">
+                  <div className="flex items-center pl-0 pr-2 py-0 shrink-0 w-full">
+                    <label htmlFor="email" className="font-normal leading-4 text-xs text-[#52525B] whitespace-nowrap shrink-0">
+                      {emailLabel}
+                    </label>
+                    <div className="flex flex-col h-3.5 items-center justify-center pl-0.5 pr-0 py-0 shrink-0 w-1.75">
+                      <span className="font-normal leading-5 text-sm text-[#F31260] w-full shrink-0">*</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center shrink-0 w-full">
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder={emailPlaceholder}
+                      required
+                      className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Row 2: Phone Number */}
-        <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
-          <label
-            htmlFor="phoneNumber"
-            className="text-xs font-normal text-[#52525B]"
-          >
-            {phoneLabel}
-          </label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            placeholder={phonePlaceholder}
-            className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none"
-          />
+        <div className="flex flex-col items-start shrink-0 w-full">
+          <div className="bg-[#F4F4F5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] shrink-0 w-full">
+            <div className="basis-0 flex flex-row grow items-center self-stretch shrink-0">
+              <div className="basis-0 flex flex-col grow h-full items-start justify-center min-h-0 min-w-0 pb-0.5 pt-0 px-1.5 shrink-0">
+                <div className="flex items-center pl-0 pr-2 py-0 shrink-0 w-full">
+                  <label htmlFor="phoneNumber" className="font-normal leading-4 text-xs text-[#52525B] whitespace-nowrap shrink-0">
+                    {phoneLabel}
+                  </label>
+                </div>
+                <div className="flex items-center shrink-0 w-full">
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    placeholder={phonePlaceholder}
+                    className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Row 3: Comments */}
-        <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
-          <label
-            htmlFor="comments"
-            className="text-xs font-normal text-[#52525B]"
-          >
-            {commentLabel}
-          </label>
-          <textarea
-            id="comments"
-            name="comments"
-            value={formData.comments}
-            onChange={handleChange}
-            rows={3}
-            placeholder="Enter your comments"
-            className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none resize-none"
-          />
+        <div className="flex flex-col h-[76px] items-start shrink-0 w-full">
+          <div className="basis-0 bg-[#F4F4F5] flex grow items-start min-h-8 min-w-0 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] shrink-0 w-full">
+            <div className="basis-0 flex flex-col grow h-full items-start min-h-0 min-w-0 pb-0.5 pt-0 px-1.5 shrink-0">
+              <div className="flex items-center pl-0 pr-2 py-0 shrink-0 w-full">
+                <label htmlFor="comments" className="font-normal leading-4 text-xs text-[#52525B] whitespace-nowrap shrink-0">
+                  {commentLabel}
+                </label>
+              </div>
+              <div className="flex items-center shrink-0 w-full">
+                <textarea
+                  id="comments"
+                  name="comments"
+                  value={formData.comments}
+                  onChange={handleChange}
+                  rows={2}
+                  placeholder="Enter your comments"
+                  className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none resize-none w-full shrink-0"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Submit Button */}
-        <div className="pt-2">
-          <button
-            type="submit"
-            className="px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base font-medium rounded-xl cursor-pointer"
-          >
-            {submitButtonText}
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="bg-[#006FEE] flex h-10 w-fit items-center justify-center px-4 py-0 rounded-lg shrink-0 hover:bg-[#005fd4] transition-colors cursor-pointer"
+        >
+          <div className="flex gap-2 items-center justify-center shrink-0">
+            <div className="flex gap-2 items-center justify-center shrink-0">
+              <div className="flex flex-col font-normal justify-center leading-0 text-sm text-white whitespace-nowrap shrink-0">
+                <p className="leading-5">{submitButtonText}</p>
+              </div>
+            </div>
+          </div>
+        </button>
       </form>
     </div>
   );
