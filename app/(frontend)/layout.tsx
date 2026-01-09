@@ -6,6 +6,7 @@ import MainHeader from "./components/layout/MainHeader";
 import Footer from "./components/layout/Footer";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
 import AccessibilityButton from "./components/layout/AccessibilityButton";
+import { LoadingProvider } from "./components/common/LoadingProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,12 +30,14 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
-        <TopBar />
-        <MainHeader />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <AccessibilityButton />
+        <LoadingProvider>
+          <TopBar />
+          <MainHeader />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          <WhatsAppButton />
+          <AccessibilityButton />
+        </LoadingProvider>
       </body>
     </html>
   );
