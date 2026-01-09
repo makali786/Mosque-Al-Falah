@@ -56,10 +56,11 @@ export function QuoteSection({
         {/* Quote and Attribution */}
         <div className="flex-1 w-full">
           <blockquote className="text-lg leading-7 font-medium sm:text-xl sm:leading-8 md:text-[22px] md:leading-7.5 lg:text-[24px] lg:leading-8 text-black">
+            <p className="mb-2">
+              "{quote}"
+            </p>
             <p className="mb-0">
-              {quote}
-              <br />{attribution}{" "}
-              {/* {showAttributionSymbol && <span className="font-normal text-base">ﷺ</span>} */}
+              — {attribution}
             </p>
           </blockquote>
         </div>

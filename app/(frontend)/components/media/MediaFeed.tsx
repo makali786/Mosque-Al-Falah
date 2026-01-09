@@ -78,7 +78,7 @@ export default function MediaFeed({
     filterTabs.showAllTab && { id: 'all', label: filterTabs.allTabLabel },
     filterTabs.showVideosTab && { id: 'video', label: filterTabs.videosTabLabel },
     filterTabs.showPhotoGalleryTab && { id: 'gallery', label: filterTabs.photoGalleryTabLabel },
-    filterTabs.showAudioPodcastTab && { id: 'audio', label: filterTabs.audioPodcastTabLabel }, // bundling audio/podcast
+    filterTabs.showAudioPodcastTab && { id: 'audio', label: filterTabs.audioPodcastTabLabel },
   ].filter(Boolean) as { id: string; label: string }[];
 
 
@@ -94,14 +94,12 @@ export default function MediaFeed({
 
       <div className="section-padding pb-6 lg:pb-10 bg-white min-h-150">
         {/* Controls Header: Tabs + Search + View */}
-        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 mb-8 sm:mb-12">
+        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 mb-8 mt-4 sm:mt-0 sm:mb-12">
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2 p-1 bg-[#F4F4F5] rounded-xl">
+          <div className="flex flex-wrap items-center gap-1 lg:gap-2 p-1 bg-[#F4F4F5] rounded-xl">
             {tabs.map((tab) => {
               const isActive = selectedTab === tab.id || (tab.id === 'audio' && (selectedTab === 'podcast'));
-          // Simplifying selection logic: we set 'audio' for the combined tab. 
-          // If we had separate 'podcast' media items, we filter for both when 'audio' tab is selected.
 
               return (
                 <button
@@ -110,7 +108,7 @@ export default function MediaFeed({
                     setSelectedTab(tab.id as any);
                     setVisibleCount(6);
                   }}
-                  className={`px-4 py-1.5 text-lg font-medium rounded-xl transition-all cursor-pointer ${isActive
+                  className={`px-3 lg:px-4 py-1.5 text-sm sm:text-lg font-medium rounded-xl transition-all cursor-pointer ${isActive
                     ? "bg-white text-black shadow-sm"
                     : "text-[#71717A]"
                     }`}
@@ -155,7 +153,8 @@ export default function MediaFeed({
                     alt="List"
                     width={20}
                     height={20}
-                    className={view === "list" ? "opacity-100" : "opacity-60"}
+                    className={view === "list" ? "brightness-0 saturate-100 invert-[0.4] sepia-[1] saturate-[5] hue-rotate-[180deg]" : "opacity-60"}
+                    style={view === "list" ? { filter: 'invert(38%) sepia(96%) saturate(3207%) hue-rotate(194deg) brightness(101%) contrast(101%)' } : {}}
                   />
                   <span className="text-sm font-medium hidden sm:block">{viewOptions.listViewLabel}</span>
                 </button>

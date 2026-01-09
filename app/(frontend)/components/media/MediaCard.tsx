@@ -149,7 +149,7 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
       </div>
 
       {/* Content */}
-      <div className="flex flex-col gap-2 sm:p-4">
+      <div className="flex flex-col gap-2 p-4 sm:p-4">
         {/* Type Badge */}
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center w-5 h-5 bg-[#E6F1FE] rounded-full shrink-0">
