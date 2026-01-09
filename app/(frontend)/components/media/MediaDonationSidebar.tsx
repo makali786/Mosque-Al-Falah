@@ -39,9 +39,9 @@ export default function MediaDonationSidebar({
                     <button
                         key={amount}
                         onClick={() => setDonationAmount(amount)}
-                        className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors ${
-                            donationAmount === amount 
-                            ? "bg-black text-white" 
+                        className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
+                            donationAmount === amount
+                            ? "bg-black text-white"
                             : "bg-[#E4E4E7] text-black hover:bg-gray-300"
                         }`}
                     >
@@ -50,9 +50,9 @@ export default function MediaDonationSidebar({
                     ))}
                     <button
                     onClick={() => setDonationAmount("Other")}
-                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors ${
-                        donationAmount === "Other" 
-                        ? "bg-black text-white" 
+                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
+                        donationAmount === "Other"
+                        ? "bg-black text-white"
                         : "bg-[#E4E4E7] text-black hover:bg-gray-300"
                     }`}
                     >
@@ -79,7 +79,7 @@ export default function MediaDonationSidebar({
                         <span className="text-xs text-[#A1A1AA]">£35 GBP, a few moments ago</span>
                     </div>
                     </div>
-                    <button className="text-sm font-medium hover:text-black text-gray-600">
+                    <button className="text-sm font-medium hover:text-black text-gray-600 cursor-pointer">
                     Edit
                     </button>
                 </div>

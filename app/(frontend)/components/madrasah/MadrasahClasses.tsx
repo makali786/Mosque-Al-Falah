@@ -57,7 +57,7 @@ export default function MadrasahClasses({
                   {item.shortDescription}
                 </p>
                 
-                <button className="w-fit bg-[#D4D4D8] px-6 py-3 mt-6">
+                <button className="w-fit bg-[#D4D4D8] px-6 py-3 mt-6 cursor-pointer">
                   {item.applicationButtonText || "Apply Now"}
                 </button>
               </div>

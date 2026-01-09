@@ -93,7 +93,7 @@ export default function ServiceQuote({ quote, testimonials = [], images }: Servi
             <div className="absolute bottom-6 right-6 flex">
               <button
                 onClick={prevSlide}
-                className="p-3.5 flex items-center justify-center bg-[#D4D4D866] text-white rounded-l-lg backdrop-blur-sm transition-all"
+                className="p-3.5 flex items-center justify-center bg-[#D4D4D866] text-white rounded-l-lg backdrop-blur-sm transition-all cursor-pointer"
                 aria-label="Previous slide"
               >
                 <Image
@@ -106,7 +106,7 @@ export default function ServiceQuote({ quote, testimonials = [], images }: Servi
               </button>
               <button
                 onClick={nextSlide}
-                className="h-12 w-12 flex items-center justify-center bg-[#006FEE] text-white rounded-r-lg"
+                className="h-12 w-12 flex items-center justify-center bg-[#006FEE] text-white rounded-r-lg cursor-pointer"
                 aria-label="Next slide"
               >
                 <Image

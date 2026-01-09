@@ -57,7 +57,7 @@ export default function EventMediaSection({
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-6 py-2 rounded-[10px] text-sm font-medium transition-all duration-200 ${activeTab === tab
+                    className={`px-6 py-2 rounded-[10px] text-sm font-medium transition-all duration-200 cursor-pointer ${activeTab === tab
                         ? "bg-white text-black shadow-sm"
                         : "text-[#71717A] hover:text-black"
                       }`}
@@ -168,14 +168,14 @@ export default function EventMediaSection({
                     <button
                       key={amount}
                       onClick={() => setDonationAmount(amount)}
-                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium ${donationAmount === amount ? 'bg-black text-white' : 'bg-[#E4E4E7] text-black'}`}
+                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium cursor-pointer ${donationAmount === amount ? 'bg-black text-white' : 'bg-[#E4E4E7] text-black'}`}
                     >
                       £{amount}
                     </button>
                   ))}
                   <button
                     onClick={() => setDonationAmount("Other")}
-                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium ${donationAmount === 'Other' ? 'bg-black text-white' : 'bg-[#E4E4E7] text-black'}`}
+                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium cursor-pointer ${donationAmount === 'Other' ? 'bg-black text-white' : 'bg-[#E4E4E7] text-black'}`}
                   >
                     Other
                   </button>
@@ -195,13 +195,13 @@ export default function EventMediaSection({
                       <span className="text-[10px] text-[#A1A1AA]">£35 GBP, a few moments ago</span>
                     </div>
                   </div>
-                  <button className="text-xs font-medium text-[#18181B] hover:underline">
+                  <button className="text-xs font-medium text-[#18181B] hover:underline cursor-pointer">
                     Edit
                   </button>
                 </div>
               </div>
               {/* Donate Button */}
-              <button className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm">
+              <button className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm cursor-pointer">
                 Donate
               </button>
 

@@ -167,7 +167,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
                   playIcon={
                     <div className="absolute inset-0 w-full h-full flex items-center justify-center group">
                       <div className="absolute inset-0 bg-black/32" />
-                        <button className="w-14 h-14 relative z-10 transition-transform group-hover:scale-110">
+                        <button className="w-14 h-14 relative z-10 transition-transform group-hover:scale-110 cursor-pointer">
                           <Image
                             src="/assets/ayat/play-circle.svg"
                             alt="Play"
@@ -236,7 +236,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
               {/* Controls */}
               <div className="flex items-center justify-center gap-4 w-full">
                 <div className="flex-1 flex justify-end gap-2">
-                  <button className="w-8 h-8 flex items-center justify-center">
+                  <button className="w-8 h-8 flex items-center justify-center cursor-pointer">
                     <Image
                       src="/assets/ayat/previous.svg"
                       alt="Previous"
@@ -249,7 +249,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
 
                 <button
                   onClick={handlePlayPause}
-                  className="w-8 h-8 bg-white rounded-full flex items-center justify-center"
+                  className="w-8 h-8 bg-white rounded-full flex items-center justify-center cursor-pointer"
                 >
                   {isPlaying ? (
                     <FaPause className="text-black w-3 h-3" />
@@ -265,7 +265,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
                 </button>
 
                 <div className="flex-1 flex gap-2">
-                  <button className="w-8 h-8 flex items-center justify-center">
+                  <button className="w-8 h-8 flex items-center justify-center cursor-pointer">
                     <Image
                       src="/assets/ayat/next.svg"
                       alt="Next"
@@ -321,7 +321,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
       {viewMode !== "default" && (
         <button
           onClick={() => setViewMode("default")}
-          className="absolute sm:top-4 top-2 sm:right-4 right-2 z-20 bg-white/20 hover:bg-white/30 text-white sm:px-4 px-3 sm:py-2 py-1.5 sm:rounded-lg rounded-md sm:text-base text-sm transition-colors"
+          className="absolute sm:top-4 top-2 sm:right-4 right-2 z-20 bg-white/20 hover:bg-white/30 text-white sm:px-4 px-3 sm:py-2 py-1.5 sm:rounded-lg rounded-md sm:text-base text-sm transition-colors cursor-pointer"
         >
           Back
         </button>

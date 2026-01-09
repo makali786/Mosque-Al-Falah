@@ -210,7 +210,7 @@ export default function PrayerReminder({
               />
               <button
                 type="submit"
-                className="bg-[#333333] text-white px-4 py-3 font-medium transition-colors whitespace-nowrap"
+                className="bg-[#333333] text-white px-4 py-3 font-medium transition-colors whitespace-nowrap cursor-pointer"
               >
                 Subscribe
               </button>

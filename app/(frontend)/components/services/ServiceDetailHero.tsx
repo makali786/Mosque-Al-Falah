@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
-import moment from "moment";
 import Separator from "../common/Separator";
 
 interface ServiceDetailHeroProps {
@@ -115,7 +114,7 @@ export default function ServiceDetailHero({
             } gap-6 sm:gap-7 md:gap-8 lg:gap-9 items-start`}
         >
           {/* Image - Responsive width */}
-          <div className="w-full lg:max-w-[420px] lg:max-h-[424px]"
+          <div className="w-full lg:max-w-108 lg:max-h-106"
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,
@@ -137,7 +136,7 @@ export default function ServiceDetailHero({
           </div>
 
           {/* Text Content - Takes remaining space */}
-          <div className="w-full flex flex-col gap-3 justify-between md:gap-3 lg:max-w-[680px] lg:h-[424px] lg:max-h-[424px]">
+          <div className="w-full flex flex-col gap-3 justify-between md:gap-3 lg:max-w-170 lg:h-106 lg:max-h-106">
             <div>
               <div>
               <h1 className="text-3xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl text-black">
@@ -165,7 +164,7 @@ export default function ServiceDetailHero({
                     ) : (
                       <button
                         onClick={primaryButton.onClick}
-                          className={`px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base ${primaryButtonClassName}`}
+                          className={`px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base cursor-pointer ${primaryButtonClassName}`}
                       >
                         {primaryButton.text}
                       </button>
@@ -184,7 +183,7 @@ export default function ServiceDetailHero({
                     ) : (
                       <button
                         onClick={secondaryButton.onClick}
-                          className="px-6 py-3 bg-[#D4D4D866] text-sm sm:text-base"
+                          className="px-6 py-3 bg-[#D4D4D866] text-sm sm:text-base cursor-pointer"
                       >
                         {secondaryButton.text}
                       </button>
@@ -195,7 +194,7 @@ export default function ServiceDetailHero({
             )}
           </div>
         </div>
-        {showSeparator && <Separator className="mt-[64px]" />}
+        {showSeparator && <Separator className="mt-16" />}
       </div>
     </section>
   );

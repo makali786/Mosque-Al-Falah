@@ -21,7 +21,7 @@ export default function ViewToggleButtons({
       {/* Audio button first */}
       {onAudioClick ? <button
         onClick={onAudioClick}
-        className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors"
+        className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer"
       >
         <Image
           src="/assets/ayat/video.svg"
@@ -50,7 +50,7 @@ export default function ViewToggleButtons({
       {onVideoClick ? (
         <button
           onClick={onVideoClick}
-          className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors"
+          className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer"
         >
           <Image
             src="/assets/ayat/music.svg"

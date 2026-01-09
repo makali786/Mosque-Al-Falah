@@ -223,10 +223,10 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                         {/* Action Buttons */}
                         <div className="flex flex-wrap gap-4 mt-auto">
-                            <button className="px-6 py-3 bg-[#3F3F46] text-white rounded-lg text-base ">
+                            <button className="px-6 py-3 bg-[#3F3F46] text-white rounded-lg text-base cursor-pointer">
                                 Add to calendar
                             </button>
-                            <button className="px-6 py-3 bg-[#006FEE] text-white rounded-lg text-base">
+                            <button className="px-6 py-3 bg-[#006FEE] text-white rounded-lg text-base cursor-pointer">
                                 Register your interest
                             </button>
                         </div>
@@ -250,7 +250,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                     <button
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id as any)}
-                                        className={`px-3 sm:px-6 py-2 text-base font-medium rounded-[12px] transition-all duration-200 whitespace-nowrap ${activeTab === tab.id
+                                        className={`px-3 sm:px-6 py-2 text-base font-medium rounded-[12px] transition-all duration-200 whitespace-nowrap cursor-pointer ${activeTab === tab.id
                                             ? "bg-white text-[#18181B] shadow-[0_1px_2px_rgba(0,0,0,0.06)]"
                                             : "text-[#71717A] hover:text-[#18181B]"
                                             }`}
@@ -355,7 +355,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                     <input type="tel" defaultValue="+440 123 456 789" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
                                 </div>
 
-                                <button className="px-6 py-3 bg-[#D4D4D8] text-sm rounded-xl">
+                                <button className="px-6 py-3 bg-[#D4D4D8] text-sm rounded-xl cursor-pointer">
                                     Book Now
                                 </button>
                             </form>
@@ -382,10 +382,10 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                     </div>
 
                                     <div className="flex gap-3">
-                                        <button className="py-3 px-4 bg-[#3F3F46] text-white text-sm rounded-lg">
+                                        <button className="py-3 px-4 bg-[#3F3F46] text-white text-sm rounded-lg cursor-pointer">
                                             View on Map
                                         </button>
-                                        <button className="py-3 px-4 bg-[#006FEE] text-white text-sm rounded-lg">
+                                        <button className="py-3 px-4 bg-[#006FEE] text-white text-sm rounded-lg cursor-pointer">
                                             Get Directions
                                         </button>
                                     </div>
@@ -398,7 +398,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                         <p><span className="font-semibold">Start:</span> {formatDate(startDate)} at {formatTime(startDate)}</p>
                                         <p><span className="font-semibold">End:</span> {formatDate(endDate)} at {formatTime(endDate)}</p>
                                     </div>
-                                    <button className="w-fit py-3 px-4 bg-[#006FEE] text-white text-sm font-medium rounded-lg">
+                                    <button className="w-fit py-3 px-4 bg-[#006FEE] text-white text-sm font-medium rounded-lg cursor-pointer">
                                         Add to calendar
                                     </button>
                                 </div>
@@ -418,14 +418,14 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                         <button
                                             key={amount}
                                             onClick={() => setDonationAmount(amount)}
-                                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${donationAmount === amount ? 'bg-[#18181B] text-white' : 'bg-[#E4E4E7] text-black hover:bg-gray-200'}`}
+                                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${donationAmount === amount ? 'bg-[#18181B] text-white' : 'bg-[#E4E4E7] text-black hover:bg-gray-200'}`}
                                         >
                                             £{amount}
                                         </button>
                                     ))}
                                     <button
                                         onClick={() => setDonationAmount("Other")}
-                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${donationAmount === "Other" ? 'bg-[#18181B] text-white' : 'bg-[#E4E4E7] text-black hover:bg-gray-200'}`}
+                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${donationAmount === "Other" ? 'bg-[#18181B] text-white' : 'bg-[#E4E4E7] text-black hover:bg-gray-200'}`}
                                     >
                                         Other
                                     </button>
@@ -445,14 +445,14 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                             <span className="text-[10px] text-[#A1A1AA]">£35 GBP, a few moments ago</span>
                                         </div>
                                     </div>
-                                    <button className="text-xs font-medium text-[#18181B] hover:underline">
+                                    <button className="text-xs font-medium text-[#18181B] hover:underline cursor-pointer">
                                         Edit
                                     </button>
                                 </div>
                             </div>
 
                             {/* Donate Button */}
-                            <button className="py-3 px-4 bg-[#006FEE] text-white rounded-lg text-sm mt-1">
+                            <button className="py-3 px-4 bg-[#006FEE] text-white rounded-lg text-sm mt-1 cursor-pointer">
                                 Donate
                             </button>
                         </div>

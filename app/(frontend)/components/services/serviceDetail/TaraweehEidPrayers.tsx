@@ -73,7 +73,7 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
           { label: "Our Services", href: "/services" },
           { label: title, href: `/our-services/${params.id}` },
         ]}
-        className="!pb-0 !pt-6 sm:!pt-8 bg-white section-padding"
+        className="pb-0! pt-6! sm:pt-8! bg-white section-padding"
         showSearch={false}
         breadcrumbsItemsStyle={"flex-wrap"}
       />

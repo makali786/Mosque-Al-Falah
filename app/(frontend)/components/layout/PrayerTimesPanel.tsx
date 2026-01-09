@@ -173,7 +173,7 @@ const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) =
   <div className="absolute lg:top-31.75 md:top-24 top-4 left-1/2 -translate-x-1/2 flex items-center justify-between lg:w-81.5 md:w-72 w-[calc(100%-2rem)] z-10">
     <button
       onClick={onPrevious}
-      className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
+      className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors cursor-pointer"
       aria-label="Previous day"
     >
       <IoChevronBack className="md:w-6 md:h-6 w-5 h-5" />
@@ -190,7 +190,7 @@ const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) =
 
     <button
       onClick={onNext}
-      className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
+      className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors cursor-pointer"
       aria-label="Next day"
     >
       <IoChevronForward className="md:w-6 md:h-6 w-5 h-5" />
