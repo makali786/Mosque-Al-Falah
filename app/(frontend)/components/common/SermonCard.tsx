@@ -67,7 +67,7 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
 
   if (layout === "list") {
     return (
-       <CardWrapper className="flex flex-col md:flex-row w-full gap-6 bg-white rounded-[14px] overflow-hidden relative">
+       <CardWrapper className="flex flex-col md:flex-row w-full gap-6 bg-white rounded-[14px] overflow-hidden relative group">
         <div className="relative w-full md:w-[300px] lg:w-[350px] aspect-[16/9] md:h-auto shrink-0">
              {imageUrl && (
                 <Image
@@ -77,6 +77,8 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
                   className="object-cover rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none"
                 />
               )}
+             {/* Hover overlay */}
+             <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none" />
              <div onClick={(e) => e.stopPropagation()}>
                 <ViewToggleButtons
                    onAudioClick={(e) => { e?.preventDefault(); console.log("Audio clicked:", sermon.id) }}
@@ -100,7 +102,7 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
                 </p>
               </div>
 
-              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 leading-tight group-hover:text-primary transition-colors">
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 leading-tight group-hover:text-[#006FEE] transition-colors">
                   {title}
               </h3>
 
@@ -155,6 +157,8 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
                    className="object-cover"
                 />
              )}
+             {/* Hover overlay */}
+             <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
           </div>
 
            <div onClick={(e) => e.stopPropagation()}>
@@ -181,7 +185,7 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
           </div>
 
           <div className="flex flex-col gap-3 lg:gap-4">
-             <h3 className="text-xl lg:text-2xl font-medium lg:font-semibold text-black leading-7 lg:leading-8 group-hover:text-blue-600 transition-colors">
+             <h3 className="text-xl lg:text-2xl font-medium lg:font-semibold text-black leading-7 lg:leading-8 group-hover:text-[#006FEE] transition-colors">
                 {title}
              </h3>
 

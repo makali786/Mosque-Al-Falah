@@ -25,11 +25,7 @@ export default function PageHero({
         <img
           src={backgroundImage}
           alt={title}
-          className="absolute left-0 w-full max-w-none object-cover"
-          style={{
-            height: '177.78%',
-            top: '-68.57%',
-          }}
+          className="absolute inset-0 w-full h-full object-cover"
         />
       </div>
 
