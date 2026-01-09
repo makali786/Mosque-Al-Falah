@@ -154,7 +154,7 @@ function Step1Select({
                   frequency: freq.value as DonationFormData['frequency'],
                 })
               }
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                 formData.frequency === freq.value
                   ? 'bg-blue-500 text-white'
                   : 'bg-white border border-gray-300 hover:border-blue-500'
@@ -202,7 +202,7 @@ function Step1Select({
                 onClick={() =>
                   setFormData({ ...formData, amount, customAmount: '' })
                 }
-                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                className={`px-6 py-3 rounded-lg font-medium transition-colors cursor-pointer ${
                   formData.amount === amount && !isCustom
                     ? 'bg-gray-900 text-white'
                     : 'bg-white border border-gray-300 hover:border-gray-400'
@@ -262,7 +262,7 @@ function Step1Select({
             onClick={() =>
               setFormData({ ...formData, isAnonymous: !formData.isAnonymous })
             }
-            className="text-blue-500 text-sm"
+            className="text-blue-500 text-sm cursor-pointer"
           >
             Edit
           </button>
@@ -346,7 +346,7 @@ function Step1Select({
         <button
           onClick={onNext}
           disabled={donationAmount <= 0}
-          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
           Next
         </button>
@@ -371,7 +371,7 @@ function Step2Details({
     <div className="max-w-2xl mx-auto p-6">
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-gray-600 mb-4"
+        className="flex items-center gap-2 text-gray-600 mb-4 cursor-pointer"
       >
         ← Back
       </button>
@@ -418,7 +418,7 @@ function Step2Details({
           <button
             type="button"
             onClick={() => signIn('google', { callbackUrl: '/donate' })}
-            className="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -443,7 +443,7 @@ function Step2Details({
           <button
             type="button"
             onClick={() => signIn('facebook', { callbackUrl: '/donate' })}
-            className="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-[#1877F2]"
+            className="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-[#1877F2] cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -560,7 +560,7 @@ function Step2Details({
       <div className="flex gap-4">
         <button
           onClick={onBack}
-          className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 rounded-lg font-medium"
+          className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 rounded-lg font-medium cursor-pointer"
         >
           Previous
         </button>
@@ -572,7 +572,7 @@ function Step2Details({
             !formData.lastName ||
             !formData.termsAccepted
           }
-          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50 cursor-pointer"
         >
           Next
         </button>
@@ -603,7 +603,7 @@ function Step3GiftAid({
     <div className="max-w-2xl mx-auto p-6">
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-gray-600 mb-4"
+        className="flex items-center gap-2 text-gray-600 mb-4 cursor-pointer"
       >
         ← Back
       </button>
@@ -712,14 +712,14 @@ function Step3GiftAid({
       <div className="flex gap-4">
         <button
           onClick={onBack}
-          className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 rounded-lg font-medium"
+          className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 rounded-lg font-medium cursor-pointer"
         >
           Previous
         </button>
         <button
           onClick={onNext}
           disabled={formData.giftAidEnabled && !formData.giftAidDeclaration}
-          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50 cursor-pointer"
         >
           Next
         </button>
@@ -792,7 +792,7 @@ function PaymentForm({
     <div className="max-w-2xl mx-auto p-6">
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-gray-600 mb-4"
+        className="flex items-center gap-2 text-gray-600 mb-4 cursor-pointer"
       >
         ← Back
       </button>
@@ -853,7 +853,7 @@ function PaymentForm({
           <button
             type="submit"
             disabled={!stripe || isProcessing}
-            className="w-full mt-6 bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-lg font-medium text-lg disabled:opacity-50"
+            className="w-full mt-6 bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-lg font-medium text-lg disabled:opacity-50 cursor-pointer"
           >
             {isProcessing ? 'Processing...' : `Pay £${totalAmount.toFixed(2)}`}
           </button>
@@ -886,7 +886,7 @@ function Step5Complete() {
       </div>
 
       <div className="flex gap-4 justify-center">
-        <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg">
+        <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg cursor-pointer">
           Share this page
         </button>
         <a

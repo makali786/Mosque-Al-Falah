@@ -67,6 +67,10 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
 
   const genericNode = node as GenericNode;
 
+  if (genericNode.type === 'linebreak') {
+    return <br key={index} />;
+  }
+
   if (!genericNode.children) {
     return null;
   }

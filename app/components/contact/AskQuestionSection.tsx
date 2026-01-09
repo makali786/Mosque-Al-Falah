@@ -263,7 +263,7 @@ export function AskQuestionSection({
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-base sm:text-lg font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-base sm:text-lg font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {isPending ? "Sending..." : formSettings.submitButtonText}
                 </button>

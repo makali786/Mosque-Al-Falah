@@ -14,8 +14,8 @@ interface BreadcrumbSearchSectionProps {
   searchPlaceholder?: string;
   onSearch?: (query: string) => void;
   className?: string;
-  liveSearch?: boolean;
   showSearch?: boolean;
+  liveSearch?: boolean;
   breadcrumbsItemsStyle?: string;
 }
 
@@ -24,8 +24,8 @@ export default function BreadcrumbSearchSection({
   searchPlaceholder = "Search",
   onSearch,
   className = "",
-  liveSearch = false,
   showSearch = true,
+  liveSearch = false,
   breadcrumbsItemsStyle = "",
 }: BreadcrumbSearchSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");

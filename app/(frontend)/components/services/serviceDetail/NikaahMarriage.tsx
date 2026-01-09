@@ -1,0 +1,168 @@
+import React from 'react'
+import ServiceEventBanner from '../ServiceEventBanner';
+import ServiceContentCarousel from '../ServiceContentCarousel';
+import Image from 'next/image';
+import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection';
+import ServiceDetailHero from '../ServiceDetailHero';
+import OtherServices from '../OtherServices';
+import AboutQuoteSection from '@/components/about/AboutQuoteSection';
+import EventMediaSection from '../EventMediaSection';
+import { RichTextRenderer } from '@/components/common/RichTextRenderer';
+import { fetchServices } from '../../../../../lib/fetcher';
+
+
+// Helper to extract simple text from Payload Rich Text for banner descriptions
+const extractTextFromRichText = (richText: any) => {
+    if (!richText || !richText.root || !richText.root.children) return "";
+    try {
+        // Attempt to find the first text node
+        for (const child of richText.root.children) {
+            if (child.children) {
+                for (const nested of child.children) {
+                    if (nested.text) return nested.text;
+                }
+            }
+        }
+    } catch (e) {
+        return "";
+    }
+    return "";
+};
+
+const NikaahMarriage = async ({ service, params }: { service: any, params: { id: string } }) => {
+
+    // Fetch all services for the "Other Services" section
+    const allServices = await fetchServices({
+        where: { isActive: { equals: true } },
+        limit: 10,
+        depth: 1
+    });
+
+    // Extract data from the dynamic service object
+    const bannarTitle = service.detailBanner?.bannerTitle || "";
+    const title = service.title || "";
+    // Description: bannerSubtitle -> shortDescription -> then fullDescription extract -> then fallback
+    const bannerDescription = service.detailBanner?.bannerSubtitle || service.shortDescription || extractTextFromRichText(service.fullDescription) || "";
+    const heroImage = service.media?.heroImage?.url || "/assets/common/marrige-and-nikah.svg";
+    const heroImageAlt = service.media?.heroImage?.alt || "Nikaah Service";
+    const updatedAt = service.updatedAt;
+
+    // Quick links mapping (Icon logic based on label strings as per current design pattern)
+    const getIconForLink = (label: string) => {
+        const lower = label.toLowerCase();
+        if (lower.includes('nikah')) return "/assets/common/marrige-and-nikah.svg";
+        if (lower.includes('guidance')) return "/assets/common/notebook-icon.svg";
+        return "/assets/common/marrige-and-nikah.svg"; // Fallback
+    };
+
+    return (
+        <div>
+            <ServiceEventBanner
+                title={bannarTitle}
+                description={bannerDescription}
+                updateLabel="Update"
+                updateDate={updatedAt}
+                rightContent={
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-6 sm:gap-8.5">
+                        {service.detailBanner?.quickLinks?.map((link: any, index: number) => (
+                            <React.Fragment key={link.id || index}>
+                                <div className="flex flex-col items-center gap-3">
+                                    <Image
+                                        src={getIconForLink(link.label)}
+                                        width={40}
+                                        height={40}
+                                        alt={link.label}
+                                        className="w-10 h-10 sm:w-12 sm:h-12"
+                                    />
+                                    <span className="text-white font-semibold text-base sm:text-lg uppercase text-center">{link.label}</span>
+                                </div>
+                                {/* Add separator if not the last item */}
+                                {index < (service.detailBanner.quickLinks.length - 1) && (
+                                    <div className="h-28 w-px bg-[#FFFFFF26] hidden sm:block"></div>
+                                )}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                }
+                customStyleLeftSection={"xl:!min-w-[340px] xl:!max-w-[340px]"}
+            />
+
+            <BreadcrumbSearchSection
+                breadcrumbs={[
+                    { label: "Home", href: "/" },
+                    { label: "Our Services", href: "/services" },
+                    { label: title, href: `/our-services/${params.id}` },
+                ]}
+                className="pb-0! pt-6! sm:pt-8! bg-white section-padding"
+                showSearch={false}
+                breadcrumbsItemsStyle={"flex-wrap"}
+            />
+
+            <ServiceDetailHero
+                heading={title}
+                imageSrc={heroImage}
+                imageAlt={heroImageAlt}
+                layout="image-left"
+                updatedAt={updatedAt}
+                content={
+                    <div className="text-base text-[#52525B] space-y-4">
+                        {service.fullDescription ? (
+                            <RichTextRenderer content={service.fullDescription} />
+                        ) : (
+                                <p></p>
+                        )}
+                    </div>
+                }
+                primaryButtonClassName="rounded-[12px] sm:!mt-9"
+                primaryButton={{
+                    text: service.registration?.registrationButtonText || "Register your interest",
+                    href: "#register",
+                }}
+                Separator={true}
+            />
+
+            <EventMediaSection
+                title={service.media?.isLive ? "Live Streaming" : "Media"}
+                description="Join us via live stream and immerse yourself in the spiritual atmosphere."
+                videoThumbnail={heroImage}
+                videoUrl={service.media?.videoUrl}
+                isLive={service.media?.isLive}
+                venueName={service.venue?.venueName}
+                venueAddress={service.venue?.fullAddress}
+                venueMapsLink={service.venue?.googleMapsLink}
+                donationTitle={service.donation?.donationTitle}
+                donationDescription={service.donation?.donationDescription}
+                donationAmounts={service.donation?.suggestedAmounts?.map((a: any) => a.amount) || []}
+            />
+
+            {service.testimonials && service.testimonials.length > 0 && (
+                <ServiceContentCarousel
+                    items={service.testimonials.map((t: any, index: number) => ({
+                        id: t.id || index,
+                        text: t.quote,
+                        image: t.photo?.url || heroImage,
+                        index: index || 0
+                    }))}
+                />
+            )}
+
+            <OtherServices services={allServices
+                .filter((s: any) => s.id !== service.id)
+                .map((s: any) => ({
+                    id: s.id,
+                    title: s.title,
+                    slug: s.slug,
+                    cardImage: s.media?.cardImage
+                }))}
+            />
+            <AboutQuoteSection
+                quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
+                attribution={"— Prophet Muhammad ﷺ"}
+                donateButtonUrl={"/donate"}
+            />
+
+        </div>
+    )
+}
+
+export default NikaahMarriage

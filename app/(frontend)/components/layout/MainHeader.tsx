@@ -14,7 +14,7 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about", hasDropdown: true },
-  { label: "Our Services", href: "/services" },
+  { label: "Our Services", href: "/our-services" },
   { label: "Appeals", href: "/appeals" },
   { label: "Madrasah", href: "/madrasah" },
   { label: "Sermons", href: "/sermons" },
@@ -61,7 +61,7 @@ const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, 
       <div className={isMobile ? "" : "relative"}>
         <button
           onClick={onDropdownToggle}
-          className={`flex gap-1 items-center ${isMobile ? "justify-between w-full" : "shrink-0"} ${activeClass}`}
+          className={`flex gap-1 items-center ${isMobile ? "justify-between w-full" : "shrink-0"} ${activeClass} cursor-pointer`}
         >
           <span className={`font-normal ${isMobile ? "text-base" : "text-sm xl:text-base leading-6"} whitespace-nowrap`}>
             {item.label}
@@ -114,7 +114,7 @@ export default function MainHeader() {
         {/* Hamburger Menu */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden flex flex-col gap-1 w-6 h-5 justify-center"
+          className="lg:hidden flex flex-col gap-1 w-6 h-5 justify-center cursor-pointer"
           aria-label="Menu"
         >
           <HamburgerIcon />
@@ -172,7 +172,7 @@ export default function MainHeader() {
           }`}
         >
           <div className="flex justify-end p-4">
-            <button onClick={() => setMobileMenuOpen(false)} className="text-white" aria-label="Close menu">
+            <button onClick={() => setMobileMenuOpen(false)} className="text-white cursor-pointer" aria-label="Close menu">
               <CloseIcon />
             </button>
           </div>

@@ -150,7 +150,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
               {filterOptions.enableUpcomingTab && (
                 <button
                   onClick={() => setActiveTab("upcoming")}
-                  className={`px-4 py-2 text-lg rounded-[14px] transition-colors ${activeTab === "upcoming"
+                  className={`px-4 py-2 text-lg rounded-[14px] transition-colors cursor-pointer ${activeTab === "upcoming"
                     ? "bg-[#fff] text-[#18181B]"
                     : "text-[#71717A] hover:text-[#18181B]"
                     }`}
@@ -161,7 +161,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
               {filterOptions.enableArchivedTab && (
                 <button
                   onClick={() => setActiveTab("archived")}
-                  className={`px-4 py-2 text-lg rounded-[14px] transition-colors ${activeTab === "archived"
+                  className={`px-4 py-2 text-lg rounded-[14px] transition-colors cursor-pointer ${activeTab === "archived"
                     ? "bg-[#fff] text-[#18181B]"
                     : "text-[#71717A] hover:text-[#18181B]"
                     }`}
@@ -241,7 +241,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
               <button
                 onClick={() => setView("list")}
-                className={`flex items-center gap-2 transition-colors ${view === "list" ? "text-[#006FEE]" : "text-[#71717A] hover:text-[#18181B]"}`}
+                className={`flex items-center gap-2 transition-colors cursor-pointer ${view === "list" ? "text-[#006FEE]" : "text-[#71717A] hover:text-[#18181B]"}`}
               >
                 <Image
                   src="/assets/common/list-icon.svg"
@@ -256,7 +256,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
               <button
                 onClick={() => setView("grid")}
-                className={`flex items-center gap-2 transition-colors ${view === "grid" ? "text-[#006FEE]" : "text-[#71717A] hover:text-[#18181B]"}`}
+                className={`flex items-center gap-2 transition-colors cursor-pointer ${view === "grid" ? "text-[#006FEE]" : "text-[#71717A] hover:text-[#18181B]"}`}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "text-[#006FEE]" : "text-[#71717A]"}>
                   <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
@@ -285,7 +285,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
           <div className="mt-12 flex justify-center">
             <button
               onClick={handleLoadMore}
-              className="px-6 py-3 bg-white border border-[#E4E4E7] rounded-lg text-sm font-medium text-[#18181B] hover:bg-[#F4F4F5] transition-colors shadow-sm"
+              className="px-6 py-3 bg-white border border-[#E4E4E7] rounded-lg text-sm font-medium text-[#18181B] hover:bg-[#F4F4F5] transition-colors shadow-sm cursor-pointer"
             >
               {gridSettings.loadMoreButtonText}
             </button>
