@@ -71,11 +71,14 @@ export default function EventMediaSection({
             {/* Media Player Container */}
             <div className="relative w-full aspect-video rounded-[14px] overflow-hidden">
               {videoUrl && activeTab === 'Video' ? (
-                <video
+                <iframe
                   src={videoUrl}
-                  controls
-                  className="w-full h-full object-cover"
-                  poster={videoThumbnail}
+                  title={title || "YouTube video player"}
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
                 />
               ) : (
                 <>
@@ -99,11 +102,6 @@ export default function EventMediaSection({
                         <span className="text-sm font-semibold text-[#18181B]">Live</span>
                       </div>
                     )}
-
-                  {/* Play Button - if videoUrl exists but we want to show it before playing, 
-                        HTML5 video with poster handles that. 
-                        If activeTab is Photos/Audio, we show differently. For now assuming Video tab.
-                    */}
                 </>
               )}
             </div>
