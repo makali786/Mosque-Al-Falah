@@ -83,26 +83,48 @@ export default function EidSalahSchedule({
                 {schedule.map((slot, index) => (
                   <div
                     key={slot.id}
-                    className={`flex items-center justify-between p-6 sm:p-8 ${
+                    className={`flex items-center w-full ${
                       index !== schedule.length - 1
                       ? "border-b border-[#11111126]"
                         : ""
-                    } hover:bg-white/5 transition-colors`}
+                    }`}
                   >
-                    <div className="flex flex-col gap-1 text-white">
-                      <h3 className="text-base sm:text-lg font-bold uppercase tracking-wide">
-                        {slot.label}
-                      </h3>
-                      <div className="text-[10px] sm:text-xs flex flex-col uppercase gap-0.5">
-                        {slot.imam && <span>IMAM: {slot.imam}</span>}
-                        {slot.khutbahLanguage && <span>KHUTBAH: {slot.khutbahLanguage}</span>}
-                        {slot.description && !slot.imam && !slot.khutbahLanguage && (
-                          <span className="opacity-80">{slot.description}</span>
-                        )}
+                    {/* Left Side: Jamaah Info */}
+                    <div className="flex-1 p-6 sm:p-8 hover:bg-white/5 transition-colors">
+                      <div className="flex flex-col gap-2">
+                        <h3 className="text-base sm:text-lg font-bold uppercase text-white leading-7">
+                          {slot.label}
+                        </h3>
+                        <div className="text-xs flex flex-col gap-1 text-white">
+                          {slot.imam && (
+                            <div className="flex items-center gap-1">
+                              <span>IMAM:</span>
+                              <span>{slot.imam}</span>
+                            </div>
+                          )}
+                          {slot.khutbahLanguage && (
+                            <div className="flex items-center gap-1">
+                              <span>KHUTBAH:</span>
+                              <span>{slot.khutbahLanguage}</span>
+                            </div>
+                          )}
+                          {slot.description && !slot.imam && !slot.khutbahLanguage && (
+                            <span className="opacity-80">{slot.description}</span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
-                      {slot.time}
+
+                    {/* Right Side: Time Box */}
+                    <div className="flex items-center self-stretch">
+                      <div
+                        className="flex items-center justify-center h-full w-[120px] sm:w-[140px] md:w-[158px]"
+                        style={{ backgroundColor: 'rgba(0, 111, 238, 0.2)' }}
+                      >
+                        <div className="text-3xl sm:text-4xl font-bold text-white leading-10">
+                          {slot.time}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}

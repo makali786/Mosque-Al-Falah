@@ -16,7 +16,8 @@
       "Bash(move appcomponentsServices.tsx appcomponentshome)",
       "Bash(move appcomponentsMeetOurImams.tsx appcomponentshome)",
       "Bash(move appcomponentsAyatOfTheMonth.tsx appcomponentshome)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "WebFetch(domain:www.figma.com)"
     ]
   },
   "enableAllProjectMcpServers": true,
