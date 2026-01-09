@@ -1,15 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
-import { FiImage, FiMapPin, FiMic, FiUser, FiVideo } from "react-icons/fi";
+import { useEffect, useRef, useState } from "react";
+import { FiImage, FiMic, FiUser, FiVideo } from "react-icons/fi";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
 import { QuoteSection } from "../common/QuoteSection";
 import { RichTextRenderer } from "../common/RichTextRenderer";
-import MediaDonationSidebar from "../media/MediaDonationSidebar";
-import EventCard from "./EventCard";
 import Separator from "../common/Separator";
+import EventCard from "./EventCard";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -88,6 +87,39 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
     const speaker = event?.speakers?.[0]?.guestSpeaker || event?.speakers?.[0]?.imamAccount || {};
     const featuredImage = event?.media?.featuredImage?.url || "/assets/placeholders/event-placeholder.png";
     const videoUrl = event?.media?.videoUrl;
+
+    // Helper function to convert YouTube and Vimeo URLs to embed format
+    const getEmbedUrl = (url: string) => {
+        if (!url) return "";
+
+        // If already an embed URL, return as is
+        if (url.includes("/embed/")) return url;
+
+        // Convert youtube.com/watch?v= or youtu.be/ to embed format
+        const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/;
+        const youtubeMatch = url.match(youtubeRegex);
+
+        if (youtubeMatch && youtubeMatch[1]) {
+            return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+        }
+
+        // Convert vimeo.com/video/ID to player.vimeo.com/video/ID format
+        const vimeoRegex = /vimeo\.com\/(?:video\/)?(\d+)(?:\?h=([a-zA-Z0-9]+))?/;
+        const vimeoMatch = url.match(vimeoRegex);
+
+        if (vimeoMatch && vimeoMatch[1]) {
+            const videoId = vimeoMatch[1];
+            const hash = vimeoMatch[2];
+            return hash
+                ? `https://player.vimeo.com/video/${videoId}?h=${hash}`
+                : `https://player.vimeo.com/video/${videoId}`;
+        }
+
+        // Return original URL for other platforms
+        return url;
+    };
+
+    const embedUrl = getEmbedUrl(videoUrl);
 
     // Format Helpers for Display
     const sDate = startDate ? new Date(startDate) : null;
@@ -263,17 +295,17 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                             {/* Content */}
                             <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
                                 {activeTab === "video" && (
-                                    videoUrl ? (
+                                    embedUrl ? (
                                         <div className="w-full h-full flex items-center justify-center relative bg-black group">
-                                            <video
-                                                controls
-                                                className="w-full h-full lg:max-w-[735px] lg:h-[412px] object-contain"
-                                                poster={featuredImage}
-                                                preload="metadata"
-                                            >
-                                                <source src={videoUrl} type="video/mp4" />
-                                                Your browser does not support the video tag.
-                                            </video>
+                                            <iframe
+                                                src={embedUrl}
+                                                title={title || "Video player"}
+                                                className="w-full h-full lg:max-w-[735px] lg:h-[412px]"
+                                                frameBorder="0"
+                                                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                                                referrerPolicy="strict-origin-when-cross-origin"
+                                                allowFullScreen
+                                            />
                                             {event?.media?.isLive && (
                                                 <div className="absolute top-4 right-4 bg-[#FAFAFA] backdrop-blur px-2.5 py-1 rounded-md flex items-center gap-1.5 text-sm text-[#11181C] z-10 pointer-events-none">
                                                     <span className="w-2 h-2 rounded-full bg-[#F31260]" />
