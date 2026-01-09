@@ -7,32 +7,18 @@ import Link from "next/link";
 interface OtherService {
   id: string;
   title: string;
-  image: string;
-  link: string;
+  slug: string;
+  cardImage?: {
+    url: string;
+    alt?: string;
+  };
 }
 
-const SERVICES: OtherService[] = [
-  {
-    id: "five-daily-prayers",
-    title: "Five Daily Prayers",
-    image: "/assets/services/service-1.png",
-    link: "/services/five-daily-prayers",
-  },
-  {
-    id: "friday-jummuah",
-    title: "Friday Jumua'ah sermon",
-    image: "/assets/services/service-2.png",
-    link: "/services/jummah-prayer",
-  },
-  {
-    id: "taraweeh-eid",
-    title: "Taraweeh and Eid Prayers",
-    image: "/assets/services/service-3.png",
-    link: "/services/taraweeh-prayer",
-  },
-];
+interface OtherServicesProps {
+  services?: OtherService[];
+}
 
-export default function OtherServices() {
+export default function OtherServices({ services = [] }: OtherServicesProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -92,15 +78,15 @@ export default function OtherServices() {
         {/* Grid Layout - Mobile only */}
         <div className="sm:hidden px-4 mb-8 hn-container">
           <div className="grid grid-cols-2 gap-5 w-full grid-style">
-            {SERVICES.map((service) => (
+            {services.map((service) => (
               <div
                 key={service.id}
                 className="relative w-full h-51.5 rounded-lg overflow-hidden px-2 py-3 flex flex-col justify-between"
               >
                 {/* Background Image */}
                 <Image
-                  src={service.image}
-                  alt={service.title}
+                  src={service.cardImage?.url || '/assets/services/service-1.png'}
+                  alt={service.cardImage?.alt || service.title}
                   fill
                   className="object-cover"
                 />
@@ -114,7 +100,7 @@ export default function OtherServices() {
 
                 {/* Learn More Button */}
                 <Link
-                  href={service.link}
+                  href={`/our-services/${service.slug}`}
                   className="relative z-10 bg-[rgba(63,63,70,0.4)] h-8 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
                 >
                   <span className="text-xs font-normal text-white leading-4">
@@ -161,15 +147,15 @@ export default function OtherServices() {
             className="flex-1 flex gap-6 sm:gap-6 md:gap-7 lg:gap-8 overflow-x-auto scrollbar-hide"
             style={{ scrollbarWidth: "none" }}
           >
-            {SERVICES.map((service) => (
+            {services.map((service) => (
               <div
                 key={service.id}
                 className="relative shrink-0 w-65 h-95 sm:w-70 sm:h-100 md:w-75 md:h-106.25 lg:w-80 lg:h-112.5 rounded-xl overflow-hidden p-4 sm:p-4 md:p-4.5 lg:p-5 flex flex-col justify-between"
               >
                 {/* Background Image */}
                 <Image
-                  src={service.image}
-                  alt={service.title}
+                  src={service.cardImage?.url || '/assets/services/service-1.png'}
+                  alt={service.cardImage?.alt || service.title}
                   fill
                   className="object-cover"
                 />
@@ -183,7 +169,7 @@ export default function OtherServices() {
 
                 {/* Learn More Button */}
                 <Link
-                  href={service.link}
+                  href={`/our-services/${service.slug}`}
                   className="relative ml-auto z-10 bg-[rgba(63,63,70,0.4)] h-10 sm:h-10.5 md:h-11 lg:h-12 px-3 sm:px-3.5 md:px-3.5 lg:px-4 rounded-lg w-35 sm:w-37.5 md:w-39 lg:w-40.5 flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
                 >
                   <span className="text-sm leading-5 sm:text-sm sm:leading-5 md:text-base md:leading-6 lg:text-base lg:leading-6 font-normal text-white">

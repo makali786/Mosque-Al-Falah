@@ -8,6 +8,7 @@ import OtherServices from '../OtherServices';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
 import EventMediaSection from '../EventMediaSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
+import { fetchServices } from '../../../../../lib/fetcher';
 
 
 // Helper to extract simple text from Payload Rich Text for banner descriptions
@@ -28,7 +29,14 @@ const extractTextFromRichText = (richText: any) => {
     return "";
 };
 
-const NikaahMarriage = ({ service, params }: { service: any, params: { id: string } }) => {
+const NikaahMarriage = async ({ service, params }: { service: any, params: { id: string } }) => {
+
+    // Fetch all services for the "Other Services" section
+    const allServices = await fetchServices({
+        where: { isActive: { equals: true } },
+        limit: 10,
+        depth: 1
+    });
 
     // Extract data from the dynamic service object
     const bannarTitle = service.detailBanner?.bannerTitle || "";
@@ -138,7 +146,15 @@ const NikaahMarriage = ({ service, params }: { service: any, params: { id: strin
                 />
             )}
 
-            <OtherServices />
+            <OtherServices services={allServices
+                .filter((s: any) => s.id !== service.id)
+                .map((s: any) => ({
+                    id: s.id,
+                    title: s.title,
+                    slug: s.slug,
+                    cardImage: s.media?.cardImage
+                }))}
+            />
             <AboutQuoteSection
                 quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
                 attribution={"— Prophet Muhammad ﷺ"}

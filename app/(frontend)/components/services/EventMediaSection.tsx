@@ -42,6 +42,39 @@ export default function EventMediaSection({
   // Use passed amounts or default
   const amounts = donationAmounts.length > 0 ? donationAmounts : [10, 20, 50, 100];
 
+  // Helper function to convert YouTube and Vimeo URLs to embed format
+  const getEmbedUrl = (url: string) => {
+    if (!url) return "";
+
+    // If already an embed URL, return as is
+    if (url.includes("/embed/")) return url;
+
+    // Convert youtube.com/watch?v= or youtu.be/ to embed format
+    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/;
+    const youtubeMatch = url.match(youtubeRegex);
+
+    if (youtubeMatch && youtubeMatch[1]) {
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+    }
+
+    // Convert vimeo.com/video/ID to player.vimeo.com/video/ID format
+    const vimeoRegex = /vimeo\.com\/(?:video\/)?(\d+)(?:\?h=([a-zA-Z0-9]+))?/;
+    const vimeoMatch = url.match(vimeoRegex);
+
+    if (vimeoMatch && vimeoMatch[1]) {
+      const videoId = vimeoMatch[1];
+      const hash = vimeoMatch[2];
+      return hash
+        ? `https://player.vimeo.com/video/${videoId}?h=${hash}`
+        : `https://player.vimeo.com/video/${videoId}`;
+    }
+
+    // Return original URL for other platforms
+    return url;
+  };
+
+  const embedUrl = getEmbedUrl(videoUrl);
+
   return (
     <section className={`w-full py-12 lg:py-16 bg-white ${className}`}>
       <div className="section-padding">
@@ -70,13 +103,13 @@ export default function EventMediaSection({
 
             {/* Media Player Container */}
             <div className="relative w-full aspect-video rounded-[14px] overflow-hidden">
-              {videoUrl && activeTab === 'Video' ? (
+              {embedUrl && activeTab === 'Video' ? (
                 <iframe
-                  src={videoUrl}
-                  title={title || "YouTube video player"}
+                  src={embedUrl}
+                  title={title || "Video player"}
                   className="w-full h-full"
                   frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                 />

@@ -10,6 +10,7 @@ import OtherServices from '../OtherServices';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
 import LiveStreaming from '../LiveStreaming';
+import { fetchServices } from '../../../../../lib/fetcher';
 
 // Helper to extract simple text from Payload Rich Text
 const extractTextFromRichText = (richText: any) => {
@@ -28,8 +29,15 @@ const extractTextFromRichText = (richText: any) => {
   return "";
 };
 
-const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: string } }) => {
+const TaraweehEidPrayers = async ({ service, params }: { service: any, params: { id: string } }) => {
   console.log("service", service)
+
+  // Fetch all services for the "Other Services" section
+  const allServices = await fetchServices({
+    where: { isActive: { equals: true } },
+    limit: 10,
+    depth: 1
+  });
 
   const title = service?.title || "";
   // Attempt to extract text for banner description
@@ -151,7 +159,15 @@ const TaraweehEidPrayers = ({ service, params }: { service: any, params: { id: s
         ].filter(Boolean)}
       />
 
-      <OtherServices />
+      <OtherServices services={allServices
+        .filter((s: any) => s.id !== service.id)
+        .map((s: any) => ({
+          id: s.id,
+          title: s.title,
+          slug: s.slug,
+          cardImage: s.media?.cardImage
+        }))}
+      />
       {/* <QuoteSection  */}
 
 

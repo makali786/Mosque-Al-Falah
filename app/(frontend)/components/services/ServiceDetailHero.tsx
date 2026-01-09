@@ -95,7 +95,7 @@ export default function ServiceDetailHero({
   className = "",
   imageStyle = "rounded",
   imageWidth = 420,
-  imageHeight = 424,
+  imageHeight = 396,
   primaryButton,
   secondaryButton,
   primaryButtonClassName,
@@ -114,7 +114,7 @@ export default function ServiceDetailHero({
             } gap-6 sm:gap-7 md:gap-8 lg:gap-9 items-start`}
         >
           {/* Image - Responsive width */}
-          <div className="w-full lg:max-w-108 lg:max-h-106"
+          <div className="w-full lg:max-w-108 lg:max-h-[396px]"
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,
@@ -124,7 +124,7 @@ export default function ServiceDetailHero({
             <div
               className={`relative w-full ${
                 imageStyle === "rounded"
-                  ? "rounded-lg sm:rounded-xl lg:rounded-[14px] overflow-hidden"
+                ? "rounded-lg sm:rounded-xl lg:rounded-[14px] overflow-hidden lg:max-h-[396px]"
                   : ""
               }`}
               style={{
@@ -136,7 +136,7 @@ export default function ServiceDetailHero({
           </div>
 
           {/* Text Content - Takes remaining space */}
-          <div className="w-full flex flex-col gap-3 justify-between md:gap-3 lg:max-w-170 lg:h-106 lg:max-h-106">
+          <div className="w-full flex flex-col gap-3 justify-between md:gap-3 lg:max-w-170 lg:h-[396px] lg:max-h-[396px]">
             <div>
               <div>
               <h1 className="text-3xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl text-black">
@@ -151,7 +151,7 @@ export default function ServiceDetailHero({
 
             {/* Buttons */}
             {(primaryButton || secondaryButton) && (
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-9 mt-6">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-9">
                 {primaryButton && (
                   <>
                     {primaryButton.href ? (
