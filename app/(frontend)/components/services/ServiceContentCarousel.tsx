@@ -49,7 +49,7 @@ export default function ServiceContentCarousel({ items, index = 0 }: ServiceCont
                 <div className="absolute bottom-0 right-0 flex">
               <button
                 onClick={prevSlide}
-                className="w-14 h-14 flex items-center justify-center bg-[#D4D4D8] text-white backdrop-blur-sm transition-all hover:bg-[#D4D4D888]"
+                className="w-14 h-14 flex items-center justify-center bg-[#D4D4D8] text-white backdrop-blur-sm transition-all hover:bg-[#D4D4D888] cursor-pointer"
                 aria-label="Previous slide"
               >
                 <Image
@@ -62,7 +62,7 @@ export default function ServiceContentCarousel({ items, index = 0 }: ServiceCont
               </button>
               <button
                 onClick={nextSlide}
-                className="w-14 h-14 flex items-center justify-center bg-[#006FEE] text-white transition-all hover:bg-[#005BC4]"
+                className="w-14 h-14 flex items-center justify-center bg-[#006FEE] text-white transition-all hover:bg-[#005BC4] cursor-pointer"
                 aria-label="Next slide"
               >
                 <Image

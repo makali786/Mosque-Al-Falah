@@ -148,7 +148,7 @@ export default function MediaFeed({
               <div className="flex items-center gap-6 shrink-0 self-end sm:self-center">
                 <button
                   onClick={() => setView("list")}
-                  className={`flex items-center gap-2 ${view === "list" ? "text-[#006fee]" : "text-[#71717A]"}`}
+                  className={`flex items-center gap-2 cursor-pointer ${view === "list" ? "text-[#006fee]" : "text-[#71717A]"}`}
                 >
                   <Image
                     src="/assets/common/list-icon.svg"
@@ -161,7 +161,7 @@ export default function MediaFeed({
                 </button>
                 <button
                   onClick={() => setView("grid")}
-                  className={`flex items-center gap-2 ${view === "grid" ? "text-[#006fee]" : "text-[#71717A]"}`}
+                  className={`flex items-center gap-2 cursor-pointer ${view === "grid" ? "text-[#006fee]" : "text-[#71717A]"}`}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "opacity-100" : "opacity-60"}>
                     <rect x="3" y="3" width="7" height="7"></rect>
@@ -194,7 +194,7 @@ export default function MediaFeed({
           <div className="mt-12 flex justify-center">
             <button
               onClick={handleLoadMore}
-              className="px-6 py-3 bg-[#F4F4F5] rounded-lg text-sm font-medium text-[#18181B] hover:bg-gray-200 transition-colors"
+              className="px-6 py-3 bg-[#F4F4F5] rounded-lg text-sm font-medium text-[#18181B] hover:bg-gray-200 transition-colors cursor-pointer"
             >
               {loadMoreText}
             </button>

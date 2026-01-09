@@ -70,7 +70,7 @@ const NikaahMarriage = ({ service, params }: { service: any, params: { id: strin
                                 </div>
                                 {/* Add separator if not the last item */}
                                 {index < (service.detailBanner.quickLinks.length - 1) && (
-                                    <div className="h-[112px] w-px bg-[#FFFFFF26] hidden sm:block"></div>
+                                    <div className="h-28 w-px bg-[#FFFFFF26] hidden sm:block"></div>
                                 )}
                             </React.Fragment>
                         ))}
@@ -85,7 +85,7 @@ const NikaahMarriage = ({ service, params }: { service: any, params: { id: strin
                     { label: "Our Services", href: "/services" },
                     { label: title, href: `/our-services/${params.id}` },
                 ]}
-                className="!pb-0 !pt-6 sm:!pt-8 bg-white section-padding"
+                className="pb-0! pt-6! sm:pt-8! bg-white section-padding"
                 showSearch={false}
                 breadcrumbsItemsStyle={"flex-wrap"}
             />

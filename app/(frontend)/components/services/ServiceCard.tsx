@@ -46,7 +46,7 @@ export default function ServiceCard({
           </h3>
 
           {/* Learn More Button */}
-          <button className="flex items-center gap-2 bg-[#3F3F4666] text-white w-fit px-3 py-2.5 sm:px-4 sm:py-3 lg:px-[14px] lg:py-[14px] rounded-xl self-end">
+          <button className="flex items-center gap-2 bg-[#3F3F4666] text-white w-fit px-3 py-2.5 sm:px-4 sm:py-3 lg:px-[14px] lg:py-[14px] rounded-xl self-end cursor-pointer">
             <span className="text-sm sm:text-base lg:text-[18px] leading-6 font-medium">
               Learn More
             </span>
