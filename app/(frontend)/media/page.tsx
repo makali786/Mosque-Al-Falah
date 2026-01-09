@@ -1,54 +1,7 @@
 import MediaFeed from "../components/media/MediaFeed";
 import { QuoteSection } from "../components/common/QuoteSection";
 import { MediaItem } from "../components/media/MediaCard";
-import { fetchMediaItems } from "@lib/fetcher";
-
-// Hardcoded Config as per User Request
-const mediaPageConfig = {
-  pageHeader: {
-    pageTitle: "Media",
-    breadcrumb: "Home > Media",
-    showBreadcrumb: true
-  },
-  filterTabs: {
-    showAllTab: true,
-    allTabLabel: "All",
-    showVideosTab: true,
-    videosTabLabel: "Videos",
-    showPhotoGalleryTab: true,
-    photoGalleryTabLabel: "Photo Gallery",
-    showAudioPodcastTab: true,
-    audioPodcastTabLabel: "Audio/Podcast"
-  },
-  viewOptions: {
-    showViewToggle: true,
-    defaultView: "grid",
-    listViewLabel: "List",
-    gridViewLabel: "Grid",
-    showSearch: true,
-    searchPlaceholder: "Search"
-  },
-  gridSettings: {
-    gridColumns: "3",
-    itemsPerPage: 6,
-    showLoadMore: true,
-    loadMoreButtonText: "Load More"
-  },
-  bottomQuote: {
-    enableSection: true,
-    quoteText: "Whoever guides someone to goodness will have a reward like the one who did it.",
-    author: "Prophet Muhammad ﷺ",
-    showShareButton: true,
-    shareButtonText: "Share this page",
-    showDonateButton: true,
-    donateButtonText: "Donate Now",
-    donateButtonUrl: "/appeals"
-  },
-  emptyStates: {
-    noMediaMessage: "No media items available at this time.",
-    noSearchResults: "No media found. Try adjusting your search or filters."
-  }
-};
+import { fetchMediaItems, fetchGlobal } from "@lib/fetcher";
 
 // Helper function to format date
 const formatDate = (dateString?: string) => {
@@ -63,6 +16,12 @@ const formatDate = (dateString?: string) => {
 };
 
 export default async function MediaPage() {
+  // Fetch dynamic configuration from Payload global
+  const mediaPageConfig: any = await fetchGlobal({
+    slug: 'media-page',
+    depth: 1,
+  });
+
   const fetchedMedia = await fetchMediaItems({
     limit: mediaPageConfig.gridSettings?.itemsPerPage || 12,
     depth: 1,
@@ -99,6 +58,11 @@ export default async function MediaPage() {
           shareButtonText={mediaPageConfig.bottomQuote.shareButtonText}
           donateButtonText={mediaPageConfig.bottomQuote.donateButtonText}
           donateButtonUrl={mediaPageConfig.bottomQuote.donateButtonUrl}
+          shareData={{
+            title: "Media - Masjid Al-Falah",
+            text: mediaPageConfig.bottomQuote.quoteText,
+            url: typeof window !== 'undefined' ? window.location.href : '/media'
+          }}
           backgroundColor="#f4f4f5"
         />
       )}
