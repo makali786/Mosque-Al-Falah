@@ -118,7 +118,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                 : null;
 
               return (
-              <div key={event.id} className="flex flex-col gap-4 sm:hidden">
+                <Link key={event.id} href={`/events/${event.id}`} className="flex flex-col gap-4 sm:hidden">
                 {/* Event Image with Gradient Overlay (Mobile only) */}
                 <div className="relative w-full h-50.5 overflow-hidden">
                     {imageUrl && (
@@ -142,7 +142,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                       {event?.shortDescription || event?.title}
                   </p>
                 </div>
-              </div>
+                </Link>
               )
             })}
 
@@ -153,7 +153,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                 : null;
 
               return (
-              <div key={event.id} className="hidden sm:flex flex-col gap-4">
+                <Link key={event.id} href={`/events/${event.id}`} className="hidden sm:flex flex-col gap-4">
                 {/* Event Image with Play Button */}
                 <div className="relative w-full h-45.25 overflow-hidden">
                     {imageUrl && (
@@ -186,7 +186,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                       {event?.shortDescription || event?.title}
                   </p>
                 </div>
-              </div>
+                </Link>
               )
             })}
           </div>
