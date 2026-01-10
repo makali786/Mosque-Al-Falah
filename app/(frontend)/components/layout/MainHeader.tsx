@@ -53,7 +53,11 @@ interface NavItemProps {
 }
 
 const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, isMobile = false }: NavItemProps) => {
-  const isActive = item.hasDropdown ? pathname.startsWith("/about") : pathname === item.href;
+  const isActive = item.hasDropdown
+    ? pathname.startsWith("/about") || pathname.startsWith("/contact-us")
+    : item.href === "/"
+      ? pathname === "/"
+      : pathname.startsWith(item.href);
   const activeClass = isActive ? "text-[#06b7db]" : isMobile ? "text-white" : "text-[#fafafa]";
 
   if (item.hasDropdown) {
@@ -129,7 +133,11 @@ export default function MainHeader() {
         <div className="hidden lg:flex gap-3 xl:gap-6 2xl:gap-10 items-center shrink-0">
           <nav className="flex gap-2 xl:gap-4 2xl:gap-6 items-center shrink-0">
             {NAV_ITEMS.map((item) => {
-              const isActive = item.hasDropdown ? pathname.startsWith("/about") : pathname === item.href;
+              const isActive = item.hasDropdown
+                ? pathname.startsWith("/about") || pathname.startsWith("/contact-us")
+                : item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
               return (
                 <div
                   key={item.label}
