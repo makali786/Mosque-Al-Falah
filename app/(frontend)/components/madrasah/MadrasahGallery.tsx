@@ -28,16 +28,15 @@ interface GalleryProps {
 
 export default function MadrasahGallery({
   galleryImages = [],
-  sectionLabel = "OUR MADRASAH MOMENTS",
-  sectionTitle = "Madrasah Gallery",
-  description = "Explore our gallery showcasing the vibrant learning environment, engaging Islamic lessons, interactive activities, and more. See the dedication of our students and teachers in nurturing faith, knowledge, and community spirit.",
+  sectionLabel = "",
+  sectionTitle = "",
+  description = "",
   contactButtonText = "Contact Us",
   contactButtonUrl = "/contact",
   enrollButtonText = "Book Your Tour",
-  enrollButtonUrl = "/contact" // assuming separate link or same
+  enrollButtonUrl = "/contact"
 }: GalleryProps) {
-  // Use provided images or fallback to default if empty
-  const images = galleryImages.length > 0 ? galleryImages.map(img => img?.image?.url) : [];
+  const images = galleryImages.length > 0 ? galleryImages.map((img: any) => img?.image?.url) : [];
 
 
 
@@ -52,7 +51,7 @@ export default function MadrasahGallery({
   };
 
   return (
-    <section className="w-full bg-white py-12 sm:py-16 md:py-20">
+    <section className="w-full bg-white py-[60px] sm:py-[100px] md:py-[158px]">
       <div className="section-padding flex flex-col lg:flex-row gap-12 lg:gap-20">
         {/* Left Content */}
         <div className="flex flex-col lg:w-1/2 justify-center">
