@@ -98,7 +98,7 @@ export function AskQuestionSection({
     <section className="w-full py-12 sm:py-16 md:py-20 lg:py-32 hn-container bg-white">
       {/* Container with max-width */}
       <div className="w-full">
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 lg:justify-between items-start">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 xl:justify-between items-start">
           {/* Left Side - Image */}
           <div
             className="hidden lg:block w-full lg:shrink-0 lg:max-w-124.5 xl:max-w-[766px]"
