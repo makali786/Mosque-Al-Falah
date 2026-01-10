@@ -6,292 +6,366 @@ import { getMediaUrl } from "../../../../lib/helper";
 import { RichTextRenderer } from "../../components/common/RichTextRenderer";
 import { QuoteSection } from "../../components/common/QuoteSection";
 import BlogCard from "../../components/blogs/BlogCard";
+import PageHero from "../../components/common/PageHero";
+import { ContentBlock } from "@/components/common/ContentBlock";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
-  if (!dateString) return "";
-  return new Date(dateString).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    if (!dateString) return "";
+    return new Date(dateString).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    });
 };
 
 export const dynamic = "force-dynamic";
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function BlogPostPage({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
+    const { slug } = await params;
 
-  // 1. Fetch Global Config
-  let pageConfig: any;
-  try {
-    pageConfig = await fetchGlobal({ slug: "blogs-page" });
-  } catch (error) {
-    console.error("Error fetching blogs-page config:", error);
-  }
+    // 1. Fetch Global Config
+    let pageConfig: any;
+    try {
+        pageConfig = await fetchGlobal({ slug: "blogs-page" });
+    } catch (error) {
+        console.error("Error fetching blogs-page config:", error);
+    }
 
-  // Set defaults for detail page
-  const detailConfig = pageConfig?.detailPage || {
-    showHeroSection: true,
-    showBreadcrumbOnDetail: true,
-    showPublishedDate: true,
-    showReadingTime: true,
-    showAuthorInfo: true,
-    showTags: true,
-    showSocialShare: true,
-    showRelatedPosts: true,
-    relatedPostsTitle: "Related Posts",
-    relatedPostsCount: 3
-  };
+    // Set defaults
+    const detailConfig = pageConfig?.detailPage || {
+        showHeroSection: true,
+        showBreadcrumbOnDetail: true,
+        showPublishedDate: true,
+        showAuthorInfo: true,
+        showTags: true,
+        showRelatedPosts: true,
+        relatedPostsTitle: "Related Post",
+    };
 
-  // 2. Fetch Blog Post
-  let posts = [];
-  try {
-    posts = await fetchBlogPosts({
-      where: {
-        slug: { equals: slug },
-        isPublished: { equals: true }
-      },
-      depth: 2 // Need depth for related posts and author image
-    });
-  } catch (error) {
-    console.error("Error fetching blog post:", error);
-  }
+    // 2. Fetch Current Blog Post
+    let posts = [];
+    try {
+        posts = await fetchBlogPosts({
+            where: {
+                slug: { equals: slug },
+                isPublished: { equals: true },
+            },
+            depth: 2,
+        });
+    } catch (error) {
+        console.error("Error fetching blog post:", error);
+    }
 
-  const post = posts[0];
+    const post = posts[0];
 
-  if (!post) {
-    notFound();
-  }
+    if (!post) {
+        notFound();
+    }
 
-  const featuredImageUrl = getMediaUrl(post.featuredImage);
-  const authorImageUrl = getMediaUrl(post.author?.avatar);
+    // 3. Fetch Previous & Next Posts
+    let prevPost = null;
+    let nextPost = null;
 
-  return (
-    <main className="min-h-screen bg-white">
-      {/* Breadcrumb */}
-      {detailConfig.showBreadcrumbOnDetail && (
-        <div className="section-padding py-6">
-           <nav className="flex items-center gap-2 text-sm text-[#52525B]">
-            <Link href="/" className="text-[#006FEE] hover:underline">Home</Link>
-            <span className="text-[#71717A]">&gt;</span>
-            <Link href="/blogs" className="text-[#006FEE] hover:underline">Blogs</Link>
-            <span className="text-[#71717A]">&gt;</span>
-            <span className="text-[#18181B] line-clamp-1">{post.title}</span>
-          </nav>
-        </div>
-      )}
+    try {
+        const [prev, next] = await Promise.all([
+            fetchBlogPosts({
+                where: {
+                    publishedDate: { less_than: post.publishedDate },
+                    isPublished: { equals: true },
+                },
+                sort: "-publishedDate",
+                limit: 1,
+            }),
+            fetchBlogPosts({
+                where: {
+                    publishedDate: { greater_than: post.publishedDate },
+                    isPublished: { equals: true },
+                },
+                sort: "publishedDate",
+                limit: 1,
+            }),
+        ]);
+        prevPost = prev[0] || null;
+        nextPost = next[0] || null;
+    } catch (error) {
+        console.error("Error fetching prev/next posts:", error);
+    }
 
-      {/* Hero Section */}
-      {detailConfig.showHeroSection && featuredImageUrl && (
-        <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] relative">
-            <Image 
-                src={featuredImageUrl}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
+    const featuredImageUrl = getMediaUrl(post.featuredImage);
+    const authorImageUrl = getMediaUrl(post.author?.avatar);
+
+    return (
+        <main className="bg-white min-h-screen">
+
+            {/* Hero Section */}
+            {/* Hero Section */}
+            <PageHero
+                title={post.title}
+                breadcrumbs={[
+                    { label: "Home", href: "/" },
+                    { label: "Blogs", href: "/blogs" },
+                    { label: post.title, href: "#" },
+                ]}
+                backgroundImage={featuredImageUrl || ""}
+                pageheroTitleStyle={"max-w-[710px]"}
             />
-            <div className="absolute inset-0 bg-black/30" />
-            <div className="absolute bottom-0 left-0 w-full p-6 md:p-12 text-white">
-                 <div className="section-padding">
-                    {post.category && (
-                        <span className="bg-[#006FEE] text-white px-3 py-1 rounded-md text-sm font-medium mb-4 inline-block">
-                            {post.category.charAt(0).toUpperCase() + post.category.slice(1)}
-                        </span>
-                    )}
-                    <h1 className="text-3xl md:text-5xl font-bold mb-4 max-w-4xl leading-tight">
-                        {post.title}
-                    </h1>
-                    <div className="flex items-center gap-4 text-sm md:text-base">
-                        {detailConfig.showAuthorInfo && (
-                            <div className="flex items-center gap-2">
-                                {authorImageUrl && (
-                                    <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/50">
-                                         <Image src={authorImageUrl} alt={post.author?.name || "Author"} fill className="object-cover" />
-                                    </div>
-                                )}
-                                <span>{post.author?.name || "Masjid Al-Falah"}</span>
-                            </div>
-                        )}
-                        {detailConfig.showPublishedDate && (
-                            <>
-                                <span>•</span>
-                                <span>{formatDate(post.publishedDate)}</span>
-                            </>
-                        )}
-                        {detailConfig.showReadingTime && post.readingTime && (
-                           <>
-                                <span>•</span>
-                                <span>{post.readingTime} min read</span>
-                           </>
-                        )}
-                    </div>
-                 </div>
-            </div>
-        </div>
-      )}
 
-      {/* Content Section */}
-      <article className="section-padding py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
-           {/* Main Content */}
-           <div className="lg:col-span-8">
-                {/* If hero is hidden, show title here */}
-                {(!detailConfig.showHeroSection || !featuredImageUrl) && (
-                    <div className="mb-8">
-                         <h1 className="text-3xl md:text-4xl font-bold text-[#18181B] mb-4">
-                            {post.title}
-                         </h1>
-                         <div className="flex flex-wrap items-center gap-4 text-sm text-[#52525B]">
-                             {detailConfig.showPublishedDate && (
-                                 <div className="flex items-center gap-1.5">
-                                      <Image src="/assets/topbar/calendar-icon.svg" width={16} height={16} alt="Calendar" />
-                                      <span>{formatDate(post.publishedDate)}</span>
-                                 </div>
-                             )}
-                              {detailConfig.showAuthorInfo && (
-                                 <span>By {post.author?.name || "Masjid Al-Falah"}</span>
-                             )}
-                         </div>
-                    </div>
-                )}
+            {/* Content Wrapper */}
+            <div className="max-w-[1000px] mx-auto px-4 md:px-8 py-12 md:py-20">
 
-                <div className="prose prose-lg prose-slate max-w-none">
+                {/* Main Content */}
+                <article className="prose prose-lg prose-slate max-w-none 
+                prose-headings:font-bold prose-headings:text-[#18181B] 
+                prose-p:text-[#52525B] prose-p:leading-relaxed 
+                prose-img:rounded-3xl prose-img:w-full prose-img:my-8
+                prose-a:text-[#006FEE] prose-a:no-underline hover:prose-a:underline
+                prose-blockquote:border-[#006FEE] prose-blockquote:bg-blue-50/30 prose-blockquote:p-6 prose-blockquote:rounded-2xl prose-blockquote:not-italic prose-blockquote:text-[#18181B] prose-blockquote:font-medium
+                prose-li:text-[#52525B] prose-li:marker:text-[#006FEE]">
                     <RichTextRenderer content={post.content} />
-                </div>
+                </article>
+                <ContentBlock
+                    title={post.title}
+                    description={post.content}
+                    image={{
+                        src: featuredImageUrl || "",
+                        alt: post.title,
+                    }}
+                />
+
+
 
                 {/* Tags */}
-                {detailConfig.showTags && post.tags && post.tags.length > 0 && (
-                    <div className="mt-12 flex flex-wrap gap-2">
-                        {post.tags.map((tagItem: any, index: number) => (
-                            <span key={index} className="bg-[#F4F4F5] text-[#52525B] px-3 py-1.5 rounded-lg text-sm">
-                                #{tagItem.tag}
-                            </span>
-                        ))}
-                    </div>
-                )}
-                
-                {/* Social Share (Placeholder) */}
-                {detailConfig.showSocialShare && (
-                    <div className="mt-8 pt-8 border-t border-[#E4E4E7] flex flex-wrap items-center gap-4">
-                        <span className="font-medium text-[#18181B]">Share this post:</span>
-                        <div className="flex items-center gap-2">
-                             {/* Add actual share buttons here if needed */}
-                             <button className="p-2 rounded-full bg-[#F4F4F5] hover:bg-[#E4E4E7] transition-colors">
-                                 <svg className="w-5 h-5 text-[#52525B]" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                             </button>
-                             <button className="p-2 rounded-full bg-[#F4F4F5] hover:bg-[#E4E4E7] transition-colors">
-                                 <svg className="w-5 h-5 text-[#52525B]" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
-                             </button>
+                {/* {detailConfig.showTags && post.tags && post.tags.length > 0 && (
+                  <div className="mt-12 md:mt-16 flex items-center gap-4 border-t border-gray-100 pt-8">
+                      <span className="text-sm font-bold text-[#18181B] uppercase tracking-wide">Tags:</span>
+                      <div className="flex flex-wrap gap-2">
+                          {post.tags.map((tagItem: any, index: number) => (
+                              <span
+                                  key={index}
+                                  className="bg-[#002E62] text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide"
+                              >
+                                  {tagItem.tag}
+                              </span>
+                          ))}
+                      </div>
+                  </div>
+              )} */}
+
+                {/* Previous / Next Navigation */}
+                {/* <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Prev */}
+                {/* <div className={`border border-gray-100 rounded-2xl p-6 hover:bg-gray-50 transition-colors ${!prevPost ? 'invisible' : ''}`}>
+                  {prevPost && (
+                      <Link href={`/blogs/${prevPost.slug}`} className="flex gap-4 items-center">
+                          <div className="w-16 h-16 bg-blue-100 rounded-lg shrink-0 overflow-hidden relative">
+                              {prevPost.featuredImage && (
+                                  <Image src={getMediaUrl(prevPost.featuredImage)!} alt={prevPost.title} fill className="object-cover" />
+                              )}
+                          </div>
+                          <div>
+                              <span className="text-xs text-gray-400 font-medium uppercase mb-1 block">Previous Post</span>
+                              <h4 className="text-sm font-bold text-gray-900 line-clamp-2">{prevPost.title}</h4>
+                          </div>
+                      </Link>
+                  )}
+              </div> */}
+
+                {/* Next */}
+                {/* <div className={`border border-gray-100 rounded-2xl p-6 hover:bg-gray-50 transition-colors flex justify-end text-right ${!nextPost ? 'invisible' : ''}`}>
+                  {nextPost && (
+                      <Link href={`/blogs/${nextPost.slug}`} className="flex gap-4 items-center flex-row-reverse">
+                          <div className="w-16 h-16 bg-blue-100 rounded-lg shrink-0 overflow-hidden relative">
+                              {nextPost.featuredImage && (
+                                  <Image src={getMediaUrl(nextPost.featuredImage)!} alt={nextPost.title} fill className="object-cover" />
+                              )}
+                          </div>
+                          <div>
+                              <span className="text-xs text-gray-400 font-medium uppercase mb-1 block">Next Post</span>
+                              <h4 className="text-sm font-bold text-gray-900 line-clamp-2">{nextPost.title}</h4>
+                          </div>
+                      </Link>
+                  )}
+              </div> */}
+                {/* </div>  */}
+
+            </div>
+
+            {/* Related Posts */}
+            {
+                detailConfig.showRelatedPosts && (
+                    <div className="bg-white py-16 border-t border-gray-100">
+                        <div className="section-padding max-w-[1280px] mx-auto">
+                            <div className="flex items-center justify-between mb-8">
+                                <h3 className="text-2xl font-bold text-[#18181B]">{detailConfig.relatedPostsTitle}</h3>
+                                <div className="flex gap-2">
+                                    <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"><span className="text-gray-400 text-xl">‹</span></button>
+                                    <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-[#0000FF10] text-[#006FEE] bg-[#0000FF10]"><span className="text-xl">›</span></button>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {(post.relatedPosts && post.relatedPosts.length > 0
+                                    ? post.relatedPosts
+                                    : (posts.length > 0 ? posts.slice(0, 3) : []) // Fallback if no specific related posts
+                                ).map((related: any) => (
+                                    // @ts-expect-error - Related post typing
+                                    <BlogCard
+                                        key={related.id}
+                                        {...{
+                                            id: related.id,
+                                            slug: related.slug,
+                                            title: related.title,
+                                            description: related.excerpt || "",
+                                            date: formatDate(related.publishedDate),
+                                            category: related.category ? related.category.charAt(0).toUpperCase() + related.category.slice(1) : "General",
+                                            imageUrl: getMediaUrl(related.featuredImage) || "",
+                                        }}
+                                        appearance={{
+                                            showFeaturedImage: true,
+                                            showCategoryBadge: true,
+                                            showDate: true,
+                                            showExcerpt: true,
+                                            showReadMoreButton: true,
+                                            readMoreButtonText: "Read More",
+                                            cardStyle: "shadow"
+                                        }}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
-                )}
-                {/* Comments Section */}
-                {detailConfig.enableComments && post.comments && post.comments.length > 0 && (
-                    <div className="mt-16 pt-12 border-t border-[#E4E4E7]">
-                        <h3 className="text-2xl font-bold text-[#18181B] mb-8">
-                            {pageConfig?.commentsSettings?.commentsSectionTitle || "Comments"} ({post.comments.length})
-                        </h3>
-                        <div className="space-y-8">
-                             {/* @ts-expect-error - Comment type loose */}
-                             {post.comments.map((comment: any) => (
-                                 <div key={comment.id} className="flex gap-4">
-                                     {comment.userAvatar || pageConfig?.commentsSettings?.showUserAvatars ? (
-                                         <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
-                                             {comment.userAvatar ? (
-                                                 <Image src={getMediaUrl(comment.userAvatar) || ""} alt={comment.userName} fill className="object-cover" />
-                                             ) : (
-                                                 <div className="w-full h-full flex items-center justify-center text-[#71717A] text-lg font-bold">
-                                                     {comment.userName.charAt(0)}
-                                                 </div>
-                                             )}
-                                         </div>
-                                     ) : null}
-                                     <div className="flex-1">
-                                         <div className="bg-[#FAFAFA] rounded-2xl p-4 sm:p-6">
-                                             <div className="flex items-center justify-between mb-2">
-                                                 <h4 className="font-bold text-[#18181B]">{comment.userName}</h4>
-                                                 <span className="text-xs text-[#71717A]">{new Date(comment.commentDate).toLocaleDateString()}</span>
-                                             </div>
-                                             <p className="text-[#52525B] text-sm leading-relaxed">{comment.comment}</p>
-                                         </div>
-                                         
-                                         {/* Replies */}
-                                         {comment.replies && comment.replies.length > 0 && (
-                                             <div className="mt-4 pl-4 sm:pl-12 space-y-4">
-                                                 {comment.replies.map((reply: any) => (
-                                                     <div key={reply.id} className="flex gap-4">
-                                                          <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-100 flex-shrink-0">
-                                                              {/* Placeholder for reply avatar */}
-                                                              <div className="w-full h-full flex items-center justify-center text-[#71717A] text-xs font-bold">
-                                                                 {reply.userName.charAt(0)}
-                                                              </div>
-                                                          </div>
-                                                          <div className="bg-[#FAFAFA] rounded-2xl p-4 flex-1">
-                                                              <div className="flex items-center justify-between mb-2">
-                                                                 <h4 className="font-semibold text-[#18181B] text-sm">{reply.userName}</h4>
-                                                                 <span className="text-xs text-[#71717A]">{new Date(reply.replyDate).toLocaleDateString()}</span>
-                                                              </div>
-                                                              <p className="text-[#52525B] text-sm leading-relaxed">{reply.replyText}</p>
-                                                          </div>
-                                                     </div>
-                                                 ))}
-                                             </div>
-                                         )}
-                                     </div>
-                                 </div>
-                             ))}
+                )
+            }
+
+            {/* Comments Section */}
+            <div className="bg-white py-12 md:py-16">
+                <div className="max-w-[900px] mx-auto px-4 md:px-8">
+                    <h3 className="text-2xl font-bold text-[#18181B] mb-12 text-center">Comments</h3>
+
+                    {/* Comment List */}
+                    {post.comments && post.comments.length > 0 ? (
+                        <div className="space-y-8 mb-16">
+                            {/* @ts-expect-error - Comment type */}
+                            {post.comments.map((comment: any) => (
+                                <div key={comment.id} className="bg-white border text-[#52525B] border-gray-100 p-6 rounded-2xl shadow-sm">
+                                    <div className="flex gap-4">
+                                        <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100 shrink-0">
+                                            {comment.userAvatar ? (
+                                                <Image src={getMediaUrl(comment.userAvatar)!} alt={comment.userName} fill className="object-cover" />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold bg-gray-100">
+                                                    {comment.userName.charAt(0)}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="flex-1">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <div>
+                                                    <h4 className="font-bold text-[#18181B] text-sm">{comment.userName}</h4>
+                                                    <p className="text-xs text-gray-400 mt-0.5">{new Date(comment.commentDate).toLocaleDateString()}</p>
+                                                </div>
+                                                <button className="text-[#006FEE] text-sm font-semibold hover:underline">Reply</button>
+                                            </div>
+                                            <p className="text-sm leading-relaxed text-[#52525B] mt-3">
+                                                {comment.comment}
+                                            </p>
+
+                                            {/* Replies */}
+                                            {comment.replies && comment.replies.length > 0 && (
+                                                <div className="mt-6 space-y-4 pl-4 border-l-2 border-gray-100">
+                                                    {comment.replies.map((reply: any) => (
+                                                        <div key={reply.id} className="flex gap-4">
+                                                            <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-100 shrink-0">
+                                                                <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs font-bold">
+                                                                    {reply.userName.charAt(0)}
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <div className="flex items-center gap-2 mb-1">
+                                                                    <h4 className="font-bold text-[#18181B] text-xs">{reply.userName}</h4>
+                                                                    <span className="text-[10px] text-gray-400">Edit</span>
+                                                                </div>
+                                                                <p className="text-xs leading-relaxed text-[#52525B]">
+                                                                    {reply.replyText}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    </div>
-                )}
-           </div>
+                    ) : (
+                        <p className="text-center text-gray-500 mb-12">No comments yet. Be the first to share your thoughts!</p>
+                    )}
 
-           {/* Sidebar / Related Posts */}
-           <div className="lg:col-span-4 space-y-8">
-               {detailConfig.showRelatedPosts && (
-                 <div className="bg-[#FAFAFA] md:bg-transparent rounded-2xl md:rounded-none p-6 md:p-0">
-                    <h3 className="text-xl font-bold text-[#18181B] mb-6">{detailConfig.relatedPostsTitle}</h3>
-                    <div className="flex flex-col gap-6">
-                        {post.relatedPosts && post.relatedPosts.length > 0 ? (
-                            // @ts-expect-error - Related post type might be loose
-                            post.relatedPosts.map((related: any) => (
-                                <BlogCard 
-                                    key={related.id} 
-                                    {...{
-                                        id: related.id,
-                                        slug: related.slug,
-                                        title: related.title,
-                                        description: related.excerpt || "",
-                                        date: formatDate(related.publishedDate),
-                                        category: related.category ? related.category.charAt(0).toUpperCase() + related.category.slice(1) : "General",
-                                        imageUrl: getMediaUrl(related.featuredImage) || "",
-                                    }}
-                                    appearance={{
-                                        showFeaturedImage: true,
-                                        showCategoryBadge: false,
-                                        showDate: true,
-                                        showExcerpt: false,
-                                        showReadMoreButton: false,
-                                        cardStyle: "transparent"
-                                    }}
-                                />
-                            ))
-                        ) : (
-                             <p className="text-sm text-[#71717A]">No related posts found.</p>
-                        )}
-                    </div>
-                 </div>
-               )}
-           </div>
-      </article>
+                    {/* Leave a Reply Form */}
+                    <div className="bg-white border border-gray-200 rounded-[20px] p-8 shadow-sm">
+                        <h3 className="text-xl font-bold text-[#18181B] mb-8 text-center">Leave a Reply</h3>
+                        <form className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Full Name *"
+                                        className="w-full px-4 py-3 rounded-xl bg-[#F4F4F5] border-none text-sm text-[#18181B] placeholder:text-[#A1A1AA] focus:ring-1 focus:ring-[#006FEE] outline-none"
+                                    />
+                                    <p className="text-[10px] text-gray-400 mt-1 ml-1">Type full name</p>
+                                </div>
+                                <div>
+                                    <input
+                                        type="email"
+                                        placeholder="Email *"
+                                        className="w-full px-4 py-3 rounded-xl bg-[#F4F4F5] border-none text-sm text-[#18181B] placeholder:text-[#A1A1AA] focus:ring-1 focus:ring-[#006FEE] outline-none"
+                                    />
+                                    <p className="text-[10px] text-gray-400 mt-1 ml-1">Enter your Email</p>
+                                </div>
+                            </div>
+                            <div>
+                                <textarea
+                                    rows={5}
+                                    placeholder="Message me"
+                                    className="w-full px-4 py-3 rounded-xl bg-[#F4F4F5] border-none text-sm text-[#18181B] placeholder:text-[#A1A1AA] focus:ring-1 focus:ring-[#006FEE] outline-none resize-none"
+                                ></textarea>
+                            </div>
 
-      {/* Quote Section */}
-      {pageConfig?.bottomQuote?.enableSection && (
-         <QuoteSection 
-           quote={pageConfig.bottomQuote.quoteText}
-           attribution={pageConfig.bottomQuote.author}
-           donateButtonUrl="/donate"
-           backgroundColor="#F4F4F5"
-           shareButtonText={pageConfig.bottomQuote.shareButtonText}
-           donateButtonText={pageConfig.bottomQuote.donateButtonText}
-         />
-      )}
-    </main>
-  );
+                            <div className="flex items-start gap-3">
+                                <input type="checkbox" id="save-info" className="mt-1 w-4 h-4 text-[#006FEE] rounded border-gray-300 focus:ring-[#006FEE]" />
+                                <label htmlFor="save-info" className="text-sm text-[#71717A]">Save my name, email, and website in this browser for the next time I comment.</label>
+                            </div>
+
+                            <div className="pt-2">
+                                <button
+                                    type="submit"
+                                    className="px-8 py-3 bg-[#006FEE] text-white font-medium rounded-xl text-sm hover:bg-[#005bc4] transition-colors"
+                                >
+                                    Post comment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {/* Quote Section Footer */}
+            {pageConfig?.bottomQuote?.enableSection && (
+                <QuoteSection
+                    quote={pageConfig.bottomQuote.quoteText}
+                    attribution={pageConfig.bottomQuote.author}
+                    donateButtonUrl="/donate"
+                    backgroundColor="#F4F4F5"
+                    shareButtonText={pageConfig.bottomQuote.shareButtonText}
+                    donateButtonText={pageConfig.bottomQuote.donateButtonText}
+                />
+            )}
+        </main>
+    );
 }

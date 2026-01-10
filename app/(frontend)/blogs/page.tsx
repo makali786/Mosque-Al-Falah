@@ -14,9 +14,6 @@ export default async function BlogsPage() {
     }
   });
 
-
-
-  // Transform Data
   const initialPosts = postsData.map((post: any) => ({
     id: post.id,
     slug: post.slug,
