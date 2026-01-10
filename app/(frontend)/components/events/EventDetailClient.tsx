@@ -267,7 +267,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                 </div>
                 <Separator className="my-12" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 space-y-12">
                     {/* Left Column: 2/3 */}
                     <div className="lg:col-span-2 space-y-12">
 
@@ -493,10 +493,10 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                 {/* Upcoming Events */}
                 {relatedEvents && relatedEvents.length > 0 && (
-                    <div className="mt-24">
-                        <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-2xl font-bold text-[#18181B]">Upcoming events</h2>
-                            <div className="flex gap-2">
+                    <div className="mt-12">
+                        <div className="flex justify-between mb-8 flex-wrap gap-3 lg:gap-0 lg:flex-nowrap lg:min-h-[92px]">
+                            <h2 className="text-2xl sm:text-4xl font-bold text-[#27272A]">Upcoming events</h2>
+                            <div className="flex gap-12 self-end">
                                 <button
                                     onClick={() => scroll("left")}
                                     disabled={!canScrollLeft}
@@ -515,11 +515,11 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         </div>
                         <div
                             ref={scrollContainerRef}
-                            className="flex overflow-x-auto gap-6 scrollbar-hide pb-4"
+                            className="flex overflow-x-auto gap-8 scrollbar-hide pb-4"
                             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                         >
                             {relatedEvents.map((event: any) => (
-                                <div key={event.id} className="min-w-[300px] md:min-w-[350px] lg:min-w-[380px] flex-shrink-0">
+                                <div key={event.id} className="min-w-[300px] md:min-w-[350px] lg:min-w-[357px] flex-shrink-0">
                                     <EventCard event={event} layout="grid" />
                                 </div>
                             ))}
