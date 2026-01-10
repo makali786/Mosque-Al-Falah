@@ -60,7 +60,7 @@ export function QuoteSection({
               "{quote}"
             </p>
             <p className="mb-0">
-              — {attribution}
+              {attribution}
             </p>
           </blockquote>
         </div>

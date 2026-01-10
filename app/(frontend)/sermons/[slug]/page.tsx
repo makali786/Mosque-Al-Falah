@@ -50,10 +50,7 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
     }
 
     const sermon = sermonsData[0];
-    
-    // Fetch Global Data for Related Sermons logic styling/config if needed, 
-    // but we can just fetch random/latest sermons for "Related".
-    // Let's fetch related sermons (excluding current one by ID).
+
     const relatedSermons = await fetchSermons({
         limit: 10,
         sort: "-sermonDate",
@@ -72,6 +69,39 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
     const mediaUrl = typeof sermon.image === 'string' 
         ? sermon.image 
         : getMediaUrl(sermon.image);
+
+  // Helper to convert URLs to Embed URLs
+  const getEmbedUrl = (url: string | null | undefined) => {
+    if (!url) return "";
+
+    // If already an embed URL, return as is
+    if (url.includes("/embed/")) return url;
+
+    // Convert youtube.com/watch?v= or youtu.be/ to embed format
+    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/;
+    const youtubeMatch = url.match(youtubeRegex);
+
+    if (youtubeMatch && youtubeMatch[1]) {
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+    }
+
+    // Convert vimeo.com/video/ID to player.vimeo.com/video/ID format
+    const vimeoRegex = /vimeo\.com\/(?:video\/)?(\d+)(?:\?h=([a-zA-Z0-9]+))?/;
+    const vimeoMatch = url.match(vimeoRegex);
+
+    if (vimeoMatch && vimeoMatch[1]) {
+      const videoId = vimeoMatch[1];
+      const hash = vimeoMatch[2];
+      return hash
+        ? `https://player.vimeo.com/video/${videoId}?h=${hash}`
+        : `https://player.vimeo.com/video/${videoId}`;
+    }
+
+    // Return original URL for other platforms
+    return url;
+  };
+
+  const embedUrl = getEmbedUrl(videoUrl);
 
     // Breadcrumbs
     const breadcrumbs = [
@@ -119,30 +149,31 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
       {/* 3. Media Player / Hero Image */}
       <div className="section-padding pb-12 lg:max-h-[527px]">
             <div className="relative w-full max-w-[1000px] mx-auto aspect-video bg-gray-900 rounded-[20px] overflow-hidden shadow-2xl group">
+          {/* Video Player or Hero Image */}
+          {embedUrl ? (
+            <iframe
+              src={embedUrl}
+              title={title}
+              className="w-full h-full"
+              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          ) : (
+            <>
                 {/* Background Image */}
                 {mediaUrl && (
-                    <Image 
-                        src={mediaUrl} 
-                        alt={title} 
-                        fill 
-                        className="object-cover opacity-90 transition-opacity"
-                    />
+                  <Image
+                    src={mediaUrl}
+                    alt={title}
+                    fill
+                    className="object-cover opacity-90 transition-opacity"
+                  />
                 )}
-                
-                {/* Play Button Overlay - If Video URL exists */}
-                {videoUrl && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                         <Link href={videoUrl} target="_blank" className="relative z-10 w-[36px] h-[36px] md:w-[56px] md:h-[56px] bg-white rounded-full flex items-center justify-center">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-gray-900 ml-1">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                         </Link>
-                         {/* Ripple effect/Backdrop */}
-                         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors"></div>
-                    </div>
+
+              </>
                 )}
-                 
-                 {/* Fallback for no video: Just Image covers it */}
+
         </div>
       </div>
 

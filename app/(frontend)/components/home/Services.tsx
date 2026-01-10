@@ -8,11 +8,13 @@ interface Service {
   id: number;
   image: string | null;
   title: string;
+  slug: string;
 }
 
 interface RawService {
   id: number;
   title: string;
+  slug: string;
   image?: string | { url: string } | null;
   media?: {
     cardImage?: {
@@ -31,6 +33,7 @@ export default function Services({ services = [] }: { services: RawService[] }) 
   const mappedServices: Service[] = services.map((service) => ({
     id: service.id,
     title: service.title,
+    slug: service.slug,
     image: (typeof service.image === "string" ? service.image : service.image?.url) || (service.media?.cardImage?.url) || null,
   }));
 
@@ -94,7 +97,7 @@ export default function Services({ services = [] }: { services: RawService[] }) 
 
           {/* Right: View All Services Button */}
           <Link
-            href="/services"
+            href="/our-services"
             className="relative flex items-center justify-center w-31.5 h-31.5 sm:w-37.5 sm:h-37.5 md:w-43.75 md:h-43.75 lg:w-50 lg:h-50 shrink-0"
           >
             {/* Circle Background SVG */}
@@ -140,7 +143,7 @@ export default function Services({ services = [] }: { services: RawService[] }) 
 
               {/* Learn More Button */}
               <Link
-                href={`/services/${service?.id}`}
+                href={`/our-services/${service?.slug}`}
                 className="relative z-10 bg-[rgba(63,63,70,0.4)] h-8 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
               >
                 <span className="text-xs font-normal text-white leading-4">
@@ -181,7 +184,7 @@ export default function Services({ services = [] }: { services: RawService[] }) 
                   fill
                   className="object-cover"
                 />
-              )}              {/* Gradient Overlay */}
+              )}
               <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/70 to-transparent rounded-xl" />
 
               {/* Title */}
@@ -191,7 +194,7 @@ export default function Services({ services = [] }: { services: RawService[] }) 
 
               {/* Learn More Button */}
               <Link
-                href={`/services/${service?.id}`}
+                href={`/our-services/${service?.slug}`}
                 className="relative ml-auto z-10 bg-[rgba(63,63,70,0.4)] h-10 sm:h-10.5 md:h-11 lg:h-12 px-3 sm:px-3.5 md:px-3.5 lg:px-4 rounded-lg w-35 sm:w-37.5 md:w-39 lg:w-40.5 flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
               >
                 <span className="text-sm leading-5 sm:text-sm sm:leading-5 md:text-base md:leading-6 lg:text-base lg:leading-6 font-normal text-white">

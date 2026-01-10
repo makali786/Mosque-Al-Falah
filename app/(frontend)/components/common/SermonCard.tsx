@@ -16,6 +16,7 @@ export interface SermonCardProps {
     guestSpeaker?: {
       name?: string;
       title?: string;
+       avatar?: string | { url: string } | null;
     };
     author?: {
       name: string;
@@ -43,10 +44,18 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
 
   const title = sermon.title;
 
-  const authorName = sermon.author?.name || sermon.guestSpeaker?.name || "Unknown";
-  const authorRole = sermon.author?.role || sermon.guestSpeaker?.title || "";
-  const authorInitials = sermon.author?.initials || (authorName ? authorName.substring(0, 2).toUpperCase() : "NA");
-  const authorAvatar = sermon.author?.avatar; 
+   const guestSpeaker = sermon.guestSpeaker;
+   const useGuest = !!(guestSpeaker?.name);
+
+   const authorName = (useGuest ? guestSpeaker!.name : sermon.author?.name) || "Unknown";
+   const authorRole = (useGuest ? guestSpeaker!.title : sermon.author?.role) || "";
+
+   const rawAvatar = useGuest ? guestSpeaker!.avatar : sermon.author?.avatar;
+   const authorAvatar = (typeof rawAvatar === 'object' && rawAvatar !== null && 'url' in rawAvatar)
+      ? rawAvatar.url
+      : (typeof rawAvatar === 'string' ? rawAvatar : null);
+
+   const authorInitials = (!useGuest && sermon.author?.initials) || (authorName.substring(0, 2).toUpperCase()); 
 
    const videoUrl = sermon.videoUrl || "";
    const slug = sermon.slug || sermon.id;

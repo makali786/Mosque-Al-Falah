@@ -37,7 +37,8 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
     const [activeTab, setActiveTab] = useState<"video" | "photos" | "audio">("video");
     const [donationAmount, setDonationAmount] = useState<number | string | null>(null);
     const [guestCount, setGuestCount] = useState<number>(1);
-    const amounts = [10, 20, 50, 100];
+    const amounts = config?.donationAmounts || [];
+    const maxGuests = config?.maxGuests || 0;
 
     // Carousel Logic
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -344,7 +345,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         {/* Description */}
                         <div className="prose prose-blue max-w-none text-[#52525B]">
                             {description ? <RichTextRenderer content={description} /> : (
-                                <p>Join us for an unforgettable evening of soulful Qur'anic recitations...</p>
+                                <p className="text-gray-500 italic">No description available for this event.</p>
                             )}
                         </div>
 
@@ -355,7 +356,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <div className="flex-1 bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
                                         <label className="text-xs font-normal text-[#52525B]">Full Name <span className="text-[#EF4444]">*</span></label>
-                                        <input type="text" defaultValue="Toufik Hasan" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
+                                        <input type="text" placeholder="Enter your full name" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
                                     </div>
                                     <div className="w-full sm:w-[180px] bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit flex items-center justify-between cursor-pointer relative">
                                         <select
@@ -363,7 +364,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                             onChange={(e) => setGuestCount(Number(e.target.value))}
                                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer appearance-none z-10"
                                         >
-                                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                            {Array.from({ length: maxGuests }, (_, i) => i + 1).map((num) => (
                                                 <option key={num} value={num}>
                                                     {num} {num === 1 ? 'Guest' : 'Guests'}
                                                 </option>
@@ -384,7 +385,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                                 <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
                                     <label className="text-xs font-normal text-[#52525B]">Phone Number</label>
-                                    <input type="tel" defaultValue="+440 123 456 789" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
+                                    <input type="tel" placeholder="Enter your phone number" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
                                 </div>
 
                                 <button className="px-6 py-3 bg-[#D4D4D8] text-sm rounded-xl cursor-pointer">
@@ -410,16 +411,32 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                                     {/* Map Placeholder */}
                                     <div className="w-full h-[198px] bg-[#E4E4E7] mb-4 relative overflow-hidden">
-                                        <div className="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=Ilford,Essex&zoom=14&size=600x300&sensor=false')] bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" />
+                                        <div
+                                            className="absolute inset-0 bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500"
+                                            style={{
+                                                backgroundImage: address ? `url('https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(address)}&zoom=14&size=600x300&sensor=false')` : undefined
+                                            }}
+                                        />
+                                        {!address && <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm">Map unavailable</div>}
                                     </div>
 
                                     <div className="flex gap-3">
-                                        <button className="py-3 px-4 bg-[#3F3F46] text-white text-sm rounded-lg cursor-pointer">
+                                        <a
+                                            href={address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : "#"}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="py-3 px-4 bg-[#3F3F46] text-white text-sm rounded-lg cursor-pointer text-center"
+                                        >
                                             View on Map
-                                        </button>
-                                        <button className="py-3 px-4 bg-[#006FEE] text-white text-sm rounded-lg cursor-pointer">
+                                        </a>
+                                        <a
+                                            href={address ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}` : "#"}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="py-3 px-4 bg-[#006FEE] text-white text-sm rounded-lg cursor-pointer text-center"
+                                        >
                                             Get Directions
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
 
@@ -440,13 +457,13 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         {/* Donate Section */}
                         <div className="space-y-3">
                             <div className="border-b border-gray-100 pb-3">
-                                <h3 className="text-lg font-semibold mb-2">Donate to Masjid Al Falah</h3>
+                                <h3 className="text-lg font-semibold mb-2">Donate to {venue}</h3>
                                 <p className="text-sm text-[#3F3F46]">Support our community services and events. Your contribution makes a difference.</p>
                             </div>
                             <div className="space-y-3">
                                 <span className="text-xs font-medium text-[#52525B]">Amount:</span>
                                 <div className="flex gap-2 flex-wrap mt-3">
-                                    {amounts.map((amount) => (
+                                    {amounts.map((amount: any) => (
                                         <button
                                             key={amount}
                                             onClick={() => setDonationAmount(amount)}
@@ -464,24 +481,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                 </div>
                             </div>
 
-                            {/* Privacy / Profile */}
-                            <div className="space-y-2">
-                                <span className="text-xs font-medium text-[#52525B]">Your donation will appear as:</span>
-                                <div className="flex items-center justify-between px-3 py-2 bg-[#F4F4F5] rounded-lg mt-3">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-8 h-8 rounded-full overflow-hidden relative bg-gray-200">
-                                            <Image src="/assets/sermons/taraweeh-sermons.png" alt="Avatar" fill className="object-cover" />
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-sm font-medium text-[#18181B]">Anonymous kind soul</span>
-                                            <span className="text-[10px] text-[#A1A1AA]">£35 GBP, a few moments ago</span>
-                                        </div>
-                                    </div>
-                                    <button className="text-xs font-medium text-[#18181B] hover:underline cursor-pointer">
-                                        Edit
-                                    </button>
-                                </div>
-                            </div>
+
 
                             {/* Donate Button */}
                             <button className="py-3 px-4 bg-[#006FEE] text-white rounded-lg text-sm mt-1 cursor-pointer">
