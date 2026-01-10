@@ -76,16 +76,12 @@ export default function ServiceQuote({ quote, testimonials = [], images }: Servi
           </div>
 
           {/* Carousel Section */}
-          <div className="w-full lg:flex-1 relative min-h-[300px] lg:min-h-full">
-            {images.length > 0 && (
-              <Image
-                src={images[currentImageIndex]}
-                alt="Service gallery image"
-                fill
-                className="object-cover object-center"
-                priority
-              />
-            )}
+          <div
+            className="w-full lg:flex-1 relative min-h-[300px] lg:min-h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: images.length > 0 ? `url('${images[currentImageIndex]}')` : 'none'
+            }}
+          >
 
             {/* Navigation Buttons */}
             <div className="absolute bottom-6 right-6 flex">
