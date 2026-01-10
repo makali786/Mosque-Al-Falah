@@ -124,7 +124,7 @@ export function AskQuestionSection({
           </div>
 
           {/* Right Side - Form Section */}
-          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-[42px] lg:max-w-[494px]">
+          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-[42px] xl:max-w-[494px]">
             {/* Heading */}
             <div className="flex flex-col gap-5 sm:gap-7">
               <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 xl:text-5xl lg:leading-12 text-black">
