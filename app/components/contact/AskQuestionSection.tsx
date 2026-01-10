@@ -101,7 +101,7 @@ export function AskQuestionSection({
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 lg:justify-between items-start">
           {/* Left Side - Image */}
           <div
-            className="hidden lg:block w-full lg:shrink-0 lg:max-w-[766px]"
+            className="hidden lg:block w-full lg:shrink-0 lg:max-w-124.5 xl:max-w-[766px]"
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,
@@ -109,7 +109,7 @@ export function AskQuestionSection({
             }}
           >
             <div
-              className="relative w-full rounded-2xl sm:rounded-3xl lg:rounded-[20px] overflow-hidden lg:max-w-[766px]"
+              className="relative w-full rounded-2xl sm:rounded-3xl lg:rounded-[20px] overflow-hidden lg:max-w-124.5 xl:max-w-[766px]"
               style={{
                 aspectRatio: `${imageWidth} / ${imageHeight}`,
               }}
