@@ -119,6 +119,9 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                     href: "#register",
                 }}
                 Separator={true}
+                imageHeight={396}
+                imageWidth={420}
+                sectionImageStyle="lg:!max-w-[420px] lg:!max-h-[396px]"
             />
 
             <EventMediaSection

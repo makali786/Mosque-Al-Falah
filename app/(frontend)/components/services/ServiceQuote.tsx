@@ -44,9 +44,9 @@ export default function ServiceQuote({ quote, testimonials = [], images }: Servi
   const currentTestimonial = allTestimonials[currentTestimonialIndex] || { text: "", attribution: "" };
 
   return (
-    <section className="w-full my-16 lg:max-h-[400px]">
+    <section className="w-full my-16">
       <div className="section-padding">
-        <div className="flex flex-col lg:flex-row border border-[#CCE3FD] bg-white rounded-lg  shadow-sm overflow-hidden">
+        <div className="flex flex-col lg:flex-row border border-[#CCE3FD] bg-white rounded-lg  shadow-sm overflow-hidden lg:min-h-[400px]">
           {/* Quote Section */}
           <div className="w-full lg:max-w-[496px] p-8 md:p-12 lg:p-16 flex flex-col justify-center relative">
             <div className="space-y-4">
@@ -77,17 +77,15 @@ export default function ServiceQuote({ quote, testimonials = [], images }: Servi
 
           {/* Carousel Section */}
           <div className="w-full lg:flex-1 relative min-h-[300px] lg:min-h-full">
-            <div className="absolute inset-0">
-              {images.length > 0 && (
-                <Image
-                  src={images[currentImageIndex]}
-                  alt="Slide"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              )}
-            </div>
+            {images.length > 0 && (
+              <Image
+                src={images[currentImageIndex]}
+                alt="Service gallery image"
+                fill
+                className="object-cover object-center"
+                priority
+              />
+            )}
 
             {/* Navigation Buttons */}
             <div className="absolute bottom-6 right-6 flex">
