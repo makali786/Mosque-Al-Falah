@@ -7,7 +7,6 @@ import { RichTextRenderer } from "../../components/common/RichTextRenderer";
 import { QuoteSection } from "../../components/common/QuoteSection";
 import BlogCard from "../../components/blogs/BlogCard";
 import PageHero from "../../components/common/PageHero";
-import { ContentBlock } from "@/components/common/ContentBlock";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -103,7 +102,6 @@ export default async function BlogPostPage({
         <main className="bg-white min-h-screen">
 
             {/* Hero Section */}
-            {/* Hero Section */}
             <PageHero
                 title={post.title}
                 breadcrumbs={[
@@ -116,7 +114,7 @@ export default async function BlogPostPage({
             />
 
             {/* Content Wrapper */}
-            <div className="max-w-[1000px] mx-auto px-4 md:px-8 py-12 md:py-20">
+            <div className="max-w-250 mx-auto px-4 md:px-8 py-12 md:py-20">
 
                 {/* Main Content */}
                 <article className="prose prose-lg prose-slate max-w-none 
@@ -199,7 +197,7 @@ export default async function BlogPostPage({
             {
                 detailConfig.showRelatedPosts && (
                     <div className="bg-white py-16 border-t border-gray-100">
-                        <div className="section-padding max-w-[1280px] mx-auto">
+                        <div className="section-padding max-w-7xl mx-auto">
                             <div className="flex items-center justify-between mb-8">
                                 <h3 className="text-2xl font-bold text-[#18181B]">{detailConfig.relatedPostsTitle}</h3>
                                 <div className="flex gap-2">
@@ -244,7 +242,7 @@ export default async function BlogPostPage({
 
             {/* Comments Section */}
             <div className="bg-white py-12 md:py-16">
-                <div className="max-w-[900px] mx-auto px-4 md:px-8">
+                <div className="max-w-225 mx-auto px-4 md:px-8">
                     <h3 className="text-2xl font-bold text-[#18181B] mb-12 text-center">Comments</h3>
 
                     {/* Comment List */}

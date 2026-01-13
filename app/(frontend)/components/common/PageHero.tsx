@@ -52,12 +52,12 @@ export default function PageHero({
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="shrink-0 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
+                        className="shrink-0 w-6 h-6"
                       >
                         <path
-                          d="M9 5L15 12L9 19"
+                          d="M10 7L14 12L10 17"
                           stroke="#71717A"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         />
