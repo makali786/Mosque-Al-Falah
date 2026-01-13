@@ -109,6 +109,7 @@ export default async function MadrasahPage() {
                     { label: pageData.hero?.title || "Madrasah", href: "/madrasah" },
                 ]}
                 backgroundImage={pageData.hero?.backgroundImage?.url || ""}
+                backgroundPosition="center"
             />
 
             {/* 2. Classes Section */}

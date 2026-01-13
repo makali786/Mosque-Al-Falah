@@ -84,23 +84,20 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
   const mobileImage = getImageUrl(currentSlideData?.bannerImage) || desktopImage;
 
   return (
-    <section className="relative w-full h-auto sm:h-125 md:h-137.5 lg:h-150 xl:h-175 overflow-hidden">
-      {/* Background Image - Hidden on mobile */}
-      <div className="absolute inset-0 hidden sm:block">
-        {desktopImage && (
-          <Image
-            src={desktopImage}
-            alt={currentSlideData?.title}
-            fill
-            className="object-cover object-center"
-            priority
-            quality={100}
-          />
-        )}
-      </div>
+    <section
+      className="relative w-full h-auto sm:h-125 md:h-137.5 overflow-hidden lg:h-[calc(100vh-130px)]"
+      style={{
+        backgroundImage: desktopImage ? `linear-gradient(to right, #001731 2.344%, #004797 100%), url('${desktopImage}')` : 'linear-gradient(to right, #001731 2.344%, #004797 100%)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundBlendMode: 'normal',
+      }}
+    >
+      {/* Gradient overlay for desktop to blend with background image */}
+      <div className="absolute inset-0 hidden sm:block bg-gradient-to-r from-[#001731] to-transparent" />
 
-      {/* Gradient Background - Full gradient on mobile, overlay on desktop */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#001731] from-[2.344%] to-[#004797] sm:from-[#001731] sm:to-transparent" />
+      {/* Full gradient on mobile */}
+      <div className="absolute inset-0 sm:hidden bg-gradient-to-r from-[#001731] from-[2.344%] to-[#004797]" />
 
       {/* Mobile Banner Image - Above carousel dots */}
       <div className="relative w-full sm:hidden">

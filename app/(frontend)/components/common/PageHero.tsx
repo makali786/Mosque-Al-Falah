@@ -12,6 +12,7 @@ interface PageHeroProps {
   breadcrumbs: Breadcrumb[];
   backgroundImage: string;
   pageheroTitleStyle?: string;
+  backgroundPosition?: string;
 }
 
 export default function PageHero({
@@ -19,27 +20,17 @@ export default function PageHero({
   breadcrumbs,
   backgroundImage,
   pageheroTitleStyle,
+  backgroundPosition = 'bottom',
 }: PageHeroProps) {
   return (
-    <section className="relative w-full h-75 sm:h-87.5 md:h-100 lg:h-125 xl:h-137.5 2xl:h-162.5 overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 overflow-hidden">
-        <img
-          src={backgroundImage}
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(58.7957deg, rgb(0, 0, 0) 7.3664%, rgba(0, 0, 0, 0) 100%)",
-        }}
-      />
-
+    <section
+      className="relative w-full h-75 sm:h-87.5 md:h-100 overflow-hidden bg-no-repeat lg:h-[calc(100vh-130px)]"
+      style={{
+        backgroundImage: `linear-gradient(58.7957deg, rgb(0, 0, 0) 7.3664%, rgba(0, 0, 0, 0) 100%), url('${backgroundImage}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: backgroundPosition,
+      }}
+    >
       {/* Content */}
       <div className="relative h-full flex items-end">
         <div className="w-full hn-container py-6 sm:py-10 md:py-12 lg:py-16 xl:py-20">
