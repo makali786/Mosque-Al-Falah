@@ -11,12 +11,14 @@ interface PageHeroProps {
   title: string;
   breadcrumbs: Breadcrumb[];
   backgroundImage: string;
+  pageheroTitleStyle?: string;
 }
 
 export default function PageHero({
   title,
   breadcrumbs,
   backgroundImage,
+  pageheroTitleStyle,
 }: PageHeroProps) {
   return (
     <section className="relative w-full h-75 sm:h-87.5 md:h-100 lg:h-125 xl:h-137.5 2xl:h-162.5 overflow-hidden">
@@ -43,7 +45,7 @@ export default function PageHero({
         <div className="w-full hn-container py-6 sm:py-10 md:py-12 lg:py-16 xl:py-20">
           <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 xl:gap-6">
             {/* Title */}
-            <h1 className="font-extrabold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48px] leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-12">
+            <h1 className={`font-extrabold text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48px] leading-tight sm:leading-tight md:leading-tight lg:leading-tight xl:leading-12 ${pageheroTitleStyle}`}>
               {title}
             </h1>
 

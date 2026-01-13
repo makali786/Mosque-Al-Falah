@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import Image from 'next/image';
+import { getMediaUrl, getMediaAlt } from '../../../../lib/helper';
 
 type TextNode = {
   text: string;
@@ -16,6 +18,10 @@ type GenericNode = {
   children?: Node[];
   tag?: string; // h1, h2, etc
   listType?: 'number' | 'bullet';
+  value?: any; // For uploads
+  relationTo?: string; // For uploads
+  url?: string; // For links
+  newTab?: boolean; // For links
   [key: string]: any;
 };
 
@@ -71,11 +77,7 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
     return <br key={index} />;
   }
 
-  if (!genericNode.children) {
-    return null;
-  }
-
-  const children = genericNode.children.map((child, i) => (
+  const children = genericNode.children?.map((child, i) => (
     <RenderNode key={i} node={child} index={i} />
   ));
 
@@ -98,6 +100,30 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
       return <ol key={index} className="list-decimal pl-5 mb-4 space-y-1">{children}</ol>;
     case 'li':
       return <li key={index}>{children}</li>;
+    case 'blockquote':
+      return (
+        <blockquote key={index}>
+          {children}
+        </blockquote>
+      );
+    case 'upload': {
+      const media = genericNode.value;
+      const imageUrl = getMediaUrl(media);
+      const altText = getMediaAlt(media);
+
+      if (!imageUrl) return null;
+
+      return (
+        <div key={index} className="my-8 relative w-full aspect-video rounded-3xl overflow-hidden bg-gray-100">
+          <Image
+            src={imageUrl}
+            alt={altText}
+            fill
+            className="object-cover"
+          />
+        </div>
+      );
+    }
     case 'link':
        return (
         <a key={index} href={genericNode.url} target={genericNode.newTab ? "_blank" : "_self"} rel={genericNode.newTab ? "noopener noreferrer" : ""} className="text-blue-600 hover:underline">
