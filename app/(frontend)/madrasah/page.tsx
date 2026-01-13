@@ -126,7 +126,7 @@ export default async function MadrasahPage() {
                     title={pageData.committeeSection.sectionTitle}
                     description={pageData.committeeSection.description}
                     members={committeeMembers as any}
-                    className="!bg-[#E6F1FE]"
+                    className="bg-[#E6F1FE]!"
                     headerStyle="!lg:max-w-full lg:min-w-full"
                     committesStyle={"section-padding"}
                 />
@@ -170,7 +170,7 @@ export default async function MadrasahPage() {
                     <RequestServiceForm
                         sectionTitle={pageData.contactSection.sectionTitle}
                         description={pageData.contactSection.description}
-                        className="my-8 lg:my-[72px]"
+                        className="my-8 lg:my-18"
                     />
                 </div>
             )}
