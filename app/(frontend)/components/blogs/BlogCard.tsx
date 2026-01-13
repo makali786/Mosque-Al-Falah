@@ -89,7 +89,7 @@ export default function BlogCard({
         )}
 
         {/* Title */}
-        <Link href="/blogs/sample-blog" className="group">
+        <Link href={`/blogs/${slug}`} className="group">
           <h3 className="text-[24px] font-semibold group-hover:text-[#006fee] transition-colors line-clamp-2 mt-3">
             {title}
           </h3>
@@ -105,7 +105,7 @@ export default function BlogCard({
         {/* Read More Button */}
         {showReadMoreButton && (
             <Link
-            href="/blogs/sample-blog"
+            href={`/blogs/${slug}`}
             className="inline-flex items-center justify-center px-6 py-3 bg-[#FAFAFA] cursor-pointer text-base rounded-[12px] w-fit mt-auto"
             >
             {readMoreButtonText}

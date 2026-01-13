@@ -18,13 +18,24 @@ const formatDate = (dateString: string) => {
     });
 };
 
+// Helper to decode slug if necessary
+function decodedSlug(slug: string) {
+    try {
+        return decodeURIComponent(slug);
+    } catch {
+        return slug;
+    }
+}
+
+interface BlogPostPageProps {
+    params: {
+        slug: string;
+    };
+}
+
 export const dynamic = "force-dynamic";
 
-export default async function BlogPostPage({
-    params,
-}: {
-    params: Promise<{ slug: string }>;
-}) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const { slug } = await params;
 
     // 1. Fetch Global Config
@@ -47,24 +58,19 @@ export default async function BlogPostPage({
     };
 
     // 2. Fetch Current Blog Post
-    let posts = [];
-    try {
-        posts = await fetchBlogPosts({
-            where: {
-                slug: { equals: slug },
-                isPublished: { equals: true },
-            },
-            depth: 2,
-        });
-    } catch (error) {
-        console.error("Error fetching blog post:", error);
+    const posts = await fetchBlogPosts({
+        where: {
+            slug: { equals: decodedSlug(slug) },
+            isPublished: { equals: true },
+        },
+        depth: 2,
+    });
+
+    if (!posts || posts.length === 0) {
+        notFound();
     }
 
     const post = posts[0];
-
-    if (!post) {
-        notFound();
-    }
 
     // 3. Fetch Previous & Next Posts
     let prevPost = null;
@@ -96,7 +102,7 @@ export default async function BlogPostPage({
     }
 
     const featuredImageUrl = getMediaUrl(post.featuredImage);
-    const authorImageUrl = getMediaUrl(post.author?.avatar);
+    const authorAvatarUrl = post.author?.avatar ? getMediaUrl(post.author.avatar) : null;
 
     return (
         <main className="bg-white min-h-screen">
@@ -110,87 +116,88 @@ export default async function BlogPostPage({
                     { label: post.title, href: "#" },
                 ]}
                 backgroundImage={featuredImageUrl || ""}
+                backgroundPosition="center"
                 pageheroTitleStyle={"max-w-[710px]"}
             />
 
             {/* Content Wrapper */}
             <div className="max-w-250 mx-auto px-4 md:px-8 py-12 md:py-20">
+                <div className="flex flex-col gap-15 w-full">
 
-                {/* Main Content */}
-                <article className="prose prose-lg prose-slate max-w-none 
-                prose-headings:font-bold prose-headings:text-[#18181B] 
-                prose-p:text-[#52525B] prose-p:leading-relaxed 
-                prose-img:rounded-3xl prose-img:w-full prose-img:my-8
-                prose-a:text-[#006FEE] prose-a:no-underline hover:prose-a:underline
-                prose-blockquote:border-[#006FEE] prose-blockquote:bg-blue-50/30 prose-blockquote:p-6 prose-blockquote:rounded-2xl prose-blockquote:not-italic prose-blockquote:text-[#18181B] prose-blockquote:font-medium
-                prose-li:text-[#52525B] prose-li:marker:text-[#006FEE]">
-                    <RichTextRenderer content={post.content} />
-                </article>
-                <ContentBlock
-                    title={post.title}
-                    description={post.content}
-                    image={{
-                        src: featuredImageUrl || "",
-                        alt: post.title,
-                    }}
-                />
+                    {/* Author & Meta Info */}
+                    {detailConfig.showAuthorInfo && post.author && (
+                        <div className="flex items-center gap-4 pb-8 border-b border-[#e4e4e7]">
+                            {authorAvatarUrl && (
+                                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100">
+                                    <Image
+                                        src={authorAvatarUrl}
+                                        alt={post.author.name}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                            )}
+                            <div className="flex-1">
+                                <p className="font-semibold text-[#18181B]">{post.author.name}</p>
+                                <div className="flex items-center gap-4 text-sm text-[#52525B]">
+                                    {detailConfig.showPublishedDate && post.publishedDate && (
+                                        <div className="flex items-center gap-2">
+                                            <Image
+                                                src="/assets/topbar/calendar-icon.svg"
+                                                alt="Calendar"
+                                                width={14}
+                                                height={14}
+                                            />
+                                            <span>{formatDate(post.publishedDate)}</span>
+                                        </div>
+                                    )}
+                                    {detailConfig.showReadingTime && post.readingTime && (
+                                        <span>• {post.readingTime} min read</span>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="ml-auto">
+                                <span className="bg-[#002E62] text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase">
+                                    {post.category}
+                                </span>
+                            </div>
+                        </div>
+                    )}
 
+                    {/* Main Content from CMS */}
+                    <article className="prose prose-lg prose-slate max-w-none
+                        prose-headings:font-bold prose-headings:text-black
+                        prose-h2:text-5xl prose-h2:leading-12 prose-h2:mb-15
+                        prose-p:text-lg prose-p:leading-7 prose-p:text-[#27272a] prose-p:mb-15
+                        prose-img:rounded-[14px] prose-img:w-full prose-img:h-auto prose-img:object-cover prose-img:mb-15
+                        prose-a:text-[#006fee] prose-a:underline hover:prose-a:text-[#005bc4]
+                        prose-blockquote:bg-white prose-blockquote:border prose-blockquote:border-[#e4e4e7] prose-blockquote:rounded-[40px] prose-blockquote:p-15 prose-blockquote:mb-15
+                        prose-blockquote:text-2xl prose-blockquote:font-medium prose-blockquote:leading-8 prose-blockquote:text-black prose-blockquote:not-italic
+                        prose-ul:flex prose-ul:flex-col prose-ul:gap-6 prose-ul:p-2.5 prose-ul:mb-15 prose-ul:list-none
+                        prose-ol:flex prose-ol:flex-col prose-ol:gap-6 prose-ol:p-2.5 prose-ol:mb-15 prose-ol:list-none
+                        prose-li:flex prose-li:gap-3.75 prose-li:items-start prose-li:text-lg prose-li:leading-7 prose-li:text-[#27272a]
+                        prose-li:before:content-[''] prose-li:before:w-4 prose-li:before:h-4 prose-li:before:shrink-0 prose-li:before:mt-1.5
+                        prose-li:before:bg-[url('/assets/blogs/checkmark.svg')] prose-li:before:bg-no-repeat prose-li:before:bg-contain
+                        prose-li:marker:hidden">
+                        <RichTextRenderer content={post.content} />
+                    </article>
 
-
-                {/* Tags */}
-                {/* {detailConfig.showTags && post.tags && post.tags.length > 0 && (
-                  <div className="mt-12 md:mt-16 flex items-center gap-4 border-t border-gray-100 pt-8">
-                      <span className="text-sm font-bold text-[#18181B] uppercase tracking-wide">Tags:</span>
-                      <div className="flex flex-wrap gap-2">
-                          {post.tags.map((tagItem: any, index: number) => (
-                              <span
-                                  key={index}
-                                  className="bg-[#002E62] text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide"
-                              >
-                                  {tagItem.tag}
-                              </span>
-                          ))}
-                      </div>
-                  </div>
-              )} */}
-
-                {/* Previous / Next Navigation */}
-                {/* <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Prev */}
-                {/* <div className={`border border-gray-100 rounded-2xl p-6 hover:bg-gray-50 transition-colors ${!prevPost ? 'invisible' : ''}`}>
-                  {prevPost && (
-                      <Link href={`/blogs/${prevPost.slug}`} className="flex gap-4 items-center">
-                          <div className="w-16 h-16 bg-blue-100 rounded-lg shrink-0 overflow-hidden relative">
-                              {prevPost.featuredImage && (
-                                  <Image src={getMediaUrl(prevPost.featuredImage)!} alt={prevPost.title} fill className="object-cover" />
-                              )}
-                          </div>
-                          <div>
-                              <span className="text-xs text-gray-400 font-medium uppercase mb-1 block">Previous Post</span>
-                              <h4 className="text-sm font-bold text-gray-900 line-clamp-2">{prevPost.title}</h4>
-                          </div>
-                      </Link>
-                  )}
-              </div> */}
-
-                {/* Next */}
-                {/* <div className={`border border-gray-100 rounded-2xl p-6 hover:bg-gray-50 transition-colors flex justify-end text-right ${!nextPost ? 'invisible' : ''}`}>
-                  {nextPost && (
-                      <Link href={`/blogs/${nextPost.slug}`} className="flex gap-4 items-center flex-row-reverse">
-                          <div className="w-16 h-16 bg-blue-100 rounded-lg shrink-0 overflow-hidden relative">
-                              {nextPost.featuredImage && (
-                                  <Image src={getMediaUrl(nextPost.featuredImage)!} alt={nextPost.title} fill className="object-cover" />
-                              )}
-                          </div>
-                          <div>
-                              <span className="text-xs text-gray-400 font-medium uppercase mb-1 block">Next Post</span>
-                              <h4 className="text-sm font-bold text-gray-900 line-clamp-2">{nextPost.title}</h4>
-                          </div>
-                      </Link>
-                  )}
-              </div> */}
-                {/* </div>  */}
-
+                    {/* Tags Section */}
+                    {detailConfig.showTags && post.tags && post.tags.length > 0 && (
+                        <div className="flex gap-3.75 items-center flex-wrap">
+                            <p className="text-base font-semibold leading-6 text-black uppercase">TAGS:</p>
+                            <div className="flex gap-2.5 flex-wrap">
+                                {post.tags.map((tagItem: any, index: number) => (
+                                    <div key={index} className="bg-[#002e62] px-4 py-1 rounded-full">
+                                        <p className="text-sm font-semibold leading-5 text-white uppercase">
+                                            {typeof tagItem === 'string' ? tagItem : tagItem.tag}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {/* Related Posts */}
