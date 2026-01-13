@@ -81,6 +81,7 @@ interface ServiceDetailHeroProps {
   },
   primaryButtonClassName?: string;
   Separator?: boolean;
+  sectionImageStyle?: string;
 }
 
 export default function ServiceDetailHero({
@@ -95,11 +96,12 @@ export default function ServiceDetailHero({
   className = "",
   imageStyle = "rounded",
   imageWidth = 420,
-  imageHeight = 396,
+  imageHeight = 424,
   primaryButton,
   secondaryButton,
   primaryButtonClassName,
   Separator: showSeparator,
+  sectionImageStyle,
 }: ServiceDetailHeroProps) {
   return (
     <section
@@ -124,7 +126,7 @@ export default function ServiceDetailHero({
             <div
               className={`relative w-full ${
                 imageStyle === "rounded"
-                ? "rounded-lg sm:rounded-xl lg:rounded-[14px] overflow-hidden lg:max-h-[396px]"
+                ? `rounded-lg sm:rounded-xl lg:rounded-[14px] overflow-hidden lg:max-w-[420px] lg:max-h-[424px] ${sectionImageStyle}`
                   : ""
               }`}
               style={{

@@ -30,7 +30,6 @@ const extractTextFromRichText = (richText: any) => {
 };
 
 const TaraweehEidPrayers = async ({ service, params }: { service: any, params: { id: string } }) => {
-  console.log("service", service)
 
   // Fetch all services for the "Other Services" section
   const allServices = await fetchServices({
@@ -81,7 +80,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
           { label: "Our Services", href: "/services" },
           { label: title, href: `/our-services/${params.id}` },
         ]}
-        className="pb-0! pt-6! sm:pt-8! bg-white section-padding"
+        className="pb-0! pt-10! sm:pt-16! bg-white section-padding"
         showSearch={false}
         breadcrumbsItemsStyle={"flex-wrap"}
       />

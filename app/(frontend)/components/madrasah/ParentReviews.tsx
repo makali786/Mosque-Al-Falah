@@ -66,7 +66,7 @@ export default function WhatParentsSay({
   };
 
   return (
-    <section className="w-full bg-white py-12 sm:py-16 md:py-20">
+    <section className="w-full bg-white py-16 sm:py-20 md:py-24">
       <div className="section-padding flex flex-col gap-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">

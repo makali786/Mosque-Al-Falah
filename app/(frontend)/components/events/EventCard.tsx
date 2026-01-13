@@ -152,7 +152,7 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
 
   // Grid View
   return (
-    <CardWrapper className="flex flex-col w-full bg-white overflow-hidden h-full shadow-[0px_1px_3px_0px_#0000001A,0px_1px_2px_-1px_#0000001A] lg:max-w-[357px]">
+    <CardWrapper className="flex flex-col w-full bg-white overflow-hidden h-full shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A] lg:max-w-[357px]">
       {/* Image Container */}
       <div className="relative w-full aspect-[4/5] lg:max-w-[357px] lg:max-h-[357px]">
         {imageUrl && (

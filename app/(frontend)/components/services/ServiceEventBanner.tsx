@@ -238,7 +238,7 @@ export default function ServiceEventBanner({
             ) : (
               <>
                 {countdownLabel && (
-                  <p className="text-sm text-start sm:text-base text-white font-semibold mb-3 sm:mb-4">
+                    <p className="text-sm text-start sm:text-base text-white font-semibold mb-3 sm:mb-4 sm:text-center">
                     {countdownLabel}
                   </p>
                 )}

@@ -23,20 +23,14 @@ export default async function ServiceDetailPage(props: {
 
 
 
-  // Determine which component to render based on slug or serviceType
-  // API has serviceType: "nikaah" | "taraweeh-eid" | etc.
 
-  // Re-map to ServiceDetail
-  // Re-map to ServiceDetail
   const serviceDetail: any = {
-    ...serviceData, // Spread the rest so specific components can access specific fields
-    // Map first testimonial to quote if available
+    ...serviceData, 
     quote: serviceData.testimonials?.[0] ? {
       text: serviceData.testimonials[0].quote,
       attribution: `${serviceData.testimonials[0].author} ${serviceData.testimonials[0].authorTitle || ''}`.trim(),
       photo: serviceData.testimonials[0].photo
     } : null,
-    // Ensure media object is safe
     media: serviceData.media || {},
   };
 
