@@ -8,6 +8,8 @@ import { RichTextRenderer } from "../../components/common/RichTextRenderer";
 import { QuoteSection } from "../../components/common/QuoteSection";
 import PageHero from "../../components/common/PageHero";
 import RelatedPostsCarousel from "../../components/blogs/RelatedPostsCarousel";
+import CommentForm from "../../components/blogs/CommentForm";
+import CommentsSection from "../../components/blogs/CommentsSection";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -321,259 +323,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Comments Section - Only show if comments are enabled */}
             {post.enableComments === true && (
-                <div className="bg-white pt-8 md:pt-10 lg:pt-12 pb-0 mb-6">
-                    <div className="w-full px-4 md:px-8 lg:px-50">
-                        <div className="max-w-283.5 mx-auto">
-                            <div className="flex flex-col gap-8 md:gap-10 lg:gap-13 items-center">
-                                {/* Comments Title */}
-                                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#27272a] text-center">
-                                    Comments
-                                </h2>
-
-                                {/* Comment List */}
-                                {post.comments && post.comments.length > 0 ? (
-                                    <div className="flex flex-col gap-8 md:gap-10 lg:gap-13 items-start w-full">
-                                        {post.comments.map((comment: any) => (
-                                            <div key={comment.id} className="flex flex-col gap-6 md:gap-7 lg:gap-9 items-end w-full">
-                                                {/* Main Comment */}
-                                                <div className="border border-[#c5c5c5] flex flex-col gap-4 md:gap-5 items-start justify-center px-5 md:px-8 lg:px-10 py-8 md:py-10 lg:py-12.5 rounded-[20px] md:rounded-[25px] lg:rounded-[30px] w-full">
-                                                    {/* Header: User Info + Edit Button */}
-                                                    <div className="flex items-start justify-between w-full">
-                                                        {/* User Info */}
-                                                        <div className="flex gap-2 items-center">
-                                                            {/* Avatar */}
-                                                            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa] shrink-0">
-                                                                {comment.userAvatar ? (
-                                                                    <Image
-                                                                        src={getMediaUrl(comment.userAvatar)!}
-                                                                        alt={comment.userName}
-                                                                        fill
-                                                                        className="object-cover"
-                                                                    />
-                                                                ) : (
-                                                                    <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
-                                                                        {comment.userName.charAt(0)}
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                            {/* Name & Date */}
-                                                            <div className="flex flex-col">
-                                                                <p className="text-sm font-normal text-[#11181c]">
-                                                                    {comment.userName}
-                                                                </p>
-                                                                <p className="text-xs font-normal text-[#a1a1aa]">
-                                                                    {new Date(comment.commentDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-
-                                                        {/* Edit Button */}
-                                                        <button className="flex items-center justify-center h-10 px-4 rounded-xl hover:bg-gray-50 transition-colors">
-                                                            <p className="text-sm font-normal text-[#006fee]">
-                                                                Edit
-                                                            </p>
-                                                        </button>
-                                                    </div>
-
-                                                    {/* Comment Text */}
-                                                    <p className="text-sm md:text-base lg:text-lg font-normal leading-relaxed text-[#3f3f46] w-full">
-                                                        {comment.comment}
-                                                    </p>
-
-                                                    {/* Reply Button */}
-                                                    <button className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
-                                                        <p className="text-sm font-normal text-white">
-                                                            Reply
-                                                        </p>
-                                                    </button>
-                                                </div>
-
-                                                {/* Replies */}
-                                                {comment.replies && comment.replies.length > 0 && (
-                                                    <>
-                                                        {comment.replies.map((reply: any) => (
-                                                            <div key={reply.id} className="border border-[#c5c5c5] flex flex-col gap-4 md:gap-5 items-start justify-center px-5 md:px-8 lg:px-10 py-8 md:py-10 lg:py-12.5 rounded-[20px] md:rounded-[25px] lg:rounded-[30px] w-full md:w-[calc(100%-80px)] lg:w-[calc(100%-123px)]">
-                                                                {/* Header: User Info + Edit Button */}
-                                                                <div className="flex items-start justify-between w-full">
-                                                                    {/* User Info */}
-                                                                    <div className="flex gap-2 items-center">
-                                                                        {/* Avatar */}
-                                                                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa] shrink-0">
-                                                                            <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
-                                                                                {reply.userName.charAt(0)}
-                                                                            </div>
-                                                                        </div>
-                                                                        {/* Name & Date */}
-                                                                        <div className="flex flex-col">
-                                                                            <p className="text-sm font-normal text-[#11181c]">
-                                                                                {reply.userName}
-                                                                            </p>
-                                                                            <p className="text-xs font-normal text-[#a1a1aa]">
-                                                                                {new Date(reply.replyDate || comment.commentDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    {/* Edit Button */}
-                                                                    <button className="flex items-center justify-center h-10 px-4 rounded-xl hover:bg-gray-50 transition-colors">
-                                                                        <p className="text-sm font-normal text-[#006fee]">
-                                                                            Edit
-                                                                        </p>
-                                                                    </button>
-                                                                </div>
-
-                                                                {/* Reply Text */}
-                                                                <p className="text-sm md:text-base lg:text-lg font-normal leading-relaxed text-[#3f3f46] w-full">
-                                                                    {reply.replyText}
-                                                                </p>
-
-                                                                {/* Reply Button */}
-                                                                <button className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
-                                                                    <p className="text-sm font-normal text-white">
-                                                                        Reply
-                                                                    </p>
-                                                                </button>
-                                                            </div>
-                                                        ))}
-                                                    </>
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <p className="text-center text-[#3f3f46] text-lg">No comments yet. Be the first to share your thoughts!</p>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <CommentsSection
+                    postId={post.id}
+                    comments={(post.comments || []).map((comment: any) => ({
+                        ...comment,
+                        userAvatarUrl: comment.userAvatar ? getMediaUrl(comment.userAvatar) : null,
+                    }))}
+                />
             )}
 
             {/* Leave a Reply Section */}
             {post.enableComments === true && (
-                <div className="bg-white pb-12 md:pb-16 lg:pb-20 pt-6 md:pt-8 lg:pt-10">
-                    <div className="w-full px-4 md:px-8 lg:px-50">
-                        <div className="max-w-283.5 mx-auto">
-                            <div className="border border-[#e4e4e7] flex flex-col gap-8 md:gap-10 lg:gap-13 items-center p-5 md:p-6 lg:p-8 rounded-[14px]">
-                                {/* Leave a Reply Title */}
-                                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#27272a] text-center">
-                                    Leave a Reply
-                                </h2>
-
-                                {/* Form */}
-                                <form className="flex flex-col gap-5 md:gap-6 w-full">
-                                    {/* Name and Email Row */}
-                                    <div className="flex flex-col md:flex-row gap-4 w-full">
-                                        {/* Full Name Input */}
-                                        <div className="flex-1 min-w-29">
-                                            <div className="bg-[#f4f4f5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                                                <div className="flex-1 flex flex-col items-start justify-center px-1.5 pb-0.5">
-                                                    {/* Label */}
-                                                    <div className="flex items-center pr-2 w-full">
-                                                        <p className="text-[12px] font-normal leading-4 text-[#52525b]">
-                                                            Full Name
-                                                        </p>
-                                                        <p className="text-[14px] font-normal leading-5 text-[#f31260] pl-0.5">
-                                                            *
-                                                        </p>
-                                                    </div>
-                                                    {/* Input */}
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Enter your Full Name"
-                                                        className="text-[14px] font-normal leading-5 text-[#11181c] w-full bg-transparent border-none outline-none placeholder:text-[#71717a]"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Email Input */}
-                                        <div className="flex-1 min-w-29">
-                                            <div className="bg-[#f4f4f5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                                                <div className="flex-1 flex flex-col items-start justify-center px-1.5 pb-0.5">
-                                                    {/* Label */}
-                                                    <div className="flex items-center pr-2 w-full">
-                                                        <p className="text-[12px] font-normal leading-4 text-[#52525b]">
-                                                            Email
-                                                        </p>
-                                                        <p className="text-[14px] font-normal leading-5 text-[#f31260] pl-0.5">
-                                                            *
-                                                        </p>
-                                                    </div>
-                                                    {/* Input */}
-                                                    <input
-                                                        type="email"
-                                                        placeholder="Enter your Email"
-                                                        className="text-[14px] font-normal leading-5 text-[#11181c] w-full bg-transparent border-none outline-none placeholder:text-[#71717a]"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Comments Textarea */}
-                                    <div className="flex flex-col h-30.25 min-w-29 w-full">
-                                        <div className="bg-[#f4f4f5] flex-1 flex items-start min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                                            <div className="flex-1 flex flex-col h-full items-start px-1.5 pb-0.5">
-                                                {/* Label */}
-                                                <div className="flex items-center pr-2 w-full">
-                                                    <p className="text-[12px] font-normal leading-4 text-[#52525b]">
-                                                        Comments
-                                                    </p>
-                                                </div>
-                                                {/* Textarea */}
-                                                <textarea
-                                                    placeholder="content"
-                                                    className="text-[14px] font-normal leading-5 text-[#11181c] w-full h-full bg-transparent border-none outline-none resize-none placeholder:text-[#71717a]"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Checkbox */}
-                                    <label className="flex gap-2 items-start p-2 cursor-pointer">
-                                        <div className="relative w-6 h-6 shrink-0">
-                                            <input
-                                                type="checkbox"
-                                                className="peer absolute opacity-0 w-6 h-6 cursor-pointer"
-                                            />
-                                            <div className="w-6 h-6 bg-[#d4d4d8] rounded-[6px] flex items-center justify-center pointer-events-none">
-                                            </div>
-                                            {/* Checkmark - hidden by default, visible when checked */}
-                                            <svg
-                                                className="w-3 h-3 opacity-0 peer-checked:opacity-100 transition-opacity absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                                                viewBox="0 0 8 6"
-                                                fill="none"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                    d="M0.5 3L2.83333 5.33333L7.5 0.666667"
-                                                    stroke="black"
-                                                    strokeWidth="1.5"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                />
-                                            </svg>
-                                        </div>
-                                        <p className="text-sm md:text-base lg:text-lg font-normal leading-relaxed text-[#11181c]">
-                                            Save my name, email, and website in this browser for the next time I comment.
-                                        </p>
-                                    </label>
-
-                                    {/* Submit Button */}
-                                    <button
-                                        type="submit"
-                                        className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors w-fit"
-                                    >
-                                        <p className="text-sm font-normal text-white">
-                                            Post comment
-                                        </p>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <CommentForm postId={post.id} existingComments={post.comments || []} />
             )}
 
             {/* Quote Section Footer */}
