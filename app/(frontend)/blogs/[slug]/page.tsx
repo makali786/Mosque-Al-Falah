@@ -467,13 +467,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                         {/* Full Name Input */}
                                         <div className="flex-1 min-w-[116px]">
                                             <div className="bg-[#f4f4f5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                                                <div className="flex-1 flex flex-col items-start justify-center px-[6px] pb-[2px]">
+                                                <div className="flex-1 flex flex-col items-start justify-center px-1.5 pb-0.5">
                                                     {/* Label */}
                                                     <div className="flex items-center pr-2 w-full">
                                                         <p className="text-[12px] font-normal leading-4 text-[#52525b]">
                                                             Full Name
                                                         </p>
-                                                        <p className="text-[14px] font-normal leading-5 text-[#f31260] pl-[2px]">
+                                                        <p className="text-[14px] font-normal leading-5 text-[#f31260] pl-0.5">
                                                             *
                                                         </p>
                                                     </div>
