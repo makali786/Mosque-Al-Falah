@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, JSX } from 'react';
 import Image from 'next/image';
 import { getMediaUrl, getMediaAlt } from '../../../../lib/helper';
 
@@ -82,6 +82,19 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
   ));
 
   switch (genericNode.type) {
+    // Payload CMS Lexical sends headings as type: 'heading' with tag: 'h1', 'h2', etc.
+    case 'heading': {
+      const HeadingTag = (genericNode.tag || 'h2') as keyof JSX.IntrinsicElements;
+      const headingClasses: Record<string, string> = {
+        h1: 'text-4xl font-bold mt-14 mb-8',
+        h2: 'text-3xl font-bold mb-3',
+        h3: 'text-2xl font-bold mb-2',
+        h4: 'text-xl font-bold mb-2',
+        h5: 'text-lg font-bold mb-2',
+        h6: 'text-base font-bold mb-2',
+      };
+      return <HeadingTag key={index} className={headingClasses[genericNode.tag || 'h2'] || 'font-bold'}>{children}</HeadingTag>;
+    }
     case 'h1':
       return <h1 key={index} className="text-4xl font-bold mb-4">{children}</h1>;
     case 'h2':
@@ -95,17 +108,62 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
     case 'h6':
       return <h6 key={index} className="text-base font-bold mb-2">{children}</h6>;
     case 'ul':
+    case 'list': {
+      // Payload CMS can send 'list' with listType: 'bullet' or 'number'
+      if (genericNode.listType === 'number') {
+        return <ol key={index} className="list-decimal pl-5 mb-4 space-y-1">{children}</ol>;
+      }
       return <ul key={index} className="list-disc pl-5 mb-4 space-y-1">{children}</ul>;
+    }
     case 'ol':
       return <ol key={index} className="list-decimal pl-5 mb-4 space-y-1">{children}</ol>;
     case 'li':
+    case 'listitem':
       return <li key={index}>{children}</li>;
     case 'blockquote':
+    case 'quote': {
+      // Process children to find linebreak and split content
+      const childNodes = genericNode.children || [];
+
+      // Find index of linebreak node
+      const linebreakIndex = childNodes.findIndex((child: any) => child.type === 'linebreak');
+
+      if (linebreakIndex > 0) {
+        // Split children: before linebreak = quote, after linebreak = source
+        const quoteNodes = childNodes.slice(0, linebreakIndex);
+        const sourceNodes = childNodes.slice(linebreakIndex + 1);
+
+        // Render quote nodes
+        const quoteChildren = quoteNodes.map((child: any, i: number) => (
+          <RenderNode key={i} node={child} index={i} />
+        ));
+
+        // Render source nodes
+        const sourceChildren = sourceNodes.map((child: any, i: number) => (
+          <RenderNode key={i} node={child} index={i} />
+        ));
+
+        return (
+          <blockquote key={index}>
+            <span className="quote-text">
+              {quoteChildren}
+            </span>
+            {sourceChildren.length > 0 && (
+              <span className="quote-source">
+                {sourceChildren}
+              </span>
+            )}
+          </blockquote>
+        );
+      }
+
+      // Fallback: render children as-is
       return (
         <blockquote key={index}>
           {children}
         </blockquote>
       );
+    }
     case 'upload': {
       const media = genericNode.value;
       const imageUrl = getMediaUrl(media);
@@ -125,16 +183,18 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
       );
     }
     case 'link':
+    case 'autolink':
        return (
         <a key={index} href={genericNode.url} target={genericNode.newTab ? "_blank" : "_self"} rel={genericNode.newTab ? "noopener noreferrer" : ""} className="text-blue-600 hover:underline">
           {children}
         </a>
       );
-    case 'paragraph': 
-      // Check if it's the last paragraph to avoid extra margin, or just use standard
+    case 'paragraph':
       return <p key={index} className="mb-4">{children}</p>;
-      
+
     default:
+      // Log unknown types for debugging
+      console.log('Unknown node type:', genericNode.type, genericNode);
       return <div key={index}>{children}</div>;
   }
 };

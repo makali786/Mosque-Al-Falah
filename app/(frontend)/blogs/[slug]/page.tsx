@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { fetchGlobal, fetchBlogPosts } from "../../../../lib/fetcher";
 import { getMediaUrl } from "../../../../lib/helper";
@@ -7,6 +8,7 @@ import { RichTextRenderer } from "../../components/common/RichTextRenderer";
 import { QuoteSection } from "../../components/common/QuoteSection";
 import BlogCard from "../../components/blogs/BlogCard";
 import PageHero from "../../components/common/PageHero";
+import RelatedPostsCarousel from "../../components/blogs/RelatedPostsCarousel";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -176,22 +178,40 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
 
             {/* Content Wrapper - Figma: 1134px content with 200px side padding */}
-            <div className="w-full py-20 px-4 md:px-8 lg:px-[200px]">
-                <div className="flex flex-col gap-[60px] max-w-[1134px] mx-auto">
+            <div className="w-full py-20 px-4 md:px-8 lg:px-50">
+                <div className="flex flex-col gap-15 max-w-283.5 mx-auto">
 
                     {/* Main Content from CMS - Figma Perfect Styling */}
-                    <article className="prose max-w-none">
+                    <article className="prose prose-lg max-w-none
+                        prose-headings:font-bold prose-headings:text-black
+                        prose-h1:text-[64px] prose-h1:leading-[70px]
+                        prose-h2:text-[48px] prose-h2:leading-[48px] prose-h2:mb-0 prose-h2:mt-0
+                        prose-h3:text-[32px] prose-h3:leading-[40px]
+                        prose-p:text-[18px] prose-p:leading-[28px] prose-p:text-[#27272a] prose-p:mb-0 prose-p:mt-0
+                        prose-a:text-[#006fee] prose-a:underline hover:prose-a:text-[#005bc4]
+                        prose-strong:font-bold prose-strong:text-black
+                        prose-ul:list-none prose-ul:p-[10px] prose-ul:my-0
+                        prose-ol:list-none prose-ol:p-[10px] prose-ol:my-0
+                        prose-li:text-[18px] prose-li:leading-[28px] prose-li:text-[#27272a] prose-li:my-0 prose-li:pl-0
+                        prose-img:rounded-[14px]
+                        *:mb-15 [&>*:last-child]:mb-0
+                        [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-6
+                        [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-6
+                        [&_li]:flex [&_li]:gap-3.75 [&_li]:items-start
+                        [&_li]:before:content-[''] [&_li]:before:inline-block [&_li]:before:w-4 [&_li]:before:h-4 [&_li]:before:min-w-4 [&_li]:before:mt-1.5
+                        [&_li]:before:bg-[url('/assets/blogs/checkmark.svg')] [&_li]:before:bg-no-repeat [&_li]:before:bg-contain
+                        [&_li_strong]:font-bold [&_li_strong]:text-black">
                         <RichTextRenderer content={post.content} />
                     </article>
 
                     {/* Tags Section - Figma specs */}
                     {detailConfig.showTags && post.tags && post.tags.length > 0 && (
-                        <div className="flex gap-[15px] items-center flex-wrap">
-                            <p className="text-[16px] font-semibold leading-[24px] text-black">TAGS:</p>
-                            <div className="flex gap-[10px] flex-wrap">
+                        <div className="flex gap-3.75 items-center flex-wrap">
+                            <p className="text-[16px] font-semibold leading-6 text-black">TAGS:</p>
+                            <div className="flex gap-2.5 flex-wrap">
                                 {post.tags.map((tagItem: any, index: number) => (
-                                    <div key={index} className="bg-[#002e62] px-[16px] py-[4px] rounded-full overflow-hidden">
-                                        <p className="text-[14px] font-semibold leading-[20px] text-white uppercase">
+                                    <div key={index} className="bg-[#002e62] px-4 py-1 rounded-full overflow-hidden">
+                                        <p className="text-[14px] font-semibold leading-5 text-white uppercase">
                                             {typeof tagItem === 'string' ? tagItem : tagItem.tag}
                                         </p>
                                     </div>
@@ -199,166 +219,339 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                             </div>
                         </div>
                     )}
+
+                    {/* Previous/Next Post Navigation */}
+                    {(prevPost || nextPost) && (
+                        <div className="mt-20 border border-[#e4e4e7] rounded-[14px] flex items-center justify-center overflow-hidden">
+                            {/* Previous Post */}
+                            {prevPost ? (
+                                <Link
+                                    href={`/blogs/${prevPost.slug}`}
+                                    className="flex flex-1 gap-5 items-center p-[30px] hover:bg-gray-50 transition-colors"
+                                >
+                                    <div className="relative w-[140px] h-[140px] rounded-[14px] overflow-hidden bg-[#cce3fd] shrink-0">
+                                        {getMediaUrl(prevPost.featuredImage) && (
+                                            <Image
+                                                src={getMediaUrl(prevPost.featuredImage)!}
+                                                alt={prevPost.title}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="flex flex-col gap-2.5 flex-1 min-w-0">
+                                        <p className="text-[14px] font-normal leading-5 text-[#71717a]">
+                                            Previous Post
+                                        </p>
+                                        <p className="text-[16px] font-semibold leading-6 text-[#27272a]">
+                                            {prevPost.title}
+                                        </p>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <div className="flex flex-1 gap-5 items-center p-[30px] opacity-50">
+                                    <div className="w-[140px] h-[140px] rounded-[14px] bg-[#cce3fd] shrink-0" />
+                                    <div className="flex flex-col gap-2.5 flex-1 min-w-0">
+                                        <p className="text-[14px] font-normal leading-5 text-[#71717a]">
+                                            Previous Post
+                                        </p>
+                                        <p className="text-[16px] font-semibold leading-6 text-[#27272a]">
+                                            No previous post
+                                        </p>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Divider */}
+                            <div className="w-px h-[200px] bg-[#e4e4e7]" />
+
+                            {/* Next Post */}
+                            {nextPost ? (
+                                <Link
+                                    href={`/blogs/${nextPost.slug}`}
+                                    className="flex flex-1 gap-5 items-center justify-center p-[30px] hover:bg-gray-50 transition-colors"
+                                >
+                                    <div className="flex flex-col gap-2.5 flex-1 min-w-0 items-end text-right">
+                                        <p className="text-[14px] font-normal leading-5 text-[#71717a]">
+                                            Next Post
+                                        </p>
+                                        <p className="text-[16px] font-semibold leading-6 text-[#006fee]">
+                                            {nextPost.title}
+                                        </p>
+                                    </div>
+                                    <div className="relative w-[140px] h-[140px] rounded-[14px] overflow-hidden bg-[#cce3fd] shrink-0">
+                                        {getMediaUrl(nextPost.featuredImage) && (
+                                            <Image
+                                                src={getMediaUrl(nextPost.featuredImage)!}
+                                                alt={nextPost.title}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        )}
+                                    </div>
+                                </Link>
+                            ) : (
+                                <div className="flex flex-1 gap-5 items-center justify-center p-[30px] opacity-50">
+                                    <div className="flex flex-col gap-2.5 flex-1 min-w-0 items-end text-right">
+                                        <p className="text-[14px] font-normal leading-5 text-[#71717a]">
+                                            Next Post
+                                        </p>
+                                        <p className="text-[16px] font-semibold leading-6 text-[#006fee]">
+                                            No next post
+                                        </p>
+                                    </div>
+                                    <div className="w-[140px] h-[140px] rounded-[14px] bg-[#cce3fd] shrink-0" />
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
 
             {/* Related Posts */}
-            {
-                detailConfig.showRelatedPosts && (
-                    <div className="bg-white py-16 border-t border-gray-100">
-                        <div className="section-padding max-w-7xl mx-auto">
-                            <div className="flex items-center justify-between mb-8">
-                                <h3 className="text-2xl font-bold text-[#18181B]">{detailConfig.relatedPostsTitle}</h3>
-                                <div className="flex gap-2">
-                                    <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50"><span className="text-gray-400 text-xl">‹</span></button>
-                                    <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:bg-[#0000FF10] text-[#006FEE] bg-[#0000FF10]"><span className="text-xl">›</span></button>
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                {(post.relatedPosts && post.relatedPosts.length > 0
-                                    ? post.relatedPosts
-                                    : (posts.length > 0 ? posts.slice(0, 3) : []) // Fallback if no specific related posts
-                                ).map((related: any) => (
-                                    // @ts-expect-error - Related post typing
-                                    <BlogCard
-                                        key={related.id}
-                                        {...{
-                                            id: related.id,
-                                            slug: related.slug,
-                                            title: related.title,
-                                            description: related.excerpt || "",
-                                            date: formatDate(related.publishedDate),
-                                            category: related.category ? related.category.charAt(0).toUpperCase() + related.category.slice(1) : "General",
-                                            imageUrl: getMediaUrl(related.featuredImage) || "",
-                                        }}
-                                        appearance={{
-                                            showFeaturedImage: true,
-                                            showCategoryBadge: true,
-                                            showDate: true,
-                                            showExcerpt: true,
-                                            showReadMoreButton: true,
-                                            readMoreButtonText: "Read More",
-                                            cardStyle: "shadow"
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
+            {detailConfig.showRelatedPosts && (
+                <RelatedPostsCarousel
+                    posts={(post.relatedPosts && post.relatedPosts.length > 0 ? post.relatedPosts : posts).map((p: any) => ({
+                        ...p,
+                        formattedDate: formatDate(p.publishedDate)
+                    }))}
+                    title={detailConfig.relatedPostsTitle}
+                />
+            )}
 
             {/* Comments Section - Only show if comments are enabled */}
             {post.enableComments !== false && (
-                <div className="bg-white py-12 md:py-16">
-                    <div className="max-w-225 mx-auto px-4 md:px-8">
-                        <h3 className="text-2xl font-bold text-[#18181B] mb-12 text-center">Comments</h3>
+                <div className="bg-white pt-12 pb-0 mb-6">
+                    <div className="w-full px-4 md:px-8 lg:px-50">
+                        <div className="max-w-283.5 mx-auto">
+                            <div className="flex flex-col gap-13 items-center">
+                                {/* Comments Title */}
+                                <h2 className="text-[36px] font-bold leading-10 text-[#27272a] text-center">
+                                    Comments
+                                </h2>
 
-                        {/* Comment List */}
-                        {post.comments && post.comments.length > 0 ? (
-                            <div className="space-y-8 mb-16">
-                                {/* @ts-expect-error - Comment type */}
-                                {post.comments.map((comment: any) => (
-                                    <div key={comment.id} className="bg-white border text-[#52525B] border-gray-100 p-6 rounded-2xl shadow-sm">
-                                        <div className="flex gap-4">
-                                            <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100 shrink-0">
-                                                {comment.userAvatar ? (
-                                                    <Image src={getMediaUrl(comment.userAvatar)!} alt={comment.userName} fill className="object-cover" />
-                                                ) : (
-                                                    <div className="w-full h-full flex items-center justify-center text-gray-400 font-bold bg-gray-100">
-                                                        {comment.userName.charAt(0)}
+                                {/* Comment List */}
+                                {post.comments && post.comments.length > 0 ? (
+                                    <div className="flex flex-col gap-13 items-start w-full">
+                                        {post.comments.map((comment: any) => (
+                                            <div key={comment.id} className="flex flex-col gap-9 items-end w-full">
+                                                {/* Main Comment */}
+                                                <div className="border border-[#c5c5c5] flex flex-col gap-5 items-start justify-center px-10 py-12.5 rounded-[30px] w-full">
+                                                    {/* Header: User Info + Edit Button */}
+                                                    <div className="flex items-start justify-between w-full">
+                                                        {/* User Info */}
+                                                        <div className="flex gap-2 items-center">
+                                                            {/* Avatar */}
+                                                            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa] shrink-0">
+                                                                {comment.userAvatar ? (
+                                                                    <Image
+                                                                        src={getMediaUrl(comment.userAvatar)!}
+                                                                        alt={comment.userName}
+                                                                        fill
+                                                                        className="object-cover"
+                                                                    />
+                                                                ) : (
+                                                                    <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
+                                                                        {comment.userName.charAt(0)}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                            {/* Name & Date */}
+                                                            <div className="flex flex-col">
+                                                                <p className="text-[14px] font-normal leading-5 text-[#11181c]">
+                                                                    {comment.userName}
+                                                                </p>
+                                                                <p className="text-[12px] font-normal leading-4 text-[#a1a1aa]">
+                                                                    {new Date(comment.commentDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Edit Button */}
+                                                        <button className="flex items-center justify-center h-10 px-4 rounded-xl hover:bg-gray-50 transition-colors">
+                                                            <p className="text-[14px] font-normal leading-5 text-[#006fee]">
+                                                                Edit
+                                                            </p>
+                                                        </button>
                                                     </div>
-                                                )}
-                                            </div>
-                                            <div className="flex-1">
-                                                <div className="flex justify-between items-start mb-2">
-                                                    <div>
-                                                        <h4 className="font-bold text-[#18181B] text-sm">{comment.userName}</h4>
-                                                        <p className="text-xs text-gray-400 mt-0.5">{new Date(comment.commentDate).toLocaleDateString()}</p>
-                                                    </div>
-                                                    <button className="text-[#006FEE] text-sm font-semibold hover:underline">Reply</button>
+
+                                                    {/* Comment Text */}
+                                                    <p className="text-[18px] font-normal leading-7 text-[#3f3f46] w-full">
+                                                        {comment.comment}
+                                                    </p>
+
+                                                    {/* Reply Button */}
+                                                    <button className="bg-[#006fee] h-[42px] flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
+                                                        <p className="text-[14px] font-normal leading-5 text-white">
+                                                            Reply
+                                                        </p>
+                                                    </button>
                                                 </div>
-                                                <p className="text-sm leading-relaxed text-[#52525B] mt-3">
-                                                    {comment.comment}
-                                                </p>
 
                                                 {/* Replies */}
                                                 {comment.replies && comment.replies.length > 0 && (
-                                                    <div className="mt-6 space-y-4 pl-4 border-l-2 border-gray-100">
+                                                    <>
                                                         {comment.replies.map((reply: any) => (
-                                                            <div key={reply.id} className="flex gap-4">
-                                                                <div className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-100 shrink-0">
-                                                                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs font-bold">
-                                                                        {reply.userName.charAt(0)}
+                                                            <div key={reply.id} className="border border-[#c5c5c5] flex flex-col gap-5 items-start justify-center px-10 py-[50px] rounded-[30px] w-[calc(100%-123px)]">
+                                                                {/* Header: User Info + Edit Button */}
+                                                                <div className="flex items-start justify-between w-full">
+                                                                    {/* User Info */}
+                                                                    <div className="flex gap-2 items-center">
+                                                                        {/* Avatar */}
+                                                                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa] shrink-0">
+                                                                            <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
+                                                                                {reply.userName.charAt(0)}
+                                                                            </div>
+                                                                        </div>
+                                                                        {/* Name & Date */}
+                                                                        <div className="flex flex-col">
+                                                                            <p className="text-[14px] font-normal leading-5 text-[#11181c]">
+                                                                                {reply.userName}
+                                                                            </p>
+                                                                            <p className="text-[12px] font-normal leading-4 text-[#a1a1aa]">
+                                                                                {new Date(reply.replyDate || comment.commentDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
+
+                                                                    {/* Edit Button */}
+                                                                    <button className="flex items-center justify-center h-10 px-4 rounded-xl hover:bg-gray-50 transition-colors">
+                                                                        <p className="text-[14px] font-normal leading-5 text-[#006fee]">
+                                                                            Edit
+                                                                        </p>
+                                                                    </button>
                                                                 </div>
-                                                                <div>
-                                                                    <div className="flex items-center gap-2 mb-1">
-                                                                        <h4 className="font-bold text-[#18181B] text-xs">{reply.userName}</h4>
-                                                                        <span className="text-[10px] text-gray-400">Edit</span>
-                                                                    </div>
-                                                                    <p className="text-xs leading-relaxed text-[#52525B]">
-                                                                        {reply.replyText}
+
+                                                                {/* Reply Text */}
+                                                                <p className="text-[18px] font-normal leading-7 text-[#3f3f46] w-full">
+                                                                    {reply.replyText}
+                                                                </p>
+
+                                                                {/* Reply Button */}
+                                                                <button className="bg-[#006fee] h-[42px] flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
+                                                                    <p className="text-[14px] font-normal leading-5 text-white">
+                                                                        Reply
                                                                     </p>
-                                                                </div>
+                                                                </button>
                                                             </div>
                                                         ))}
-                                                    </div>
+                                                    </>
                                                 )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-center text-[#3f3f46] text-lg">No comments yet. Be the first to share your thoughts!</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Leave a Reply Section */}
+            {post.enableComments !== false && (
+                <div className="bg-white pb-20 pt-10">
+                    <div className="w-full px-4 md:px-8 lg:px-50">
+                        <div className="max-w-283.5 mx-auto">
+                            <div className="border border-[#e4e4e7] flex flex-col gap-13 items-center p-8 rounded-[14px]">
+                                {/* Leave a Reply Title */}
+                                <h2 className="text-[36px] font-bold leading-10 text-[#27272a] text-center">
+                                    Leave a Reply
+                                </h2>
+
+                                {/* Form */}
+                                <form className="flex flex-col gap-6 w-full">
+                                    {/* Name and Email Row */}
+                                    <div className="flex gap-4 w-full">
+                                        {/* Full Name Input */}
+                                        <div className="flex-1 min-w-[116px]">
+                                            <div className="bg-[#f4f4f5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                                                <div className="flex-1 flex flex-col items-start justify-center px-[6px] pb-[2px]">
+                                                    {/* Label */}
+                                                    <div className="flex items-center pr-2 w-full">
+                                                        <p className="text-[12px] font-normal leading-4 text-[#52525b]">
+                                                            Full Name
+                                                        </p>
+                                                        <p className="text-[14px] font-normal leading-5 text-[#f31260] pl-[2px]">
+                                                            *
+                                                        </p>
+                                                    </div>
+                                                    {/* Input */}
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Enter your Full Name"
+                                                        className="text-[14px] font-normal leading-5 text-[#11181c] w-full bg-transparent border-none outline-none placeholder:text-[#71717a]"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Email Input */}
+                                        <div className="flex-1 min-w-[116px]">
+                                            <div className="bg-[#f4f4f5] flex items-center min-h-[32px] px-[6px] py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                                                <div className="flex-1 flex flex-col items-start justify-center px-[6px] pb-[2px]">
+                                                    {/* Label */}
+                                                    <div className="flex items-center pr-2 w-full">
+                                                        <p className="text-[12px] font-normal leading-4 text-[#52525b]">
+                                                            Email
+                                                        </p>
+                                                        <p className="text-[14px] font-normal leading-5 text-[#f31260] pl-[2px]">
+                                                            *
+                                                        </p>
+                                                    </div>
+                                                    {/* Input */}
+                                                    <input
+                                                        type="email"
+                                                        placeholder="Enter your Email"
+                                                        className="text-[14px] font-normal leading-5 text-[#11181c] w-full bg-transparent border-none outline-none placeholder:text-[#71717a]"
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <p className="text-center text-gray-500 mb-12">No comments yet. Be the first to share your thoughts!</p>
-                        )}
 
-                        {/* Leave a Reply Form */}
-                        <div className="bg-white border border-gray-200 rounded-[20px] p-8 shadow-sm">
-                            <h3 className="text-xl font-bold text-[#18181B] mb-8 text-center">Leave a Reply</h3>
-                            <form className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <input
-                                            type="text"
-                                            placeholder="Full Name *"
-                                            className="w-full px-4 py-3 rounded-xl bg-[#F4F4F5] border-none text-sm text-[#18181B] placeholder:text-[#A1A1AA] focus:ring-1 focus:ring-[#006FEE] outline-none"
-                                        />
-                                        <p className="text-[10px] text-gray-400 mt-1 ml-1">Type full name</p>
+                                    {/* Comments Textarea */}
+                                    <div className="flex flex-col h-[121px] min-w-[116px] w-full">
+                                        <div className="bg-[#f4f4f5] flex-1 flex items-start min-h-[32px] px-[6px] py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                                            <div className="flex-1 flex flex-col h-full items-start px-[6px] pb-[2px]">
+                                                {/* Label */}
+                                                <div className="flex items-center pr-2 w-full">
+                                                    <p className="text-[12px] font-normal leading-4 text-[#52525b]">
+                                                        Comments
+                                                    </p>
+                                                </div>
+                                                {/* Textarea */}
+                                                <textarea
+                                                    placeholder="content"
+                                                    className="text-[14px] font-normal leading-5 text-[#11181c] w-full h-full bg-transparent border-none outline-none resize-none placeholder:text-[#71717a]"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
+
+                                    {/* Checkbox */}
+                                    <label className="flex gap-2 items-center p-2 cursor-pointer">
                                         <input
-                                            type="email"
-                                            placeholder="Email *"
-                                            className="w-full px-4 py-3 rounded-xl bg-[#F4F4F5] border-none text-sm text-[#18181B] placeholder:text-[#A1A1AA] focus:ring-1 focus:ring-[#006FEE] outline-none"
+                                            type="checkbox"
+                                            className="w-6 h-6 rounded-md border-none bg-[#d4d4d8] cursor-pointer accent-[#d4d4d8]"
                                         />
-                                        <p className="text-[10px] text-gray-400 mt-1 ml-1">Enter your Email</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <textarea
-                                        rows={5}
-                                        placeholder="Message me"
-                                        className="w-full px-4 py-3 rounded-xl bg-[#F4F4F5] border-none text-sm text-[#18181B] placeholder:text-[#A1A1AA] focus:ring-1 focus:ring-[#006FEE] outline-none resize-none"
-                                    ></textarea>
-                                </div>
+                                        <p className="text-[18px] font-normal leading-7 text-[#11181c]">
+                                            Save my name, email, and website in this browser for the next time I comment.
+                                        </p>
+                                    </label>
 
-                                <div className="flex items-start gap-3">
-                                    <input type="checkbox" id="save-info" className="mt-1 w-4 h-4 text-[#006FEE] rounded border-gray-300 focus:ring-[#006FEE]" />
-                                    <label htmlFor="save-info" className="text-sm text-[#71717A]">Save my name, email, and website in this browser for the next time I comment.</label>
-                                </div>
-
-                                <div className="pt-2">
+                                    {/* Submit Button */}
                                     <button
                                         type="submit"
-                                        className="px-8 py-3 bg-[#006FEE] text-white font-medium rounded-xl text-sm hover:bg-[#005bc4] transition-colors"
+                                        className="bg-[#006fee] h-[42px] flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors w-fit"
                                     >
-                                        Post comment
+                                        <p className="text-[14px] font-normal leading-5 text-white">
+                                            Post comment
+                                        </p>
                                     </button>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
