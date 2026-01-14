@@ -77,6 +77,11 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
     return <br key={index} />;
   }
 
+  // Horizontal rules are handled at the parent level for two-column layout
+  if (genericNode.type === 'horizontalrule' || genericNode.type === 'hr') {
+    return null;
+  }
+
   const children = genericNode.children?.map((child, i) => (
     <RenderNode key={i} node={child} index={i} />
   ));
@@ -204,9 +209,95 @@ export const RichTextRenderer: React.FC<RichTextProps> = ({ content, className }
     return null;
   }
 
+  const nodes = content.root.children;
+
+  // Find all horizontal rules
+  const hrIndices: number[] = [];
+  nodes.forEach((node: any, index: number) => {
+    if (node.type === 'horizontalrule' || node.type === 'hr') {
+      hrIndices.push(index);
+    }
+  });
+
+  // If there are horizontal rules, create special layout
+  if (hrIndices.length > 0) {
+    const renderedIndices = new Set<number>();
+    const elements: JSX.Element[] = [];
+
+    hrIndices.forEach((hrIndex, hrNum) => {
+      const afterIndex = hrIndex + 1;
+
+      // Find the start of content before this HR block
+      const previousContentEnd = hrNum === 0 ? 0 : hrIndices[hrNum - 1] + 4; // Skip previous HR's right content (3 items)
+
+      // Render content between previous HR block and current HR block (but not the last 3)
+      const contentBeforeHRBlock = nodes.slice(previousContentEnd, Math.max(previousContentEnd, hrIndex - 3));
+      contentBeforeHRBlock.forEach((node: any, idx: number) => {
+        const actualIndex = previousContentEnd + idx;
+        if (!renderedIndices.has(actualIndex)) {
+          elements.push(
+            <RenderNode key={actualIndex} node={node} index={actualIndex} />
+          );
+          renderedIndices.add(actualIndex);
+        }
+      });
+
+      // Collect the last 3 nodes before HR for left side
+      const leftStartIndex = Math.max(previousContentEnd, hrIndex - 3);
+      const leftNodes = nodes.slice(leftStartIndex, hrIndex);
+
+      // Collect the next 3 nodes after HR for the right side
+      const rightNodes = nodes.slice(afterIndex, afterIndex + 3);
+
+      if (leftNodes.length > 0 && rightNodes.length > 0) {
+        elements.push(
+          <div key={`hr-layout-${hrIndex}`} className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start my-8">
+            {/* Left side - 3 elements before HR (65% width) */}
+            <div className="w-full lg:w-[65%]">
+              {leftNodes.map((node, idx) => {
+                const actualIdx = leftStartIndex + idx;
+                renderedIndices.add(actualIdx);
+                return <RenderNode key={actualIdx} node={node} index={actualIdx} />;
+              })}
+            </div>
+
+            {/* Vertical divider line (only on desktop) */}
+            <div className="hidden lg:block w-px bg-gray-300 self-stretch min-h-[200px]" />
+
+            {/* Right side - next 3 elements after HR (35% width) */}
+            <div className="w-full lg:w-[35%]">
+              {rightNodes.map((node, idx) => {
+                const actualIdx = afterIndex + idx;
+                renderedIndices.add(actualIdx);
+                return <RenderNode key={actualIdx} node={node} index={actualIdx} />;
+              })}
+            </div>
+          </div>
+        );
+
+        renderedIndices.add(hrIndex);
+      }
+    });
+
+    // Render any remaining content after the last HR (skip the 3 right-side items)
+    const lastHrIndex = hrIndices[hrIndices.length - 1];
+    const remainingNodes = nodes.slice(lastHrIndex + 4); // +1 for HR, +3 for right side items
+    remainingNodes.forEach((node: any, idx: number) => {
+      const actualIndex = lastHrIndex + 4 + idx;
+      if (!renderedIndices.has(actualIndex)) {
+        elements.push(
+          <RenderNode key={actualIndex} node={node} index={actualIndex} />
+        );
+      }
+    });
+
+    return <div className={className}>{elements}</div>;
+  }
+
+  // No horizontal rule - render normally
   return (
     <div className={className}>
-      {content.root.children.map((node, index) => (
+      {nodes.map((node, index) => (
         <RenderNode key={index} node={node} index={index} />
       ))}
     </div>
