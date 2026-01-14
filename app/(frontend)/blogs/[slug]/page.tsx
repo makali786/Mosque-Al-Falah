@@ -183,17 +183,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     {/* Main Content from CMS - Figma Perfect Styling */}
                     <article className="prose prose-lg max-w-none
                         prose-headings:font-bold prose-headings:text-black
-                        prose-h1:text-[32px] md:prose-h1:text-[48px] lg:prose-h1:text-[64px] prose-h1:leading-[38px] md:prose-h1:leading-[54px] lg:prose-h1:leading-[70px]
-                        prose-h2:text-[28px] md:prose-h2:text-[36px] lg:prose-h2:text-[48px] prose-h2:leading-[34px] md:prose-h2:leading-[42px] lg:prose-h2:leading-[48px] prose-h2:mb-0 prose-h2:mt-0
-                        prose-h3:text-[24px] md:prose-h3:text-[28px] lg:prose-h3:text-[32px] prose-h3:leading-[32px] md:prose-h3:leading-[36px] lg:prose-h3:leading-[40px]
-                        prose-p:text-[16px] md:prose-p:text-[18px] prose-p:leading-[24px] md:prose-p:leading-[28px] prose-p:text-[#27272a] prose-p:mb-0 prose-p:mt-0
+                        prose-h1:text-3xl md:prose-h1:text-5xl lg:prose-h1:text-[64px] prose-h1:leading-tight md:prose-h1:leading-tight lg:prose-h1:leading-[70px]
+                        prose-h2:text-2xl md:prose-h2:text-4xl lg:prose-h2:text-[48px] prose-h2:leading-tight md:prose-h2:leading-tight lg:prose-h2:leading-[48px] prose-h2:mb-0 prose-h2:mt-0
+                        prose-h3:text-xl md:prose-h3:text-3xl lg:prose-h3:text-[32px] prose-h3:leading-tight md:prose-h3:leading-tight lg:prose-h3:leading-[40px]
+                        prose-p:text-sm md:prose-p:text-base lg:prose-p:text-lg prose-p:leading-relaxed prose-p:text-[#27272a] prose-p:mb-0 prose-p:mt-0
                         prose-a:text-[#006fee] prose-a:underline hover:prose-a:text-[#005bc4]
                         prose-strong:font-bold prose-strong:text-black
                         prose-ul:list-none prose-ul:p-[10px] prose-ul:my-0
                         prose-ol:list-none prose-ol:p-[10px] prose-ol:my-0
-                        prose-li:text-[16px] md:prose-li:text-[18px] prose-li:leading-[24px] md:prose-li:leading-[28px] prose-li:text-[#27272a] prose-li:my-0 prose-li:pl-0
+                        prose-li:text-sm md:prose-li:text-base lg:prose-li:text-lg prose-li:leading-relaxed prose-li:text-[#27272a] prose-li:my-0 prose-li:pl-0
                         prose-img:rounded-[14px]
-                        *:mb-8 md:*:mb-12 lg:*:mb-15 [&>*:last-child]:mb-0
+                        *:mb-6 md:*:mb-10 lg:*:mb-15 [&>*:last-child]:mb-0
                         [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-6
                         [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-6
                         [&_li]:flex [&_li]:gap-3.75 [&_li]:items-start
@@ -206,11 +206,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     {/* Tags Section - Figma specs */}
                     {detailConfig.showTags && post.tags && post.tags.length > 0 && (
                         <div className="flex gap-3.75 items-center flex-wrap">
-                            <p className="text-[16px] font-semibold leading-6 text-black">TAGS:</p>
+                            <p className="text-sm md:text-base font-semibold text-black">TAGS:</p>
                             <div className="flex gap-2.5 flex-wrap">
                                 {post.tags.map((tagItem: any, index: number) => (
                                     <div key={index} className="bg-[#002e62] px-4 py-1 rounded-full overflow-hidden">
-                                        <p className="text-[14px] font-semibold leading-5 text-white uppercase">
+                                        <p className="text-xs md:text-sm font-semibold text-white uppercase">
                                             {typeof tagItem === 'string' ? tagItem : tagItem.tag}
                                         </p>
                                     </div>
@@ -239,10 +239,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                         )}
                                     </div>
                                     <div className="flex flex-col gap-2 lg:gap-2.5 flex-1 min-w-0">
-                                        <p className="text-[12px] lg:text-[14px] font-normal leading-4 lg:leading-5 text-[#71717a]">
+                                        <p className="text-xs lg:text-sm font-normal text-[#71717a]">
                                             Previous Post
                                         </p>
-                                        <p className="text-[14px] lg:text-[16px] font-semibold leading-5 lg:leading-6 text-[#27272a] line-clamp-2">
+                                        <p className="text-sm lg:text-base font-semibold text-[#27272a] line-clamp-2">
                                             {prevPost.title}
                                         </p>
                                     </div>
@@ -251,10 +251,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                 <div className="flex flex-1 gap-4 lg:gap-5 items-center p-5 lg:p-7.5 opacity-50 w-full">
                                     <div className="w-20 h-20 lg:w-35 lg:h-35 rounded-[14px] bg-[#cce3fd] shrink-0" />
                                     <div className="flex flex-col gap-2 lg:gap-2.5 flex-1 min-w-0">
-                                        <p className="text-[12px] lg:text-[14px] font-normal leading-4 lg:leading-5 text-[#71717a]">
+                                        <p className="text-xs lg:text-sm font-normal text-[#71717a]">
                                             Previous Post
                                         </p>
-                                        <p className="text-[14px] lg:text-[16px] font-semibold leading-5 lg:leading-6 text-[#27272a]">
+                                        <p className="text-sm lg:text-base font-semibold text-[#27272a]">
                                             No previous post
                                         </p>
                                     </div>
@@ -282,10 +282,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                         )}
                                     </div>
                                     <div className="flex flex-col gap-2 lg:gap-2.5 flex-1 min-w-0 lg:items-end lg:text-right lg:order-1">
-                                        <p className="text-[12px] lg:text-[14px] font-normal leading-4 lg:leading-5 text-[#71717a]">
+                                        <p className="text-xs lg:text-sm font-normal text-[#71717a]">
                                             Next Post
                                         </p>
-                                        <p className="text-[14px] lg:text-[16px] font-semibold leading-5 lg:leading-6 text-[#006fee] line-clamp-2">
+                                        <p className="text-sm lg:text-base font-semibold text-[#006fee] line-clamp-2">
                                             {nextPost.title}
                                         </p>
                                     </div>
@@ -294,10 +294,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                 <div className="flex flex-1 gap-4 lg:gap-5 items-center p-5 lg:p-7.5 opacity-50 w-full">
                                     <div className="w-20 h-20 lg:w-35 lg:h-35 rounded-[14px] bg-[#cce3fd] shrink-0 lg:order-2" />
                                     <div className="flex flex-col gap-2 lg:gap-2.5 flex-1 min-w-0 lg:items-end lg:text-right lg:order-1">
-                                        <p className="text-[12px] lg:text-[14px] font-normal leading-4 lg:leading-5 text-[#71717a]">
+                                        <p className="text-xs lg:text-sm font-normal text-[#71717a]">
                                             Next Post
                                         </p>
-                                        <p className="text-[14px] lg:text-[16px] font-semibold leading-5 lg:leading-6 text-[#006fee]">
+                                        <p className="text-sm lg:text-base font-semibold text-[#006fee]">
                                             No next post
                                         </p>
                                     </div>
@@ -326,7 +326,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         <div className="max-w-283.5 mx-auto">
                             <div className="flex flex-col gap-8 md:gap-10 lg:gap-13 items-center">
                                 {/* Comments Title */}
-                                <h2 className="text-[28px] md:text-[32px] lg:text-[36px] font-bold leading-8 md:leading-9 lg:leading-10 text-[#27272a] text-center">
+                                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#27272a] text-center">
                                     Comments
                                 </h2>
 
@@ -358,10 +358,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                                             </div>
                                                             {/* Name & Date */}
                                                             <div className="flex flex-col">
-                                                                <p className="text-[14px] font-normal leading-5 text-[#11181c]">
+                                                                <p className="text-sm font-normal text-[#11181c]">
                                                                     {comment.userName}
                                                                 </p>
-                                                                <p className="text-[12px] font-normal leading-4 text-[#a1a1aa]">
+                                                                <p className="text-xs font-normal text-[#a1a1aa]">
                                                                     {new Date(comment.commentDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                                                                 </p>
                                                             </div>
@@ -369,20 +369,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                                                         {/* Edit Button */}
                                                         <button className="flex items-center justify-center h-10 px-4 rounded-xl hover:bg-gray-50 transition-colors">
-                                                            <p className="text-[14px] font-normal leading-5 text-[#006fee]">
+                                                            <p className="text-sm font-normal text-[#006fee]">
                                                                 Edit
                                                             </p>
                                                         </button>
                                                     </div>
 
                                                     {/* Comment Text */}
-                                                    <p className="text-[18px] font-normal leading-7 text-[#3f3f46] w-full">
+                                                    <p className="text-sm md:text-base lg:text-lg font-normal leading-relaxed text-[#3f3f46] w-full">
                                                         {comment.comment}
                                                     </p>
 
                                                     {/* Reply Button */}
                                                     <button className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
-                                                        <p className="text-[14px] font-normal leading-5 text-white">
+                                                        <p className="text-sm font-normal text-white">
                                                             Reply
                                                         </p>
                                                     </button>
@@ -405,10 +405,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                                                         </div>
                                                                         {/* Name & Date */}
                                                                         <div className="flex flex-col">
-                                                                            <p className="text-[14px] font-normal leading-5 text-[#11181c]">
+                                                                            <p className="text-sm font-normal text-[#11181c]">
                                                                                 {reply.userName}
                                                                             </p>
-                                                                            <p className="text-[12px] font-normal leading-4 text-[#a1a1aa]">
+                                                                            <p className="text-xs font-normal text-[#a1a1aa]">
                                                                                 {new Date(reply.replyDate || comment.commentDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                                                                             </p>
                                                                         </div>
@@ -416,20 +416,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                                                                     {/* Edit Button */}
                                                                     <button className="flex items-center justify-center h-10 px-4 rounded-xl hover:bg-gray-50 transition-colors">
-                                                                        <p className="text-[14px] font-normal leading-5 text-[#006fee]">
+                                                                        <p className="text-sm font-normal text-[#006fee]">
                                                                             Edit
                                                                         </p>
                                                                     </button>
                                                                 </div>
 
                                                                 {/* Reply Text */}
-                                                                <p className="text-[18px] font-normal leading-7 text-[#3f3f46] w-full">
+                                                                <p className="text-sm md:text-base lg:text-lg font-normal leading-relaxed text-[#3f3f46] w-full">
                                                                     {reply.replyText}
                                                                 </p>
 
                                                                 {/* Reply Button */}
                                                                 <button className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
-                                                                    <p className="text-[14px] font-normal leading-5 text-white">
+                                                                    <p className="text-sm font-normal text-white">
                                                                         Reply
                                                                     </p>
                                                                 </button>
@@ -456,7 +456,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         <div className="max-w-283.5 mx-auto">
                             <div className="border border-[#e4e4e7] flex flex-col gap-8 md:gap-10 lg:gap-13 items-center p-5 md:p-6 lg:p-8 rounded-[14px]">
                                 {/* Leave a Reply Title */}
-                                <h2 className="text-[28px] md:text-[32px] lg:text-[36px] font-bold leading-8 md:leading-9 lg:leading-10 text-[#27272a] text-center">
+                                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#27272a] text-center">
                                     Leave a Reply
                                 </h2>
 
@@ -532,11 +532,30 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                                     {/* Checkbox */}
                                     <label className="flex gap-2 items-start p-2 cursor-pointer">
-                                        <input
-                                            type="checkbox"
-                                            className="w-5 h-5 md:w-6 md:h-6 mt-0.5 rounded-md border-none bg-[#d4d4d8] cursor-pointer accent-[#d4d4d8] shrink-0"
-                                        />
-                                        <p className="text-[14px] md:text-[16px] lg:text-[18px] font-normal leading-5 md:leading-6 lg:leading-7 text-[#11181c]">
+                                        <div className="relative w-6 h-6 shrink-0">
+                                            <input
+                                                type="checkbox"
+                                                className="peer absolute opacity-0 w-6 h-6 cursor-pointer"
+                                            />
+                                            <div className="w-6 h-6 bg-[#d4d4d8] rounded-[6px] flex items-center justify-center pointer-events-none">
+                                            </div>
+                                            {/* Checkmark - hidden by default, visible when checked */}
+                                            <svg
+                                                className="w-3 h-3 opacity-0 peer-checked:opacity-100 transition-opacity absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                                                viewBox="0 0 8 6"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    d="M0.5 3L2.83333 5.33333L7.5 0.666667"
+                                                    stroke="black"
+                                                    strokeWidth="1.5"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <p className="text-sm md:text-base lg:text-lg font-normal leading-relaxed text-[#11181c]">
                                             Save my name, email, and website in this browser for the next time I comment.
                                         </p>
                                     </label>
@@ -546,7 +565,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                         type="submit"
                                         className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors w-fit"
                                     >
-                                        <p className="text-[14px] font-normal leading-5 text-white">
+                                        <p className="text-sm font-normal text-white">
                                             Post comment
                                         </p>
                                     </button>

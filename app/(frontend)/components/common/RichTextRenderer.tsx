@@ -177,7 +177,7 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
       if (!imageUrl) return null;
 
       return (
-        <div key={index} className="my-8 relative w-full aspect-video rounded-3xl overflow-hidden bg-gray-100">
+        <div key={index} className="my-6 md:my-8 relative w-full aspect-[4/3] md:aspect-video rounded-2xl md:rounded-3xl overflow-hidden bg-gray-100">
           <Image
             src={imageUrl}
             alt={altText}

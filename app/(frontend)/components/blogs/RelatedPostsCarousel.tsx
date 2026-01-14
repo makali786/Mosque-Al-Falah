@@ -76,7 +76,7 @@ export default function RelatedPostsCarousel({
                         {/* Header */}
                         <div className="flex flex-col md:flex-row gap-4 md:gap-1 md:items-end md:justify-between">
                             <div className="flex flex-col gap-0">
-                                <h2 className="text-[28px] md:text-[32px] lg:text-[36px] font-bold leading-8 md:leading-9 lg:leading-10 text-[#27272a] text-left">
+                                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#27272a] text-left">
                                     {title}
                                 </h2>
                             </div>
