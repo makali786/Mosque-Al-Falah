@@ -18,7 +18,10 @@
       "Bash(move appcomponentsAyatOfTheMonth.tsx appcomponentshome)",
       "Bash(cat:*)",
       "WebFetch(domain:www.figma.com)",
-      "WebFetch(domain:localhost)"
+      "WebFetch(domain:localhost)",
+      "Bash(find:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

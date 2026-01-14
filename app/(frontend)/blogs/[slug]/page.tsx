@@ -6,7 +6,6 @@ import { fetchGlobal, fetchBlogPosts } from "../../../../lib/fetcher";
 import { getMediaUrl } from "../../../../lib/helper";
 import { RichTextRenderer } from "../../components/common/RichTextRenderer";
 import { QuoteSection } from "../../components/common/QuoteSection";
-import BlogCard from "../../components/blogs/BlogCard";
 import PageHero from "../../components/common/PageHero";
 import RelatedPostsCarousel from "../../components/blogs/RelatedPostsCarousel";
 
@@ -178,23 +177,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
 
             {/* Content Wrapper - Figma: 1134px content with 200px side padding */}
-            <div className="w-full py-20 px-4 md:px-8 lg:px-50">
-                <div className="flex flex-col gap-15 max-w-283.5 mx-auto">
+            <div className="w-full py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-50">
+                <div className="flex flex-col gap-8 md:gap-12 lg:gap-15 max-w-283.5 mx-auto">
 
                     {/* Main Content from CMS - Figma Perfect Styling */}
                     <article className="prose prose-lg max-w-none
                         prose-headings:font-bold prose-headings:text-black
-                        prose-h1:text-[64px] prose-h1:leading-[70px]
-                        prose-h2:text-[48px] prose-h2:leading-[48px] prose-h2:mb-0 prose-h2:mt-0
-                        prose-h3:text-[32px] prose-h3:leading-[40px]
-                        prose-p:text-[18px] prose-p:leading-[28px] prose-p:text-[#27272a] prose-p:mb-0 prose-p:mt-0
+                        prose-h1:text-[32px] md:prose-h1:text-[48px] lg:prose-h1:text-[64px] prose-h1:leading-[38px] md:prose-h1:leading-[54px] lg:prose-h1:leading-[70px]
+                        prose-h2:text-[28px] md:prose-h2:text-[36px] lg:prose-h2:text-[48px] prose-h2:leading-[34px] md:prose-h2:leading-[42px] lg:prose-h2:leading-[48px] prose-h2:mb-0 prose-h2:mt-0
+                        prose-h3:text-[24px] md:prose-h3:text-[28px] lg:prose-h3:text-[32px] prose-h3:leading-[32px] md:prose-h3:leading-[36px] lg:prose-h3:leading-[40px]
+                        prose-p:text-[16px] md:prose-p:text-[18px] prose-p:leading-[24px] md:prose-p:leading-[28px] prose-p:text-[#27272a] prose-p:mb-0 prose-p:mt-0
                         prose-a:text-[#006fee] prose-a:underline hover:prose-a:text-[#005bc4]
                         prose-strong:font-bold prose-strong:text-black
                         prose-ul:list-none prose-ul:p-[10px] prose-ul:my-0
                         prose-ol:list-none prose-ol:p-[10px] prose-ol:my-0
-                        prose-li:text-[18px] prose-li:leading-[28px] prose-li:text-[#27272a] prose-li:my-0 prose-li:pl-0
+                        prose-li:text-[16px] md:prose-li:text-[18px] prose-li:leading-[24px] md:prose-li:leading-[28px] prose-li:text-[#27272a] prose-li:my-0 prose-li:pl-0
                         prose-img:rounded-[14px]
-                        *:mb-15 [&>*:last-child]:mb-0
+                        *:mb-8 md:*:mb-12 lg:*:mb-15 [&>*:last-child]:mb-0
                         [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-6
                         [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-6
                         [&_li]:flex [&_li]:gap-3.75 [&_li]:items-start
@@ -222,14 +221,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                     {/* Previous/Next Post Navigation */}
                     {(prevPost || nextPost) && (
-                        <div className="mt-20 border border-[#e4e4e7] rounded-[14px] flex items-center justify-center overflow-hidden">
+                        <div className="mt-12 md:mt-16 lg:mt-20 border border-[#e4e4e7] rounded-[14px] flex flex-col lg:flex-row items-center justify-center overflow-hidden">
                             {/* Previous Post */}
                             {prevPost ? (
                                 <Link
                                     href={`/blogs/${prevPost.slug}`}
-                                    className="flex flex-1 gap-5 items-center p-[30px] hover:bg-gray-50 transition-colors"
+                                    className="flex flex-1 gap-4 lg:gap-5 items-center p-5 lg:p-7.5 hover:bg-gray-50 transition-colors w-full"
                                 >
-                                    <div className="relative w-[140px] h-[140px] rounded-[14px] overflow-hidden bg-[#cce3fd] shrink-0">
+                                    <div className="relative w-20 h-20 lg:w-35 lg:h-35 rounded-[14px] overflow-hidden bg-[#cce3fd] shrink-0">
                                         {getMediaUrl(prevPost.featuredImage) && (
                                             <Image
                                                 src={getMediaUrl(prevPost.featuredImage)!}
@@ -239,23 +238,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                             />
                                         )}
                                     </div>
-                                    <div className="flex flex-col gap-2.5 flex-1 min-w-0">
-                                        <p className="text-[14px] font-normal leading-5 text-[#71717a]">
+                                    <div className="flex flex-col gap-2 lg:gap-2.5 flex-1 min-w-0">
+                                        <p className="text-[12px] lg:text-[14px] font-normal leading-4 lg:leading-5 text-[#71717a]">
                                             Previous Post
                                         </p>
-                                        <p className="text-[16px] font-semibold leading-6 text-[#27272a]">
+                                        <p className="text-[14px] lg:text-[16px] font-semibold leading-5 lg:leading-6 text-[#27272a] line-clamp-2">
                                             {prevPost.title}
                                         </p>
                                     </div>
                                 </Link>
                             ) : (
-                                <div className="flex flex-1 gap-5 items-center p-[30px] opacity-50">
-                                    <div className="w-[140px] h-[140px] rounded-[14px] bg-[#cce3fd] shrink-0" />
-                                    <div className="flex flex-col gap-2.5 flex-1 min-w-0">
-                                        <p className="text-[14px] font-normal leading-5 text-[#71717a]">
+                                <div className="flex flex-1 gap-4 lg:gap-5 items-center p-5 lg:p-7.5 opacity-50 w-full">
+                                    <div className="w-20 h-20 lg:w-35 lg:h-35 rounded-[14px] bg-[#cce3fd] shrink-0" />
+                                    <div className="flex flex-col gap-2 lg:gap-2.5 flex-1 min-w-0">
+                                        <p className="text-[12px] lg:text-[14px] font-normal leading-4 lg:leading-5 text-[#71717a]">
                                             Previous Post
                                         </p>
-                                        <p className="text-[16px] font-semibold leading-6 text-[#27272a]">
+                                        <p className="text-[14px] lg:text-[16px] font-semibold leading-5 lg:leading-6 text-[#27272a]">
                                             No previous post
                                         </p>
                                     </div>
@@ -263,23 +262,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                             )}
 
                             {/* Divider */}
-                            <div className="w-px h-[200px] bg-[#e4e4e7]" />
+                            <div className="hidden lg:block w-px h-50 bg-[#e4e4e7]" />
+                            <div className="lg:hidden w-full h-px bg-[#e4e4e7]" />
 
                             {/* Next Post */}
                             {nextPost ? (
                                 <Link
                                     href={`/blogs/${nextPost.slug}`}
-                                    className="flex flex-1 gap-5 items-center justify-center p-[30px] hover:bg-gray-50 transition-colors"
+                                    className="flex flex-1 gap-4 lg:gap-5 items-center p-5 lg:p-7.5 hover:bg-gray-50 transition-colors w-full"
                                 >
-                                    <div className="flex flex-col gap-2.5 flex-1 min-w-0 items-end text-right">
-                                        <p className="text-[14px] font-normal leading-5 text-[#71717a]">
-                                            Next Post
-                                        </p>
-                                        <p className="text-[16px] font-semibold leading-6 text-[#006fee]">
-                                            {nextPost.title}
-                                        </p>
-                                    </div>
-                                    <div className="relative w-[140px] h-[140px] rounded-[14px] overflow-hidden bg-[#cce3fd] shrink-0">
+                                    <div className="relative w-20 h-20 lg:w-35 lg:h-35 rounded-[14px] overflow-hidden bg-[#cce3fd] shrink-0 lg:order-2">
                                         {getMediaUrl(nextPost.featuredImage) && (
                                             <Image
                                                 src={getMediaUrl(nextPost.featuredImage)!}
@@ -289,18 +281,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                             />
                                         )}
                                     </div>
-                                </Link>
-                            ) : (
-                                <div className="flex flex-1 gap-5 items-center justify-center p-[30px] opacity-50">
-                                    <div className="flex flex-col gap-2.5 flex-1 min-w-0 items-end text-right">
-                                        <p className="text-[14px] font-normal leading-5 text-[#71717a]">
+                                    <div className="flex flex-col gap-2 lg:gap-2.5 flex-1 min-w-0 lg:items-end lg:text-right lg:order-1">
+                                        <p className="text-[12px] lg:text-[14px] font-normal leading-4 lg:leading-5 text-[#71717a]">
                                             Next Post
                                         </p>
-                                        <p className="text-[16px] font-semibold leading-6 text-[#006fee]">
+                                        <p className="text-[14px] lg:text-[16px] font-semibold leading-5 lg:leading-6 text-[#006fee] line-clamp-2">
+                                            {nextPost.title}
+                                        </p>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <div className="flex flex-1 gap-4 lg:gap-5 items-center p-5 lg:p-7.5 opacity-50 w-full">
+                                    <div className="w-20 h-20 lg:w-35 lg:h-35 rounded-[14px] bg-[#cce3fd] shrink-0 lg:order-2" />
+                                    <div className="flex flex-col gap-2 lg:gap-2.5 flex-1 min-w-0 lg:items-end lg:text-right lg:order-1">
+                                        <p className="text-[12px] lg:text-[14px] font-normal leading-4 lg:leading-5 text-[#71717a]">
+                                            Next Post
+                                        </p>
+                                        <p className="text-[14px] lg:text-[16px] font-semibold leading-5 lg:leading-6 text-[#006fee]">
                                             No next post
                                         </p>
                                     </div>
-                                    <div className="w-[140px] h-[140px] rounded-[14px] bg-[#cce3fd] shrink-0" />
                                 </div>
                             )}
                         </div>
@@ -321,22 +321,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Comments Section - Only show if comments are enabled */}
             {post.enableComments === true && (
-                <div className="bg-white pt-12 pb-0 mb-6">
+                <div className="bg-white pt-8 md:pt-10 lg:pt-12 pb-0 mb-6">
                     <div className="w-full px-4 md:px-8 lg:px-50">
                         <div className="max-w-283.5 mx-auto">
-                            <div className="flex flex-col gap-13 items-center">
+                            <div className="flex flex-col gap-8 md:gap-10 lg:gap-13 items-center">
                                 {/* Comments Title */}
-                                <h2 className="text-[36px] font-bold leading-10 text-[#27272a] text-center">
+                                <h2 className="text-[28px] md:text-[32px] lg:text-[36px] font-bold leading-8 md:leading-9 lg:leading-10 text-[#27272a] text-center">
                                     Comments
                                 </h2>
 
                                 {/* Comment List */}
                                 {post.comments && post.comments.length > 0 ? (
-                                    <div className="flex flex-col gap-13 items-start w-full">
+                                    <div className="flex flex-col gap-8 md:gap-10 lg:gap-13 items-start w-full">
                                         {post.comments.map((comment: any) => (
-                                            <div key={comment.id} className="flex flex-col gap-9 items-end w-full">
+                                            <div key={comment.id} className="flex flex-col gap-6 md:gap-7 lg:gap-9 items-end w-full">
                                                 {/* Main Comment */}
-                                                <div className="border border-[#c5c5c5] flex flex-col gap-5 items-start justify-center px-10 py-12.5 rounded-[30px] w-full">
+                                                <div className="border border-[#c5c5c5] flex flex-col gap-4 md:gap-5 items-start justify-center px-5 md:px-8 lg:px-10 py-8 md:py-10 lg:py-12.5 rounded-[20px] md:rounded-[25px] lg:rounded-[30px] w-full">
                                                     {/* Header: User Info + Edit Button */}
                                                     <div className="flex items-start justify-between w-full">
                                                         {/* User Info */}
@@ -381,7 +381,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                                     </p>
 
                                                     {/* Reply Button */}
-                                                    <button className="bg-[#006fee] h-[42px] flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
+                                                    <button className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
                                                         <p className="text-[14px] font-normal leading-5 text-white">
                                                             Reply
                                                         </p>
@@ -392,7 +392,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                                 {comment.replies && comment.replies.length > 0 && (
                                                     <>
                                                         {comment.replies.map((reply: any) => (
-                                                            <div key={reply.id} className="border border-[#c5c5c5] flex flex-col gap-5 items-start justify-center px-10 py-[50px] rounded-[30px] w-[calc(100%-123px)]">
+                                                            <div key={reply.id} className="border border-[#c5c5c5] flex flex-col gap-4 md:gap-5 items-start justify-center px-5 md:px-8 lg:px-10 py-8 md:py-10 lg:py-12.5 rounded-[20px] md:rounded-[25px] lg:rounded-[30px] w-full md:w-[calc(100%-80px)] lg:w-[calc(100%-123px)]">
                                                                 {/* Header: User Info + Edit Button */}
                                                                 <div className="flex items-start justify-between w-full">
                                                                     {/* User Info */}
@@ -428,7 +428,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                                                 </p>
 
                                                                 {/* Reply Button */}
-                                                                <button className="bg-[#006fee] h-[42px] flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
+                                                                <button className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors">
                                                                     <p className="text-[14px] font-normal leading-5 text-white">
                                                                         Reply
                                                                     </p>
@@ -451,19 +451,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Leave a Reply Section */}
             {post.enableComments === true && (
-                <div className="bg-white pb-20 pt-10">
+                <div className="bg-white pb-12 md:pb-16 lg:pb-20 pt-6 md:pt-8 lg:pt-10">
                     <div className="w-full px-4 md:px-8 lg:px-50">
                         <div className="max-w-283.5 mx-auto">
-                            <div className="border border-[#e4e4e7] flex flex-col gap-13 items-center p-8 rounded-[14px]">
+                            <div className="border border-[#e4e4e7] flex flex-col gap-8 md:gap-10 lg:gap-13 items-center p-5 md:p-6 lg:p-8 rounded-[14px]">
                                 {/* Leave a Reply Title */}
-                                <h2 className="text-[36px] font-bold leading-10 text-[#27272a] text-center">
+                                <h2 className="text-[28px] md:text-[32px] lg:text-[36px] font-bold leading-8 md:leading-9 lg:leading-10 text-[#27272a] text-center">
                                     Leave a Reply
                                 </h2>
 
                                 {/* Form */}
-                                <form className="flex flex-col gap-6 w-full">
+                                <form className="flex flex-col gap-5 md:gap-6 w-full">
                                     {/* Name and Email Row */}
-                                    <div className="flex gap-4 w-full">
+                                    <div className="flex flex-col md:flex-row gap-4 w-full">
                                         {/* Full Name Input */}
                                         <div className="flex-1 min-w-29">
                                             <div className="bg-[#f4f4f5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
@@ -488,15 +488,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                         </div>
 
                                         {/* Email Input */}
-                                        <div className="flex-1 min-w-[116px]">
-                                            <div className="bg-[#f4f4f5] flex items-center min-h-[32px] px-[6px] py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                                                <div className="flex-1 flex flex-col items-start justify-center px-[6px] pb-[2px]">
+                                        <div className="flex-1 min-w-29">
+                                            <div className="bg-[#f4f4f5] flex items-center min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                                                <div className="flex-1 flex flex-col items-start justify-center px-1.5 pb-0.5">
                                                     {/* Label */}
                                                     <div className="flex items-center pr-2 w-full">
                                                         <p className="text-[12px] font-normal leading-4 text-[#52525b]">
                                                             Email
                                                         </p>
-                                                        <p className="text-[14px] font-normal leading-5 text-[#f31260] pl-[2px]">
+                                                        <p className="text-[14px] font-normal leading-5 text-[#f31260] pl-0.5">
                                                             *
                                                         </p>
                                                     </div>
@@ -512,9 +512,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                     </div>
 
                                     {/* Comments Textarea */}
-                                    <div className="flex flex-col h-[121px] min-w-[116px] w-full">
-                                        <div className="bg-[#f4f4f5] flex-1 flex items-start min-h-[32px] px-[6px] py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                                            <div className="flex-1 flex flex-col h-full items-start px-[6px] pb-[2px]">
+                                    <div className="flex flex-col h-30.25 min-w-29 w-full">
+                                        <div className="bg-[#f4f4f5] flex-1 flex items-start min-h-8 px-1.5 py-1 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                                            <div className="flex-1 flex flex-col h-full items-start px-1.5 pb-0.5">
                                                 {/* Label */}
                                                 <div className="flex items-center pr-2 w-full">
                                                     <p className="text-[12px] font-normal leading-4 text-[#52525b]">
@@ -531,12 +531,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                     </div>
 
                                     {/* Checkbox */}
-                                    <label className="flex gap-2 items-center p-2 cursor-pointer">
+                                    <label className="flex gap-2 items-start p-2 cursor-pointer">
                                         <input
                                             type="checkbox"
-                                            className="w-6 h-6 rounded-md border-none bg-[#d4d4d8] cursor-pointer accent-[#d4d4d8]"
+                                            className="w-5 h-5 md:w-6 md:h-6 mt-0.5 rounded-md border-none bg-[#d4d4d8] cursor-pointer accent-[#d4d4d8] shrink-0"
                                         />
-                                        <p className="text-[18px] font-normal leading-7 text-[#11181c]">
+                                        <p className="text-[14px] md:text-[16px] lg:text-[18px] font-normal leading-5 md:leading-6 lg:leading-7 text-[#11181c]">
                                             Save my name, email, and website in this browser for the next time I comment.
                                         </p>
                                     </label>
@@ -544,7 +544,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                     {/* Submit Button */}
                                     <button
                                         type="submit"
-                                        className="bg-[#006fee] h-[42px] flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors w-fit"
+                                        className="bg-[#006fee] h-10.5 flex items-center justify-center px-4 rounded-lg hover:bg-[#005bc4] transition-colors w-fit"
                                     >
                                         <p className="text-[14px] font-normal leading-5 text-white">
                                             Post comment

@@ -106,7 +106,7 @@ export default function BlogCard({
         {showReadMoreButton && (
             <Link
             href={`/blogs/${slug}`}
-            className="inline-flex items-center justify-center px-6 py-3 bg-[#FAFAFA] cursor-pointer text-base rounded-[12px] w-fit mt-auto"
+            className="inline-flex items-center justify-center px-6 py-3 bg-[#FAFAFA] cursor-pointer text-base rounded-xl w-fit mt-auto"
             >
             {readMoreButtonText}
             </Link>

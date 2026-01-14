@@ -251,7 +251,7 @@ export const RichTextRenderer: React.FC<RichTextProps> = ({ content, className }
 
       if (leftNodes.length > 0 && rightNodes.length > 0) {
         elements.push(
-          <div key={`hr-layout-${hrIndex}`} className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start my-8">
+          <div key={`hr-layout-${hrIndex}`} className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-12 items-start my-6 md:my-8">
             {/* Left side - 3 elements before HR (65% width) */}
             <div className="w-full lg:w-[65%]">
               {leftNodes.map((node, idx) => {
@@ -262,7 +262,7 @@ export const RichTextRenderer: React.FC<RichTextProps> = ({ content, className }
             </div>
 
             {/* Vertical divider line (only on desktop) */}
-            <div className="hidden lg:block w-px bg-gray-300 self-stretch min-h-[200px]" />
+            <div className="hidden lg:block w-px bg-gray-300 self-stretch min-h-50" />
 
             {/* Right side - next 3 elements after HR (35% width) */}
             <div className="w-full lg:w-[35%]">
