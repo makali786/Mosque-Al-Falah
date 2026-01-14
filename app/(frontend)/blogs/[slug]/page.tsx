@@ -320,7 +320,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             )}
 
             {/* Comments Section - Only show if comments are enabled */}
-            {post.enableComments !== false && (
+            {post.enableComments === true && (
                 <div className="bg-white pt-12 pb-0 mb-6">
                     <div className="w-full px-4 md:px-8 lg:px-50">
                         <div className="max-w-283.5 mx-auto">
@@ -450,7 +450,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             )}
 
             {/* Leave a Reply Section */}
-            {post.enableComments !== false && (
+            {post.enableComments === true && (
                 <div className="bg-white pb-20 pt-10">
                     <div className="w-full px-4 md:px-8 lg:px-50">
                         <div className="max-w-283.5 mx-auto">
