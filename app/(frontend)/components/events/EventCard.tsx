@@ -152,9 +152,9 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
 
   // Grid View
   return (
-    <CardWrapper className="flex flex-col w-full bg-white overflow-hidden shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] max-w-[357px]">
+    <CardWrapper className="flex flex-col w-full bg-white overflow-hidden shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] max-w-[357px] rounded-lg sm:rounded-none">
       {/* Image Container - Square aspect ratio */}
-      <div className="relative w-full aspect-square h-[357px]">
+      <div className="relative w-full aspect-square max-h-[357px]">
         {imageUrl && (
           <Image
             src={imageUrl}
@@ -166,52 +166,52 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
       </div>
 
       {/* Content Container */}
-      <div className="flex flex-col p-4 gap-[15px]">
+      <div className="flex flex-col p-3 sm:p-4 gap-3 sm:gap-[15px]">
         {/* Title and Date/Time Section */}
-        <div className="flex flex-col gap-1 h-[52px]">
+        <div className="flex flex-col gap-1 min-h-[52px]">
           {/* Title */}
-          <h3 className="text-lg font-semibold leading-7 text-black overflow-hidden text-ellipsis whitespace-nowrap">
+          <h3 className="text-base sm:text-lg font-semibold leading-6 sm:leading-7 text-black overflow-hidden text-ellipsis whitespace-nowrap">
             {title}
           </h3>
 
           {/* Date and Status */}
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-2 text-[#71717A] text-sm">
+          <div className="flex items-center justify-between w-full flex-wrap gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 text-[#71717A] text-xs sm:text-sm">
               <span>{dateFormatted}</span>
               <span className="w-[6px] h-[6px] rounded-full bg-[#A1A1AA]"></span>
-              <span>{timeRange}</span>
+              <span className="text-xs sm:text-sm">{timeRange}</span>
             </div>
 
             {isLive && (
               <div className="flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-[#F31260]"></span>
-                <span className="text-[#3F3F46] text-sm">Live Now</span>
+                <span className="text-[#3F3F46] text-xs sm:text-sm">Live Now</span>
               </div>
             )}
           </div>
         </div>
 
         {/* Platform Info */}
-        <div className="flex items-center gap-3">
-          <span className="text-[#A1A1AA] text-xs">Platform:</span>
-          <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <span className="text-[#A1A1AA] text-[11px] sm:text-xs">Platform:</span>
+          <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
             {/* Dynamic Platform Icons */}
             {platforms.some(p => p.platform === 'zoom') && (
-              <div className="flex items-center gap-2">
-                <Image src="/assets/common/zoom-logo.svg" alt="Zoom" width={18} height={18} />
-                <span className="text-[#3F3F46] text-xs">Zoom</span>
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <Image src="/assets/common/zoom-logo.svg" alt="Zoom" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="text-[#3F3F46] text-[11px] sm:text-xs">Zoom</span>
               </div>
             )}
             {platforms.some(p => p.platform === 'meet') && (
-              <div className="flex items-center gap-2">
-                <Image src="/assets/common/google-meet-logo.svg" alt="Meet" width={18} height={18} />
-                <span className="text-[#3F3F46] text-xs">Google Meet</span>
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <Image src="/assets/common/google-meet-logo.svg" alt="Meet" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="text-[#3F3F46] text-[11px] sm:text-xs">Google Meet</span>
               </div>
             )}
             {event.venue && (
-              <div className="flex items-center gap-2">
-                <Image src="/assets/common/people-icon.svg" alt="In-person" width={18} height={18} />
-                <span className="text-[#3F3F46] text-xs">In-person</span>
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <Image src="/assets/common/people-icon.svg" alt="In-person" width={16} height={16} className="sm:w-[18px] sm:h-[18px]" />
+                <span className="text-[#3F3F46] text-[11px] sm:text-xs">In-person</span>
               </div>
             )}
           </div>

@@ -139,12 +139,12 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
         />
       )}
 
-      <div className="bg-white min-h-screen section-padding py-12 flex flex-col gap-11">
+      <div className="section-padding pb-8 sm:pb-12 bg-white min-h-screen flex flex-col gap-8 sm:gap-11">
         {/* Filters and View Controls */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+        <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
 
           {/* Left: Tabs & Dropdowns */}
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full lg:w-auto">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 w-full xl:w-auto">
 
             {/* Tabs */}
             <Tabs
@@ -159,9 +159,9 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
             />
 
             {/* Dropdowns */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 w-full md:w-auto">
               {filterOptions.enableSpeakerFilter && (
-                <div className="relative w-[250px]">
+                <div className="relative w-full sm:w-62.5">
                   <select
                     value={selectedSpeaker}
                     onChange={(e) => setSelectedSpeaker(e.target.value)}
@@ -177,7 +177,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
               )}
 
               {filterOptions.enableCategoryFilter && (
-                <div className="relative w-[167px]">
+                <div className="relative w-full sm:w-41.75">
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
@@ -196,10 +196,10 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
           {/* Right: View Toggles */}
           {viewOptions.showViewToggle && (
-            <div className="flex items-center gap-4 lg:ml-auto">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full xl:w-auto xl:ml-auto">
 
               {filterOptions.enableCalendarView && (
-                <div className="relative">
+                <div className="relative w-full sm:w-auto">
                   <input
                     ref={dateInputRef}
                     type="date"
@@ -209,7 +209,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
                   />
                   <button
                     onClick={() => dateInputRef.current?.showPicker()}
-                    className="flex items-center justify-between bg-[#F4F4F5] text-[#11181C] text-sm rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-3 py-2 cursor-pointer min-w-[176px]"
+                    className="flex items-center justify-between bg-[#F4F4F5] text-[#11181C] text-sm rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-3 py-2 cursor-pointer w-full sm:min-w-44"
                   >
                     <span>{selectedDate ? new Date(selectedDate).toLocaleDateString() : filterOptions.calendarViewLabel}</span>
                     {selectedDate ? (
@@ -226,49 +226,44 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
                 </div>
               )}
 
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setView("list")}
-                  className={`flex items-center gap-2 px-2 py-2 rounded-xl transition-colors ${
-                    view === "list" ? "" : ""
-                  }`}
-                >
-                  <Image
-                    src="/assets/common/list-icon.svg"
-                    alt="List"
-                    width={20}
-                    height={20}
-                    className={view === "list" ? "" : "opacity-60"}
-                    style={view === "list" ? { filter: "invert(30%) sepia(85%) saturate(2329%) hue-rotate(202deg) brightness(98%) contrast(106%)" } : {}}
-                  />
-                  <span className={`text-sm ${view === "list" ? "text-[#006FEE]" : "text-black"}`}>
-                    {viewOptions.listViewLabel}
-                  </span>
-                </button>
-                <button
-                  onClick={() => setView("grid")}
-                  className={`flex items-center gap-2 px-2 py-2 rounded-xl transition-colors ${
-                    view === "grid" ? "" : ""
-                  }`}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "text-[#006FEE]" : "text-black"}>
-                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                  </svg>
-                  <span className={`text-sm ${view === "grid" ? "text-[#006FEE]" : "text-black"}`}>
-                    {viewOptions.gridViewLabel}
-                  </span>
-                </button>
-              </div>
+              <Tabs
+                tabs={[
+                  {
+                    id: "list",
+                    label: viewOptions.listViewLabel,
+                    icon: <Image
+                      src="/assets/common/list-icon.svg"
+                      alt="List"
+                      width={20}
+                      height={20}
+                      className={view === "list" ? "" : "opacity-60"}
+                      style={view === "list" ? { filter: "invert(30%) sepia(85%) saturate(2329%) hue-rotate(202deg) brightness(98%) contrast(106%)" } : {}}
+                    />
+                  },
+                  {
+                    id: "grid",
+                    label: viewOptions.gridViewLabel,
+                    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "text-[#006FEE]" : "text-black"}>
+                      <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                      <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                      <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                      <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    </svg>
+                  }
+                ]}
+                activeTab={view}
+                onChange={(tabId) => setView(tabId as any)}
+                variant="underline"
+                size="sm"
+                className="shrink-0 self-end sm:self-center"
+              />
             </div>
           )}
         </div>
 
         {/* Content */}
         {displayedEvents.length > 0 ? (
-          <div className={view === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center" : "flex flex-col gap-6"}>
+          <div className={view === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 justify-items-center" : "flex flex-col gap-6"}>
             {displayedEvents.map((event) => (
               <EventCard key={event.id} event={event} layout={view} />
             ))}
@@ -281,10 +276,10 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
         {/* Load More */}
         {visibleCount < filteredEvents.length && (
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-4 sm:mt-8">
             <button
               onClick={handleLoadMore}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-[#FAFAFA] rounded-xl text-base font-normal text-black hover:bg-[#F4F4F5] transition-colors cursor-pointer h-12"
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-[#FAFAFA] rounded-xl text-sm sm:text-base font-normal text-black hover:bg-[#F4F4F5] transition-colors cursor-pointer h-12"
             >
               <span>{gridSettings.loadMoreButtonText}</span>
             </button>
