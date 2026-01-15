@@ -1074,21 +1074,40 @@ function Step3GiftAid({
 
         {/* Gift Aid Options */}
         <div className="flex flex-col gap-4 w-full">
-          {/* Yes Option with checkboxes */}
-          <label className="flex gap-2 items-center p-2 cursor-pointer">
-            <input
-              type="radio"
-              name="giftAid"
-              checked={formData.giftAidEnabled}
-              onChange={() =>
-                setFormData({ ...formData, giftAidEnabled: true })
-              }
-              className="w-5 h-5 rounded-full border-2 border-[#006FEE] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
-            />
-            <span className="text-base font-normal leading-6 text-[#11181C]">
-              Yes, please Gift Aid this donation
-            </span>
-          </label>
+          {/* Yes Option */}
+          <div className="flex gap-2 items-center p-2">
+            <label className="flex gap-2 items-center cursor-pointer">
+              <div className="relative inline-grid grid-cols-[max-content] grid-rows-[max-content] items-start justify-items-start">
+                <input
+                  type="radio"
+                  name="giftAid"
+                  checked={formData.giftAidEnabled}
+                  onChange={() =>
+                    setFormData({ ...formData, giftAidEnabled: true })
+                  }
+                  className={`appearance-none col-1 row-1 ml-0 mt-0 w-5 h-5 rounded-full border-2 cursor-pointer ${
+                    formData.giftAidEnabled
+                      ? 'bg-[#006FEE] border-[#006FEE]'
+                      : 'bg-white border-[#D4D4D8]'
+                  }`}
+                />
+                {formData.giftAidEnabled && (
+                  <div className="col-1 row-1 w-[6.22px] h-[4.44px] ml-[7px] mt-[8px] relative pointer-events-none">
+                    <Image
+                      src="/assets/donation/checkmark-icon.svg"
+                      alt="Check"
+                      width={7}
+                      height={5}
+                      className="w-full h-full"
+                    />
+                  </div>
+                )}
+              </div>
+              <span className="text-base font-normal leading-6 text-[#11181C]">
+                Yes, please Gift Aid this donation
+              </span>
+            </label>
+          </div>
 
           {/* Declaration Box (shown when Yes is selected) */}
           {formData.giftAidEnabled && (
@@ -1107,7 +1126,7 @@ function Step3GiftAid({
                         giftAidDeclaration: e.target.checked,
                       })
                     }
-                    className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
+                    className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
                   />
                   <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
                     This is my own money. I am not paying in donations made by a third party, e.g. money collected at an event, the pub, a company donation or a donation from a friend or family member.
@@ -1116,7 +1135,7 @@ function Step3GiftAid({
                 <label className="flex gap-2 items-start p-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
+                    className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
                   />
                   <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
                     This donation is not made as part of a sweepstake, raffle or lottery and I am not receiving anything in return of it, e.g. book, auction prize, ticket to an event.
@@ -1127,20 +1146,39 @@ function Step3GiftAid({
           )}
 
           {/* No Option */}
-          <label className="flex gap-2 items-center p-2 cursor-pointer w-full">
-            <input
-              type="radio"
-              name="giftAid"
-              checked={!formData.giftAidEnabled}
-              onChange={() =>
-                setFormData({ ...formData, giftAidEnabled: false })
-              }
-              className="w-5 h-5 rounded-full border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
-            />
-            <span className="text-base font-normal leading-6 text-[#11181C]">
-              No, please do not Gift Aid this donation
-            </span>
-          </label>
+          <div className="flex gap-2 items-center p-2 w-full">
+            <label className="flex gap-2 items-center cursor-pointer">
+              <div className="relative inline-grid grid-cols-[max-content] grid-rows-[max-content] items-start justify-items-start">
+                <input
+                  type="radio"
+                  name="giftAid"
+                  checked={!formData.giftAidEnabled}
+                  onChange={() =>
+                    setFormData({ ...formData, giftAidEnabled: false })
+                  }
+                  className={`appearance-none col-1 row-1 ml-0 mt-0 w-5 h-5 rounded-full border-2 cursor-pointer ${
+                    !formData.giftAidEnabled
+                      ? 'bg-[#006FEE] border-[#006FEE]'
+                      : 'bg-white border-[#D4D4D8]'
+                  }`}
+                />
+                {!formData.giftAidEnabled && (
+                  <div className="col-1 row-1 w-[6.22px] h-[4.44px] ml-[7px] mt-[8px] relative pointer-events-none">
+                    <Image
+                      src="/assets/donation/checkmark-icon.svg"
+                      alt="Check"
+                      width={7}
+                      height={5}
+                      className="w-full h-full"
+                    />
+                  </div>
+                )}
+              </div>
+              <span className="text-base font-normal leading-6 text-[#11181C]">
+                No, please do not Gift Aid this donation
+              </span>
+            </label>
+          </div>
         </div>
       </div>
 
@@ -1184,6 +1222,8 @@ function PaymentForm({
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<'direct-debit' | 'card' | 'paypal'>('direct-debit');
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const donationAmount = formData.customAmount
     ? parseFloat(formData.customAmount)
@@ -1217,7 +1257,7 @@ function PaymentForm({
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="w-full flex flex-col gap-8 pt-8 pb-8 px-4 md:px-24 lg:px-96">
       {/* Header with Back Button */}
       <div className="flex flex-col gap-8 items-start w-full mb-6">
         {/* Back Button and Title */}
@@ -1227,7 +1267,7 @@ function PaymentForm({
             className="border-2 border-[#D4D4D8] border-solid flex h-12 items-center justify-center px-6 py-0 rounded-lg cursor-pointer hover:bg-[#F4F4F5] transition-colors"
           >
             <div className="flex gap-2 items-center justify-center">
-              <div className="w-5 h-5 relative shrink-0">
+              <div className="w-3 h-3 relative shrink-0">
                 <Image
                   src="/assets/donation/arrow-left-black.svg"
                   alt="Back"
@@ -1250,63 +1290,274 @@ function PaymentForm({
         </p>
       </div>
 
-      {/* Payment Methods Header */}
-      <div className="bg-gray-50 rounded-lg p-6 mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-medium">Payment Method</h3>
-          <div className="flex items-center gap-2">
-            <img src="/images/visa.svg" alt="Visa" className="h-6" />
-            <img
-              src="/images/mastercard.svg"
-              alt="Mastercard"
-              className="h-6"
-            />
-            <img src="/images/amex.svg" alt="Amex" className="h-6" />
+      {/* Payment Section Container */}
+      <div className="bg-[#FAFAFA] flex flex-col gap-8 p-8 rounded-xl w-full">
+        {/* Payment Method Selection */}
+        <div className="flex flex-col gap-4 w-full">
+          <p className="text-sm font-normal leading-5 text-black">
+            Payment Method
+          </p>
+          <div className="flex gap-4 w-full">
+            {/* Direct Debit */}
+            <button
+              type="button"
+              onClick={() => setPaymentMethod('direct-debit')}
+              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
+            >
+              <div className="flex gap-2 items-center p-2">
+                <div className="relative inline-grid grid-cols-[max-content] grid-rows-[max-content] items-start justify-items-start">
+                  <div
+                    className={`col-1 row-1 ml-0 mt-0 w-4 h-4 rounded-full border-2 ${
+                      paymentMethod === 'direct-debit'
+                        ? 'bg-[#006FEE] border-[#006FEE]'
+                        : 'border-[#D4D4D8]'
+                    }`}
+                  />
+                  {paymentMethod === 'direct-debit' && (
+                    <div className="col-1 row-1 w-[6.22px] h-[4.44px] ml-[5px] mt-[6px] relative pointer-events-none">
+                      <Image
+                        src="/assets/donation/checkmark-icon.svg"
+                        alt="Check"
+                        width={7}
+                        height={5}
+                        className="w-full h-full"
+                      />
+                    </div>
+                  )}
+                </div>
+                <span className="text-sm font-normal leading-5 text-[#11181C]">
+                  Direct Debit
+                </span>
+              </div>
+              <div className="w-4 h-4 relative shrink-0">
+                <Image
+                  src="/assets/donation/direct-debit-icon.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </button>
+
+            {/* Debit/Credit Card */}
+            <button
+              type="button"
+              onClick={() => setPaymentMethod('card')}
+              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
+            >
+              <div className="flex gap-2 items-center p-2">
+                <div className="relative inline-grid grid-cols-[max-content] grid-rows-[max-content] items-start justify-items-start">
+                  <div
+                    className={`col-1 row-1 ml-0 mt-0 w-4 h-4 rounded-full border-2 ${
+                      paymentMethod === 'card'
+                        ? 'bg-[#006FEE] border-[#006FEE]'
+                        : 'border-[#D4D4D8]'
+                    }`}
+                  />
+                  {paymentMethod === 'card' && (
+                    <div className="col-1 row-1 w-[6.22px] h-[4.44px] ml-[5px] mt-[6px] relative pointer-events-none">
+                      <Image
+                        src="/assets/donation/checkmark-icon.svg"
+                        alt="Check"
+                        width={7}
+                        height={5}
+                        className="w-full h-full"
+                      />
+                    </div>
+                  )}
+                </div>
+                <span className="text-sm font-normal leading-5 text-[#11181C]">
+                  Debit/Credit card
+                </span>
+              </div>
+              <div className="w-4 h-4 relative shrink-0">
+                <Image
+                  src="/assets/donation/card-icon.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </button>
+
+            {/* PayPal */}
+            <button
+              type="button"
+              onClick={() => setPaymentMethod('paypal')}
+              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
+            >
+              <div className="flex gap-2 items-center p-2">
+                <div className="relative inline-grid grid-cols-[max-content] grid-rows-[max-content] items-start justify-items-start">
+                  <div
+                    className={`col-1 row-1 ml-0 mt-0 w-4 h-4 rounded-full border-2 ${
+                      paymentMethod === 'paypal'
+                        ? 'bg-[#006FEE] border-[#006FEE]'
+                        : 'border-[#D4D4D8]'
+                    }`}
+                  />
+                  {paymentMethod === 'paypal' && (
+                    <div className="col-1 row-1 w-[6.22px] h-[4.44px] ml-[5px] mt-[6px] relative pointer-events-none">
+                      <Image
+                        src="/assets/donation/checkmark-icon.svg"
+                        alt="Check"
+                        width={7}
+                        height={5}
+                        className="w-full h-full"
+                      />
+                    </div>
+                  )}
+                </div>
+                <span className="text-sm font-normal leading-5 text-[#11181C]">
+                  Paypal
+                </span>
+              </div>
+              <div className="w-4 h-4 relative shrink-0">
+                <Image
+                  src="/assets/donation/paypal-icon.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </button>
           </div>
         </div>
 
-        {/* Stripe Payment Element */}
-        <form onSubmit={handleSubmit}>
-          <PaymentElement />
-
-          {error && (
-            <div className="mt-4 p-3 bg-red-50 text-red-700 rounded-lg">
-              {error}
+        {/* Form Fields Container */}
+        <form onSubmit={handleSubmit} className="border border-[#D4D4D8] flex flex-col gap-6 p-6 rounded-xl w-full">
+          {/* Email */}
+          <div className="flex flex-col h-[70px] items-start w-full">
+            <div className="flex items-center pb-3 pr-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">Email address</p>
+              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              </div>
             </div>
-          )}
-
-          {/* Billing Address */}
-          <div className="mt-6">
-            <p className="text-sm text-gray-600">
-              <strong>Billing address:</strong>
-              <br />
-              {formData.address.line1}, {formData.address.city},{' '}
-              {formData.address.postcode}, {formData.address.country}
-              <button className="text-blue-500 ml-2">✏️ Edit</button>
-            </p>
+            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+              <input
+                type="email"
+                value={formData.email}
+                placeholder="e.g. jsmith@yourmail.com"
+                readOnly
+                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+              />
+            </div>
           </div>
 
-          {/* Terms */}
-          <label className="flex items-start gap-3 mt-6 text-sm">
-            <input type="checkbox" className="mt-1" defaultChecked />
-            <span>
-              I understand that Masjid Al-Falah has partnered with Stripe, who
-              collects Direct Debits on behalf of Masjid Al-Falah and confirm
-              that I am the account holder and the only person required to
-              authorise debits from this account.
+          {/* Account Holder Name */}
+          <div className="flex flex-col h-[70px] items-start w-full">
+            <div className="flex items-center pb-3 pr-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">Name of account holder:</p>
+              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              </div>
+            </div>
+            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+              <input
+                type="text"
+                placeholder="Please enter the name of account holder"
+                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Sort Code */}
+          <div className="flex flex-col h-[70px] items-start w-full">
+            <div className="flex items-center pb-3 pr-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">Sort code:</p>
+              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              </div>
+            </div>
+            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+              <input
+                type="text"
+                placeholder="Please enter your sort code e.g., 10-20-30"
+                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Account Number */}
+          <div className="flex flex-col h-[70px] items-start w-full">
+            <div className="flex items-center pb-3 pr-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">Account Number</p>
+              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              </div>
+            </div>
+            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+              <input
+                type="text"
+                placeholder="Please enter your account number"
+                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+              />
+            </div>
+          </div>
+
+          {/* Billing Address Review */}
+          <div className="flex flex-col gap-4 w-full">
+            <p className="text-xs font-normal leading-4 text-[#52525B]">
+              Review your billing address:
+            </p>
+            <div className="bg-[#F4F4F5] flex items-center justify-between px-4 py-[13px] rounded-xl w-full">
+              <p className="text-base font-normal leading-6 text-black whitespace-nowrap overflow-hidden text-ellipsis">
+                {formData.address.line1}, {formData.address.city}, {formData.address.postcode}, {formData.address.country}
+              </p>
+              <button
+                type="button"
+                className="flex h-10 items-center justify-center px-4 rounded-xl cursor-pointer hover:bg-white/50 transition-colors shrink-0"
+              >
+                <div className="flex gap-2 items-center justify-center">
+                  <div className="overflow-hidden w-5 h-5">
+                    <Image
+                      src="/assets/donation/edit-icon.svg"
+                      alt="Edit"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <span className="text-sm font-normal leading-5 text-black">Edit</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Terms Checkbox */}
+          <label className="flex gap-2 items-start p-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={termsAccepted}
+              onChange={e => setTermsAccepted(e.target.checked)}
+              className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
+            />
+            <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
+              I understand that Masjid Al-Falah has partnered with Stripe, who collects Direct Debits on behalf of Masjid Al-Falah and confirm that I am the account holder and the only person required to authorise debits from this account.
             </span>
           </label>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={!stripe || isProcessing}
-            className="w-full mt-6 bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-lg font-medium text-lg disabled:opacity-50 cursor-pointer"
-          >
-            {isProcessing ? 'Processing...' : `Pay £${totalAmount.toFixed(2)}`}
-          </button>
         </form>
       </div>
+
+      {error && (
+        <div className="p-3 bg-red-50 text-red-700 rounded-lg">
+          {error}
+        </div>
+      )}
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        onClick={handleSubmit}
+        disabled={!stripe || isProcessing || !termsAccepted}
+        className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-[212px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#0055CC] transition-colors"
+      >
+        <span className="text-base font-normal leading-6 text-white">
+          {isProcessing ? 'Processing...' : 'Next'}
+        </span>
+      </button>
     </div>
   );
 }
