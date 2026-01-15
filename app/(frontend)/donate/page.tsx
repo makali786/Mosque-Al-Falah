@@ -1294,9 +1294,41 @@ function PaymentForm({
       <div className="bg-[#FAFAFA] flex flex-col gap-8 p-8 rounded-xl w-full">
         {/* Payment Method Selection */}
         <div className="flex flex-col gap-4 w-full">
-          <p className="text-sm font-normal leading-5 text-black">
-            Payment Method
-          </p>
+          <div className="flex items-center justify-between w-full">
+            <p className="text-sm font-normal leading-5 text-black">
+              Payment Method
+            </p>
+            {/* Card Logos - only show for card payment */}
+            {paymentMethod === 'card' && (
+              <div className="flex gap-2 items-center h-5">
+                <div className="h-5 w-[30px] relative">
+                  <svg className="w-full h-full" viewBox="0 0 30 20" fill="none">
+                    <rect width="30" height="20" rx="2" fill="#1434CB"/>
+                    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">VISA</text>
+                  </svg>
+                </div>
+                <div className="h-5 w-[30px] relative">
+                  <svg className="w-full h-full" viewBox="0 0 30 20" fill="none">
+                    <rect width="30" height="20" rx="2" fill="#EB001B"/>
+                    <circle cx="12" cy="10" r="6" fill="#FF5F00"/>
+                    <circle cx="18" cy="10" r="6" fill="#F79E1B"/>
+                  </svg>
+                </div>
+                <div className="h-5 w-[30px] relative">
+                  <svg className="w-full h-full" viewBox="0 0 30 20" fill="none">
+                    <rect width="30" height="20" rx="2" fill="#006FCF"/>
+                    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="6" fontWeight="bold">AMEX</text>
+                  </svg>
+                </div>
+                <div className="h-5 w-[30px] relative">
+                  <svg className="w-full h-full" viewBox="0 0 30 20" fill="none">
+                    <rect width="30" height="20" rx="2" fill="#FF6000"/>
+                    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="5" fontWeight="bold">DISC</text>
+                  </svg>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="flex gap-4 w-full">
             {/* Direct Debit */}
             <button
@@ -1428,75 +1460,134 @@ function PaymentForm({
 
         {/* Form Fields Container */}
         <form onSubmit={handleSubmit} className="border border-[#D4D4D8] flex flex-col gap-6 p-6 rounded-xl w-full">
-          {/* Email */}
-          <div className="flex flex-col h-[70px] items-start w-full">
-            <div className="flex items-center pb-3 pr-2 w-full">
-              <p className="text-xs font-normal leading-4 text-[#52525B]">Email address</p>
-              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+          {paymentMethod === 'direct-debit' ? (
+            <>
+              {/* Direct Debit Form Fields */}
+              {/* Email */}
+              <div className="flex flex-col h-[70px] items-start w-full">
+                <div className="flex items-center pb-3 pr-2 w-full">
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">Email address</p>
+                  <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                  </div>
+                </div>
+                <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                  <input
+                    type="email"
+                    value={formData.email}
+                    placeholder="e.g. jsmith@yourmail.com"
+                    readOnly
+                    className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-              <input
-                type="email"
-                value={formData.email}
-                placeholder="e.g. jsmith@yourmail.com"
-                readOnly
-                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
-              />
-            </div>
-          </div>
 
-          {/* Account Holder Name */}
-          <div className="flex flex-col h-[70px] items-start w-full">
-            <div className="flex items-center pb-3 pr-2 w-full">
-              <p className="text-xs font-normal leading-4 text-[#52525B]">Name of account holder:</p>
-              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              {/* Account Holder Name */}
+              <div className="flex flex-col h-[70px] items-start w-full">
+                <div className="flex items-center pb-3 pr-2 w-full">
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">Name of account holder:</p>
+                  <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                  </div>
+                </div>
+                <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                  <input
+                    type="text"
+                    placeholder="Please enter the name of account holder"
+                    className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-              <input
-                type="text"
-                placeholder="Please enter the name of account holder"
-                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
-              />
-            </div>
-          </div>
 
-          {/* Sort Code */}
-          <div className="flex flex-col h-[70px] items-start w-full">
-            <div className="flex items-center pb-3 pr-2 w-full">
-              <p className="text-xs font-normal leading-4 text-[#52525B]">Sort code:</p>
-              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              {/* Sort Code */}
+              <div className="flex flex-col h-[70px] items-start w-full">
+                <div className="flex items-center pb-3 pr-2 w-full">
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">Sort code:</p>
+                  <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                  </div>
+                </div>
+                <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                  <input
+                    type="text"
+                    placeholder="Please enter your sort code e.g., 10-20-30"
+                    className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-              <input
-                type="text"
-                placeholder="Please enter your sort code e.g., 10-20-30"
-                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
-              />
-            </div>
-          </div>
 
-          {/* Account Number */}
-          <div className="flex flex-col h-[70px] items-start w-full">
-            <div className="flex items-center pb-3 pr-2 w-full">
-              <p className="text-xs font-normal leading-4 text-[#52525B]">Account Number</p>
-              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              {/* Account Number */}
+              <div className="flex flex-col h-[70px] items-start w-full">
+                <div className="flex items-center pb-3 pr-2 w-full">
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">Account Number</p>
+                  <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                  </div>
+                </div>
+                <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                  <input
+                    type="text"
+                    placeholder="Please enter your account number"
+                    className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-              <input
-                type="text"
-                placeholder="Please enter your account number"
-                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
-              />
-            </div>
-          </div>
+            </>
+          ) : paymentMethod === 'card' ? (
+            <>
+              {/* Card Payment Form Fields */}
+              <div className="flex flex-col gap-[30px] w-full">
+                {/* Card Number */}
+                <div className="flex flex-col items-start w-full">
+                  <div className="flex items-center pb-3 pr-2 w-full">
+                    <p className="text-xs font-normal leading-4 text-[#52525B]">Card Number</p>
+                  </div>
+                  <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                    <input
+                      type="text"
+                      placeholder="1234 1234 1234 1234"
+                      className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#52525B] placeholder:text-[#52525B] border-none outline-none"
+                    />
+                    <div className="bg-[#011E0F] px-3 py-1 rounded shrink-0">
+                      <span className="text-[15px] font-semibold text-white">Autofill </span>
+                      <span className="text-[15px] font-semibold text-[#00D66F]">link</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expiry and CVC */}
+                <div className="flex gap-8 w-full">
+                  {/* Expiry */}
+                  <div className="flex flex-1 flex-col h-[70px] items-start">
+                    <div className="flex items-center pb-3 pr-2 w-full">
+                      <p className="text-xs font-normal leading-4 text-[#52525B]">Expiry</p>
+                    </div>
+                    <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                      <input
+                        type="text"
+                        placeholder="MM / YY"
+                        className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* CVC */}
+                  <div className="flex flex-1 flex-col h-[70px] items-start">
+                    <div className="flex items-center pb-3 pr-2 w-full">
+                      <p className="text-xs font-normal leading-4 text-[#52525B]">CVC</p>
+                    </div>
+                    <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                      <input
+                        type="text"
+                        placeholder="CVC"
+                        className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : null}
 
           {/* Billing Address Review */}
           <div className="flex flex-col gap-4 w-full">
@@ -1555,7 +1646,11 @@ function PaymentForm({
         className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-[212px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#0055CC] transition-colors"
       >
         <span className="text-base font-normal leading-6 text-white">
-          {isProcessing ? 'Processing...' : 'Next'}
+          {isProcessing
+            ? 'Processing...'
+            : paymentMethod === 'card'
+              ? `Pay £${totalAmount.toFixed(2)}`
+              : 'Next'}
         </span>
       </button>
     </div>
