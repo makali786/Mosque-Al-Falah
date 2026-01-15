@@ -404,9 +404,10 @@ function SelectDonationStep({
         </div>
 
         {/* Platform Fee Section */}
-        <div className="w-full bg-[#FAFAFA] rounded-[14px] px-6 py-12 flex gap-8 overflow-hidden">
-          <div className="flex-1 flex flex-col gap-2">
-            <div className="flex items-center gap-3 w-full">
+        <div className="w-full bg-[#FAFAFA] rounded-[14px] px-6 py-8 flex md:flex-row flex-col gap-8 overflow-hidden">
+          {/* Left side - Benefits */}
+          <div className="flex-1 flex flex-col gap-4">
+            <div className="flex items-start gap-3 w-full">
               <div className="w-12 h-12 overflow-hidden shrink-0 relative">
                 <Image
                   src="/assets/donation/generosity-icon.png"
@@ -420,8 +421,8 @@ function SelectDonationStep({
                 Your generosity can help more than just us:
               </p>
             </div>
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-3 pl-0">
+              <div className="flex items-start gap-2">
                 <div className="w-7 h-7 overflow-hidden shrink-0 relative">
                   <Image
                     src="/assets/donation/platform-fee-icon.png"
@@ -435,7 +436,7 @@ function SelectDonationStep({
                   0% platform fees for charities
                 </p>
               </div>
-              <div className="flex items-center gap-2 w-full">
+              <div className="flex items-start gap-2 w-full">
                 <div className="w-7 h-7 overflow-hidden shrink-0 relative">
                   <Image
                     src="/assets/donation/support-icon.png"
@@ -449,7 +450,7 @@ function SelectDonationStep({
                   Allows us to provide dedicated support for donors & fundraisers
                 </p>
               </div>
-              <div className="flex items-center gap-2 w-full">
+              <div className="flex items-start gap-2 w-full">
                 <div className="w-7 h-7 overflow-hidden shrink-0 relative">
                   <Image
                     src="/assets/donation/charity-tech-icon.png"
@@ -466,48 +467,60 @@ function SelectDonationStep({
             </div>
           </div>
 
-          {/* Right side with slider */}
-          <div className="flex flex-col gap-2 h-[188px] w-[314px] items-center justify-end shrink-0">
-            {/* Slider placeholder */}
-            <div className="flex flex-col gap-2 items-center justify-center px-0 py-[3px] w-full">
-              <div className="flex flex-col items-start w-full">
-                <div className="bg-[#E4E4E7] rounded-full px-4 py-0.5 flex items-center justify-between w-full relative">
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <div key={i} className="w-1 h-1 rounded-full shrink-0" style={{
-                      backgroundColor: i === 2 ? '#F9C97C' : '#D4D4D8'
-                    }} />
-                  ))}
+          {/* Right side - Slider and Controls */}
+          <div className="flex flex-col gap-6 md:w-[314px] w-full items-center justify-center shrink-0">
+            {/* Slider with Tooltip */}
+            <div className="flex flex-col items-center justify-center w-full relative">
+              {/* Recommended Badge with Tooltip */}
+              <div className="flex flex-col items-center mb-2 relative">
+                <div className="bg-white rounded-xl shadow-[0px_0px_15px_0px_rgba(0,0,0,0.03),0px_2px_30px_0px_rgba(0,0,0,0.08),0px_0px_1px_0px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center overflow-hidden relative">
+                  {/* RECOMMENDED header */}
+                  <div className="bg-[#F5A524] px-6 py-2 flex items-center justify-center w-full rounded-t-xl">
+                    <p className="text-xs font-medium leading-4 text-white tracking-wide">RECOMMENDED</p>
+                  </div>
+                  {/* Percentage and Amount */}
+                  <div className="flex items-center justify-center gap-2 px-6 py-3 text-lg font-normal leading-6 text-[#18181B] w-full bg-white rounded-b-xl">
+                    <span className="font-medium">12.5%</span>
+                    <span className="text-[#52525B]">(£{(donationAmount * 0.125).toFixed(2)})</span>
+                  </div>
+                  {/* Triangle pointer */}
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white" 
+                       style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.1))' }} />
                 </div>
               </div>
-              {/* Tooltip */}
-              <div className="flex flex-col gap-2 items-center w-full">
-                <div className="flex flex-col items-center w-full">
-                  <div className="bg-[#FAFAFA] rounded-lg shadow-[0px_0px_15px_0px_rgba(0,0,0,0.03),0px_2px_30px_0px_rgba(0,0,0,0.08),0px_0px_1px_0px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center overflow-hidden shrink-0">
-                    <div className="bg-[#F5A524] px-3 py-1 flex items-center justify-center w-full">
-                      <p className="text-xs font-normal leading-4 text-[#FAFAFA]">RECOMMENDED</p>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 px-2 py-1 text-sm font-normal leading-5 text-[#18181B] w-full">
-                      <span>12.5%</span>
-                      <span>(£{(donationAmount * 0.125).toFixed(2)})</span>
-                    </div>
+              
+              {/* Slider Track with Thumb */}
+              <div className="flex flex-col items-center w-full relative pt-2">
+                {/* Slider thumb positioned on track */}
+                <div className="w-full relative flex items-center justify-center mb-1">
+                  <div className="w-6 h-6 relative shrink-0 z-10">
+                    <div className="absolute bg-white inset-0 rounded-full shadow-md border-4 border-[#F5A524]" />
                   </div>
                 </div>
-                {/* Slider thumb */}
-                <div className="w-4 h-4 relative shrink-0">
-                  <div className="absolute bg-white inset-[-25%] rounded-full" />
-                  <div className="absolute bg-white border-2 border-[#F5A524] rounded-full inset-0" />
+                
+                {/* Slider track with dots */}
+                <div className="flex flex-col items-center w-full">
+                  <div className="bg-[#E4E4E7] rounded-full px-4 py-1 flex items-center justify-between w-full relative">
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <div key={i} className="w-1.5 h-1.5 rounded-full shrink-0" style={{
+                        backgroundColor: i === 2 ? '#F5A524' : '#D4D4D8'
+                      }} />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
-            <button className="flex items-center justify-center px-4 py-0 h-10 rounded-xl cursor-pointer">
-              <p className="text-sm font-normal leading-5 text-black">
+            {/* Other amount text */}
+            <div className="flex items-center justify-center w-full">
+              <p className="text-lg font-normal leading-7 text-[#18181B]">
                 Other amount
               </p>
-            </button>
+            </div>
 
+            {/* Green info box */}
             <div className="bg-[#0E793C] rounded-lg px-4 py-3 flex items-center justify-center overflow-hidden w-full">
-              <p className="flex-1 text-xs leading-4 text-[#E8FAF0]">
+              <p className="text-xs leading-4 text-[#E8FAF0] text-center">
                 <span className="font-bold">75% of donors</span>
                 {' have helped keep Masjid System '}
                 <span className="font-bold">free for our charity in last the 24 hours</span>
@@ -566,7 +579,7 @@ function SelectDonationStep({
   );
 }
 
-// Step 2: Details
+// Step 2: Details - Pixel-perfect Figma implementation
 function Step2Details({
   formData,
   setFormData,
@@ -578,23 +591,34 @@ function Step2Details({
   onNext: () => void;
   onBack: () => void;
 }) {
+  const [showManualAddress, setShowManualAddress] = useState(false);
+
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="w-full flex flex-col gap-8 pt-8 pb-8 px-4 md:px-24 lg:px-96">
+      {/* Back Button */}
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-gray-600 mb-4 cursor-pointer"
+        className="flex items-center gap-2 text-[#006FEE] hover:text-[#0055CC] transition-colors cursor-pointer w-fit"
       >
-        ← Back
+        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <span className="text-sm font-medium leading-5">Back</span>
       </button>
 
-      <h1 className="text-3xl font-bold mb-2">Donate Online</h1>
-      <p className="text-gray-600 mb-8">
-        We trust Masjid System to handle the processing of our online payments.
-      </p>
+      {/* Header */}
+      <div className="flex flex-col gap-2">
+        <h1 className="text-3xl font-semibold leading-10 text-[#27272A]">
+          Donate Online
+        </h1>
+        <p className="text-sm font-normal leading-5 text-[#52525B]">
+          We trust Masjid System to handle the processing of our online payments. You will see their name mentioned on this form and in the address bar.
+        </p>
+      </div>
 
-      {/* Email */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium mb-2">
+      {/* Email Field */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-normal leading-4 text-[#18181B]">
           Email address <span className="text-red-500">*</span>
         </label>
         <input
@@ -602,34 +626,39 @@ function Step2Details({
           value={formData.email}
           onChange={e => setFormData({ ...formData, email: e.target.value })}
           placeholder="e.g. jsmith@yourmail.com"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
         />
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-xs font-normal leading-4 text-[#71717A]">
           Donated with Masjid Al-Falah before?{' '}
-          <Link href="/donate/login" className="text-blue-500 hover:underline">
+          <Link href="/donate/login" className="text-[#006FEE] hover:underline">
             Log in
           </Link>
         </p>
       </div>
 
       {/* Social Login */}
-      <div className="mb-6">
-        <p className="text-center text-gray-500 mb-4">Or Sign in with</p>
-        <div className="flex gap-4">
+      <div className="flex flex-col gap-4">
+        <p className="text-xs font-normal leading-4 text-[#71717A] text-center">
+          Or Sign in with
+        </p>
+        <div className="grid grid-cols-3 gap-3">
+          {/* Apple Button */}
           <button
             type="button"
             onClick={() => signIn('apple', { callbackUrl: '/donate' })}
-            className="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-white border border-[#E4E4E7] rounded-lg hover:bg-[#F4F4F5] transition-colors cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
             </svg>
-            <span className="font-medium">Apple</span>
+            <span className="text-sm font-medium leading-5 text-[#18181B]">Apple</span>
           </button>
+
+          {/* Google Button */}
           <button
             type="button"
             onClick={() => signIn('google', { callbackUrl: '/donate' })}
-            className="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-white border border-[#E4E4E7] rounded-lg hover:bg-[#F4F4F5] transition-colors cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -649,75 +678,108 @@ function Step2Details({
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            <span className="font-medium">Google</span>
+            <span className="text-sm font-medium leading-5 text-[#18181B]">Google</span>
           </button>
+
+          {/* Facebook Button */}
           <button
             type="button"
             onClick={() => signIn('facebook', { callbackUrl: '/donate' })}
-            className="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors text-[#1877F2] cursor-pointer"
+            className="flex items-center justify-center gap-2 px-4 py-3 bg-white border border-[#E4E4E7] rounded-lg hover:bg-[#F4F4F5] transition-colors cursor-pointer"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="#1877F2">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
             </svg>
-            <span className="font-medium">Facebook</span>
+            <span className="text-sm font-medium leading-5 text-[#1877F2]">Facebook</span>
           </button>
         </div>
       </div>
 
-      {/* Name */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        <div>
-          <label className="block text-sm font-medium mb-2">
+      {/* Name Fields */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-normal leading-4 text-[#18181B]">
             First Name <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             value={formData.firstName}
-            onChange={e =>
-              setFormData({ ...formData, firstName: e.target.value })
-            }
+            onChange={e => setFormData({ ...formData, firstName: e.target.value })}
             placeholder="First Name"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-normal leading-4 text-[#18181B]">
             Last Name <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             value={formData.lastName}
-            onChange={e =>
-              setFormData({ ...formData, lastName: e.target.value })
-            }
+            onChange={e => setFormData({ ...formData, lastName: e.target.value })}
             placeholder="Last Name"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
           />
         </div>
       </div>
 
-      {/* Address */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium mb-2">
+      {/* Address Field */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-normal leading-4 text-[#18181B]">
           Find your address <span className="text-red-500">*</span>
         </label>
-        <input
-          type="text"
-          value={formData.address.line1}
-          onChange={e =>
-            setFormData({
-              ...formData,
-              address: { ...formData.address, line1: e.target.value },
-            })
-          }
-          placeholder="🔍 Start typing your address"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-        />
+        <div className="relative">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#71717A]" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M14 14L11.1 11.1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <input
+            type="text"
+            value={formData.address.line1}
+            onChange={e =>
+              setFormData({
+                ...formData,
+                address: { ...formData.address, line1: e.target.value },
+              })
+            }
+            placeholder="Start typing your address"
+            className="w-full pl-10 pr-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={() => setShowManualAddress(!showManualAddress)}
+          className="text-xs font-normal leading-4 text-[#006FEE] hover:underline text-left w-fit"
+        >
+          Enter address manually
+        </button>
       </div>
 
-      {/* Phone */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium mb-2">
+      {/* Country Selector */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-normal leading-4 text-[#18181B]">
+          Find your address
+        </label>
+        <div className="flex items-center justify-between px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg">
+          <span className="text-sm font-normal leading-5 text-[#18181B]">GB</span>
+          <button
+            type="button"
+            className="flex items-center gap-1 text-xs font-normal leading-4 text-[#18181B] hover:text-[#006FEE] transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.3333 2H4.66667C3.93029 2 3.33333 2.59695 3.33333 3.33333V12.6667C3.33333 13.403 3.93029 14 4.66667 14H11.3333C12.0697 14 12.6667 13.403 12.6667 12.6667V3.33333C12.6667 2.59695 12.0697 2 11.3333 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M5.33333 5.33333H10.6667" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M5.33333 8H10.6667" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M5.33333 10.6667H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span>Edit</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Phone Field */}
+      <div className="flex flex-col gap-1.5">
+        <label className="text-xs font-normal leading-4 text-[#18181B]">
           Phone number (optional)
         </label>
         <input
@@ -725,69 +787,61 @@ function Step2Details({
           value={formData.phone}
           onChange={e => setFormData({ ...formData, phone: e.target.value })}
           placeholder="+44"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
         />
       </div>
 
-      {/* Terms & Marketing */}
-      <div className="space-y-4 mb-6">
-        <label className="flex items-start gap-3">
+      {/* Checkboxes */}
+      <div className="flex flex-col gap-3">
+        <label className="flex items-start gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={formData.termsAccepted}
             onChange={e =>
               setFormData({ ...formData, termsAccepted: e.target.checked })
             }
-            className="mt-1"
+            className="mt-0.5 w-4 h-4 rounded border-[#E4E4E7] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
           />
-          <span className="text-sm">
+          <span className="text-xs font-normal leading-4 text-[#18181B]">
             I have read and agree to the Enthuse{' '}
-            <a href="#" className="text-blue-500 underline">
+            <a href="#" className="text-[#006FEE] underline hover:no-underline">
               terms & conditions
             </a>{' '}
             and{' '}
-            <a href="#" className="text-blue-500 underline">
+            <a href="#" className="text-[#006FEE] underline hover:no-underline">
               privacy policy
             </a>
             .
           </span>
         </label>
-        <label className="flex items-start gap-3">
+        <label className="flex items-start gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={formData.marketingConsent}
             onChange={e =>
               setFormData({ ...formData, marketingConsent: e.target.checked })
             }
-            className="mt-1"
+            className="mt-0.5 w-4 h-4 rounded border-[#E4E4E7] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
           />
-          <span className="text-sm">
-            I&apos;m happy to be contacted by Email
+          <span className="text-xs font-normal leading-4 text-[#18181B]">
+            I'm happy to be contacted by Email
           </span>
         </label>
       </div>
 
-      {/* Navigation */}
-      <div className="flex gap-4">
-        <button
-          onClick={onBack}
-          className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 rounded-lg font-medium cursor-pointer"
-        >
-          Previous
-        </button>
-        <button
-          onClick={onNext}
-          disabled={
-            !formData.email ||
-            !formData.firstName ||
-            !formData.lastName ||
-            !formData.termsAccepted
-          }
-          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50 cursor-pointer"
-        >
-          Next
-        </button>
-      </div>
+      {/* Next Button */}
+      <button
+        onClick={onNext}
+        disabled={
+          !formData.email ||
+          !formData.firstName ||
+          !formData.lastName ||
+          !formData.termsAccepted
+        }
+        className="w-full md:w-auto md:self-start bg-[#006FEE] hover:bg-[#0055CC] disabled:bg-[#E4E4E7] disabled:cursor-not-allowed text-white disabled:text-[#A1A1AA] px-6 py-3 rounded-lg text-sm font-medium leading-5 transition-colors cursor-pointer"
+      >
+        Next
+      </button>
     </div>
   );
 }
@@ -1194,7 +1248,7 @@ export default function DonationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white mb-20">
       <DonationStepIndicator currentStep={currentStep} />
 
       {currentStep === 1 && (

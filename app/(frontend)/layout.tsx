@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+'use client';
+
 import { Inter } from "next/font/google";
+import { usePathname } from "next/navigation";
 import "./globals.css";
 import TopBar from "./components/layout/TopBar";
 import MainHeader from "./components/layout/MainHeader";
@@ -15,16 +17,14 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Masjid Al-Falah - Islamic Center & Community",
-  description: "Welcome to Masjid Al-Falah - A place of worship, community, and spiritual growth.",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const hideFooter = pathname === '/donate';
+
   return (
     <html lang="en">
       <body
@@ -35,7 +35,7 @@ export default function RootLayout({
           <TopBar />
           <MainHeader />
           <main className="min-h-screen">{children}</main>
-          <Footer />
+          {!hideFooter && <Footer />}
           <WhatsAppButton />
           <AccessibilityButton />
         </LoadingProvider>
