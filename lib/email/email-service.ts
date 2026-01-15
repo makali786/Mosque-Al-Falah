@@ -37,6 +37,20 @@ export interface DonorData {
   lastName?: string;
 }
 
+export interface AdminNotificationData {
+  donorName: string;
+  donorEmail: string;
+  amount: number;
+  currency: string;
+  donationType: string;
+  frequency: string;
+  giftAidAmount?: number;
+  totalAmount: number;
+  donationId: string;
+  date: Date;
+  isRecurring: boolean;
+}
+
 /**
  * Send donation receipt email
  */
@@ -551,8 +565,120 @@ function generateReminderEmailHTML(data: {
 `;
 }
 
+/**
+ * Send admin notification for new donation
+ */
+export async function sendAdminNotification(
+  data: AdminNotificationData
+): Promise<boolean> {
+  const adminEmails =
+    process.env.ADMIN_NOTIFICATION_EMAILS ||
+    process.env.EMAIL_FROM ||
+    'admin@masjid-al-falah.org';
+
+  try {
+    const html = generateAdminNotificationHTML(data);
+
+    await transporter.sendMail({
+      from: `"Masjid Al-Falah Donations" <${process.env.EMAIL_FROM || 'donations@masjid-al-falah.org'}>`,
+      to: adminEmails,
+      subject: `🎉 New Donation: ${formatCurrency(data.totalAmount, data.currency)} from ${data.donorName}`,
+      html,
+    });
+
+    console.log(`📧 Admin notification sent for donation ${data.donationId}`);
+    return true;
+  } catch (error) {
+    console.error('Failed to send admin notification:', error);
+    return false;
+  }
+}
+
+/**
+ * Generate HTML email for admin notification
+ */
+function generateAdminNotificationHTML(data: AdminNotificationData): string {
+  const currencySymbol =
+    data.currency === 'GBP' ? '£' : data.currency === 'USD' ? '$' : '€';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <h1 style="color: #ffffff; margin: 0; font-size: 24px;">🎉 New Donation Received!</h1>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 30px;">
+          <tr>
+            <td>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Donor:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600;">${data.donorName}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Email:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.donorEmail}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Amount:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600; font-size: 18px;">${currencySymbol}${data.amount.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Type:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${getDonationTypeLabel(data.donationType)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Frequency:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${getFrequencyLabel(data.frequency)}</td>
+                </tr>
+                ${
+                  data.giftAidAmount && data.giftAidAmount > 0
+                    ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Gift Aid:</td>
+                  <td style="padding: 8px 0; color: #10b981; text-align: right;">+${currencySymbol}${data.giftAidAmount.toFixed(2)}</td>
+                </tr>
+                `
+                    : ''
+                }
+                <tr>
+                  <td style="padding: 12px 0; font-weight: 600; color: #333; border-top: 2px solid #10b981;">Total:</td>
+                  <td style="padding: 12px 0; font-weight: 600; color: #10b981; text-align: right; font-size: 20px; border-top: 2px solid #10b981;">${currencySymbol}${data.totalAmount.toFixed(2)}</td>
+                </tr>
+              </table>
+              
+              <p style="margin-top: 20px; text-align: center;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/admin/collections/donations/${data.donationId}" style="display: inline-block; background: #0c478a; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                  View in Admin Panel
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;
+}
+
 export default {
   sendDonationReceipt,
   sendWelcomeEmail,
   sendRecurringDonationReminder,
+  sendAdminNotification,
 };

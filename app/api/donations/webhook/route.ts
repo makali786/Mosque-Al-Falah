@@ -16,7 +16,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getPayload } from 'payload';
 import Stripe from 'stripe';
 
-import { sendDonationReceipt } from '@lib/email/email-service';
+import {
+  sendAdminNotification,
+  sendDonationReceipt,
+} from '@lib/email/email-service';
 
 // Lazy initialization to avoid build-time errors when env vars aren't available
 let stripe: Stripe | null = null;
@@ -153,6 +156,30 @@ export async function POST(req: NextRequest) {
             console.log(`📧 Receipt email sent to ${donation.donorEmail}`);
           } catch (emailError) {
             console.error('Failed to send receipt email:', emailError);
+          }
+
+          // Send admin notification email
+          try {
+            await sendAdminNotification({
+              donorName:
+                `${donation.donorFirstName || ''} ${donation.donorLastName || ''}`.trim() ||
+                'Anonymous',
+              donorEmail: donation.donorEmail as string,
+              amount: donation.amount as number,
+              currency: (donation.currency as string) || 'GBP',
+              donationType: (donation.donationType as string) || 'general',
+              frequency: (donation.frequency as string) || 'one-time',
+              giftAidAmount: donation.giftAid?.amount as number | undefined,
+              totalAmount: donation.totalAmount as number,
+              donationId: donation.id,
+              date: new Date(),
+              isRecurring: donation.frequency !== 'one-time',
+            });
+          } catch (adminEmailError) {
+            console.error(
+              'Failed to send admin notification:',
+              adminEmailError
+            );
           }
 
           console.log(`✅ Donation ${donation.id} completed successfully`);
