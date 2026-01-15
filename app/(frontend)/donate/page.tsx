@@ -404,10 +404,10 @@ function SelectDonationStep({
         </div>
 
         {/* Platform Fee Section */}
-        <div className="w-full bg-[#FAFAFA] rounded-[14px] px-6 py-8 flex md:flex-row flex-col gap-8 overflow-hidden">
+        <div className="w-full bg-[#FAFAFA] rounded-[14px] px-6 py-12 flex md:flex-row flex-col gap-8 overflow-visible">
           {/* Left side - Benefits */}
-          <div className="flex-1 flex flex-col gap-4">
-            <div className="flex items-start gap-3 w-full">
+          <div className="flex-1 flex flex-col gap-2">
+            <div className="flex items-center gap-3 w-full">
               <div className="w-12 h-12 overflow-hidden shrink-0 relative">
                 <Image
                   src="/assets/donation/generosity-icon.png"
@@ -421,8 +421,8 @@ function SelectDonationStep({
                 Your generosity can help more than just us:
               </p>
             </div>
-            <div className="flex flex-col gap-3 pl-0">
-              <div className="flex items-start gap-2">
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2">
                 <div className="w-7 h-7 overflow-hidden shrink-0 relative">
                   <Image
                     src="/assets/donation/platform-fee-icon.png"
@@ -432,11 +432,11 @@ function SelectDonationStep({
                     className="object-contain"
                   />
                 </div>
-                <p className="text-sm font-normal leading-5 text-[#3F3F46]">
+                <p className="text-sm font-normal leading-5 text-[#3F3F46] py-1">
                   0% platform fees for charities
                 </p>
               </div>
-              <div className="flex items-start gap-2 w-full">
+              <div className="flex items-center gap-2 w-full">
                 <div className="w-7 h-7 overflow-hidden shrink-0 relative">
                   <Image
                     src="/assets/donation/support-icon.png"
@@ -446,11 +446,11 @@ function SelectDonationStep({
                     className="object-contain"
                   />
                 </div>
-                <p className="flex-1 text-sm font-normal leading-5 text-[#3F3F46]">
+                <p className="flex-1 text-sm font-normal leading-5 text-[#3F3F46] py-1">
                   Allows us to provide dedicated support for donors & fundraisers
                 </p>
               </div>
-              <div className="flex items-start gap-2 w-full">
+              <div className="flex items-center gap-2 w-full">
                 <div className="w-7 h-7 overflow-hidden shrink-0 relative">
                   <Image
                     src="/assets/donation/charity-tech-icon.png"
@@ -460,7 +460,7 @@ function SelectDonationStep({
                     className="object-contain"
                   />
                 </div>
-                <p className="flex-1 text-sm font-normal leading-5 text-[#3F3F46]">
+                <p className="flex-1 text-sm font-normal leading-5 text-[#3F3F46] py-1">
                   Charities deserve the best technology
                 </p>
               </div>
@@ -468,59 +468,104 @@ function SelectDonationStep({
           </div>
 
           {/* Right side - Slider and Controls */}
-          <div className="flex flex-col gap-6 md:w-[314px] w-full items-center justify-center shrink-0">
+          <div className="flex flex-col gap-2 w-full md:w-[314px] h-[188px] items-center justify-end shrink-0">
             {/* Slider with Tooltip */}
-            <div className="flex flex-col items-center justify-center w-full relative">
-              {/* Recommended Badge with Tooltip */}
-              <div className="flex flex-col items-center mb-2 relative">
-                <div className="bg-white rounded-xl shadow-[0px_0px_15px_0px_rgba(0,0,0,0.03),0px_2px_30px_0px_rgba(0,0,0,0.08),0px_0px_1px_0px_rgba(0,0,0,0.3)] flex flex-col items-center justify-center overflow-hidden relative">
-                  {/* RECOMMENDED header */}
-                  <div className="bg-[#F5A524] px-6 py-2 flex items-center justify-center w-full rounded-t-xl">
-                    <p className="text-xs font-medium leading-4 text-white tracking-wide">RECOMMENDED</p>
-                  </div>
-                  {/* Percentage and Amount */}
-                  <div className="flex items-center justify-center gap-2 px-6 py-3 text-lg font-normal leading-6 text-[#18181B] w-full bg-white rounded-b-xl">
-                    <span className="font-medium">12.5%</span>
-                    <span className="text-[#52525B]">(£{(donationAmount * 0.125).toFixed(2)})</span>
-                  </div>
-                  {/* Triangle pointer */}
-                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-white" 
-                       style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.1))' }} />
+            <div className="flex flex-col items-center justify-center w-full relative gap-2 px-0 py-[3px]">
+              {/* Slider control container */}
+              <div className="w-full relative flex flex-col items-start">
+                {/* Slider track with dots */}
+                <div className="bg-[#E4E4E7] rounded-full px-4 py-0.5 flex items-center justify-between w-full">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        const percentages = [0, 7.5, 12.5, 17.5, 20];
+                        setFormData({
+                          ...formData,
+                          platformFeeEnabled: percentages[i] > 0,
+                          platformFeePercentage: percentages[i],
+                        });
+                      }}
+                      className="w-1 h-1 rounded-full shrink-0 cursor-pointer hover:scale-125 transition-transform"
+                      style={{
+                        backgroundColor: i === 2 && formData.platformFeePercentage === 12.5 ? '#F9C97C' : '#D4D4D8'
+                      }}
+                      aria-label={`Set platform fee to ${[0, 7.5, 12.5, 17.5, 20][i]}%`}
+                    />
+                  ))}
                 </div>
               </div>
-              
-              {/* Slider Track with Thumb */}
-              <div className="flex flex-col items-center w-full relative pt-2">
-                {/* Slider thumb positioned on track */}
-                <div className="w-full relative flex items-center justify-center mb-1">
-                  <div className="w-6 h-6 relative shrink-0 z-10">
-                    <div className="absolute bg-white inset-0 rounded-full shadow-md border-4 border-[#F5A524]" />
+
+              {/* Tooltip and Thumb - Positioned absolutely */}
+              <div
+                className="absolute bottom-0 flex flex-col gap-2 items-center w-[124px]"
+                style={{
+                  left: formData.platformFeePercentage === 0 ? '-44px' :
+                        formData.platformFeePercentage === 7.5 ? 'calc(25% - 62px)' :
+                        formData.platformFeePercentage === 12.5 ? 'calc(50% - 62px)' :
+                        formData.platformFeePercentage === 17.5 ? 'calc(75% - 62px)' :
+                        formData.platformFeePercentage === 20 ? 'calc(100% - 80px)' :
+                        'calc(50% - 62px)'
+                }}
+              >
+                {/* Tooltip */}
+                <div className="flex flex-col items-center w-full relative">
+                  {/* Arrow pointer */}
+                  <div className="absolute -bottom-[12px] left-1/2 -translate-x-1/2 w-[14.142px] h-[14.142px] flex items-center justify-center">
+                    <div className="w-[10px] h-[10px] bg-[#F5A524] rotate-45 rounded-[2px] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.02),0px_2px_10px_0px_rgba(0,0,0,0.06),0px_0px_1px_0px_rgba(0,0,0,0.3)]" />
+                  </div>
+
+                  {/* Tooltip container */}
+                  <div className="bg-[#FAFAFA] flex flex-col items-center justify-center rounded-lg shadow-[0px_0px_15px_0px_rgba(0,0,0,0.03),0px_2px_30px_0px_rgba(0,0,0,0.08),0px_0px_1px_0px_rgba(0,0,0,0.3)] mb-2 overflow-hidden">
+                    {/* RECOMMENDED header - only show for 12.5% */}
+                    {formData.platformFeePercentage === 12.5 && (
+                      <div className="bg-[#F5A524] px-3 py-1 flex items-center justify-center w-full">
+                        <p className="text-xs font-normal leading-4 text-[#FAFAFA]">RECOMMENDED</p>
+                      </div>
+                    )}
+                    {/* Percentage and Amount */}
+                    <div className="flex items-center justify-center gap-2 px-2 py-1 text-sm font-normal leading-5 text-[#18181B] w-full">
+                      <span>{formData.platformFeePercentage}%</span>
+                      <span className="text-[#52525B]">(£{(donationAmount * formData.platformFeePercentage / 100).toFixed(2)})</span>
+                    </div>
                   </div>
                 </div>
-                
-                {/* Slider track with dots */}
-                <div className="flex flex-col items-center w-full">
-                  <div className="bg-[#E4E4E7] rounded-full px-4 py-1 flex items-center justify-between w-full relative">
-                    {[0, 1, 2, 3, 4].map((i) => (
-                      <div key={i} className="w-1.5 h-1.5 rounded-full shrink-0" style={{
-                        backgroundColor: i === 2 ? '#F5A524' : '#D4D4D8'
-                      }} />
-                    ))}
-                  </div>
+
+                {/* Slider thumb */}
+                <div className="w-4 h-4 relative shrink-0">
+                  {/* Outline */}
+                  <div className="absolute -inset-1 bg-white rounded-full" />
+                  {/* Thumb */}
+                  <div className="absolute inset-0 bg-white rounded-full border-2 border-[#F5A524]" />
                 </div>
               </div>
             </div>
 
-            {/* Other amount text */}
-            <div className="flex items-center justify-center w-full">
-              <p className="text-lg font-normal leading-7 text-[#18181B]">
+            {/* Other amount button */}
+            <button
+              onClick={() => {
+                const customPercentage = prompt('Enter custom platform fee percentage (0-100):');
+                if (customPercentage !== null) {
+                  const percentage = parseFloat(customPercentage);
+                  if (!isNaN(percentage) && percentage >= 0 && percentage <= 100) {
+                    setFormData({
+                      ...formData,
+                      platformFeeEnabled: percentage > 0,
+                      platformFeePercentage: percentage,
+                    });
+                  }
+                }
+              }}
+              className="flex items-center justify-center h-10 px-4 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors"
+            >
+              <p className="text-sm font-normal leading-5 text-black">
                 Other amount
               </p>
-            </div>
+            </button>
 
             {/* Green info box */}
             <div className="bg-[#0E793C] rounded-lg px-4 py-3 flex items-center justify-center overflow-hidden w-full">
-              <p className="text-xs leading-4 text-[#E8FAF0] text-center">
+              <p className="text-xs leading-4 text-[#E8FAF0]">
                 <span className="font-bold">75% of donors</span>
                 {' have helped keep Masjid System '}
                 <span className="font-bold">free for our charity in last the 24 hours</span>
@@ -595,235 +640,282 @@ function Step2Details({
 
   return (
     <div className="w-full flex flex-col gap-8 pt-8 pb-8 px-4 md:px-24 lg:px-96">
-      {/* Back Button */}
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-[#006FEE] hover:text-[#0055CC] transition-colors cursor-pointer w-fit"
-      >
-        <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        <span className="text-sm font-medium leading-5">Back</span>
-      </button>
+      {/* Header with Back Button */}
+      <div className="flex flex-col gap-8 items-start w-full">
+        {/* Back Button and Title */}
+        <div className="flex gap-8 items-center">
+          <button
+            onClick={onBack}
+            className="border-2 border-[#006FEE] border-solid flex h-12 items-center justify-center px-6 py-0 rounded-[14px] cursor-pointer hover:bg-[#006FEE]/5 transition-colors"
+          >
+            <div className="flex gap-2 items-center justify-center">
+              <div className="w-5 h-5 relative shrink-0">
+                <Image
+                  src="/assets/donation/arrow-left.svg"
+                  alt="Back"
+                  width={20}
+                  height={20}
+                  className="w-full h-full"
+                />
+              </div>
+              <span className="text-base font-normal leading-6 text-[#006FEE]">Back</span>
+            </div>
+          </button>
+          <h1 className="text-4xl font-semibold leading-10 text-[#27272A] text-center">
+            Donate Online
+          </h1>
+        </div>
 
-      {/* Header */}
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-semibold leading-10 text-[#27272A]">
-          Donate Online
-        </h1>
-        <p className="text-sm font-normal leading-5 text-[#52525B]">
+        {/* Subtitle */}
+        <p className="text-xl font-medium leading-7 text-[#52525B] w-full">
           We trust Masjid System to handle the processing of our online payments. You will see their name mentioned on this form and in the address bar.
         </p>
       </div>
 
       {/* Email Field */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-normal leading-4 text-[#18181B]">
-          Email address <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="email"
-          value={formData.email}
-          onChange={e => setFormData({ ...formData, email: e.target.value })}
-          placeholder="e.g. jsmith@yourmail.com"
-          className="w-full px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
-        />
-        <p className="text-xs font-normal leading-4 text-[#71717A]">
-          Donated with Masjid Al-Falah before?{' '}
-          <Link href="/donate/login" className="text-[#006FEE] hover:underline">
-            Log in
-          </Link>
-        </p>
+      <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col h-[70px] items-start min-w-[116px] w-full">
+          <div className="flex items-center pb-3 pr-2 w-full">
+            <p className="text-xs font-normal leading-4 text-[#52525B]">
+              Email address
+            </p>
+            <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+              <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+            </div>
+          </div>
+          <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+            <input
+              type="email"
+              value={formData.email}
+              onChange={e => setFormData({ ...formData, email: e.target.value })}
+              placeholder="e.g. jsmith@yourmail.com"
+              className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+            />
+          </div>
+        </div>
+        <div className="flex items-center">
+          <p className="text-xs font-normal leading-4 text-black">
+            Donated with Masjid Al-Falah before?
+          </p>
+          <button
+            type="button"
+            onClick={() => signIn()}
+            className="flex h-8 items-center justify-center px-3 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors"
+          >
+            <span className="text-xs font-normal leading-4 text-[#006FEE]">Log In</span>
+          </button>
+        </div>
       </div>
 
       {/* Social Login */}
-      <div className="flex flex-col gap-4">
-        <p className="text-xs font-normal leading-4 text-[#71717A] text-center">
-          Or Sign in with
-        </p>
-        <div className="grid grid-cols-3 gap-3">
+      <div className="flex flex-col gap-9 w-full">
+        <div className="flex gap-3 items-center w-full">
+          <div className="bg-[rgba(17,17,17,0.15)] flex-1 h-px" />
+          <p className="text-xs font-normal leading-4 text-[#27272A] text-center">
+            Or Sign In with
+          </p>
+          <div className="bg-[rgba(17,17,17,0.15)] flex-1 h-px" />
+        </div>
+        <div className="flex gap-8 items-start w-full">
           {/* Apple Button */}
           <button
             type="button"
             onClick={() => signIn('apple', { callbackUrl: '/donate' })}
-            className="flex items-center justify-center gap-2 px-4 py-3 bg-white border border-[#E4E4E7] rounded-lg hover:bg-[#F4F4F5] transition-colors cursor-pointer"
+            className="bg-white border border-[#E4E4E7] flex flex-1 items-center justify-center overflow-hidden pl-0 pr-3 rounded-lg cursor-pointer hover:bg-[#F4F4F5] transition-colors"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
-            </svg>
-            <span className="text-sm font-medium leading-5 text-[#18181B]">Apple</span>
+            <div className="bg-white overflow-hidden rounded-[1px] w-10 h-10">
+              <div className="p-2">
+                <Image src="/assets/donation/apple-logo.svg" alt="Apple" width={24} height={24} />
+              </div>
+            </div>
+            <p className="text-base text-black leading-normal tracking-[-0.32px]">Apple</p>
           </button>
 
           {/* Google Button */}
           <button
             type="button"
             onClick={() => signIn('google', { callbackUrl: '/donate' })}
-            className="flex items-center justify-center gap-2 px-4 py-3 bg-white border border-[#E4E4E7] rounded-lg hover:bg-[#F4F4F5] transition-colors cursor-pointer"
+            className="bg-white border border-[#E4E4E7] flex flex-1 gap-2.5 items-center justify-center pl-px pr-2.5 py-px rounded-lg cursor-pointer hover:bg-[#F4F4F5] transition-colors"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
-              <path
-                fill="#4285F4"
-                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              />
-              <path
-                fill="#34A853"
-                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-              />
-              <path
-                fill="#EA4335"
-                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-              />
-            </svg>
-            <span className="text-sm font-medium leading-5 text-[#18181B]">Google</span>
+            <div className="bg-white rounded-[1px] w-[38px] h-[38px] p-2">
+              <Image src="/assets/donation/google-logo.svg" alt="Google" width={22} height={22} />
+            </div>
+            <p className="text-sm font-medium text-[#757575] leading-normal">Google</p>
           </button>
 
           {/* Facebook Button */}
           <button
             type="button"
             onClick={() => signIn('facebook', { callbackUrl: '/donate' })}
-            className="flex items-center justify-center gap-2 px-4 py-3 bg-white border border-[#E4E4E7] rounded-lg hover:bg-[#F4F4F5] transition-colors cursor-pointer"
+            className="bg-white border border-[#E4E4E7] flex flex-1 items-center justify-center overflow-hidden pl-0 pr-3 rounded-lg cursor-pointer hover:bg-[#F4F4F5] transition-colors"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="#1877F2">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg>
-            <span className="text-sm font-medium leading-5 text-[#1877F2]">Facebook</span>
+            <div className="bg-white overflow-hidden rounded-[1px] w-10 h-10">
+              <div className="p-2">
+                <Image src="/assets/donation/facebook-logo.svg" alt="Facebook" width={24} height={24} />
+              </div>
+            </div>
+            <p className="text-base text-[#1877F2] leading-normal tracking-[-0.32px]">Facebook</p>
           </button>
         </div>
       </div>
 
       {/* Name Fields */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-normal leading-4 text-[#18181B]">
-            First Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            value={formData.firstName}
-            onChange={e => setFormData({ ...formData, firstName: e.target.value })}
-            placeholder="First Name"
-            className="w-full px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
-          />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-normal leading-4 text-[#18181B]">
-            Last Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            value={formData.lastName}
-            onChange={e => setFormData({ ...formData, lastName: e.target.value })}
-            placeholder="Last Name"
-            className="w-full px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
-          />
-        </div>
-      </div>
+      <div className="flex flex-col gap-6 w-full">
+        <div className="flex gap-6 items-center w-full">
+          {/* First Name */}
+          <div className="flex flex-1 flex-col h-[70px] items-start min-w-[116px]">
+            <div className="flex items-center pb-3 pr-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">First Name</p>
+              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              </div>
+            </div>
+            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+              <input
+                type="text"
+                value={formData.firstName}
+                onChange={e => setFormData({ ...formData, firstName: e.target.value })}
+                placeholder="First Name"
+                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+              />
+            </div>
+          </div>
 
-      {/* Address Field */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-normal leading-4 text-[#18181B]">
-          Find your address <span className="text-red-500">*</span>
-        </label>
-        <div className="relative">
-          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#71717A]" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M14 14L11.1 11.1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <input
-            type="text"
-            value={formData.address.line1}
-            onChange={e =>
-              setFormData({
-                ...formData,
-                address: { ...formData.address, line1: e.target.value },
-              })
-            }
-            placeholder="Start typing your address"
-            className="w-full pl-10 pr-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
-          />
+          {/* Last Name */}
+          <div className="flex flex-1 flex-col h-[70px] items-start min-w-[116px]">
+            <div className="flex items-center pb-3 pr-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">Last Name</p>
+              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              </div>
+            </div>
+            <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+              <input
+                type="text"
+                value={formData.lastName}
+                onChange={e => setFormData({ ...formData, lastName: e.target.value })}
+                placeholder="Last Name"
+                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+              />
+            </div>
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={() => setShowManualAddress(!showManualAddress)}
-          className="text-xs font-normal leading-4 text-[#006FEE] hover:underline text-left w-fit"
-        >
-          Enter address manually
-        </button>
-      </div>
 
-      {/* Country Selector */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-normal leading-4 text-[#18181B]">
-          Find your address
-        </label>
-        <div className="flex items-center justify-between px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg">
-          <span className="text-sm font-normal leading-5 text-[#18181B]">GB</span>
+        {/* Address Field */}
+        <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col h-[70px] items-start min-w-[116px] w-full">
+            <div className="flex items-center pb-3 pr-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">Find your address</p>
+              <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
+                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              </div>
+            </div>
+            <div className="bg-[#F4F4F5] flex items-center min-h-8 px-1.5 py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+              <div className="overflow-hidden w-5 h-5 relative shrink-0">
+                <Image
+                  src="/assets/donation/search-address.svg"
+                  alt="Search"
+                  width={20}
+                  height={20}
+                  className="absolute inset-[2%]"
+                />
+              </div>
+              <input
+                type="text"
+                value={formData.address.line1}
+                onChange={e =>
+                  setFormData({
+                    ...formData,
+                    address: { ...formData.address, line1: e.target.value },
+                  })
+                }
+                placeholder="Start typing your address"
+                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+              />
+            </div>
+          </div>
           <button
             type="button"
-            className="flex items-center gap-1 text-xs font-normal leading-4 text-[#18181B] hover:text-[#006FEE] transition-colors"
+            onClick={() => setShowManualAddress(!showManualAddress)}
+            className="flex h-8 items-center justify-center px-3 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors w-fit"
           >
-            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M11.3333 2H4.66667C3.93029 2 3.33333 2.59695 3.33333 3.33333V12.6667C3.33333 13.403 3.93029 14 4.66667 14H11.3333C12.0697 14 12.6667 13.403 12.6667 12.6667V3.33333C12.6667 2.59695 12.0697 2 11.3333 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M5.33333 5.33333H10.6667" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M5.33333 8H10.6667" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M5.33333 10.6667H8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span>Edit</span>
+            <span className="text-xs font-normal leading-4 text-black">Enter address manually</span>
           </button>
         </div>
-      </div>
 
-      {/* Phone Field */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-xs font-normal leading-4 text-[#18181B]">
-          Phone number (optional)
-        </label>
-        <input
-          type="tel"
-          value={formData.phone}
-          onChange={e => setFormData({ ...formData, phone: e.target.value })}
-          placeholder="+44"
-          className="w-full px-3 py-2.5 bg-[#F4F4F5] border border-[#E4E4E7] rounded-lg text-sm font-normal leading-5 text-[#18181B] placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#006FEE] focus:border-transparent"
-        />
+        {/* Country Selector */}
+        <div className="flex flex-col gap-4 w-full">
+          <p className="text-xs font-normal leading-4 text-[#52525B]">Find your address</p>
+          <div className="bg-[#F4F4F5] flex items-center justify-between overflow-hidden px-4 py-[13px] rounded-xl w-full">
+            <p className="text-base font-normal leading-6 text-black">GB</p>
+            <button
+              type="button"
+              className="flex h-10 items-center justify-center px-4 rounded-xl cursor-pointer hover:bg-white/50 transition-colors"
+            >
+              <div className="flex gap-2 items-center justify-center">
+                <div className="overflow-hidden w-5 h-5">
+                  <Image
+                    src="/assets/donation/edit-icon.svg"
+                    alt="Edit"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+                <span className="text-sm font-normal leading-5 text-black">Edit</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Phone Field */}
+        <div className="flex flex-col h-[70px] items-start min-w-[116px] w-full">
+          <div className="flex items-center pb-3 pr-2 w-full">
+            <p className="text-xs font-normal leading-4 text-[#52525B]">Phone number (optional)</p>
+          </div>
+          <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+            <input
+              type="tel"
+              value={formData.phone}
+              onChange={e => setFormData({ ...formData, phone: e.target.value })}
+              placeholder="+44"
+              className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Checkboxes */}
-      <div className="flex flex-col gap-3">
-        <label className="flex items-start gap-2 cursor-pointer">
+      <div className="flex flex-col gap-4">
+        <label className="flex gap-2 items-center p-2 cursor-pointer">
           <input
             type="checkbox"
             checked={formData.termsAccepted}
             onChange={e =>
               setFormData({ ...formData, termsAccepted: e.target.checked })
             }
-            className="mt-0.5 w-4 h-4 rounded border-[#E4E4E7] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
+            className="w-5 h-5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
           />
-          <span className="text-xs font-normal leading-4 text-[#18181B]">
+          <span className="text-base font-normal leading-6 text-[#11181C]">
             I have read and agree to the Enthuse{' '}
-            <a href="#" className="text-[#006FEE] underline hover:no-underline">
+            <a href="https://www.enthuse.com/legal/" className="text-lg underline text-black hover:no-underline">
               terms & conditions
             </a>{' '}
             and{' '}
-            <a href="#" className="text-[#006FEE] underline hover:no-underline">
-              privacy policy
+            <a href="https://www.enthuse.com/privacy/" className="text-lg underline text-black hover:no-underline">
+              privacy policy.
             </a>
-            .
           </span>
         </label>
-        <label className="flex items-start gap-2 cursor-pointer">
+        <label className="flex gap-2 items-center p-2 cursor-pointer">
           <input
             type="checkbox"
             checked={formData.marketingConsent}
             onChange={e =>
               setFormData({ ...formData, marketingConsent: e.target.checked })
             }
-            className="mt-0.5 w-4 h-4 rounded border-[#E4E4E7] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
+            className="w-5 h-5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
           />
-          <span className="text-xs font-normal leading-4 text-[#18181B]">
+          <span className="text-base font-normal leading-6 text-[#11181C]">
             I'm happy to be contacted by Email
           </span>
         </label>
@@ -838,9 +930,9 @@ function Step2Details({
           !formData.lastName ||
           !formData.termsAccepted
         }
-        className="w-full md:w-auto md:self-start bg-[#006FEE] hover:bg-[#0055CC] disabled:bg-[#E4E4E7] disabled:cursor-not-allowed text-white disabled:text-[#A1A1AA] px-6 py-3 rounded-lg text-sm font-medium leading-5 transition-colors cursor-pointer"
+        className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-[212px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#0055CC] transition-colors"
       >
-        Next
+        <span className="text-base font-normal leading-6 text-white">Next</span>
       </button>
     </div>
   );
@@ -865,53 +957,125 @@ function Step3GiftAid({
   const totalWithGiftAid = donationAmount + giftAidAmount;
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-gray-600 mb-4 cursor-pointer"
-      >
-        ← Back
-      </button>
-
-      <h1 className="text-3xl font-bold mb-2">Donate Online</h1>
-      <p className="text-gray-600 mb-8">
-        We trust Masjid System to handle the processing of our online payments.
-      </p>
-
-      {/* Gift Aid Booster Display */}
-      <div className="bg-gray-50 rounded-lg p-6 mb-6">
-        <h3 className="font-medium mb-4">
-          Add Gift Aid and boost your donation at no extra cost
-        </h3>
-        <div className="flex items-center gap-8 mb-4">
-          <div className="text-center">
-            <p className="text-3xl font-bold">£{donationAmount.toFixed(2)}</p>
-            <p className="text-sm text-gray-500">Your donation</p>
-          </div>
-          <div className="text-2xl">→</div>
-          <div className="text-center">
-            <p className="text-3xl font-bold text-green-600">
-              £{totalWithGiftAid.toFixed(2)}
-            </p>
-            <p className="text-sm text-gray-500">With Gift Aid</p>
-          </div>
-          <div className="text-4xl italic text-gray-300">gift aid it</div>
+    <div className="w-full flex flex-col gap-8 pt-8 pb-8 px-4 md:px-24 lg:px-96">
+      {/* Header with Back Button */}
+      <div className="flex flex-col gap-8 items-start w-full mb-6">
+        {/* Back Button and Title */}
+        <div className="flex gap-8 items-center">
+          <button
+            onClick={onBack}
+            className="border-2 border-[#D4D4D8] border-solid flex h-12 items-center justify-center px-6 py-0 rounded-lg cursor-pointer hover:bg-[#F4F4F5] transition-colors"
+          >
+            <div className="flex gap-2 items-center justify-center">
+              <div className="w-3 h-3 relative shrink-0">
+                <Image
+                  src="/assets/donation/arrow-left-black.svg"
+                  alt="Back"
+                  width={20}
+                  height={20}
+                  className="w-full h-full"
+                />
+              </div>
+              <span className="text-base font-normal leading-6 text-black">Back</span>
+            </div>
+          </button>
+          <h1 className="text-4xl font-semibold leading-10 text-[#27272A] text-center">
+            Donate Online
+          </h1>
         </div>
-        <p className="text-sm text-gray-600 mb-4">
-          I am a UK taxpayer and understand that if I pay less Income Tax and/or
-          Capital Gains Tax in the current tax year than the amount of Gift Aid
-          claimed on all my donations, it is my responsibility to pay any
-          difference.
-          <br />
-          <br />
-          <a href="#" className="text-blue-500">
-            Find out more about Gift Aid →
-          </a>
+
+        {/* Subtitle */}
+        <p className="text-xl font-medium leading-7 text-[#52525B] w-full">
+          We trust Masjid System to handle the processing of our online payments. You will see their name mentioned on this form and in the address bar.
         </p>
+      </div>
+
+      {/* Gift Aid Section */}
+      <div className="bg-[#FAFAFA] flex flex-col gap-8 p-8 rounded-xl w-full">
+        {/* Gift Aid Header and Display */}
+        <div className="flex items-end justify-between w-full">
+          {/* Left: Gift Aid Calculation */}
+          <div className="flex flex-col gap-4 w-[415px]">
+            <h3 className="text-base font-bold leading-6 text-[#3F3F46]">
+              Add Gift Aid and boost your donation at no extra cost
+            </h3>
+            <div className="flex gap-[22px] items-center">
+              {/* Before Gift Aid */}
+              <div className="flex flex-col gap-[5px] items-center text-center w-[120px]">
+                <p className="text-2xl font-medium leading-8 text-black">
+                  £{donationAmount.toFixed(2)}
+                </p>
+                <p className="text-xs font-normal leading-4 text-[#52525B]">
+                  Your donation
+                </p>
+              </div>
+
+              {/* Arrow */}
+              <div className="w-[83px] h-3 relative">
+                <Image
+                  src="/assets/donation/arrow-right.svg"
+                  alt="Arrow"
+                  width={83}
+                  height={12}
+                  className="w-full h-full"
+                />
+              </div>
+
+              {/* After Gift Aid */}
+              <div className="flex flex-col gap-[5px] items-center text-center w-[120px]">
+                <p className="text-2xl font-medium leading-8 text-black">
+                  £{totalWithGiftAid.toFixed(2)}
+                </p>
+                <p className="text-xs font-normal leading-4 text-[#52525B]">
+                  With Gift Aid
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Gift Aid Logo */}
+          <div className="flex flex-col h-[50px] w-[125px]">
+            <div className="relative w-[120px] h-12">
+              <Image
+                src="/assets/donation/giftaid-logo.png"
+                alt="Gift Aid"
+                width={120}
+                height={48}
+                className="object-cover mix-blend-multiply"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className="flex flex-col gap-2 w-full">
+          <p className="text-sm font-normal leading-5 text-[#52525B]">
+            I am a UK taxpayer and understand that if I pay less Income Tax and/or Capital Gains Tax in the current tax year than the amount of Gift Aid claimed on all my donations, it is my responsibility to pay any difference.
+          </p>
+          <Link
+            href="https://www.gov.uk/donating-to-charity/gift-aid"
+            target="_blank"
+            className="flex gap-1 items-center pl-0 pr-1 py-0 shrink-0 hover:underline"
+          >
+            <span className="text-sm font-normal leading-5 text-[#11181C]">
+              Find out more about Gift Aid.
+            </span>
+            <div className="overflow-hidden w-3 h-3 relative shrink-0">
+            <Image
+                src="/assets/donation/external-link.svg"
+                alt="external"
+                width={20}
+                height={20}
+                className="object-cover mix-blend-multiply"
+              />
+            </div>
+          </Link>
+        </div>
 
         {/* Gift Aid Options */}
-        <div className="space-y-3">
-          <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+        <div className="flex flex-col gap-4 w-full">
+          {/* Yes Option with checkboxes */}
+          <label className="flex gap-2 items-center p-2 cursor-pointer">
             <input
               type="radio"
               name="giftAid"
@@ -919,11 +1083,51 @@ function Step3GiftAid({
               onChange={() =>
                 setFormData({ ...formData, giftAidEnabled: true })
               }
-              className="w-5 h-5 text-blue-500"
+              className="w-5 h-5 rounded-full border-2 border-[#006FEE] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
             />
-            <span>Yes, please Gift Aid this donation</span>
+            <span className="text-base font-normal leading-6 text-[#11181C]">
+              Yes, please Gift Aid this donation
+            </span>
           </label>
-          <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+
+          {/* Declaration Box (shown when Yes is selected) */}
+          {formData.giftAidEnabled && (
+            <div className="bg-[#F4F4F5] flex flex-col gap-3 p-4 rounded-lg w-full">
+              <p className="text-base font-normal leading-6 text-black">
+                Please read and confirm the following statements:
+              </p>
+              <div className="flex flex-col gap-2 w-full">
+                <label className="flex gap-2 items-start p-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={formData.giftAidDeclaration}
+                    onChange={e =>
+                      setFormData({
+                        ...formData,
+                        giftAidDeclaration: e.target.checked,
+                      })
+                    }
+                    className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
+                  />
+                  <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
+                    This is my own money. I am not paying in donations made by a third party, e.g. money collected at an event, the pub, a company donation or a donation from a friend or family member.
+                  </span>
+                </label>
+                <label className="flex gap-2 items-start p-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
+                  />
+                  <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
+                    This donation is not made as part of a sweepstake, raffle or lottery and I am not receiving anything in return of it, e.g. book, auction prize, ticket to an event.
+                  </span>
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* No Option */}
+          <label className="flex gap-2 items-center p-2 cursor-pointer w-full">
             <input
               type="radio"
               name="giftAid"
@@ -931,64 +1135,23 @@ function Step3GiftAid({
               onChange={() =>
                 setFormData({ ...formData, giftAidEnabled: false })
               }
-              className="w-5 h-5"
+              className="w-5 h-5 rounded-full border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer"
             />
-            <span>No, please do not Gift Aid this donation</span>
+            <span className="text-base font-normal leading-6 text-[#11181C]">
+              No, please do not Gift Aid this donation
+            </span>
           </label>
         </div>
       </div>
 
-      {/* Gift Aid Declaration */}
-      {formData.giftAidEnabled && (
-        <div className="bg-blue-50 rounded-lg p-6 mb-6">
-          <h4 className="font-medium mb-4">
-            Please read and confirm the following statements:
-          </h4>
-          <label className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              checked={formData.giftAidDeclaration}
-              onChange={e =>
-                setFormData({
-                  ...formData,
-                  giftAidDeclaration: e.target.checked,
-                })
-              }
-              className="mt-1"
-            />
-            <span className="text-sm">
-              This is my own money. I am not paying in donations made by a third
-              party, e.g. money collected at an event, the pub, a company
-              donation or a donation from a friend or family member.
-            </span>
-          </label>
-          <label className="flex items-start gap-3 mt-4">
-            <input type="checkbox" className="mt-1" />
-            <span className="text-sm">
-              This donation is not made as part of a sweepstakes, raffle or
-              lottery and I am not receiving anything in return of it, e.g.
-              book, auction prize, ticket to an event.
-            </span>
-          </label>
-        </div>
-      )}
-
-      {/* Navigation */}
-      <div className="flex gap-4">
-        <button
-          onClick={onBack}
-          className="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-3 rounded-lg font-medium cursor-pointer"
-        >
-          Previous
-        </button>
-        <button
-          onClick={onNext}
-          disabled={formData.giftAidEnabled && !formData.giftAidDeclaration}
-          className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg font-medium disabled:opacity-50 cursor-pointer"
-        >
-          Next
-        </button>
-      </div>
+      {/* Next Button */}
+      <button
+        onClick={onNext}
+        disabled={formData.giftAidEnabled && !formData.giftAidDeclaration}
+        className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-[212px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#0055CC] transition-colors"
+      >
+        <span className="text-base font-normal leading-6 text-white">Next</span>
+      </button>
     </div>
   );
 }
@@ -1055,17 +1218,37 @@ function PaymentForm({
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-gray-600 mb-4 cursor-pointer"
-      >
-        ← Back
-      </button>
+      {/* Header with Back Button */}
+      <div className="flex flex-col gap-8 items-start w-full mb-6">
+        {/* Back Button and Title */}
+        <div className="flex gap-8 items-center">
+          <button
+            onClick={onBack}
+            className="border-2 border-[#D4D4D8] border-solid flex h-12 items-center justify-center px-6 py-0 rounded-lg cursor-pointer hover:bg-[#F4F4F5] transition-colors"
+          >
+            <div className="flex gap-2 items-center justify-center">
+              <div className="w-5 h-5 relative shrink-0">
+                <Image
+                  src="/assets/donation/arrow-left-black.svg"
+                  alt="Back"
+                  width={20}
+                  height={20}
+                  className="w-full h-full"
+                />
+              </div>
+              <span className="text-base font-normal leading-6 text-black">Back</span>
+            </div>
+          </button>
+          <h1 className="text-4xl font-semibold leading-10 text-[#27272A] text-center">
+            Donate Online
+          </h1>
+        </div>
 
-      <h1 className="text-3xl font-bold mb-2">Donate Online</h1>
-      <p className="text-gray-600 mb-8">
-        We trust Masjid System to handle the processing of our online payments.
-      </p>
+        {/* Subtitle */}
+        <p className="text-xl font-medium leading-7 text-[#52525B] w-full">
+          We trust Masjid System to handle the processing of our online payments. You will see their name mentioned on this form and in the address bar.
+        </p>
+      </div>
 
       {/* Payment Methods Header */}
       <div className="bg-gray-50 rounded-lg p-6 mb-6">
