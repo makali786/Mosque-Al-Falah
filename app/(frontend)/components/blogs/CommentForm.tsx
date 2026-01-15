@@ -1,23 +1,13 @@
 "use client";
 
+import { submitComment } from "@/blogs/[slug]/actions";
 import { useState, useEffect } from "react";
-
-interface Comment {
-    userName: string;
-    userEmail: string;
-    comment: string;
-    commentDate: string;
-    isApproved: boolean;
-    replies: any[];
-    id?: string;
-}
 
 interface CommentFormProps {
     postId: string;
-    existingComments: Comment[];
 }
 
-export default function CommentForm({ postId, existingComments }: CommentFormProps) {
+export default function CommentForm({ postId }: CommentFormProps) {
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [comment, setComment] = useState("");
@@ -46,29 +36,11 @@ export default function CommentForm({ postId, existingComments }: CommentFormPro
         }
 
         try {
-            // Create new comment matching Payload schema
-            const newComment: Comment = {
-                userName: userName.trim(),
-                userEmail: userEmail.trim().toLowerCase(),
-                comment: comment.trim(),
-                commentDate: new Date().toISOString(),
-                isApproved: false,
-                replies: [],
-            };
+            // Call server action to submit comment
+            const result = await submitComment(postId, userName, userEmail, comment);
 
-            // PATCH request to Payload REST API
-            const response = await fetch(`/api/blog-posts/${postId}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    comments: [...existingComments, newComment],
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to submit comment");
+            if (!result.success) {
+                throw new Error(result.error || "Failed to submit comment");
             }
 
             // Save to localStorage if checked
@@ -83,7 +55,7 @@ export default function CommentForm({ postId, existingComments }: CommentFormPro
             setComment("");
             setMessage({
                 type: "success",
-                text: "Comment submitted successfully! It will appear after approval.",
+                text: result.message || "Comment submitted successfully! It will appear after approval.",
             });
         } catch (error) {
             console.error("Error submitting comment:", error);
@@ -193,7 +165,7 @@ export default function CommentForm({ postId, existingComments }: CommentFormPro
                                         onChange={(e) => setSaveInfo(e.target.checked)}
                                         className="peer absolute opacity-0 w-6 h-6 cursor-pointer"
                                     />
-                                    <div className="w-6 h-6 bg-[#d4d4d8] peer-checked:bg-[#006fee] rounded-[6px] flex items-center justify-center pointer-events-none transition-colors"></div>
+                                    <div className="w-6 h-6 bg-[#d4d4d8] peer-checked:bg-[#006fee] rounded-md flex items-center justify-center pointer-events-none transition-colors"></div>
                                     <svg
                                         className="w-3 h-3 opacity-0 peer-checked:opacity-100 transition-opacity absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                                         viewBox="0 0 8 6"

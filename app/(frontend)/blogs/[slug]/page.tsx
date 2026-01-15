@@ -325,16 +325,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {post.enableComments === true && (
                 <CommentsSection
                     postId={post.id}
-                    comments={(post.comments || []).map((comment: any) => ({
-                        ...comment,
-                        userAvatarUrl: comment.userAvatar ? getMediaUrl(comment.userAvatar) : null,
-                    }))}
+                    comments={(post.comments || [])
+                        .filter((comment: any) => comment.isApproved === true)
+                        .map((comment: any) => ({
+                            ...comment,
+                            userAvatarUrl: comment.userAvatar ? getMediaUrl(comment.userAvatar) : null,
+                        }))}
                 />
             )}
 
             {/* Leave a Reply Section */}
             {post.enableComments === true && (
-                <CommentForm postId={post.id} existingComments={post.comments || []} />
+                <CommentForm postId={post.id} />
             )}
 
             {/* Quote Section Footer */}

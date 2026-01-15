@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { updateComment, updateReply, submitReply } from "../../blogs/[slug]/actions";
 
 interface Reply {
     userName: string;
@@ -67,6 +68,13 @@ export default function CommentsSection({ postId, comments: initialComments }: C
         setMessage(null);
 
         try {
+            const result = await updateComment(postId, commentId, editText);
+
+            if (!result.success) {
+                throw new Error(result.error || "Failed to update comment");
+            }
+
+            // Update local state
             const updatedComments = comments.map((c) => {
                 if (c.id === commentId) {
                     return { ...c, comment: editText.trim() };
@@ -74,19 +82,11 @@ export default function CommentsSection({ postId, comments: initialComments }: C
                 return c;
             });
 
-            const response = await fetch(`/api/blog-posts/${postId}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ comments: updatedComments }),
-            });
-
-            if (!response.ok) throw new Error("Failed to update comment");
-
             setComments(updatedComments);
             setEditingCommentId(null);
             setEditingReplyId(null);
             setEditText("");
-            setMessage({ type: "success", text: "Comment updated successfully!" });
+            setMessage({ type: "success", text: result.message || "Comment updated successfully!" });
         } catch (error) {
             console.error("Error updating comment:", error);
             setMessage({ type: "error", text: "Failed to update comment." });
@@ -102,6 +102,13 @@ export default function CommentsSection({ postId, comments: initialComments }: C
         setMessage(null);
 
         try {
+            const result = await updateReply(postId, commentId, replyId, editText);
+
+            if (!result.success) {
+                throw new Error(result.error || "Failed to update reply");
+            }
+
+            // Update local state
             const updatedComments = comments.map((c) => {
                 if (c.id === commentId) {
                     const updatedReplies = c.replies.map((r) => {
@@ -115,19 +122,11 @@ export default function CommentsSection({ postId, comments: initialComments }: C
                 return c;
             });
 
-            const response = await fetch(`/api/blog-posts/${postId}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ comments: updatedComments }),
-            });
-
-            if (!response.ok) throw new Error("Failed to update reply");
-
             setComments(updatedComments);
             setEditingCommentId(null);
             setEditingReplyId(null);
             setEditText("");
-            setMessage({ type: "success", text: "Reply updated successfully!" });
+            setMessage({ type: "success", text: result.message || "Reply updated successfully!" });
         } catch (error) {
             console.error("Error updating reply:", error);
             setMessage({ type: "error", text: "Failed to update reply." });
@@ -162,6 +161,13 @@ export default function CommentsSection({ postId, comments: initialComments }: C
         setMessage(null);
 
         try {
+            const result = await submitReply(postId, commentId, replyUserName, replyText);
+
+            if (!result.success) {
+                throw new Error(result.error || "Failed to submit reply");
+            }
+
+            // Update local state
             const newReply: Reply = {
                 userName: replyUserName.trim(),
                 replyText: replyText.trim(),
@@ -175,19 +181,11 @@ export default function CommentsSection({ postId, comments: initialComments }: C
                 return c;
             });
 
-            const response = await fetch(`/api/blog-posts/${postId}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ comments: updatedComments }),
-            });
-
-            if (!response.ok) throw new Error("Failed to submit reply");
-
             setComments(updatedComments);
             setReplyingToId(null);
             setReplyText("");
             setReplyUserName("");
-            setMessage({ type: "success", text: "Reply submitted successfully!" });
+            setMessage({ type: "success", text: result.message || "Reply submitted successfully!" });
         } catch (error) {
             console.error("Error submitting reply:", error);
             setMessage({ type: "error", text: "Failed to submit reply." });
@@ -330,9 +328,9 @@ export default function CommentsSection({ postId, comments: initialComments }: C
                                     {/* Replies */}
                                     {comment.replies && comment.replies.length > 0 && (
                                         <>
-                                            {comment.replies.map((reply) => (
+                                            {comment.replies.map((reply, replyIndex) => (
                                                 <div
-                                                    key={reply.id}
+                                                    key={reply.id || `reply-${comment.id}-${replyIndex}`}
                                                     className="border border-[#c5c5c5] flex flex-col gap-4 md:gap-5 items-start justify-center px-5 md:px-8 lg:px-10 py-8 md:py-10 lg:py-12.5 rounded-[20px] md:rounded-[25px] lg:rounded-[30px] w-full md:w-[calc(100%-80px)] lg:w-[calc(100%-123px)]"
                                                 >
                                                     <div className="flex items-start justify-between w-full">
