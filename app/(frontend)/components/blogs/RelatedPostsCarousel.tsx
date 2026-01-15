@@ -70,7 +70,7 @@ export default function RelatedPostsCarousel({
 
     return (
         <div className="bg-white py-12 md:py-16 lg:py-20">
-            <div className="w-full px-4 md:px-8 lg:px-50">
+            <div className="w-full section-padding">
                 <div className="max-w-283.5 mx-auto">
                     <div className="flex flex-col gap-6 md:gap-7 lg:gap-9">
                         {/* Header */}

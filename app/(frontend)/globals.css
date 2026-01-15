@@ -153,7 +153,19 @@ article.prose blockquote .quote-source {
   color: #006fee !important;
 }
 
-/* Image container height for blog */
+/* Image container height for blog - Responsive */
 article.prose > div > div[class*="rounded"] {
-  height: 565px !important;
+  height: 240px !important;
+}
+
+@media (min-width: 768px) {
+  article.prose > div > div[class*="rounded"] {
+    height: 400px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  article.prose > div > div[class*="rounded"] {
+    height: 565px !important;
+  }
 }

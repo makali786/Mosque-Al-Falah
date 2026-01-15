@@ -42,8 +42,6 @@ const IS_ITALIC = 1 << 1;
 const IS_STRIKETHROUGH = 1 << 2;
 const IS_UNDERLINE = 1 << 3;
 const IS_CODE = 1 << 4;
-const IS_SUBSCRIPT = 1 << 5;
-const IS_SUPERSCRIPT = 1 << 6;
 
 const RenderNode = ({ node, index }: { node: Node; index: number }) => {
   if (node.type === 'text') {
@@ -177,7 +175,7 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
       if (!imageUrl) return null;
 
       return (
-        <div key={index} className="my-6 md:my-8 relative w-full aspect-[4/3] md:aspect-video rounded-2xl md:rounded-3xl overflow-hidden bg-gray-100">
+        <div key={index} className="my-6 md:my-8 relative w-full aspect-4/3 md:aspect-video rounded-2xl md:rounded-3xl overflow-hidden bg-gray-100">
           <Image
             src={imageUrl}
             alt={altText}

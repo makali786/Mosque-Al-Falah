@@ -196,7 +196,7 @@ export default function CommentsSection({ postId, comments: initialComments }: C
     if (!comments || comments.length === 0) {
         return (
             <div className="bg-white pt-8 md:pt-10 lg:pt-12 pb-0 mb-6">
-                <div className="w-full px-4 md:px-8 lg:px-50">
+                <div className="w-full section-padding">
                     <div className="max-w-283.5 mx-auto">
                         <div className="flex flex-col gap-8 md:gap-10 lg:gap-13 items-center">
                             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#27272a] text-center">
@@ -214,7 +214,7 @@ export default function CommentsSection({ postId, comments: initialComments }: C
 
     return (
         <div className="bg-white pt-8 md:pt-10 lg:pt-12 pb-0 mb-6">
-            <div className="w-full px-4 md:px-8 lg:px-50">
+            <div className="w-full section-padding">
                 <div className="max-w-283.5 mx-auto">
                     <div className="flex flex-col gap-8 md:gap-10 lg:gap-13 items-center">
                         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#27272a] text-center">

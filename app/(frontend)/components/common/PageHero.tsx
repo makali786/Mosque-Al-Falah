@@ -44,7 +44,7 @@ export default function PageHero({
             <nav aria-label="Breadcrumb">
               <ol className="flex items-center gap-0">
                 {breadcrumbs.map((crumb, index) => (
-                  <li key={index} className="flex items-center gap-0">
+                  <li key={index} className="flex items-center gap-0 min-w-0">
                     {index > 0 && (
                       <svg
                         width="24"
@@ -64,7 +64,7 @@ export default function PageHero({
                       </svg>
                     )}
                     {index === breadcrumbs.length - 1 ? (
-                      <span className="font-normal text-[#ecedee] text-xs sm:text-sm lg:text-base xl:text-[16px] leading-relaxed xl:leading-6 px-0.5 sm:px-1">
+                      <span className="font-normal text-[#ecedee] text-xs sm:text-sm lg:text-base xl:text-[16px] leading-relaxed xl:leading-6 px-0.5 sm:px-1 truncate" title={crumb.label}>
                         {crumb.label}
                       </span>
                     ) : (

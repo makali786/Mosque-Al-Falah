@@ -179,7 +179,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
 
             {/* Content Wrapper - Figma: 1134px content with 200px side padding */}
-            <div className="w-full py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-50">
+            <div className="w-full py-12 md:py-16 lg:py-20 section-padding">
                 <div className="flex flex-col gap-8 md:gap-12 lg:gap-15 max-w-283.5 mx-auto">
 
                     {/* Main Content from CMS - Figma Perfect Styling */}
