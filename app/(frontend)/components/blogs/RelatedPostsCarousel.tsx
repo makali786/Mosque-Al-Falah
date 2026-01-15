@@ -186,7 +186,7 @@ export default function RelatedPostsCarousel({
                                             </p>
 
                                             {/* Read More Button */}
-                                            <div className="bg-[#fafafa] h-[42px] flex items-center justify-center px-4 rounded-lg w-fit">
+                                            <div className="bg-[#fafafa] h-10.5 flex items-center justify-center px-4 rounded-lg w-fit">
                                                 <p className="text-[14px] font-normal leading-5 text-black">
                                                     Read More
                                                 </p>

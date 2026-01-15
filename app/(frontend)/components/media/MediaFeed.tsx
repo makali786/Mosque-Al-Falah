@@ -4,6 +4,7 @@ import { useState } from "react";
 import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
 import MediaCard, { MediaItem } from "./MediaCard";
 import Image from "next/image";
+import Tabs from "../common/Tabs";
 
 interface MediaFeedProps {
   initialMedia: MediaItem[];
@@ -97,27 +98,16 @@ export default function MediaFeed({
         <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 mb-8 mt-4 sm:mt-0 sm:mb-12">
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-1 lg:gap-2 p-1 bg-[#F4F4F5] rounded-xl">
-            {tabs.map((tab) => {
-              const isActive = selectedTab === tab.id || (tab.id === 'audio' && (selectedTab === 'podcast'));
-
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => {
-                    setSelectedTab(tab.id as any);
-                    setVisibleCount(6);
-                  }}
-                  className={`px-3 lg:px-4 py-1.5 text-sm sm:text-lg font-medium rounded-xl transition-all cursor-pointer ${isActive
-                    ? "bg-white text-black shadow-sm"
-                    : "text-[#71717A]"
-                    }`}
-                >
-                  {tab.label}
-                </button>
-              )
-            })}
-          </div>
+          <Tabs
+            tabs={tabs}
+            activeTab={selectedTab === 'podcast' ? 'audio' : selectedTab}
+            onChange={(tabId) => {
+              setSelectedTab(tabId as any);
+              setVisibleCount(6);
+            }}
+            variant="pills"
+            size="md"
+          />
 
           <div className="flex flex-col sm:flex-row gap-4 w-full xl:w-auto">
             {/* Search Bar */}
@@ -143,34 +133,37 @@ export default function MediaFeed({
 
             {/* View Toggles */}
             {viewOptions.showViewToggle && (
-              <div className="flex items-center gap-6 shrink-0 self-end sm:self-center">
-                <button
-                  onClick={() => setView("list")}
-                  className={`flex items-center gap-2 cursor-pointer ${view === "list" ? "text-[#006fee]" : "text-[#71717A]"}`}
-                >
-                  <Image
-                    src="/assets/common/list-icon.svg"
-                    alt="List"
-                    width={20}
-                    height={20}
-                    className={view === "list" ? "brightness-0 saturate-100 invert-[0.4] sepia-[1] saturate-[5] hue-rotate-[180deg]" : "opacity-60"}
-                    style={view === "list" ? { filter: 'invert(38%) sepia(96%) saturate(3207%) hue-rotate(194deg) brightness(101%) contrast(101%)' } : {}}
-                  />
-                  <span className="text-sm font-medium hidden sm:block">{viewOptions.listViewLabel}</span>
-                </button>
-                <button
-                  onClick={() => setView("grid")}
-                  className={`flex items-center gap-2 cursor-pointer ${view === "grid" ? "text-[#006fee]" : "text-[#71717A]"}`}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "opacity-100" : "opacity-60"}>
-                    <rect x="3" y="3" width="7" height="7"></rect>
-                    <rect x="14" y="3" width="7" height="7"></rect>
-                    <rect x="14" y="14" width="7" height="7"></rect>
-                    <rect x="3" y="14" width="7" height="7"></rect>
-                  </svg>
-                  <span className="text-sm font-medium hidden sm:block">{viewOptions.gridViewLabel}</span>
-                </button>
-              </div>
+              <Tabs
+                tabs={[
+                  {
+                    id: "list",
+                    label: <span className="hidden sm:block">{viewOptions.listViewLabel}</span>,
+                    icon: <Image
+                      src="/assets/common/list-icon.svg"
+                      alt="List"
+                      width={20}
+                      height={20}
+                      className={view === "list" ? "brightness-0 saturate-100 invert-[0.4] sepia-[1] saturate-[5] hue-rotate-[180deg]" : "opacity-60"}
+                      style={view === "list" ? { filter: 'invert(38%) sepia(96%) saturate(3207%) hue-rotate(194deg) brightness(101%) contrast(101%)' } : {}}
+                    />
+                  },
+                  {
+                    id: "grid",
+                    label: <span className="hidden sm:block">{viewOptions.gridViewLabel}</span>,
+                    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "opacity-100" : "opacity-60"}>
+                      <rect x="3" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="14" width="7" height="7"></rect>
+                      <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                  }
+                ]}
+                activeTab={view}
+                onChange={(tabId) => setView(tabId as any)}
+                variant="underline"
+                size="sm"
+                className="shrink-0 self-end sm:self-center"
+              />
             )}
           </div>
         </div>

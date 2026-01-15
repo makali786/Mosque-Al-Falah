@@ -5,6 +5,7 @@ import Image from "next/image";
 import EventCard, { EventInterface } from "./EventCard";
 import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
 import RequestServiceForm from "../common/RequestServiceForm";
+import Tabs from "../common/Tabs";
 
 interface EventsFeedProps {
   initialEvents: EventInterface[];
@@ -138,69 +139,55 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
         />
       )}
 
-      <div className="section-padding py-8 bg-[#fff] min-h-screen">
+      <div className="bg-white min-h-screen section-padding py-12 flex flex-col gap-11">
         {/* Filters and View Controls */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
 
           {/* Left: Tabs & Dropdowns */}
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-4 w-full lg:w-auto">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 w-full lg:w-auto">
 
             {/* Tabs */}
-            <div className="flex bg-[#F4F4F5] p-1 rounded-[14px]">
-              {filterOptions.enableUpcomingTab && (
-                <button
-                  onClick={() => setActiveTab("upcoming")}
-                  className={`px-4 py-2 text-lg rounded-[14px] transition-colors cursor-pointer ${activeTab === "upcoming"
-                    ? "bg-[#fff] text-[#18181B]"
-                    : "text-[#71717A] hover:text-[#18181B]"
-                    }`}
-                >
-                  {filterOptions.upcomingTabLabel}
-                </button>
-              )}
-              {filterOptions.enableArchivedTab && (
-                <button
-                  onClick={() => setActiveTab("archived")}
-                  className={`px-4 py-2 text-lg rounded-[14px] transition-colors cursor-pointer ${activeTab === "archived"
-                    ? "bg-[#fff] text-[#18181B]"
-                    : "text-[#71717A] hover:text-[#18181B]"
-                    }`}
-                >
-                  {filterOptions.archivedTabLabel}
-                </button>
-              )}
-            </div>
+            <Tabs
+              tabs={[
+                ...(filterOptions.enableUpcomingTab ? [{ id: "upcoming", label: filterOptions.upcomingTabLabel }] : []),
+                ...(filterOptions.enableArchivedTab ? [{ id: "archived", label: filterOptions.archivedTabLabel }] : [])
+              ]}
+              activeTab={activeTab}
+              onChange={(tabId) => setActiveTab(tabId as any)}
+              variant="pills"
+              size="md"
+            />
 
             {/* Dropdowns */}
             <div className="flex flex-wrap gap-4">
               {filterOptions.enableSpeakerFilter && (
-                <div className="relative">
+                <div className="relative w-[250px]">
                   <select
                     value={selectedSpeaker}
                     onChange={(e) => setSelectedSpeaker(e.target.value)}
-                    className="appearance-none bg-[#f4f4f5] pl-4.5 pr-10 py-2 text-[#11181C] text-lg rounded-[14px] "
+                    className="appearance-none bg-[#F4F4F5] w-full px-3 py-2 text-[#11181C] text-sm rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] cursor-pointer"
                   >
                     <option value="">{filterOptions.speakerFilterLabel}</option>
                     {speakers.map((s: string, i: number) => <option key={i} value={s}>{s}</option>)}
                   </select>
-                  <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                    <Image src="/assets/common/down-arrow.svg" alt="arrow" width={10} height={10} className="opacity-50" />
+                  <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                    <Image src="/assets/common/down-arrow.svg" alt="arrow" width={16} height={16} className="opacity-70" />
                   </div>
                 </div>
               )}
 
               {filterOptions.enableCategoryFilter && (
-                <div className="relative">
+                <div className="relative w-[167px]">
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="appearance-none bg-[#f4f4f5] text-[#11181C] text-lg rounded-[14px] pl-4.5 pr-10 py-2 cursor-pointer"
+                    className="appearance-none bg-[#F4F4F5] w-full px-3 py-2 text-[#11181C] text-sm rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] cursor-pointer"
                   >
                     <option value="">{filterOptions.categoryFilterLabel}</option>
                     {categories.map((c: string, i: number) => <option key={i} value={c}>{c}</option>)}
                   </select>
-                  <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                    <Image src="/assets/common/down-arrow.svg" alt="arrow" width={10} height={10} className="opacity-50" />
+                  <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                    <Image src="/assets/common/down-arrow.svg" alt="arrow" width={16} height={16} className="opacity-70" />
                   </div>
                 </div>
               )}
@@ -209,7 +196,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
           {/* Right: View Toggles */}
           {viewOptions.showViewToggle && (
-            <div className="flex items-center gap-6 lg:ml-auto">
+            <div className="flex items-center gap-4 lg:ml-auto">
 
               {filterOptions.enableCalendarView && (
                 <div className="relative">
@@ -222,54 +209,66 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
                   />
                   <button
                     onClick={() => dateInputRef.current?.showPicker()}
-                    className="flex items-center justify-between bg-[#f4f4f5] text-[#11181C] text-lg rounded-[14px] px-4.5 py-2 cursor-pointer min-w-[140px]"
+                    className="flex items-center justify-between bg-[#F4F4F5] text-[#11181C] text-sm rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] px-3 py-2 cursor-pointer min-w-[176px]"
                   >
                     <span>{selectedDate ? new Date(selectedDate).toLocaleDateString() : filterOptions.calendarViewLabel}</span>
                     {selectedDate ? (
                       <div
                         onClick={(e) => { e.stopPropagation(); setSelectedDate(""); }}
-                        className="ml-2 p-0.5 hover:bg-gray-200 rounded-full cursor-pointer flex items-center justify-center h-5 w-5"
+                        className="ml-2 p-0.5 hover:bg-gray-200 rounded-full cursor-pointer flex items-center justify-center h-4 w-4"
                       >
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                       </div>
                     ) : (
-                      <Image src="/assets/common/down-arrow.svg" alt="arrow" width={10} height={10} className="opacity-50 ml-2" />
+                      <Image src="/assets/common/down-arrow.svg" alt="arrow" width={16} height={16} className="opacity-70 ml-2" />
                     )}
                   </button>
                 </div>
               )}
 
-              <button
-                onClick={() => setView("list")}
-                className={`flex items-center gap-2 transition-colors cursor-pointer ${view === "list" ? "text-[#006FEE]" : "text-[#71717A] hover:text-[#18181B]"}`}
-              >
-                <Image
-                  src="/assets/common/list-icon.svg"
-                  alt="List"
-                  width={20}
-                  height={20}
-                  className={view === "list" ? "filter-blue" : "opacity-60"}
-                  style={view === "list" ? { filter: "invert(30%) sepia(85%) saturate(2329%) hue-rotate(202deg) brightness(98%) contrast(106%)" } : {}}
-                />
-                <span className="text-sm font-medium">{viewOptions.listViewLabel}</span>
-              </button>
-
-              <button
-                onClick={() => setView("grid")}
-                className={`flex items-center gap-2 transition-colors cursor-pointer ${view === "grid" ? "text-[#006FEE]" : "text-[#71717A] hover:text-[#18181B]"}`}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "text-[#006FEE]" : "text-[#71717A]"}>
-                  <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>
-                </svg>
-                <span className="text-sm font-medium">{viewOptions.gridViewLabel}</span>
-              </button>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setView("list")}
+                  className={`flex items-center gap-2 px-2 py-2 rounded-xl transition-colors ${
+                    view === "list" ? "" : ""
+                  }`}
+                >
+                  <Image
+                    src="/assets/common/list-icon.svg"
+                    alt="List"
+                    width={20}
+                    height={20}
+                    className={view === "list" ? "" : "opacity-60"}
+                    style={view === "list" ? { filter: "invert(30%) sepia(85%) saturate(2329%) hue-rotate(202deg) brightness(98%) contrast(106%)" } : {}}
+                  />
+                  <span className={`text-sm ${view === "list" ? "text-[#006FEE]" : "text-black"}`}>
+                    {viewOptions.listViewLabel}
+                  </span>
+                </button>
+                <button
+                  onClick={() => setView("grid")}
+                  className={`flex items-center gap-2 px-2 py-2 rounded-xl transition-colors ${
+                    view === "grid" ? "" : ""
+                  }`}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={view === "grid" ? "text-[#006FEE]" : "text-black"}>
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                  </svg>
+                  <span className={`text-sm ${view === "grid" ? "text-[#006FEE]" : "text-black"}`}>
+                    {viewOptions.gridViewLabel}
+                  </span>
+                </button>
+              </div>
             </div>
           )}
         </div>
 
         {/* Content */}
         {displayedEvents.length > 0 ? (
-          <div className={view === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" : "flex flex-col gap-6"}>
+          <div className={view === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center" : "flex flex-col gap-6"}>
             {displayedEvents.map((event) => (
               <EventCard key={event.id} event={event} layout={view} />
             ))}
@@ -282,12 +281,12 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
 
         {/* Load More */}
         {visibleCount < filteredEvents.length && (
-          <div className="mt-12 flex justify-center">
+          <div className="flex justify-center">
             <button
               onClick={handleLoadMore}
-              className="px-6 py-3 bg-white border border-[#E4E4E7] rounded-lg text-sm font-medium text-[#18181B] hover:bg-[#F4F4F5] transition-colors shadow-sm cursor-pointer"
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-[#FAFAFA] rounded-xl text-base font-normal text-black hover:bg-[#F4F4F5] transition-colors cursor-pointer h-12"
             >
-              {gridSettings.loadMoreButtonText}
+              <span>{gridSettings.loadMoreButtonText}</span>
             </button>
           </div>
         )}

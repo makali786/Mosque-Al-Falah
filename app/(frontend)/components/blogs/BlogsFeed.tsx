@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
 import BlogCard, { BlogCardProps } from "./BlogCard";
+import Tabs from "../common/Tabs";
 
 interface BlogsFeedProps {
   initialPosts: BlogCardProps[];
@@ -82,7 +83,7 @@ export default function BlogsFeed({ initialPosts, categories, config }: BlogsFee
             { label: config.pageHeader.pageTitle, href: "#" },
           ]}
           showSearch={false}
-          className="section-padding sm:!pt-12"
+          className="section-padding sm:pt-12!"
         />
       )}
 
@@ -92,24 +93,19 @@ export default function BlogsFeed({ initialPosts, categories, config }: BlogsFee
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         {/* Categories */}
         {config.categoryFilter.showCategoryFilter && (
-          <div className="flex flex-wrap items-center gap-1 lg:gap-2 p-1 bg-[#F4F4F5] rounded-xl">
-            {[config.categoryFilter.allCategoriesLabel, ...categories].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => {
-                  setSelectedCategory(cat);
-                  setVisibleCount(config.gridSettings.itemsPerPage);
-                }}
-                className={`px-3 lg:px-4 py-1.5 text-sm sm:text-base rounded-xl transition-all cursor-pointer ${
-                  selectedCategory === cat
-                    ? "bg-white text-black shadow-sm"
-                    : "text-[#71717A]"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          <Tabs
+            tabs={[config.categoryFilter.allCategoriesLabel, ...categories].map((cat) => ({
+              id: cat,
+              label: cat,
+            }))}
+            activeTab={selectedCategory}
+            onChange={(tabId) => {
+              setSelectedCategory(tabId);
+              setVisibleCount(config.gridSettings.itemsPerPage);
+            }}
+            variant="pills"
+            size="md"
+          />
         )}
 
         {/* Search */}

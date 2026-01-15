@@ -152,9 +152,9 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
 
   // Grid View
   return (
-    <CardWrapper className="flex flex-col w-full bg-white overflow-hidden h-full shadow-[0px_4px_6px_-4px_#0000001A,0px_10px_15px_-3px_#0000001A] lg:max-w-[357px]">
-      {/* Image Container */}
-      <div className="relative w-full aspect-[4/5] lg:max-w-[357px] lg:max-h-[357px]">
+    <CardWrapper className="flex flex-col w-full bg-white overflow-hidden shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] max-w-[357px]">
+      {/* Image Container - Square aspect ratio */}
+      <div className="relative w-full aspect-square h-[357px]">
         {imageUrl && (
           <Image
             src={imageUrl}
@@ -166,52 +166,52 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
       </div>
 
       {/* Content Container */}
-      <div className="flex flex-col p-4 gap-3">
-        {/* Title */}
-        <h3 className="text-base sm:text-lg font-semibold line-clamp-1">
-          {title}
-        </h3>
+      <div className="flex flex-col p-4 gap-[15px]">
+        {/* Title and Date/Time Section */}
+        <div className="flex flex-col gap-1 h-[52px]">
+          {/* Title */}
+          <h3 className="text-lg font-semibold leading-7 text-black overflow-hidden text-ellipsis whitespace-nowrap">
+            {title}
+          </h3>
 
-        {/* Date and Status */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5 text-[#71717A] text-sm">
-            <span>{dateFormatted}</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#71717A]"></span>
-            <span>{timeRange}</span>
-          </div>
-
-          {isLive && (
-            <div className="flex items-center gap-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E11D48]"></span>
-              </span>
-              <span className="text-[#3F3F46] text-sm">Live Now</span>
+          {/* Date and Status */}
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center gap-2 text-[#71717A] text-sm">
+              <span>{dateFormatted}</span>
+              <span className="w-[6px] h-[6px] rounded-full bg-[#A1A1AA]"></span>
+              <span>{timeRange}</span>
             </div>
-          )}
+
+            {isLive && (
+              <div className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-[#F31260]"></span>
+                <span className="text-[#3F3F46] text-sm">Live Now</span>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Platform Info */}
-        <div className="flex items-center gap-2 pt-1 mt-auto">
+        <div className="flex items-center gap-3">
           <span className="text-[#A1A1AA] text-xs">Platform:</span>
           <div className="flex items-center gap-3">
-            {/* Dynamic Platform Icons - Assuming defaults for demo based on inputs */}
-            {platforms.some(p => p.platform === 'zoom') ? (
-              <div className="flex items-center gap-1.5">
+            {/* Dynamic Platform Icons */}
+            {platforms.some(p => p.platform === 'zoom') && (
+              <div className="flex items-center gap-2">
                 <Image src="/assets/common/zoom-logo.svg" alt="Zoom" width={18} height={18} />
-                <span className="text-[#52525B] text-[13px]">Zoom</span>
+                <span className="text-[#3F3F46] text-xs">Zoom</span>
               </div>
-            ) : platforms.some(p => p.platform === 'meet') ? (
-              <div className="flex items-center gap-1.5">
+            )}
+            {platforms.some(p => p.platform === 'meet') && (
+              <div className="flex items-center gap-2">
                 <Image src="/assets/common/google-meet-logo.svg" alt="Meet" width={18} height={18} />
-                <span className="text-[#52525B] text-[13px]">Google Meet</span>
+                <span className="text-[#3F3F46] text-xs">Google Meet</span>
               </div>
-            ) : null}
-
-            {/* Always showing In-person as per typical mosque events or if venue is present */}
+            )}
             {event.venue && (
-              <div className="flex items-center gap-1.5">
-                <Image src="/assets/common/people-icon.svg" alt="Zoom" width={18} height={18} />
-                <span className="text-[#52525B] text-[13px]">In-person</span>
+              <div className="flex items-center gap-2">
+                <Image src="/assets/common/people-icon.svg" alt="In-person" width={18} height={18} />
+                <span className="text-[#3F3F46] text-xs">In-person</span>
               </div>
             )}
           </div>
