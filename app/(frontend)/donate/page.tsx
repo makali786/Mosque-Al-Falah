@@ -1,21 +1,21 @@
 'use client';
 
 import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
   Elements,
-  PaymentElement,
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { signIn } from 'next-auth/react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 // Initialize Stripe
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY!);
 
 // Types
 interface DonationFormData {
@@ -84,15 +84,12 @@ function DonationStepIndicator({ currentStep }: { currentStep: number }) {
     <div className="w-full bg-[#F4F4F5] border border-[#E6F1FE] border-solid">
       {/* Desktop view */}
       <div className="hidden md:flex items-center justify-center gap-4 lg:gap-8 px-4 lg:px-8 py-3">
-        {steps.map((step) => {
+        {steps.map(step => {
           const isActive = currentStep === step.number;
           const isCompleted = currentStep > step.number;
 
           return (
-            <div
-              key={step.number}
-              className="flex items-center gap-2 py-3.5"
-            >
+            <div key={step.number} className="flex items-center gap-2 py-3.5">
               {/* Badge with number */}
               <div
                 className={`
@@ -175,7 +172,9 @@ function SelectDonationStep({
 
   const totalAmount = donationAmount + platformFee;
 
-  const frequencyLabel = frequencies.find(f => f.value === formData.frequency)?.label;
+  const frequencyLabel = frequencies.find(
+    f => f.value === formData.frequency
+  )?.label;
 
   return (
     <div className="w-full flex flex-col gap-8 pt-8 pb-0 px-0">
@@ -188,17 +187,17 @@ function SelectDonationStep({
             </h1>
           </div>
           <p className="text-xl font-medium leading-7 text-[#52525B] w-full">
-            We trust Masjid System to handle the processing of our online payments. You will see their name mentioned on this form and in the address bar.
+            We trust Masjid System to handle the processing of our online
+            payments. You will see their name mentioned on this form and in the
+            address bar.
           </p>
         </div>
       </div>
 
       {/* Main Content Container */}
       <div className="flex flex-col gap-8 items-end px-4 md:px-24 lg:px-96">
-
         {/* Selection Card */}
         <div className="w-full bg-[#FAFAFA] rounded-xl p-8 flex flex-col gap-8">
-
           {/* I Wish To Donate Section */}
           <div className="flex flex-col gap-4 items-start w-full">
             <p className="text-[14px] font-normal leading-5 text-black">
@@ -208,7 +207,7 @@ function SelectDonationStep({
             <div className="flex flex-col gap-6 items-start">
               {/* Frequency Tabs */}
               <div className="bg-[#F4F4F5] flex gap-2 items-start p-1 rounded-xl">
-                {frequencies.map((freq) => {
+                {frequencies.map(freq => {
                   const isActive = formData.frequency === freq.value;
                   return (
                     <button
@@ -216,7 +215,8 @@ function SelectDonationStep({
                       onClick={() =>
                         setFormData({
                           ...formData,
-                          frequency: freq.value as DonationFormData['frequency'],
+                          frequency:
+                            freq.value as DonationFormData['frequency'],
                         })
                       }
                       className={`flex items-center justify-center px-[12px] py-[4px] cursor-pointer transition-colors ${
@@ -262,7 +262,10 @@ function SelectDonationStep({
                       <select
                         value={formData.donationType}
                         onChange={e =>
-                          setFormData({ ...formData, donationType: e.target.value })
+                          setFormData({
+                            ...formData,
+                            donationType: e.target.value,
+                          })
                         }
                         className="w-full bg-transparent text-[16px] font-normal leading-[24px] text-[#11181C] border-none outline-none appearance-none"
                       >
@@ -275,8 +278,19 @@ function SelectDonationStep({
                     </div>
                   </div>
                 </div>
-                <svg className="w-[16px] h-[16px] shrink-0" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4 6L8 10L12 6" stroke="#11181C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg
+                  className="w-[16px] h-[16px] shrink-0"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 6L8 10L12 6"
+                    stroke="#11181C"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </div>
             </div>
@@ -289,7 +303,7 @@ function SelectDonationStep({
                 Your giving amount
               </p>
               <div className="flex gap-[16px] items-start w-full flex-nowrap">
-                {quickAmounts.map((amount) => {
+                {quickAmounts.map(amount => {
                   const isSelected = formData.amount === amount && !isCustom;
                   return (
                     <button
@@ -305,15 +319,19 @@ function SelectDonationStep({
                     >
                       <div className="flex flex-col gap-[8px] items-start w-full">
                         <div className="flex gap-[4px] items-end w-full whitespace-nowrap">
-                          <p className={`text-[18px] font-semibold leading-[28px] shrink-0 ${
-                            isSelected ? 'text-[#18181B]' : 'text-[#3F3F46]'
-                          }`}>
+                          <p
+                            className={`text-[18px] font-semibold leading-[28px] shrink-0 ${
+                              isSelected ? 'text-[#18181B]' : 'text-[#3F3F46]'
+                            }`}
+                          >
                             £{amount}
                           </p>
                           {formData.frequency !== 'one-time' && (
-                            <p className={`flex-[1_0_0] text-[12px] font-normal leading-[16px] h-[20px] min-h-px min-w-px ${
-                              isSelected ? 'text-[#3F3F46]' : 'text-[#71717A]'
-                            }`}>
+                            <p
+                              className={`flex-[1_0_0] text-[12px] font-normal leading-[16px] h-[20px] min-h-px min-w-px ${
+                                isSelected ? 'text-[#3F3F46]' : 'text-[#71717A]'
+                              }`}
+                            >
                               /{frequencyLabel}
                             </p>
                           )}
@@ -359,7 +377,10 @@ function SelectDonationStep({
             <div className="content-stretch flex gap-2 isolate items-center justify-center relative rounded-lg shrink-0">
               <div className="bg-(--colors/layout/foreground-400,#a1a1aa) content-stretch flex items-center justify-center overflow-clip relative rounded-[9999px] shrink-0 size-10 z-2">
                 <div className="flex-[1_0_0] h-full max-w-10 min-h-px min-w-px relative">
-                  <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 pointer-events-none"
+                  >
                     <div className="absolute bg-black inset-0" />
                     <div className="absolute inset-0 overflow-hidden">
                       <img
@@ -372,14 +393,20 @@ function SelectDonationStep({
                 </div>
               </div>
               <div className="content-stretch flex flex-col font-['Roboto:Regular',sans-serif] font-normal items-start leading-0 pl-0 pr-[1.19px] py-px relative shrink-0 whitespace-nowrap z-1">
-                <div className="flex flex-col justify-center relative shrink-0 text-[14px] text-(--colors/layout/foreground,#11181c)" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div
+                  className="flex flex-col justify-center relative shrink-0 text-[14px] text-(--colors/layout/foreground,#11181c)"
+                  style={{ fontVariationSettings: "'wdth' 100" }}
+                >
                   <p className="leading-5 whitespace-pre">
                     {formData.isAnonymous
                       ? 'Anonymous kind soul'
                       : formData.displayName || 'Anonymous kind soul'}
                   </p>
                 </div>
-                <div className="flex flex-col justify-center relative shrink-0 text-[12px] text-[#A1A1AA]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div
+                  className="flex flex-col justify-center relative shrink-0 text-[12px] text-[#A1A1AA]"
+                  style={{ fontVariationSettings: "'wdth' 100" }}
+                >
                   <p className="leading-4 whitespace-pre">
                     £{donationAmount.toFixed(2)} GBP, a few moments ago
                   </p>
@@ -447,7 +474,8 @@ function SelectDonationStep({
                   />
                 </div>
                 <p className="flex-1 text-sm font-normal leading-5 text-[#3F3F46] py-1">
-                  Allows us to provide dedicated support for donors & fundraisers
+                  Allows us to provide dedicated support for donors &
+                  fundraisers
                 </p>
               </div>
               <div className="flex items-center gap-2 w-full">
@@ -475,7 +503,7 @@ function SelectDonationStep({
               <div className="w-full relative flex flex-col items-start">
                 {/* Slider track with dots */}
                 <div className="bg-[#E4E4E7] rounded-full px-4 py-0.5 flex items-center justify-between w-full">
-                  {[0, 1, 2, 3, 4].map((i) => (
+                  {[0, 1, 2, 3, 4].map(i => (
                     <button
                       key={i}
                       onClick={() => {
@@ -488,7 +516,10 @@ function SelectDonationStep({
                       }}
                       className="w-1 h-1 rounded-full shrink-0 cursor-pointer hover:scale-125 transition-transform"
                       style={{
-                        backgroundColor: i === 2 && formData.platformFeePercentage === 12.5 ? '#F9C97C' : '#D4D4D8'
+                        backgroundColor:
+                          i === 2 && formData.platformFeePercentage === 12.5
+                            ? '#F9C97C'
+                            : '#D4D4D8',
                       }}
                       aria-label={`Set platform fee to ${[0, 7.5, 12.5, 17.5, 20][i]}%`}
                     />
@@ -500,12 +531,18 @@ function SelectDonationStep({
               <div
                 className="absolute bottom-0 flex flex-col gap-2 items-center w-[124px]"
                 style={{
-                  left: formData.platformFeePercentage === 0 ? '-44px' :
-                        formData.platformFeePercentage === 7.5 ? 'calc(25% - 62px)' :
-                        formData.platformFeePercentage === 12.5 ? 'calc(50% - 62px)' :
-                        formData.platformFeePercentage === 17.5 ? 'calc(75% - 62px)' :
-                        formData.platformFeePercentage === 20 ? 'calc(100% - 80px)' :
-                        'calc(50% - 62px)'
+                  left:
+                    formData.platformFeePercentage === 0
+                      ? '-44px'
+                      : formData.platformFeePercentage === 7.5
+                        ? 'calc(25% - 62px)'
+                        : formData.platformFeePercentage === 12.5
+                          ? 'calc(50% - 62px)'
+                          : formData.platformFeePercentage === 17.5
+                            ? 'calc(75% - 62px)'
+                            : formData.platformFeePercentage === 20
+                              ? 'calc(100% - 80px)'
+                              : 'calc(50% - 62px)',
                 }}
               >
                 {/* Tooltip */}
@@ -520,13 +557,22 @@ function SelectDonationStep({
                     {/* RECOMMENDED header - only show for 12.5% */}
                     {formData.platformFeePercentage === 12.5 && (
                       <div className="bg-[#F5A524] px-3 py-1 flex items-center justify-center w-full">
-                        <p className="text-xs font-normal leading-4 text-[#FAFAFA]">RECOMMENDED</p>
+                        <p className="text-xs font-normal leading-4 text-[#FAFAFA]">
+                          RECOMMENDED
+                        </p>
                       </div>
                     )}
                     {/* Percentage and Amount */}
                     <div className="flex items-center justify-center gap-2 px-2 py-1 text-sm font-normal leading-5 text-[#18181B] w-full">
                       <span>{formData.platformFeePercentage}%</span>
-                      <span className="text-[#52525B]">(£{(donationAmount * formData.platformFeePercentage / 100).toFixed(2)})</span>
+                      <span className="text-[#52525B]">
+                        (£
+                        {(
+                          (donationAmount * formData.platformFeePercentage) /
+                          100
+                        ).toFixed(2)}
+                        )
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -544,10 +590,16 @@ function SelectDonationStep({
             {/* Other amount button */}
             <button
               onClick={() => {
-                const customPercentage = prompt('Enter custom platform fee percentage (0-100):');
+                const customPercentage = prompt(
+                  'Enter custom platform fee percentage (0-100):'
+                );
                 if (customPercentage !== null) {
                   const percentage = parseFloat(customPercentage);
-                  if (!isNaN(percentage) && percentage >= 0 && percentage <= 100) {
+                  if (
+                    !isNaN(percentage) &&
+                    percentage >= 0 &&
+                    percentage <= 100
+                  ) {
                     setFormData({
                       ...formData,
                       platformFeeEnabled: percentage > 0,
@@ -568,7 +620,9 @@ function SelectDonationStep({
               <p className="text-xs leading-4 text-[#E8FAF0]">
                 <span className="font-bold">75% of donors</span>
                 {' have helped keep Masjid System '}
-                <span className="font-bold">free for our charity in last the 24 hours</span>
+                <span className="font-bold">
+                  free for our charity in last the 24 hours
+                </span>
               </p>
             </div>
           </div>
@@ -587,7 +641,9 @@ function SelectDonationStep({
               </div>
               {formData.platformFeeEnabled && (
                 <div className="flex items-center justify-between text-sm font-normal leading-5 text-[#52525B] w-full">
-                  <span>Masjid Al-Falah({formData.platformFeePercentage}%)</span>
+                  <span>
+                    Masjid Al-Falah({formData.platformFeePercentage}%)
+                  </span>
                   <span className="text-right">£{platformFee.toFixed(2)}</span>
                 </div>
               )}
@@ -614,9 +670,7 @@ function SelectDonationStep({
             disabled={donationAmount <= 0}
             className="bg-[#006FEE] flex h-12 items-center justify-center px-6 py-0 rounded-xl shrink-0 w-[212px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <p className="text-base font-normal leading-6 text-white">
-              Next
-            </p>
+            <p className="text-base font-normal leading-6 text-white">Next</p>
           </button>
         </div>
       </div>
@@ -658,7 +712,9 @@ function Step2Details({
                   className="w-full h-full"
                 />
               </div>
-              <span className="text-base font-normal leading-6 text-[#006FEE]">Back</span>
+              <span className="text-base font-normal leading-6 text-[#006FEE]">
+                Back
+              </span>
             </div>
           </button>
           <h1 className="text-4xl font-semibold leading-10 text-[#27272A] text-center">
@@ -668,7 +724,9 @@ function Step2Details({
 
         {/* Subtitle */}
         <p className="text-xl font-medium leading-7 text-[#52525B] w-full">
-          We trust Masjid System to handle the processing of our online payments. You will see their name mentioned on this form and in the address bar.
+          We trust Masjid System to handle the processing of our online
+          payments. You will see their name mentioned on this form and in the
+          address bar.
         </p>
       </div>
 
@@ -687,7 +745,9 @@ function Step2Details({
             <input
               type="email"
               value={formData.email}
-              onChange={e => setFormData({ ...formData, email: e.target.value })}
+              onChange={e =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               placeholder="e.g. jsmith@yourmail.com"
               className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
             />
@@ -702,7 +762,9 @@ function Step2Details({
             onClick={() => signIn()}
             className="flex h-8 items-center justify-center px-3 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors"
           >
-            <span className="text-xs font-normal leading-4 text-[#006FEE]">Log In</span>
+            <span className="text-xs font-normal leading-4 text-[#006FEE]">
+              Log In
+            </span>
           </button>
         </div>
       </div>
@@ -725,10 +787,17 @@ function Step2Details({
           >
             <div className="bg-white overflow-hidden rounded-[1px] w-10 h-10">
               <div className="p-2">
-                <Image src="/assets/donation/apple-logo.svg" alt="Apple" width={24} height={24} />
+                <Image
+                  src="/assets/donation/apple-logo.svg"
+                  alt="Apple"
+                  width={24}
+                  height={24}
+                />
               </div>
             </div>
-            <p className="text-base text-black leading-normal tracking-[-0.32px]">Apple</p>
+            <p className="text-base text-black leading-normal tracking-[-0.32px]">
+              Apple
+            </p>
           </button>
 
           {/* Google Button */}
@@ -738,9 +807,16 @@ function Step2Details({
             className="bg-white border border-[#E4E4E7] flex flex-1 gap-2.5 items-center justify-center pl-px pr-2.5 py-px rounded-lg cursor-pointer hover:bg-[#F4F4F5] transition-colors"
           >
             <div className="bg-white rounded-[1px] w-[38px] h-[38px] p-2">
-              <Image src="/assets/donation/google-logo.svg" alt="Google" width={22} height={22} />
+              <Image
+                src="/assets/donation/google-logo.svg"
+                alt="Google"
+                width={22}
+                height={22}
+              />
             </div>
-            <p className="text-sm font-medium text-[#757575] leading-normal">Google</p>
+            <p className="text-sm font-medium text-[#757575] leading-normal">
+              Google
+            </p>
           </button>
 
           {/* Facebook Button */}
@@ -751,10 +827,17 @@ function Step2Details({
           >
             <div className="bg-white overflow-hidden rounded-[1px] w-10 h-10">
               <div className="p-2">
-                <Image src="/assets/donation/facebook-logo.svg" alt="Facebook" width={24} height={24} />
+                <Image
+                  src="/assets/donation/facebook-logo.svg"
+                  alt="Facebook"
+                  width={24}
+                  height={24}
+                />
               </div>
             </div>
-            <p className="text-base text-[#1877F2] leading-normal tracking-[-0.32px]">Facebook</p>
+            <p className="text-base text-[#1877F2] leading-normal tracking-[-0.32px]">
+              Facebook
+            </p>
           </button>
         </div>
       </div>
@@ -765,16 +848,22 @@ function Step2Details({
           {/* First Name */}
           <div className="flex flex-1 flex-col h-[70px] items-start min-w-[116px]">
             <div className="flex items-center pb-3 pr-2 w-full">
-              <p className="text-xs font-normal leading-4 text-[#52525B]">First Name</p>
+              <p className="text-xs font-normal leading-4 text-[#52525B]">
+                First Name
+              </p>
               <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                <p className="text-sm font-normal leading-5 text-[#F31260]">
+                  *
+                </p>
               </div>
             </div>
             <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
               <input
                 type="text"
                 value={formData.firstName}
-                onChange={e => setFormData({ ...formData, firstName: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, firstName: e.target.value })
+                }
                 placeholder="First Name"
                 className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
               />
@@ -784,16 +873,22 @@ function Step2Details({
           {/* Last Name */}
           <div className="flex flex-1 flex-col h-[70px] items-start min-w-[116px]">
             <div className="flex items-center pb-3 pr-2 w-full">
-              <p className="text-xs font-normal leading-4 text-[#52525B]">Last Name</p>
+              <p className="text-xs font-normal leading-4 text-[#52525B]">
+                Last Name
+              </p>
               <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                <p className="text-sm font-normal leading-5 text-[#F31260]">
+                  *
+                </p>
               </div>
             </div>
             <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
               <input
                 type="text"
                 value={formData.lastName}
-                onChange={e => setFormData({ ...formData, lastName: e.target.value })}
+                onChange={e =>
+                  setFormData({ ...formData, lastName: e.target.value })
+                }
                 placeholder="Last Name"
                 className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
               />
@@ -805,9 +900,13 @@ function Step2Details({
         <div className="flex flex-col gap-2 w-full">
           <div className="flex flex-col h-[70px] items-start min-w-[116px] w-full">
             <div className="flex items-center pb-3 pr-2 w-full">
-              <p className="text-xs font-normal leading-4 text-[#52525B]">Find your address</p>
+              <p className="text-xs font-normal leading-4 text-[#52525B]">
+                Find your address
+              </p>
               <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                <p className="text-sm font-normal leading-5 text-[#F31260]">
+                  *
+                </p>
               </div>
             </div>
             <div className="bg-[#F4F4F5] flex items-center min-h-8 px-1.5 py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
@@ -839,13 +938,17 @@ function Step2Details({
             onClick={() => setShowManualAddress(!showManualAddress)}
             className="flex h-8 items-center justify-center px-3 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors w-fit"
           >
-            <span className="text-xs font-normal leading-4 text-black">Enter address manually</span>
+            <span className="text-xs font-normal leading-4 text-black">
+              Enter address manually
+            </span>
           </button>
         </div>
 
         {/* Country Selector */}
         <div className="flex flex-col gap-4 w-full">
-          <p className="text-xs font-normal leading-4 text-[#52525B]">Find your address</p>
+          <p className="text-xs font-normal leading-4 text-[#52525B]">
+            Find your address
+          </p>
           <div className="bg-[#F4F4F5] flex items-center justify-between overflow-hidden px-4 py-[13px] rounded-xl w-full">
             <p className="text-base font-normal leading-6 text-black">GB</p>
             <button
@@ -861,7 +964,9 @@ function Step2Details({
                     height={20}
                   />
                 </div>
-                <span className="text-sm font-normal leading-5 text-black">Edit</span>
+                <span className="text-sm font-normal leading-5 text-black">
+                  Edit
+                </span>
               </div>
             </button>
           </div>
@@ -870,13 +975,17 @@ function Step2Details({
         {/* Phone Field */}
         <div className="flex flex-col h-[70px] items-start min-w-[116px] w-full">
           <div className="flex items-center pb-3 pr-2 w-full">
-            <p className="text-xs font-normal leading-4 text-[#52525B]">Phone number (optional)</p>
+            <p className="text-xs font-normal leading-4 text-[#52525B]">
+              Phone number (optional)
+            </p>
           </div>
           <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
             <input
               type="tel"
               value={formData.phone}
-              onChange={e => setFormData({ ...formData, phone: e.target.value })}
+              onChange={e =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
               placeholder="+44"
               className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
             />
@@ -897,11 +1006,17 @@ function Step2Details({
           />
           <span className="text-base font-normal leading-6 text-[#11181C]">
             I have read and agree to the Enthuse{' '}
-            <a href="https://www.enthuse.com/legal/" className="text-lg underline text-black hover:no-underline">
+            <a
+              href="https://www.enthuse.com/legal/"
+              className="text-lg underline text-black hover:no-underline"
+            >
               terms & conditions
             </a>{' '}
             and{' '}
-            <a href="https://www.enthuse.com/privacy/" className="text-lg underline text-black hover:no-underline">
+            <a
+              href="https://www.enthuse.com/privacy/"
+              className="text-lg underline text-black hover:no-underline"
+            >
               privacy policy.
             </a>
           </span>
@@ -976,7 +1091,9 @@ function Step3GiftAid({
                   className="w-full h-full"
                 />
               </div>
-              <span className="text-base font-normal leading-6 text-black">Back</span>
+              <span className="text-base font-normal leading-6 text-black">
+                Back
+              </span>
             </div>
           </button>
           <h1 className="text-4xl font-semibold leading-10 text-[#27272A] text-center">
@@ -986,7 +1103,9 @@ function Step3GiftAid({
 
         {/* Subtitle */}
         <p className="text-xl font-medium leading-7 text-[#52525B] w-full">
-          We trust Masjid System to handle the processing of our online payments. You will see their name mentioned on this form and in the address bar.
+          We trust Masjid System to handle the processing of our online
+          payments. You will see their name mentioned on this form and in the
+          address bar.
         </p>
       </div>
 
@@ -1050,7 +1169,10 @@ function Step3GiftAid({
         {/* Description */}
         <div className="flex flex-col gap-2 w-full">
           <p className="text-sm font-normal leading-5 text-[#52525B]">
-            I am a UK taxpayer and understand that if I pay less Income Tax and/or Capital Gains Tax in the current tax year than the amount of Gift Aid claimed on all my donations, it is my responsibility to pay any difference.
+            I am a UK taxpayer and understand that if I pay less Income Tax
+            and/or Capital Gains Tax in the current tax year than the amount of
+            Gift Aid claimed on all my donations, it is my responsibility to pay
+            any difference.
           </p>
           <Link
             href="https://www.gov.uk/donating-to-charity/gift-aid"
@@ -1061,7 +1183,7 @@ function Step3GiftAid({
               Find out more about Gift Aid.
             </span>
             <div className="overflow-hidden w-3 h-3 relative shrink-0">
-            <Image
+              <Image
                 src="/assets/donation/external-link.svg"
                 alt="external"
                 width={20}
@@ -1129,7 +1251,10 @@ function Step3GiftAid({
                     className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
                   />
                   <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
-                    This is my own money. I am not paying in donations made by a third party, e.g. money collected at an event, the pub, a company donation or a donation from a friend or family member.
+                    This is my own money. I am not paying in donations made by a
+                    third party, e.g. money collected at an event, the pub, a
+                    company donation or a donation from a friend or family
+                    member.
                   </span>
                 </label>
                 <label className="flex gap-2 items-start p-2 cursor-pointer">
@@ -1138,7 +1263,9 @@ function Step3GiftAid({
                     className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
                   />
                   <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
-                    This donation is not made as part of a sweepstake, raffle or lottery and I am not receiving anything in return of it, e.g. book, auction prize, ticket to an event.
+                    This donation is not made as part of a sweepstake, raffle or
+                    lottery and I am not receiving anything in return of it,
+                    e.g. book, auction prize, ticket to an event.
                   </span>
                 </label>
               </div>
@@ -1204,9 +1331,15 @@ function Step4Payment({
   onBack: () => void;
   clientSecret: string;
 }) {
+  // When using individual CardElements (CardNumberElement, etc.),
+  // we don't pass clientSecret to Elements - it's only for PaymentElement
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <PaymentForm formData={formData} onBack={onBack} />
+    <Elements stripe={stripePromise}>
+      <PaymentForm
+        formData={formData}
+        onBack={onBack}
+        clientSecret={clientSecret}
+      />
     </Elements>
   );
 }
@@ -1214,15 +1347,19 @@ function Step4Payment({
 function PaymentForm({
   formData,
   onBack,
+  clientSecret,
 }: {
   formData: DonationFormData;
   onBack: () => void;
+  clientSecret: string;
 }) {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [paymentMethod, setPaymentMethod] = useState<'direct-debit' | 'card' | 'paypal'>('direct-debit');
+  const [paymentMethod, setPaymentMethod] = useState<
+    'direct-debit' | 'card' | 'paypal'
+  >('card');
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const donationAmount = formData.customAmount
@@ -1243,16 +1380,55 @@ function PaymentForm({
     setIsProcessing(true);
     setError(null);
 
-    const { error: submitError } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/donate/complete`,
-      },
-    });
+    // For card payments with individual card elements
+    if (paymentMethod === 'card') {
+      const cardElement = elements.getElement(CardNumberElement);
 
-    if (submitError) {
-      setError(submitError.message || 'Payment failed. Please try again.');
-      setIsProcessing(false);
+      if (!cardElement) {
+        setError('Card element not found. Please refresh and try again.');
+        setIsProcessing(false);
+        return;
+      }
+
+      const { error: submitError, paymentIntent } =
+        await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: `${formData.firstName} ${formData.lastName}`,
+              email: formData.email,
+              phone: formData.phone,
+              address: {
+                line1: formData.address.line1,
+                line2: formData.address.line2,
+                city: formData.address.city,
+                postal_code: formData.address.postcode,
+                country: formData.address.country,
+              },
+            },
+          },
+        });
+
+      if (submitError) {
+        setError(submitError.message || 'Payment failed. Please try again.');
+        setIsProcessing(false);
+      } else if (paymentIntent?.status === 'succeeded') {
+        // Redirect to completion page
+        window.location.href = `/donate/complete?payment_intent=${paymentIntent.id}&redirect_status=succeeded`;
+      }
+    } else {
+      // For PaymentElement (other payment methods)
+      const { error: submitError } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: `${window.location.origin}/donate/complete`,
+        },
+      });
+
+      if (submitError) {
+        setError(submitError.message || 'Payment failed. Please try again.');
+        setIsProcessing(false);
+      }
     }
   };
 
@@ -1276,7 +1452,9 @@ function PaymentForm({
                   className="w-full h-full"
                 />
               </div>
-              <span className="text-base font-normal leading-6 text-black">Back</span>
+              <span className="text-base font-normal leading-6 text-black">
+                Back
+              </span>
             </div>
           </button>
           <h1 className="text-4xl font-semibold leading-10 text-[#27272A] text-center">
@@ -1286,7 +1464,9 @@ function PaymentForm({
 
         {/* Subtitle */}
         <p className="text-xl font-medium leading-7 text-[#52525B] w-full">
-          We trust Masjid System to handle the processing of our online payments. You will see their name mentioned on this form and in the address bar.
+          We trust Masjid System to handle the processing of our online
+          payments. You will see their name mentioned on this form and in the
+          address bar.
         </p>
       </div>
 
@@ -1302,28 +1482,74 @@ function PaymentForm({
             {paymentMethod === 'card' && (
               <div className="flex gap-2 items-center h-5">
                 <div className="h-5 w-[30px] relative">
-                  <svg className="w-full h-full" viewBox="0 0 30 20" fill="none">
-                    <rect width="30" height="20" rx="2" fill="#1434CB"/>
-                    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">VISA</text>
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 30 20"
+                    fill="none"
+                  >
+                    <rect width="30" height="20" rx="2" fill="#1434CB" />
+                    <text
+                      x="50%"
+                      y="50%"
+                      dominantBaseline="middle"
+                      textAnchor="middle"
+                      fill="white"
+                      fontSize="8"
+                      fontWeight="bold"
+                    >
+                      VISA
+                    </text>
                   </svg>
                 </div>
                 <div className="h-5 w-[30px] relative">
-                  <svg className="w-full h-full" viewBox="0 0 30 20" fill="none">
-                    <rect width="30" height="20" rx="2" fill="#EB001B"/>
-                    <circle cx="12" cy="10" r="6" fill="#FF5F00"/>
-                    <circle cx="18" cy="10" r="6" fill="#F79E1B"/>
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 30 20"
+                    fill="none"
+                  >
+                    <rect width="30" height="20" rx="2" fill="#EB001B" />
+                    <circle cx="12" cy="10" r="6" fill="#FF5F00" />
+                    <circle cx="18" cy="10" r="6" fill="#F79E1B" />
                   </svg>
                 </div>
                 <div className="h-5 w-[30px] relative">
-                  <svg className="w-full h-full" viewBox="0 0 30 20" fill="none">
-                    <rect width="30" height="20" rx="2" fill="#006FCF"/>
-                    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="6" fontWeight="bold">AMEX</text>
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 30 20"
+                    fill="none"
+                  >
+                    <rect width="30" height="20" rx="2" fill="#006FCF" />
+                    <text
+                      x="50%"
+                      y="50%"
+                      dominantBaseline="middle"
+                      textAnchor="middle"
+                      fill="white"
+                      fontSize="6"
+                      fontWeight="bold"
+                    >
+                      AMEX
+                    </text>
                   </svg>
                 </div>
                 <div className="h-5 w-[30px] relative">
-                  <svg className="w-full h-full" viewBox="0 0 30 20" fill="none">
-                    <rect width="30" height="20" rx="2" fill="#FF6000"/>
-                    <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="5" fontWeight="bold">DISC</text>
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 30 20"
+                    fill="none"
+                  >
+                    <rect width="30" height="20" rx="2" fill="#FF6000" />
+                    <text
+                      x="50%"
+                      y="50%"
+                      dominantBaseline="middle"
+                      textAnchor="middle"
+                      fill="white"
+                      fontSize="5"
+                      fontWeight="bold"
+                    >
+                      DISC
+                    </text>
                   </svg>
                 </div>
               </div>
@@ -1459,16 +1685,23 @@ function PaymentForm({
         </div>
 
         {/* Form Fields Container */}
-        <form onSubmit={handleSubmit} className="border border-[#D4D4D8] flex flex-col gap-6 p-6 rounded-xl w-full">
+        <form
+          onSubmit={handleSubmit}
+          className="border border-[#D4D4D8] flex flex-col gap-6 p-6 rounded-xl w-full"
+        >
           {paymentMethod === 'direct-debit' ? (
             <>
               {/* Direct Debit Form Fields */}
               {/* Email */}
               <div className="flex flex-col h-[70px] items-start w-full">
                 <div className="flex items-center pb-3 pr-2 w-full">
-                  <p className="text-xs font-normal leading-4 text-[#52525B]">Email address</p>
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">
+                    Email address
+                  </p>
                   <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">
+                      *
+                    </p>
                   </div>
                 </div>
                 <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
@@ -1485,9 +1718,13 @@ function PaymentForm({
               {/* Account Holder Name */}
               <div className="flex flex-col h-[70px] items-start w-full">
                 <div className="flex items-center pb-3 pr-2 w-full">
-                  <p className="text-xs font-normal leading-4 text-[#52525B]">Name of account holder:</p>
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">
+                    Name of account holder:
+                  </p>
                   <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">
+                      *
+                    </p>
                   </div>
                 </div>
                 <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
@@ -1502,9 +1739,13 @@ function PaymentForm({
               {/* Sort Code */}
               <div className="flex flex-col h-[70px] items-start w-full">
                 <div className="flex items-center pb-3 pr-2 w-full">
-                  <p className="text-xs font-normal leading-4 text-[#52525B]">Sort code:</p>
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">
+                    Sort code:
+                  </p>
                   <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">
+                      *
+                    </p>
                   </div>
                 </div>
                 <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
@@ -1519,9 +1760,13 @@ function PaymentForm({
               {/* Account Number */}
               <div className="flex flex-col h-[70px] items-start w-full">
                 <div className="flex items-center pb-3 pr-2 w-full">
-                  <p className="text-xs font-normal leading-4 text-[#52525B]">Account Number</p>
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">
+                    Account Number
+                  </p>
                   <div className="flex flex-col h-[14px] items-center justify-center pl-0.5 w-[7px]">
-                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">
+                      *
+                    </p>
                   </div>
                 </div>
                 <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
@@ -1535,22 +1780,31 @@ function PaymentForm({
             </>
           ) : paymentMethod === 'card' ? (
             <>
-              {/* Card Payment Form Fields */}
+              {/* Card Payment Form Fields with Stripe Elements */}
               <div className="flex flex-col gap-[30px] w-full">
                 {/* Card Number */}
                 <div className="flex flex-col items-start w-full">
                   <div className="flex items-center pb-3 pr-2 w-full">
-                    <p className="text-xs font-normal leading-4 text-[#52525B]">Card Number</p>
+                    <p className="text-xs font-normal leading-4 text-[#52525B]">
+                      Card Number
+                    </p>
                   </div>
-                  <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                    <input
-                      type="text"
-                      placeholder="1234 1234 1234 1234"
-                      className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#52525B] placeholder:text-[#52525B] border-none outline-none"
-                    />
-                    <div className="bg-[#011E0F] px-3 py-1 rounded shrink-0">
-                      <span className="text-[15px] font-semibold text-white">Autofill </span>
-                      <span className="text-[15px] font-semibold text-[#00D66F]">link</span>
+                  <div className="bg-[#F4F4F5] flex items-center min-h-[44px] px-4 py-3 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                    <div className="w-full">
+                      <CardNumberElement
+                        options={{
+                          style: {
+                            base: {
+                              fontSize: '16px',
+                              color: '#11181C',
+                              '::placeholder': { color: '#71717A' },
+                              fontFamily: 'inherit',
+                            },
+                            invalid: { color: '#F31260' },
+                          },
+                          showIcon: true,
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -1558,30 +1812,54 @@ function PaymentForm({
                 {/* Expiry and CVC */}
                 <div className="flex gap-8 w-full">
                   {/* Expiry */}
-                  <div className="flex flex-1 flex-col h-[70px] items-start">
+                  <div className="flex flex-1 flex-col items-start">
                     <div className="flex items-center pb-3 pr-2 w-full">
-                      <p className="text-xs font-normal leading-4 text-[#52525B]">Expiry</p>
+                      <p className="text-xs font-normal leading-4 text-[#52525B]">
+                        Expiry
+                      </p>
                     </div>
-                    <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                      <input
-                        type="text"
-                        placeholder="MM / YY"
-                        className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
-                      />
+                    <div className="bg-[#F4F4F5] flex items-center min-h-[44px] px-4 py-3 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                      <div className="w-full">
+                        <CardExpiryElement
+                          options={{
+                            style: {
+                              base: {
+                                fontSize: '16px',
+                                color: '#11181C',
+                                '::placeholder': { color: '#71717A' },
+                                fontFamily: 'inherit',
+                              },
+                              invalid: { color: '#F31260' },
+                            },
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
 
                   {/* CVC */}
-                  <div className="flex flex-1 flex-col h-[70px] items-start">
+                  <div className="flex flex-1 flex-col items-start">
                     <div className="flex items-center pb-3 pr-2 w-full">
-                      <p className="text-xs font-normal leading-4 text-[#52525B]">CVC</p>
+                      <p className="text-xs font-normal leading-4 text-[#52525B]">
+                        CVC
+                      </p>
                     </div>
-                    <div className="bg-[#F4F4F5] flex items-center min-h-[32px] px-[6px] py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
-                      <input
-                        type="text"
-                        placeholder="CVC"
-                        className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
-                      />
+                    <div className="bg-[#F4F4F5] flex items-center min-h-[44px] px-4 py-3 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full">
+                      <div className="w-full">
+                        <CardCvcElement
+                          options={{
+                            style: {
+                              base: {
+                                fontSize: '16px',
+                                color: '#11181C',
+                                '::placeholder': { color: '#71717A' },
+                                fontFamily: 'inherit',
+                              },
+                              invalid: { color: '#F31260' },
+                            },
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1596,7 +1874,8 @@ function PaymentForm({
             </p>
             <div className="bg-[#F4F4F5] flex items-center justify-between px-4 py-[13px] rounded-xl w-full">
               <p className="text-base font-normal leading-6 text-black whitespace-nowrap overflow-hidden text-ellipsis">
-                {formData.address.line1}, {formData.address.city}, {formData.address.postcode}, {formData.address.country}
+                {formData.address.line1}, {formData.address.city},{' '}
+                {formData.address.postcode}, {formData.address.country}
               </p>
               <button
                 type="button"
@@ -1611,7 +1890,9 @@ function PaymentForm({
                       height={20}
                     />
                   </div>
-                  <span className="text-sm font-normal leading-5 text-black">Edit</span>
+                  <span className="text-sm font-normal leading-5 text-black">
+                    Edit
+                  </span>
                 </div>
               </button>
             </div>
@@ -1626,16 +1907,17 @@ function PaymentForm({
               className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
             />
             <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
-              I understand that Masjid Al-Falah has partnered with Stripe, who collects Direct Debits on behalf of Masjid Al-Falah and confirm that I am the account holder and the only person required to authorise debits from this account.
+              I understand that Masjid Al-Falah has partnered with Stripe, who
+              collects Direct Debits on behalf of Masjid Al-Falah and confirm
+              that I am the account holder and the only person required to
+              authorise debits from this account.
             </span>
           </label>
         </form>
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 text-red-700 rounded-lg">
-          {error}
-        </div>
+        <div className="p-3 bg-red-50 text-red-700 rounded-lg">{error}</div>
       )}
 
       {/* Submit Button */}
@@ -1725,41 +2007,64 @@ export default function DonationPage() {
   });
 
   const handleCreatePayment = async () => {
-    const donationAmount = formData.customAmount
-      ? parseFloat(formData.customAmount)
-      : formData.amount;
+    try {
+      const donationAmount = formData.customAmount
+        ? parseFloat(formData.customAmount)
+        : formData.amount;
 
-    const response = await fetch('/api/donations/create-payment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        amount: Math.round(donationAmount * 100), // Convert to pence
-        currency: 'GBP',
+      console.log('Creating payment with data:', {
+        amount: Math.round(donationAmount * 100),
         frequency: formData.frequency,
-        donationType: formData.donationType,
         email: formData.email,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        phone: formData.phone,
-        address: formData.address,
-        isAnonymous: formData.isAnonymous,
-        displayName:
-          formData.displayName || `${formData.firstName} ${formData.lastName}`,
-        giftAid: formData.giftAidEnabled,
-        platformFeePercentage: formData.platformFeeEnabled
-          ? formData.platformFeePercentage
-          : 0,
-        marketingConsent: formData.marketingConsent,
-      }),
-    });
+      });
 
-    const data = await response.json();
+      const response = await fetch('/api/donations/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: Math.round(donationAmount * 100), // Convert to pence
+          currency: 'GBP',
+          frequency: formData.frequency,
+          donationType: formData.donationType,
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+          address: formData.address,
+          isAnonymous: formData.isAnonymous,
+          displayName:
+            formData.displayName ||
+            `${formData.firstName} ${formData.lastName}`,
+          giftAid: formData.giftAidEnabled,
+          platformFeePercentage: formData.platformFeeEnabled
+            ? formData.platformFeePercentage
+            : 0,
+          marketingConsent: formData.marketingConsent,
+        }),
+      });
 
-    if (data.clientSecret) {
-      setClientSecret(data.clientSecret);
-      setCurrentStep(4);
-    } else {
-      console.error('Failed to create payment:', data.error);
+      const data = await response.json();
+      console.log('Payment API response:', data);
+      console.log('clientSecret value:', data.clientSecret);
+      console.log('clientSecret type:', typeof data.clientSecret);
+      console.log('success value:', data.success);
+
+      // Check for success - API returns { success: true, clientSecret: '...' }
+      if (data.success === true && data.clientSecret) {
+        console.log('✅ Payment created successfully, advancing to step 4');
+        setClientSecret(data.clientSecret);
+        setCurrentStep(4);
+      } else {
+        console.error('❌ Failed to create payment:', data.error || data);
+        alert(
+          `Payment creation failed: ${data.error || 'Unknown error. Check console for details.'}`
+        );
+      }
+    } catch (error) {
+      console.error('Payment creation exception:', error);
+      alert(
+        `Payment error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   };
 

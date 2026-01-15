@@ -30,10 +30,36 @@ function getStripe(): Stripe {
       throw new Error('STRIPE_SECRET_KEY is not configured');
     }
     stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: '2025-12-15.clover',
+      apiVersion: '2024-12-18.acacia',
     });
   }
   return stripe;
+}
+
+// Helper to handle MongoDB WriteConflicts with retry logic
+async function runWithRetry<T>(
+  operation: () => Promise<T>,
+  retries = 3,
+  delay = 500
+): Promise<T> {
+  try {
+    return await operation();
+  } catch (error: any) {
+    if (
+      retries > 0 &&
+      (error.code === 112 || // WriteConflict
+        error.codeName === 'WriteConflict' ||
+        error.message?.includes('WriteConflict') ||
+        error.message?.includes('write conflict'))
+    ) {
+      console.warn(
+        `WriteConflict detected, retrying... (${retries} attempts left)`
+      );
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return runWithRetry(operation, retries - 1, delay * 2); // Exponential backoff
+    }
+    throw error;
+  }
 }
 
 export async function POST(req: NextRequest) {
@@ -64,151 +90,155 @@ export async function POST(req: NextRequest) {
       case 'payment_intent.succeeded': {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
-        // Find the donation by payment intent ID
-        const donations = await payload.find({
-          collection: 'donations',
-          where: {
-            'payment.stripePaymentIntentId': { equals: paymentIntent.id },
-          },
-          limit: 1,
-        });
-
-        if (donations.docs.length > 0) {
-          const donation = donations.docs[0];
-
-          // Update donation status
-          await payload.update({
+        await runWithRetry(async () => {
+          // Find the donation by payment intent ID
+          const donations = await payload.find({
             collection: 'donations',
-            id: donation.id,
-            data: {
-              status: 'completed',
-              receiptSent: true, // Stripe sends receipt automatically
+            where: {
+              'payment.stripePaymentIntentId': { equals: paymentIntent.id },
             },
-          });
-
-          // Update donor statistics
-          const donors = await payload.find({
-            collection: 'donors',
-            where: { email: { equals: donation.donorEmail } },
             limit: 1,
           });
 
-          if (donors.docs.length > 0) {
-            const donor = donors.docs[0];
+          if (donations.docs.length > 0) {
+            const donation = donations.docs[0];
+
+            // Update donation status
             await payload.update({
-              collection: 'donors',
-              id: donor.id,
+              collection: 'donations',
+              id: donation.id,
               data: {
-                totalDonated:
-                  (donor.totalDonated || 0) + (donation.amount || 0),
-                donationCount: (donor.donationCount || 0) + 1,
-                lastDonationDate: new Date().toISOString(),
+                status: 'completed',
+                receiptSent: true, // Stripe sends receipt automatically
               },
             });
-          }
 
-          // Update appeal statistics if linked
-          if (donation.appeal) {
-            const appealId =
-              typeof donation.appeal === 'string'
-                ? donation.appeal
-                : donation.appeal.id;
-            const appeal = await payload.findByID({
-              collection: 'donation-appeals',
-              id: appealId,
+            // Update donor statistics
+            const donors = await payload.find({
+              collection: 'donors',
+              where: { email: { equals: donation.donorEmail } },
+              limit: 1,
             });
 
-            if (appeal) {
+            if (donors.docs.length > 0) {
+              const donor = donors.docs[0];
               await payload.update({
-                collection: 'donation-appeals',
-                id: appealId,
+                collection: 'donors',
+                id: donor.id,
                 data: {
-                  funding: {
-                    ...appeal.funding,
-                    currentAmount:
-                      (appeal.funding?.currentAmount || 0) +
-                      (donation.amount || 0),
-                    totalDonors: (appeal.funding?.totalDonors || 0) + 1,
-                  },
+                  totalDonated:
+                    (donor.totalDonated || 0) + (donation.amount || 0),
+                  donationCount: (donor.donationCount || 0) + 1,
+                  lastDonationDate: new Date().toISOString(),
                 },
               });
             }
-          }
 
-          // Send donation receipt email
-          try {
-            await sendDonationReceipt({
-              donorEmail: donation.donorEmail as string,
-              donorName:
-                `${donation.donorFirstName || ''} ${donation.donorLastName || ''}`.trim() ||
-                'Friend',
-              amount: donation.amount as number,
-              currency: (donation.currency as string) || 'GBP',
-              donationType: (donation.donationType as string) || 'general',
-              frequency: (donation.frequency as string) || 'one-time',
-              giftAidAmount: donation.giftAid?.amount as number | undefined,
-              platformFee: donation.platformFee?.amount as number | undefined,
-              totalAmount: donation.totalAmount as number,
-              donationId: donation.id,
-              date: new Date(),
-              isRecurring: donation.frequency !== 'one-time',
-            });
-            console.log(`📧 Receipt email sent to ${donation.donorEmail}`);
-          } catch (emailError) {
-            console.error('Failed to send receipt email:', emailError);
-          }
+            // Update appeal statistics if linked
+            if (donation.appeal) {
+              const appealId =
+                typeof donation.appeal === 'string'
+                  ? donation.appeal
+                  : donation.appeal.id;
+              const appeal = await payload.findByID({
+                collection: 'donation-appeals',
+                id: appealId,
+              });
 
-          // Send admin notification email
-          try {
-            await sendAdminNotification({
-              donorName:
-                `${donation.donorFirstName || ''} ${donation.donorLastName || ''}`.trim() ||
-                'Anonymous',
-              donorEmail: donation.donorEmail as string,
-              amount: donation.amount as number,
-              currency: (donation.currency as string) || 'GBP',
-              donationType: (donation.donationType as string) || 'general',
-              frequency: (donation.frequency as string) || 'one-time',
-              giftAidAmount: donation.giftAid?.amount as number | undefined,
-              totalAmount: donation.totalAmount as number,
-              donationId: donation.id,
-              date: new Date(),
-              isRecurring: donation.frequency !== 'one-time',
-            });
-          } catch (adminEmailError) {
-            console.error(
-              'Failed to send admin notification:',
-              adminEmailError
-            );
-          }
+              if (appeal) {
+                await payload.update({
+                  collection: 'donation-appeals',
+                  id: appealId,
+                  data: {
+                    funding: {
+                      ...appeal.funding,
+                      currentAmount:
+                        (appeal.funding?.currentAmount || 0) +
+                        (donation.amount || 0),
+                      totalDonors: (appeal.funding?.totalDonors || 0) + 1,
+                    },
+                  },
+                });
+              }
+            }
 
-          console.log(`✅ Donation ${donation.id} completed successfully`);
-        }
+            // Send donation receipt email
+            try {
+              await sendDonationReceipt({
+                donorEmail: donation.donorEmail as string,
+                donorName:
+                  `${donation.donorFirstName || ''} ${donation.donorLastName || ''}`.trim() ||
+                  'Friend',
+                amount: donation.amount as number,
+                currency: (donation.currency as string) || 'GBP',
+                donationType: (donation.donationType as string) || 'general',
+                frequency: (donation.frequency as string) || 'one-time',
+                giftAidAmount: donation.giftAid?.amount as number | undefined,
+                platformFee: donation.platformFee?.amount as number | undefined,
+                totalAmount: donation.totalAmount as number,
+                donationId: donation.id,
+                date: new Date(),
+                isRecurring: donation.frequency !== 'one-time',
+              });
+              console.log(`📧 Receipt email sent to ${donation.donorEmail}`);
+            } catch (emailError) {
+              console.error('Failed to send receipt email:', emailError);
+            }
+
+            // Send admin notification email
+            try {
+              await sendAdminNotification({
+                donorName:
+                  `${donation.donorFirstName || ''} ${donation.donorLastName || ''}`.trim() ||
+                  'Anonymous',
+                donorEmail: donation.donorEmail as string,
+                amount: donation.amount as number,
+                currency: (donation.currency as string) || 'GBP',
+                donationType: (donation.donationType as string) || 'general',
+                frequency: (donation.frequency as string) || 'one-time',
+                giftAidAmount: donation.giftAid?.amount as number | undefined,
+                totalAmount: donation.totalAmount as number,
+                donationId: donation.id,
+                date: new Date(),
+                isRecurring: donation.frequency !== 'one-time',
+              });
+            } catch (adminEmailError) {
+              console.error(
+                'Failed to send admin notification:',
+                adminEmailError
+              );
+            }
+
+            console.log(`✅ Donation ${donation.id} completed successfully`);
+          }
+        });
         break;
       }
 
       case 'payment_intent.payment_failed': {
         const paymentIntent = event.data.object as Stripe.PaymentIntent;
 
-        const donations = await payload.find({
-          collection: 'donations',
-          where: {
-            'payment.stripePaymentIntentId': { equals: paymentIntent.id },
-          },
-          limit: 1,
-        });
-
-        if (donations.docs.length > 0) {
-          await payload.update({
+        await runWithRetry(async () => {
+          const donations = await payload.find({
             collection: 'donations',
-            id: donations.docs[0].id,
-            data: {
-              status: 'failed',
-              notes: `Payment failed: ${paymentIntent.last_payment_error?.message || 'Unknown error'}`,
+            where: {
+              'payment.stripePaymentIntentId': { equals: paymentIntent.id },
             },
+            limit: 1,
           });
-          console.log(`❌ Donation ${donations.docs[0].id} payment failed`);
-        }
+
+          if (donations.docs.length > 0) {
+            await payload.update({
+              collection: 'donations',
+              id: donations.docs[0].id,
+              data: {
+                status: 'failed',
+                notes: `Payment failed: ${paymentIntent.last_payment_error?.message || 'Unknown error'}`,
+              },
+            });
+            console.log(`❌ Donation ${donations.docs[0].id} payment failed`);
+          }
+        });
         break;
       }
 
@@ -222,64 +252,68 @@ export async function POST(req: NextRequest) {
               ? invoice.subscription
               : invoice.subscription.id;
 
-          // Find donor by subscription
-          const donors = await payload.find({
-            collection: 'donors',
-            where: {
-              'activeSubscriptions.stripeSubscriptionId': {
-                equals: subscriptionId,
+          await runWithRetry(async () => {
+            // Find donor by subscription
+            const donors = await payload.find({
+              collection: 'donors',
+              where: {
+                'activeSubscriptions.stripeSubscriptionId': {
+                  equals: subscriptionId,
+                },
               },
-            },
-            limit: 1,
-          });
+              limit: 1,
+            });
 
-          if (donors.docs.length > 0) {
-            const donor = donors.docs[0];
+            if (donors.docs.length > 0) {
+              const donor = donors.docs[0];
 
-            // Create a new donation record for this payment
-            const subscription = donor.activeSubscriptions?.find(
-              (s: { stripeSubscriptionId: string }) =>
-                s.stripeSubscriptionId === subscriptionId
-            );
+              // Create a new donation record for this payment
+              const subscription = donor.activeSubscriptions?.find(
+                (s: { stripeSubscriptionId: string }) =>
+                  s.stripeSubscriptionId === subscriptionId
+              );
 
-            if (subscription) {
-              await payload.create({
-                collection: 'donations',
-                data: {
-                  amount: (invoice.amount_paid || 0) / 100,
-                  currency: invoice.currency?.toUpperCase() || 'GBP',
-                  frequency: subscription.frequency,
-                  donationType: subscription.donationType,
-                  donorEmail: donor.email,
-                  donorFirstName: donor.firstName,
-                  donorLastName: donor.lastName,
-                  payment: {
-                    method: 'card',
-                    stripeSubscriptionId: subscriptionId,
-                    stripePaymentIntentId: invoice.payment_intent as string,
-                    stripeCustomerId: donor.stripeCustomerId,
+              if (subscription) {
+                await payload.create({
+                  collection: 'donations',
+                  data: {
+                    amount: (invoice.amount_paid || 0) / 100,
+                    currency: invoice.currency?.toUpperCase() || 'GBP',
+                    frequency: subscription.frequency,
+                    donationType: subscription.donationType,
+                    donorEmail: donor.email,
+                    donorFirstName: donor.firstName,
+                    donorLastName: donor.lastName,
+                    payment: {
+                      method: 'card',
+                      stripeSubscriptionId: subscriptionId,
+                      stripePaymentIntentId: invoice.payment_intent as string,
+                      stripeCustomerId: donor.stripeCustomerId,
+                    },
+                    status: 'completed',
+                    totalAmount: (invoice.amount_paid || 0) / 100,
                   },
-                  status: 'completed',
-                  totalAmount: (invoice.amount_paid || 0) / 100,
-                },
-              });
+                });
 
-              // Update donor statistics
-              await payload.update({
-                collection: 'donors',
-                id: donor.id,
-                data: {
-                  totalDonated:
-                    (donor.totalDonated || 0) +
-                    (invoice.amount_paid || 0) / 100,
-                  donationCount: (donor.donationCount || 0) + 1,
-                  lastDonationDate: new Date().toISOString(),
-                },
-              });
+                // Update donor statistics
+                await payload.update({
+                  collection: 'donors',
+                  id: donor.id,
+                  data: {
+                    totalDonated:
+                      (donor.totalDonated || 0) +
+                      (invoice.amount_paid || 0) / 100,
+                    donationCount: (donor.donationCount || 0) + 1,
+                    lastDonationDate: new Date().toISOString(),
+                  },
+                });
 
-              console.log(`✅ Recurring donation processed for ${donor.email}`);
+                console.log(
+                  `✅ Recurring donation processed for ${donor.email}`
+                );
+              }
             }
-          }
+          });
         }
         break;
       }
@@ -287,81 +321,85 @@ export async function POST(req: NextRequest) {
       case 'customer.subscription.updated': {
         const subscription = event.data.object as Stripe.Subscription;
 
-        const donors = await payload.find({
-          collection: 'donors',
-          where: {
-            'activeSubscriptions.stripeSubscriptionId': {
-              equals: subscription.id,
-            },
-          },
-          limit: 1,
-        });
-
-        if (donors.docs.length > 0) {
-          const donor = donors.docs[0];
-          const updatedSubscriptions = donor.activeSubscriptions?.map(
-            (s: { stripeSubscriptionId: string }) => {
-              if (s.stripeSubscriptionId === subscription.id) {
-                return {
-                  ...s,
-                  status:
-                    subscription.status === 'active'
-                      ? 'active'
-                      : subscription.status === 'paused'
-                        ? 'paused'
-                        : 'cancelled',
-                  nextPaymentDate: new Date(
-                    subscription.current_period_end * 1000
-                  ).toISOString(),
-                };
-              }
-              return s;
-            }
-          );
-
-          await payload.update({
+        await runWithRetry(async () => {
+          const donors = await payload.find({
             collection: 'donors',
-            id: donor.id,
-            data: { activeSubscriptions: updatedSubscriptions },
+            where: {
+              'activeSubscriptions.stripeSubscriptionId': {
+                equals: subscription.id,
+              },
+            },
+            limit: 1,
           });
 
-          console.log(`📅 Subscription ${subscription.id} updated`);
-        }
+          if (donors.docs.length > 0) {
+            const donor = donors.docs[0];
+            const updatedSubscriptions = donor.activeSubscriptions?.map(
+              (s: { stripeSubscriptionId: string }) => {
+                if (s.stripeSubscriptionId === subscription.id) {
+                  return {
+                    ...s,
+                    status:
+                      subscription.status === 'active'
+                        ? 'active'
+                        : subscription.status === 'paused'
+                          ? 'paused'
+                          : 'cancelled',
+                    nextPaymentDate: new Date(
+                      subscription.current_period_end * 1000
+                    ).toISOString(),
+                  };
+                }
+                return s;
+              }
+            );
+
+            await payload.update({
+              collection: 'donors',
+              id: donor.id,
+              data: { activeSubscriptions: updatedSubscriptions },
+            });
+
+            console.log(`📅 Subscription ${subscription.id} updated`);
+          }
+        });
         break;
       }
 
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription;
 
-        const donors = await payload.find({
-          collection: 'donors',
-          where: {
-            'activeSubscriptions.stripeSubscriptionId': {
-              equals: subscription.id,
-            },
-          },
-          limit: 1,
-        });
-
-        if (donors.docs.length > 0) {
-          const donor = donors.docs[0];
-          const updatedSubscriptions = donor.activeSubscriptions?.map(
-            (s: { stripeSubscriptionId: string }) => {
-              if (s.stripeSubscriptionId === subscription.id) {
-                return { ...s, status: 'cancelled' };
-              }
-              return s;
-            }
-          );
-
-          await payload.update({
+        await runWithRetry(async () => {
+          const donors = await payload.find({
             collection: 'donors',
-            id: donor.id,
-            data: { activeSubscriptions: updatedSubscriptions },
+            where: {
+              'activeSubscriptions.stripeSubscriptionId': {
+                equals: subscription.id,
+              },
+            },
+            limit: 1,
           });
 
-          console.log(`❌ Subscription ${subscription.id} cancelled`);
-        }
+          if (donors.docs.length > 0) {
+            const donor = donors.docs[0];
+            const updatedSubscriptions = donor.activeSubscriptions?.map(
+              (s: { stripeSubscriptionId: string }) => {
+                if (s.stripeSubscriptionId === subscription.id) {
+                  return { ...s, status: 'cancelled' };
+                }
+                return s;
+              }
+            );
+
+            await payload.update({
+              collection: 'donors',
+              id: donor.id,
+              data: { activeSubscriptions: updatedSubscriptions },
+            });
+
+            console.log(`❌ Subscription ${subscription.id} cancelled`);
+          }
+        });
         break;
       }
 

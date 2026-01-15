@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -52,20 +52,20 @@
 
 @media screen and (max-width: 340px) {
   .grid-style {
-    @apply !grid-cols-1
+    @apply !grid-cols-1;
   }
 
   .contact-title {
-    @apply text-[26px]
+    @apply text-[26px];
   }
 
   .header-style {
-    @apply flex-col !h-auto gap-5
+    @apply flex-col !h-auto gap-5;
   }
 }
 
 .appeal-buttons {
-  @apply flex-wrap
+  @apply flex-wrap;
 }
 
 /* ==========================================
@@ -117,7 +117,6 @@ article.prose blockquote::after {
   content: none !important;
 }
 
-
 /* Blockquote last paragraph (source reference) - Figma: 16px, semibold (600), #006fee */
 article.prose blockquote last-child {
   font-size: 16px !important;
@@ -154,18 +153,40 @@ article.prose blockquote .quote-source {
 }
 
 /* Image container height for blog - Responsive */
-article.prose > div > div[class*="rounded"] {
+article.prose > div > div[class*='rounded'] {
   height: 240px !important;
 }
 
 @media (min-width: 768px) {
-  article.prose > div > div[class*="rounded"] {
+  article.prose > div > div[class*='rounded'] {
     height: 400px !important;
   }
 }
 
 @media (min-width: 1024px) {
-  article.prose > div > div[class*="rounded"] {
+  article.prose > div > div[class*='rounded'] {
     height: 565px !important;
   }
+}
+
+/* ==========================================
+   Stripe Elements Styles
+   ========================================== */
+
+/* Ensure Stripe iframe elements are interactive */
+.StripeElement {
+  width: 100%;
+  padding: 0;
+}
+
+.StripeElement--focus {
+  outline: none;
+}
+
+.StripeElement--invalid {
+  border-color: #f31260;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #f4f4f5 !important;
 }
