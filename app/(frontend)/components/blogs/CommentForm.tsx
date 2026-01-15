@@ -2,6 +2,8 @@
 
 import { submitComment } from "@/blogs/[slug]/actions";
 import { useState, useEffect } from "react";
+import { useToast } from "../../hooks/useToast";
+import { ToastContainer } from "../common/Toast";
 
 interface CommentFormProps {
     postId: string;
@@ -13,7 +15,7 @@ export default function CommentForm({ postId }: CommentFormProps) {
     const [comment, setComment] = useState("");
     const [saveInfo, setSaveInfo] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+    const { toasts, removeToast, success, error } = useToast();
 
     // Load saved info from localStorage
     useEffect(() => {
@@ -24,13 +26,23 @@ export default function CommentForm({ postId }: CommentFormProps) {
         if (savedName || savedEmail) setSaveInfo(true);
     }, []);
 
+    // Handle checkbox change
+    const handleSaveInfoChange = (checked: boolean) => {
+        setSaveInfo(checked);
+
+        // If unchecking, remove from localStorage immediately
+        if (!checked) {
+            localStorage.removeItem("commentUserName");
+            localStorage.removeItem("commentUserEmail");
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        setMessage(null);
 
         if (!userName.trim() || !userEmail.trim() || !comment.trim()) {
-            setMessage({ type: "error", text: "Please fill in all required fields." });
+            error("Please fill in all required fields.");
             setIsSubmitting(false);
             return;
         }
@@ -53,16 +65,10 @@ export default function CommentForm({ postId }: CommentFormProps) {
             }
 
             setComment("");
-            setMessage({
-                type: "success",
-                text: result.message || "Comment submitted successfully! It will appear after approval.",
-            });
-        } catch (error) {
-            console.error("Error submitting comment:", error);
-            setMessage({
-                type: "error",
-                text: "Failed to submit comment. Please try again.",
-            });
+            success(result.message || "Comment submitted successfully! It will appear after approval.");
+        } catch (err) {
+            console.error("Error submitting comment:", err);
+            error("Failed to submit comment. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
@@ -77,17 +83,8 @@ export default function CommentForm({ postId }: CommentFormProps) {
                             Leave a Reply
                         </h2>
 
-                        {message && (
-                            <div
-                                className={`w-full p-4 rounded-lg ${
-                                    message.type === "success"
-                                        ? "bg-green-50 text-green-800 border border-green-200"
-                                        : "bg-red-50 text-red-800 border border-red-200"
-                                }`}
-                            >
-                                <p className="text-sm md:text-base">{message.text}</p>
-                            </div>
-                        )}
+                        {/* Toast Notifications */}
+                        <ToastContainer toasts={toasts} onRemove={removeToast} />
 
                         <form onSubmit={handleSubmit} className="flex flex-col gap-5 md:gap-6 w-full">
                             <div className="flex flex-col md:flex-row gap-4 w-full">
@@ -162,7 +159,7 @@ export default function CommentForm({ postId }: CommentFormProps) {
                                     <input
                                         type="checkbox"
                                         checked={saveInfo}
-                                        onChange={(e) => setSaveInfo(e.target.checked)}
+                                        onChange={(e) => handleSaveInfoChange(e.target.checked)}
                                         className="peer absolute opacity-0 w-6 h-6 cursor-pointer"
                                     />
                                     <div className="w-6 h-6 bg-[#d4d4d8] peer-checked:bg-[#006fee] rounded-md flex items-center justify-center pointer-events-none transition-colors"></div>
