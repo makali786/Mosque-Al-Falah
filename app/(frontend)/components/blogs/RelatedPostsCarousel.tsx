@@ -52,12 +52,16 @@ export default function RelatedPostsCarousel({
 
     const scroll = (direction: "left" | "right") => {
         if (scrollContainerRef.current) {
-            const scrollAmount = 400;
+            const container = scrollContainerRef.current;
+            const containerWidth = container.clientWidth;
+
+            const scrollAmount = containerWidth;
+
             const newScrollLeft =
-                scrollContainerRef.current.scrollLeft +
+                container.scrollLeft +
                 (direction === "right" ? scrollAmount : -scrollAmount);
 
-            scrollContainerRef.current.scrollTo({
+            container.scrollTo({
                 left: newScrollLeft,
                 behavior: "smooth",
             });
@@ -117,7 +121,7 @@ export default function RelatedPostsCarousel({
                         {/* Carousel Container */}
                         <div
                             ref={scrollContainerRef}
-                            className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth"
+                            className="flex gap-8 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
                             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                         >
                             {posts.map((related) => {
@@ -126,7 +130,7 @@ export default function RelatedPostsCarousel({
                                     <Link
                                         key={related.id}
                                         href={`/blogs/${related.slug}`}
-                                        className="flex flex-col gap-6 hover:opacity-90 transition-opacity shrink-0 w-full md:w-87.5 lg:w-[calc((100%-64px)/3)]"
+                                        className="flex flex-col gap-6 hover:opacity-90 transition-opacity shrink-0 w-full md:w-87.5 lg:w-[calc((100%-64px)/3)] snap-start"
                                     >
                                         {/* Image */}
                                         <div className="relative w-full aspect-406/241 rounded-[14px] overflow-hidden">
