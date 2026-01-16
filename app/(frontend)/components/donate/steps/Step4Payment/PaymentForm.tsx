@@ -467,19 +467,15 @@ export default function PaymentForm({
               /* Address Edit with Autocomplete */
               <div className="flex flex-col gap-4">
                 <AddressAutocomplete
-                  value={formData.address.line1}
-                  onInputChange={value =>
-                    setFormData({
-                      ...formData,
-                      address: { ...formData.address, line1: value },
-                    })
-                  }
                   onAddressSelect={address =>
                     setFormData({
                       ...formData,
                       address: {
-                        ...formData.address,
-                        ...address,
+                        line1: address.line1,
+                        line2: address.line2,
+                        city: address.city,
+                        postcode: address.postcode,
+                        country: 'GB',
                       },
                     })
                   }

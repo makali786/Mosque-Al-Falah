@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { DonationFormData } from '../../types';
 import { DonationHeader, SocialLoginSection, NavigationButtons } from '../../shared';
-import { FormInput, Checkbox, Button } from '../../ui';
+import { FormInput, Checkbox, Button, PhoneInput } from '../../ui';
 import AddressAutocomplete from '../../ui/AddressAutocomplete';
 
 interface Step2DetailsProps {
@@ -85,37 +85,25 @@ export default function Step2Details({
 
         {/* Address Field with Google Places Autocomplete */}
         <AddressAutocomplete
-          value={formData.address.line1}
-          onInputChange={value => {
-            // When user types manually, just update line1
-            setFormData({
-              ...formData,
-              address: { ...formData.address, line1: value },
-            });
-          }}
           onAddressSelect={address => {
-            // When address is selected from Google Places, update ALL fields
-            console.log('Address selected in Step2:', address);
             setFormData({
               ...formData,
               address: {
-                line1: address.line1 || '',
-                line2: address.line2 || '',
-                city: address.city || '',
-                postcode: address.postcode || '',
-                country: address.country || 'GB',
+                line1: address.line1,
+                line2: address.line2,
+                city: address.city,
+                postcode: address.postcode,
+                country: 'GB',
               },
             });
           }}
         />
 
         {/* Phone Field */}
-        <FormInput
+        <PhoneInput
           label="Phone number (optional)"
           value={formData.phone}
           onChange={value => setFormData({ ...formData, phone: value })}
-          type="tel"
-          placeholder="+44"
         />
       </div>
 

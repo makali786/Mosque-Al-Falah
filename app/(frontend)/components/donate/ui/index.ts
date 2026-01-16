@@ -6,3 +6,4 @@ export { default as BackButton } from './BackButton';
 export { default as Card } from './Card';
 export { default as SocialLoginButton } from './SocialLoginButton';
 export { default as StripeCardInput } from './StripeCardInput';
+export { default as PhoneInput } from './PhoneInput';

@@ -8,10 +8,15 @@ import Step3GiftAid from '../components/donate/steps/Step3GiftAid';
 import Step4Payment from '../components/donate/steps/Step4Payment';
 import { DonationFormData } from '../components/donate/types';
 import GoogleMapsScript from '../components/GoogleMapsScript';
+import LoadingSpinner from '../components/common/LoadingSpinner';
+import { useToast } from '../hooks/useToast';
+import { ToastContainer } from '../components/common/Toast';
 
 export default function DonatePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { toasts, removeToast, success, error } = useToast();
   const [formData, setFormData] = useState<DonationFormData>({
     // Step 1: Select
     frequency: 'one-time',
@@ -48,7 +53,7 @@ export default function DonatePage() {
   };
 
   const handleStep2Next = async () => {
-    // Create payment intent
+    setIsLoading(true);
     try {
       const donationAmount = formData.customAmount
         ? parseFloat(formData.customAmount)
@@ -59,8 +64,6 @@ export default function DonatePage() {
         : 0;
 
       const totalAmount = donationAmount + platformFee;
-
-      console.log('Sending address to API:', formData.address);
 
       const response = await fetch('/api/donations/create-payment', {
         method: 'POST',
@@ -89,12 +92,15 @@ export default function DonatePage() {
 
       if (data.success) {
         setClientSecret(data.clientSecret);
+        success('Payment intent created successfully');
         setCurrentStep(3);
       } else {
-        console.error('Failed to create payment intent');
+        error(data.error || 'Failed to create payment intent');
       }
-    } catch (error) {
-      console.error('Error creating payment intent:', error);
+    } catch (err) {
+      error('An error occurred while processing your request');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -107,44 +113,49 @@ export default function DonatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white mb-20">
-      <GoogleMapsScript />
-      <StepIndicator currentStep={currentStep} />
+    <>
+      <div className="min-h-screen bg-white mb-20">
+        <GoogleMapsScript />
+        <StepIndicator currentStep={currentStep} />
 
-      {currentStep === 1 && (
-        <Step1Select
-          formData={formData}
-          setFormData={setFormData}
-          onNext={handleStep1Next}
-        />
-      )}
+        {currentStep === 1 && (
+          <Step1Select
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleStep1Next}
+          />
+        )}
 
-      {currentStep === 2 && (
-        <Step2Details
-          formData={formData}
-          setFormData={setFormData}
-          onNext={handleStep2Next}
-          onBack={handleBack}
-        />
-      )}
+        {currentStep === 2 && (
+          <Step2Details
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleStep2Next}
+            onBack={handleBack}
+          />
+        )}
 
-      {currentStep === 3 && (
-        <Step3GiftAid
-          formData={formData}
-          setFormData={setFormData}
-          onNext={handleStep3Next}
-          onBack={handleBack}
-        />
-      )}
+        {currentStep === 3 && (
+          <Step3GiftAid
+            formData={formData}
+            setFormData={setFormData}
+            onNext={handleStep3Next}
+            onBack={handleBack}
+          />
+        )}
 
-      {currentStep === 4 && clientSecret && (
-        <Step4Payment
-          formData={formData}
-          setFormData={setFormData}
-          onBack={handleBack}
-          clientSecret={clientSecret}
-        />
-      )}
-    </div>
+        {currentStep === 4 && clientSecret && (
+          <Step4Payment
+            formData={formData}
+            setFormData={setFormData}
+            onBack={handleBack}
+            clientSecret={clientSecret}
+          />
+        )}
+      </div>
+
+      {isLoading && <LoadingSpinner />}
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
+    </>
   );
 }
