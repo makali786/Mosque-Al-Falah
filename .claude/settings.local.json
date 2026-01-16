@@ -21,7 +21,10 @@
       "WebFetch(domain:localhost)",
       "Bash(find:*)",
       "Bash(tasklist:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(wc:*)",
+      "Bash(ls:*)",
+      "Bash(test:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
