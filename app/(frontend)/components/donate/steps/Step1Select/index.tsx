@@ -34,12 +34,12 @@ export default function Step1Select({
   return (
     <div className="w-full flex flex-col gap-8 pt-8 pb-0 px-0">
       {/* Header */}
-      <div className="flex flex-col gap-0 px-4 md:px-24 lg:px-96">
+      <div className="flex flex-col gap-0">
         <DonationHeader showBackButton={false} />
       </div>
 
       {/* Main Content Container */}
-      <div className="flex flex-col gap-8 items-end px-4 md:px-24 lg:px-96">
+      <div className="flex flex-col gap-8 items-end donation-padding">
         {/* Selection Card */}
         <Card className="w-full p-8 flex flex-col gap-8">
           {/* Frequency Selector */}

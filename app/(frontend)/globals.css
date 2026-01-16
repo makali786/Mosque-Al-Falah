@@ -35,6 +35,9 @@
 .section-padding {
   @apply px-8;
 }
+.donation-padding {
+  @apply px-8;
+}
 
 @media (min-width: 1320px) {
   .hn-container {
@@ -47,6 +50,12 @@
   .section-padding {
     padding-left: calc((100% - 1136px) / 2);
     padding-right: calc((100% - 1136px) / 2);
+  }
+}
+@media (min-width: 1200px) {
+  .donation-padding {
+    padding-left: calc((100% - 768px) / 2);
+    padding-right: calc((100% - 768px) / 2);
   }
 }
 

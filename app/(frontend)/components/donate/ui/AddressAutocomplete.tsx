@@ -13,10 +13,12 @@ interface AddressComponents {
 
 interface AddressAutocompleteProps {
   onAddressSelect: (address: AddressComponents) => void;
+  defaultValue?: string;
 }
 
 export default function AddressAutocomplete({
   onAddressSelect,
+  defaultValue = '',
 }: AddressAutocompleteProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
@@ -167,6 +169,7 @@ export default function AddressAutocomplete({
           <input
             ref={inputRef}
             type="text"
+            defaultValue={defaultValue}
             placeholder="Start typing your address"
             className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
           />

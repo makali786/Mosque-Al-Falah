@@ -21,10 +21,16 @@ export default function Step4Payment({
   onBack,
   clientSecret,
 }: Step4PaymentProps) {
-  // When using individual CardElements (CardNumberElement, etc.),
-  // we don't pass clientSecret to Elements - it's only for PaymentElement
+  // Pass clientSecret to Elements for PaymentElement support (PayPal, etc.)
+  const options = {
+    clientSecret,
+    appearance: {
+      theme: 'stripe' as const,
+    },
+  };
+
   return (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise} options={options}>
       <PaymentForm
         formData={formData}
         setFormData={setFormData}

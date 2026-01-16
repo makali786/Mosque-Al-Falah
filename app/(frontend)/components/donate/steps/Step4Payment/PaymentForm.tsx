@@ -1,6 +1,6 @@
 'use client';
 
-import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { CardNumberElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 import { useState } from 'react';
 import { DonationFormData } from '../../types';
@@ -102,7 +102,7 @@ export default function PaymentForm({
   };
 
   return (
-    <div className="w-full flex flex-col gap-8 pt-8 pb-8 px-4 md:px-24 lg:px-96">
+    <div className="w-full flex flex-col gap-8 pt-8 pb-8 donation-padding">
       {/* Header with Back Button */}
       <DonationHeader showBackButton onBack={onBack} />
 
@@ -428,6 +428,22 @@ export default function PaymentForm({
                 </div>
               </div>
             </>
+          ) : paymentMethod === 'paypal' ? (
+            <>
+              {/* PayPal Payment Element */}
+              <div className="flex flex-col gap-4 w-full">
+                <p className="text-xs font-normal leading-4 text-[#52525B]">
+                  Complete your payment with PayPal
+                </p>
+                <div className="w-full">
+                  <PaymentElement
+                    options={{
+                      layout: 'tabs',
+                    }}
+                  />
+                </div>
+              </div>
+            </>
           ) : null}
 
           {/* Billing Address Section */}
@@ -467,6 +483,7 @@ export default function PaymentForm({
               /* Address Edit with Autocomplete */
               <div className="flex flex-col gap-4">
                 <AddressAutocomplete
+                  defaultValue={formData.address.line1}
                   onAddressSelect={address =>
                     setFormData({
                       ...formData,

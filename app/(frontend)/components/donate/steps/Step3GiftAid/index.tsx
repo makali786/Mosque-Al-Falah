@@ -27,7 +27,7 @@ export default function Step3GiftAid({
   const totalWithGiftAid = donationAmount + giftAidAmount;
 
   return (
-    <div className="w-full flex flex-col gap-8 pt-8 pb-8 px-4 md:px-24 lg:px-96">
+    <div className="w-full flex flex-col gap-8 pt-8 pb-8 donation-padding">
       {/* Header with Back Button */}
       <DonationHeader showBackButton onBack={onBack} />
 

@@ -10,7 +10,7 @@ export default function DonationHeader({
   onBack,
 }: DonationHeaderProps) {
   return (
-    <div className="flex flex-col gap-8 items-start w-full">
+    <div className="flex flex-col gap-8 items-start w-full donation-padding">
       <div className="flex gap-8 items-center">
         {showBackButton && onBack && <BackButton onClick={onBack} />}
         <h1 className="text-4xl font-semibold leading-10 text-[#27272A] text-center">
