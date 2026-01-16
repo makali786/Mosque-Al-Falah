@@ -194,7 +194,6 @@ export const Events: CollectionConfig = {
         {
           name: 'imam',
           type: 'relationship',
-          // @ts-expect-error - Collection slug will be valid after types regeneration
           relationTo: 'imams',
           label: 'Select Imam',
           admin: {
@@ -479,7 +478,6 @@ export const Events: CollectionConfig = {
     {
       name: 'relatedEvents',
       type: 'relationship',
-      // @ts-expect-error - Collection slug will be valid after types regeneration
       relationTo: 'events',
       hasMany: true,
       label: 'Related Events',
