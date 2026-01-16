@@ -23,7 +23,7 @@ export default function Step2Details({
 }: Step2DetailsProps) {
 
   return (
-    <div className="w-full flex flex-col gap-8 pt-8 pb-8 donation-padding">
+    <div className="w-full flex flex-col gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 donation-padding">
       {/* Header with Back Button */}
       <DonationHeader showBackButton onBack={onBack} />
 
@@ -57,10 +57,10 @@ export default function Step2Details({
       <SocialLoginSection />
 
       {/* Name Fields */}
-      <div className="flex flex-col gap-6 w-full">
-        <div className="flex gap-6 items-center w-full">
+      <div className="flex flex-col gap-4 sm:gap-6 w-full">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch w-full">
           {/* First Name */}
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <FormInput
               label="First Name"
               value={formData.firstName}
@@ -71,7 +71,7 @@ export default function Step2Details({
           </div>
 
           {/* Last Name */}
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <FormInput
               label="Last Name"
               value={formData.lastName}
@@ -141,19 +141,21 @@ export default function Step2Details({
       </div>
 
       {/* Next Button */}
-      <Button
-        onClick={onNext}
-        disabled={
-          !formData.email ||
-          !formData.firstName ||
-          !formData.lastName ||
-          !formData.termsAccepted
-        }
-        variant="primary"
-        className="w-[212px]"
-      >
-        Next
-      </Button>
+      <div className="flex justify-start w-full">
+        <Button
+          onClick={onNext}
+          disabled={
+            !formData.email ||
+            !formData.firstName ||
+            !formData.lastName ||
+            !formData.termsAccepted
+          }
+          variant="primary"
+          className="w-full md:w-[212px]"
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }

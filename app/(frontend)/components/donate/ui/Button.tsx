@@ -18,7 +18,7 @@ export default function Button({
   className = '',
 }: ButtonProps) {
   const baseClasses =
-    'flex h-12 items-center justify-center px-6 rounded-xl cursor-pointer transition-colors';
+    'flex h-10 sm:h-12 items-center justify-center px-4 sm:px-6 rounded-xl cursor-pointer transition-colors';
 
   const variantClasses = {
     primary:
@@ -35,7 +35,7 @@ export default function Button({
       disabled={disabled}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
     >
-      <span className="text-base font-normal leading-6">{children}</span>
+      <span className="text-sm sm:text-base font-normal leading-tight sm:leading-6">{children}</span>
     </button>
   );
 }

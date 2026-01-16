@@ -32,16 +32,16 @@ export default function Step1Select({
   const totalAmount = donationAmount + platformFee;
 
   return (
-    <div className="w-full flex flex-col gap-8 pt-8 pb-0 px-0">
+    <div className="w-full flex flex-col gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 lg:pt-8 pb-0 px-0">
       {/* Header */}
       <div className="flex flex-col gap-0">
         <DonationHeader showBackButton={false} />
       </div>
 
       {/* Main Content Container */}
-      <div className="flex flex-col gap-8 items-end donation-padding">
+      <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 items-end donation-padding">
         {/* Selection Card */}
-        <Card className="w-full p-8 flex flex-col gap-8">
+        <Card className="w-full p-4 sm:p-6 lg:p-8 flex flex-col gap-4 sm:gap-6 lg:gap-8">
           {/* Frequency Selector */}
           <FrequencySelector
             selectedFrequency={formData.frequency}

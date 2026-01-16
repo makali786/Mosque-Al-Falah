@@ -27,23 +27,23 @@ export default function Step3GiftAid({
   const totalWithGiftAid = donationAmount + giftAidAmount;
 
   return (
-    <div className="w-full flex flex-col gap-8 pt-8 pb-8 donation-padding">
+    <div className="w-full flex flex-col gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 donation-padding">
       {/* Header with Back Button */}
       <DonationHeader showBackButton onBack={onBack} />
 
       {/* Gift Aid Section */}
-      <div className="bg-[#FAFAFA] flex flex-col gap-8 p-8 rounded-xl w-full">
+      <div className="bg-[#FAFAFA] flex flex-col gap-4 sm:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-8 rounded-xl w-full">
         {/* Gift Aid Header and Display */}
-        <div className="flex items-end justify-between w-full">
+        <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-6 w-full">
           {/* Left: Gift Aid Calculation */}
-          <div className="flex flex-col gap-4 w-[415px]">
-            <h3 className="text-base font-bold leading-6 text-[#3F3F46]">
+          <div className="flex flex-col gap-4 w-full lg:w-auto flex-1">
+            <h3 className="text-sm sm:text-base font-bold leading-tight sm:leading-6 text-[#3F3F46]">
               Add Gift Aid and boost your donation at no extra cost
             </h3>
-            <div className="flex gap-[22px] items-center">
+            <div className="flex gap-4 sm:gap-[22px] items-center justify-center sm:justify-start flex-wrap">
               {/* Before Gift Aid */}
-              <div className="flex flex-col gap-[5px] items-center text-center w-[120px]">
-                <p className="text-2xl font-medium leading-8 text-black">
+              <div className="flex flex-col gap-[5px] items-center text-center min-w-[100px] sm:w-[120px]">
+                <p className="text-xl sm:text-2xl font-medium leading-tight sm:leading-8 text-black">
                   £{donationAmount.toFixed(2)}
                 </p>
                 <p className="text-xs font-normal leading-4 text-[#52525B]">
@@ -52,7 +52,7 @@ export default function Step3GiftAid({
               </div>
 
               {/* Arrow */}
-              <div className="w-[83px] h-3 relative">
+              <div className="w-12 sm:w-[83px] h-3 relative flex-shrink-0">
                 <Image
                   src="/assets/donation/arrow-right.svg"
                   alt="Arrow"
@@ -63,8 +63,8 @@ export default function Step3GiftAid({
               </div>
 
               {/* After Gift Aid */}
-              <div className="flex flex-col gap-[5px] items-center text-center w-[120px]">
-                <p className="text-2xl font-medium leading-8 text-black">
+              <div className="flex flex-col gap-[5px] items-center text-center min-w-[100px] sm:w-[120px]">
+                <p className="text-xl sm:text-2xl font-medium leading-tight sm:leading-8 text-black">
                   £{totalWithGiftAid.toFixed(2)}
                 </p>
                 <p className="text-xs font-normal leading-4 text-[#52525B]">
@@ -75,14 +75,14 @@ export default function Step3GiftAid({
           </div>
 
           {/* Right: Gift Aid Logo */}
-          <div className="flex flex-col h-[50px] w-[125px]">
-            <div className="relative w-[120px] h-12">
+          <div className="flex flex-col items-center lg:items-end w-full lg:w-auto">
+            <div className="relative w-[100px] sm:w-[120px] h-10 sm:h-12">
               <Image
                 src="/assets/donation/giftaid-logo.png"
                 alt="Gift Aid"
                 width={120}
                 height={48}
-                className="object-cover mix-blend-multiply"
+                className="object-contain mix-blend-multiply"
               />
             </div>
           </div>
@@ -194,13 +194,15 @@ export default function Step3GiftAid({
       </div>
 
       {/* Next Button */}
-      <button
-        onClick={onNext}
-        disabled={formData.giftAidEnabled && !formData.giftAidDeclaration}
-        className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-[212px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#0055CC] transition-colors"
-      >
-        <span className="text-base font-normal leading-6 text-white">Next</span>
-      </button>
+      <div className="flex justify-start md:justify-end w-full">
+        <button
+          onClick={onNext}
+          disabled={formData.giftAidEnabled && !formData.giftAidDeclaration}
+          className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-full md:w-auto cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#0055CC] transition-colors"
+        >
+          <span className="text-base font-normal leading-6 text-white">Next</span>
+        </button>
+      </div>
     </div>
   );
 }

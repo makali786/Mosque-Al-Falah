@@ -15,34 +15,36 @@ export default function FrequencySelector({
         I Wish To Donate
       </p>
 
-      <div className="flex flex-col gap-6 items-start">
+      <div className="flex flex-col gap-6 items-start w-full">
         {/* Frequency Tabs */}
-        <div className="bg-[#F4F4F5] flex gap-2 items-start p-1 rounded-xl">
-          {frequencies.map(freq => {
-            const isActive = selectedFrequency === freq.value;
-            return (
-              <button
-                key={freq.value}
-                onClick={() =>
-                  onFrequencyChange(freq.value as DonationFormData['frequency'])
-                }
-                className={`flex items-center justify-center px-[12px] py-[4px] cursor-pointer transition-colors ${
-                  isActive
-                    ? 'bg-[#006FEE] text-white rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]'
-                    : 'text-[#71717A] rounded-xl'
-                }`}
-              >
-                <span className="text-[16px] font-normal leading-[24px] text-center whitespace-nowrap">
-                  {freq.label}
-                </span>
-              </button>
-            );
-          })}
+        <div className="bg-[#F4F4F5] flex gap-2 items-start p-1 rounded-xl w-full overflow-x-auto scrollbar-hide">
+          <div className="flex gap-2 items-start min-w-max">
+            {frequencies.map(freq => {
+              const isActive = selectedFrequency === freq.value;
+              return (
+                <button
+                  key={freq.value}
+                  onClick={() =>
+                    onFrequencyChange(freq.value as DonationFormData['frequency'])
+                  }
+                  className={`flex items-center justify-center px-3 py-1 cursor-pointer transition-colors shrink-0 ${
+                    isActive
+                      ? 'bg-[#006FEE] text-white rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]'
+                      : 'text-[#71717A] rounded-xl'
+                  }`}
+                >
+                  <span className="text-sm sm:text-base font-normal leading-6 text-center whitespace-nowrap">
+                    {freq.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Date Information */}
         {selectedFrequency !== 'one-time' && (
-          <div className="flex font-normal gap-[4px] items-center text-[14px] whitespace-nowrap">
+          <div className="flex flex-wrap font-normal gap-[4px] items-center text-[14px]">
             <span className="text-[#71717A] leading-[20px]">
               Starts today and ends when this fundraiser ends on
             </span>

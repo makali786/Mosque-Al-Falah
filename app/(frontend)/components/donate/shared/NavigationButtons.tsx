@@ -16,12 +16,12 @@ export default function NavigationButtons({
   showBack = true,
 }: NavigationButtonsProps) {
   return (
-    <div className="flex gap-8 shrink-0">
+    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-8 w-full sm:w-auto shrink-0">
       {showBack && (
         <Button
           onClick={onBack}
           variant="disabled"
-          className="w-[212px]"
+          className="w-full sm:w-auto sm:min-w-[212px]"
         >
           Previous
         </Button>
@@ -31,7 +31,7 @@ export default function NavigationButtons({
           onClick={onNext}
           variant="primary"
           disabled={nextDisabled}
-          className="w-[212px]"
+          className="w-full sm:w-auto sm:min-w-[212px]"
         >
           {nextText}
         </Button>

@@ -102,12 +102,12 @@ export default function PaymentForm({
   };
 
   return (
-    <div className="w-full flex flex-col gap-8 pt-8 pb-8 donation-padding">
+    <div className="w-full flex flex-col gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 donation-padding">
       {/* Header with Back Button */}
       <DonationHeader showBackButton onBack={onBack} />
 
       {/* Payment Section Container */}
-      <div className="bg-[#FAFAFA] flex flex-col gap-8 p-8 rounded-xl w-full">
+      <div className="bg-[#FAFAFA] flex flex-col gap-4 sm:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-8 rounded-xl w-full">
         {/* Payment Method Selection */}
         <div className="flex flex-col gap-4 w-full">
           <div className="flex items-center justify-between w-full">
@@ -191,12 +191,12 @@ export default function PaymentForm({
               </div>
             )}
           </div>
-          <div className="flex gap-4 w-full">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full">
             {/* Direct Debit */}
             <button
               type="button"
               onClick={() => setPaymentMethod('direct-debit')}
-              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
+              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-3 sm:px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
             >
               <div className="flex gap-2 items-center p-2">
                 <div className="relative inline-grid grid-cols-[max-content] grid-rows-[max-content] items-start justify-items-start">
@@ -238,7 +238,7 @@ export default function PaymentForm({
             <button
               type="button"
               onClick={() => setPaymentMethod('card')}
-              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
+              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-3 sm:px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
             >
               <div className="flex gap-2 items-center p-2">
                 <div className="relative inline-grid grid-cols-[max-content] grid-rows-[max-content] items-start justify-items-start">
@@ -280,7 +280,7 @@ export default function PaymentForm({
             <button
               type="button"
               onClick={() => setPaymentMethod('paypal')}
-              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
+              className="bg-[#F4F4F5] flex flex-1 items-center justify-between px-3 sm:px-4 py-2 rounded-lg cursor-pointer hover:bg-[#E4E4E7] transition-colors"
             >
               <div className="flex gap-2 items-center p-2">
                 <div className="relative inline-grid grid-cols-[max-content] grid-rows-[max-content] items-start justify-items-start">
@@ -323,7 +323,7 @@ export default function PaymentForm({
         {/* Form Fields Container */}
         <form
           onSubmit={handleSubmit}
-          className="border border-[#D4D4D8] flex flex-col gap-6 p-6 rounded-xl w-full"
+          className="border border-[#D4D4D8] flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 rounded-xl w-full"
         >
           {paymentMethod === 'direct-debit' ? (
             <>
@@ -417,14 +417,18 @@ export default function PaymentForm({
           ) : paymentMethod === 'card' ? (
             <>
               {/* Card Payment Form Fields with Stripe Elements */}
-              <div className="flex flex-col gap-[30px] w-full">
+              <div className="flex flex-col gap-6 sm:gap-[30px] w-full">
                 {/* Card Number */}
                 <StripeCardInput label="Card Number" type="number" />
 
                 {/* Expiry and CVC */}
-                <div className="flex gap-8 w-full">
-                  <StripeCardInput label="Expiry" type="expiry" />
-                  <StripeCardInput label="CVC" type="cvc" />
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-full">
+                  <div className="flex-1 w-full">
+                    <StripeCardInput label="Expiry" type="expiry" />
+                  </div>
+                  <div className="flex-1 w-full">
+                    <StripeCardInput label="CVC" type="cvc" />
+                  </div>
                 </div>
               </div>
             </>
