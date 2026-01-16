@@ -31,7 +31,8 @@
     "react-icons": "^5.5.0",
     "react-player": "^3.4.0",
     "sharp": "^0.34.5",
-    "stripe": "^20.1.0"
+    "stripe": "^20.1.0",
+    "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",

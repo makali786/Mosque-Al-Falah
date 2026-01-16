@@ -7,6 +7,7 @@ import Step2Details from '../components/donate/steps/Step2Details';
 import Step3GiftAid from '../components/donate/steps/Step3GiftAid';
 import Step4Payment from '../components/donate/steps/Step4Payment';
 import { DonationFormData } from '../components/donate/types';
+import GoogleMapsScript from '../components/GoogleMapsScript';
 
 export default function DonatePage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -59,6 +60,8 @@ export default function DonatePage() {
 
       const totalAmount = donationAmount + platformFee;
 
+      console.log('Sending address to API:', formData.address);
+
       const response = await fetch('/api/donations/create-payment', {
         method: 'POST',
         headers: {
@@ -104,7 +107,8 @@ export default function DonatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white mb-20">
+      <GoogleMapsScript />
       <StepIndicator currentStep={currentStep} />
 
       {currentStep === 1 && (
@@ -136,6 +140,7 @@ export default function DonatePage() {
       {currentStep === 4 && clientSecret && (
         <Step4Payment
           formData={formData}
+          setFormData={setFormData}
           onBack={handleBack}
           clientSecret={clientSecret}
         />

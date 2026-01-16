@@ -6,6 +6,7 @@ import { signIn } from 'next-auth/react';
 import { DonationFormData } from '../../types';
 import { DonationHeader, SocialLoginSection, NavigationButtons } from '../../shared';
 import { FormInput, Checkbox, Button } from '../../ui';
+import AddressAutocomplete from '../../ui/AddressAutocomplete';
 
 interface Step2DetailsProps {
   formData: DonationFormData;
@@ -82,60 +83,31 @@ export default function Step2Details({
           </div>
         </div>
 
-        {/* Address Field */}
-        <div className="flex flex-col gap-2 w-full">
-          <FormInput
-            label="Find your address"
-            value={formData.address.line1}
-            onChange={value =>
-              setFormData({
-                ...formData,
-                address: { ...formData.address, line1: value },
-              })
-            }
-            placeholder="Start typing your address"
-            required
-            icon="/assets/donation/search-address.svg"
-            iconAlt="Search"
-          />
-          <button
-            type="button"
-            onClick={() => setShowManualAddress(!showManualAddress)}
-            className="flex h-8 items-center justify-center px-3 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors w-fit"
-          >
-            <span className="text-xs font-normal leading-4 text-black">
-              Enter address manually
-            </span>
-          </button>
-        </div>
-
-        {/* Country Selector */}
-        <div className="flex flex-col gap-4 w-full">
-          <p className="text-xs font-normal leading-4 text-[#52525B]">
-            Find your address
-          </p>
-          <div className="bg-[#F4F4F5] flex items-center justify-between overflow-hidden px-4 py-[13px] rounded-xl w-full">
-            <p className="text-base font-normal leading-6 text-black">GB</p>
-            <button
-              type="button"
-              className="flex h-10 items-center justify-center px-4 rounded-xl cursor-pointer hover:bg-white/50 transition-colors"
-            >
-              <div className="flex gap-2 items-center justify-center">
-                <div className="overflow-hidden w-5 h-5">
-                  <Image
-                    src="/assets/donation/edit-icon.svg"
-                    alt="Edit"
-                    width={20}
-                    height={20}
-                  />
-                </div>
-                <span className="text-sm font-normal leading-5 text-black">
-                  Edit
-                </span>
-              </div>
-            </button>
-          </div>
-        </div>
+        {/* Address Field with Google Places Autocomplete */}
+        <AddressAutocomplete
+          value={formData.address.line1}
+          onInputChange={value => {
+            // When user types manually, just update line1
+            setFormData({
+              ...formData,
+              address: { ...formData.address, line1: value },
+            });
+          }}
+          onAddressSelect={address => {
+            // When address is selected from Google Places, update ALL fields
+            console.log('Address selected in Step2:', address);
+            setFormData({
+              ...formData,
+              address: {
+                line1: address.line1 || '',
+                line2: address.line2 || '',
+                city: address.city || '',
+                postcode: address.postcode || '',
+                country: address.country || 'GB',
+              },
+            });
+          }}
+        />
 
         {/* Phone Field */}
         <FormInput

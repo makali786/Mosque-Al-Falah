@@ -24,7 +24,8 @@
       "Bash(findstr:*)",
       "Bash(wc:*)",
       "Bash(ls:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(npm install:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

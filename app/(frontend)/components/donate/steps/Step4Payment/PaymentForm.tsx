@@ -6,15 +6,18 @@ import { useState } from 'react';
 import { DonationFormData } from '../../types';
 import { DonationHeader } from '../../shared';
 import { StripeCardInput } from '../../ui';
+import AddressAutocomplete from '../../ui/AddressAutocomplete';
 
 interface PaymentFormProps {
   formData: DonationFormData;
+  setFormData: (data: DonationFormData) => void;
   onBack: () => void;
   clientSecret: string;
 }
 
 export default function PaymentForm({
   formData,
+  setFormData,
   onBack,
   clientSecret,
 }: PaymentFormProps) {
@@ -26,6 +29,7 @@ export default function PaymentForm({
     'direct-debit' | 'card' | 'paypal'
   >('card');
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
 
   const donationAmount = formData.customAmount
     ? parseFloat(formData.customAmount)
@@ -426,35 +430,69 @@ export default function PaymentForm({
             </>
           ) : null}
 
-          {/* Billing Address Review */}
+          {/* Billing Address Section */}
           <div className="flex flex-col gap-4 w-full">
             <p className="text-xs font-normal leading-4 text-[#52525B]">
               Review your billing address:
             </p>
-            <div className="bg-[#F4F4F5] flex items-center justify-between px-4 py-[13px] rounded-xl w-full">
-              <p className="text-base font-normal leading-6 text-black whitespace-nowrap overflow-hidden text-ellipsis">
-                {formData.address.line1}, {formData.address.city},{' '}
-                {formData.address.postcode}, {formData.address.country}
-              </p>
-              <button
-                type="button"
-                className="flex h-10 items-center justify-center px-4 rounded-xl cursor-pointer hover:bg-white/50 transition-colors shrink-0"
-              >
-                <div className="flex gap-2 items-center justify-center">
-                  <div className="overflow-hidden w-5 h-5">
-                    <Image
-                      src="/assets/donation/edit-icon.svg"
-                      alt="Edit"
-                      width={20}
-                      height={20}
-                    />
+
+            {!isEditingAddress ? (
+              /* Address Display */
+              <div className="bg-[#F4F4F5] flex items-center justify-between px-4 py-[13px] rounded-xl w-full">
+                <p className="text-base font-normal leading-6 text-black whitespace-nowrap overflow-hidden text-ellipsis">
+                  {formData.address.line1}, {formData.address.city},{' '}
+                  {formData.address.postcode}, {formData.address.country}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIsEditingAddress(true)}
+                  className="flex h-10 items-center justify-center px-4 rounded-xl cursor-pointer hover:bg-white/50 transition-colors shrink-0"
+                >
+                  <div className="flex gap-2 items-center justify-center">
+                    <div className="overflow-hidden w-5 h-5">
+                      <Image
+                        src="/assets/donation/edit-icon.svg"
+                        alt="Edit"
+                        width={20}
+                        height={20}
+                      />
+                    </div>
+                    <span className="text-sm font-normal leading-5 text-black">
+                      Edit
+                    </span>
                   </div>
-                  <span className="text-sm font-normal leading-5 text-black">
-                    Edit
-                  </span>
-                </div>
-              </button>
-            </div>
+                </button>
+              </div>
+            ) : (
+              /* Address Edit with Autocomplete */
+              <div className="flex flex-col gap-4">
+                <AddressAutocomplete
+                  value={formData.address.line1}
+                  onInputChange={value =>
+                    setFormData({
+                      ...formData,
+                      address: { ...formData.address, line1: value },
+                    })
+                  }
+                  onAddressSelect={address =>
+                    setFormData({
+                      ...formData,
+                      address: {
+                        ...formData.address,
+                        ...address,
+                      },
+                    })
+                  }
+                />
+                <button
+                  type="button"
+                  onClick={() => setIsEditingAddress(false)}
+                  className="bg-[#006FEE] hover:bg-[#0055CC] text-white px-6 py-3 rounded-xl transition-colors w-fit"
+                >
+                  Save Address
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Terms Checkbox */}
