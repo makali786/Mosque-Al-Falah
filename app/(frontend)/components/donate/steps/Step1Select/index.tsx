@@ -19,7 +19,7 @@ export default function Step1Select({
   onNext,
 }: Step1SelectProps) {
   const selectedAmount = formData.amount || 0;
-  const isCustom = !quickAmounts.includes(selectedAmount) && selectedAmount > 0;
+  const isCustom = !(quickAmounts as readonly number[]).includes(selectedAmount) && selectedAmount > 0;
 
   const donationAmount = formData.customAmount
     ? parseFloat(formData.customAmount)
@@ -71,11 +71,9 @@ export default function Step1Select({
 
         {/* Donation Behalf Card */}
         <DonationBehalfCard
-          isAnonymous={formData.isAnonymous}
-          displayName={formData.displayName}
           donationAmount={donationAmount}
-          onToggleAnonymous={() =>
-            setFormData({ ...formData, isAnonymous: !formData.isAnonymous })
+          onProfileChange={(isAnonymous, displayName) =>
+            setFormData({ ...formData, isAnonymous, displayName })
           }
         />
 

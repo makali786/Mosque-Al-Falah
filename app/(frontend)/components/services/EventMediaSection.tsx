@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 import Separator from "../common/Separator";
 import Tabs from "../common/Tabs";
+import { DonorProfileCard } from "../donate/shared";
 
 interface EventMediaSectionProps {
   title?: string;
@@ -204,22 +205,15 @@ export default function EventMediaSection({
                 />
               </div>
 
-              {/* Privacy / Profile - Keep static for now or hide if not needed, simpler to keep for UI completeness */}
+              {/* Privacy / Profile */}
               <div className="space-y-2">
                 <span className="text-xs font-medium text-[#52525B]">Your donation will appear as:</span>
-                <div className="flex items-center justify-between px-3 py-2 bg-[#F4F4F5] rounded-lg mt-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full overflow-hidden relative bg-gray-200">
-                      <Image src="/assets/sermons/taraweeh-sermons.png" alt="Avatar" fill className="object-cover" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-[#18181B]">Anonymous kind soul</span>
-                      <span className="text-[10px] text-[#A1A1AA]">£35 GBP, a few moments ago</span>
-                    </div>
-                  </div>
-                  <button className="text-xs font-medium text-[#18181B] hover:underline cursor-pointer">
-                    Edit
-                  </button>
+                <div className="mt-3">
+                  <DonorProfileCard
+                    donationAmount={typeof donationAmount === 'number' ? donationAmount : 35}
+                    showAmount={true}
+                    variant="compact"
+                  />
                 </div>
               </div>
               {/* Donate Button */}

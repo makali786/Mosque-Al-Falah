@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { StepIndicator } from '../components/donate/shared';
 import Step1Select from '../components/donate/steps/Step1Select';
 import Step2Details from '../components/donate/steps/Step2Details';
@@ -13,15 +14,21 @@ import { useToast } from '../hooks/useToast';
 import { ToastContainer } from '../components/common/Toast';
 
 export default function DonatePage() {
+  const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState(1);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toasts, removeToast, success, error } = useToast();
+
+  // Get amount from URL parameter
+  const urlAmount = searchParams.get('amount');
+  const initialAmount = urlAmount ? parseFloat(urlAmount) : 20;
+
   const [formData, setFormData] = useState<DonationFormData>({
     // Step 1: Select
     frequency: 'one-time',
     donationType: 'general',
-    amount: 20,
+    amount: initialAmount,
     customAmount: '',
     platformFeeEnabled: true,
     platformFeePercentage: 12.5,
