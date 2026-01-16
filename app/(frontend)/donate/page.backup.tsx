@@ -753,20 +753,6 @@ function Step2Details({
             />
           </div>
         </div>
-        <div className="flex items-center">
-          <p className="text-xs font-normal leading-4 text-black">
-            Donated with Masjid Al-Falah before?
-          </p>
-          <button
-            type="button"
-            onClick={() => signIn()}
-            className="flex h-8 items-center justify-center px-3 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors"
-          >
-            <span className="text-xs font-normal leading-4 text-[#006FEE]">
-              Log In
-            </span>
-          </button>
-        </div>
       </div>
 
       {/* Social Login */}
@@ -774,7 +760,7 @@ function Step2Details({
         <div className="flex gap-3 items-center w-full">
           <div className="bg-[rgba(17,17,17,0.15)] flex-1 h-px" />
           <p className="text-xs font-normal leading-4 text-[#27272A] text-center">
-            Or Sign In with
+            Sign In with
           </p>
           <div className="bg-[rgba(17,17,17,0.15)] flex-1 h-px" />
         </div>

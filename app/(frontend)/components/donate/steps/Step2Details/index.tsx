@@ -37,20 +37,6 @@ export default function Step2Details({
           placeholder="e.g. jsmith@yourmail.com"
           required
         />
-        <div className="flex items-center">
-          <p className="text-xs font-normal leading-4 text-black">
-            Donated with Masjid Al-Falah before?
-          </p>
-          <button
-            type="button"
-            onClick={() => signIn()}
-            className="flex h-8 items-center justify-center px-3 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors"
-          >
-            <span className="text-xs font-normal leading-4 text-[#006FEE]">
-              Log In
-            </span>
-          </button>
-        </div>
       </div>
 
       {/* Social Login */}

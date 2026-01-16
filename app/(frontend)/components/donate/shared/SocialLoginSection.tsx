@@ -7,7 +7,7 @@ export default function SocialLoginSection() {
       <div className="flex gap-3 items-center w-full">
         <div className="bg-[rgba(17,17,17,0.15)] flex-1 h-px" />
         <p className="text-xs font-normal leading-4 text-[#27272A] text-center">
-          Or Sign In with
+          Sign In with
         </p>
         <div className="bg-[rgba(17,17,17,0.15)] flex-1 h-px" />
       </div>
