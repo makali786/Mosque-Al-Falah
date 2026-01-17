@@ -34,6 +34,13 @@ export default function PrayerReminder({
   // Calculate the next occurrence of the target time
   const nextOccurrence = useMemo(() => {
     const target = new Date(targetDate);
+
+    // Validate the date
+    if (isNaN(target.getTime())) {
+      // Return current date if invalid
+      return new Date();
+    }
+
     const now = new Date();
 
     // If the target time has passed today, move to tomorrow
@@ -53,11 +60,17 @@ export default function PrayerReminder({
 
   // Current date formatting
   const dateString = useMemo(() => {
-    return moment(nextOccurrence).format("dddd, MMMM D, YYYY");
+    if (moment(nextOccurrence).isValid()) {
+      return moment(nextOccurrence).format("dddd, MMMM D, YYYY");
+    }
+    return "Invalid Date";
   }, [nextOccurrence]);
 
   const timeString = useMemo(() => {
-    return moment(nextOccurrence).format("HH:mm");
+    if (moment(nextOccurrence).isValid()) {
+      return moment(nextOccurrence).format("HH:mm");
+    }
+    return "00:00";
   }, [nextOccurrence]);
 
   const hijriString = useMemo(() => {

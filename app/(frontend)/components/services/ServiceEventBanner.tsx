@@ -195,10 +195,10 @@ export default function ServiceEventBanner({
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 xl:gap-0">
           {/* Left Section - Title and Description */}
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center w-full xl:w-auto">
-            <div className={`w-full md:max-w-[495px] xl:min-w-[495px] ${customStyleLeftSection}`}>
+            <div className={`w-full md:max-w-123.75 xl:min-w-123.75 ${customStyleLeftSection}`}>
               <div className="flex items-center gap-3 mb-3 sm:mb-4">
                 {/* Update Badge */}
-                {updateDate && moment(updateDate).isValid() && (
+                {updateDate && moment(updateDate).isValid() && !isNaN(new Date(updateDate).getTime()) && (
                   <>
                     <div className="flex items-center gap-1 bg-white px-3 py-1">
                       <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
@@ -220,14 +220,14 @@ export default function ServiceEventBanner({
 
               {/* Description */}
             </div>
-            <p className="text-sm sm:text-base md:text-lg text-white w-full md:max-w-[315px] line-clamp-4">
+            <p className="text-sm sm:text-base md:text-lg text-white w-full md:max-w-78.75 line-clamp-4">
               {description}
             </p>
             
           </div>
           
           {/* Separator - Only visible on XL screens */}
-          <div className="hidden xl:flex xl:self-stretch px-[34px]">
+          <div className="hidden xl:flex xl:self-stretch px-8.5">
             <Separator orientation="vertical" className="w-px h-full" color="#FFFFFF26" thickness={1} />
           </div>
 
