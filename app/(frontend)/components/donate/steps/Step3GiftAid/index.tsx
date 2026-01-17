@@ -40,9 +40,9 @@ export default function Step3GiftAid({
             <h3 className="text-sm sm:text-base font-bold leading-tight sm:leading-6 text-[#3F3F46]">
               Add Gift Aid and boost your donation at no extra cost
             </h3>
-            <div className="flex gap-4 sm:gap-[22px] items-center justify-center sm:justify-start flex-wrap">
+            <div className="flex gap-4 sm:gap-[22px] items-center justify-start">
               {/* Before Gift Aid */}
-              <div className="flex flex-col gap-[5px] items-center text-center min-w-[100px] sm:w-[120px]">
+              <div className="flex flex-col gap-[5px] items-center text-center">
                 <p className="text-xl sm:text-2xl font-medium leading-tight sm:leading-8 text-black">
                   £{donationAmount.toFixed(2)}
                 </p>
@@ -52,7 +52,7 @@ export default function Step3GiftAid({
               </div>
 
               {/* Arrow */}
-              <div className="w-12 sm:w-[83px] h-3 relative flex-shrink-0">
+              <div className="w-8 sm:w-[83px] h-3 relative shrink-0">
                 <Image
                   src="/assets/donation/arrow-right.svg"
                   alt="Arrow"
@@ -63,7 +63,7 @@ export default function Step3GiftAid({
               </div>
 
               {/* After Gift Aid */}
-              <div className="flex flex-col gap-[5px] items-center text-center min-w-[100px] sm:w-[120px]">
+              <div className="flex flex-col gap-[5px] items-center text-center">
                 <p className="text-xl sm:text-2xl font-medium leading-tight sm:leading-8 text-black">
                   £{totalWithGiftAid.toFixed(2)}
                 </p>
