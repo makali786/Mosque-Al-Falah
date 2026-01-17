@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { fetchServices } from "../../../../lib/fetcher"
 import NikaahMarriage from "@/components/services/serviceDetail/NikaahMarriage";
 import TaraweehEidPrayers from "@/components/services/serviceDetail/TaraweehEidPrayers";
+import StandardServiceDetail from "@/components/services/serviceDetail/StandardServiceDetail";
 
 export default async function ServiceDetailPage(props: {
   params: Promise<{ slug: string }>;
@@ -43,7 +44,7 @@ export default async function ServiceDetailPage(props: {
       ) : serviceData.slug === "taraweeh-eid-prayers" ? (
         <TaraweehEidPrayers service={serviceDetail} params={componentParams} />
       ) : (
-        <TaraweehEidPrayers service={serviceDetail} params={componentParams} />
+            <StandardServiceDetail service={serviceDetail} params={componentParams} />
       )}
     </div>
   );

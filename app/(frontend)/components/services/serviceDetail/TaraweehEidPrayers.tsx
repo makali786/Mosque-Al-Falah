@@ -1,16 +1,14 @@
-import React from 'react'
-import ServiceEventBanner from '../ServiceEventBanner';
-import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection';
-import ServiceDetailHero from '../ServiceDetailHero';
-import PrayerReminder from '../PrayerReminder';
-import EventMediaSection from '../EventMediaSection';
-import EidSalahSchedule from '../EidSalahSchedule';
-import ServiceQuote from '../ServiceQuote';
-import OtherServices from '../OtherServices';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
+import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
-import LiveStreaming from '../LiveStreaming';
 import { fetchServices } from '../../../../../lib/fetcher';
+import EidSalahSchedule from '../EidSalahSchedule';
+import LiveStreaming from '../LiveStreaming';
+import OtherServices from '../OtherServices';
+import PrayerReminder from '../PrayerReminder';
+import ServiceDetailHero from '../ServiceDetailHero';
+import ServiceEventBanner from '../ServiceEventBanner';
+import ServiceQuote from '../ServiceQuote';
 
 // Helper to extract simple text from Payload Rich Text
 const extractTextFromRichText = (richText: any) => {

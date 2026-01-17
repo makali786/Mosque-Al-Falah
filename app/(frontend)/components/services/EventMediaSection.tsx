@@ -19,6 +19,7 @@ interface EventMediaSectionProps {
   donationTitle?: string;
   donationDescription?: string;
   donationAmounts?: number[];
+  enableDonations?: boolean;
   className?: string;
 }
 
@@ -34,6 +35,7 @@ export default function EventMediaSection({
   donationTitle = "Donate",
   donationDescription = "",
   donationAmounts = [],
+  enableDonations = false,
   className = "",
 }: EventMediaSectionProps) {
   const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Video");
@@ -92,6 +94,7 @@ export default function EventMediaSection({
               onChange={(tabId) => setActiveTab(tabId as any)}
               variant="pills"
               size="md"
+              className="w-fit"
             />
 
             {/* Media Player Container */}
@@ -180,6 +183,7 @@ export default function EventMediaSection({
             {/* <div className="h-px w-full bg-[#E4E4E7]" /> */}
 
             {/* Donate Section */}
+            {enableDonations && (
             <div className="space-y-4">
               <div>
                 <h3 className="text-lg font-semibold mb-2">{donationTitle}</h3>
@@ -222,6 +226,7 @@ export default function EventMediaSection({
               </button>
 
             </div>
+            )}
           </div>
         </div>
       </div>

@@ -33,7 +33,15 @@ export default function PrayerReminder({
 
   // Calculate the next occurrence of the target time
   const nextOccurrence = useMemo(() => {
+    if (!targetDate) return new Date();
+
     const target = new Date(targetDate);
+    // Validate date
+    if (isNaN(target.getTime())) {
+      console.warn("Invalid targetDate provided to PrayerReminder:", targetDate);
+      return new Date();
+    }
+
     const now = new Date();
 
     // If the target time has passed today, move to tomorrow
