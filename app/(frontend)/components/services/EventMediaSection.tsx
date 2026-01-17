@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { FaPlay } from "react-icons/fa";
 import Separator from "../common/Separator";
+import Tabs from "../common/Tabs";
+import { DonorProfileCard } from "../donate/shared";
 
 interface EventMediaSectionProps {
   title?: string;
@@ -84,22 +86,13 @@ export default function EventMediaSection({
           <div className="w-full xl:max-w-[735px] xl:max-h[412px] space-y-6">
 
             {/* Tabs */}
-            <div className="flex items-center gap-2">
-              <div className="inline-flex bg-[#F4F4F5] p-1 rounded-[14px]">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`px-6 py-2 rounded-[10px] text-sm font-medium transition-all duration-200 cursor-pointer ${activeTab === tab
-                        ? "bg-white text-black shadow-sm"
-                        : "text-[#71717A] hover:text-black"
-                      }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-            </div>
+            <Tabs
+              tabs={tabs.map((tab) => ({ id: tab, label: tab }))}
+              activeTab={activeTab}
+              onChange={(tabId) => setActiveTab(tabId as any)}
+              variant="pills"
+              size="md"
+            />
 
             {/* Media Player Container */}
             <div className="relative w-full aspect-video rounded-[14px] overflow-hidden">
@@ -196,41 +189,31 @@ export default function EventMediaSection({
 
               <div className="space-y-3">
                 <span className="text-xs font-medium text-[#52525B] ">Amount:</span>
-                <div className="flex gap-3 flex-wrap xl:flex-nowrap !mt-3">
-                  {amounts.map((amount) => (
-                    <button
-                      key={amount}
-                      onClick={() => setDonationAmount(amount)}
-                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium cursor-pointer ${donationAmount === amount ? 'bg-black text-white' : 'bg-[#E4E4E7] text-black'}`}
-                    >
-                      £{amount}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => setDonationAmount("Other")}
-                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium cursor-pointer ${donationAmount === 'Other' ? 'bg-black text-white' : 'bg-[#E4E4E7] text-black'}`}
-                  >
-                    Other
-                  </button>
-                </div>
+                <Tabs
+                  tabs={[
+                    ...amounts.map((amount) => ({
+                      id: String(amount),
+                      label: `£${amount}`
+                    })),
+                    { id: "Other", label: "Other" }
+                  ]}
+                  activeTab={String(donationAmount)}
+                  onChange={(tabId) => setDonationAmount(tabId === "Other" ? "Other" : Number(tabId))}
+                  variant="default"
+                  size="sm"
+                  className="!mt-3"
+                />
               </div>
 
-              {/* Privacy / Profile - Keep static for now or hide if not needed, simpler to keep for UI completeness */}
+              {/* Privacy / Profile */}
               <div className="space-y-2">
                 <span className="text-xs font-medium text-[#52525B]">Your donation will appear as:</span>
-                <div className="flex items-center justify-between px-3 py-2 bg-[#F4F4F5] rounded-lg mt-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full overflow-hidden relative bg-gray-200">
-                      <Image src="/assets/sermons/taraweeh-sermons.png" alt="Avatar" fill className="object-cover" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-[#18181B]">Anonymous kind soul</span>
-                      <span className="text-[10px] text-[#A1A1AA]">£35 GBP, a few moments ago</span>
-                    </div>
-                  </div>
-                  <button className="text-xs font-medium text-[#18181B] hover:underline cursor-pointer">
-                    Edit
-                  </button>
+                <div className="mt-3">
+                  <DonorProfileCard
+                    donationAmount={typeof donationAmount === 'number' ? donationAmount : 35}
+                    showAmount={true}
+                    variant="compact"
+                  />
                 </div>
               </div>
               {/* Donate Button */}

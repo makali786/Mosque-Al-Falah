@@ -116,7 +116,7 @@ const PrayerTime = ({
   const variants = {
     mobile: {
       container: active
-        ? "flex flex-col items-center px-0.5 py-1 bg-[#005bc4] rounded"
+        ? "flex flex-col items-center px-2 py-1 bg-[#005bc4] rounded"
         : "flex flex-col items-center",
       nameClass: `font-semibold text-[11px] ${
         active ? "text-white" : "text-black"

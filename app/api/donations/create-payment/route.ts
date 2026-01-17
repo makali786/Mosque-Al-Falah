@@ -18,7 +18,7 @@ function getStripe(): Stripe {
       throw new Error('STRIPE_SECRET_KEY is not configured');
     }
     stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: '2025-12-15.clover',
+      apiVersion: '2024-12-18.acacia',
     });
   }
   return stripe;
@@ -248,6 +248,26 @@ export async function POST(req: NextRequest) {
 
     const subscriptionInterval = intervalMap[frequency];
 
+    // Check for duplicate active subscription
+    if (donor.activeSubscriptions) {
+      const duplicate = donor.activeSubscriptions.find(
+        (sub: any) =>
+          sub.status === 'active' &&
+          sub.donationType === donationType &&
+          sub.frequency === frequency
+      );
+
+      if (duplicate) {
+        return NextResponse.json(
+          {
+            error: 'Duplicate subscription',
+            details: `You already have an active ${frequency} subscription for ${donationType}.`,
+          },
+          { status: 400 }
+        );
+      }
+    }
+
     // Create a price for this subscription
     const price = await getStripe().prices.create({
       unit_amount: totalAmount,
@@ -284,8 +304,72 @@ export async function POST(req: NextRequest) {
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const invoice = subscription.latest_invoice as any;
-    const paymentIntent = invoice?.payment_intent;
+    let invoice = subscription.latest_invoice as any;
+    let clientSecret = null;
+    let paymentIntentId = null;
+
+    // 1. Try to get data from the subscription response
+    if (invoice && typeof invoice === 'object') {
+      if (invoice.payment_intent) {
+        if (typeof invoice.payment_intent === 'object') {
+          // It's expanded
+          clientSecret = invoice.payment_intent.client_secret;
+          paymentIntentId = invoice.payment_intent.id;
+        } else {
+          // It's just an ID
+          paymentIntentId = invoice.payment_intent;
+        }
+      }
+    } else if (typeof invoice === 'string') {
+      // It's just an ID
+      // We'll need to fetch it
+    }
+
+    // 2. If we don't have the secret but have PI ID, fetch PI
+    if (!clientSecret && paymentIntentId) {
+      try {
+        const pi = await getStripe().paymentIntents.retrieve(paymentIntentId);
+        clientSecret = pi.client_secret;
+      } catch (err) {
+        console.error('Error fetching PaymentIntent:', err);
+      }
+    }
+
+    // 3. If we still don't have secret but have Invoice ID (object or string), fetch Invoice
+    if (!clientSecret) {
+      const invoiceId = typeof invoice === 'string' ? invoice : invoice?.id;
+      if (invoiceId) {
+        try {
+          const fullInvoice = await getStripe().invoices.retrieve(invoiceId, {
+            expand: ['payment_intent'],
+          });
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const pi = fullInvoice.payment_intent as any;
+
+          if (pi && typeof pi === 'object') {
+            clientSecret = pi.client_secret;
+            paymentIntentId = pi.id;
+          } else if (pi && typeof pi === 'string') {
+            // Rare case: PI is still not expanded? Fetch PI directly
+            const fetchedPi = await getStripe().paymentIntents.retrieve(pi);
+            clientSecret = fetchedPi.client_secret;
+          }
+        } catch (err) {
+          console.error('Error fetching Invoice:', err);
+        }
+      }
+    }
+
+    if (!clientSecret) {
+      console.error('CRITICAL: Failed to retrieve client_secret');
+      return NextResponse.json(
+        {
+          error: 'Failed to get payment client secret from Stripe',
+          details: 'The subscription was created but payment setup failed',
+        },
+        { status: 500 }
+      );
+    }
 
     // Create donation record
     const donation = await payload.create({
@@ -316,7 +400,7 @@ export async function POST(req: NextRequest) {
         payment: {
           method: 'card',
           stripeSubscriptionId: subscription.id,
-          stripePaymentIntentId: paymentIntent?.id,
+          stripePaymentIntentId: paymentIntentId,
           stripeCustomerId,
         },
         status: 'pending',
@@ -326,6 +410,8 @@ export async function POST(req: NextRequest) {
     });
 
     // Update donor with active subscription
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const periodEnd = (subscription as any).current_period_end;
     await payload.update({
       collection: 'donors',
       id: donor.id,
@@ -338,18 +424,30 @@ export async function POST(req: NextRequest) {
             frequency,
             donationType,
             status: 'active',
-            nextPaymentDate: new Date(
-              subscription.current_period_end * 1000
-            ).toISOString(),
+            nextPaymentDate:
+              periodEnd && !isNaN(periodEnd)
+                ? new Date(periodEnd * 1000).toISOString()
+                : new Date().toISOString(),
           },
         ],
       },
     });
 
+    // If no clientSecret, we need to handle this
+    if (!clientSecret) {
+      return NextResponse.json(
+        {
+          error: 'Failed to get payment client secret from Stripe',
+          details: 'The subscription was created but payment setup failed',
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json({
       success: true,
       type: 'subscription',
-      clientSecret: paymentIntent?.client_secret,
+      clientSecret: clientSecret,
       subscriptionId: subscription.id,
       donationId: donation.id,
       amounts: {

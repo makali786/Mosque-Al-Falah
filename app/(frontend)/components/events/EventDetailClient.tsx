@@ -9,6 +9,7 @@ import { QuoteSection } from "../common/QuoteSection";
 import { RichTextRenderer } from "../common/RichTextRenderer";
 import Separator from "../common/Separator";
 import EventCard from "./EventCard";
+import Tabs from "../common/Tabs";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -161,8 +162,8 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                 {/* 2. Header Hero */}
                 <div className="flex flex-col lg:flex-row gap-8 mb-12">
                     {/* Left: Featured Image */}
-                    <div className="w-full lg:max-w-[400px] xl:max-w-[400px] flex-shrink-0">
-                        <div className="relative aspect-[4/5] w-full overflow-hidden lg:max-w-[400px] lg:max-h-[400px]">
+                    <div className="w-full lg:max-w-100 xl:max-w-100 shrink-0">
+                        <div className="relative aspect-4/5 w-full overflow-hidden lg:max-w-100 lg:max-h-100">
                             <Image
                                 src={featuredImage}
                                 alt={title}
@@ -215,7 +216,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                             {iconSrc ? (
                                                 <Image src={iconSrc} alt={label} width={18} height={18} />
                                             ) : (
-                                                p.platform.includes('live') && <MdOutlineOndemandVideo className="text-red-500 w-[18px] h-[18px]" />
+                                                p.platform.includes('live') && <MdOutlineOndemandVideo className="text-red-500 w-4.5 h-4.5" />
                                             )}
                                             <span className="text-[#52525B] text-sm capitalize hidden sm:block">{label.replace('-', ' ')}</span>
                                         </div>
@@ -274,24 +275,18 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         {/* Media Tabs & Player */}
                         <div className="space-y-6">
                             {/* Tabs */}
-                            <div className="flex bg-[#F4F4F5] p-1 rounded-[14px] w-full sm:w-fit overflow-x-auto scrollbar-hide">
-                                {[
+                            <Tabs
+                                tabs={[
                                     { id: "video", label: "Video" },
                                     { id: "photos", label: "Photos" },
                                     { id: "audio", label: "Audio" }
-                                ].map((tab) => (
-                                    <button
-                                        key={tab.id}
-                                        onClick={() => setActiveTab(tab.id as any)}
-                                        className={`px-3 sm:px-6 py-2 text-base font-medium rounded-[12px] transition-all duration-200 whitespace-nowrap cursor-pointer ${activeTab === tab.id
-                                            ? "bg-white text-[#18181B] shadow-[0_1px_2px_rgba(0,0,0,0.06)]"
-                                            : "text-[#71717A] hover:text-[#18181B]"
-                                            }`}
-                                    >
-                                        {tab.label}
-                                    </button>
-                                ))}
-                            </div>
+                                ]}
+                                activeTab={activeTab}
+                                onChange={(tabId) => setActiveTab(tabId as any)}
+                                variant="pills"
+                                size="md"
+                                className="w-full sm:w-fit overflow-x-auto scrollbar-hide"
+                            />
 
                             {/* Content */}
                             <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
@@ -301,7 +296,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                             <iframe
                                                 src={embedUrl}
                                                 title={title || "Video player"}
-                                                className="w-full h-full lg:max-w-[735px] lg:h-[412px]"
+                                                className="w-full h-full lg:max-w-183.75 lg:h-103"
                                                 frameBorder="0"
                                                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                                                 referrerPolicy="strict-origin-when-cross-origin"
@@ -352,13 +347,13 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         {/* Booking Form */}
                         <div>
                             <h3 className="text-[24px] font-semibold mb-8">Book a place</h3>
-                            <form className="lg:max-w-[735px] space-y-4 border border-[#E6F1FE] rounded-xl px-3 py-6 sm:px-6 sm:py-8">
+                            <form className="lg:max-w-183.75 space-y-4 border border-[#E6F1FE] rounded-xl px-3 py-6 sm:px-6 sm:py-8">
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     <div className="flex-1 bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
                                         <label className="text-xs font-normal text-[#52525B]">Full Name <span className="text-[#EF4444]">*</span></label>
                                         <input type="text" placeholder="Enter your full name" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
                                     </div>
-                                    <div className="w-full sm:w-[180px] bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit flex items-center justify-between cursor-pointer relative">
+                                    <div className="w-full sm:w-45 bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit flex items-center justify-between cursor-pointer relative">
                                         <select
                                             value={guestCount}
                                             onChange={(e) => setGuestCount(Number(e.target.value))}
@@ -410,7 +405,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                     </p>
 
                                     {/* Map Placeholder */}
-                                    <div className="w-full h-[198px] bg-[#E4E4E7] mb-4 relative overflow-hidden">
+                                    <div className="w-full h-49.5 bg-[#E4E4E7] mb-4 relative overflow-hidden">
                                         <div
                                             className="absolute inset-0 bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500"
                                             style={{
@@ -462,23 +457,20 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                             </div>
                             <div className="space-y-3">
                                 <span className="text-xs font-medium text-[#52525B]">Amount:</span>
-                                <div className="flex gap-2 flex-wrap mt-3">
-                                    {amounts.map((amount: any) => (
-                                        <button
-                                            key={amount}
-                                            onClick={() => setDonationAmount(amount)}
-                                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${donationAmount === amount ? 'bg-[#18181B] text-white' : 'bg-[#E4E4E7] text-black hover:bg-gray-200'}`}
-                                        >
-                                            £{amount}
-                                        </button>
-                                    ))}
-                                    <button
-                                        onClick={() => setDonationAmount("Other")}
-                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${donationAmount === "Other" ? 'bg-[#18181B] text-white' : 'bg-[#E4E4E7] text-black hover:bg-gray-200'}`}
-                                    >
-                                        Other
-                                    </button>
-                                </div>
+                                <Tabs
+                                    tabs={[
+                                        ...amounts.map((amount: any) => ({
+                                            id: String(amount),
+                                            label: `£${amount}`
+                                        })),
+                                        { id: "Other", label: "Other" }
+                                    ]}
+                                    activeTab={String(donationAmount)}
+                                    onChange={(tabId) => setDonationAmount(tabId === "Other" ? "Other" : Number(tabId))}
+                                    variant="default"
+                                    size="sm"
+                                    className="mt-3"
+                                />
                             </div>
 
 
@@ -494,7 +486,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                 {/* Upcoming Events */}
                 {relatedEvents && relatedEvents.length > 0 && (
                     <div className="mt-12">
-                        <div className="flex justify-between mb-8 flex-wrap gap-3 lg:gap-0 lg:flex-nowrap lg:min-h-[92px]">
+                        <div className="flex justify-between mb-8 flex-wrap gap-3 lg:gap-0 lg:flex-nowrap lg:min-h-23">
                             <h2 className="text-2xl sm:text-4xl font-bold text-[#27272A]">Upcoming events</h2>
                             <div className="flex gap-12 self-end">
                                 <button
@@ -519,7 +511,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                         >
                             {relatedEvents.map((event: any) => (
-                                <div key={event.id} className="min-w-[300px] md:min-w-[350px] lg:min-w-[357px] flex-shrink-0">
+                                <div key={event.id} className="min-w-75 md:min-w-87.5 lg:min-w-89.25 shrink-0">
                                     <EventCard event={event} layout="grid" />
                                 </div>
                             ))}
