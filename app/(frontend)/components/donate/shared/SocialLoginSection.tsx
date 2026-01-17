@@ -1,7 +1,35 @@
-import { signIn } from 'next-auth/react';
-import { SocialLoginButton } from '../ui';
+'use client';
 
-export default function SocialLoginSection() {
+import { useEffect } from 'react';
+import { SocialLoginButton } from '../ui';
+import { initializeGoogleSignIn, signInWithGoogle } from '@lib/utils/googleAuth';
+
+interface SocialLoginSectionProps {
+  onUserDataLoaded?: () => void;
+}
+
+export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSectionProps) {
+
+  // Initialize Google Sign-In on mount
+  useEffect(() => {
+    initializeGoogleSignIn(
+      () => {
+        // Success callback
+        if (onUserDataLoaded) {
+          onUserDataLoaded();
+        }
+      },
+      (error) => {
+        // Error callback
+        console.error('Google sign-in error:', error);
+      }
+    );
+  }, [onUserDataLoaded]);
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle();
+  };
+
   return (
     <div className="flex flex-col gap-9 w-full">
       <div className="flex gap-3 items-center w-full">
@@ -14,15 +42,15 @@ export default function SocialLoginSection() {
       <div className="flex gap-8 items-start w-full">
         <SocialLoginButton
           provider="apple"
-          onClick={() => signIn('apple', { callbackUrl: '/donate' })}
+          onClick={() => console.log('Apple sign-in not implemented')}
         />
         <SocialLoginButton
           provider="google"
-          onClick={() => signIn('google', { callbackUrl: '/donate' })}
+          onClick={handleGoogleSignIn}
         />
         <SocialLoginButton
           provider="facebook"
-          onClick={() => signIn('facebook', { callbackUrl: '/donate' })}
+          onClick={() => console.log('Facebook sign-in not implemented')}
         />
       </div>
     </div>

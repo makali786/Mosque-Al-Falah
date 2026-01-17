@@ -11,7 +11,7 @@ export default function BackButton({ onClick }: BackButtonProps) {
       className="border-2 border-[#006FEE] border-solid flex h-12 items-center justify-center px-6 py-0 rounded-[14px] cursor-pointer hover:bg-[#006FEE]/5 transition-colors"
     >
       <div className="flex gap-2 items-center justify-center">
-        <div className="w-5 h-5 relative shrink-0">
+        <div className="w-5 h-5 relative shrink-0 hidden sm:block">
           <Image
             src="/assets/donation/arrow-left.svg"
             alt="Back"

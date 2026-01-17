@@ -36,11 +36,20 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
     ? sermon.image 
     : getMediaUrl(sermon.image as unknown as Media);
 
-  const date = sermon.sermonDate ? new Date(sermon.sermonDate).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  }) : (sermon as any).date || "No Date"; 
+  const date = (() => {
+    if (sermon.sermonDate) {
+      const dateObj = new Date(sermon.sermonDate);
+      // Check if the date is valid
+      if (!isNaN(dateObj.getTime())) {
+        return dateObj.toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        });
+      }
+    }
+    return (sermon as any).date || "No Date";
+  })(); 
 
   const title = sermon.title;
 

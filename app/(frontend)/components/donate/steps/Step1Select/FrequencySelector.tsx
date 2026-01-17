@@ -1,3 +1,5 @@
+'use client';
+
 import { DonationFormData, frequencies } from '../../types';
 
 interface FrequencySelectorProps {
@@ -10,7 +12,7 @@ export default function FrequencySelector({
   onFrequencyChange,
 }: FrequencySelectorProps) {
   return (
-    <div className="flex flex-col gap-4 items-start w-full">
+    <div className="flex flex-col gap-4 items-start sm:w-fit w-full">
       <p className="text-[14px] font-normal leading-5 text-black">
         I Wish To Donate
       </p>
@@ -18,7 +20,7 @@ export default function FrequencySelector({
       <div className="flex flex-col gap-6 items-start w-full">
         {/* Frequency Tabs */}
         <div className="bg-[#F4F4F5] flex gap-2 items-start p-1 rounded-xl w-full overflow-x-auto scrollbar-hide">
-          <div className="flex gap-2 items-start min-w-max">
+          <div className="flex gap-3 items-start min-w-max">
             {frequencies.map(freq => {
               const isActive = selectedFrequency === freq.value;
               return (

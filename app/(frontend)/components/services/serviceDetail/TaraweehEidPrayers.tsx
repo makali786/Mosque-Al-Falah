@@ -41,7 +41,18 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
   const bannerDescription = service?.shortDescription || "";
   const targetDateStr = service?.taraweehEid?.countdownTargetDate;
   const targetDate = targetDateStr ? new Date(targetDateStr) : undefined;
-  const updateAt = service?.updatedAt || "";
+
+  // Validate updateAt date
+  const updateAt = (() => {
+    if (service?.updatedAt) {
+      const dateObj = new Date(service.updatedAt);
+      // Return only if valid date
+      if (!isNaN(dateObj.getTime())) {
+        return service.updatedAt;
+      }
+    }
+    return undefined;
+  })();
 
   const heroImage = service?.media?.heroImage?.url || "";
   const heroImageAlt = service?.media?.heroImage?.alt || "";

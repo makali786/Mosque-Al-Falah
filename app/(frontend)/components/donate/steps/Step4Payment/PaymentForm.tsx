@@ -26,6 +26,9 @@ export default function PaymentForm({
   const [error, setError] = useState<string | null>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
+
+  const isDirectDebit = selectedPaymentMethod === 'bacs_debit';
 
   const donationAmount = formData.customAmount
     ? parseFloat(formData.customAmount)
@@ -35,23 +38,6 @@ export default function PaymentForm({
     : 0;
   const totalAmount = donationAmount + platformFee;
 
-  // Debug: Log when PaymentElement is ready
-  useEffect(() => {
-    if (elements) {
-      const paymentElement = elements.getElement(PaymentElement);
-      if (paymentElement) {
-        paymentElement.on('ready', () => {
-          console.log('PaymentElement is ready');
-        });
-        paymentElement.on('change', (event) => {
-          console.log('PaymentElement changed:', event);
-          if (event.value?.type) {
-            console.log('Selected payment method:', event.value.type);
-          }
-        });
-      }
-    }
-  }, [elements]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +47,7 @@ export default function PaymentForm({
       return;
     }
 
-    if (!termsAccepted) {
+    if (!isDirectDebit && !termsAccepted) {
       setError('Please accept the terms and conditions');
       return;
     }
@@ -105,6 +91,11 @@ export default function PaymentForm({
               Payment Method
             </p>
             <PaymentElement
+              onChange={(event) => {
+                if (event.value?.type) {
+                  setSelectedPaymentMethod(event.value.type);
+                }
+              }}
               options={{
                 layout: 'tabs',
                 fields: {
@@ -192,20 +183,22 @@ export default function PaymentForm({
             )}
           </div>
 
-          {/* Terms Checkbox */}
-          <label className="flex gap-2 items-start p-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={termsAccepted}
-              onChange={e => setTermsAccepted(e.target.checked)}
-              className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
-            />
-            <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
-              I understand that Masjid Al-Falah has partnered with Stripe, who
-              collects payments on behalf of Masjid Al-Falah and confirm that I
-              am authorized to make this payment.
-            </span>
-          </label>
+          {/* Terms Checkbox - Hidden for Direct Debit */}
+          {!isDirectDebit && (
+            <label className="flex gap-2 items-start p-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={termsAccepted}
+                onChange={e => setTermsAccepted(e.target.checked)}
+                className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
+              />
+              <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
+                I understand that Masjid Al-Falah has partnered with Stripe, who
+                collects payments on behalf of Masjid Al-Falah and confirm that I
+                am authorized to make this payment.
+              </span>
+            </label>
+          )}
 
           {/* Error Message */}
           {error && (
@@ -216,7 +209,7 @@ export default function PaymentForm({
           <div className="flex justify-start md:justify-end w-full">
             <button
               type="submit"
-              disabled={!stripe || isProcessing || !termsAccepted}
+              disabled={!stripe || isProcessing || (!isDirectDebit && !termsAccepted)}
               className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-full md:w-[212px] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#0055CC] transition-colors"
             >
               <span className="text-base font-normal leading-6 text-white">

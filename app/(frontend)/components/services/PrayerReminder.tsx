@@ -36,9 +36,10 @@ export default function PrayerReminder({
     if (!targetDate) return new Date();
 
     const target = new Date(targetDate);
-    // Validate date
+
+    // Validate the date
     if (isNaN(target.getTime())) {
-      console.warn("Invalid targetDate provided to PrayerReminder:", targetDate);
+      // Return current date if invalid
       return new Date();
     }
 
@@ -61,11 +62,17 @@ export default function PrayerReminder({
 
   // Current date formatting
   const dateString = useMemo(() => {
-    return moment(nextOccurrence).format("dddd, MMMM D, YYYY");
+    if (moment(nextOccurrence).isValid()) {
+      return moment(nextOccurrence).format("dddd, MMMM D, YYYY");
+    }
+    return "Invalid Date";
   }, [nextOccurrence]);
 
   const timeString = useMemo(() => {
-    return moment(nextOccurrence).format("HH:mm");
+    if (moment(nextOccurrence).isValid()) {
+      return moment(nextOccurrence).format("HH:mm");
+    }
+    return "00:00";
   }, [nextOccurrence]);
 
   const hijriString = useMemo(() => {

@@ -34,7 +34,7 @@ export default function Step1Select({
   return (
     <div className="w-full flex flex-col gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 lg:pt-8 pb-0 px-0">
       {/* Header */}
-      <div className="flex flex-col gap-0">
+      <div className="flex flex-col gap-0 donation-padding">
         <DonationHeader showBackButton={false} />
       </div>
 
