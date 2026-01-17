@@ -75,8 +75,6 @@ function handleGoogleCallback(response: any, onSuccess?: () => void, onError?: (
     // Decode JWT token to get user info
     const userData = parseJwt(response.credential);
 
-    console.log('Google user data:', userData);
-
     // Save to localStorage
     saveUserData({
       email: userData.email || '',
