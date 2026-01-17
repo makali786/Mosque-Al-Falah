@@ -1,5 +1,5 @@
 
-import { fetchMediaItems } from "@lib/fetcher";
+import { fetchMediaItems, fetchGlobal } from "@lib/fetcher";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import BreadcrumbSearchSection from "../../components/common/BreadcrumbSearchSection";
@@ -20,6 +20,12 @@ interface MediaDetailPageProps {
 
 export default async function MediaDetailPage({ params }: MediaDetailPageProps) {
   const { slug } = await params;
+
+  // Fetch dynamic configuration from Payload global
+  const mediaPageConfig: any = await fetchGlobal({
+    slug: 'media-page',
+    depth: 1,
+  });
 
   // 1. Fetch Request for specific slug
   const mediaItems = await fetchMediaItems({
@@ -125,7 +131,7 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
               {embedUrl && isVideo ? (
                 <iframe
                   src={embedUrl}
-                  title={title || "Video player"}
+                  title={title || ""}
                   className="w-full h-full"
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
@@ -172,19 +178,21 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
       </div>
 
       {/* Quote Section */}
-      <QuoteSection 
-          quote="Whoever guides someone to goodness will have a reward like the one who did it."
-          attribution="Prophet Muhammad ﷺ"
-          shareButtonText="Share this page"
-          donateButtonText="Donate Now"
-          donateButtonUrl="/appeals"
-        shareData={{
-          title: `${title} - Masjid Al-Falah`,
-          text: description || "Check out this media from Masjid Al-Falah",
-          url: typeof window !== 'undefined' ? window.location.href : `/media/${slug}`
-        }}
+      {mediaPageConfig?.bottomQuote?.enableSection && (
+        <QuoteSection 
+          quote={mediaPageConfig.bottomQuote.quoteText}
+          attribution={mediaPageConfig.bottomQuote.author}
+          shareButtonText={mediaPageConfig.bottomQuote.shareButtonText}
+          donateButtonText={mediaPageConfig.bottomQuote.donateButtonText}
+          donateButtonUrl={mediaPageConfig.bottomQuote.donateButtonUrl}
+          shareData={{
+            title: `${title} - Masjid Al-Falah`,
+            text: description || "Check out this media from Masjid Al-Falah",
+            url: typeof window !== 'undefined' ? window.location.href : `/media/${slug}`
+          }}
           backgroundColor="#F4F4F5"
-      />
+        />
+      )}
 
     </div>
   );
