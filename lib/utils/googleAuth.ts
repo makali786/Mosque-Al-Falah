@@ -13,7 +13,7 @@ declare global {
 }
 
 /**
- * Initialize Google Sign-In with One Tap
+ * Initialize Google Sign-In
  */
 export function initializeGoogleSignIn(onSuccess?: () => void, onError?: (error: any) => void) {
   // Check if script already exists
@@ -42,6 +42,8 @@ export function initializeGoogleSignIn(onSuccess?: () => void, onError?: (error:
           auto_select: false,
           cancel_on_tap_outside: true,
         });
+
+        console.log('Google Sign-In initialized successfully');
       }
     } catch (error) {
       console.error('Error initializing Google Sign-In:', error);
@@ -84,6 +86,12 @@ function handleGoogleCallback(response: any, onSuccess?: () => void, onError?: (
       picture: userData.picture,
     });
 
+    // Close the popup if it exists
+    const popup = document.getElementById('google-signin-popup');
+    if (popup && document.body.contains(popup)) {
+      document.body.removeChild(popup);
+    }
+
     if (onSuccess) {
       onSuccess();
     }
@@ -120,22 +128,14 @@ function parseJwt(token: string): any {
  */
 export function signInWithGoogle() {
   try {
-    if (window.google && window.google.accounts && window.google.accounts.id) {
-      // Show the One Tap prompt
-      window.google.accounts.id.prompt((notification: any) => {
-        console.log('Google One Tap notification:', notification);
-
-        // If One Tap is not displayed, fall back to popup
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          console.log('One Tap not displayed, showing popup...');
-          // We'll need to render a button for popup - Google requires it
-          renderGoogleButton();
-        }
-      });
-    } else {
+    if (!window.google || !window.google.accounts || !window.google.accounts.id) {
       console.error('Google Sign-In not initialized');
       alert('Google Sign-In is not ready. Please refresh the page and try again.');
+      return;
     }
+
+    // Show the Google Sign-In popup directly
+    renderGoogleButton();
   } catch (error) {
     console.error('Error triggering Google sign-in:', error);
     alert('Failed to open Google Sign-In. Please try again.');
@@ -143,60 +143,112 @@ export function signInWithGoogle() {
 }
 
 /**
- * Render Google Sign-In button (fallback for popup)
+ * Render Google Sign-In button in a modal popup
  */
 function renderGoogleButton() {
-  // Create a temporary container
-  let container = document.getElementById('google-signin-temp-button');
-  if (!container) {
-    container = document.createElement('div');
-    container.id = 'google-signin-temp-button';
-    container.style.position = 'fixed';
-    container.style.top = '50%';
-    container.style.left = '50%';
-    container.style.transform = 'translate(-50%, -50%)';
-    container.style.zIndex = '10000';
-    container.style.backgroundColor = 'white';
-    container.style.padding = '20px';
-    container.style.borderRadius = '8px';
-    container.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-    document.body.appendChild(container);
+  // Remove existing popup if any
+  const existingPopup = document.getElementById('google-signin-popup');
+  if (existingPopup) {
+    document.body.removeChild(existingPopup);
   }
+
+  // Create backdrop
+  const backdrop = document.createElement('div');
+  backdrop.id = 'google-signin-popup';
+  backdrop.style.position = 'fixed';
+  backdrop.style.top = '0';
+  backdrop.style.left = '0';
+  backdrop.style.right = '0';
+  backdrop.style.bottom = '0';
+  backdrop.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  backdrop.style.zIndex = '10000';
+  backdrop.style.display = 'flex';
+  backdrop.style.alignItems = 'center';
+  backdrop.style.justifyContent = 'center';
+  backdrop.style.padding = '20px';
+
+  // Create container for button
+  const container = document.createElement('div');
+  container.style.backgroundColor = 'white';
+  container.style.padding = '40px';
+  container.style.borderRadius = '12px';
+  container.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.2)';
+  container.style.maxWidth = '400px';
+  container.style.width = '100%';
+  container.style.position = 'relative';
+
+  // Add title
+  const title = document.createElement('h2');
+  title.textContent = 'Sign in with Google';
+  title.style.margin = '0 0 20px 0';
+  title.style.fontSize = '24px';
+  title.style.fontWeight = '600';
+  title.style.color = '#1f2937';
+  title.style.textAlign = 'center';
+  container.appendChild(title);
+
+  // Add subtitle
+  const subtitle = document.createElement('p');
+  subtitle.textContent = 'Sign in to auto-fill your donation details';
+  subtitle.style.margin = '0 0 30px 0';
+  subtitle.style.fontSize = '14px';
+  subtitle.style.color = '#6b7280';
+  subtitle.style.textAlign = 'center';
+  container.appendChild(subtitle);
+
+  // Create button container
+  const buttonContainer = document.createElement('div');
+  buttonContainer.id = 'google-signin-button-container';
+  buttonContainer.style.display = 'flex';
+  buttonContainer.style.justifyContent = 'center';
+  container.appendChild(buttonContainer);
+
+  // Add close button
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '×';
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.top = '10px';
+  closeBtn.style.right = '10px';
+  closeBtn.style.border = 'none';
+  closeBtn.style.background = 'none';
+  closeBtn.style.fontSize = '28px';
+  closeBtn.style.cursor = 'pointer';
+  closeBtn.style.color = '#9ca3af';
+  closeBtn.style.lineHeight = '1';
+  closeBtn.style.padding = '0';
+  closeBtn.style.width = '32px';
+  closeBtn.style.height = '32px';
+  closeBtn.onmouseover = () => {
+    closeBtn.style.color = '#1f2937';
+  };
+  closeBtn.onmouseout = () => {
+    closeBtn.style.color = '#9ca3af';
+  };
+  closeBtn.onclick = () => {
+    if (document.body.contains(backdrop)) {
+      document.body.removeChild(backdrop);
+    }
+  };
+  container.appendChild(closeBtn);
+
+  backdrop.appendChild(container);
+  document.body.appendChild(backdrop);
+
+  // Close on backdrop click
+  backdrop.onclick = (e) => {
+    if (e.target === backdrop) {
+      document.body.removeChild(backdrop);
+    }
+  };
 
   // Render Google button
   if (window.google && window.google.accounts && window.google.accounts.id) {
-    window.google.accounts.id.renderButton(container, {
+    window.google.accounts.id.renderButton(buttonContainer, {
       theme: 'outline',
       size: 'large',
       text: 'signin_with',
-      width: 250,
+      width: 300,
+      logo_alignment: 'left',
     });
-
-    // Add close button
-    const closeBtn = document.createElement('button');
-    closeBtn.textContent = '×';
-    closeBtn.style.position = 'absolute';
-    closeBtn.style.top = '5px';
-    closeBtn.style.right = '5px';
-    closeBtn.style.border = 'none';
-    closeBtn.style.background = 'none';
-    closeBtn.style.fontSize = '24px';
-    closeBtn.style.cursor = 'pointer';
-    closeBtn.style.color = '#666';
-    closeBtn.onclick = () => {
-      if (container) {
-        document.body.removeChild(container);
-      }
-    };
-    container.appendChild(closeBtn);
-
-    // Auto-close after successful sign-in
-    const originalCallback = window.handleGoogleCredentialResponse;
-    window.handleGoogleCredentialResponse = (response: any) => {
-      if (container && document.body.contains(container)) {
-        document.body.removeChild(container);
-      }
-      originalCallback(response);
-    };
   }
 }
