@@ -127,7 +127,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
             <BreadcrumbSearchSection
                 breadcrumbs={[
                     { label: "Home", href: "/" },
-                    { label: "Our Services", href: "/services" },
+                    { label: "Our Services", href: "/our-services" },
                     { label: title, href: `/our-services/${slug}` },
                 ]}
                 className="pb-0! pt-6! sm:pt-8! bg-white section-padding"
