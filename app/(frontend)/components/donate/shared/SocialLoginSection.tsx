@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { SocialLoginButton } from '../ui';
 import { initializeGoogleSignIn, signInWithGoogle } from '@lib/utils/googleAuth';
 import { initializeFacebookSDK, signInWithFacebook } from '@lib/utils/facebookAuth';
+import { initializeAppleSignIn, signInWithApple } from '@lib/utils/appleAuth';
 
 interface SocialLoginSectionProps {
   onUserDataLoaded?: () => void;
@@ -11,7 +12,7 @@ interface SocialLoginSectionProps {
 
 export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSectionProps) {
 
-  // Initialize Google Sign-In and Facebook on mount
+  // Initialize Google Sign-In, Facebook, and Apple on mount
   useEffect(() => {
     initializeGoogleSignIn(
       () => {
@@ -38,6 +39,19 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
         console.error('Facebook sign-in error:', error);
       }
     );
+
+    initializeAppleSignIn(
+      () => {
+        // Success callback
+        if (onUserDataLoaded) {
+          onUserDataLoaded();
+        }
+      },
+      (error) => {
+        // Error callback
+        console.error('Apple sign-in error:', error);
+      }
+    );
   }, [onUserDataLoaded]);
 
   const handleGoogleSignIn = () => {
@@ -59,6 +73,21 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
     );
   };
 
+  const handleAppleSignIn = () => {
+    signInWithApple(
+      () => {
+        // Success callback
+        if (onUserDataLoaded) {
+          onUserDataLoaded();
+        }
+      },
+      (error) => {
+        // Error callback
+        console.error('Apple sign-in error:', error);
+      }
+    );
+  };
+
   return (
     <div className="flex flex-col gap-9 w-full">
       <div className="flex gap-3 items-center w-full">
@@ -71,7 +100,7 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
       <div className="flex gap-8 items-start w-full">
         <SocialLoginButton
           provider="apple"
-          onClick={() => console.log('Apple sign-in not implemented')}
+          onClick={handleAppleSignIn}
         />
         <SocialLoginButton
           provider="google"
