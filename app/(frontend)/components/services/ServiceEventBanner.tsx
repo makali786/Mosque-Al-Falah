@@ -198,7 +198,7 @@ export default function ServiceEventBanner({
             <div className={`w-full md:max-w-[495px] xl:min-w-[495px] ${customStyleLeftSection}`}>
               <div className="flex items-center gap-3 mb-3 sm:mb-4">
                 {/* Update Badge */}
-                {updateDate && (
+                {updateDate && moment(updateDate).isValid() && (
                   <>
                     <div className="flex items-center gap-1 bg-white px-3 py-1">
                       <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
