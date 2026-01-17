@@ -6,6 +6,7 @@ import { FaPlay } from "react-icons/fa";
 import Separator from "../common/Separator";
 import Tabs from "../common/Tabs";
 import { DonorProfileCard } from "../donate/shared";
+import Link from "next/link";
 
 interface EventMediaSectionProps {
   title?: string;
@@ -221,9 +222,9 @@ export default function EventMediaSection({
                 </div>
               </div>
               {/* Donate Button */}
-              <button className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm cursor-pointer">
+                <Link href="/donate" className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm cursor-pointer">
                 Donate
-              </button>
+              </Link>
 
             </div>
             )}

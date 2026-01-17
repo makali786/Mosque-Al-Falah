@@ -10,6 +10,7 @@ import { RichTextRenderer } from "../common/RichTextRenderer";
 import Separator from "../common/Separator";
 import EventCard from "./EventCard";
 import Tabs from "../common/Tabs";
+import Link from "next/link";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -476,9 +477,9 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
 
                             {/* Donate Button */}
-                            <button className="py-3 px-4 bg-[#006FEE] text-white rounded-lg text-sm mt-1 cursor-pointer">
+                            <Link href="/donate" className="py-3 px-4 bg-[#006FEE] text-white rounded-lg text-sm mt-1 cursor-pointer" onClick={() => router.push("/donate")}>
                                 Donate
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
