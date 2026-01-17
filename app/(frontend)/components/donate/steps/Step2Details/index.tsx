@@ -115,7 +115,7 @@ export default function Step2Details({
               </a>
             </>
           }
-          alignItems="start"
+          alignItems="center"
         />
         <Checkbox
           checked={formData.marketingConsent}
