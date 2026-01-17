@@ -24,7 +24,7 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
   // 1. Fetch Request for specific slug
   const mediaItems = await fetchMediaItems({
     where: {
-      slug: { equals: decodedSlug(slug) }, // Helper to decode URL encoded slug if needed
+      slug: { equals: decodedSlug(slug) }, 
     },
     limit: 1,
   });
@@ -37,7 +37,7 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
   const { title, description, mediaType, mediaContent, thumbnail, publishedDate, donationSettings } = mediaItem;
 
   const relatedItemsRaw = await fetchMediaItems({
-    limit: 4, // 3 items for the grid + buffer
+    limit: 4,
     where: {
       id: { not_equals: mediaItem.id },
       isActive: { equals: true }
@@ -50,8 +50,8 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
     id: item.id,
     title: item.title,
     description: item.description,
-    image: item.thumbnail?.url || "/assets/ayat/background.png", // Fallback
-    type: item.mediaType || "video",
+    image: item.thumbnail?.url || "",
+    type: item.mediaType || "",
     date: item.publishedDate ? new Date(item.publishedDate).toLocaleDateString() : "",
     slug: item.slug,
   }));
