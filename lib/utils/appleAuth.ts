@@ -3,15 +3,58 @@
  * Just gets user info and stores in localStorage
  */
 
-import AppleSignin from 'react-apple-signin-auth';
 import { saveUserData } from './userStorage';
 
+declare global {
+  interface Window {
+    AppleID: any;
+  }
+}
+
 /**
- * Initialize Apple Sign-In (no initialization needed for this library)
+ * Initialize Apple Sign-In
  */
 export function initializeAppleSignIn(onSuccess?: () => void, onError?: (error: any) => void) {
-  // No initialization needed - the library handles everything
-  console.log('Apple Sign-In ready');
+  // Check if script already exists
+  if (document.querySelector('script[src*="appleid.auth.js"]')) {
+    return;
+  }
+
+  // Load Apple ID script
+  const script = document.createElement('script');
+  script.src = 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js';
+  script.async = true;
+  script.defer = true;
+
+  script.onload = () => {
+    try {
+      if (window.AppleID) {
+        // Initialize Apple Sign-In
+        window.AppleID.auth.init({
+          clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID || '',
+          scope: 'name email',
+          redirectURI: typeof window !== 'undefined' ? window.location.origin : '',
+          usePopup: true,
+        });
+
+        console.log('Apple Sign-In initialized successfully');
+      }
+    } catch (error) {
+      console.error('Error initializing Apple Sign-In:', error);
+      if (onError) {
+        onError(error);
+      }
+    }
+  };
+
+  script.onerror = (error) => {
+    console.error('Error loading Apple Sign-In script:', error);
+    if (onError) {
+      onError(error);
+    }
+  };
+
+  document.body.appendChild(script);
 }
 
 /**
@@ -87,6 +130,12 @@ function parseAppleJwt(token: string): any {
  */
 export function signInWithApple(onSuccess?: () => void, onError?: (error: any) => void) {
   try {
+    if (!window.AppleID || !window.AppleID.auth) {
+      console.error('Apple Sign-In not initialized');
+      alert('Apple Sign-In is not ready. Please refresh the page and try again.');
+      return;
+    }
+
     // Show the Apple Sign-In popup
     renderAppleButton(onSuccess, onError);
   } catch (error) {
@@ -174,8 +223,17 @@ function renderAppleButton(onSuccess?: () => void, onError?: (error: any) => voi
   appleButton.onmouseout = () => {
     appleButton.style.backgroundColor = '#000000';
   };
-  appleButton.onclick = () => {
-    handleAppleSignIn(onSuccess, onError);
+  appleButton.onclick = async () => {
+    try {
+      // Use Apple's native sign-in
+      const response = await window.AppleID.auth.signIn();
+      handleAppleCallback(response, onSuccess, onError);
+    } catch (error) {
+      console.error('Apple sign-in error:', error);
+      if (onError) {
+        onError(error);
+      }
+    }
   };
 
   buttonContainer.appendChild(appleButton);
@@ -218,62 +276,4 @@ function renderAppleButton(onSuccess?: () => void, onError?: (error: any) => voi
       document.body.removeChild(backdrop);
     }
   };
-}
-
-/**
- * Handle Apple Sign-In using the library
- */
-function handleAppleSignIn(onSuccess?: () => void, onError?: (error: any) => void) {
-  // This needs to be implemented using the react-apple-signin-auth library
-  // The library requires a React component, so we'll trigger it programmatically
-
-  // Create a temporary container for the Apple Sign-In component
-  const tempContainer = document.createElement('div');
-  tempContainer.style.display = 'none';
-  document.body.appendChild(tempContainer);
-
-  // Dynamically import and render the Apple Sign-In component
-  import('react').then((React) => {
-    import('react-dom/client').then((ReactDOM) => {
-      const root = ReactDOM.createRoot(tempContainer);
-
-      const AppleSignInButton = React.createElement(AppleSignin, {
-        authOptions: {
-          clientId: process.env.NEXT_PUBLIC_APPLE_CLIENT_ID || '',
-          scope: 'email name',
-          redirectURI: typeof window !== 'undefined' ? window.location.origin : '',
-          state: 'state',
-          nonce: 'nonce',
-          usePopup: true,
-        },
-        onSuccess: (response: any) => {
-          handleAppleCallback(response, onSuccess, onError);
-          root.unmount();
-          if (document.body.contains(tempContainer)) {
-            document.body.removeChild(tempContainer);
-          }
-        },
-        onError: (error: any) => {
-          console.error('Apple sign-in error:', error);
-          if (onError) {
-            onError(error);
-          }
-          root.unmount();
-          if (document.body.contains(tempContainer)) {
-            document.body.removeChild(tempContainer);
-          }
-        },
-      });
-
-      root.render(AppleSignInButton);
-
-      // Trigger the click programmatically
-      setTimeout(() => {
-        const appleButton = tempContainer.querySelector('button');
-        if (appleButton) {
-          appleButton.click();
-        }
-      }, 100);
-    });
-  });
 }
