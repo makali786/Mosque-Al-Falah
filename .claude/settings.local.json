@@ -25,7 +25,8 @@
       "Bash(wc:*)",
       "Bash(ls:*)",
       "Bash(test:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(openssl rand:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

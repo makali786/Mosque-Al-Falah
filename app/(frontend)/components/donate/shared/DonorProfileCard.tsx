@@ -20,25 +20,68 @@ export default function DonorProfileCard({
 }: DonorProfileCardProps) {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [displayName, setDisplayName] = useState('');
+  const [profilePicture, setProfilePicture] = useState('');
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [tempDisplayName, setTempDisplayName] = useState('');
   const [tempIsAnonymous, setTempIsAnonymous] = useState(false);
 
   // Load from localStorage on mount
   useEffect(() => {
-    const storedIsAnonymous = localStorage.getItem('donor_is_anonymous');
-    const storedDisplayName = localStorage.getItem('donor_display_name');
+    const loadUserData = () => {
+      const storedIsAnonymous = localStorage.getItem('donor_is_anonymous');
+      const storedDisplayName = localStorage.getItem('donor_display_name');
 
-    if (storedIsAnonymous !== null) {
-      const anonymous = storedIsAnonymous === 'true';
-      setIsAnonymous(anonymous);
-      setTempIsAnonymous(anonymous);
-    }
+      if (storedIsAnonymous !== null) {
+        const anonymous = storedIsAnonymous === 'true';
+        setIsAnonymous(anonymous);
+        setTempIsAnonymous(anonymous);
+      }
 
-    if (storedDisplayName) {
-      setDisplayName(storedDisplayName);
-      setTempDisplayName(storedDisplayName);
-    }
+      // Always try to load from Google Sign-In data for profile picture
+      try {
+        const userDataStr = localStorage.getItem('donation_user_data');
+        if (userDataStr) {
+          const userData = JSON.parse(userDataStr);
+
+          // Load profile picture if available
+          if (userData.picture) {
+            setProfilePicture(userData.picture);
+          }
+
+          // Load display name if not already set
+          if (!storedDisplayName) {
+            const fullName = `${userData.firstName} ${userData.lastName}`.trim();
+            if (fullName) {
+              setDisplayName(fullName);
+              setTempDisplayName(fullName);
+            }
+          } else {
+            setDisplayName(storedDisplayName);
+            setTempDisplayName(storedDisplayName);
+          }
+        } else if (storedDisplayName) {
+          setDisplayName(storedDisplayName);
+          setTempDisplayName(storedDisplayName);
+        }
+      } catch (error) {
+        console.error('Error loading user data:', error);
+      }
+    };
+
+    loadUserData();
+
+    // Listen for storage changes (when user signs in)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'donation_user_data') {
+        loadUserData();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   // Save to localStorage whenever values change
@@ -81,11 +124,19 @@ export default function DonorProfileCard({
       <div className={`bg-[#F4F4F5] flex items-center justify-between px-3 py-2 rounded-lg sm:w-fit w-full gap-2 ${className}`}>
         <div className="flex gap-2 items-center flex-1 min-w-0">
           <div className="bg-[#A1A1AA] flex items-center justify-center overflow-hidden rounded-full w-10 h-10 shrink-0">
-            <img
-              alt="Avatar"
-              className="w-4/5 h-4/5 object-contain"
-              src="/assets/donation/avatar-default.png"
-            />
+            {profilePicture ? (
+              <img
+                alt="Profile Picture"
+                className="w-full h-full object-cover"
+                src={profilePicture}
+              />
+            ) : (
+              <img
+                alt="Avatar"
+                className="w-4/5 h-4/5 object-contain"
+                src="/assets/donation/avatar-default.png"
+              />
+            )}
           </div>
           <div className="flex flex-col min-w-0 flex-1">
             <p className={`font-normal text-[#11181C] truncate ${variant === 'compact' ? 'text-xs' : 'text-sm'} leading-5`}>

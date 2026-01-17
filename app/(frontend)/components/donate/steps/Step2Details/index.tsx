@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { DonationFormData } from '../../types';
 import { DonationHeader, SocialLoginSection, NavigationButtons } from '../../shared';
 import { FormInput, Checkbox, Button, PhoneInput } from '../../ui';
 import AddressAutocomplete from '../../ui/AddressAutocomplete';
+import { getUserData } from '@lib/utils/userStorage';
 
 interface Step2DetailsProps {
   formData: DonationFormData;
@@ -21,6 +22,37 @@ export default function Step2Details({
   onNext,
   onBack,
 }: Step2DetailsProps) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Load user data from localStorage on mount
+  useEffect(() => {
+    const userData = getUserData();
+    if (userData) {
+      setIsLoggedIn(true);
+      setFormData({
+        ...formData,
+        email: userData.email || formData.email,
+        firstName: userData.firstName || formData.firstName,
+        lastName: userData.lastName || formData.lastName,
+      });
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  // Handle when user data is loaded from Google Sign-In
+  const handleUserDataLoaded = () => {
+    const userData = getUserData();
+    if (userData) {
+      setIsLoggedIn(true);
+      setFormData({
+        ...formData,
+        email: userData.email,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+      });
+    }
+  };
 
   return (
     <div className="w-full flex flex-col gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 donation-padding">
@@ -39,8 +71,8 @@ export default function Step2Details({
         />
       </div>
 
-      {/* Social Login */}
-      <SocialLoginSection />
+      {/* Social Login - Only show if user is not logged in */}
+      {!isLoggedIn && <SocialLoginSection onUserDataLoaded={handleUserDataLoaded} />}
 
       {/* Name Fields */}
       <div className="flex flex-col gap-4 sm:gap-6 w-full">
