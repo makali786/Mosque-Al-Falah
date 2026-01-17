@@ -1,3 +1,5 @@
+'use client';
+
 import { donationTypes } from '../../types';
 
 interface DonationTypeSelectorProps {

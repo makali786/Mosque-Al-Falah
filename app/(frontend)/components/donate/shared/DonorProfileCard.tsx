@@ -52,7 +52,8 @@ export default function DonorProfileCard({
     if (onProfileChange) {
       onProfileChange(isAnonymous, displayName);
     }
-  }, [isAnonymous, displayName, onProfileChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAnonymous, displayName]);
 
   const handleEdit = () => {
     setTempDisplayName(displayName);
@@ -77,9 +78,9 @@ export default function DonorProfileCard({
   return (
     <>
       {/* Profile Card */}
-      <div className={`bg-[#F4F4F5] flex items-center justify-between px-3 py-2 rounded-lg w-full gap-2 ${className}`}>
+      <div className={`bg-[#F4F4F5] flex items-center justify-between px-3 py-2 rounded-lg sm:w-fit w-full gap-2 ${className}`}>
         <div className="flex gap-2 items-center flex-1 min-w-0">
-          <div className="bg-[#A1A1AA] flex items-center justify-center overflow-hidden rounded-full w-10 h-10 flex-shrink-0">
+          <div className="bg-[#A1A1AA] flex items-center justify-center overflow-hidden rounded-full w-10 h-10 shrink-0">
             <img
               alt="Avatar"
               className="w-4/5 h-4/5 object-contain"
@@ -99,7 +100,7 @@ export default function DonorProfileCard({
         </div>
         <button
           onClick={handleEdit}
-          className={`cursor-pointer flex h-10 items-center justify-center px-3 sm:px-4 rounded-xl hover:bg-black/5 transition-colors flex-shrink-0`}
+          className={`cursor-pointer flex h-10 items-center justify-center px-3 sm:px-4 rounded-xl hover:bg-black/5 transition-colors shrink-0`}
         >
           <p className={`font-normal leading-5 text-black ${variant === 'compact' ? 'text-xs' : 'text-sm'}`}>
             Edit
