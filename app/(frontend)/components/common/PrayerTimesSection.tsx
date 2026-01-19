@@ -425,16 +425,16 @@ const PrayerTimesCalendar = () => {
         <table className="w-full text-center border-collapse">
           <thead>
             {/* Top Header Row */}
-            <tr className="bg-[#001731] text-white text-sm font-semibold">
-              <th rowSpan={2} className="p-3 mt-auto font-semibold w-16 border-r border-[#002E62] xl:h-18">Day</th>
-              <th rowSpan={2} className="px-2 py-3 font-semibold w-16 border-r border-[#002E62] xl:h-18">Date</th>
-              <th rowSpan={2} className="px-2 py-3 font-semibold w-24 leading-tight border-r border-[#002E62] xl:h-18">
+            <tr className="bg-[#001731] text-white text-sm font-normal">
+              <th rowSpan={2} className="p-3 mt-auto font-normal w-16 border-r border-[#002E62] xl:h-18">Day</th>
+              <th rowSpan={2} className="px-2 py-3 font-normal w-16 border-r border-[#002E62] xl:h-18">Date</th>
+              <th rowSpan={2} className="px-2 py-3 font-normal w-24 leading-tight border-r border-[#002E62] xl:h-18">
                 Islamic Date
               </th>
-              <th rowSpan={2} className="px-2 py-3 font-semibold w-20 leading-tight border-r border-[#002E62] xl:h-18">
+              <th rowSpan={2} className="px-2 py-3 font-normal w-20 leading-tight border-r border-[#002E62] xl:h-18">
                 Subha Sadiq
               </th>
-              <th rowSpan={2} className="px-2 py-3 font-semibold w-20 leading-tight border-r border-[#002E62] xl:h-18">
+              <th rowSpan={2} className="px-2 py-3 font-normal w-20 leading-tight border-r border-[#002E62] xl:h-18">
                 Sun Rise
               </th>
 
@@ -473,8 +473,8 @@ const PrayerTimesCalendar = () => {
               let rowBaseClass = `border-b text-sm ${rowHeight} ${isFirstRow ? 'align-bottom' : ''}`;
               // Zebra striping: alternate background colors for standard rows
               let rowColors = index % 2 !== 0 ? "bg-[#FAFAFA] border-[#F4F4F5]" : "bg-white border-[#F4F4F5]";
-              let cellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] pb-3";
-              let lastCellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] pb-3";
+              let cellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
+              let lastCellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
 
               let textClass = "";
               let beginsClass = "";
@@ -500,34 +500,34 @@ const PrayerTimesCalendar = () => {
 
               return (
                 <tr key={index} className={rowClass}>
-                  <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.day}</td>
-                  <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.date}</td>
-                  <td className={`${islamicDateClass} ${cellBorder} ${baseWidth}`}>
+                  <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.day}</td>
+                  <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.date}</td>
+                  <td className={`${islamicDateClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>
                     {isFirstRow && <span className="block text-[8px] text-[#006FEE] leading-tight mb-0.5">Jamadi-Ul-Ukhra</span>}
                     {row.islamicDate}
                   </td>
-                  <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.subhaSadiq}</td>
+                  <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.subhaSadiq}</td>
                   <td className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${isFirstRow ? 'pb-3' : ''} ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''} ${baseWidth}`}>{row.sunRise}</td>
 
                   {/* Fajr */}
-                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.fajr.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${baseWidth}`}>{row.fajr.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.fajr.begins}</td>
+                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.fajr.jamaah}</td>
 
                   {/* Zuhr */}
-                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.zuhr.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${baseWidth}`}>{row.zuhr.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.zuhr.begins}</td>
+                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.zuhr.jamaah}</td>
 
                   {/* Asr */}
-                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.asr.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${baseWidth}`}>{row.asr.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.asr.begins}</td>
+                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.asr.jamaah}</td>
 
                   {/* Maghrib */}
-                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.maghrib.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${baseWidth}`}>{row.maghrib.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.maghrib.begins}</td>
+                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.maghrib.jamaah}</td>
 
                   {/* Isha */}
-                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.isha.begins}</td>
-                  <td className={` ${textClass} ${lastCellBorder} ${baseWidth}`}>{row.isha.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.isha.begins}</td>
+                  <td className={` ${textClass} ${lastCellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.isha.jamaah}</td>
                 </tr>
               );
             })}
