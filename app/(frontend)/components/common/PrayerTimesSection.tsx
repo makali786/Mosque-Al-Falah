@@ -402,137 +402,136 @@ const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
 );
 
 const PrayerTimesCalendar = () => {
-    return (
-        <div className="w-full bg-white rounded-2xl md:p-6 p-4">
-            {/* Header / Month Navigation */}
-        <div className="flex items-center justify-between bg-[#F4F4F5] rounded-lg px-4 py-3 mb-6 max-w-[540px] mx-auto">
-                <button className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors">
-                    <IoChevronBack className="w-5 h-5" />
-                </button>
-                <div className="text-center">
-            <h3 className="text-sm font-semibold text-black mb-2">December 2025</h3>
-            <p className="text-xs font-medium text-[#006FEE]">
-                        Jamada-Al-Thani, 1447 -Rajab, 1447
-                    </p>
-                </div>
-                <button className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors">
-                    <IoChevronForward className="w-5 h-5" />
-                </button>
-            </div>
-
-            {/* Table Container */}
-            <div className="overflow-x-auto rounded-lg border border-[#E4E4E7]">
-                <table className="w-full text-center border-collapse min-w-[1000px]">
-                    <thead>
-                        {/* Top Header Row */}
-                        <tr className="bg-[#030712] text-white text-sm font-semibold h-12">
-                            <th rowSpan={2} className="px-2 py-3 font-semibold w-16 border-r border-[#1F2937]">Day</th>
-                            <th rowSpan={2} className="px-2 py-3 font-semibold w-16 border-r border-[#1F2937]">Date</th>
-                            <th rowSpan={2} className="px-2 py-3 font-semibold w-24 leading-tight border-r border-[#1F2937]">
-                                <span className="block text-[#60A5FA]">Jamadi-Ul-Akhra</span>
-                                Islamic Date
-                            </th>
-                            <th rowSpan={2} className="px-2 py-3 font-semibold w-20 leading-tight border-r border-[#1F2937]">
-                                Subha Sadiq
-                            </th>
-                            <th rowSpan={2} className="px-2 py-3 font-semibold w-20 leading-tight border-r border-[#1F2937]">
-                                Sun Rise
-                            </th>
-                            
-                            <th colSpan={2} className="px-2 py-2 border-b border-[#1F2937] border-r border-[#1F2937]">Fajr</th>
-                            <th colSpan={2} className="px-2 py-2 border-b border-[#1F2937] border-r border-[#1F2937]">Zuhr</th>
-                            <th colSpan={2} className="px-2 py-2 border-b border-[#1F2937] border-r border-[#1F2937]">'Asr</th>
-                            <th colSpan={2} className="px-2 py-2 border-b border-[#1F2937] border-r border-[#1F2937]">Maghrib</th>
-                            <th colSpan={2} className="px-2 py-2 border-b border-[#1F2937]">Isha</th>
-                        </tr>
-                        {/* Sub Header Row */}
-                        <tr className="bg-[#030712] text-[#A1A1AA] text-xs h-10">
-                            {/* Fajr */}
-                            <th className="px-2 py-2 font-normal border-r border-[#1F2937]">Begins</th>
-                            <th className="px-2 py-2 font-normal text-white border-r border-[#1F2937]">Jama'ah</th>
-                            {/* Zuhr */}
-                            <th className="px-2 py-2 font-normal border-r border-[#1F2937]">Begins</th>
-                            <th className="px-2 py-2 font-normal text-white border-r border-[#1F2937]">Jama'ah</th>
-                            {/* Asr */}
-                            <th className="px-2 py-2 font-normal border-r border-[#1F2937]">Begins</th>
-                            <th className="px-2 py-2 font-normal text-white border-r border-[#1F2937]">Jama'ah</th>
-                            {/* Maghrib */}
-                            <th className="px-2 py-2 font-normal border-r border-[#1F2937]">Begins</th>
-                            <th className="px-2 py-2 font-normal text-white border-r border-[#1F2937]">Jama'ah</th>
-                            {/* Isha */}
-                            <th className="px-2 py-2 font-normal border-r border-[#1F2937]">Begins</th>
-                            <th className="px-2 py-2 font-normal text-white">Jama'ah</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {MOCK_CALENDAR_DATA.map((row, index) => {
-                            // Row styling logic
-                            let rowClass = "border-b border-[#F4F4F5] h-12 text-sm";
-                            let cellBorder = "border-r border-[#F4F4F5]";
-                            let lastCellBorder = ""; // No border for last cell
-
-                            let textClass = "text-[#09090B]";
-                            let beginsClass = "text-[#09090B]";
-                            let islamicDateClass = "text-[#006FEE] font-medium";
-                            
-                            if (row.isActive) {
-                                rowClass = "bg-[#006FEE] text-white h-12 text-sm border-b border-[#006FEE]";
-                                cellBorder = "border-r border-white/20"; // Subtle separator for active row
-                                textClass = "text-white";
-                                beginsClass = "text-white";
-                                islamicDateClass = "text-white font-medium";
-                            } else if (row.isFriday) {
-                                rowClass = "bg-[#EFF6FF] border-b border-[#DBEAFE] h-12 text-sm";
-                                cellBorder = "border-r border-[#DBEAFE]";
-                                textClass = "text-[#172554]";
-                                beginsClass = "text-[#006FEE]";
-                            }
-
-                            return (
-                                <tr key={index} className={rowClass}>
-                                    <td className={`font-medium ${textClass} ${cellBorder}`}>{row.day}</td>
-                                    <td className={`${textClass} ${cellBorder}`}>{row.date}</td>
-                                    <td className={`${islamicDateClass} ${cellBorder}`}>
-                                        {row.islamicDate}
-                                    </td>
-                                    <td className={`${textClass} ${cellBorder}`}>{row.subhaSadiq}</td>
-                                    <td className={`${textClass} border-r border-[#F4F4F5] ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''}`}>{row.sunRise}</td>
-
-                                    {/* Fajr */}
-                                    <td className={`${beginsClass} ${cellBorder}`}>{row.fajr.begins}</td>
-                                    <td className={`font-medium ${textClass} ${cellBorder}`}>{row.fajr.jamaah}</td>
-
-                                    {/* Zuhr */}
-                                    <td className={`${beginsClass} ${cellBorder}`}>{row.zuhr.begins}</td>
-                                    <td className={`font-medium ${textClass} ${cellBorder}`}>{row.zuhr.jamaah}</td>
-
-                                    {/* Asr */}
-                                    <td className={`${beginsClass} ${cellBorder}`}>{row.asr.begins}</td>
-                                    <td className={`font-medium ${textClass} ${cellBorder}`}>{row.asr.jamaah}</td>
-
-                                    {/* Maghrib */}
-                                    <td className={`${beginsClass} ${cellBorder}`}>{row.maghrib.begins}</td>
-                                    <td className={`font-medium ${textClass} ${cellBorder}`}>{row.maghrib.jamaah}</td>
-
-                                    {/* Isha */}
-                                    <td className={`${beginsClass} ${cellBorder}`}>{row.isha.begins}</td>
-                                    <td className={`font-medium ${textClass} ${lastCellBorder}`}>{row.isha.jamaah}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            </div>
+  return (
+    <div className="w-full bg-white rounded-[14px]">
+      {/* Header / Month Navigation */}
+      <div className="flex items-center justify-between bg-[#F4F4F5] rounded-lg px-4 py-3 mb-6 max-w-[540px] mx-auto">
+        <button className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors">
+          <IoChevronBack className="w-5 h-5" />
+        </button>
+        <div className="text-center">
+          <h3 className="text-sm font-semibold text-black mb-2">December 2025</h3>
+          <p className="text-xs font-medium text-[#006FEE]">
+            Jamada-Al-Thani, 1447 -Rajab, 1447
+          </p>
         </div>
-    );
+        <button className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors">
+          <IoChevronForward className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Table Container */}
+      <div className="overflow-x-auto rounded-[14px] border border-[#E4E4E7]">
+        <table className="w-full text-center border-collapse">
+          <thead>
+            {/* Top Header Row */}
+            <tr className="bg-[#001731] text-white text-sm font-semibold">
+              <th rowSpan={2} className="p-3 mt-auto font-semibold w-16 border-r border-[#002E62] xl:h-18">Day</th>
+              <th rowSpan={2} className="px-2 py-3 font-semibold w-16 border-r border-[#002E62] xl:h-18">Date</th>
+              <th rowSpan={2} className="px-2 py-3 font-semibold w-24 leading-tight border-r border-[#002E62] xl:h-18">
+                Islamic Date
+              </th>
+              <th rowSpan={2} className="px-2 py-3 font-semibold w-20 leading-tight border-r border-[#002E62] xl:h-18">
+                Subha Sadiq
+              </th>
+              <th rowSpan={2} className="px-2 py-3 font-semibold w-20 leading-tight border-r border-[#002E62] xl:h-18">
+                Sun Rise
+              </th>
+
+              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">Fajr</th>
+              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">Zuhr</th>
+              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">'Asr</th>
+              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">Maghrib</th>
+              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">Isha</th>
+            </tr>
+            {/* Sub Header Row */}
+            <tr className="bg-[#001731] text-[#FFFFFF] text-sm h-10">
+              {/* Fajr */}
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              {/* Zuhr */}
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              {/* Asr */}
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              {/* Maghrib */}
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              {/* Isha */}
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+            </tr>
+          </thead>
+          <tbody>
+            {MOCK_CALENDAR_DATA.map((row, index) => {
+              // Row styling logic
+              let rowClass = "border-b border-[#F4F4F5] h-12 text-sm";
+              let cellBorder = "border-r border-[#F4F4F5]";
+              let lastCellBorder = ""; // No border for last cell
+
+              let textClass = "text-[#09090B]";
+              let beginsClass = "text-[#09090B]";
+              let islamicDateClass = "text-[#006FEE] font-medium";
+
+              if (row.isActive) {
+                rowClass = "bg-[#006FEE] text-white h-12 text-sm border-b border-[#006FEE]";
+                cellBorder = "border-r border-white/20"; // Subtle separator for active row
+                textClass = "text-white";
+                beginsClass = "text-white";
+                islamicDateClass = "text-white font-medium";
+              } else if (row.isFriday) {
+                rowClass = "bg-[#EFF6FF] border-b border-[#DBEAFE] h-12 text-sm";
+                cellBorder = "border-r border-[#DBEAFE]";
+                textClass = "text-[#172554]";
+                beginsClass = "text-[#006FEE]";
+              }
+
+              return (
+                <tr key={index} className={rowClass}>
+                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.day}</td>
+                  <td className={`${textClass} ${cellBorder}`}>{row.date}</td>
+                  <td className={`${islamicDateClass} ${cellBorder}`}>
+                    {row.islamicDate}
+                  </td>
+                  <td className={`${textClass} ${cellBorder}`}>{row.subhaSadiq}</td>
+                  <td className={`${textClass} border-r border-[#F4F4F5] ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''}`}>{row.sunRise}</td>
+
+                  {/* Fajr */}
+                  <td className={`${beginsClass} ${cellBorder}`}>{row.fajr.begins}</td>
+                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.fajr.jamaah}</td>
+
+                  {/* Zuhr */}
+                  <td className={`${beginsClass} ${cellBorder}`}>{row.zuhr.begins}</td>
+                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.zuhr.jamaah}</td>
+
+                  {/* Asr */}
+                  <td className={`${beginsClass} ${cellBorder}`}>{row.asr.begins}</td>
+                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.asr.jamaah}</td>
+
+                  {/* Maghrib */}
+                  <td className={`${beginsClass} ${cellBorder}`}>{row.maghrib.begins}</td>
+                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.maghrib.jamaah}</td>
+
+                  {/* Isha */}
+                  <td className={`${beginsClass} ${cellBorder}`}>{row.isha.begins}</td>
+                  <td className={`font-medium ${textClass} ${lastCellBorder}`}>{row.isha.jamaah}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 // ============================================================================
 // Main Component
 // ============================================================================
 
-export default function PrayerTimesSection({activeTab}: {activeTab?: string}) {
- 
+export default function PrayerTimesSection({ activeTab }: { activeTab?: string }) {
+
   const [countdown, setCountdown] = useState<CountdownTime>({
     hours: "00",
     minutes: "00",
