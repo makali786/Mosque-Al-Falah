@@ -503,7 +503,7 @@ const PrayerTimesCalendar = () => {
                   <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.day}</td>
                   <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.date}</td>
                   <td className={`${islamicDateClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>
-                    {isFirstRow && <span className="block text-[8px] text-[#006FEE] leading-tight mb-0.5">Jamadi-Ul-Ukhra</span>}
+                    {isFirstRow && <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">Jamadi-Ul-Ukhra</span>}
                     {row.islamicDate}
                   </td>
                   <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.subhaSadiq}</td>
