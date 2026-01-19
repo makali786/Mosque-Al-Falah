@@ -572,20 +572,20 @@ export default function PrayerTimesSection({activeTab}: {activeTab?: string}) {
 
       {/* Main Content Area */}
       {activeTab === 'prayer-time' ? (
-        <div className="flex flex-col lg:flex-row gap-12 mb-16">
+        <div className="flex flex-col xl:flex-row gap-0 xl:gap-12 mb-8 xl:mb-16">
           {/* Left side - Image with countdown */}
-          <div className="xl:max-w-[544px] w-full relative overflow-hidden rounded-[12px]">
+          <div className="h-[420px] xl:h-[609px] w-full xl:max-w-[544px] relative overflow-hidden rounded-t-[12px] rounded-b-none xl:rounded-[12px]">
             <Image
               src="/assets/prayer-times/mosque-bg.png"
               alt="Mosque background"
               fill
-              className="object-cover"
+              className="object-cover xl:min-w-[544px] xl:min-h-[609px]"
               priority
-              sizes="(max-width: 768px) 100vw, 500px"
+              // sizes="(max-width: 768px) 100vw, 500px"
             />
 
             {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/40 pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/40 pointer-events-none xl:min-w-[544px] xl:min-h-[609px]" />
 
             {/* Date Navigation */}
             <DateNavigation
@@ -599,7 +599,7 @@ export default function PrayerTimesSection({activeTab}: {activeTab?: string}) {
           </div>
 
           {/* Right side - Prayer Times List */}
-          <div className="bg-white rounded-[12px] shadow-[0px_25px_50px_-12px_#00000040] lg:px-6 lg:py-8 xl:max-w-[544px] w-full border border-[#F4F4F5]">
+          <div className="bg-white rounded-b-[12px] rounded-t-none xl:rounded-[12px] shadow-[0px_25px_50px_-12px_#00000040] p-4 xl:px-6 xl:py-8 w-full xl:max-w-[544px] xl:max-h-[609px] border border-[#F4F4F5] border-t-0 xl:border-t">
             <div className="flex flex-col gap-2">
               <h2 className="sr-only">Prayer Times</h2>
 
