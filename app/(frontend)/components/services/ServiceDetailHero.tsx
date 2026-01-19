@@ -159,14 +159,14 @@ export default function ServiceDetailHero({
                     {primaryButton.href ? (
                       <Link
                         href={primaryButton.href}
-                        className={`px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base ${primaryButtonClassName}`}
+                        className={`w-full sm:w-auto px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base text-center ${primaryButtonClassName}`}
                       >
                         {primaryButton.text}
                       </Link>
                     ) : (
                       <button
                         onClick={primaryButton.onClick}
-                          className={`px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base cursor-pointer ${primaryButtonClassName}`}
+                          className={`w-full sm:w-auto px-6 py-3 bg-[#006FEE] text-white text-sm sm:text-base cursor-pointer ${primaryButtonClassName}`}
                       >
                         {primaryButton.text}
                       </button>
@@ -178,14 +178,14 @@ export default function ServiceDetailHero({
                     {secondaryButton.href ? (
                       <Link
                         href={secondaryButton.href}
-                        className="px-6 py-3 bg-[#D4D4D866] text-sm sm:text-base"
+                        className="w-full sm:w-auto px-6 py-3 bg-[#D4D4D866] text-sm sm:text-base text-center"
                       >
                         {secondaryButton.text}
                       </Link>
                     ) : (
                       <button
                         onClick={secondaryButton.onClick}
-                          className="px-6 py-3 bg-[#D4D4D866] text-sm sm:text-base cursor-pointer"
+                          className="w-full sm:w-auto px-6 py-3 bg-[#D4D4D866] text-sm sm:text-base cursor-pointer"
                       >
                         {secondaryButton.text}
                       </button>

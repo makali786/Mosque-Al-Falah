@@ -14,9 +14,7 @@ interface MediaDetailPageProps {
   };
 }
 
-// ------------------------------------------------------------------
-// Main Page Component
-// ------------------------------------------------------------------
+
 
 export default async function MediaDetailPage({ params }: MediaDetailPageProps) {
   const { slug } = await params;
@@ -97,7 +95,7 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
   return (
     <div className="bg-white min-h-screen">
       
-      <div className="">
+      <div>
         
         {/* Breadcrumb */}
 

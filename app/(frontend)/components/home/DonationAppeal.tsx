@@ -6,6 +6,7 @@ import { Media } from "../../../../payload-types";
 
 interface DonationAppealData {
   title?: string;
+  slug?: string;
   shortDescription?: string;
   funding?: {
     targetAmount?: number;
@@ -25,6 +26,7 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
   const appeal = donationAppeal[0];
 
   const title = appeal.title || "";
+  const slug = appeal.slug || "";
   const shortDescription = appeal.shortDescription || "";
   const description = appeal.shortDescription || "";
 
@@ -245,7 +247,7 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
                 <div className="flex items-start gap-4 w-full lg:w-auto appeal-buttons">
                 {/* Learn More */}
                 <Link
-                  href="/appeal/details"
+                  href={slug ? `/appeals/${slug}` : "/appeals"}
                   className="flex-1 lg:flex-none h-12 px-6 bg-[#3f3f46] text-white rounded-xl flex items-center justify-center hover:bg-[#2f2f36] transition-colors"
                 >
                   <span className="text-sm sm:text-base font-normal text-white leading-6 whitespace-nowrap">
