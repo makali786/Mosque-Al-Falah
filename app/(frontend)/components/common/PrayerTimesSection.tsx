@@ -405,7 +405,7 @@ const PrayerTimesCalendar = () => {
   return (
     <div className="w-full bg-white rounded-[14px]">
       {/* Header / Month Navigation */}
-      <div className="flex items-center justify-between bg-[#F4F4F5] rounded-lg px-4 py-3 mb-6 max-w-[540px] mx-auto">
+      <div className="flex items-center justify-between bg-[#F4F4F5] rounded-lg px-4 py-3 mb-8 max-w-[540px] mx-auto">
         <button className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors">
           <IoChevronBack className="w-5 h-5" />
         </button>
@@ -470,11 +470,11 @@ const PrayerTimesCalendar = () => {
               const rowHeight = isFirstRow ? "h-[76px]" : "h-[46px]";
               const baseWidth = "!min-w-[70px]";
 
-              let rowBaseClass = `border-b text-sm ${rowHeight}`;
+              let rowBaseClass = `border-b text-sm ${rowHeight} ${isFirstRow ? 'align-bottom' : ''}`;
               // Zebra striping: alternate background colors for standard rows
               let rowColors = index % 2 !== 0 ? "bg-[#FAFAFA] border-[#F4F4F5]" : "bg-white border-[#F4F4F5]";
-              let cellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
-              let lastCellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
+              let cellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] pb-3";
+              let lastCellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] pb-3";
 
               let textClass = "";
               let beginsClass = "";
@@ -482,8 +482,8 @@ const PrayerTimesCalendar = () => {
 
               if (row.isActive) {
                 rowColors = "bg-[#006FEE] text-white border-[#006FEE]";
-                cellBorder = "border-x border-white/20";
-                lastCellBorder = "border-x border-white/20"; 
+                cellBorder = "border-x border-white";
+                lastCellBorder = "border-x border-white"; 
                 textClass = "text-white";
                 beginsClass = "text-white";
                 islamicDateClass = "text-white font-medium";
@@ -503,10 +503,11 @@ const PrayerTimesCalendar = () => {
                   <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.day}</td>
                   <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.date}</td>
                   <td className={`${islamicDateClass} ${cellBorder} ${baseWidth}`}>
+                    {isFirstRow && <span className="block text-[8px] text-[#006FEE] leading-tight mb-0.5">Jamadi-Ul-Ukhra</span>}
                     {row.islamicDate}
                   </td>
                   <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.subhaSadiq}</td>
-                  <td className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''} ${baseWidth}`}>{row.sunRise}</td>
+                  <td className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${isFirstRow ? 'pb-3' : ''} ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''} ${baseWidth}`}>{row.sunRise}</td>
 
                   {/* Fajr */}
                   <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.fajr.begins}</td>
