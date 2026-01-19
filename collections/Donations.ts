@@ -417,5 +417,57 @@ export const Donations: CollectionConfig = {
         return data;
       },
     ],
+    afterChange: [
+      async ({ doc, req }) => {
+        if (doc.donorEmail) {
+          try {
+            const { payload } = req;
+            const donors = await payload.find({
+              collection: "donors",
+              where: { email: { equals: doc.donorEmail } },
+              limit: 1,
+            });
+            let donor = donors.docs[0];
+            if (!donor) {
+              donor = await payload.create({
+                collection: "donors",
+                data: {
+                  email: doc.donorEmail,
+                  firstName: doc.donorFirstName || "",
+                  lastName: doc.donorLastName || "",
+                  phone: doc.donorPhone || "",
+                  totalDonated: 0,
+                  donationCount: 0,
+                },
+              });
+            }
+            const allDonations = await payload.find({
+              collection: "donations",
+              where: { donorEmail: { equals: doc.donorEmail } },
+              limit: 1000,
+            });
+            const totalDonated = allDonations.docs.reduce((sum, donation) => sum + (donation.amount || 0), 0);
+            const donationCount = allDonations.docs.length;
+            const sortedDonations = allDonations.docs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            const lastDonationDate = sortedDonations[0]?.createdAt;
+            await payload.update({
+              collection: "donors",
+              id: donor.id,
+              data: {
+                totalDonated,
+                donationCount,
+                lastDonationDate,
+                firstName: donor.firstName || doc.donorFirstName || "",
+                lastName: donor.lastName || doc.donorLastName || "",
+                phone: donor.phone || doc.donorPhone || "",
+              },
+            });
+          } catch (error) {
+            console.error("Error updating donor statistics:", error);
+          }
+        }
+        return doc;
+      },
+    ],
   },
 };
