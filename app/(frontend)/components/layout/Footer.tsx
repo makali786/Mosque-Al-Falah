@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -52,17 +52,7 @@ const FOOTER_LINKS = [
   { label: "Privacy policy", href: "/privacy" },
 ] as const;
 
-const FOOTER_COLUMNS = [
-  {
-    title: "Services",
-    links: [
-      { label: "Nikaah Marriage", href: "/services/nikaah" },
-      { label: "Food Bank", href: "/services/food-bank" },
-      { label: "Prayers", href: "/services/prayers" },
-      { label: "Request a service", href: "/services/request" },
-      { label: "Request an Event/Lecture", href: "/services/event-lecture" },
-    ],
-  },
+const STATIC_FOOTER_COLUMNS = [
   {
     title: "Educations",
     links: [
@@ -249,9 +239,18 @@ const ContactItem = ({
   </div>
 );
 
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  isActive: boolean;
+}
+
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [openColumns, setOpenColumns] = useState<Record<string, boolean>>({});
+  const [services, setServices] = useState<Service[]>([]);
+  const [footerColumns, setFooterColumns] = useState(STATIC_FOOTER_COLUMNS);
 
   const toggleColumn = (title: string) => {
     setOpenColumns((prev) => ({
@@ -259,6 +258,36 @@ export default function Footer() {
       [title]: !prev[title],
     }));
   };
+
+  // Fetch services on component mount
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('/api/services?limit=5&where[isActive][equals]=true');
+        if (response.ok) {
+          const data = await response.json();
+          setServices(data.docs || []);
+
+          // Build dynamic footer columns with services
+          const serviceColumn = {
+            title: "Services",
+            links: (data.docs || []).map((service: Service) => ({
+              label: service.title,
+              href: `/our-services/${service.slug}`
+            }))
+          };
+
+          setFooterColumns([serviceColumn, ...STATIC_FOOTER_COLUMNS]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch services:', error);
+        // Fallback to static columns if fetch fails
+        setFooterColumns(STATIC_FOOTER_COLUMNS);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   return (
     <>
@@ -404,7 +433,7 @@ export default function Footer() {
           </div>
 
           {/* Footer Columns */}
-          {FOOTER_COLUMNS.map((column) => (
+          {footerColumns.map((column) => (
             <FooterColumn
               key={column.title}
               {...column}
