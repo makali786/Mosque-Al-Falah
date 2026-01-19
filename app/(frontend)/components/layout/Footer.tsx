@@ -290,7 +290,9 @@ export default function Footer() {
                   <SocialIcon key={social.name} {...social} />
                 ))}
                 <Link
-                  href="/qibla-finder"
+                  href="https://qiblafinder.withgoogle.com/intl/en/desktop"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center rounded-full shrink-0"
                   aria-label="Qibla Finder"
                 >
