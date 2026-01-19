@@ -426,8 +426,8 @@ const PrayerTimesCalendar = () => {
           <thead>
             {/* Top Header Row */}
             <tr className="bg-[#001731] text-white text-sm font-normal">
-              <th rowSpan={2} className="p-3 mt-auto font-normal w-16 border-r border-[#002E62] xl:h-18">Day</th>
-              <th rowSpan={2} className="px-2 py-3 font-normal w-16 border-r border-[#002E62] xl:h-18">Date</th>
+              <th rowSpan={2} className="p-3 align-bottom font-normal w-16 border-r border-[#002E62] xl:h-18">Day</th>
+              <th rowSpan={2} className="px-2 py-3 align-bottom font-normal w-16 border-r border-[#002E62] xl:h-18">Date</th>
               <th rowSpan={2} className="px-2 py-3 font-normal w-24 leading-tight border-r border-[#002E62] xl:h-18">
                 Islamic Date
               </th>
