@@ -3,7 +3,7 @@ import PrayerTimesSection from "@/components/common/PrayerTimesSection";
 import { QuoteSection } from "@/components/common/QuoteSection";
 import { useState } from "react";
 
-export default function PrayersPage() {
+export default function PrayerTimePage() {
 
      const [activeTab, setActiveTab] = useState<'prayer-time' | 'calendar'>('prayer-time');
   return (
