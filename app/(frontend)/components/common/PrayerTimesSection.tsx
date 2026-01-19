@@ -569,8 +569,6 @@ export default function PrayerTimesSection({activeTab}: {activeTab?: string}) {
 
   return (
     <section className="w-full section-padding py-8">
-      {/* Top Header */}
-      
 
       {/* Main Content Area */}
       {activeTab === 'prayer-time' ? (
