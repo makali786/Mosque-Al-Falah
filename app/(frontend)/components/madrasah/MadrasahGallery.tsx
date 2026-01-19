@@ -28,16 +28,15 @@ interface GalleryProps {
 
 export default function MadrasahGallery({
   galleryImages = [],
-  sectionLabel = "OUR MADRASAH MOMENTS",
-  sectionTitle = "Madrasah Gallery",
-  description = "Explore our gallery showcasing the vibrant learning environment, engaging Islamic lessons, interactive activities, and more. See the dedication of our students and teachers in nurturing faith, knowledge, and community spirit.",
+  sectionLabel = "",
+  sectionTitle = "",
+  description = "",
   contactButtonText = "Contact Us",
   contactButtonUrl = "/contact",
   enrollButtonText = "Book Your Tour",
-  enrollButtonUrl = "/contact" // assuming separate link or same
+  enrollButtonUrl = "/contact"
 }: GalleryProps) {
-  // Use provided images or fallback to default if empty
-  const images = galleryImages.length > 0 ? galleryImages.map(img => img?.image?.url) : [];
+  const images = galleryImages.length > 0 ? galleryImages.map((img: any) => img?.image?.url) : [];
 
 
 
@@ -52,7 +51,7 @@ export default function MadrasahGallery({
   };
 
   return (
-    <section className="w-full bg-white py-12 sm:py-16 md:py-20">
+    <section className="w-full bg-white py-[60px] sm:py-[100px] md:py-[158px]">
       <div className="section-padding flex flex-col lg:flex-row gap-12 lg:gap-20">
         {/* Left Content */}
         <div className="flex flex-col lg:w-1/2 justify-center">
@@ -88,7 +87,7 @@ export default function MadrasahGallery({
                  />
                  
                  {/* Arrows */}
-                 <button 
+                 <button
                     onClick={prevImage}
                     className="absolute left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#D4D4D8] rounded-[12px] flex items-center justify-center cursor-pointer hover:bg-[#c4c4c8] transition-colors"
                  >
@@ -100,7 +99,7 @@ export default function MadrasahGallery({
                       className="object-contain"
                     />
                  </button>
-                 <button 
+                 <button
                     onClick={nextImage}
                     className="absolute right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-[#D4D4D8] rounded-[12px] flex items-center justify-center cursor-pointer hover:bg-[#c4c4c8] transition-colors"
                  >
@@ -119,9 +118,9 @@ export default function MadrasahGallery({
                         <button
                             key={idx}
                             onClick={() => setActiveIndex(idx)}
-                            className={`w-2.5 h-2.5 rounded-full transition-all ${
-                                idx === activeIndex 
-                                    ? "bg-white scale-110" 
+                            className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${
+                                idx === activeIndex
+                                    ? "bg-white scale-110"
                                     : "bg-white/50 hover:bg-white/75"
                             }`}
                             aria-label={`Go to slide ${idx + 1}`}
@@ -133,10 +132,10 @@ export default function MadrasahGallery({
             {/* Thumbnails */}
           <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3">
             {images.map((img, idx) => (
-                    <button 
+                    <button
                         key={idx}
                         onClick={() => setActiveIndex(idx)}
-                className={`relative w-full aspect-square lg:w-[96px] lg:h-[96px] rounded-xl overflow-hidden border-2 transition-all ${activeIndex === idx ? 'border-[#006FEE] opacity-100' : 'border-transparent opacity-70 hover:opacity-100'}`}
+                className={`relative w-full aspect-square lg:w-[96px] lg:h-[96px] rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${activeIndex === idx ? 'border-[#006FEE] opacity-100' : 'border-transparent opacity-70 hover:opacity-100'}`}
                     >
                          <div className="absolute inset-0 bg-gray-200 " />
                 {img && (

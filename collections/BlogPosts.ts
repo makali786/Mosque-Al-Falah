@@ -19,6 +19,7 @@ export const BlogPosts: CollectionConfig = {
   },
   access: {
     read: () => true,
+    update: () => true,
   },
   fields: [
     // ============================================================================

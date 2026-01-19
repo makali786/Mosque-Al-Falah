@@ -240,7 +240,6 @@ async function seedSermons() {
       isPublished: true,
     },
   });
-  console.log('✅ Created sermon:', sermon5.title);
 
   // Sermon 6: Islamic Lecture
   // @ts-ignore

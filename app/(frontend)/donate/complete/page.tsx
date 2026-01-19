@@ -143,13 +143,13 @@ function DonationCompleteContent() {
             Help others contribute by sharing this cause on social media
           </p>
           <div className="flex gap-4 justify-center">
-            <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+            <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg cursor-pointer">
               <span>f</span> Share on Facebook
             </button>
-            <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg">
+            <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg cursor-pointer">
               <span>📱</span> WhatsApp
             </button>
-            <button className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg">
+            <button className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg cursor-pointer">
               <span>🔗</span> Copy Link
             </button>
           </div>

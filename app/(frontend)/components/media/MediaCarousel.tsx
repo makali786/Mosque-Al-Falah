@@ -41,8 +41,6 @@ export default function MediaCarousel({
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
-      // Scroll by roughly one item width + gap
-      // 350px width + 24/32px gap ~ 400px
       const scrollAmount = 400; 
       const newScrollLeft =
         scrollContainerRef.current.scrollLeft +

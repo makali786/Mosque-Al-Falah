@@ -54,7 +54,6 @@ export default function Sermons({
   subtitle = "POWERFUL & LIFE-CHANGING",
   showDiscoverMore = true
 }: SermonsProps) {
-  console.log("sermons", sermons)
 
   const mappedSermons: Sermon[] = sermons.map((sermon) => ({
     id: sermon.id,

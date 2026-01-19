@@ -29,6 +29,9 @@ import { PageSections } from './collections/PageSections';
 import { Sermons } from './collections/Sermons';
 import { Services } from './collections/Services';
 
+// Prayer Times
+import { PrayerTimes } from './collections/PrayerTimes';
+
 // Globals
 import { AboutPage } from './globals/AboutPage';
 import { BlogsPage } from './globals/BlogsPage';
@@ -40,6 +43,9 @@ import { MadrasahPage } from './globals/MadrasahPage';
 import { MediaPage } from './globals/MediaPage';
 import { SermonsPage } from './globals/SermonsPage';
 import { ServicesPage } from './globals/ServicesPage';
+
+// Prayer Time Settings
+import { PrayerTimeSettings } from './globals/PrayerTimeSettings';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -92,6 +98,9 @@ export default buildConfig({
     // Donations
     Donations,
     Donors,
+
+    // Prayer Times
+    PrayerTimes,
   ],
   globals: [
     AboutPage,
@@ -104,6 +113,9 @@ export default buildConfig({
     MediaPage,
     SermonsPage,
     ServicesPage,
+
+    // Prayer Time Settings
+    PrayerTimeSettings,
   ],
   editor: lexicalEditor(),
   secret: 'mosque-al-falah-secret-key-change-in-production',

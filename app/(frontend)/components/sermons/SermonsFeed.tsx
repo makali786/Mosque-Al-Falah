@@ -85,22 +85,21 @@ export default function SermonsFeed({
           <div className="flex items-center gap-8 self-end md:self-auto">
             <button
               onClick={() => setView("list")}
-              className={`flex items-center gap-2 ${view === "list" ? "text-[#006fee]" : "text-[#27272A]"}`}
+              className={`flex items-center gap-2 cursor-pointer transition-colors ${view === "list" ? "text-[#006fee]" : "text-[#27272A]"}`}
             >
-              <Image
-                src="/assets/common/list-icon.svg"
-                alt="List"
-                width={20}
-                height={20}
-              />
-              <span className="text-base font-medium text-[#27272A]">{viewOptions.listViewLabel}</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M16.6665 5.83333L3.33317 5.83333"/>
+                <path d="M16.6665 10L3.33317 10"/>
+                <path d="M11.6665 14.1667L3.33317 14.1667"/>
+              </svg>
+              <span className="text-base font-medium">{viewOptions.listViewLabel}</span>
             </button>
             <button
               onClick={() => setView("grid")}
-              className={`flex items-center gap-2 transition-colors ${view === "grid" ? "text-[#006fee]" : "text-[#27272A]"}`}
+              className={`flex items-center gap-2 transition-colors cursor-pointer ${view === "grid" ? "text-[#006fee]" : "text-[#27272A]"}`}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              <span className="text-sm font-medium">{viewOptions.gridViewLabel}</span>
+              <span className="text-base font-medium">{viewOptions.gridViewLabel}</span>
             </button>
           </div>
         </div>
@@ -121,7 +120,7 @@ export default function SermonsFeed({
           <div className="mt-12 flex justify-center">
             <button
               onClick={handleLoadMore}
-              className="px-6 py-3 bg-gray-100 items-center rounded-lg text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors"
+              className="px-6 py-3 bg-gray-100 items-center rounded-lg text-sm font-medium text-gray-900 hover:bg-gray-200 transition-colors cursor-pointer"
             >
               {loadMoreText}
             </button>

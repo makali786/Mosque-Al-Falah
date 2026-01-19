@@ -14,7 +14,7 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about", hasDropdown: true },
-  { label: "Our Services", href: "/services" },
+  { label: "Our Services", href: "/our-services" },
   { label: "Appeals", href: "/appeals" },
   { label: "Madrasah", href: "/madrasah" },
   { label: "Sermons", href: "/sermons" },
@@ -50,18 +50,26 @@ interface NavItemProps {
   onDropdownToggle: () => void;
   onCloseMenu?: () => void;
   isMobile?: boolean;
+  isBlogPage?: boolean;
 }
 
-const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, isMobile = false }: NavItemProps) => {
-  const isActive = item.hasDropdown ? pathname.startsWith("/about") : pathname === item.href;
-  const activeClass = isActive ? "text-[#06b7db]" : isMobile ? "text-white" : "text-[#fafafa]";
+const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, isMobile = false, isBlogPage = false }: NavItemProps) => {
+  const isActive = item.hasDropdown
+    ? pathname.startsWith("/about") || pathname.startsWith("/contact-us")
+    : item.href === "/"
+      ? pathname === "/"
+      : pathname.startsWith(item.href);
+
+  // Adjust colors based on page context
+  const inactiveColor = isMobile ? "text-white" : isBlogPage ? "text-[#52525b]" : "text-[#fafafa]";
+  const activeClass = isActive ? "text-[#06b7db]" : inactiveColor;
 
   if (item.hasDropdown) {
     return (
       <div className={isMobile ? "" : "relative"}>
         <button
           onClick={onDropdownToggle}
-          className={`flex gap-1 items-center ${isMobile ? "justify-between w-full" : "shrink-0"} ${activeClass}`}
+          className={`flex gap-1 items-center ${isMobile ? "justify-between w-full" : "shrink-0"} ${activeClass} cursor-pointer`}
         >
           <span className={`font-normal ${isMobile ? "text-base" : "text-sm xl:text-base leading-6"} whitespace-nowrap`}>
             {item.label}
@@ -108,13 +116,17 @@ export default function MainHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Check if we're on the blog page
+  const isBlogPage = pathname.startsWith("/blogs");
+  const headerBgClass = isBlogPage ? "bg-[#e6f1fe]" : "bg-black";
+
   return (
-    <header className="bg-black w-full sticky top-0 z-40">
+    <header className={`${headerBgClass} w-full sticky top-0 z-40`}>
       <div className="flex items-center justify-between hn-container py-3 lg:py-0 w-full">
         {/* Hamburger Menu */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden flex flex-col gap-1 w-6 h-5 justify-center"
+          className={`lg:hidden flex flex-col gap-1 w-6 h-5 justify-center cursor-pointer ${isBlogPage ? "brightness-0" : ""}`}
           aria-label="Menu"
         >
           <HamburgerIcon />
@@ -122,14 +134,23 @@ export default function MainHeader() {
 
         {/* Logo */}
         <Link href="/" className="relative shrink-0 w-24 h-10 lg:w-28 xl:w-32.25 lg:h-11 xl:h-13">
-          <Image src="/assets/header/logo.svg" alt="Masjid Logo" fill className="object-contain" />
+          <Image
+            src={isBlogPage ? "/assets/common/logo-2.png" : "/assets/header/logo.svg"}
+            alt="Masjid Logo"
+            fill
+            className="object-contain"
+          />
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex gap-3 xl:gap-6 2xl:gap-10 items-center shrink-0">
           <nav className="flex gap-2 xl:gap-4 2xl:gap-6 items-center shrink-0">
             {NAV_ITEMS.map((item) => {
-              const isActive = item.hasDropdown ? pathname.startsWith("/about") : pathname === item.href;
+              const isActive = item.hasDropdown
+                ? pathname.startsWith("/about") || pathname.startsWith("/contact-us")
+                : item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
               return (
                 <div
                   key={item.label}
@@ -140,6 +161,7 @@ export default function MainHeader() {
                     pathname={pathname}
                     dropdownOpen={aboutUsOpen}
                     onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
+                    isBlogPage={isBlogPage}
                   />
                   <div className={`h-1 w-full ${isActive ? 'bg-[#06b7db]' : 'bg-transparent'}`} />
                 </div>
@@ -147,14 +169,20 @@ export default function MainHeader() {
             })}
           </nav>
 
-          <Link href="/donate" className="bg-white flex items-center justify-center px-3 rounded-lg shrink-0 h-8">
-            <span className="font-normal text-xs leading-4 text-black whitespace-nowrap">Donate Now</span>
+          <Link href="/donate" className={`flex items-center justify-center gap-2 px-3 rounded-lg shrink-0 h-8 ${isBlogPage ? "bg-[#006fee]" : "bg-white"}`}>
+            {isBlogPage && (
+              <Image src="/assets/header/donate-blog.svg" alt="" width={20} height={20} className="shrink-0" />
+            )}
+            <span className={`font-normal text-xs leading-4 whitespace-nowrap ${isBlogPage ? "text-white" : "text-black"}`}>Donate Now</span>
           </Link>
         </div>
 
         {/* Mobile Donate Button */}
-        <Link href="/donate" className="lg:hidden bg-white flex items-center justify-center px-3 py-1.5 rounded-md shrink-0">
-          <span className="font-medium text-xs text-black whitespace-nowrap">Donate</span>
+        <Link href="/donate" className={`lg:hidden flex items-center justify-center gap-2 px-3 py-1.5 rounded-md shrink-0 ${isBlogPage ? "bg-[#006fee]" : "bg-white"}`}>
+          {isBlogPage && (
+            <Image src="/assets/header/donate-blog.svg" alt="" width={16} height={16} className="shrink-0" />
+          )}
+          <span className={`font-medium text-xs whitespace-nowrap ${isBlogPage ? "text-white" : "text-black"}`}>Donate</span>
         </Link>
       </div>
 
@@ -172,7 +200,7 @@ export default function MainHeader() {
           }`}
         >
           <div className="flex justify-end p-4">
-            <button onClick={() => setMobileMenuOpen(false)} className="text-white" aria-label="Close menu">
+            <button onClick={() => setMobileMenuOpen(false)} className="text-white cursor-pointer" aria-label="Close menu">
               <CloseIcon />
             </button>
           </div>
@@ -187,6 +215,7 @@ export default function MainHeader() {
                   onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
                   onCloseMenu={() => setMobileMenuOpen(false)}
                   isMobile
+                  isBlogPage={isBlogPage}
                 />
               </div>
             ))}

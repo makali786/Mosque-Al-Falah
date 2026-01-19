@@ -98,10 +98,10 @@ export function AskQuestionSection({
     <section className="w-full py-12 sm:py-16 md:py-20 lg:py-32 hn-container bg-white">
       {/* Container with max-width */}
       <div className="w-full">
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 xl:justify-between items-start">
           {/* Left Side - Image */}
           <div
-            className="hidden lg:block w-full lg:shrink-0 lg:w-[45%] lg:max-w-124.5 2xl:max-w-166"
+            className="hidden lg:block w-full lg:shrink-0 lg:max-w-124.5 xl:max-w-[766px]"
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,
@@ -109,7 +109,7 @@ export function AskQuestionSection({
             }}
           >
             <div
-              className="relative w-full rounded-2xl sm:rounded-3xl lg:rounded-[20px] overflow-hidden"
+              className="relative w-full rounded-2xl sm:rounded-3xl lg:rounded-[20px] overflow-hidden lg:max-w-124.5 xl:max-w-[766px]"
               style={{
                 aspectRatio: `${imageWidth} / ${imageHeight}`,
               }}
@@ -124,7 +124,7 @@ export function AskQuestionSection({
           </div>
 
           {/* Right Side - Form Section */}
-          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-[42px]">
+          <div className="w-full lg:flex-1 flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-6 xl:gap-[42px] xl:max-w-[494px]">
             {/* Heading */}
             <div className="flex flex-col gap-5 sm:gap-7">
               <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 xl:text-5xl lg:leading-12 text-black">
@@ -263,7 +263,7 @@ export function AskQuestionSection({
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-base sm:text-lg font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-base sm:text-lg font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {isPending ? "Sending..." : formSettings.submitButtonText}
                 </button>
@@ -271,10 +271,6 @@ export function AskQuestionSection({
             </form>
           </div>
         </div>
-        <style jsx>{`
-          @media (min-width: 1024px) and (max-width: 1519px) {
-          }
-        `}</style>
       </div>
     </section>
   );

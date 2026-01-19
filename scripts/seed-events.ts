@@ -12,7 +12,6 @@ async function seedEvents() {
   const payloadConfigNew = await payloadConfig;
   const payload = await getPayload({ config: payloadConfigNew });
 
-  console.log('🌱 Seeding events...');
 
   // Get existing media items to use for event images
   // @ts-ignore
@@ -31,7 +30,6 @@ async function seedEvents() {
     process.exit(1);
   }
 
-  console.log('📷 Using media item:', imageId);
 
   // Event 1: Friday Jummah
   // @ts-ignore
@@ -77,7 +75,6 @@ async function seedEvents() {
       isFeatured: true,
     },
   });
-  console.log('✅ Created event:', event1.title);
 
   // Event 2: Quran Study Circle
   // @ts-ignore
@@ -123,7 +120,6 @@ async function seedEvents() {
       isFeatured: false,
     },
   });
-  console.log('✅ Created event:', event2.title);
 
   // Event 3: Community Iftar
   // @ts-ignore
@@ -169,7 +165,6 @@ async function seedEvents() {
       isFeatured: true,
     },
   });
-  console.log('✅ Created event:', event3.title);
 
   // Event 4: Islamic History Lecture
   // @ts-ignore
@@ -224,7 +219,6 @@ async function seedEvents() {
       isFeatured: true,
     },
   });
-  console.log('✅ Created event:', event4.title);
 
   // Event 5: Youth Program
   // @ts-ignore
@@ -269,9 +263,7 @@ async function seedEvents() {
       isFeatured: false,
     },
   });
-  console.log('✅ Created event:', event5.title);
 
-  console.log('🎉 Events seeded successfully!');
   process.exit(0);
 }
 

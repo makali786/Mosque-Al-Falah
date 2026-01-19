@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -35,6 +35,9 @@
 .section-padding {
   @apply px-8;
 }
+.donation-padding {
+  @apply px-8;
+}
 
 @media (min-width: 1320px) {
   .hn-container {
@@ -49,21 +52,150 @@
     padding-right: calc((100% - 1136px) / 2);
   }
 }
+@media (min-width: 1200px) {
+  .donation-padding {
+    padding-left: calc((100% - 768px) / 2);
+    padding-right: calc((100% - 768px) / 2);
+  }
+}
 
 @media screen and (max-width: 340px) {
   .grid-style {
-    @apply !grid-cols-1
+    @apply !grid-cols-1;
   }
 
   .contact-title {
-    @apply text-[26px]
+    @apply text-[26px];
   }
 
   .header-style {
-    @apply flex-col !h-auto gap-5
+    @apply flex-col !h-auto gap-5;
   }
 }
 
 .appeal-buttons {
-  @apply flex-wrap
+  @apply flex-wrap;
+}
+
+/* ==========================================
+   Blog Article Styles - Figma Perfect
+   ========================================== */
+
+article.prose blockquote {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  background-color: white !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 24px !important;
+  padding: 32px !important;
+  font-style: normal !important;
+  margin: 32px 0px !important;
+  quotes: none !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  line-height: 26px !important;
+  color: black !important;
+}
+
+@media (min-width: 768px) {
+  article.prose blockquote {
+    gap: 24px !important;
+    border-radius: 32px !important;
+    padding: 44px !important;
+    margin: 36px 0px !important;
+    font-size: 20px !important;
+    line-height: 28px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  article.prose blockquote {
+    gap: 30px !important;
+    border-radius: 40px !important;
+    padding: 60px !important;
+    margin: 40px 0px !important;
+    font-size: 24px !important;
+    line-height: 32px !important;
+  }
+}
+
+/* Remove default blockquote pseudo-elements */
+article.prose blockquote::before,
+article.prose blockquote::after {
+  content: none !important;
+}
+
+/* Blockquote last paragraph (source reference) - Figma: 16px, semibold (600), #006fee */
+article.prose blockquote last-child {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 24px !important;
+  color: #006fee !important;
+}
+
+/* Blockquote source/reference link - Figma: 16px, semibold (600), line-height 24px, #006fee */
+article.prose blockquote a {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 24px !important;
+  color: #006fee !important;
+  text-decoration: none !important;
+}
+
+/* Quote text inside blockquote - Figma: 24px, medium, black */
+article.prose blockquote .quote-text {
+  display: block !important;
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  line-height: 32px !important;
+  color: black !important;
+}
+
+/* Quote source reference - Figma: 16px, semibold, blue */
+article.prose blockquote .quote-source {
+  display: block !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  line-height: 24px !important;
+  color: #006fee !important;
+}
+
+/* Image container height for blog - Responsive */
+article.prose > div > div[class*='rounded'] {
+  height: 240px !important;
+}
+
+@media (min-width: 768px) {
+  article.prose > div > div[class*='rounded'] {
+    height: 400px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  article.prose > div > div[class*='rounded'] {
+    height: 565px !important;
+  }
+}
+
+/* ==========================================
+   Stripe Elements Styles
+   ========================================== */
+
+/* Ensure Stripe iframe elements are interactive */
+.StripeElement {
+  width: 100%;
+  padding: 0;
+}
+
+.StripeElement--focus {
+  outline: none;
+}
+
+.StripeElement--invalid {
+  border-color: #f31260;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #f4f4f5 !important;
 }

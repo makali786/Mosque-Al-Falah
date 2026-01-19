@@ -16,7 +16,18 @@
       "Bash(move appcomponentsServices.tsx appcomponentshome)",
       "Bash(move appcomponentsMeetOurImams.tsx appcomponentshome)",
       "Bash(move appcomponentsAyatOfTheMonth.tsx appcomponentshome)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "WebFetch(domain:www.figma.com)",
+      "WebFetch(domain:localhost)",
+      "Bash(find:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(wc:*)",
+      "Bash(ls:*)",
+      "Bash(test:*)",
+      "Bash(npm install:*)",
+      "Bash(openssl rand:*)",
+      "Bash(npm uninstall:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

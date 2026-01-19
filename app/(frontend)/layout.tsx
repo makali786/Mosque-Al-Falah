@@ -1,11 +1,14 @@
-import type { Metadata } from "next";
+'use client';
+
 import { Inter } from "next/font/google";
+import { usePathname } from "next/navigation";
 import "./globals.css";
 import TopBar from "./components/layout/TopBar";
 import MainHeader from "./components/layout/MainHeader";
 import Footer from "./components/layout/Footer";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
 import AccessibilityButton from "./components/layout/AccessibilityButton";
+import { LoadingProvider } from "./components/common/LoadingProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,27 +17,28 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Masjid Al-Falah - Islamic Center & Community",
-  description: "Welcome to Masjid Al-Falah - A place of worship, community, and spiritual growth.",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const hideFooter = pathname === '/donate';
+
   return (
     <html lang="en">
       <body
         className={`${inter.className} antialiased`}
+        suppressHydrationWarning={true}
       >
-        <TopBar />
-        <MainHeader />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <AccessibilityButton />
+        <LoadingProvider>
+          <TopBar />
+          <MainHeader />
+          <main className="min-h-screen">{children}</main>
+          {!hideFooter && <Footer />}
+          <WhatsAppButton />
+          <AccessibilityButton />
+        </LoadingProvider>
       </body>
     </html>
   );

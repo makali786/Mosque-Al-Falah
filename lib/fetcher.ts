@@ -100,4 +100,8 @@ export const fetchMediaItems = <T = any>(
   options: Omit<FindOptions, "collection"> = {}
 ) => findFromPayload<T>({ collection: "media-items", ...options });
 
+export const fetchBlogPosts = <T = any>(
+  options: Omit<FindOptions, "collection"> = {}
+) => findFromPayload<T>({ collection: "blog-posts", ...options });
+
 

@@ -33,7 +33,6 @@ interface MediaDoc {
 }
 
 async function migrateMediaToVercelBlob() {
-  console.log('🚀 Starting media migration to Vercel Blob Storage...\n');
 
   // Check for BLOB_READ_WRITE_TOKEN
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
@@ -59,10 +58,8 @@ async function migrateMediaToVercelBlob() {
     limit: 1000, // Adjust if you have more media
   });
 
-  console.log(`📋 Found ${mediaItems.length} media items to migrate\n`);
 
   if (mediaItems.length === 0) {
-    console.log('ℹ️  No media items found. Nothing to migrate.');
     process.exit(0);
   }
 
@@ -86,7 +83,6 @@ async function migrateMediaToVercelBlob() {
 
     // Check if already migrated (URL contains vercel blob domain)
     if (media.url && media.url.includes('blob.vercel-storage.com')) {
-      console.log(`⏭️  Skipping ${filename} - Already on Vercel Blob`);
       skipCount++;
       continue;
     }
@@ -95,13 +91,11 @@ async function migrateMediaToVercelBlob() {
 
     // Check if file exists locally
     if (!fs.existsSync(filePath)) {
-      console.log(`⚠️  File not found: ${filename} - Skipping`);
       errorCount++;
       continue;
     }
 
     try {
-      console.log(`📤 Uploading: ${filename}...`);
 
       // Read the file
       const fileBuffer = fs.readFileSync(filePath);
@@ -113,7 +107,6 @@ async function migrateMediaToVercelBlob() {
         token: process.env.BLOB_READ_WRITE_TOKEN,
       });
 
-      console.log(`   ✅ Uploaded to: ${blob.url}`);
 
       // Note: Payload with vercel-blob plugin will handle URL updates automatically
       // when re-uploading. We'll store the blob URL for reference.
@@ -124,15 +117,6 @@ async function migrateMediaToVercelBlob() {
       errorCount++;
     }
   }
-
-  console.log('\n' + '='.repeat(50));
-  console.log('📊 Migration Summary:');
-  console.log('='.repeat(50));
-  console.log(`✅ Successfully uploaded: ${successCount}`);
-  console.log(`⏭️  Already migrated (skipped): ${skipCount}`);
-  console.log(`❌ Errors: ${errorCount}`);
-  console.log(`📦 Total processed: ${mediaItems.length}`);
-  console.log('='.repeat(50));
 
   if (successCount > 0) {
     console.log('\n🎉 Migration complete!');
@@ -155,7 +139,6 @@ async function migrateMediaToVercelBlob() {
 
 // Alternative: Direct upload without Payload
 async function uploadAllLocalMedia() {
-  console.log('🚀 Uploading all local media files to Vercel Blob...\n');
 
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     console.error('❌ BLOB_READ_WRITE_TOKEN is not set!');
@@ -185,7 +168,6 @@ async function uploadAllLocalMedia() {
     ].includes(ext);
   });
 
-  console.log(`📋 Found ${mediaFiles.length} media files to upload\n`);
 
   const uploadedUrls: { filename: string; url: string }[] = [];
 
@@ -193,7 +175,6 @@ async function uploadAllLocalMedia() {
     const filePath = path.join(mediaFolder, filename);
 
     try {
-      console.log(`📤 Uploading: ${filename}...`);
 
       const fileBuffer = fs.readFileSync(filePath);
       const mimeType = getMimeType(filename);
@@ -204,7 +185,6 @@ async function uploadAllLocalMedia() {
         token: process.env.BLOB_READ_WRITE_TOKEN,
       });
 
-      console.log(`   ✅ ${blob.url}`);
       uploadedUrls.push({ filename, url: blob.url });
     } catch (error) {
       console.error(`   ❌ Failed: ${filename}`, error);
@@ -214,10 +194,6 @@ async function uploadAllLocalMedia() {
   // Save uploaded URLs to a JSON file for reference
   const outputPath = path.resolve(process.cwd(), 'migrated-media-urls.json');
   fs.writeFileSync(outputPath, JSON.stringify(uploadedUrls, null, 2));
-
-  console.log('\n✅ Migration complete!');
-  console.log(`📄 Uploaded URLs saved to: ${outputPath}`);
-  console.log(`📊 Total uploaded: ${uploadedUrls.length}/${mediaFiles.length}`);
 }
 
 function getMimeType(filename: string): string {

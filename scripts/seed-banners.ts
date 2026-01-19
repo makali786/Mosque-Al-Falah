@@ -14,7 +14,6 @@ async function seedBanners() {
   const payloadConfigNew = await payloadConfig;
   const payload = await getPayload({ config: payloadConfigNew });
 
-  console.log('🌱 Seeding banners...');
 
   // First, check if we have any existing media items to use
   // @ts-ignore
@@ -29,11 +28,9 @@ async function seedBanners() {
   if (existingMedia.docs.length >= 2) {
     imageId1 = existingMedia.docs[0].id;
     imageId2 = existingMedia.docs[1].id;
-    console.log('📷 Using existing media items:', imageId1, imageId2);
   } else if (existingMedia.docs.length === 1) {
     imageId1 = existingMedia.docs[0].id;
     imageId2 = existingMedia.docs[0].id;
-    console.log('📷 Using existing media item:', imageId1);
   } else {
     // Upload placeholder images from public folder if they exist
     const publicPath = path.resolve(process.cwd(), 'public');
@@ -49,7 +46,6 @@ async function seedBanners() {
     for (const imagePath of bannerImages) {
       const fullPath = path.join(publicPath, imagePath);
       if (fs.existsSync(fullPath)) {
-        console.log('📷 Found image:', fullPath);
         try {
           // @ts-ignore
           const uploaded = await payload.create({
@@ -72,12 +68,6 @@ async function seedBanners() {
     }
 
     if (!imageId1) {
-      console.log(
-        '❌ No media items found. Please upload at least one image first via the admin panel.'
-      );
-      console.log(
-        '   Go to http://localhost:3000/admin/collections/media/create and upload an image.'
-      );
       process.exit(1);
     }
 
@@ -107,7 +97,6 @@ async function seedBanners() {
       isActive: true,
     },
   });
-  console.log('✅ Created banner:', banner1.title);
 
   // Banner 2: Ramadan Preparation
   // @ts-ignore
@@ -130,9 +119,7 @@ async function seedBanners() {
       isActive: true,
     },
   });
-  console.log('✅ Created banner:', banner2.title);
 
-  console.log('🎉 Banners seeded successfully!');
   process.exit(0);
 }
 

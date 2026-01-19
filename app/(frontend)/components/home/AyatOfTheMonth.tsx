@@ -1,13 +1,10 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ViewToggleButtons from "../common/ViewToggleButtons";
-import dynamic from 'next/dynamic';
-import { FaPause } from "react-icons/fa6";
-
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as unknown as React.ComponentType<any>;
+import AudioPlayer from "../common/AudioPlayer";
 
 interface Ayat {
   arabicCalligraphyImage?: { url?: string; alt?: string };
@@ -25,49 +22,36 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
 
   const [viewMode, setViewMode] = useState<ViewMode>("default");
 
-  // Audio Player State
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [played, setPlayed] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [seeking, setSeeking] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const playerRef = useRef<any>(null);
+  // Helper function to convert YouTube and Vimeo URLs to embed format
+  const getEmbedUrl = (url: string) => {
+    if (!url) return "";
 
-  const handlePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
+    // If already an embed URL, return as is
+    if (url.includes("/embed/")) return url;
 
-  const handleProgress = (state: { played: number }) => {
-    if (!seeking) {
-      setPlayed(state.played);
+    // Convert youtube.com/watch?v= or youtu.be/ to embed format
+    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/;
+    const youtubeMatch = url.match(youtubeRegex);
+
+    if (youtubeMatch && youtubeMatch[1]) {
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
     }
-  };
 
-  const handleDuration = (duration: number) => {
-    setDuration(duration);
-  };
+    // Convert vimeo.com/video/ID to player.vimeo.com/video/ID format
+    const vimeoRegex = /vimeo\.com\/(?:video\/)?(\d+)(?:\?h=([a-zA-Z0-9]+))?/;
+    const vimeoMatch = url.match(vimeoRegex);
 
-  const handleSeekMouseDown = () => {
-    setSeeking(true);
-  };
+    if (vimeoMatch && vimeoMatch[1]) {
+      const videoId = vimeoMatch[1];
+      const hash = vimeoMatch[2];
+      return hash
+        ? `https://player.vimeo.com/video/${videoId}?h=${hash}`
+        : `https://player.vimeo.com/video/${videoId}`;
+    }
 
-  const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPlayed(parseFloat(e.target.value));
+    // Return original URL for other platforms
+    return url;
   };
-
-  const handleSeekMouseUp = (e: React.MouseEvent<HTMLInputElement>) => {
-    setSeeking(false);
-    playerRef.current?.seekTo(parseFloat((e.target as HTMLInputElement).value));
-  };
-
-  const formatTime = (seconds: number) => {
-    if (!seconds) return "0:00";
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60);
-    return `${min}:${sec < 10 ? "0" + sec : sec}`;
-  };
-
-  const currentTime = duration * played;
 
   if (!ayatOfTheMonth || ayatOfTheMonth.length === 0) return null;
   const data = ayatOfTheMonth[0];
@@ -76,11 +60,10 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
   const englishText = data?.englishTranslation || "";
   const citation = data?.surahName || "";
   const videoTitle = data?.videoTitle || "";
-  const videoThumbnail = data?.videoThumbnail?.url || null;
   const videoUrl = data?.videoUrl || "";
   const audioUrl = data.audioUrl || "";
+  const embedUrl = getEmbedUrl(videoUrl);
 
-  console.log("ayatOfTheMonth ", ayatOfTheMonth)
 
 
   return (
@@ -158,26 +141,17 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
 
               {/* Video Player */}
               <div className="relative w-full aspect-780/438 bg-white rounded-xl overflow-hidden text-black/50">
-                <ReactPlayer
-                  url={videoUrl}
-                  width="100%"
-                  height="100%"
-                  controls={true}
-                  light={videoThumbnail || false}
-                  playIcon={
-                    <div className="absolute inset-0 w-full h-full flex items-center justify-center group">
-                      <div className="absolute inset-0 bg-black/32" />
-                        <button className="w-14 h-14 relative z-10 transition-transform group-hover:scale-110">
-                          <Image
-                            src="/assets/ayat/play-circle.svg"
-                            alt="Play"
-                            fill
-                            className="object-contain"
-                          />
-                        </button>
-                    </div>
-                  }
-                />
+                {embedUrl && (
+                  <iframe
+                    src={embedUrl}
+                    title={videoTitle || "Video player"}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  />
+                )}
               </div>
             </div>
           </>
@@ -218,92 +192,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
             </div>
 
             {/* Audio Player */}
-            <div className="bg-black/30 rounded-xl p-6 flex flex-col gap-2 w-full relative">
-              <div className="hidden">
-                <ReactPlayer
-                  ref={playerRef}
-                  url={audioUrl}
-                  playing={isPlaying}
-                  controls={false}
-                  width="0"
-                  height="0"
-                  onProgress={handleProgress}
-                  onDuration={handleDuration}
-                  onEnded={() => setIsPlaying(false)}
-                />
-              </div>
-
-              {/* Controls */}
-              <div className="flex items-center justify-center gap-4 w-full">
-                <div className="flex-1 flex justify-end gap-2">
-                  <button className="w-8 h-8 flex items-center justify-center">
-                    <Image
-                      src="/assets/ayat/previous.svg"
-                      alt="Previous"
-                      width={16}
-                      height={16}
-                      className="object-contain"
-                    />
-                  </button>
-                </div>
-
-                <button
-                  onClick={handlePlayPause}
-                  className="w-8 h-8 bg-white rounded-full flex items-center justify-center"
-                >
-                  {isPlaying ? (
-                    <FaPause className="text-black w-3 h-3" />
-                  ) : (
-                    <Image
-                      src="/assets/ayat/play-small.svg"
-                      alt="Play"
-                      width={16}
-                      height={16}
-                      className="object-contain"
-                    />
-                  )}
-                </button>
-
-                <div className="flex-1 flex gap-2">
-                  <button className="w-8 h-8 flex items-center justify-center">
-                    <Image
-                      src="/assets/ayat/next.svg"
-                      alt="Next"
-                      width={16}
-                      height={16}
-                      className="object-contain"
-                    />
-                  </button>
-                </div>
-              </div>
-
-              {/* Seekbar */}
-              <div className="flex items-center gap-2 w-full">
-                <span className="text-xs text-[#a7a7a7] min-w-6.5 text-right whitespace-nowrap">
-                  {formatTime(currentTime)}
-                </span>
-                <div className="flex-1 h-3 bg-white/30 rounded relative">
-                  <div
-                    className="absolute top-1/2 -translate-y-1/2 left-0 h-1 bg-white rounded pointer-events-none"
-                    style={{ width: `${played * 100}%` }}
-                  />
-                  <input
-                    type="range"
-                    min={0}
-                    max={0.999999}
-                    step="any"
-                    value={played}
-                    onMouseDown={handleSeekMouseDown}
-                    onChange={handleSeekChange}
-                    onMouseUp={handleSeekMouseUp}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                  />
-                </div>
-                <span className="text-xs text-[#a7a7a7] min-w-6.5 whitespace-nowrap">
-                  {formatTime(duration)}
-                </span>
-              </div>
-            </div>
+            <AudioPlayer audioUrl={audioUrl} />
           </>
         )}
       </div>
@@ -311,8 +200,12 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
       {/* View Toggle Buttons - Bottom Right (only show in default view) */}
       {viewMode === "default" && (
         <ViewToggleButtons
-          onAudioClick={() => setViewMode("audio")}
-          onVideoClick={() => setViewMode("video")}
+          onAudioClick={() => {
+            setViewMode("audio");
+          }}
+          onVideoClick={() => {
+            setViewMode("video");
+          }}
           className="absolute bottom-10 right-4 sm:right-8 lg:right-40.25 sm:bottom-26.75 z-20"
         />
       )}
@@ -320,8 +213,10 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
       {/* Back Button (show in video/audio views) */}
       {viewMode !== "default" && (
         <button
-          onClick={() => setViewMode("default")}
-          className="absolute sm:top-4 top-2 sm:right-4 right-2 z-20 bg-white/20 hover:bg-white/30 text-white sm:px-4 px-3 sm:py-2 py-1.5 sm:rounded-lg rounded-md sm:text-base text-sm transition-colors"
+          onClick={() => {
+            setViewMode("default");
+          }}
+          className="absolute sm:top-4 top-2 sm:right-4 right-2 z-20 bg-white/20 hover:bg-white/30 text-white sm:px-4 px-3 sm:py-2 py-1.5 sm:rounded-lg rounded-md sm:text-base text-sm transition-colors cursor-pointer"
         >
           Back
         </button>

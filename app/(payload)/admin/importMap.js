@@ -21,6 +21,7 @@ import { StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93
 import { UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { BoldFeatureClient as BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
 import { ItalicFeatureClient as ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864 } from '@payloadcms/richtext-lexical/client'
+import { default as default_39efe9d420735011a492d13a8679d72b } from '../../../app/(payload)/components/PrayerTimes/PrayerTimesManager'
 import { default as default_85773c74bb8822cd202bbde859104743 } from '../../../app/(payload)/components/payload/Icon'
 import { default as default_bf157501fffd739be7d2738b2882479e } from '../../../app/(payload)/components/payload/Logo'
 import { default as default_177fde26f8e1e7e9d67c1990ad406ab7 } from '../../../app/(payload)/components/Dashboard'
@@ -51,6 +52,7 @@ export const importMap = {
   "@payloadcms/richtext-lexical/client#UnderlineFeatureClient": UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#BoldFeatureClient": BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
   "@payloadcms/richtext-lexical/client#ItalicFeatureClient": ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+  "./app/(payload)/components/PrayerTimes/PrayerTimesManager#default": default_39efe9d420735011a492d13a8679d72b,
   "./app/(payload)/components/payload/Icon#default": default_85773c74bb8822cd202bbde859104743,
   "./app/(payload)/components/payload/Logo#default": default_bf157501fffd739be7d2738b2882479e,
   "./app/(payload)/components/Dashboard#default": default_177fde26f8e1e7e9d67c1990ad406ab7,
