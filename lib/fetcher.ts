@@ -104,4 +104,8 @@ export const fetchBlogPosts = <T = any>(
   options: Omit<FindOptions, "collection"> = {}
 ) => findFromPayload<T>({ collection: "blog-posts", ...options });
 
+export const fetchPrayerTimes = <T = any>(
+  options: Omit<FindOptions, "collection"> = {}
+) => findFromPayload<T>({ collection: "prayer-times", ...options });
+
 

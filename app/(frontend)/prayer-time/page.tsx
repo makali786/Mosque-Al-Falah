@@ -1,61 +1,50 @@
-"use client"
-import PrayerTimesSection from "@/components/common/PrayerTimesSection";
+import PrayerTimesWrapper from "@/components/prayer-times/PrayerTimesWrapper";
 import { QuoteSection } from "@/components/common/QuoteSection";
-import { useState } from "react";
+import { fetchPrayerTimes, fetchGlobal } from "@lib/fetcher";
 
-export default function PrayerTimePage() {
+export default async function PrayerTimePage() {
+  // Fetch current month's prayer times
+  const today = new Date();
+  const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-     const [activeTab, setActiveTab] = useState<'prayer-time' | 'calendar'>('prayer-time');
+  const prayerTimes = await fetchPrayerTimes({
+    limit: 400,
+    depth: 1,
+    sort: 'date',
+    where: {
+      date: {
+        greater_than_equal: startOfMonth.toISOString().split('T')[0],
+        less_than_equal: endOfMonth.toISOString().split('T')[0],
+      },
+    },
+  });
+
+  // Fetch prayer time settings (Jumuah, Ramadan, etc.)
+  const settings = await fetchGlobal({ slug: "prayer-time-settings" });
+
+  console.log('Server-side fetch - Prayer times count:', prayerTimes?.length || 0);
+  console.log('Server-side fetch - Settings:', settings ? 'loaded' : 'not found');
+
+  if (prayerTimes && prayerTimes.length > 0) {
+    console.log('First prayer time record:', prayerTimes[0]);
+    console.log('Sample dates:', prayerTimes.slice(0, 3).map((pt: any) => pt.date));
+  }
+
   return (
     <div className="bg-white">
-      <div className="flex flex-col lg:flex-row justify-between items-center mb-6 gap-4 section-padding pt-8">
-              {/* Toggle Switch */}
-        <div className="bg-[#FAFAFA] p-1 rounded-lg flex w-full flex-wrap md:w-auto">
-                <button
-                  onClick={() => setActiveTab('prayer-time')}
-            className={`flex-1 md:flex-none px-4 md:px-10 py-2.5 rounded-md text-sm md:text-base font-medium transition-all md:min-w-[174px] md:max-w-[174px] cursor-pointer text-center whitespace-nowrap ${
-                    activeTab === 'prayer-time'
-              ? 'bg-white text-[#18181B] shadow-sm'
-              : 'text-[#71717A] hover:text-[#18181B]'
-                  }`}
-                >
-                  Prayer Time
-                </button>
-                <button
-                  onClick={() => setActiveTab('calendar')}
-            className={`flex-1 md:flex-none px-4 md:px-10 py-2.5 rounded-md text-sm md:text-base font-medium transition-all md:min-w-[174px] md:max-w-[174px] cursor-pointer text-center whitespace-nowrap ${
-                    activeTab === 'calendar'
-              ? 'bg-white text-[#18181B] shadow-sm'
-              : 'text-[#71717A] hover:text-[#18181B]'
-                  }`}
-                >
-                  Calendar
-                </button>
-              </div>
-      
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-          <button className="bg-[#27272A] text-white px-6 py-3 rounded-lg text-base cursor-pointer">
-                  Download 2025 timetable
-                </button>
-          <button className="bg-[#27272A] text-white px-6 py-3 rounded-lg text-base cursor-pointer">
-                  Ramadan Timetable
-                </button>
-              </div>
-            </div>
-      <PrayerTimesSection activeTab={activeTab} />
+      <PrayerTimesWrapper
+        initialPrayerTimes={prayerTimes || []}
+        settings={settings}
+      />
       <QuoteSection
         quote="The best of you is the one who is the best to his family."
         attribution="— Prophet Muhammad ﷺ"
         donateButtonUrl="/donate"
-        onShare={() => {
-          if (typeof window !== "undefined" && navigator.share) {
-            navigator.share({
-              title: "Prayer Times",
-              text: "The best of you is the one who is the best to his family.",
-              url: window.location.href,
-            });
-          }
+        shareData={{
+          title: "Prayer Times",
+          text: "The best of you is the one who is the best to his family.",
+          url: "/prayer-time"
         }}
       />
     </div>

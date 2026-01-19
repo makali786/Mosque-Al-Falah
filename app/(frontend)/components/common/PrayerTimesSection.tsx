@@ -3,6 +3,14 @@
 import Image from "next/image";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import {
+  getPrayerTimesByDate,
+  formatGregorianDate,
+  formatHijriDate,
+  addMinutesToTime,
+  findNextPrayer,
+  getCurrentActivePrayer
+} from "@lib/prayer-times-helpers";
 
 // ============================================================================
 // Types & Interfaces
@@ -542,7 +550,13 @@ const PrayerTimesCalendar = () => {
 // Main Component
 // ============================================================================
 
-export default function PrayerTimesSection({ activeTab }: { activeTab?: string }) {
+interface PrayerTimesSectionProps {
+  activeTab?: string;
+  prayerTimes?: any[];
+  settings?: any;
+}
+
+export default function PrayerTimesSection({ activeTab, prayerTimes: initialPrayerTimes = [], settings }: PrayerTimesSectionProps) {
 
   const [countdown, setCountdown] = useState<CountdownTime>({
     hours: "00",
@@ -550,33 +564,144 @@ export default function PrayerTimesSection({ activeTab }: { activeTab?: string }
     seconds: "00",
   });
 
-  // Date navigation (ready for future implementation)
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+
+  // Date navigation
   const handlePreviousDay = useCallback(() => {
-    // TODO: Implement previous day logic
-    console.log("Navigate to previous day");
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setDate(newDate.getDate() - 1);
+      return newDate;
+    });
   }, []);
 
   const handleNextDay = useCallback(() => {
-    // TODO: Implement next day logic
-    console.log("Navigate to next day");
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setDate(newDate.getDate() + 1);
+      return newDate;
+    });
   }, []);
+
+  // Get current day's prayer time data
+  const currentPrayerTimeData = useMemo(() => {
+    return getPrayerTimesByDate(initialPrayerTimes, currentDate);
+  }, [initialPrayerTimes, currentDate]);
+
+  // Find next prayer
+  const nextPrayer = useMemo(() => {
+    return findNextPrayer(currentPrayerTimeData) || NEXT_PRAYER;
+  }, [currentPrayerTimeData]);
+
+  // Console log received data for debugging
+  useEffect(() => {
+    console.log('\n' + '='.repeat(80));
+    console.log('🕌 PRAYER TIMES COMPONENT DEBUG');
+    console.log('='.repeat(80));
+    console.log('Prayer Times Data Received:', initialPrayerTimes?.length || 0, 'records');
+    console.log('Settings Data:', settings ? 'loaded' : 'not loaded');
+    console.log('Current Date:', currentDate.toISOString().split('T')[0]);
+
+    if (initialPrayerTimes && initialPrayerTimes.length > 0) {
+      console.log('\nFirst record:', initialPrayerTimes[0]);
+      console.log('Sample dates in array:', initialPrayerTimes.slice(0, 3).map(pt => pt.date));
+    }
+
+    console.log('\nCurrent Prayer Time Data:', currentPrayerTimeData);
+    console.log('Next Prayer:', nextPrayer);
+    console.log('='.repeat(80) + '\n');
+  }, [initialPrayerTimes, settings, currentDate, currentPrayerTimeData, nextPrayer]);
 
   // Countdown timer effect
   useEffect(() => {
     const updateCountdown = () => {
-      setCountdown(calculateCountdown(NEXT_PRAYER.time));
+      setCountdown(calculateCountdown(nextPrayer.time));
     };
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [nextPrayer]);
 
-  // Prayer times data (will be fetched from API in future)
-  const prayerTimes = useMemo(() => MOCK_PRAYER_TIMES, []);
-  const jumuahTimes = useMemo(() => MOCK_JUMUAH_TIMES, []);
-  const dateInfo = useMemo(() => MOCK_DATE_INFO, []);
+  // Transform API data to UI format for prayer times display
+  const prayerTimes = useMemo(() => {
+    if (!currentPrayerTimeData) return MOCK_PRAYER_TIMES;
+
+    const activePrayer = getCurrentActivePrayer(currentPrayerTimeData);
+
+    return [
+      {
+        name: "Fajr",
+        begins: currentPrayerTimeData.fajr,
+        jamaah: addMinutesToTime(currentPrayerTimeData.fajr, currentPrayerTimeData.fajrIqamahDelay),
+        isActive: activePrayer === "Fajr"
+      },
+      {
+        name: "Sunrise",
+        begins: currentPrayerTimeData.sunrise
+      },
+      {
+        name: "Zuhr",
+        begins: currentPrayerTimeData.dhuhr,
+        jamaah: addMinutesToTime(currentPrayerTimeData.dhuhr, currentPrayerTimeData.dhuhrIqamahDelay),
+        isActive: activePrayer === "Zuhr"
+      },
+      {
+        name: "'Asr",
+        begins: currentPrayerTimeData.asr,
+        jamaah: addMinutesToTime(currentPrayerTimeData.asr, currentPrayerTimeData.asrIqamahDelay),
+        isActive: activePrayer === "'Asr"
+      },
+      {
+        name: "Maghrib",
+        begins: currentPrayerTimeData.maghrib,
+        jamaah: addMinutesToTime(currentPrayerTimeData.maghrib, currentPrayerTimeData.maghribIqamahDelay),
+        isActive: activePrayer === "Maghrib"
+      },
+      {
+        name: "'Isha",
+        begins: currentPrayerTimeData.isha,
+        jamaah: addMinutesToTime(currentPrayerTimeData.isha, currentPrayerTimeData.ishaIqamahDelay),
+        isActive: activePrayer === "'Isha"
+      }
+    ];
+  }, [currentPrayerTimeData]);
+
+  // Transform settings to UI format for Jumuah times
+  const jumuahTimes = useMemo(() => {
+    if (!settings?.jumuahSettings) {
+      console.log('No jumuahSettings found, using mock data');
+      return MOCK_JUMUAH_TIMES;
+    }
+
+    console.log('jumuahSettings structure:', settings.jumuahSettings);
+    console.log('Is array?', Array.isArray(settings.jumuahSettings));
+
+    // Check if it's an array
+    if (!Array.isArray(settings.jumuahSettings)) {
+      console.warn('jumuahSettings is not an array, using mock data');
+      return MOCK_JUMUAH_TIMES;
+    }
+
+    return settings.jumuahSettings.map((jumuah: any, index: number) => {
+      return {
+        name: `Jumua'ah ${index + 1}`,
+        khutbah: jumuah.khutbahTime,
+        jamaah: jumuah.iqamahTime
+      };
+    });
+  }, [settings]);
+
+  // Format date info
+  const dateInfo = useMemo(() => {
+    if (!currentPrayerTimeData) return MOCK_DATE_INFO;
+
+    return {
+      gregorian: formatGregorianDate(currentDate),
+      hijri: formatHijriDate(currentPrayerTimeData.hijriDate)
+    };
+  }, [currentDate, currentPrayerTimeData]);
 
   return (
     <section className="w-full section-padding py-8">
@@ -606,7 +731,7 @@ export default function PrayerTimesSection({ activeTab }: { activeTab?: string }
             />
 
             {/* Countdown Timer */}
-            <CountdownDisplay countdown={countdown} prayerName={NEXT_PRAYER.name} />
+            <CountdownDisplay countdown={countdown} prayerName={nextPrayer.name} />
           </div>
 
           {/* Right side - Prayer Times List */}

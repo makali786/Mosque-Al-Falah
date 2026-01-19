@@ -28,7 +28,8 @@
       "Bash(npm install:*)",
       "Bash(openssl rand:*)",
       "Bash(npm uninstall:*)",
-      "Bash(ren:*)"
+      "Bash(ren:*)",
+      "Bash(npm run dev:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
