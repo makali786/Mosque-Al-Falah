@@ -82,6 +82,7 @@ interface ServiceDetailHeroProps {
   primaryButtonClassName?: string;
   Separator?: boolean;
   sectionImageStyle?: string;
+  contentStyle?: string;
 }
 
 export default function ServiceDetailHero({
@@ -102,6 +103,7 @@ export default function ServiceDetailHero({
   primaryButtonClassName,
   Separator: showSeparator,
   sectionImageStyle,
+  contentStyle,
 }: ServiceDetailHeroProps) {
   return (
     <section
@@ -138,7 +140,7 @@ export default function ServiceDetailHero({
           </div>
 
           {/* Text Content - Takes remaining space */}
-          <div className="w-full flex flex-col gap-3 justify-between md:gap-3 lg:max-w-170 lg:h-[396px] lg:max-h-[396px]">
+          <div className={`w-full flex flex-col gap-3 justify-between md:gap-3 lg:max-w-170 lg:h-[396px] lg:max-h-[396px] ${contentStyle}`}>
             <div>
               <div>
               <h1 className="text-3xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl text-black">

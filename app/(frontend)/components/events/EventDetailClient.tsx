@@ -507,14 +507,10 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                             </div>
 
                             {/* Donate Button */}
-<<<<<<< HEAD
-                            <Link href="/donate" className="py-3 px-4 bg-[#006FEE] text-white rounded-lg text-sm mt-1 cursor-pointer" onClick={() => router.push("/donate")}>
-=======
                             <Link
                                 href={`/donate${typeof donationAmount === 'number' ? `?amount=${donationAmount}` : ''}`}
                                 className="block w-fit py-3 px-4 bg-[#006FEE] hover:bg-[#005bc4] text-white text-center font-medium rounded-lg text-sm transition-colors"
                             >
->>>>>>> ce9a1d95434739e186d0f443d9f0205b6cd6d722
                                 Donate
                             </Link>
                         </div>

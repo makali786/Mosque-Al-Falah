@@ -140,6 +140,8 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 heading={title}
                 imageSrc={heroImage}
                 imageAlt={heroImageAlt}
+                imageHeight={340}
+                imageWidth={420}
                 layout="image-left"
                 updatedAt={updatedAt}
                 content={
@@ -156,8 +158,8 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 primaryButton={primaryButton}
                 secondaryButton={secondaryButton}
                 Separator={true}
-                imageHeight={396}
-                imageWidth={420}
+                contentStyle="lg:!h-[340px] lg:!max-h-[340px]"
+                primaryButtonClassName='!rounded-lg !px-6 !py-3'
             />
 
             {/* 4. EventMediaSection */}
