@@ -471,13 +471,14 @@ const PrayerTimesCalendar = () => {
               const baseWidth = "!min-w-[70px]";
 
               let rowBaseClass = `border-b text-sm ${rowHeight}`;
-              let rowColors = "border-[#F4F4F5]";
+              // Zebra striping: alternate background colors for standard rows
+              let rowColors = index % 2 !== 0 ? "bg-[#FAFAFA] border-[#F4F4F5]" : "bg-white border-[#F4F4F5]";
               let cellBorder = "border-r border-[#F4F4F5]";
               let lastCellBorder = "";
 
-              let textClass = "text-[#09090B]";
-              let beginsClass = "text-[#09090B]";
-              let islamicDateClass = "text-[#006FEE] font-medium";
+              let textClass = "";
+              let beginsClass = "";
+              let islamicDateClass = "";
 
               if (row.isActive) {
                 rowColors = "bg-[#006FEE] text-white border-[#006FEE]";
@@ -496,7 +497,7 @@ const PrayerTimesCalendar = () => {
 
               return (
                 <tr key={index} className={rowClass}>
-                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.day}</td>
+                  <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.day}</td>
                   <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.date}</td>
                   <td className={`${islamicDateClass} ${cellBorder} ${baseWidth}`}>
                     {row.islamicDate}
@@ -506,23 +507,23 @@ const PrayerTimesCalendar = () => {
 
                   {/* Fajr */}
                   <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.fajr.begins}</td>
-                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.fajr.jamaah}</td>
+                  <td className={` ${textClass} ${cellBorder} ${baseWidth}`}>{row.fajr.jamaah}</td>
 
                   {/* Zuhr */}
                   <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.zuhr.begins}</td>
-                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.zuhr.jamaah}</td>
+                  <td className={` ${textClass} ${cellBorder} ${baseWidth}`}>{row.zuhr.jamaah}</td>
 
                   {/* Asr */}
                   <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.asr.begins}</td>
-                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.asr.jamaah}</td>
+                  <td className={` ${textClass} ${cellBorder} ${baseWidth}`}>{row.asr.jamaah}</td>
 
                   {/* Maghrib */}
                   <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.maghrib.begins}</td>
-                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.maghrib.jamaah}</td>
+                  <td className={` ${textClass} ${cellBorder} ${baseWidth}`}>{row.maghrib.jamaah}</td>
 
                   {/* Isha */}
                   <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.isha.begins}</td>
-                  <td className={`font-medium ${textClass} ${lastCellBorder} ${baseWidth}`}>{row.isha.jamaah}</td>
+                  <td className={` ${textClass} ${lastCellBorder} ${baseWidth}`}>{row.isha.jamaah}</td>
                 </tr>
               );
             })}
