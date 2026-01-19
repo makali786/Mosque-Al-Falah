@@ -40,7 +40,6 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
     : 0; 
 
   const image1 = getMediaUrl(appeal.heroMedia?.heroImage);
-  console.log("image1", image1)
   return (
     <section className="relative w-full py-8 lg:py-22.5 bg-linear-to-br from-[#165273] to-[#153595]">
       <div className="section-padding">

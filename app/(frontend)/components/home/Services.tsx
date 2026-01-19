@@ -28,7 +28,6 @@ export default function Services({ services = [] }: { services: RawService[] }) 
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  console.log("services", services)
   // Map incoming services to local format
   const mappedServices: Service[] = services.map((service) => ({
     id: service.id,

@@ -31,7 +31,6 @@ async function seedImams() {
     process.exit(1);
   }
 
-  console.log('📷 Using media item:', imageId);
 
   // Imam 1: Head Imam
   // @ts-ignore
@@ -89,7 +88,6 @@ async function seedImams() {
       isActive: true,
     },
   });
-  console.log('✅ Created imam:', imam1.name);
 
   // Imam 2: Qari
   // @ts-ignore
@@ -147,7 +145,6 @@ async function seedImams() {
       isActive: true,
     },
   });
-  console.log('✅ Created imam:', imam2.name);
 
   // Imam 3: Youth Imam
   // @ts-ignore
@@ -201,7 +198,6 @@ async function seedImams() {
       isActive: true,
     },
   });
-  console.log('✅ Created imam:', imam3.name);
 
   // Imam 4: Resident Scholar
   // @ts-ignore
@@ -259,9 +255,7 @@ async function seedImams() {
       isActive: true,
     },
   });
-  console.log('✅ Created imam:', imam4.name);
 
-  console.log('🎉 Imams seeded successfully!');
   process.exit(0);
 }
 

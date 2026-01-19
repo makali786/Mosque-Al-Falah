@@ -5,9 +5,11 @@ import MeetOurImams from "./components/home/MeetOurImams";
 import AyatOfTheMonth from "./components/home/AyatOfTheMonth";
 import Sermons from "./components/home/Sermons";
 import DonationAppeal from "./components/home/DonationAppeal";
-import { fetchBanners, fetchEvents, fetchServices, fetchImams, fetchAyatOfTheMonth, fetchSermons, fetchDonationAppeals, fetchNotices } from "../../lib/fetcher";
+import { fetchBanners, fetchEvents, fetchServices, fetchImams, fetchAyatOfTheMonth, fetchSermons, fetchDonationAppeals, fetchNotices, fetchGlobal } from "../../lib/fetcher";
 
 export default async function Home() {
+  // Fetch home page configuration
+  const homePageConfig = await fetchGlobal({ slug: "home-page" });
 
   const banners = await fetchBanners({ depth: 1, sort: 'order', where: { isActive: { equals: true, }, }, })
   const events = await fetchEvents({ limit: 4, depth: 1, sort: 'order', where: { isPublished: { equals: true, }, }, })
@@ -22,25 +24,39 @@ export default async function Home() {
   return (
     <div className="bg-white">
       {/* Hero Banner Carousel */}
-      <HeroBanner banners={banners} />
+      {homePageConfig?.hero?.enableHero && (
+        <HeroBanner banners={banners} />
+      )}
 
       {/* News and Updates Section */}
-      <NewsAndUpdates events={events} notices={notices} />
+      {homePageConfig?.upcomingEvents?.enableSection && (
+        <NewsAndUpdates events={events} notices={notices} />
+      )}
 
       {/* Services Section */}
-      <Services services={services} />
+      {homePageConfig?.servicesSection?.enableSection && (
+        <Services services={services} />
+      )}
 
       {/* Meet Our Imams Section */}
-      <MeetOurImams imams={imams} />
+      {homePageConfig?.imamsSection?.enableSection && (
+        <MeetOurImams imams={imams} />
+      )}
 
       {/* Ayat of the Month Section */}
-      <AyatOfTheMonth ayatOfTheMonth={ayatOfTheMonth} />
+      {homePageConfig?.ayatSection?.enableSection && (
+        <AyatOfTheMonth ayatOfTheMonth={ayatOfTheMonth} />
+      )}
 
       {/* Sermons Section */}
-      <Sermons sermons={sermons} />
+      {homePageConfig?.sermonsSection?.enableSection && (
+        <Sermons sermons={sermons} />
+      )}
 
       {/* Donation Appeal Section */}
-      <DonationAppeal donationAppeal={donationAppeal} />
+      {homePageConfig?.donationSection?.enableSection && (
+        <DonationAppeal donationAppeal={donationAppeal} />
+      )}
     </div>
   );
 }

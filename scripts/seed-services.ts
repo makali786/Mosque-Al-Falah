@@ -12,7 +12,6 @@ async function seedServices() {
   const payloadConfigNew = await payloadConfig;
   const payload = await getPayload({ config: payloadConfigNew });
 
-  console.log('🌱 Seeding services...');
 
   // Get existing media items for images
   // @ts-ignore
@@ -102,7 +101,6 @@ async function seedServices() {
       isActive: true,
     },
   });
-  console.log('✅ Created service:', service1.title);
 
   // Service 2: Friday Jummah
   // @ts-ignore

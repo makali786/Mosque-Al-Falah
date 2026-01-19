@@ -29,7 +29,6 @@ export default function AudioPlayer({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const playerRef = useRef<any>(null);
 
-  console.log("audioUrl ", audioUrl)
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);

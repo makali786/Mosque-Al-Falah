@@ -12,7 +12,6 @@ async function seedDonationAppeals() {
   const payloadConfigNew = await payloadConfig;
   const payload = await getPayload({ config: payloadConfigNew });
 
-  console.log('🌱 Seeding donation appeals...');
 
   // Get existing media items for images
   // @ts-ignore
@@ -33,7 +32,6 @@ async function seedDonationAppeals() {
     process.exit(1);
   }
 
-  console.log('📷 Using media items:', imageId, imageId2);
 
   // Appeal 1: Give Back with Grateful Heart - Ramadan
   // @ts-ignore
@@ -193,7 +191,6 @@ async function seedDonationAppeals() {
       isActive: true,
     },
   });
-  console.log('✅ Created appeal:', appeal1.title);
 
   // Appeal 2: Gaza Emergency Appeal
   // @ts-ignore
@@ -330,7 +327,6 @@ async function seedDonationAppeals() {
       isActive: true,
     },
   });
-  console.log('✅ Created appeal:', appeal2.title);
 
   // Appeal 3: Help Build a Lasting Legacy
   // @ts-ignore
@@ -494,9 +490,7 @@ async function seedDonationAppeals() {
       isActive: true,
     },
   });
-  console.log('✅ Created appeal:', appeal3.title);
 
-  console.log('🎉 Donation appeals seeded successfully!');
   process.exit(0);
 }
 

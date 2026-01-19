@@ -196,8 +196,6 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
       return <p key={index} className="mb-4">{children}</p>;
 
     default:
-      // Log unknown types for debugging
-      console.log('Unknown node type:', genericNode.type, genericNode);
       return <div key={index}>{children}</div>;
   }
 };

@@ -12,7 +12,6 @@ async function seedBlogs() {
   const payloadConfigNew = await payloadConfig;
   const payload = await getPayload({ config: payloadConfigNew });
 
-  console.log('🌱 Seeding blog posts...');
 
   // Get existing media items for images
   // @ts-ignore
@@ -35,7 +34,6 @@ async function seedBlogs() {
     process.exit(1);
   }
 
-  console.log('📷 Using media items:', imageId, imageId2, imageId3);
 
   // Blog 1: How To Pray Taraweeh during Ramadan
   // @ts-ignore
@@ -205,7 +203,6 @@ async function seedBlogs() {
       },
     },
   });
-  console.log('✅ Created blog:', blog1.title);
 
   // Blog 2: The Importance of Daily Prayers in Islam
   // @ts-ignore
@@ -299,7 +296,6 @@ async function seedBlogs() {
       },
     },
   });
-  console.log('✅ Created blog:', blog2.title);
 
   // Blog 3: The Significance of Charity and Giving in Islam
   // @ts-ignore
@@ -399,10 +395,7 @@ async function seedBlogs() {
       },
     },
   });
-  console.log('✅ Created blog:', blog3.title);
 
-  // Link related posts
-  console.log('🔗 Linking related posts...');
   // @ts-ignore
   await payload.update({
     collection: 'blog-posts',
