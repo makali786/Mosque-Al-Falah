@@ -75,7 +75,7 @@ export default async function MediaPage() {
     title: item.title,
     description: item.description,
     image: item.thumbnail?.url,
-    type: item.mediaType || "video", // Default to video if missing, adjust as needed
+    type: item.mediaType || "",
     date: formatDate(item.publishedDate),
     slug: item.slug,
     duration: item.mediaContent?.videoDuration,

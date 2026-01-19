@@ -16,9 +16,7 @@ interface MediaDetailPageProps {
   };
 }
 
-// ------------------------------------------------------------------
-// Main Page Component
-// ------------------------------------------------------------------
+
 
 export default async function MediaDetailPage({ params }: MediaDetailPageProps) {
   const { slug } = await params;
@@ -53,8 +51,8 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
     id: item.id,
     title: item.title,
     description: item.description,
-    image: item.thumbnail?.url || "/assets/ayat/background.png", // Fallback
-    type: item.mediaType || "video",
+    image: item.thumbnail?.url || "/assets/ayat/background.png",
+    type: item.mediaType || "",
     date: item.publishedDate ? new Date(item.publishedDate).toLocaleDateString() : "",
     slug: item.slug,
   }));
@@ -62,12 +60,12 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
 
   // Video Source handling
   const videoSrc = mediaContent?.videoFile?.url;
-  const isVideo = mediaType === 'video' || (mediaType === 'audio_podcast'); // Handle different potential types
+  const isVideo = mediaType === 'video' || (mediaType === 'audio_podcast');
   
   return (
     <div className="bg-white min-h-screen">
       
-      <div className="">
+      <div>
         
         {/* Breadcrumb */}
 
