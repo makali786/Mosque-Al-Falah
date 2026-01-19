@@ -467,7 +467,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                             <div className="space-y-3">
                                 <span className="text-xs font-medium text-[#52525B]">Amount:</span>
-                                <div className="flex gap-3 flex-wrap xl:flex-nowrap mt-3">
+                                <div className="flex gap-3 flex-wrap mt-3">
                                     {amounts.map((amount: number) => (
                                         <button
                                             key={amount}
