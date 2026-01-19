@@ -475,7 +475,7 @@ export default function Footer() {
         {/* Bottom Section - Copyright */}
         <div className="bg-[#18181b] flex items-center justify-center px-6 lg:px-8 py-6 lg:py-0 lg:h-25.25 w-full">
           <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center hn-container">
-            COPYRIGHT © 2020{" "}
+            COPYRIGHT © {new Date().getFullYear()}{" "}
             <Link
               href="https://www.masjid-alfalah.org.uk/"
               className="hover:text-[#006fee]"
