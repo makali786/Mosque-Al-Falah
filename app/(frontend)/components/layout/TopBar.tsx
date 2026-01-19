@@ -2,8 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import CalendarModal from "./CalendarModal";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+
+// Extend dayjs with timezone support
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const PRAYER_TIMES = [
   { name: "Fajr", time: "5:53", active: false },
@@ -13,7 +20,25 @@ const PRAYER_TIMES = [
   { name: "Ishā", time: "6:33", active: false },
 ] as const;
 
-const DATES = [{ label: "04 February 2025" }, { label: "5 Sha'baan" }] as const;
+// Helper function to format Hijri date
+const formatHijriDate = (date: Date): string => {
+  try {
+    const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
+      day: 'numeric',
+      month: 'long',
+      timeZone: 'Europe/London'
+    });
+
+    const parts = formatter.formatToParts(date);
+    const month = parts.find(p => p.type === 'month')?.value || '';
+    const day = parts.find(p => p.type === 'day')?.value || '';
+
+    return `${day} ${month}`;
+  } catch (error) {
+    console.error('Hijri calendar not supported:', error);
+    return 'Hijri date unavailable';
+  }
+};
 
 const SOCIAL_LINKS = [
   {
@@ -38,12 +63,12 @@ const NAVIGATION_LINKS = [
   {
     name: "Qibla Finder",
     icon: "/assets/topbar/compass-icon.svg",
-    url: "/qibla-finder",
+    url: "https://qiblafinder.withgoogle.com/intl/en/desktop",
   },
   {
     name: "Mosque Finder",
     icon: "/assets/topbar/gps-icon.svg",
-    url: "/mosque-finder",
+    url: "https://mosques.muslimsinbritain.org/maps-mobile",
   },
 ] as const;
 
@@ -151,6 +176,28 @@ const PrayerTime = ({
 
 export default function TopBar() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update time every minute to keep dates current
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Calculate dynamic dates
+  const dates = useMemo(() => {
+    const now = dayjs(currentTime).tz('Europe/London');
+    const gregorianDate = now.format('DD MMMM YYYY');
+    const hijriDate = formatHijriDate(currentTime);
+
+    return [
+      { label: gregorianDate },
+      { label: hijriDate }
+    ];
+  }, [currentTime]);
 
   return (
     <div className="bg-white w-full relative">
@@ -159,7 +206,7 @@ export default function TopBar() {
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-center w-full px-2">
             <div className="flex items-center justify-center gap-3">
-              {DATES.map((date) => (
+              {dates.map((date) => (
                 <DateItem
                   key={date.label}
                   label={date.label}
@@ -181,7 +228,7 @@ export default function TopBar() {
       <div className="hidden sm:flex lg:hidden flex-col gap-3 hn-container py-3 w-full">
         <div className="flex items-center justify-between w-full">
           <div className="flex gap-3 items-center">
-            {DATES.map((date) => (
+            {dates.map((date) => (
               <DateItem
                 key={date.label}
                 label={date.label}
@@ -195,7 +242,9 @@ export default function TopBar() {
               <SocialIcon key={social.name} {...social} size="small" />
             ))}
             <Link
-              href="/qibla-finder"
+              href="https://qiblafinder.withgoogle.com/intl/en/desktop"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center justify-center rounded-full shrink-0"
               aria-label="Qibla Finder"
             >
@@ -246,13 +295,14 @@ export default function TopBar() {
       <div className="hidden lg:flex items-center justify-between hn-container py-3 w-full">
         {/* Left Section - Date & Location Info */}
         <div className="flex gap-2 xl:gap-4 items-center shrink-0">
-          {DATES.map((date) => (
+          {dates.map((date) => (
             <DateItem key={date.label} label={date.label} />
           ))}
           {NAVIGATION_LINKS.map((link) => (
             <Link 
               key={link.name}
               href={link.url}
+              target="_blank"
               className="hidden xl:flex gap-1 items-center shrink-0"
             >
               <Image
@@ -275,7 +325,9 @@ export default function TopBar() {
             <SocialIcon key={social.name} {...social} />
           ))}
           <Link
-            href="/qibla-finder"
+            href="https://qiblafinder.withgoogle.com/intl/en/desktop"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center rounded-full shrink-0"
             aria-label="Qibla Finder"
           >

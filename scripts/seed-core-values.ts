@@ -12,7 +12,6 @@ async function seedCoreValues() {
   const payloadConfigNew = await payloadConfig;
   const payload = await getPayload({ config: payloadConfigNew });
 
-  console.log('🌱 Seeding core values...');
 
   // Core Value 1: What is MAF?
   // @ts-ignore
@@ -41,7 +40,6 @@ async function seedCoreValues() {
       isActive: true,
     },
   });
-  console.log('✅ Created core value:', value1.question);
 
   // Core Value 2: How is MAF Organised?
   // @ts-ignore
@@ -70,7 +68,6 @@ async function seedCoreValues() {
       isActive: true,
     },
   });
-  console.log('✅ Created core value:', value2.question);
 
   // Core Value 3: How was MCB Founded?
   // @ts-ignore
@@ -99,7 +96,6 @@ async function seedCoreValues() {
       isActive: true,
     },
   });
-  console.log('✅ Created core value:', value3.question);
 
   // Core Value 4: How is MAF Funded?
   // @ts-ignore
@@ -128,7 +124,6 @@ async function seedCoreValues() {
       isActive: true,
     },
   });
-  console.log('✅ Created core value:', value4.question);
 
   // Core Value 5: Relating to British Muslim Individuals
   // @ts-ignore
@@ -157,7 +152,6 @@ async function seedCoreValues() {
       isActive: true,
     },
   });
-  console.log('✅ Created core value:', value5.question);
 
   // Core Value 6: Our Mission
   // @ts-ignore
@@ -186,9 +180,7 @@ async function seedCoreValues() {
       isActive: true,
     },
   });
-  console.log('✅ Created core value:', value6.question);
 
-  console.log('🎉 Core values seeded successfully!');
   process.exit(0);
 }
 

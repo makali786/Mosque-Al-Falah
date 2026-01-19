@@ -4,8 +4,6 @@ import configPromise from './payload.config';
 const seed = async () => {
   const payload = await getPayload({ config: configPromise });
 
-  console.log('Seeding prayer times for 2025 and 2026...');
-
   const startDate = new Date('2025-01-01');
   const endDate = new Date('2026-12-31');
 
@@ -70,7 +68,6 @@ const seed = async () => {
     count++;
   }
 
-  console.log(`\n\nSeeding complete! Processed ${count} days.`);
   process.exit(0);
 };
 

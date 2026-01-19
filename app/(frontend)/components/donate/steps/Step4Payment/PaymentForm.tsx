@@ -55,7 +55,6 @@ export default function PaymentForm({
     setIsProcessing(true);
     setError(null);
 
-    console.log('Submitting payment with return_url:', `${window.location.origin}/donate/complete`);
 
     // Use confirmPayment for all payment methods (Card, PayPal, BACS, etc.)
     const { error: submitError } = await stripe.confirmPayment({

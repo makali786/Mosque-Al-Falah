@@ -19,7 +19,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Madrasah", href: "/madrasah" },
   { label: "Sermons", href: "/sermons" },
   { label: "Media", href: "/media" },
-  { label: "Prayer Times", href: "/prayer-times" },
+  { label: "Prayer Times", href: "/prayer-time" },
   { label: "Blogs", href: "/blogs" },
 ];
 

@@ -459,8 +459,443 @@ export const Services: CollectionConfig = {
     },
 
     // ============================================================================
-    // Marriage/Nikaah Specific Features
+    // Dynamic Content Blocks (Flexible Page Builder)
     // ============================================================================
+    {
+      name: 'contentBlocks',
+      type: 'array',
+      label: 'Service Detail Content Blocks',
+      admin: {
+        description:
+          'Build your service detail page with flexible content blocks. Drag to reorder sections.',
+      },
+      fields: [
+        {
+          name: 'blockType',
+          type: 'select',
+          required: true,
+          label: 'Block Type',
+          options: [
+            { label: 'Hero Section', value: 'hero' },
+            { label: 'Media Section (Video/Photos/Audio)', value: 'media' },
+            { label: 'FAQs Section', value: 'faqs' },
+            { label: 'Live Streaming Section', value: 'liveStreaming' },
+            { label: 'Two-Column Content (Image + Text)', value: 'twoColumn' },
+            { label: 'Gallery', value: 'gallery' },
+            { label: 'Schedule Display', value: 'schedule' },
+            { label: 'Email Signup / Notifications', value: 'emailSignup' },
+            { label: 'Quote with Image', value: 'quoteWithImage' },
+            { label: 'Testimonials Carousel', value: 'testimonials' },
+            { label: 'Requirements/Steps Carousel', value: 'requirements' },
+            { label: 'Rich Content', value: 'richContent' },
+            { label: 'Call to Action', value: 'cta' },
+          ],
+        },
+
+        // Hero Block
+        {
+          name: 'hero',
+          type: 'group',
+          label: 'Hero Section Settings',
+          admin: {
+            condition: (data, siblingData) => siblingData?.blockType === 'hero',
+          },
+          fields: [
+            {
+              name: 'heading',
+              type: 'text',
+              label: 'Heading',
+            },
+            {
+              name: 'content',
+              type: 'richText',
+              label: 'Content',
+            },
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Hero Image',
+            },
+            {
+              name: 'imagePosition',
+              type: 'select',
+              options: [
+                { label: 'Left', value: 'image-left' },
+                { label: 'Right', value: 'image-right' },
+              ],
+              defaultValue: 'image-left',
+              label: 'Image Position',
+            },
+            {
+              name: 'showButton',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Show Button',
+            },
+            {
+              name: 'buttonText',
+              type: 'text',
+              label: 'Button Text',
+              admin: {
+                condition: (data, siblingData) => siblingData?.showButton,
+              },
+            },
+            {
+              name: 'buttonUrl',
+              type: 'text',
+              label: 'Button URL',
+              admin: {
+                condition: (data, siblingData) => siblingData?.showButton,
+              },
+            },
+          ],
+        },
+
+        // Media Block
+        {
+          name: 'mediaBlock',
+          type: 'group',
+          label: 'Media Section Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'media',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              defaultValue: 'Media',
+              label: 'Section Title',
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              label: 'Section Description',
+            },
+            {
+              name: 'videoUrl',
+              type: 'text',
+              label: 'Video URL',
+              admin: {
+                description: 'YouTube, Vimeo, or stream URL',
+              },
+            },
+            {
+              name: 'videoThumbnail',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Video Thumbnail',
+            },
+            {
+              name: 'isLive',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Show "Live" Badge',
+            },
+          ],
+        },
+
+        // Venue Block
+        {
+          name: 'venueBlock',
+          type: 'group',
+          label: 'Venue Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'venue',
+          },
+          fields: [
+            {
+              name: 'venueName',
+              type: 'text',
+              label: 'Venue Name',
+            },
+            {
+              name: 'fullAddress',
+              type: 'textarea',
+              label: 'Full Address',
+            },
+            {
+              name: 'googleMapsLink',
+              type: 'text',
+              label: 'Google Maps Link',
+            },
+          ],
+        },
+
+        // Donation Block
+        {
+          name: 'donationBlock',
+          type: 'group',
+          label: 'Donation Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'donation',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              defaultValue: 'Donate to Masjid Al Falah',
+              label: 'Section Title',
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              label: 'Description',
+            },
+            {
+              name: 'suggestedAmounts',
+              type: 'array',
+              label: 'Suggested Amounts',
+              fields: [
+                {
+                  name: 'amount',
+                  type: 'number',
+                  required: true,
+                  label: 'Amount (£)',
+                },
+              ],
+            },
+          ],
+        },
+
+        // Testimonials Block
+        {
+          name: 'testimonialsBlock',
+          type: 'group',
+          label: 'Testimonials Carousel Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'testimonials',
+          },
+          fields: [
+            {
+              name: 'items',
+              type: 'array',
+              label: 'Testimonials',
+              fields: [
+                {
+                  name: 'quote',
+                  type: 'textarea',
+                  required: true,
+                  label: 'Quote Text',
+                },
+                {
+                  name: 'author',
+                  type: 'text',
+                  label: 'Author Name',
+                },
+                {
+                  name: 'authorTitle',
+                  type: 'text',
+                  label: 'Author Title/Role',
+                },
+                {
+                  name: 'photo',
+                  type: 'upload',
+                  relationTo: 'media',
+                  label: 'Photo',
+                },
+              ],
+            },
+          ],
+        },
+
+        // Requirements/Steps Block
+        {
+          name: 'requirementsBlock',
+          type: 'group',
+          label: 'Requirements/Steps Carousel Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'requirements',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              label: 'Section Title',
+              admin: {
+                description: 'e.g., "Marriage Requirements", "How It Works"',
+              },
+            },
+            {
+              name: 'items',
+              type: 'array',
+              label: 'Steps/Requirements',
+              fields: [
+                {
+                  name: 'stepNumber',
+                  type: 'number',
+                  label: 'Step Number',
+                },
+                {
+                  name: 'title',
+                  type: 'text',
+                  label: 'Step Title',
+                },
+                {
+                  name: 'description',
+                  type: 'richText',
+                  label: 'Description',
+                },
+                {
+                  name: 'image',
+                  type: 'upload',
+                  relationTo: 'media',
+                  label: 'Step Image (Optional)',
+                },
+              ],
+            },
+          ],
+        },
+
+        // Rich Content Block
+        {
+          name: 'richContentBlock',
+          type: 'group',
+          label: 'Rich Content Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'richContent',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              label: 'Section Title (Optional)',
+            },
+            {
+              name: 'content',
+              type: 'richText',
+              required: true,
+              label: 'Content',
+            },
+            {
+              name: 'backgroundColor',
+              type: 'select',
+              options: [
+                { label: 'White', value: 'white' },
+                { label: 'Light Gray', value: 'gray' },
+                { label: 'Blue', value: 'blue' },
+              ],
+              defaultValue: 'white',
+              label: 'Background Color',
+            },
+          ],
+        },
+
+        // CTA Block
+        {
+          name: 'ctaBlock',
+          type: 'group',
+          label: 'Call to Action Settings',
+          admin: {
+            condition: (data, siblingData) => siblingData?.blockType === 'cta',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              label: 'Title',
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              label: 'Description',
+            },
+            {
+              name: 'buttonText',
+              type: 'text',
+              required: true,
+              label: 'Button Text',
+            },
+            {
+              name: 'buttonUrl',
+              type: 'text',
+              label: 'Button URL',
+            },
+            {
+              name: 'buttonStyle',
+              type: 'select',
+              options: [
+                { label: 'Primary (Blue)', value: 'primary' },
+                { label: 'Secondary (White)', value: 'secondary' },
+                { label: 'Outline', value: 'outline' },
+              ],
+              defaultValue: 'primary',
+            },
+          ],
+        },
+
+        // Schedule Block
+        {
+          name: 'scheduleBlock',
+          type: 'group',
+          label: 'Schedule Display Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'schedule',
+          },
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              defaultValue: 'Schedule',
+              label: 'Section Title',
+            },
+            {
+              name: 'scheduleType',
+              type: 'select',
+              options: [
+                { label: 'Daily', value: 'daily' },
+                { label: 'Weekly', value: 'weekly' },
+                { label: 'Monthly', value: 'monthly' },
+                { label: 'Seasonal (Ramadan, etc.)', value: 'seasonal' },
+                { label: 'On Request', value: 'on-request' },
+              ],
+            },
+            {
+              name: 'scheduleText',
+              type: 'textarea',
+              label: 'Schedule Description',
+            },
+            {
+              name: 'times',
+              type: 'array',
+              label: 'Times/Jamaah',
+              fields: [
+                {
+                  name: 'label',
+                  type: 'text',
+                  label: 'Label',
+                  admin: {
+                    description: 'e.g., "1ST JAMAAH", "Maghrib"',
+                  },
+                },
+                {
+                  name: 'time',
+                  type: 'text',
+                  label: 'Time',
+                },
+                {
+                  name: 'description',
+                  type: 'text',
+                  label: 'Additional Info',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+
+    // ============================================================================
+    // Legacy Fields (Kept for backward compatibility)
+    // ============================================================================
+    // Marriage/Nikaah Specific Features
     {
       name: 'nikaah',
       type: 'group',

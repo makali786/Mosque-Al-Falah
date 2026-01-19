@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 interface AddressComponents {
@@ -14,14 +14,23 @@ interface AddressComponents {
 interface AddressAutocompleteProps {
   onAddressSelect: (address: AddressComponents) => void;
   defaultValue?: string;
+  value?: AddressComponents;
 }
 
 export default function AddressAutocomplete({
   onAddressSelect,
   defaultValue = '',
+  value,
 }: AddressAutocompleteProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
+  const [showManualEntry, setShowManualEntry] = useState(false);
+  const [manualAddress, setManualAddress] = useState({
+    line1: value?.line1 || '',
+    line2: value?.line2 || '',
+    city: value?.city || '',
+    postcode: value?.postcode || '',
+  });
 
   useEffect(() => {
     let mounted = true;
@@ -76,7 +85,6 @@ export default function AddressAutocomplete({
           const parts = formatted.split(',').map(p => p.trim());
 
           // line1: first part(s) before city/region
-          // For "4475 Rue Garand, Saint-Laurent, QC, Canada" -> "4475 Rue Garand, Saint-Laurent"
           let line1 = '';
           if (parts.length >= 3) {
             // Take all except last 2 (region + country)
@@ -105,7 +113,9 @@ export default function AddressAutocomplete({
       }
     };
 
-    initAutocomplete();
+    if (!showManualEntry) {
+      initAutocomplete();
+    }
 
     // Inject styles
     if (!document.getElementById('pac-styles')) {
@@ -143,38 +153,149 @@ export default function AddressAutocomplete({
         autocompleteRef.current = null;
       }
     };
-  }, [onAddressSelect]);
+  }, [onAddressSelect, showManualEntry]);
+
+  const handleManualAddressChange = (field: keyof typeof manualAddress, value: string) => {
+    const updated = { ...manualAddress, [field]: value };
+    setManualAddress(updated);
+    onAddressSelect({
+      ...updated,
+      country: 'GB',
+    });
+  };
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <div className="flex flex-col h-17.5 items-start min-w-29 w-full">
-        <div className="flex items-center pb-3 pr-2 w-full">
-          <p className="text-xs font-normal leading-4 text-[#52525B]">
-            Find your address
-          </p>
-          <div className="flex flex-col h-3.5 items-center justify-center pl-0.5 w-1.75">
-            <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+    <div className="flex flex-col gap-4 w-full">
+      {!showManualEntry ? (
+        <>
+          {/* Google Places Autocomplete */}
+          <div className="flex flex-col h-17.5 items-start min-w-29 w-full">
+            <div className="flex items-center pb-3 pr-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">
+                Find your address
+              </p>
+              <div className="flex flex-col h-3.5 items-center justify-center pl-0.5 w-1.75">
+                <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+              </div>
+            </div>
+            <div className="bg-[#F4F4F5] flex items-center min-h-8 px-1.5 py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full relative">
+              <div className="overflow-hidden w-5 h-5 relative shrink-0">
+                <Image
+                  src="/assets/donation/search-address.svg"
+                  alt="Search"
+                  width={20}
+                  height={20}
+                  className="absolute inset-[2%]"
+                />
+              </div>
+              <input
+                ref={inputRef}
+                type="text"
+                defaultValue={defaultValue}
+                placeholder="Start typing your address"
+                className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
+              />
+            </div>
           </div>
-        </div>
-        <div className="bg-[#F4F4F5] flex items-center min-h-8 px-1.5 py-2 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] w-full relative">
-          <div className="overflow-hidden w-5 h-5 relative shrink-0">
-            <Image
-              src="/assets/donation/search-address.svg"
-              alt="Search"
-              width={20}
-              height={20}
-              className="absolute inset-[2%]"
-            />
+
+          {/* Toggle to Manual Entry */}
+          <button
+            type="button"
+            onClick={() => setShowManualEntry(true)}
+            className="font-normal leading-5 text-xs hover:underline text-left cursor-pointer"
+          >
+            Enter address manually
+          </button>
+        </>
+      ) : (
+        <>
+          {/* Manual Entry Fields */}
+          <div className="flex flex-col gap-4 w-full">
+            {/* Address Line 1 */}
+            <div className="flex flex-col gap-2 w-full">
+              <div className="flex items-center">
+                <p className="text-xs font-normal leading-4 text-[#52525B]">
+                  Address Line 1
+                </p>
+                <div className="flex flex-col h-3.5 items-center justify-center pl-0.5 w-1.75">
+                  <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                </div>
+              </div>
+              <input
+                type="text"
+                value={manualAddress.line1}
+                onChange={(e) => handleManualAddressChange('line1', e.target.value)}
+                placeholder="e.g. 123 Main Street"
+                className="bg-[#F4F4F5] px-4 py-3 rounded-xl text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none focus:ring-2 focus:ring-[#006FEE]"
+              />
+            </div>
+
+            {/* Address Line 2 */}
+            <div className="flex flex-col gap-2 w-full">
+              <p className="text-xs font-normal leading-4 text-[#52525B]">
+                Address Line 2 (optional)
+              </p>
+              <input
+                type="text"
+                value={manualAddress.line2}
+                onChange={(e) => handleManualAddressChange('line2', e.target.value)}
+                placeholder="e.g. Apartment 4B"
+                className="bg-[#F4F4F5] px-4 py-3 rounded-xl text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none focus:ring-2 focus:ring-[#006FEE]"
+              />
+            </div>
+
+            {/* City and Postcode Row */}
+            <div className="flex flex-col sm:flex-row gap-4 w-full">
+              {/* City */}
+              <div className="flex flex-col gap-2 flex-1">
+                <div className="flex items-center">
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">
+                    City
+                  </p>
+                  <div className="flex flex-col h-3.5 items-center justify-center pl-0.5 w-1.75">
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  value={manualAddress.city}
+                  onChange={(e) => handleManualAddressChange('city', e.target.value)}
+                  placeholder="e.g. London"
+                  className="bg-[#F4F4F5] px-4 py-3 rounded-xl text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none focus:ring-2 focus:ring-[#006FEE]"
+                />
+              </div>
+
+              {/* Postcode */}
+              <div className="flex flex-col gap-2 flex-1">
+                <div className="flex items-center">
+                  <p className="text-xs font-normal leading-4 text-[#52525B]">
+                    Postcode
+                  </p>
+                  <div className="flex flex-col h-3.5 items-center justify-center pl-0.5 w-1.75">
+                    <p className="text-sm font-normal leading-5 text-[#F31260]">*</p>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  value={manualAddress.postcode}
+                  onChange={(e) => handleManualAddressChange('postcode', e.target.value)}
+                  placeholder="e.g. SW1A 1AA"
+                  className="bg-[#F4F4F5] px-4 py-3 rounded-xl text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none focus:ring-2 focus:ring-[#006FEE]"
+                />
+              </div>
+            </div>
           </div>
-          <input
-            ref={inputRef}
-            type="text"
-            defaultValue={defaultValue}
-            placeholder="Start typing your address"
-            className="flex-1 bg-transparent px-[6px] pb-0.5 text-base font-normal leading-6 text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
-          />
-        </div>
-      </div>
+
+          {/* Toggle back to Autocomplete */}
+          <button
+            type="button"
+            onClick={() => setShowManualEntry(false)}
+            className="text-xs font-normal leading-5 hover:underline text-left cursor-pointer"
+          >
+            Use address search instead
+          </button>
+        </>
+      )}
     </div>
   );
 }

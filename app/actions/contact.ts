@@ -31,14 +31,6 @@ export async function submitContactForm(prevState: ContactFormState, formData: F
   try {
     // In a real application, you would use a service like Resend, SendGrid, or Nodemailer here.
     // For now, we will log the email details to the console.
-    
-    console.log('--- Sending Email ---');
-    console.log(`To: ${recipientEmail}`);
-    console.log(`From: ${name} <${email}>`);
-    console.log(`Topic: ${topic}`);
-    console.log(`Message: ${message}`);
-    console.log('---------------------');
-
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 1000));
 

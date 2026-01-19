@@ -12,7 +12,6 @@ async function seedMadrasah() {
   const payloadConfigNew = await payloadConfig;
   const payload = await getPayload({ config: payloadConfigNew });
 
-  console.log('🌱 Seeding Madrasah data...');
 
   // Get existing media for placeholder images
   // @ts-ignore
@@ -31,7 +30,6 @@ async function seedMadrasah() {
   // ============================================================================
   // Seed Madrasah Classes
   // ============================================================================
-  console.log('\n📚 Seeding Madrasah Classes...');
 
   const classesData = [
     {

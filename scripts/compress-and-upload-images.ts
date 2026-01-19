@@ -108,7 +108,6 @@ async function deleteExistingBlob(blobPath: string): Promise<void> {
     const { blobs } = await list({ prefix: blobPath });
     for (const blob of blobs) {
       await del(blob.url);
-      console.log(`  🗑️ Deleted old blob: ${blob.url}`);
     }
   } catch (error) {
     // Blob might not exist, that's ok
@@ -116,16 +115,12 @@ async function deleteExistingBlob(blobPath: string): Promise<void> {
 }
 
 async function main() {
-  console.log('🖼️  Image Compression and Vercel Blob Migration\n');
-  console.log('='.repeat(50));
 
   // Check for environment variable
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     console.error(
       '❌ Error: BLOB_READ_WRITE_TOKEN environment variable is required'
     );
-    console.log('\nPlease set it in your .env file or run:');
-    console.log('  export BLOB_READ_WRITE_TOKEN=your_token_here');
     process.exit(1);
   }
 
@@ -135,9 +130,7 @@ async function main() {
   }
 
   // Find all images
-  console.log(`\n📁 Scanning ${MEDIA_DIR}...`);
   const images = await findImages(MEDIA_DIR);
-  console.log(`   Found ${images.length} images\n`);
 
   if (images.length === 0) {
     console.log('No images found. Exiting.');
@@ -157,7 +150,6 @@ async function main() {
     const outputPath = path.join(OUTPUT_DIR, outputFileName);
     const blobPath = `media/${outputFileName}`;
 
-    console.log(`[${i + 1}/${images.length}] Processing: ${relativePath}`);
 
     try {
       // Compress image
@@ -172,14 +164,9 @@ async function main() {
         (1 - compressedSize / originalSize) *
         100
       ).toFixed(1);
-      console.log(
-        `   📦 Compressed: ${(originalSize / 1024 / 1024).toFixed(2)}MB → ${(compressedSize / 1024 / 1024).toFixed(2)}MB (${compressionRatio}% smaller)`
-      );
 
       // Upload to Vercel Blob
-      console.log(`   ☁️  Uploading to Vercel Blob...`);
       const blobUrl = await uploadToVercelBlob(outputPath, blobPath);
-      console.log(`   ✅ Uploaded: ${blobUrl}`);
 
       stats.push({
         originalPath: relativePath,
@@ -193,33 +180,11 @@ async function main() {
       console.error(`   ❌ Error processing ${relativePath}:`, error);
     }
 
-    console.log('');
   }
-
-  // Summary
-  console.log('='.repeat(50));
-  console.log('\n📊 Summary\n');
-  console.log(`   Total images processed: ${stats.length}`);
-  console.log(
-    `   Original size: ${(totalOriginalSize / 1024 / 1024).toFixed(2)} MB`
-  );
-  console.log(
-    `   Compressed size: ${(totalCompressedSize / 1024 / 1024).toFixed(2)} MB`
-  );
-  console.log(
-    `   Total savings: ${((1 - totalCompressedSize / totalOriginalSize) * 100).toFixed(1)}%`
-  );
-  console.log(`\n   Compressed files saved to: ${OUTPUT_DIR}`);
-
-  // Ask about deleting original files
-  console.log('\n⚠️  To delete original files, run:');
-  console.log('   rm -rf ./media/*');
-  console.log('   mv ./media-compressed/* ./media/');
 
   // Save mapping file for reference
   const mappingPath = path.join(OUTPUT_DIR, 'image-mapping.json');
   fs.writeFileSync(mappingPath, JSON.stringify(stats, null, 2));
-  console.log(`\n📄 Image mapping saved to: ${mappingPath}`);
 }
 
 main().catch(console.error);
