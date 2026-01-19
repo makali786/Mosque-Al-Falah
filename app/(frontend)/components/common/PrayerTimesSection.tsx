@@ -473,8 +473,8 @@ const PrayerTimesCalendar = () => {
               let rowBaseClass = `border-b text-sm ${rowHeight}`;
               // Zebra striping: alternate background colors for standard rows
               let rowColors = index % 2 !== 0 ? "bg-[#FAFAFA] border-[#F4F4F5]" : "bg-white border-[#F4F4F5]";
-              let cellBorder = "border-r border-[#F4F4F5]";
-              let lastCellBorder = "";
+              let cellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
+              let lastCellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
 
               let textClass = "";
               let beginsClass = "";
@@ -482,15 +482,18 @@ const PrayerTimesCalendar = () => {
 
               if (row.isActive) {
                 rowColors = "bg-[#006FEE] text-white border-[#006FEE]";
-                cellBorder = "border-r border-white/20"; 
+                cellBorder = "border-x border-white/20";
+                lastCellBorder = "border-x border-white/20"; 
                 textClass = "text-white";
                 beginsClass = "text-white";
                 islamicDateClass = "text-white font-medium";
               } else if (row.isFriday) {
-                rowColors = "bg-[#EFF6FF] border-[#DBEAFE]";
-                cellBorder = "border-r border-[#DBEAFE]";
-                textClass = "text-[#172554]";
+                rowColors = "bg-[#e6f1fe] border-[#F4F4F5]";
+                cellBorder = "border-x border-[#F4F4F5]";
+                lastCellBorder = "border-x border-[#F4F4F5]";
+                textClass = "text-[#006FEE]";
                 beginsClass = "text-[#006FEE]";
+                islamicDateClass = "text-[#006FEE]";
               }
 
               const rowClass = `${rowBaseClass} ${rowColors}`;
@@ -503,7 +506,7 @@ const PrayerTimesCalendar = () => {
                     {row.islamicDate}
                   </td>
                   <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.subhaSadiq}</td>
-                  <td className={`${textClass} border-r border-[#F4F4F5] ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''} ${baseWidth}`}>{row.sunRise}</td>
+                  <td className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''} ${baseWidth}`}>{row.sunRise}</td>
 
                   {/* Fajr */}
                   <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.fajr.begins}</td>
