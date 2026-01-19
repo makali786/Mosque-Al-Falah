@@ -60,3 +60,4 @@ export function clearUserData(): void {
 export function hasUserData(): boolean {
   return getUserData() !== null;
 }
+
