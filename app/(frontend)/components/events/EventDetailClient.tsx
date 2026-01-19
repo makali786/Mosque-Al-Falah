@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FiImage, FiMic, FiUser, FiVideo } from "react-icons/fi";
 import { MdOutlineOndemandVideo } from "react-icons/md";
@@ -10,6 +11,7 @@ import { RichTextRenderer } from "../common/RichTextRenderer";
 import Separator from "../common/Separator";
 import EventCard from "./EventCard";
 import Tabs from "../common/Tabs";
+import DonorProfileCard from "../donate/shared/DonorProfileCard";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -38,8 +40,14 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
     const [activeTab, setActiveTab] = useState<"video" | "photos" | "audio">("video");
     const [donationAmount, setDonationAmount] = useState<number | string | null>(null);
     const [guestCount, setGuestCount] = useState<number>(1);
-    const amounts = config?.donationAmounts || [];
-    const maxGuests = config?.maxGuests || 0;
+
+    // Get donation amounts from event.donation.suggestedAmounts
+    const amounts = event?.donation?.suggestedAmounts?.map((item: any) => item.amount) || config?.donationAmounts || [];
+    const maxGuests = event?.registration?.maxAttendees || config?.maxGuests || 0;
+
+    // Get donation settings
+    const donationTitle = event?.donation?.donationTitle || `Donate to ${event?.venue?.name || "Masjid Al-Falah"}`;
+    const donationDescription = event?.donation?.donationDescription || "Support our community services and events. Your contribution makes a difference.";
 
     // Carousel Logic
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -450,35 +458,61 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         </div>
 
                         {/* Donate Section */}
-                        <div className="space-y-3">
-                            <div className="border-b border-gray-100 pb-3">
-                                <h3 className="text-lg font-semibold mb-2">Donate to {venue}</h3>
-                                <p className="text-sm text-[#3F3F46]">Support our community services and events. Your contribution makes a difference.</p>
+                        <div className="space-y-4">
+                            <div>
+                                <h3 className="text-lg font-semibold mb-2">{donationTitle}</h3>
+                                <p className="text-sm text-[#3F3F46] mb-3">{donationDescription}</p>
+                                <Separator />
                             </div>
+
                             <div className="space-y-3">
                                 <span className="text-xs font-medium text-[#52525B]">Amount:</span>
-                                <Tabs
-                                    tabs={[
-                                        ...amounts.map((amount: any) => ({
-                                            id: String(amount),
-                                            label: `£${amount}`
-                                        })),
-                                        { id: "Other", label: "Other" }
-                                    ]}
-                                    activeTab={String(donationAmount)}
-                                    onChange={(tabId) => setDonationAmount(tabId === "Other" ? "Other" : Number(tabId))}
-                                    variant="default"
-                                    size="sm"
-                                    className="mt-3"
-                                />
+                                <div className="flex gap-3 flex-wrap xl:flex-nowrap mt-3">
+                                    {amounts.map((amount: number) => (
+                                        <button
+                                            key={amount}
+                                            onClick={() => setDonationAmount(amount)}
+                                            className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
+                                                donationAmount === amount
+                                                ? "bg-black text-white"
+                                                : "bg-[#E4E4E7] text-black hover:bg-gray-300"
+                                            }`}
+                                        >
+                                            £{amount}
+                                        </button>
+                                    ))}
+                                    <button
+                                        onClick={() => setDonationAmount("Other")}
+                                        className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
+                                            donationAmount === "Other"
+                                            ? "bg-black text-white"
+                                            : "bg-[#E4E4E7] text-black hover:bg-gray-300"
+                                        }`}
+                                    >
+                                        Other
+                                    </button>
+                                </div>
                             </div>
 
-
+                            {/* Privacy / Profile */}
+                            <div className="space-y-2">
+                                <span className="text-xs font-medium text-[#52525B]">Your donation will appear as:</span>
+                                <div className="mt-3">
+                                    <DonorProfileCard
+                                        donationAmount={typeof donationAmount === 'number' ? donationAmount : 35}
+                                        showAmount={true}
+                                        variant="default"
+                                    />
+                                </div>
+                            </div>
 
                             {/* Donate Button */}
-                            <button className="py-3 px-4 bg-[#006FEE] text-white rounded-lg text-sm mt-1 cursor-pointer">
+                            <Link
+                                href={`/donate${typeof donationAmount === 'number' ? `?amount=${donationAmount}` : ''}`}
+                                className="block w-fit py-3 px-4 bg-[#006FEE] hover:bg-[#005bc4] text-white text-center font-medium rounded-lg text-sm transition-colors"
+                            >
                                 Donate
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
