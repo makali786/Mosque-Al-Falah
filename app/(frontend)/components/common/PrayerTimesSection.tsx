@@ -466,56 +466,63 @@ const PrayerTimesCalendar = () => {
           <tbody>
             {MOCK_CALENDAR_DATA.map((row, index) => {
               // Row styling logic
-              let rowClass = "border-b border-[#F4F4F5] h-12 text-sm";
+              const isFirstRow = index === 0;
+              const rowHeight = isFirstRow ? "h-[76px]" : "h-[46px]";
+              const baseWidth = "!min-w-[70px]";
+
+              let rowBaseClass = `border-b text-sm ${rowHeight}`;
+              let rowColors = "border-[#F4F4F5]";
               let cellBorder = "border-r border-[#F4F4F5]";
-              let lastCellBorder = ""; // No border for last cell
+              let lastCellBorder = "";
 
               let textClass = "text-[#09090B]";
               let beginsClass = "text-[#09090B]";
               let islamicDateClass = "text-[#006FEE] font-medium";
 
               if (row.isActive) {
-                rowClass = "bg-[#006FEE] text-white h-12 text-sm border-b border-[#006FEE]";
-                cellBorder = "border-r border-white/20"; // Subtle separator for active row
+                rowColors = "bg-[#006FEE] text-white border-[#006FEE]";
+                cellBorder = "border-r border-white/20"; 
                 textClass = "text-white";
                 beginsClass = "text-white";
                 islamicDateClass = "text-white font-medium";
               } else if (row.isFriday) {
-                rowClass = "bg-[#EFF6FF] border-b border-[#DBEAFE] h-12 text-sm";
+                rowColors = "bg-[#EFF6FF] border-[#DBEAFE]";
                 cellBorder = "border-r border-[#DBEAFE]";
                 textClass = "text-[#172554]";
                 beginsClass = "text-[#006FEE]";
               }
 
+              const rowClass = `${rowBaseClass} ${rowColors}`;
+
               return (
                 <tr key={index} className={rowClass}>
-                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.day}</td>
-                  <td className={`${textClass} ${cellBorder}`}>{row.date}</td>
-                  <td className={`${islamicDateClass} ${cellBorder}`}>
+                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.day}</td>
+                  <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.date}</td>
+                  <td className={`${islamicDateClass} ${cellBorder} ${baseWidth}`}>
                     {row.islamicDate}
                   </td>
-                  <td className={`${textClass} ${cellBorder}`}>{row.subhaSadiq}</td>
-                  <td className={`${textClass} border-r border-[#F4F4F5] ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''}`}>{row.sunRise}</td>
+                  <td className={`${textClass} ${cellBorder} ${baseWidth}`}>{row.subhaSadiq}</td>
+                  <td className={`${textClass} border-r border-[#F4F4F5] ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''} ${baseWidth}`}>{row.sunRise}</td>
 
                   {/* Fajr */}
-                  <td className={`${beginsClass} ${cellBorder}`}>{row.fajr.begins}</td>
-                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.fajr.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.fajr.begins}</td>
+                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.fajr.jamaah}</td>
 
                   {/* Zuhr */}
-                  <td className={`${beginsClass} ${cellBorder}`}>{row.zuhr.begins}</td>
-                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.zuhr.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.zuhr.begins}</td>
+                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.zuhr.jamaah}</td>
 
                   {/* Asr */}
-                  <td className={`${beginsClass} ${cellBorder}`}>{row.asr.begins}</td>
-                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.asr.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.asr.begins}</td>
+                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.asr.jamaah}</td>
 
                   {/* Maghrib */}
-                  <td className={`${beginsClass} ${cellBorder}`}>{row.maghrib.begins}</td>
-                  <td className={`font-medium ${textClass} ${cellBorder}`}>{row.maghrib.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.maghrib.begins}</td>
+                  <td className={`font-medium ${textClass} ${cellBorder} ${baseWidth}`}>{row.maghrib.jamaah}</td>
 
                   {/* Isha */}
-                  <td className={`${beginsClass} ${cellBorder}`}>{row.isha.begins}</td>
-                  <td className={`font-medium ${textClass} ${lastCellBorder}`}>{row.isha.jamaah}</td>
+                  <td className={`${beginsClass} ${cellBorder} ${baseWidth}`}>{row.isha.begins}</td>
+                  <td className={`font-medium ${textClass} ${lastCellBorder} ${baseWidth}`}>{row.isha.jamaah}</td>
                 </tr>
               );
             })}
