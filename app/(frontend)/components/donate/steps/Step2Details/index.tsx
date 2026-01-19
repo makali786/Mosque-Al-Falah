@@ -166,6 +166,9 @@ export default function Step2Details({
             !formData.email ||
             !formData.firstName ||
             !formData.lastName ||
+            !formData.address?.line1 ||
+            !formData.address?.city ||
+            !formData.address?.postcode ||
             !formData.termsAccepted
           }
           variant="primary"
