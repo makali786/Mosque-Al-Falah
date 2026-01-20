@@ -496,7 +496,7 @@ export default function PrayerTimesPanel({ isOpen, onClose, prayerTimes: initial
           </div>
 
           {/* Right side - Prayer Times List */}
-          <div className="md:flex-1 w-full min-w-0 bg-white md:border border-0 border-[#f4f4f5] flex flex-col gap-0 items-center overflow-hidden md:pl-6 md:pr-28 px-4 md:py-8 py-3 md:rounded-xl rounded-none shrink-0 self-stretch">
+          <div className="md:flex-1 w-full min-w-0 bg-white md:border border-0 border-[#f4f4f5] flex flex-col gap-0 items-center overflow-hidden md:pl-6 lg:pr-28 md:pr-16 px-4 md:py-8 py-3 md:rounded-xl rounded-none shrink-0 self-stretch">
             <div className="flex flex-col md:gap-5 gap-2 items-start w-full">
               <h2 id="prayer-times-title" className="sr-only">Prayer Times</h2>
 
@@ -514,7 +514,7 @@ export default function PrayerTimesPanel({ isOpen, onClose, prayerTimes: initial
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute md:top-0 top-3 md:right-0 right-3 bg-[#f4f4f5] flex items-center justify-center p-0 rounded-full shrink-0 md:w-12 md:h-12 w-8 h-8 cursor-pointer hover:bg-[#e4e4e7] transition-colors focus:outline-none focus:ring-2 focus:ring-[#006fee] focus:ring-offset-2 z-20"
+            className="absolute lg:top-0 md:top-3 top-3 lg:right-0 md:right-2 right-3 bg-[#f4f4f5] flex items-center justify-center p-0 rounded-full shrink-0 md:w-12 md:h-12 w-8 h-8 cursor-pointer hover:bg-[#e4e4e7] transition-colors focus:outline-none focus:ring-2 focus:ring-[#006fee] focus:ring-offset-2 z-20"
             aria-label="Close prayer times panel"
           >
             <div className="md:w-5 md:h-5 w-3.5 h-3.5 relative">
