@@ -13,7 +13,7 @@ import ServiceQuote from '../ServiceQuote';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
 import ContentImageSection from '@/components/common/ContentImageSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
-import { fetchServices } from '../../../../../lib/fetcher';
+import { fetchServices, fetchGlobal } from '../../../../../lib/fetcher';
 
 export const getServiceBlocks = (contentBlocks: any[] = []) => {
     return {
@@ -49,6 +49,10 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
         limit: 10,
         depth: 1
     });
+
+    const servicesPage = await fetchGlobal({
+        slug: "services-page",
+    }) as any;
 
     // 1. Service Event Banner Data
     const bannerTitle = service.detailBanner?.bannerTitle || service.title || "";
@@ -256,10 +260,10 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
 
 
             {/* Eid Salah Schedule  */}
-            {service.taraweehEid?.eidScheduleTitle && (
+            {service.schedule && (
                 <EidSalahSchedule
                     title={service.taraweehEid.eidScheduleTitle}
-                    description={service.taraweehEid?.eidNote ? <RichTextRenderer content={service.taraweehEid.eidNote} /> : null}
+                    description={service.schedule?.eidNote ? <RichTextRenderer content={service.taraweehEid.eidNote} /> : null}
                     venueName={service.venue?.venueName}
                     venueAddress={service.venue?.fullAddress}
                     schedule={service.schedule?.regularTimes || []}
@@ -312,9 +316,9 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
             />
 
             <AboutQuoteSection
-                quote={"Whoever guides someone to goodness will have a reward like the one who did it."}
-                attribution={"— Prophet Muhammad ﷺ"}
-                donateButtonUrl={"/donate"}
+                quote={servicesPage?.bottomQuote?.quoteText || "Whoever guides someone to goodness will have a reward like the one who did it."}
+                attribution={servicesPage?.bottomQuote?.author || "— Prophet Muhammad ﷺ"}
+                donateButtonUrl={servicesPage?.bottomQuote?.donateButtonUrl || "/donate"}
             />
 
         </div>
