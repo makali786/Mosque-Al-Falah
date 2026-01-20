@@ -29,6 +29,11 @@ import { PageSections } from './collections/PageSections';
 import { Sermons } from './collections/Sermons';
 import { Services } from './collections/Services';
 
+// Request Collections
+import { EventRequests } from './collections/EventRequests';
+import { Questions } from './collections/Questions';
+import { ServiceRequests } from './collections/ServiceRequests';
+
 // Prayer Times
 import { PrayerTimes } from './collections/PrayerTimes';
 
@@ -101,6 +106,11 @@ export default buildConfig({
 
     // Prayer Times
     PrayerTimes,
+
+    // Requests
+    EventRequests,
+    ServiceRequests,
+    Questions,
   ],
   globals: [
     AboutPage,

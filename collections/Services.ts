@@ -476,6 +476,7 @@ export const Services: CollectionConfig = {
           required: true,
           label: 'Block Type',
           options: [
+            { label: 'Title Block', value: 'titleBlock' },
             { label: 'Hero Section', value: 'hero' },
             { label: 'Media Section (Video/Photos/Audio)', value: 'media' },
             { label: 'FAQs Section', value: 'faqs' },
@@ -489,6 +490,96 @@ export const Services: CollectionConfig = {
             { label: 'Requirements/Steps Carousel', value: 'requirements' },
             { label: 'Rich Content', value: 'richContent' },
             { label: 'Call to Action', value: 'cta' },
+          ],
+        },
+
+        // Title Block
+        {
+          name: 'titleBlock',
+          type: 'group',
+          label: 'Title Block Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'titleBlock',
+          },
+          fields: [
+            {
+              name: 'greeting',
+              type: 'text',
+              label: 'Greeting Text',
+              admin: {
+                description: 'e.g., "ASSALAMU ALAIKUM!"',
+                placeholder: 'ASSALAMU ALAIKUM!',
+              },
+            },
+            {
+              name: 'title',
+              type: 'textarea',
+              required: true,
+              label: 'Main Title',
+              admin: {
+                description: 'The main heading text',
+                placeholder:
+                  'Our vision is to be a leader in providing Islamic guidance...',
+                rows: 3,
+              },
+            },
+            {
+              name: 'subtitle',
+              type: 'textarea',
+              label: 'Subtitle',
+              admin: {
+                description: 'Optional subtitle or additional text',
+                rows: 2,
+              },
+            },
+            {
+              name: 'textAlignment',
+              type: 'select',
+              options: [
+                { label: 'Left', value: 'left' },
+                { label: 'Center', value: 'center' },
+                { label: 'Right', value: 'right' },
+              ],
+              defaultValue: 'center',
+              label: 'Text Alignment',
+            },
+            {
+              name: 'backgroundColor',
+              type: 'select',
+              options: [
+                { label: 'Blue (Primary)', value: 'blue' },
+                { label: 'Green', value: 'green' },
+                { label: 'Dark', value: 'dark' },
+                { label: 'Light Gray', value: 'gray' },
+                { label: 'White', value: 'white' },
+                { label: 'Gradient Blue', value: 'gradient-blue' },
+              ],
+              defaultValue: 'blue',
+              label: 'Background Color',
+            },
+            {
+              name: 'textColor',
+              type: 'select',
+              options: [
+                { label: 'White', value: 'white' },
+                { label: 'Black', value: 'black' },
+                { label: 'Gray', value: 'gray' },
+              ],
+              defaultValue: 'white',
+              label: 'Text Color',
+            },
+            {
+              name: 'paddingSize',
+              type: 'select',
+              options: [
+                { label: 'Small', value: 'small' },
+                { label: 'Medium', value: 'medium' },
+                { label: 'Large', value: 'large' },
+              ],
+              defaultValue: 'medium',
+              label: 'Padding Size',
+            },
           ],
         },
 
@@ -847,6 +938,15 @@ export const Services: CollectionConfig = {
               label: 'Section Title',
             },
             {
+              name: 'description',
+              type: 'richText',
+              label: 'Description',
+              admin: {
+                description:
+                  'Description text shown below the title (e.g., "Celebrate Eid with Us! Eid is a time of joy...")',
+              },
+            },
+            {
               name: 'scheduleType',
               type: 'select',
               options: [
@@ -861,6 +961,31 @@ export const Services: CollectionConfig = {
               name: 'scheduleText',
               type: 'textarea',
               label: 'Schedule Description',
+            },
+            {
+              name: 'showVenue',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Show Venue Information',
+            },
+            {
+              name: 'venueName',
+              type: 'text',
+              label: 'Venue Name',
+              admin: {
+                description: 'e.g., "North Ilford Islamic Centre"',
+                condition: (data, siblingData) => siblingData?.showVenue,
+              },
+            },
+            {
+              name: 'venueAddress',
+              type: 'textarea',
+              label: 'Venue Address',
+              admin: {
+                description: 'Full address of the venue',
+                condition: (data, siblingData) => siblingData?.showVenue,
+                rows: 2,
+              },
             },
             {
               name: 'times',
