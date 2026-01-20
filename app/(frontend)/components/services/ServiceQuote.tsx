@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import { FaQuoteLeft, FaQuoteRight, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { useState } from "react";
 
 interface ServiceQuoteProps {
   quote?: {
@@ -14,9 +13,12 @@ interface ServiceQuoteProps {
     attribution: string;
   }[];
   images: string[];
+  sectionContainer?: string
+  QuoteSectionStyle?: string
+  CarouselSectionStyle?: string
 }
 
-export default function ServiceQuote({ quote, testimonials = [], images }: ServiceQuoteProps) {
+export default function ServiceQuote({ quote, testimonials = [], images, sectionContainer, QuoteSectionStyle, CarouselSectionStyle }: ServiceQuoteProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Combine single quote and testimonials array, defaulting to empty array if neither exist
@@ -45,10 +47,10 @@ export default function ServiceQuote({ quote, testimonials = [], images }: Servi
 
   return (
     <section className="w-full my-16">
-      <div className="section-padding">
+      <div className={` ${sectionContainer}`}>
         <div className="flex flex-col lg:flex-row border border-[#CCE3FD] bg-white rounded-lg  shadow-sm overflow-hidden lg:min-h-[400px]">
           {/* Quote Section */}
-          <div className="w-full lg:max-w-[496px] p-8 md:p-12 lg:p-16 flex flex-col justify-center relative">
+          <div className={`w-full lg:max-w-[496px] p-8 md:p-12 lg:p-16 flex flex-col justify-center relative ${QuoteSectionStyle}`}>
             <div className="space-y-4">
               <Image
                 src="/assets/common/double-quote-left.svg"
@@ -76,8 +78,7 @@ export default function ServiceQuote({ quote, testimonials = [], images }: Servi
           </div>
 
           {/* Carousel Section */}
-          <div
-            className="w-full lg:flex-1 relative min-h-[300px] lg:min-h-full bg-cover bg-center bg-no-repeat"
+          <div className={`w-full lg:flex-1 relative min-h-[300px] lg:min-h-full bg-cover bg-center bg-no-repeat ${CarouselSectionStyle}`}
             style={{
               backgroundImage: images.length > 0 ? `url('${images[currentImageIndex]}')` : 'none'
             }}

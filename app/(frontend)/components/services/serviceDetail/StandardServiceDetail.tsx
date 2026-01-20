@@ -145,7 +145,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                     { label: "Our Services", href: "/our-services" },
                     { label: title, href: `/our-services/${slug}` },
                 ]}
-                className="pb-0! pt-6! sm:pt-8! bg-white"
+                className="pb-0! pt-10! sm:pt-16! bg-white"
                 showSearch={false}
                 breadcrumbsItemsStyle={"flex-wrap"}
             />
@@ -177,6 +177,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 primaryButtonClassName='!rounded-lg !px-6 !py-3'
                 sectionImageContainerStyle="lg:!max-w-[420px]"
                 sectionMainStyle="hn-container"
+                className='sm:!pt-12 md:!pt-14 lg:!pt-16'
             />
 
             {/* 4. EventMediaSection */}
@@ -196,6 +197,16 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 containerStyle='hn-container'
                 leftColumnStyle='lg:!max-w-[895px] lg:!max-h-[678px]'
             />
+
+            {/*  FAQS – END */}
+            {blocks.faqs.map((block: any) => (
+                <MadrasahFAQs
+                    key={block.id}
+                    title={block.faqsBlock.title}
+                    description={block.faqsBlock.subtitle}
+                    faqs={block.faqsBlock.faqs}
+                />
+            ))}
 
 
             {/* LIVE STREAM – WHEREVER YOU WANT */}
@@ -218,9 +229,14 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                     imageSrc={block.twoColumnBlock?.image?.url}
                     imageAlt={block.twoColumnBlock?.image?.alt}
                     layout={block.twoColumnBlock?.imagePosition === "right" ? "image-right" : "image-left"}
+                    imageWidth={584}
+                    imageHeight={438}
                     content={
                         block.twoColumnBlock?.content ? (
-                            <RichTextRenderer content={block.twoColumnBlock.content} />
+                            <RichTextRenderer
+                                content={block.twoColumnBlock.content}
+                                className="[&_ul]:!space-y-3 [&_ul]:!mt-2"
+                            />
                         ) : null
                     }
                 />
@@ -247,6 +263,8 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                     venueName={service.venue?.venueName}
                     venueAddress={service.venue?.fullAddress}
                     schedule={service.schedule?.regularTimes || []}
+                    sectionContainer='hn-container'
+                    rightSection="!max-w-[619px]"
                 />
             )}
 
@@ -275,6 +293,9 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                     ...(service.media?.photoGallery?.map((img: any) => img.url) || []),
                     ...(service.testimonials?.map((t: any) => t.photo?.url).filter(Boolean) || [])
                 ].filter(Boolean)}
+                sectionContainer='hn-container'
+                QuoteSectionStyle="lg:!max-w-[656px] lg:!p-10"
+                CarouselSectionStyle="lg:!max-w-[640px]"
             />
 
 
@@ -287,10 +308,11 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                     slug: s.slug,
                     cardImage: s.media?.cardImage
                 }))}
+                sectionContainer="hn-container"
             />
 
             <AboutQuoteSection
-                quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
+                quote={"Whoever guides someone to goodness will have a reward like the one who did it."}
                 attribution={"— Prophet Muhammad ﷺ"}
                 donateButtonUrl={"/donate"}
             />

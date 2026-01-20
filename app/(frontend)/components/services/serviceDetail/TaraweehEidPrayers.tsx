@@ -150,6 +150,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
         venueName={venueName}
         venueAddress={venueAddress}
         schedule={service.schedule?.regularTimes || []}
+        sectionContainer="section-padding"
       />
 
       <ServiceQuote
@@ -166,6 +167,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
           ...(service.media?.photoGallery?.map((img: any) => img.url) || []),
           ...(service.testimonials?.map((t: any) => t.photo?.url).filter(Boolean) || [])
         ].filter(Boolean)}
+        sectionContainer='section-padding'
       />
 
       <OtherServices services={allServices
@@ -176,6 +178,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
           slug: s.slug,
           cardImage: s.media?.cardImage
         }))}
+        sectionContainer="section-padding"
       />
       {/* <QuoteSection  */}
 

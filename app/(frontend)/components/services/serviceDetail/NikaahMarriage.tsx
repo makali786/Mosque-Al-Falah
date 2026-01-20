@@ -159,6 +159,7 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                     slug: s.slug,
                     cardImage: s.media?.cardImage
                 }))}
+                sectionContainer="section-padding"
             />
             <AboutQuoteSection
                 quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
