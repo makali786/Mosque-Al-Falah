@@ -320,7 +320,7 @@ const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) =
       className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
       aria-label="Previous day"
     >
-      <IoChevronBack className="md:w-6 md:h-6 w-5 h-5" />
+      <IoChevronBack className="md:w-6 md:h-6 w-5 h-5 cursor-pointer" />
     </button>
 
     <div className="flex flex-col gap-1 items-center text-center lg:w-42.5 md:w-36 flex-1">
@@ -337,7 +337,7 @@ const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) =
       className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
       aria-label="Next day"
     >
-      <IoChevronForward className="md:w-6 md:h-6 w-5 h-5" />
+      <IoChevronForward className="md:w-6 md:h-6 w-5 h-5 cursor-pointer" />
     </button>
   </div>
 );
@@ -701,66 +701,117 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
     return getPrayerTimesByDate(initialPrayerTimes, currentDate);
   }, [initialPrayerTimes, currentDate]);
 
-  // Find next prayer
+  // Find next prayer (pass currentDate to check if it's today)
   const nextPrayer = useMemo(() => {
-    return findNextPrayer(currentPrayerTimeData) || NEXT_PRAYER;
-  }, [currentPrayerTimeData]);
+    return findNextPrayer(currentPrayerTimeData, currentDate) || NEXT_PRAYER;
+  }, [currentPrayerTimeData, currentDate]);
 
-  // Countdown timer effect
+  // Check if viewing today
+  const isViewingToday = useMemo(() => {
+    const today = new Date();
+    return currentDate.getDate() === today.getDate() &&
+           currentDate.getMonth() === today.getMonth() &&
+           currentDate.getFullYear() === today.getFullYear();
+  }, [currentDate]);
+
+  // Countdown timer effect - only count down when viewing today
   useEffect(() => {
     const updateCountdown = () => {
-      setCountdown(calculateCountdown(nextPrayer.time));
+      if (isViewingToday) {
+        setCountdown(calculateCountdown(nextPrayer.time));
+      } else {
+        // Show 00:00:00 when not viewing today
+        setCountdown({ hours: "00", minutes: "00", seconds: "00" });
+      }
     };
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, [nextPrayer]);
+  }, [nextPrayer, isViewingToday]);
 
   // Transform API data to UI format for prayer times display
   const prayerTimes = useMemo(() => {
     if (!currentPrayerTimeData) return MOCK_PRAYER_TIMES;
 
-    const activePrayer = getCurrentActivePrayer(currentPrayerTimeData);
+    // The active prayer should be the NEXT prayer (from countdown), only when viewing today
+    const nextPrayerName = isViewingToday ? nextPrayer.name : null;
 
-    return [
+    // Check if today is Friday and if Jumu'ah should replace Dhuhr
+    const isFriday = currentDate.getDay() === 5;
+    const shouldReplaceWithJumuah = isFriday &&
+                                     settings?.jumuahSettings?.enabled &&
+                                     settings?.jumuahSettings?.replacesDhuhr;
+
+    const prayers: any[] = [
       {
         name: "Fajr",
         begins: currentPrayerTimeData.fajr,
         jamaah: addMinutesToTime(currentPrayerTimeData.fajr, currentPrayerTimeData.fajrIqamahDelay),
-        isActive: activePrayer === "Fajr"
+        isActive: nextPrayerName === "FAJR"
       },
       {
         name: "Sunrise",
         begins: currentPrayerTimeData.sunrise
-      },
-      {
+      }
+    ];
+
+    // Add Zuhr OR Jumu'ah based on settings
+    if (shouldReplaceWithJumuah) {
+      // Add first Jumu'ah
+      prayers.push({
+        name: "Jumua'ah 1",
+        khutbah: settings.jumuahSettings.khutbahTime,
+        jamaah: settings.jumuahSettings.iqamahTime,
+        isActive: nextPrayerName === "DHUHR",
+        isJumuah: true
+      });
+
+      // Add second Jumu'ah if enabled
+      if (settings.jumuahSettings.enableSecondJumuah) {
+        prayers.push({
+          name: "Jumua'ah 2",
+          khutbah: settings.jumuahSettings.secondKhutbahTime,
+          jamaah: settings.jumuahSettings.secondIqamahTime,
+          isActive: false,
+          isJumuah: true
+        });
+      }
+    } else {
+      // Regular Zuhr
+      prayers.push({
         name: "Zuhr",
         begins: currentPrayerTimeData.dhuhr,
         jamaah: addMinutesToTime(currentPrayerTimeData.dhuhr, currentPrayerTimeData.dhuhrIqamahDelay),
-        isActive: activePrayer === "Zuhr"
-      },
+        isActive: nextPrayerName === "DHUHR"
+      });
+    }
+
+    // Add remaining prayers
+    prayers.push(
       {
         name: "'Asr",
         begins: currentPrayerTimeData.asr,
         jamaah: addMinutesToTime(currentPrayerTimeData.asr, currentPrayerTimeData.asrIqamahDelay),
-        isActive: activePrayer === "'Asr"
+        isActive: nextPrayerName === "ASR"
       },
       {
         name: "Maghrib",
         begins: currentPrayerTimeData.maghrib,
         jamaah: addMinutesToTime(currentPrayerTimeData.maghrib, currentPrayerTimeData.maghribIqamahDelay),
-        isActive: activePrayer === "Maghrib"
+        isActive: nextPrayerName === "MAGHRIB"
       },
       {
         name: "'Isha",
         begins: currentPrayerTimeData.isha,
         jamaah: addMinutesToTime(currentPrayerTimeData.isha, currentPrayerTimeData.ishaIqamahDelay),
-        isActive: activePrayer === "'Isha"
+        isActive: nextPrayerName === "ISHA"
       }
-    ];
-  }, [currentPrayerTimeData]);
+    );
+
+    return prayers;
+  }, [currentPrayerTimeData, nextPrayer, isViewingToday, currentDate, settings]);
 
   // Transform settings to UI format for Jumuah times
   const jumuahTimes = useMemo(() => {
@@ -798,18 +849,18 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
       {activeTab === 'prayer-time' ? (
         <div className="flex flex-col xl:flex-row gap-0 xl:gap-12 mb-8 xl:mb-16">
           {/* Left side - Image with countdown */}
-          <div className="h-[420px] xl:h-[609px] w-full xl:max-w-[544px] relative overflow-hidden rounded-t-[12px] rounded-b-none xl:rounded-[12px]">
+          <div className="h-105 xl:h-152.25 w-full xl:max-w-136 relative overflow-hidden rounded-t-[12px] rounded-b-none xl:rounded-xl">
             <Image
               src="/assets/prayer-times/mosque-bg.png"
               alt="Mosque background"
               fill
-              className="object-cover xl:min-w-[544px] xl:min-h-[609px]"
+              className="object-cover xl:min-w-136 xl:min-h-152.25"
               priority
               // sizes="(max-width: 768px) 100vw, 500px"
             />
 
             {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/40 pointer-events-none xl:min-w-[544px] xl:min-h-[609px]" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/40 pointer-events-none xl:min-w-136 xl:min-h-152.25" />
 
             {/* Date Navigation */}
             <DateNavigation
@@ -827,17 +878,14 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
             <div className="flex flex-col gap-2">
               <h2 className="sr-only">Prayer Times</h2>
 
-              {/* Daily Prayer Times */}
+              {/* Daily Prayer Times (includes Jumu'ah when applicable) */}
               {prayerTimes.map((prayer) => (
-                <PrayerTimeRow key={prayer.name} prayer={prayer} />
+                prayer.isJumuah ? (
+                  <JumuahTimeRow key={prayer.name} jumuah={prayer} />
+                ) : (
+                  <PrayerTimeRow key={prayer.name} prayer={prayer} />
+                )
               ))}
-
-              {/* Jumuah Times */}
-              <div className="mt-4 flex flex-col gap-2">
-                {jumuahTimes.map((jumuah) => (
-                  <JumuahTimeRow key={jumuah.name} jumuah={jumuah} />
-                ))}
-              </div>
             </div>
           </div>
         </div>

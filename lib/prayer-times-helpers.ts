@@ -69,11 +69,20 @@ export function formatHijriDate(hijriDate: string): string {
   return `${monthName} ${day}, ${year} AH`;
 }
 
-// Find next prayer
-export function findNextPrayer(prayerTimeData: PrayerTimeData | null): { name: string; time: string } | null {
+// Find next prayer - accepts selected date to determine if it's today
+export function findNextPrayer(prayerTimeData: PrayerTimeData | null, selectedDate?: Date): { name: string; time: string } | null {
   if (!prayerTimeData) return null;
 
   const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const selected = selectedDate ? new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()) : today;
+
+  // If selected date is not today, return first prayer (Fajr) with no countdown
+  if (selected.getTime() !== today.getTime()) {
+    return { name: 'FAJR', time: prayerTimeData.fajr };
+  }
+
+  // Only calculate next prayer if viewing today
   const currentTime = now.getHours() * 60 + now.getMinutes();
 
   const prayers = [
@@ -95,6 +104,14 @@ export function findNextPrayer(prayerTimeData: PrayerTimeData | null): { name: s
 
   // If no prayer left today, return Fajr of next day
   return { name: 'FAJR', time: prayerTimeData.fajr };
+}
+
+// Check if selected date is today
+export function isToday(date: Date): boolean {
+  const today = new Date();
+  return date.getDate() === today.getDate() &&
+         date.getMonth() === today.getMonth() &&
+         date.getFullYear() === today.getFullYear();
 }
 
 // Determine which prayer is currently active
