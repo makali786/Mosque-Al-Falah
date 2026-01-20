@@ -7,6 +7,8 @@ import PrayerTimesPanel from "./PrayerTimesPanel";
 export default function AccessibilityButton() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [prayerTimes, setPrayerTimes] = useState<any[]>([]);
+  const [settings, setSettings] = useState<any>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +18,28 @@ export default function AccessibilityButton() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Fetch prayer times data when component mounts
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch prayer times
+        const prayerTimesRes = await fetch('/api/prayer-times?limit=10000&sort=date');
+        const prayerTimesData = await prayerTimesRes.json();
+
+        // Fetch settings
+        const settingsRes = await fetch('/api/globals/prayer-time-settings');
+        const settingsData = await settingsRes.json();
+
+        setPrayerTimes(prayerTimesData.docs || []);
+        setSettings(settingsData);
+      } catch (error) {
+        console.error('Failed to fetch prayer times data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleToggle = () => {
@@ -61,7 +85,12 @@ export default function AccessibilityButton() {
       </div>
 
       {/* Prayer Times Panel */}
-      <PrayerTimesPanel isOpen={isPanelOpen} onClose={handleClose} />
+      <PrayerTimesPanel
+        isOpen={isPanelOpen}
+        onClose={handleClose}
+        prayerTimes={prayerTimes}
+        settings={settings}
+      />
     </>
   );
 }

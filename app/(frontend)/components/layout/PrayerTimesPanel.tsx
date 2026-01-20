@@ -3,6 +3,13 @@
 import Image from "next/image";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import {
+  getPrayerTimesByDate,
+  findNextPrayer,
+  formatGregorianDate,
+  formatHijriDate,
+  addMinutesToTime
+} from "@lib/prayer-times-helpers";
 
 // ============================================================================
 // Types & Interfaces
@@ -35,6 +42,8 @@ interface CountdownTime {
 interface PrayerTimesPanelProps {
   isOpen: boolean;
   onClose: () => void;
+  prayerTimes?: any[];
+  settings?: any;
 }
 
 // ============================================================================
@@ -236,75 +245,203 @@ const PrayerTimeRow = ({ prayer }: PrayerTimeRowProps) => {
 };
 
 interface JumuahTimeRowProps {
-  jumuah: JumuahTime;
+  jumuah: JumuahTime & { isActive?: boolean };
 }
 
-const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
-  <div className="bg-[#fafafa] flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full">
-    <p className="md:text-base text-sm font-bold text-black md:leading-6 leading-5 md:w-24 w-16">
-      {jumuah.name}
-    </p>
+const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => {
+  const isActive = jumuah.isActive || false;
 
-    <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
-      <p className="md:text-xs text-[10px] font-normal text-[#71717a] md:leading-4 leading-3">
-        Khutbah
+  return (
+    <div className={`flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full ${
+      isActive ? 'bg-[#27272a] border border-[#27272a]' : 'bg-[#fafafa]'
+    }`}>
+      <p className={`md:text-base text-sm font-bold md:leading-6 leading-5 md:w-24 w-16 ${
+        isActive ? 'text-white' : 'text-black'
+      }`}>
+        {jumuah.name}
       </p>
-      <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-        {formatTime(jumuah.khutbah)}
-      </p>
-    </div>
 
-    <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
-      <p className="md:text-xs text-[10px] font-normal text-[#71717a] md:leading-4 leading-3">
-        Jama&apos;ah
-      </p>
-      <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-        {formatTime(jumuah.jamaah)}
-      </p>
+      <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
+        <p className={`md:text-xs text-[10px] font-normal md:leading-4 leading-3 ${
+          isActive ? 'text-[#a1a1aa]' : 'text-[#71717a]'
+        }`}>
+          Khutbah
+        </p>
+        <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
+          {formatTime(jumuah.khutbah)}
+        </p>
+      </div>
+
+      <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
+        <p className={`md:text-xs text-[10px] font-normal md:leading-4 leading-3 ${
+          isActive ? 'text-[#a1a1aa]' : 'text-[#71717a]'
+        }`}>
+          Jama&apos;ah
+        </p>
+        <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
+          {formatTime(jumuah.jamaah)}
+        </p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ============================================================================
 // Main Component
 // ============================================================================
 
-export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelProps) {
+export default function PrayerTimesPanel({ isOpen, onClose, prayerTimes: initialPrayerTimes = [], settings }: PrayerTimesPanelProps) {
   const [countdown, setCountdown] = useState<CountdownTime>({
     hours: "00",
     minutes: "00",
     seconds: "00",
   });
 
-  // Date navigation (ready for future implementation)
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+
+  // Reset to current date when panel opens
+  useEffect(() => {
+    if (isOpen) {
+      setCurrentDate(new Date());
+    }
+  }, [isOpen]);
+
+  // Date navigation
   const handlePreviousDay = useCallback(() => {
-    // TODO: Implement previous day logic
-    console.log("Navigate to previous day");
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setDate(newDate.getDate() - 1);
+      return newDate;
+    });
   }, []);
 
   const handleNextDay = useCallback(() => {
-    // TODO: Implement next day logic
-    console.log("Navigate to next day");
+    setCurrentDate(prev => {
+      const newDate = new Date(prev);
+      newDate.setDate(newDate.getDate() + 1);
+      return newDate;
+    });
   }, []);
 
-  // Countdown timer effect
+  // Get current day's prayer time data
+  const currentPrayerTimeData = useMemo(() => {
+    return getPrayerTimesByDate(initialPrayerTimes, currentDate);
+  }, [initialPrayerTimes, currentDate]);
+
+  // Find next prayer
+  const nextPrayer = useMemo(() => {
+    return findNextPrayer(currentPrayerTimeData, currentDate) || NEXT_PRAYER;
+  }, [currentPrayerTimeData, currentDate]);
+
+  // Check if viewing today
+  const isViewingToday = useMemo(() => {
+    const today = new Date();
+    return currentDate.getDate() === today.getDate() &&
+           currentDate.getMonth() === today.getMonth() &&
+           currentDate.getFullYear() === today.getFullYear();
+  }, [currentDate]);
+
+  // Countdown timer effect - only count down when viewing today
   useEffect(() => {
     if (!isOpen) return;
 
     const updateCountdown = () => {
-      setCountdown(calculateCountdown(NEXT_PRAYER.time));
+      if (isViewingToday) {
+        setCountdown(calculateCountdown(nextPrayer.time));
+      } else {
+        setCountdown({ hours: "00", minutes: "00", seconds: "00" });
+      }
     };
 
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, [isOpen]);
+  }, [isOpen, nextPrayer, isViewingToday]);
 
-  // Prayer times data (will be fetched from API in future)
-  const prayerTimes = useMemo(() => MOCK_PRAYER_TIMES, []);
-  const jumuahTimes = useMemo(() => MOCK_JUMUAH_TIMES, []);
-  const dateInfo = useMemo(() => MOCK_DATE_INFO, []);
+  // Transform API data to UI format for prayer times display
+  const prayerTimes = useMemo(() => {
+    if (!currentPrayerTimeData) return MOCK_PRAYER_TIMES;
+
+    const nextPrayerName = isViewingToday ? nextPrayer.name : null;
+    const isFriday = currentDate.getDay() === 5;
+    const shouldReplaceWithJumuah = isFriday &&
+                                     settings?.jumuahSettings?.enabled &&
+                                     settings?.jumuahSettings?.replacesDhuhr;
+
+    const prayers: any[] = [
+      {
+        name: "Fajr",
+        begins: currentPrayerTimeData.fajr,
+        jamaah: addMinutesToTime(currentPrayerTimeData.fajr, currentPrayerTimeData.fajrIqamahDelay),
+        isActive: nextPrayerName === "FAJR"
+      },
+      {
+        name: "Sunrise",
+        begins: currentPrayerTimeData.sunrise
+      }
+    ];
+
+    if (shouldReplaceWithJumuah) {
+      prayers.push({
+        name: "Jumua'ah 1",
+        khutbah: settings.jumuahSettings.khutbahTime,
+        jamaah: settings.jumuahSettings.iqamahTime,
+        isActive: nextPrayerName === "DHUHR",
+        isJumuah: true
+      });
+
+      if (settings.jumuahSettings.enableSecondJumuah) {
+        prayers.push({
+          name: "Jumua'ah 2",
+          khutbah: settings.jumuahSettings.secondKhutbahTime,
+          jamaah: settings.jumuahSettings.secondIqamahTime,
+          isActive: false,
+          isJumuah: true
+        });
+      }
+    } else {
+      prayers.push({
+        name: "Zuhr",
+        begins: currentPrayerTimeData.dhuhr,
+        jamaah: addMinutesToTime(currentPrayerTimeData.dhuhr, currentPrayerTimeData.dhuhrIqamahDelay),
+        isActive: nextPrayerName === "DHUHR"
+      });
+    }
+
+    prayers.push(
+      {
+        name: "'Asr",
+        begins: currentPrayerTimeData.asr,
+        jamaah: addMinutesToTime(currentPrayerTimeData.asr, currentPrayerTimeData.asrIqamahDelay),
+        isActive: nextPrayerName === "ASR"
+      },
+      {
+        name: "Maghrib",
+        begins: currentPrayerTimeData.maghrib,
+        jamaah: addMinutesToTime(currentPrayerTimeData.maghrib, currentPrayerTimeData.maghribIqamahDelay),
+        isActive: nextPrayerName === "MAGHRIB"
+      },
+      {
+        name: "'Isha",
+        begins: currentPrayerTimeData.isha,
+        jamaah: addMinutesToTime(currentPrayerTimeData.isha, currentPrayerTimeData.ishaIqamahDelay),
+        isActive: nextPrayerName === "ISHA"
+      }
+    );
+
+    return prayers;
+  }, [currentPrayerTimeData, nextPrayer, isViewingToday, currentDate, settings]);
+
+  // Format date info
+  const dateInfo = useMemo(() => {
+    if (!currentPrayerTimeData) return MOCK_DATE_INFO;
+
+    return {
+      gregorian: formatGregorianDate(currentDate),
+      hijri: formatHijriDate(currentPrayerTimeData.hijriDate)
+    };
+  }, [currentDate, currentPrayerTimeData]);
 
   return (
     <>
@@ -355,7 +492,7 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
             />
 
             {/* Countdown Timer */}
-            <CountdownDisplay countdown={countdown} prayerName={NEXT_PRAYER.name} />
+            <CountdownDisplay countdown={countdown} prayerName={nextPrayer.name} />
           </div>
 
           {/* Right side - Prayer Times List */}
@@ -363,17 +500,13 @@ export default function PrayerTimesPanel({ isOpen, onClose }: PrayerTimesPanelPr
             <div className="flex flex-col md:gap-5 gap-2 items-start w-full">
               <h2 id="prayer-times-title" className="sr-only">Prayer Times</h2>
 
-              {/* Daily Prayer Times */}
+              {/* Prayer Times - conditionally render Jumu'ah rows */}
               {prayerTimes.map((prayer) => (
-                <PrayerTimeRow key={prayer.name} prayer={prayer} />
-              ))}
-
-              {/* Divider */}
-              <div className="bg-[rgba(17,17,17,0.15)] h-px w-full" role="separator" />
-
-              {/* Jumua'ah Times */}
-              {jumuahTimes.map((jumuah) => (
-                <JumuahTimeRow key={jumuah.name} jumuah={jumuah} />
+                prayer.isJumuah ? (
+                  <JumuahTimeRow key={prayer.name} jumuah={prayer} />
+                ) : (
+                  <PrayerTimeRow key={prayer.name} prayer={prayer} />
+                )
               ))}
             </div>
           </div>
