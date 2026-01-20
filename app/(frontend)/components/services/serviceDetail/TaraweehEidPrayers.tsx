@@ -1,7 +1,7 @@
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
 import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
-import { fetchServices } from '../../../../../lib/fetcher';
+import { fetchServices, fetchGlobal } from '../../../../../lib/fetcher';
 import EidSalahSchedule from '../EidSalahSchedule';
 import LiveStreaming from '../LiveStreaming';
 import OtherServices from '../OtherServices';
@@ -35,6 +35,10 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
     limit: 10,
     depth: 1
   });
+
+  const servicesPage = await fetchGlobal({
+    slug: "services-page",
+  }) as any;
 
   const title = service?.title || "";
   // Attempt to extract text for banner description
@@ -184,9 +188,9 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
 
 
       <AboutQuoteSection
-        quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
-        attribution={"— Prophet Muhammad ﷺ"}
-        donateButtonUrl={"/donate"}
+        quote={servicesPage?.bottomQuote?.quoteText || "Whoever guides someone to goodness will have a reward like the one who did it."}
+        attribution={servicesPage?.bottomQuote?.author || "— Prophet Muhammad ﷺ"}
+        donateButtonUrl={servicesPage?.bottomQuote?.donateButtonUrl || "/donate"}
       />
     </div>
   )

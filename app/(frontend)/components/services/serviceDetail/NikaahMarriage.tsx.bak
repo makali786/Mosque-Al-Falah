@@ -166,9 +166,9 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 sectionContainer="section-padding"
             />
             <AboutQuoteSection
-                quote={servicesPage?.bottomQuote?.quoteText || "Whoever guides someone to goodness will have a reward like the one who did it."}
-                attribution={servicesPage?.bottomQuote?.author || "— Prophet Muhammad ﷺ"}
-                donateButtonUrl={servicesPage?.bottomQuote?.donateButtonUrl || "/donate"}
+                quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
+                attribution={"— Prophet Muhammad ﷺ"}
+                donateButtonUrl={"/donate"}
             />
 
         </div>
