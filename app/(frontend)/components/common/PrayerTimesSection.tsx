@@ -409,22 +409,122 @@ const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
   </div>
 );
 
-const PrayerTimesCalendar = () => {
+interface PrayerTimesCalendarProps {
+  prayerTimes: any[];
+  settings?: any;
+}
+
+const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps) => {
+  const [calendarDate, setCalendarDate] = useState(new Date());
+
+  const handlePreviousMonth = () => {
+    setCalendarDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
+  };
+
+  const handleNextMonth = () => {
+    setCalendarDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
+  };
+
+  // Transform prayer times data for calendar display
+  const calendarData = useMemo(() => {
+    if (!prayerTimes || prayerTimes.length === 0) return MOCK_CALENDAR_DATA;
+
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+
+    // Filter prayer times for the selected month
+    const filteredPrayerTimes = prayerTimes.filter((pt: any) => {
+      const ptDate = new Date(pt.date);
+      return ptDate.getMonth() === calendarDate.getMonth() &&
+             ptDate.getFullYear() === calendarDate.getFullYear();
+    });
+
+    return filteredPrayerTimes.map((pt: any) => {
+      const date = new Date(pt.date);
+      const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+      const isFriday = date.getDay() === 5;
+      const isToday = pt.date.split('T')[0] === todayStr;
+
+      // Parse hijri date "1 12 1441446" -> day: 1, month: 12, year: 1441446
+      const hijriParts = pt.hijriDate ? pt.hijriDate.trim().split(' ') : ['1', '1', '1446'];
+      const islamicDate = parseInt(hijriParts[0]) || 1;
+      const islamicMonth = parseInt(hijriParts[1]) || 1;
+      const islamicYear = hijriParts[2] || '1446';
+
+      // Get hijri month name
+      const hijriMonths = [
+        'Muharram', 'Safar', 'Rabi-al-Awwal', 'Rabi-al-Thani',
+        'Jamadi-al-Awwal', 'Jamadi-al-Thani', 'Rajab', 'Shaban',
+        'Ramadan', 'Shawwal', 'Dhul-Qadah', 'Dhul-Hijjah'
+      ];
+      const hijriMonthName = hijriMonths[islamicMonth - 1] || '';
+
+      // Get Jumu'ah time from settings
+      const jumuahTime = settings?.jumuahSettings?.iqamahTime || null;
+
+      return {
+        day: dayNames[date.getDay()],
+        date: date.getDate(),
+        islamicDate,
+        hijriMonthName,
+        hijriYear: islamicYear,
+        subhaSadiq: pt.fajr,
+        sunRise: pt.sunrise,
+        fajr: {
+          begins: pt.fajr,
+          jamaah: addMinutesToTime(pt.fajr, pt.fajrIqamahDelay)
+        },
+        zuhr: {
+          begins: pt.dhuhr,
+          jamaah: addMinutesToTime(pt.dhuhr, pt.dhuhrIqamahDelay),
+          isJumuah: pt.isJumuah || isFriday,
+          jumuahTime: (pt.isJumuah || isFriday) ? jumuahTime : null
+        },
+        asr: {
+          begins: pt.asr,
+          jamaah: addMinutesToTime(pt.asr, pt.asrIqamahDelay)
+        },
+        maghrib: {
+          begins: pt.maghrib,
+          jamaah: addMinutesToTime(pt.maghrib, pt.maghribIqamahDelay)
+        },
+        isha: {
+          begins: pt.isha,
+          jamaah: addMinutesToTime(pt.isha, pt.ishaIqamahDelay)
+        },
+        isFriday,
+        isActive: isToday
+      };
+    });
+  }, [prayerTimes, calendarDate, settings]);
+
+  // Format month display
+  const monthDisplay = useMemo(() => {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return `${monthNames[calendarDate.getMonth()]} ${calendarDate.getFullYear()}`;
+  }, [calendarDate]);
+
   return (
     <div className="w-full bg-white rounded-[14px]">
       {/* Header / Month Navigation */}
       <div className="flex items-center justify-between bg-[#F4F4F5] rounded-lg px-4 py-3 mb-8 max-w-[540px] mx-auto">
-        <button className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors">
-          <IoChevronBack className="w-5 h-5" />
+        <button
+          onClick={handlePreviousMonth}
+          className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors"
+        >
+          <IoChevronBack className="w-5 h-5 cursor-pointer" />
         </button>
         <div className="text-center">
-          <h3 className="text-sm font-semibold text-black mb-2">December 2025</h3>
+          <h3 className="text-sm font-semibold text-black mb-2">{monthDisplay}</h3>
           <p className="text-xs font-medium text-[#006FEE]">
             Jamada-Al-Thani, 1447 -Rajab, 1447
           </p>
         </div>
-        <button className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors">
-          <IoChevronForward className="w-5 h-5" />
+        <button
+          onClick={handleNextMonth}
+          className="w-8 h-8 flex items-center justify-center text-[#71717A] hover:text-black transition-colors"
+        >
+          <IoChevronForward className="w-5 h-5 cursor-pointer" />
         </button>
       </div>
 
@@ -472,7 +572,7 @@ const PrayerTimesCalendar = () => {
             </tr>
           </thead>
           <tbody>
-            {MOCK_CALENDAR_DATA.map((row, index) => {
+            {calendarData.map((row, index) => {
               // Row styling logic
               const isFirstRow = index === 0;
               const rowHeight = isFirstRow ? "h-[76px]" : "h-[46px]";
@@ -511,7 +611,11 @@ const PrayerTimesCalendar = () => {
                   <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.day}</td>
                   <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.date}</td>
                   <td className={`${islamicDateClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>
-                    {isFirstRow && <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">Jamadi-Ul-Ukhra</span>}
+                    {isFirstRow && row.hijriMonthName && (
+                      <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">
+                        {row.hijriMonthName}
+                      </span>
+                    )}
                     {row.islamicDate}
                   </td>
                   <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.subhaSadiq}</td>
@@ -523,7 +627,16 @@ const PrayerTimesCalendar = () => {
 
                   {/* Zuhr */}
                   <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.zuhr.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.zuhr.jamaah}</td>
+                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>
+                    {row.zuhr.isJumuah ? (
+                      <div className="flex flex-col items-center gap-0.5">
+                        <span className="font-medium text-xs!">Jumu&apos;ah</span>
+                        {row.zuhr.jumuahTime && (
+                          <span className="text-[11px] font-normal opacity-90">{row.zuhr.jumuahTime}</span>
+                        )}
+                      </div>
+                    ) : row.zuhr.jamaah}
+                  </td>
 
                   {/* Asr */}
                   <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.asr.begins}</td>
@@ -593,25 +706,6 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
     return findNextPrayer(currentPrayerTimeData) || NEXT_PRAYER;
   }, [currentPrayerTimeData]);
 
-  // Console log received data for debugging
-  useEffect(() => {
-    console.log('\n' + '='.repeat(80));
-    console.log('🕌 PRAYER TIMES COMPONENT DEBUG');
-    console.log('='.repeat(80));
-    console.log('Prayer Times Data Received:', initialPrayerTimes?.length || 0, 'records');
-    console.log('Settings Data:', settings ? 'loaded' : 'not loaded');
-    console.log('Current Date:', currentDate.toISOString().split('T')[0]);
-
-    if (initialPrayerTimes && initialPrayerTimes.length > 0) {
-      console.log('\nFirst record:', initialPrayerTimes[0]);
-      console.log('Sample dates in array:', initialPrayerTimes.slice(0, 3).map(pt => pt.date));
-    }
-
-    console.log('\nCurrent Prayer Time Data:', currentPrayerTimeData);
-    console.log('Next Prayer:', nextPrayer);
-    console.log('='.repeat(80) + '\n');
-  }, [initialPrayerTimes, settings, currentDate, currentPrayerTimeData, nextPrayer]);
-
   // Countdown timer effect
   useEffect(() => {
     const updateCountdown = () => {
@@ -671,16 +765,10 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
   // Transform settings to UI format for Jumuah times
   const jumuahTimes = useMemo(() => {
     if (!settings?.jumuahSettings) {
-      console.log('No jumuahSettings found, using mock data');
       return MOCK_JUMUAH_TIMES;
     }
 
-    console.log('jumuahSettings structure:', settings.jumuahSettings);
-    console.log('Is array?', Array.isArray(settings.jumuahSettings));
-
-    // Check if it's an array
     if (!Array.isArray(settings.jumuahSettings)) {
-      console.warn('jumuahSettings is not an array, using mock data');
       return MOCK_JUMUAH_TIMES;
     }
 
@@ -754,7 +842,7 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
           </div>
         </div>
       ) : (
-        <PrayerTimesCalendar />
+        <PrayerTimesCalendar prayerTimes={initialPrayerTimes} settings={settings} />
       )}
     </section>
   );

@@ -22,13 +22,15 @@ export async function findFromPayload<T = any>({
   where,
 }: FindOptions): Promise<T[]> {
   const payload = await getPayload({ config: configPromise });
-  const { docs } = await payload.find({
+  const { docs, totalDocs } = await payload.find({
     collection: collection as any,
     limit,
     depth,
     sort,
     where,
   });
+
+  console.log(`Fetched ${docs.length} of ${totalDocs} total records from ${collection}`);
 
   return docs as T[];
 }
