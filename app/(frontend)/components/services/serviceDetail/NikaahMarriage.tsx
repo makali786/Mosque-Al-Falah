@@ -122,6 +122,7 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 imageHeight={396}
                 imageWidth={420}
                 sectionImageStyle="lg:!max-w-[420px] lg:!max-h-[396px]"
+                sectionMainStyle="section-padding"
             />
 
             <EventMediaSection
@@ -136,6 +137,7 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 donationTitle={service.donation?.donationTitle}
                 donationDescription={service.donation?.donationDescription}
                 donationAmounts={service.donation?.suggestedAmounts?.map((a: any) => a.amount) || []}
+                containerStyle='section-padding'
             />
 
             {service.testimonials && service.testimonials.length > 0 && (

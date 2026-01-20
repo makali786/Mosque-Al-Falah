@@ -15,6 +15,15 @@ import ContentImageSection from '@/components/common/ContentImageSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
 import { fetchServices } from '../../../../../lib/fetcher';
 
+export const getServiceBlocks = (contentBlocks: any[] = []) => {
+    return {
+        twoColumn: contentBlocks.filter(b => b.blockType === "twoColumn"),
+        gallery: contentBlocks.filter(b => b.blockType === "gallery"),
+        liveStreaming: contentBlocks.filter(b => b.blockType === "liveStreaming"),
+        faqs: contentBlocks.filter(b => b.blockType === "faqs"),
+    };
+};
+
 // Helper to extract simple text from Payload Rich Text
 const extractTextFromRichText = (richText: any) => {
     if (!richText || !richText.root || !richText.root.children) return "";
@@ -118,6 +127,12 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
     }
 
 
+    /* -------- BLOCK DATA (NO RENDERING) -------- */
+
+    const blocks = getServiceBlocks(service.contentBlocks);
+
+    console.log("blocks", blocks);
+
     return (
         <div>
             {/* 1. Top Component: ServiceEventBanner */}
@@ -130,7 +145,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                     { label: "Our Services", href: "/our-services" },
                     { label: title, href: `/our-services/${slug}` },
                 ]}
-                className="pb-0! pt-6! sm:pt-8! bg-white section-padding"
+                className="pb-0! pt-6! sm:pt-8! bg-white"
                 showSearch={false}
                 breadcrumbsItemsStyle={"flex-wrap"}
             />
@@ -145,7 +160,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 layout="image-left"
                 updatedAt={updatedAt}
                 content={
-                    <div className="text-base text-[#52525B] space-y-4">
+                    <div className="text-lg text-[#52525B] space-y-4">
                         {service.fullDescription ? (
                             <RichTextRenderer content={service.fullDescription} />
                         ) : (
@@ -158,8 +173,10 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 primaryButton={primaryButton}
                 secondaryButton={secondaryButton}
                 Separator={true}
-                contentStyle="lg:!h-[340px] lg:!max-h-[340px]"
+                contentStyle="lg:!h-[340px] lg:!max-h-[340px] lg:!max-w-[840px]"
                 primaryButtonClassName='!rounded-lg !px-6 !py-3'
+                sectionImageContainerStyle="lg:!max-w-[420px]"
+                sectionMainStyle="hn-container"
             />
 
             {/* 4. EventMediaSection */}
@@ -176,47 +193,51 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 donationDescription={service.donation?.donationDescription}
                 donationAmounts={service.donation?.suggestedAmounts?.map((a: any) => a.amount) || []}
                 enableDonations={service.donation?.enableDonations}
+                containerStyle='hn-container'
+                leftColumnStyle='lg:!max-w-[895px] lg:!max-h-[678px]'
             />
 
-            {/* 5. MadrasahFAQs */}
-            {faqs.length > 0 && (
-                <MadrasahFAQs
-                    title="Frequently Asked Questions (FAQs)"
-                    description="Find answers to common questions about this service."
-                    faqs={faqs}
-                />
-            )}
 
-            {/* 6. LiveStreaming */}
-            {liveStreamUrl && (
+            {/* LIVE STREAM – WHEREVER YOU WANT */}
+            {blocks.liveStreaming.map((block: any) => (
                 <LiveStreaming
-                    title="Live Streaming"
-                    description="Watch our services live from home."
+                    key={block.id}
+                    title={block.liveStreamingBlock?.title}
+                    description={block.liveStreamingBlock?.description}
                     thumbnailUrl={heroImage}
                     videoUrl={liveStreamUrl}
-                />
-            )}
-
-            {/* Dynamic Content Sections */}
-            {service.sections?.map((section: any, index: number) => (
-                <ContentImageSection
-                    key={section.id || index}
-                    heading={section.sectionTitle || section.title}
-                    imageSrc={section.image?.url || ""}
-                    imageAlt={section.image?.alt || ""}
-                    layout={index % 2 === 0 ? "image-right" : "image-left"}
-                    content={<RichTextRenderer content={section.content} />}
+                    isLive={block.liveStreamingBlock?.isLive}
                 />
             ))}
 
-            {/* Gallery Section */}
-            {service.impactGallery?.enableGallery && (
-                <ImpactGallery
-                    title={service.impactGallery.galleryTitle}
-                    description={service.impactGallery.galleryDescription || ""}
-                    images={service.impactGallery.images || []}
+            {/* TWO COLUMN – YOU CHOOSE LOCATION */}
+            {blocks.twoColumn.map((block: any) => (
+                <ContentImageSection
+                    key={block.id}
+                    heading={block.twoColumnBlock?.heading}
+                    imageSrc={block.twoColumnBlock?.image?.url}
+                    imageAlt={block.twoColumnBlock?.image?.alt}
+                    layout={block.twoColumnBlock?.imagePosition === "right" ? "image-right" : "image-left"}
+                    content={
+                        block.twoColumnBlock?.content ? (
+                            <RichTextRenderer content={block.twoColumnBlock.content} />
+                        ) : null
+                    }
                 />
-            )}
+            ))}
+
+            {/* GALLERY – BOTTOM */}
+            {blocks.gallery.map((block: any) => (
+                <ImpactGallery
+                    key={block.id}
+                    title={block.galleryBlock.title}
+                    description={block.galleryBlock.subtitle}
+                    images={block.galleryBlock.images}
+                    className="hn-container"
+                    headerContainer="!max-w-full"
+                />
+            ))}
+
 
             {/* Eid Salah Schedule  */}
             {service.taraweehEid?.eidScheduleTitle && (

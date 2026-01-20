@@ -22,6 +22,8 @@ interface EventMediaSectionProps {
   donationAmounts?: number[];
   enableDonations?: boolean;
   className?: string;
+  containerStyle?: string;
+  leftColumnStyle?: string;
 }
 
 export default function EventMediaSection({
@@ -38,6 +40,8 @@ export default function EventMediaSection({
   donationAmounts = [],
   enableDonations = false,
   className = "",
+  containerStyle,
+  leftColumnStyle
 }: EventMediaSectionProps) {
   const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Video");
   const [donationAmount, setDonationAmount] = useState<number | "Other">(10);
@@ -82,11 +86,11 @@ export default function EventMediaSection({
 
   return (
     <section className={`w-full py-12 lg:py-16 bg-white ${className}`}>
-      <div className="section-padding">
+      <div className={`${containerStyle}`}>
         <div className="flex flex-col xl:flex-row gap-8 xl:gap-11">
 
           {/* Left Column: Media & Description */}
-          <div className="w-full xl:max-w-[735px] xl:max-h[412px] space-y-6">
+          <div className={`w-full xl:max-w-[735px] xl:max-h[412px] space-y-6 ${leftColumnStyle}`}>
 
             {/* Tabs */}
             <Tabs

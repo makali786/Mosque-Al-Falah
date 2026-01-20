@@ -83,6 +83,9 @@ interface ServiceDetailHeroProps {
   Separator?: boolean;
   sectionImageStyle?: string;
   contentStyle?: string;
+  sectionImageContainerStyle?: string;
+  sectionContainerStyle?: string;
+  sectionMainStyle?: string;
 }
 
 export default function ServiceDetailHero({
@@ -104,6 +107,9 @@ export default function ServiceDetailHero({
   Separator: showSeparator,
   sectionImageStyle,
   contentStyle,
+  sectionImageContainerStyle,
+  sectionContainerStyle,
+  sectionMainStyle
 }: ServiceDetailHeroProps) {
   return (
     <section
@@ -111,14 +117,14 @@ export default function ServiceDetailHero({
       style={{ backgroundColor }}
     >
       {/* Container with max-width */}
-      <div className="w-full section-padding">
+      <div className={`w-full ${sectionMainStyle}`}>
         <div
           className={`flex flex-col ${
             layout === "image-left" ? "lg:flex-row" : "lg:flex-row-reverse"
-            } gap-6 sm:gap-7 md:gap-8 lg:gap-9 items-start`}
+            } gap-6 sm:gap-7 md:gap-8 lg:gap-9 items-start ${sectionContainerStyle}`}
         >
           {/* Image - Responsive width */}
-          <div className="w-full lg:max-w-108 lg:max-h-[396px]"
+          <div className={`w-full lg:max-w-108 lg:max-h-[396px] ${sectionImageContainerStyle}`}
             style={{
               // @ts-expect-error CSS custom properties
               "--img-width": `${imageWidth}px`,

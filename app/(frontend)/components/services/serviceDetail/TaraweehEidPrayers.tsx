@@ -117,6 +117,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
           href: "#schedule",
         }}
         className='pb-12 sm:pb-16 md:pb-20 lg:pb-21.5'
+        sectionMainStyle='section-padding'
       />
 
       {service.notifications?.enableNotifications && (
@@ -161,7 +162,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
           attribution: t.author
         })) || []}
         images={[
-          heroImage, 
+          heroImage,
           ...(service.media?.photoGallery?.map((img: any) => img.url) || []),
           ...(service.testimonials?.map((t: any) => t.photo?.url).filter(Boolean) || [])
         ].filter(Boolean)}

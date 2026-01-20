@@ -111,6 +111,7 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
             title={appeal.impactGallery.galleryTitle}
             description={appeal.impactGallery.galleryDescription || ""} 
             images={appeal.impactGallery.images || []}
+          className="section-padding"
         />
       )}
 
