@@ -51,6 +51,33 @@ export interface AdminNotificationData {
   isRecurring: boolean;
 }
 
+export interface EventRequestData {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  comments: string;
+  requestId: string;
+  date: Date;
+}
+
+export interface ServiceRequestData {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  comments: string;
+  requestId: string;
+  date: Date;
+}
+
+export interface QuestionData {
+  name: string;
+  email: string;
+  topic: string;
+  message: string;
+  questionId: string;
+  date: Date;
+}
+
 /**
  * Send donation receipt email
  */
@@ -676,9 +703,301 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
 `;
 }
 
+// Helper function to get topic label for questions
+function getTopicLabel(topic: string): string {
+  const labels: Record<string, string> = {
+    general: 'General Inquiry',
+    'prayer-times': 'Prayer Times',
+    events: 'Events & Programs',
+    donations: 'Donations',
+    madrasah: 'Madrasah',
+    services: 'Services',
+    'islamic-guidance': 'Islamic Guidance',
+    facilities: 'Facilities',
+    other: 'Other',
+  };
+  return labels[topic] || topic;
+}
+
+/**
+ * Send admin notification for event/lecture request
+ */
+export async function sendEventRequestNotification(
+  data: EventRequestData
+): Promise<boolean> {
+  const adminEmails =
+    process.env.ADMIN_NOTIFICATION_EMAILS ||
+    process.env.EMAIL_FROM ||
+    'admin@masjid-al-falah.org';
+
+  try {
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <h1 style="color: #ffffff; margin: 0; font-size: 24px;">📅 New Event/Lecture Request</h1>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 30px;">
+          <tr>
+            <td>
+              <h2 style="margin: 0 0 20px; color: #333; font-size: 20px;">Request Details</h2>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Name:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600;">${data.fullName}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Email:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.email}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Phone:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.phoneNumber}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Date:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${formatDate(data.date)}</td>
+                </tr>
+              </table>
+              
+              <div style="margin-top: 20px; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #7c3aed;">
+                <p style="margin: 0 0 8px; font-weight: 600; color: #333;">Comments/Details:</p>
+                <p style="margin: 0; color: #555; line-height: 1.6; white-space: pre-wrap;">${data.comments}</p>
+              </div>
+              
+              <p style="margin-top: 20px; text-align: center;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/admin/collections/event-requests/${data.requestId}" style="display: inline-block; background: #7c3aed; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                  View in Admin Panel
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;
+
+    await transporter.sendMail({
+      from: `"Masjid Al-Falah Requests" <${process.env.EMAIL_FROM || 'requests@masjid-al-falah.org'}>`,
+      to: adminEmails,
+      subject: `📅 New Event/Lecture Request from ${data.fullName}`,
+      html,
+    });
+
+    console.log(
+      `📧 Event request notification sent for request ${data.requestId}`
+    );
+    return true;
+  } catch (error) {
+    console.error('Failed to send event request notification:', error);
+    return false;
+  }
+}
+
+/**
+ * Send admin notification for service request
+ */
+export async function sendServiceRequestNotification(
+  data: ServiceRequestData
+): Promise<boolean> {
+  const adminEmails =
+    process.env.ADMIN_NOTIFICATION_EMAILS ||
+    process.env.EMAIL_FROM ||
+    'admin@masjid-al-falah.org';
+
+  try {
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%); padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <h1 style="color: #ffffff; margin: 0; font-size: 24px;">🤝 New Service Request</h1>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 30px;">
+          <tr>
+            <td>
+              <h2 style="margin: 0 0 20px; color: #333; font-size: 20px;">Request Details</h2>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Name:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600;">${data.fullName}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Email:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.email}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Phone:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.phoneNumber}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Date:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${formatDate(data.date)}</td>
+                </tr>
+              </table>
+              
+              <div style="margin-top: 20px; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #0891b2;">
+                <p style="margin: 0 0 8px; font-weight: 600; color: #333;">Comments/Details:</p>
+                <p style="margin: 0; color: #555; line-height: 1.6; white-space: pre-wrap;">${data.comments}</p>
+              </div>
+              
+              <p style="margin-top: 20px; text-align: center;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/admin/collections/service-requests/${data.requestId}" style="display: inline-block; background: #0891b2; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                  View in Admin Panel
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;
+
+    await transporter.sendMail({
+      from: `"Masjid Al-Falah Requests" <${process.env.EMAIL_FROM || 'requests@masjid-al-falah.org'}>`,
+      to: adminEmails,
+      subject: `🤝 New Service Request from ${data.fullName}`,
+      html,
+    });
+
+    console.log(
+      `📧 Service request notification sent for request ${data.requestId}`
+    );
+    return true;
+  } catch (error) {
+    console.error('Failed to send service request notification:', error);
+    return false;
+  }
+}
+
+/**
+ * Send admin notification for question
+ */
+export async function sendQuestionNotification(
+  data: QuestionData
+): Promise<boolean> {
+  const adminEmails =
+    process.env.ADMIN_NOTIFICATION_EMAILS ||
+    process.env.EMAIL_FROM ||
+    'admin@masjid-al-falah.org';
+
+  try {
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <h1 style="color: #ffffff; margin: 0; font-size: 24px;">❓ New Question Submitted</h1>
+      </td>
+    </tr>
+  </table>
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 30px;">
+          <tr>
+            <td>
+              <h2 style="margin: 0 0 20px; color: #333; font-size: 20px;">Question Details</h2>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Name:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600;">${data.name}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Email:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.email}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Topic:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${getTopicLabel(data.topic)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Date:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">${formatDate(data.date)}</td>
+                </tr>
+              </table>
+              
+              <div style="margin-top: 20px; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #ea580c;">
+                <p style="margin: 0 0 8px; font-weight: 600; color: #333;">Message:</p>
+                <p style="margin: 0; color: #555; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
+              </div>
+              
+              <p style="margin-top: 20px; text-align: center;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/admin/collections/questions/${data.questionId}" style="display: inline-block; background: #ea580c; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                  View in Admin Panel
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;
+
+    await transporter.sendMail({
+      from: `"Masjid Al-Falah Questions" <${process.env.EMAIL_FROM || 'questions@masjid-al-falah.org'}>`,
+      to: adminEmails,
+      subject: `❓ New Question: ${getTopicLabel(data.topic)} from ${data.name}`,
+      html,
+    });
+
+    console.log(
+      `📧 Question notification sent for question ${data.questionId}`
+    );
+    return true;
+  } catch (error) {
+    console.error('Failed to send question notification:', error);
+    return false;
+  }
+}
+
 export default {
   sendDonationReceipt,
   sendWelcomeEmail,
   sendRecurringDonationReminder,
   sendAdminNotification,
+  sendEventRequestNotification,
+  sendServiceRequestNotification,
+  sendQuestionNotification,
 };

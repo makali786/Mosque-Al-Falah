@@ -137,6 +137,8 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 isLive={service.media?.isLive}
                 venueName={service.venue?.venueName}
                 venueAddress={service.venue?.fullAddress}
+                venueLatitude={service.venue?.coordinates?.latitude}
+                venueLongitude={service.venue?.coordinates?.longitude}
                 venueMapsLink={service.venue?.googleMapsLink}
                 donationTitle={service.donation?.donationTitle}
                 donationDescription={service.donation?.donationDescription}
@@ -166,9 +168,9 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 sectionContainer="section-padding"
             />
             <AboutQuoteSection
-                quote={servicesPage?.bottomQuote?.quoteText || "Whoever guides someone to goodness will have a reward like the one who did it."}
-                attribution={servicesPage?.bottomQuote?.author || "— Prophet Muhammad ﷺ"}
-                donateButtonUrl={servicesPage?.bottomQuote?.donateButtonUrl || "/donate"}
+                quote={servicesPage.bottomQuote?.quoteText || ""}
+                attribution={servicesPage.bottomQuote?.author || ""}
+                donateButtonUrl={servicesPage.donation?.donateButtonUrl || "/donate"}
             />
 
         </div>

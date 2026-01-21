@@ -176,21 +176,19 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
       </div>
 
       {/* Quote Section */}
-      {mediaPageConfig?.bottomQuote?.enableSection && (
-        <QuoteSection 
-          quote={mediaPageConfig.bottomQuote.quoteText}
-          attribution={mediaPageConfig.bottomQuote.author}
-          shareButtonText={mediaPageConfig.bottomQuote.shareButtonText}
-          donateButtonText={mediaPageConfig.bottomQuote.donateButtonText}
-          donateButtonUrl={mediaPageConfig.bottomQuote.donateButtonUrl}
-          shareData={{
-            title: `${title} - Masjid Al-Falah`,
-            text: description || "Check out this media from Masjid Al-Falah",
-            url: typeof window !== 'undefined' ? window.location.href : `/media/${slug}`
-          }}
-          backgroundColor="#F4F4F5"
-        />
-      )}
+      <QuoteSection 
+        quote={mediaPageConfig.bottomQuote.quoteText || ""}
+        attribution={mediaPageConfig.bottomQuote.author || ""}
+        shareButtonText={mediaPageConfig.bottomQuote.shareButtonText || ""}
+        donateButtonText={mediaPageConfig.bottomQuote.donateButtonText || ""}
+        donateButtonUrl={mediaPageConfig.bottomQuote.donateButtonUrl || ""}
+        shareData={{
+          title: `${title} - Masjid Al-Falah`,
+          text: description || "Check out this media from Masjid Al-Falah",
+          url: typeof window !== 'undefined' ? window.location.href : `/media/${slug}`
+        }}
+        backgroundColor="#F4F4F5"
+      />
 
     </div>
   );

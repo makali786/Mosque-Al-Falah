@@ -7,18 +7,16 @@ import CalendarModal from "./CalendarModal";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
+import { getPrayerTimesByDate, findNextPrayer, addMinutesToTime } from "@lib/prayer-times-helpers";
 
 // Extend dayjs with timezone support
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const PRAYER_TIMES = [
-  { name: "Fajr", time: "5:53", active: false },
-  { name: "Dhur", time: "12:19", active: true },
-  { name: "Asr", time: "12:19", active: false },
-  { name: "Maghrib", time: "3:6", active: false },
-  { name: "Ishā", time: "6:33", active: false },
-] as const;
+interface TopBarProps {
+  prayerTimes?: any[];
+  settings?: any;
+}
 
 // Helper function to format Hijri date
 const formatHijriDate = (date: Date): string => {
@@ -44,18 +42,19 @@ const SOCIAL_LINKS = [
   {
     name: "Facebook",
     icon: "/assets/common/facebook-icon.svg",
-    url: "https://facebook.com",
+    url: "https://www.facebook.com/profile.php?id=100068190076068#",
   },
   {
     name: "YouTube",
     icon: "/assets/common/youtube-icon.svg",
-    url: "https://youtube.com",
+    url: "https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw",
   },
-  {
-    name: "Instagram",
-    icon: "/assets/common/instagram-icon.svg",
-    url: "https://instagram.com",
-  },
+  // Instagram - not available yet
+  // {
+  //   name: "Instagram",
+  //   icon: "/assets/common/instagram-icon.svg",
+  //   url: "https://instagram.com",
+  // },
   // { name: "Qibla", icon: "/assets/common/qibla.png", url: "" },
 ] as const;
 
@@ -107,7 +106,7 @@ const SocialIcon = ({ name, icon, url, size = "default" }: SocialIconProps) => {
   const imgSize = size === "small" ? 14 : 16;
 
   return (
-    <a
+    <Link
       href={url}
       target="_blank"
       rel="noopener noreferrer"
@@ -121,7 +120,7 @@ const SocialIcon = ({ name, icon, url, size = "default" }: SocialIconProps) => {
         height={imgSize}
         className="shrink-0"
       />
-    </a>
+    </Link>
   );
 };
 
@@ -174,7 +173,7 @@ const PrayerTime = ({
   );
 };
 
-export default function TopBar() {
+export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {}) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -199,6 +198,67 @@ export default function TopBar() {
     ];
   }, [currentTime]);
 
+  // Get today's prayer times and transform them for display
+  const displayPrayerTimes = useMemo(() => {
+    if (!prayerTimes || prayerTimes.length === 0) {
+      // Fallback to mock data if no prayer times available
+      return [
+        { name: "Fajr", time: "5:53", active: false },
+        { name: "Dhur", time: "12:19", active: true },
+        { name: "Asr", time: "12:19", active: false },
+        { name: "Maghrib", time: "3:6", active: false },
+        { name: "Ishā", time: "6:33", active: false },
+      ];
+    }
+
+    const today = new Date();
+    const todayData = getPrayerTimesByDate(prayerTimes, today);
+
+    if (!todayData) {
+      return [
+        { name: "Fajr", time: "5:53", active: false },
+        { name: "Dhur", time: "12:19", active: true },
+        { name: "Asr", time: "12:19", active: false },
+        { name: "Maghrib", time: "3:6", active: false },
+        { name: "Ishā", time: "6:33", active: false },
+      ];
+    }
+
+    const nextPrayer = findNextPrayer(todayData, today);
+    const nextPrayerName = nextPrayer?.name;
+
+    // Check if today is Friday
+    const isFriday = today.getDay() === 5;
+
+    return [
+      {
+        name: "Fajr",
+        time: todayData.fajr,
+        active: nextPrayerName === "FAJR",
+      },
+      {
+        name: isFriday ? "Jum'ah" : "Dhur",
+        time: todayData.dhuhr,
+        active: nextPrayerName === "DHUHR",
+      },
+      {
+        name: "Asr",
+        time: todayData.asr,
+        active: nextPrayerName === "ASR",
+      },
+      {
+        name: "Maghrib",
+        time: todayData.maghrib,
+        active: nextPrayerName === "MAGHRIB",
+      },
+      {
+        name: "Ishā",
+        time: todayData.isha,
+        active: nextPrayerName === "ISHA",
+      },
+    ];
+  }, [prayerTimes, settings, currentTime]);
+
   return (
     <div className="bg-white w-full relative">
       {/* Mobile Layout - Below sm */}
@@ -217,7 +277,7 @@ export default function TopBar() {
             </div>
           </div>
           <div className="flex items-center justify-between gap-1 w-full px-1">
-            {PRAYER_TIMES.map((prayer) => (
+            {displayPrayerTimes.map((prayer) => (
               <PrayerTime key={prayer.name} {...prayer} variant="mobile" />
             ))}
           </div>
@@ -259,7 +319,7 @@ export default function TopBar() {
           </div>
         </div>
         <div className="flex items-center justify-center gap-1 w-full">
-          {PRAYER_TIMES.map((prayer) => (
+          {displayPrayerTimes.map((prayer) => (
             <PrayerTime key={prayer.name} {...prayer} variant="tablet" />
           ))}
           <div className="relative ml-2">
@@ -286,7 +346,12 @@ export default function TopBar() {
                 />
               </svg>
             </button>
-            <CalendarModal isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
+            <CalendarModal
+              isOpen={isCalendarOpen}
+              onClose={() => setIsCalendarOpen(false)}
+              prayerTimes={prayerTimes}
+              settings={settings}
+            />
           </div>
         </div>
       </div>
@@ -344,7 +409,7 @@ export default function TopBar() {
         {/* Right Section - Prayer Times & Calendar */}
         <div className="flex gap-2 xl:gap-4 items-center shrink-0">
           <div className="flex gap-0.5 xl:gap-1.75 items-center shrink-0">
-            {PRAYER_TIMES.map((prayer) => (
+            {displayPrayerTimes.map((prayer) => (
               <PrayerTime key={prayer.name} {...prayer} variant="desktop" />
             ))}
           </div>
@@ -372,7 +437,12 @@ export default function TopBar() {
                 />
               </svg>
             </button>
-            <CalendarModal isOpen={isCalendarOpen} onClose={() => setIsCalendarOpen(false)} />
+            <CalendarModal
+              isOpen={isCalendarOpen}
+              onClose={() => setIsCalendarOpen(false)}
+              prayerTimes={prayerTimes}
+              settings={settings}
+            />
           </div>
         </div>
       </div>

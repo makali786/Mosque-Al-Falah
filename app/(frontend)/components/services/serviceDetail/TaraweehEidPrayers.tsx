@@ -68,8 +68,8 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
   const notificationTitle = service.notifications?.notificationTitle || "";
   const notificationDesc = service.notifications?.notificationDescription || "";
 
-  const quoteText = service.quote?.text || "";
-  const quoteAttribution = service.quote?.attribution || "";
+  const quoteText = servicesPage?.bottomQuote?.quoteText || "";
+  const quoteAttribution = servicesPage?.bottomQuote?.author || "";
 
   const venueName = service?.venue?.venueName || "";
   const venueAddress = service?.venue?.fullAddress || "";
@@ -186,11 +186,10 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
       />
       {/* <QuoteSection  */}
 
-
       <AboutQuoteSection
-        quote={servicesPage?.bottomQuote?.quoteText || "Whoever guides someone to goodness will have a reward like the one who did it."}
-        attribution={servicesPage?.bottomQuote?.author || "— Prophet Muhammad ﷺ"}
-        donateButtonUrl={servicesPage?.bottomQuote?.donateButtonUrl || "/donate"}
+        quote={quoteText || ""}
+        attribution={quoteAttribution || ""}
+        donateButtonUrl={service.donation?.donateButtonUrl || "/donate"}
       />
     </div>
   )

@@ -2,6 +2,7 @@
 
 import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import "./globals.css";
 import TopBar from "./components/layout/TopBar";
 import MainHeader from "./components/layout/MainHeader";
@@ -9,6 +10,7 @@ import Footer from "./components/layout/Footer";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
 import AccessibilityButton from "./components/layout/AccessibilityButton";
 import { LoadingProvider } from "./components/common/LoadingProvider";
+import GoogleMapsScript from "./components/GoogleMapsScript";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,6 +26,30 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const hideFooter = pathname === '/donate';
+  const [prayerTimes, setPrayerTimes] = useState<any[]>([]);
+  const [settings, setSettings] = useState<any>(null);
+
+  // Fetch prayer times data for TopBar
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch prayer times
+        const prayerTimesRes = await fetch('/api/prayer-times?limit=10000&sort=date');
+        const prayerTimesData = await prayerTimesRes.json();
+
+        // Fetch settings
+        const settingsRes = await fetch('/api/globals/prayer-time-settings');
+        const settingsData = await settingsRes.json();
+
+        setPrayerTimes(prayerTimesData.docs || []);
+        setSettings(settingsData);
+      } catch (error) {
+        console.error('Failed to fetch prayer times data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <html lang="en">
@@ -31,8 +57,9 @@ export default function RootLayout({
         className={`${inter.className} antialiased`}
         suppressHydrationWarning={true}
       >
+        <GoogleMapsScript />
         <LoadingProvider>
-          <TopBar />
+          <TopBar prayerTimes={prayerTimes} settings={settings} />
           <MainHeader />
           <main className="min-h-screen">{children}</main>
           {!hideFooter && <Footer />}

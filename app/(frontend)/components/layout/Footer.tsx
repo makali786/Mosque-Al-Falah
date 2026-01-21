@@ -4,46 +4,25 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const SUPPORTERS = [
-  { name: "Mahfuzur Rahman", amount: "£50 GBP,", time: "10 seconds ago" },
-  {
-    name: "An Anonymous kind soul",
-    amount: "£100 GBP,",
-    time: "10 minutes ago",
-  },
-  {
-    name: "An Anonymous kind soul",
-    amount: "£100 GBP,",
-    time: "10 minutes ago",
-  },
-  {
-    name: "Mahadi Hasan Abdullah",
-    amount: "£100 GBP,",
-    time: "10 minutes ago",
-  },
-] as const;
+const SUPPORTERS: any[] = [];
 
 const SOCIAL_LINKS = [
   {
-    name: "Twitter",
-    icon: "/assets/common/twitter-icon.svg",
-    url: "https://twitter.com",
-  },
-  {
     name: "Facebook",
     icon: "/assets/common/facebook-icon.svg",
-    url: "https://facebook.com",
+    url: "https://www.facebook.com/profile.php?id=100068190076068#",
   },
   {
     name: "YouTube",
     icon: "/assets/common/youtube-icon.svg",
-    url: "https://youtube.com",
+    url: "https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw",
   },
-  {
-    name: "Instagram",
-    icon: "/assets/common/instagram-icon.svg",
-    url: "https://instagram.com",
-  },
+  // Instagram - not available yet
+  // {
+  //   name: "Instagram",
+  //   icon: "/assets/common/instagram-icon.svg",
+  //   url: "https://instagram.com",
+  // },
 ] as const;
 
 const FOOTER_LINKS = [
@@ -93,10 +72,10 @@ const CONTACT_INFO = [
 ] as const;
 
 const STATS = [
-  { value: "04", label: "Campaigns" },
-  { value: "112", label: "Donors" },
-  { value: "£5,745", label: "Funds Raised" },
-] as const;
+  { value: "0", label: "Campaigns" },
+  { value: "0", label: "Donors" },
+  { value: "£0", label: "Funds Raised" },
+];
 
 interface SupporterCardProps {
   name: string;
@@ -132,6 +111,23 @@ const StatsCard = ({ value, label }: { value: string; label: string }) => (
   </div>
 );
 
+const SupporterSkeleton = () => (
+  <div className="flex gap-2 items-center w-full animate-pulse">
+    <div className="bg-gray-700 rounded-full shrink-0 w-10 h-10"></div>
+    <div className="flex flex-col gap-1 w-full">
+      <div className="h-4 bg-gray-700 rounded w-3/4"></div>
+      <div className="h-3 bg-gray-700 rounded w-1/2"></div>
+    </div>
+  </div>
+);
+
+const StatsSkeleton = () => (
+  <div className="flex flex-col gap-2 items-center py-2 w-full animate-pulse">
+    <div className="h-7 bg-gray-700 rounded w-12"></div>
+    <div className="h-4 bg-gray-700 rounded w-16"></div>
+  </div>
+);
+
 const SocialIcon = ({
   name,
   icon,
@@ -143,6 +139,8 @@ const SocialIcon = ({
 }) => (
   <Link
     href={url}
+    target="_blank"
+    rel="noopener noreferrer"
     className="bg-white lg:bg-[#e6f1fe] p-2 rounded-full shrink-0"
     aria-label={name}
   >
@@ -252,6 +250,11 @@ export default function Footer() {
   const [services, setServices] = useState<Service[]>([]);
   const [footerColumns, setFooterColumns] = useState(STATIC_FOOTER_COLUMNS);
 
+  // Dynamic donation data
+  const [recentDonors, setRecentDonors] = useState(SUPPORTERS);
+  const [donationStats, setDonationStats] = useState(STATS);
+  const [isLoadingDonations, setIsLoadingDonations] = useState(true);
+
   const toggleColumn = (title: string) => {
     setOpenColumns((prev) => ({
       ...prev,
@@ -287,6 +290,43 @@ export default function Footer() {
     };
 
     fetchServices();
+  }, []);
+
+  // Fetch donation data
+  useEffect(() => {
+    const fetchDonations = async () => {
+      try {
+        setIsLoadingDonations(true);
+        const response = await fetch('/api/donations/recent?limit=4');
+
+        if (response.ok) {
+          const data = await response.json();
+
+          if (data.success) {
+            // Update recent donors
+            if (data.recentDonors) {
+              setRecentDonors(data.recentDonors);
+            }
+
+            // Update stats
+            if (data.stats) {
+              setDonationStats([
+                { value: String(data.stats.campaigns).padStart(2, '0'), label: 'Campaigns' },
+                { value: String(data.stats.donors), label: 'Donors' },
+                { value: data.stats.fundsRaised, label: 'Funds Raised' },
+              ]);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch donations:', error);
+        // Keep using default SUPPORTERS and STATS on error
+      } finally {
+        setIsLoadingDonations(false);
+      }
+    };
+
+    fetchDonations();
   }, []);
 
   return (
@@ -344,14 +384,28 @@ export default function Footer() {
             </h3>
             <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
               <div className="flex flex-col gap-3 lg:gap-4 flex-1">
-                {SUPPORTERS.slice(0, 2).map((supporter, idx) => (
-                  <SupporterCard key={idx} {...supporter} />
-                ))}
+                  {isLoadingDonations ? (
+                    <>
+                      <SupporterSkeleton />
+                      <SupporterSkeleton />
+                    </>
+                  ) : (
+                    recentDonors.slice(0, 2).map((supporter, idx) => (
+                    <SupporterCard key={supporter.id || idx} {...supporter} />
+                  ))
+                  )}
               </div>
               <div className="hidden lg:flex flex-col gap-4 flex-1">
-                {SUPPORTERS.slice(2).map((supporter, idx) => (
-                  <SupporterCard key={idx} {...supporter} />
-                ))}
+                  {isLoadingDonations ? (
+                    <>
+                      <SupporterSkeleton />
+                      <SupporterSkeleton />
+                    </>
+                  ) : (
+                    recentDonors.slice(2).map((supporter, idx) => (
+                    <SupporterCard key={supporter.id || idx} {...supporter} />
+                  ))
+                  )}
               </div>
             </div>
           </div>
@@ -362,9 +416,17 @@ export default function Footer() {
               Donations & Campaigns
             </h3>
             <div className="flex items-center justify-between w-full">
-              {STATS.map((stat) => (
-                <StatsCard key={stat.label} {...stat} />
-              ))}
+                {isLoadingDonations ? (
+                  <>
+                    <StatsSkeleton />
+                    <StatsSkeleton />
+                    <StatsSkeleton />
+                  </>
+                ) : (
+                  donationStats.map((stat) => (
+                    <StatsCard key={stat.label} {...stat} />
+                ))
+                )}
             </div>
             <div className="flex gap-5 w-full">
               <Link

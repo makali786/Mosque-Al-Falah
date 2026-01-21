@@ -46,7 +46,7 @@ const ContactUsPage = async () => {
                         imageSrc={contactUs.brothersEntrance.image?.url || ""}
                         imageAlt={contactUs.brothersEntrance.image?.alt || "Brothers Entrance"}
                         whatsappGroupLabel={contactUs.brothersEntrance.whatsappGroup.buttonText}
-                        whatsappUrl="#"
+                        whatsappUrl="https://wa.me/447587875319"
                     />
                 )}
 
@@ -57,7 +57,7 @@ const ContactUsPage = async () => {
                         imageSrc={contactUs.sistersEntrance.image?.url || ""}
                         imageAlt={contactUs.sistersEntrance.image?.alt || "Sisters Entrance"}
                         whatsappGroupLabel={contactUs.sistersEntrance.whatsappGroup.buttonText}
-                        whatsappUrl="#"
+                        whatsappUrl="https://wa.me/447587875319"
                     />
                 )}
             </div>
