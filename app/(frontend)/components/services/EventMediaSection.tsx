@@ -16,6 +16,8 @@ interface EventMediaSectionProps {
   isLive?: boolean; // Added isLive
   venueName?: string;
   venueAddress?: string;
+  venueLatitude?: number;
+  venueLongitude?: number;
   venueMapsLink?: string;
   donationTitle?: string;
   donationDescription?: string;
@@ -31,6 +33,8 @@ export default function EventMediaSection({
   isLive = false,
   venueName = "",
   venueAddress = "",
+  venueLatitude,
+  venueLongitude,
   venueMapsLink = "",
   donationTitle = "Donate",
   donationDescription = "",
@@ -159,7 +163,9 @@ export default function EventMediaSection({
 
                 {/* Interactive Google Map */}
                 <GoogleMap
-                  address={venueAddress}
+                  latitude={venueLatitude}
+                  longitude={venueLongitude}
+                  address={venueName}
                   className="w-full"
                   height="198px"
                   zoom={15}

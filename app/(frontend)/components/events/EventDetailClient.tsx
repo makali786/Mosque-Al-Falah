@@ -415,7 +415,9 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
 
                                     {/* Interactive Google Map */}
                                     <GoogleMap
-                                        address={address}
+                                        latitude={event?.venue?.coordinates?.latitude}
+                                        longitude={event?.venue?.coordinates?.longitude}
+                                        address={venue}
                                         className="w-full mb-4"
                                         height="198px"
                                         zoom={15}

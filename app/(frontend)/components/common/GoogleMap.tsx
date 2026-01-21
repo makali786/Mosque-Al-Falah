@@ -3,14 +3,18 @@
 import { useEffect, useRef, useState } from 'react';
 
 interface GoogleMapProps {
-  address?: string;
+    latitude?: number;
+    longitude?: number;
+    address?: string; // Fallback for marker title
   className?: string;
   height?: string;
   zoom?: number;
 }
 
 export default function GoogleMap({
-  address = '',
+    latitude,
+    longitude,
+    address = 'Location',
   className = '',
   height = '198px',
   zoom = 15,
@@ -20,8 +24,9 @@ export default function GoogleMap({
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!address || !mapRef.current) {
+      if ((!latitude || !longitude) || !mapRef.current) {
       setIsLoading(false);
+        setError(!latitude || !longitude);
       return;
     }
 
@@ -32,52 +37,47 @@ export default function GoogleMap({
         return;
       }
 
-      const google = (window as any).google;
-      const geocoder = new google.maps.Geocoder();
-
-      // Geocode the address
-      geocoder.geocode({ address }, (results: any, status: any) => {
-        if (status === 'OK' && results && results[0] && mapRef.current) {
-          const location = results[0].geometry.location;
+        try {
+          const google = (window as any).google;
+          const location = { lat: latitude, lng: longitude };
 
           // Create map
           const map = new google.maps.Map(mapRef.current, {
-            center: location,
-            zoom: zoom,
-            mapTypeControl: false,
-            streetViewControl: false,
-            fullscreenControl: true,
-            zoomControl: true,
-            styles: [
-              {
-                featureType: 'poi',
-                elementType: 'labels',
-                stylers: [{ visibility: 'off' }],
-              },
-            ],
+              center: location,
+              zoom: zoom,
+              mapTypeControl: false,
+              streetViewControl: false,
+              fullscreenControl: true,
+              zoomControl: true,
+              styles: [
+                  {
+                      featureType: 'poi',
+                      elementType: 'labels',
+                      stylers: [{ visibility: 'off' }],
+                  },
+              ],
           });
 
           // Add marker
           new google.maps.Marker({
-            position: location,
-            map: map,
-            title: address,
-            animation: google.maps.Animation.DROP,
+              position: location,
+              map: map,
+              title: address,
+              animation: google.maps.Animation.DROP,
           });
 
           setIsLoading(false);
-        } else {
-          console.error('Geocode failed:', status);
+      } catch (err) {
+          console.error('Error initializing map:', err);
           setError(true);
           setIsLoading(false);
-        }
-      });
+      }
     };
 
     initMap();
-  }, [address, zoom]);
+  }, [latitude, longitude, address, zoom]);
 
-  if (!address) {
+    if (!latitude || !longitude) {
     return (
       <div
         className={`bg-[#E4E4E7] flex items-center justify-center ${className}`}
