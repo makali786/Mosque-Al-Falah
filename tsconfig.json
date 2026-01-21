@@ -21,6 +21,7 @@
     "paths": {
       "@/*": ["./app/(frontend)/*"],
       "@lib/*": ["./lib/*"],
+      "@hooks/*": ["./hooks/*"],
       "@payload-config": ["./payload.config.ts"],
       "@payload-config/*": ["./payload.config.ts"]
     }

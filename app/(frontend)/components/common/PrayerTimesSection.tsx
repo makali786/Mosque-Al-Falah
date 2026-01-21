@@ -1,53 +1,38 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useMemo } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { addMinutesToTime } from "@lib/prayer-times-helpers";
+import { usePrayerTimesNavigation } from "@hooks/usePrayerTimesNavigation";
+import { usePrayerTimes } from "@hooks/usePrayerTimes";
+import { useCountdown } from "@hooks/useCountdown";
 import {
-  getPrayerTimesByDate,
-  formatGregorianDate,
-  formatHijriDate,
-  addMinutesToTime,
-  findNextPrayer,
-  getCurrentActivePrayer
-} from "@lib/prayer-times-helpers";
+  CountdownDisplay,
+  DateNavigation,
+  PrayerTimeRow,
+  JumuahTimeRow,
+} from "@/components/prayer-times/PrayerTimeComponents";
 
 // ============================================================================
 // Types & Interfaces
 // ============================================================================
 
-interface PrayerTime {
-  name: string;
-  begins: string;
-  jamaah?: string;
-  isActive?: boolean;
-}
-
-interface JumuahTime {
-  name: string;
-  khutbah: string;
-  jamaah: string;
-}
-
-interface DateInfo {
-  gregorian: string;
-  hijri: string;
-}
-
-interface CountdownTime {
-  hours: string;
-  minutes: string;
-  seconds: string;
-}
-
 interface CalendarDay {
   day: string;
   date: number;
   islamicDate: number;
+  hijriMonthName?: string;
+  hijriYear?: string;
   subhaSadiq: string;
   sunRise: string;
   fajr: { begins: string; jamaah: string };
-  zuhr: { begins: string; jamaah: string };
+  zuhr: {
+    begins: string;
+    jamaah: string;
+    isJumuah?: boolean;
+    jumuahTime?: string | null;
+  };
   asr: { begins: string; jamaah: string };
   maghrib: { begins: string; jamaah: string };
   isha: { begins: string; jamaah: string };
@@ -55,409 +40,85 @@ interface CalendarDay {
   isActive?: boolean;
 }
 
-// ============================================================================
-// Data Configuration (Ready for API integration)
-// ============================================================================
-
-const MOCK_PRAYER_TIMES: PrayerTime[] = [
-  { name: "Fajr", begins: "5:01", jamaah: "5:01" },
-  { name: "Sunrise", begins: "6:38" },
-  { name: "Zuhr", begins: "12:18", jamaah: "12:45" },
-  { name: "'Asr", begins: "3:52", jamaah: "4:15" },
-  { name: "Maghrib", begins: "5:48", jamaah: "6:03" },
-  { name: "'Isha", begins: "7:13", jamaah: "8:00", isActive: true },
-];
-
-const MOCK_JUMUAH_TIMES: JumuahTime[] = [
-  { name: "Jumua'ah 1", khutbah: "12:25", jamaah: "1:00" },
-  { name: "Jumua'ah 2", khutbah: "12:45", jamaah: "1:15" },
-];
-
-const MOCK_DATE_INFO: DateInfo = {
-  gregorian: "Monday, 3rd March 2025",
-  hijri: "Ramadan 3, 1446 AH",
-};
-
-const MOCK_CALENDAR_DATA: CalendarDay[] = [
-  {
-    day: "TUE", date: 1, islamicDate: 10, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "WED", date: 2, islamicDate: 11, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "THU", date: 3, islamicDate: 12, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "FRI", date: 4, islamicDate: 13, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" },
-    isFriday: true
-  },
-  {
-    day: "SAT", date: 5, islamicDate: 14, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "SUN", date: 6, islamicDate: 15, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "MON", date: 7, islamicDate: 16, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "TUE", date: 8, islamicDate: 17, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "WED", date: 9, islamicDate: 18, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:15", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" },
-    isActive: true
-  },
-  {
-    day: "THU", date: 10, islamicDate: 19, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "FRI", date: 11, islamicDate: 20, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" },
-    isFriday: true
-  },
-  {
-    day: "SAT", date: 12, islamicDate: 21, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "SUN", date: 13, islamicDate: 22, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "MON", date: 14, islamicDate: 23, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  },
-  {
-    day: "TUE", date: 15, islamicDate: 24, subhaSadiq: "5:59", sunRise: "7:44",
-    fajr: { begins: "5:59", jamaah: "7:00" },
-    zuhr: { begins: "12:08", jamaah: "1:00" },
-    asr: { begins: "2:16", jamaah: "2:45" },
-    maghrib: { begins: "4:05", jamaah: "4:07" },
-    isha: { begins: "5:42", jamaah: "7:30" }
-  }
-];
-
-// Next prayer for countdown (will be dynamic in future)
-const NEXT_PRAYER = { name: "ISHA", time: "19:13" };
-
-// ============================================================================
-// Utility Functions
-// ============================================================================
-
-const calculateCountdown = (targetTime: string): CountdownTime => {
-  const now = new Date();
-  const [hours, minutes] = targetTime.split(":").map(Number);
-
-  const target = new Date();
-  target.setHours(hours, minutes, 0, 0);
-
-  // If target time has passed today, set it for tomorrow
-  if (now > target) {
-    target.setDate(target.getDate() + 1);
-  }
-
-  const diff = target.getTime() - now.getTime();
-
-  if (diff <= 0) {
-    return { hours: "00", minutes: "00", seconds: "00" };
-  }
-
-  const h = Math.floor(diff / (1000 * 60 * 60));
-  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-  return {
-    hours: h.toString().padStart(2, "0"),
-    minutes: m.toString().padStart(2, "0"),
-    seconds: s.toString().padStart(2, "0"),
-  };
-};
-
-const formatTime = (time: string): string => time;
-
-// ============================================================================
-// Sub-Components
-// ============================================================================
-
-interface CountdownDisplayProps {
-  countdown: CountdownTime;
-  prayerName: string;
+interface PrayerTimesSectionProps {
+  activeTab?: string;
+  prayerTimes?: any[];
+  settings?: any;
 }
 
-const CountdownDisplay = ({ countdown, prayerName }: CountdownDisplayProps) => {
-  const timeUnits = [
-    { value: countdown.hours, label: "Hours" },
-    { value: countdown.minutes, label: "Minutes" },
-    { value: countdown.seconds, label: "Seconds" },
-  ];
-
-  return (
-    <div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 xl:w-93.5 lg:w-85 sm:w-72 w-[calc(100%-2rem)] backdrop-blur-[6.65px] bg-[#18181b]/80 flex flex-col gap-0 items-center xl:p-6 lg:p-5 md:p-4 p-4 rounded-[14px]"
-      style={{ backdropFilter: "blur(6.65px)" }}
-    >
-      <div className="flex flex-col md:gap-2 gap-1 items-center">
-        {/* Timer Title */}
-        <div className="flex xl:gap-2 lg:gap-1.5 gap-1 items-center xl:text-lg lg:text-base md:text-base text-sm text-[#fafafa] text-center xl:leading-7 lg:leading-6 md:leading-6 leading-5">
-          <p className="font-normal">The Athan of</p>
-          <p className="font-semibold">{prayerName}</p>
-          <p className="font-normal">is in</p>
-        </div>
-
-        {/* Countdown Display */}
-        <div className="flex flex-col gap-1 items-start w-full">
-          <div className="flex items-center justify-center xl:text-5xl lg:text-4xl md:text-3xl text-2xl font-semibold text-[#fafafa] w-full xl:leading-12 lg:leading-11 md:leading-10 leading-8">
-            {timeUnits.map((unit, index) => (
-              <div key={unit.label} className="flex items-center">
-                <div className="flex justify-center text-center xl:w-17 lg:w-15 md:w-12 w-10">
-                  <p>{unit.value}</p>
-                </div>
-                {index < timeUnits.length - 1 && (
-                  <div className="flex justify-center text-center xl:px-1 lg:px-0.5 px-0.5">
-                    <p>:</p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Labels */}
-          <div className="flex xl:gap-3.5 lg:gap-2.5 gap-1.5 items-center w-full justify-center">
-            {timeUnits.map((unit) => (
-              <div
-                key={unit.label}
-                className="bg-[#27272a] xl:h-6.25 lg:h-5.5 md:h-5 h-4 rounded-lg overflow-hidden shrink-0 xl:w-17 lg:w-15 md:w-12 w-10 flex items-center justify-center"
-              >
-                <p className="xl:text-sm lg:text-xs md:text-xs text-[10px] font-normal text-[#a1a1aa] xl:leading-5 lg:leading-4 leading-3">
-                  {unit.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-interface DateNavigationProps {
-  dateInfo: DateInfo;
-  onPrevious: () => void;
-  onNext: () => void;
-}
-
-const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) => (
-  <div className="absolute xl:top-31.75 top-8 left-1/2 -translate-x-1/2 flex items-center justify-between xl:w-81.5 lg:w-85 md:w-72 w-[calc(100%-2rem)] z-10">
-    <button
-      onClick={onPrevious}
-      className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
-      aria-label="Previous day"
-    >
-      <IoChevronBack className="md:w-6 md:h-6 w-5 h-5 cursor-pointer" />
-    </button>
-
-    <div className="flex flex-col gap-1 items-center text-center lg:w-42.5 md:w-36 flex-1">
-      <p className="lg:text-sm md:text-xs text-xs font-semibold text-[#fafafa] md:leading-5 leading-4 w-full">
-        {dateInfo.gregorian}
-      </p>
-      <p className="text-xs font-medium text-[#006fee] leading-4 w-full">
-        {dateInfo.hijri}
-      </p>
-    </div>
-
-    <button
-      onClick={onNext}
-      className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
-      aria-label="Next day"
-    >
-      <IoChevronForward className="md:w-6 md:h-6 w-5 h-5 cursor-pointer" />
-    </button>
-  </div>
-);
-
-interface PrayerTimeRowProps {
-  prayer: PrayerTime;
-}
-
-const PrayerTimeRow = ({ prayer }: PrayerTimeRowProps) => {
-  const isActive = prayer.isActive;
-  const bgColor = isActive ? "bg-[#27272a] border border-[#27272a]" : "bg-[#fafafa]";
-  const nameColor = isActive ? "text-white" : "text-black";
-  const labelColor = isActive ? "text-[#a1a1aa]" : "text-[#71717a]";
-
-  return (
-    <div className={`${bgColor} flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full mb-1`}>
-      <p className={`md:text-base text-sm font-bold ${nameColor} md:leading-6 leading-5 md:w-24 w-16`}>
-        {prayer.name}
-      </p>
-
-      <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
-        <p className={`md:text-xs text-[10px] font-normal ${labelColor} md:leading-4 leading-3`}>
-          Begins
-        </p>
-        <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-          {formatTime(prayer.begins)}
-        </p>
-      </div>
-
-      <div className={`flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end ${!prayer.jamaah ? 'opacity-0' : ''}`}>
-        <p className={`md:text-xs text-[10px] font-normal ${labelColor} md:leading-4 leading-3`}>
-          Jama&apos;ah
-        </p>
-        <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-          {formatTime(prayer.jamaah || prayer.begins)}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-interface JumuahTimeRowProps {
-  jumuah: JumuahTime;
-}
-
-const JumuahTimeRow = ({ jumuah }: JumuahTimeRowProps) => (
-  <div className="bg-[#fafafa] flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full mb-1">
-    <p className="md:text-base text-sm font-bold text-black md:leading-6 leading-5 md:w-24 w-16">
-      {jumuah.name}
-    </p>
-
-    <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
-      <p className="md:text-xs text-[10px] font-normal text-[#71717a] md:leading-4 leading-3">
-        Khutbah
-      </p>
-      <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-        {formatTime(jumuah.khutbah)}
-      </p>
-    </div>
-
-    <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
-      <p className="md:text-xs text-[10px] font-normal text-[#71717a] md:leading-4 leading-3">
-        Jama&apos;ah
-      </p>
-      <p className="md:text-base text-sm font-bold text-[#006fee] md:leading-6 leading-5">
-        {formatTime(jumuah.jamaah)}
-      </p>
-    </div>
-  </div>
-);
+// ============================================================================
+// Prayer Times Calendar Component
+// ============================================================================
 
 interface PrayerTimesCalendarProps {
   prayerTimes: any[];
   settings?: any;
 }
 
-const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps) => {
+const PrayerTimesCalendar = ({
+  prayerTimes,
+  settings,
+}: PrayerTimesCalendarProps) => {
   const [calendarDate, setCalendarDate] = useState(new Date());
 
   const handlePreviousMonth = () => {
-    setCalendarDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
+    setCalendarDate(
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
+    );
   };
 
   const handleNextMonth = () => {
-    setCalendarDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
+    setCalendarDate(
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
+    );
   };
 
   // Transform prayer times data for calendar display
   const calendarData = useMemo(() => {
-    if (!prayerTimes || prayerTimes.length === 0) return MOCK_CALENDAR_DATA;
+    if (!prayerTimes || prayerTimes.length === 0) return [];
 
     const today = new Date();
-    const todayStr = today.toISOString().split('T')[0];
+    const todayStr = today.toISOString().split("T")[0];
 
     // Filter prayer times for the selected month
     const filteredPrayerTimes = prayerTimes.filter((pt: any) => {
       const ptDate = new Date(pt.date);
-      return ptDate.getMonth() === calendarDate.getMonth() &&
-             ptDate.getFullYear() === calendarDate.getFullYear();
+      return (
+        ptDate.getMonth() === calendarDate.getMonth() &&
+        ptDate.getFullYear() === calendarDate.getFullYear()
+      );
     });
 
     return filteredPrayerTimes.map((pt: any) => {
       const date = new Date(pt.date);
-      const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+      const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
       const isFriday = date.getDay() === 5;
-      const isToday = pt.date.split('T')[0] === todayStr;
+      const isToday = pt.date.split("T")[0] === todayStr;
 
       // Parse hijri date "1 12 1441446" -> day: 1, month: 12, year: 1441446
-      const hijriParts = pt.hijriDate ? pt.hijriDate.trim().split(' ') : ['1', '1', '1446'];
+      const hijriParts = pt.hijriDate
+        ? pt.hijriDate.trim().split(" ")
+        : ["1", "1", "1446"];
       const islamicDate = parseInt(hijriParts[0]) || 1;
       const islamicMonth = parseInt(hijriParts[1]) || 1;
-      const islamicYear = hijriParts[2] || '1446';
+      const islamicYear = hijriParts[2] || "1446";
 
       // Get hijri month name
       const hijriMonths = [
-        'Muharram', 'Safar', 'Rabi-al-Awwal', 'Rabi-al-Thani',
-        'Jamadi-al-Awwal', 'Jamadi-al-Thani', 'Rajab', 'Shaban',
-        'Ramadan', 'Shawwal', 'Dhul-Qadah', 'Dhul-Hijjah'
+        "Muharram",
+        "Safar",
+        "Rabi-al-Awwal",
+        "Rabi-al-Thani",
+        "Jamadi-al-Awwal",
+        "Jamadi-al-Thani",
+        "Rajab",
+        "Shaban",
+        "Ramadan",
+        "Shawwal",
+        "Dhul-Qadah",
+        "Dhul-Hijjah",
       ];
-      const hijriMonthName = hijriMonths[islamicMonth - 1] || '';
+      const hijriMonthName = hijriMonths[islamicMonth - 1] || "";
 
       // Get Jumu'ah time from settings
       const jumuahTime = settings?.jumuahSettings?.iqamahTime || null;
@@ -472,35 +133,48 @@ const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps
         sunRise: pt.sunrise,
         fajr: {
           begins: pt.fajr,
-          jamaah: addMinutesToTime(pt.fajr, pt.fajrIqamahDelay)
+          jamaah: addMinutesToTime(pt.fajr, pt.fajrIqamahDelay),
         },
         zuhr: {
           begins: pt.dhuhr,
           jamaah: addMinutesToTime(pt.dhuhr, pt.dhuhrIqamahDelay),
           isJumuah: pt.isJumuah || isFriday,
-          jumuahTime: (pt.isJumuah || isFriday) ? jumuahTime : null
+          jumuahTime: pt.isJumuah || isFriday ? jumuahTime : null,
         },
         asr: {
           begins: pt.asr,
-          jamaah: addMinutesToTime(pt.asr, pt.asrIqamahDelay)
+          jamaah: addMinutesToTime(pt.asr, pt.asrIqamahDelay),
         },
         maghrib: {
           begins: pt.maghrib,
-          jamaah: addMinutesToTime(pt.maghrib, pt.maghribIqamahDelay)
+          jamaah: addMinutesToTime(pt.maghrib, pt.maghribIqamahDelay),
         },
         isha: {
           begins: pt.isha,
-          jamaah: addMinutesToTime(pt.isha, pt.ishaIqamahDelay)
+          jamaah: addMinutesToTime(pt.isha, pt.ishaIqamahDelay),
         },
         isFriday,
-        isActive: isToday
+        isActive: isToday,
       };
     });
   }, [prayerTimes, calendarDate, settings]);
 
   // Format month display
   const monthDisplay = useMemo(() => {
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     return `${monthNames[calendarDate.getMonth()]} ${calendarDate.getFullYear()}`;
   }, [calendarDate]);
 
@@ -515,7 +189,9 @@ const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps
           <IoChevronBack className="w-5 h-5 cursor-pointer" />
         </button>
         <div className="text-center">
-          <h3 className="text-sm font-semibold text-black mb-2">{monthDisplay}</h3>
+          <h3 className="text-sm font-semibold text-black mb-2">
+            {monthDisplay}
+          </h3>
           <p className="text-xs font-medium text-[#006FEE]">
             Jamada-Al-Thani, 1447 -Rajab, 1447
           </p>
@@ -534,41 +210,105 @@ const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps
           <thead>
             {/* Top Header Row */}
             <tr className="bg-[#001731] text-white text-sm font-normal">
-              <th rowSpan={2} className="p-3 align-bottom font-normal w-16 border-r border-[#002E62] xl:h-18">Day</th>
-              <th rowSpan={2} className="px-2 py-3 align-bottom font-normal w-16 border-r border-[#002E62] xl:h-18">Date</th>
-              <th rowSpan={2} className="px-2 py-3 font-normal w-24 leading-tight border-r border-[#002E62] xl:h-18">
+              <th
+                rowSpan={2}
+                className="p-3 align-bottom font-normal w-16 border-r border-[#002E62] xl:h-18"
+              >
+                Day
+              </th>
+              <th
+                rowSpan={2}
+                className="px-2 py-3 align-bottom font-normal w-16 border-r border-[#002E62] xl:h-18"
+              >
+                Date
+              </th>
+              <th
+                rowSpan={2}
+                className="px-2 py-3 font-normal w-24 leading-tight border-r border-[#002E62] xl:h-18"
+              >
                 Islamic Date
               </th>
-              <th rowSpan={2} className="px-2 py-3 font-normal w-20 leading-tight border-r border-[#002E62] xl:h-18">
+              <th
+                rowSpan={2}
+                className="px-2 py-3 font-normal w-20 leading-tight border-r border-[#002E62] xl:h-18"
+              >
                 Subha Sadiq
               </th>
-              <th rowSpan={2} className="px-2 py-3 font-normal w-20 leading-tight border-r border-[#002E62] xl:h-18">
+              <th
+                rowSpan={2}
+                className="px-2 py-3 font-normal w-20 leading-tight border-r border-[#002E62] xl:h-18"
+              >
                 Sun Rise
               </th>
 
-              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">Fajr</th>
-              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">Zuhr</th>
-              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">'Asr</th>
-              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">Maghrib</th>
-              <th colSpan={2} className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5">Isha</th>
+              <th
+                colSpan={2}
+                className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5"
+              >
+                Fajr
+              </th>
+              <th
+                colSpan={2}
+                className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5"
+              >
+                Zuhr
+              </th>
+              <th
+                colSpan={2}
+                className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5"
+              >
+                'Asr
+              </th>
+              <th
+                colSpan={2}
+                className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5"
+              >
+                Maghrib
+              </th>
+              <th
+                colSpan={2}
+                className="px-3 py-2 border-b border-[#1F2937] border-r border-[#002E62] xl:h-5"
+              >
+                Isha
+              </th>
             </tr>
             {/* Sub Header Row */}
             <tr className="bg-[#001731] text-[#FFFFFF] text-sm h-10">
               {/* Fajr */}
-              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
-              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">
+                Begins
+              </th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">
+                Jama&apos;ah
+              </th>
               {/* Zuhr */}
-              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
-              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">
+                Begins
+              </th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">
+                Jama&apos;ah
+              </th>
               {/* Asr */}
-              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
-              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">
+                Begins
+              </th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">
+                Jama&apos;ah
+              </th>
               {/* Maghrib */}
-              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
-              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">
+                Begins
+              </th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">
+                Jama&apos;ah
+              </th>
               {/* Isha */}
-              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">Begins</th>
-              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">Jama'ah</th>
+              <th className="px-4 py-2.5 font-normal border-r border-[#002E62]">
+                Begins
+              </th>
+              <th className="px-4 py-2.5 font-normal text-white border-r border-[#002E62]">
+                Jama&apos;ah
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -578,11 +318,18 @@ const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps
               const rowHeight = isFirstRow ? "h-[76px]" : "h-[46px]";
               const baseWidth = "!min-w-[70px]";
 
-              let rowBaseClass = `border-b text-sm ${rowHeight} ${isFirstRow ? 'align-bottom' : ''}`;
+              let rowBaseClass = `border-b text-sm ${rowHeight} ${
+                isFirstRow ? "align-bottom" : ""
+              }`;
               // Zebra striping: alternate background colors for standard rows
-              let rowColors = index % 2 !== 0 ? "bg-[#FAFAFA] border-[#F4F4F5]" : "bg-white border-[#F4F4F5]";
-              let cellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
-              let lastCellBorder = "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
+              let rowColors =
+                index % 2 !== 0
+                  ? "bg-[#FAFAFA] border-[#F4F4F5]"
+                  : "bg-white border-[#F4F4F5]";
+              let cellBorder =
+                "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
+              let lastCellBorder =
+                "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
 
               let textClass = "";
               let beginsClass = "";
@@ -591,7 +338,7 @@ const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps
               if (row.isActive) {
                 rowColors = "bg-[#006FEE] text-white border-[#006FEE]";
                 cellBorder = "border-x border-white";
-                lastCellBorder = "border-x border-white"; 
+                lastCellBorder = "border-x border-white";
                 textClass = "text-white";
                 beginsClass = "text-white";
                 islamicDateClass = "text-white font-medium";
@@ -608,9 +355,25 @@ const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps
 
               return (
                 <tr key={index} className={rowClass}>
-                  <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.day}</td>
-                  <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.date}</td>
-                  <td className={`${islamicDateClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>
+                  <td
+                    className={`${textClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.day}
+                  </td>
+                  <td
+                    className={`${textClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.date}
+                  </td>
+                  <td
+                    className={`${islamicDateClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
                     {isFirstRow && row.hijriMonthName && (
                       <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">
                         {row.hijriMonthName}
@@ -618,37 +381,119 @@ const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps
                     )}
                     {row.islamicDate}
                   </td>
-                  <td className={`${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.subhaSadiq}</td>
-                  <td className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${isFirstRow ? 'pb-3' : ''} ${row.isActive ? 'border-white/20' : row.isFriday ? 'border-[#DBEAFE]' : ''} ${baseWidth}`}>{row.sunRise}</td>
+                  <td
+                    className={`${textClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.subhaSadiq}
+                  </td>
+                  <td
+                    className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${
+                      row.isActive
+                        ? "border-white/20"
+                        : row.isFriday
+                        ? "border-[#DBEAFE]"
+                        : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.sunRise}
+                  </td>
 
                   {/* Fajr */}
-                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.fajr.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.fajr.jamaah}</td>
+                  <td
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.fajr.begins}
+                  </td>
+                  <td
+                    className={` ${textClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.fajr.jamaah}
+                  </td>
 
                   {/* Zuhr */}
-                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.zuhr.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>
+                  <td
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.zuhr.begins}
+                  </td>
+                  <td
+                    className={` ${textClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
                     {row.zuhr.isJumuah ? (
                       <div className="flex flex-col items-center gap-0.5">
-                        <span className="font-medium text-xs!">Jumu&apos;ah</span>
+                        <span className="font-medium text-xs!">
+                          Jumu&apos;ah
+                        </span>
                         {row.zuhr.jumuahTime && (
-                          <span className="text-[11px] font-normal opacity-90">{row.zuhr.jumuahTime}</span>
+                          <span className="text-[11px] font-normal opacity-90">
+                            {row.zuhr.jumuahTime}
+                          </span>
                         )}
                       </div>
-                    ) : row.zuhr.jamaah}
+                    ) : (
+                      row.zuhr.jamaah
+                    )}
                   </td>
 
                   {/* Asr */}
-                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.asr.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.asr.jamaah}</td>
+                  <td
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.asr.begins}
+                  </td>
+                  <td
+                    className={` ${textClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.asr.jamaah}
+                  </td>
 
                   {/* Maghrib */}
-                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.maghrib.begins}</td>
-                  <td className={` ${textClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.maghrib.jamaah}</td>
+                  <td
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.maghrib.begins}
+                  </td>
+                  <td
+                    className={` ${textClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.maghrib.jamaah}
+                  </td>
 
                   {/* Isha */}
-                  <td className={`${beginsClass} ${cellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.isha.begins}</td>
-                  <td className={` ${textClass} ${lastCellBorder} ${isFirstRow ? 'pb-3' : ''} ${baseWidth}`}>{row.isha.jamaah}</td>
+                  <td
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.isha.begins}
+                  </td>
+                  <td
+                    className={` ${textClass} ${lastCellBorder} ${
+                      isFirstRow ? "pb-3" : ""
+                    } ${baseWidth}`}
+                  >
+                    {row.isha.jamaah}
+                  </td>
                 </tr>
               );
             })}
@@ -663,190 +508,32 @@ const PrayerTimesCalendar = ({ prayerTimes, settings }: PrayerTimesCalendarProps
 // Main Component
 // ============================================================================
 
-interface PrayerTimesSectionProps {
-  activeTab?: string;
-  prayerTimes?: any[];
-  settings?: any;
-}
+export default function PrayerTimesSection({
+  activeTab,
+  prayerTimes: initialPrayerTimes = [],
+  settings,
+}: PrayerTimesSectionProps) {
+  // Use custom hooks
+  const { currentDate, handlePreviousDay, handleNextDay } =
+    usePrayerTimesNavigation({ resetOnMount: false });
 
-export default function PrayerTimesSection({ activeTab, prayerTimes: initialPrayerTimes = [], settings }: PrayerTimesSectionProps) {
-
-  const [countdown, setCountdown] = useState<CountdownTime>({
-    hours: "00",
-    minutes: "00",
-    seconds: "00",
+  // Get prayer times data
+  const { prayerTimes, dateInfo, nextPrayer, isViewingToday } = usePrayerTimes({
+    prayerTimes: initialPrayerTimes,
+    settings,
+    currentDate,
   });
 
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
-
-  // Date navigation
-  const handlePreviousDay = useCallback(() => {
-    setCurrentDate(prev => {
-      const newDate = new Date(prev);
-      newDate.setDate(newDate.getDate() - 1);
-      return newDate;
-    });
-  }, []);
-
-  const handleNextDay = useCallback(() => {
-    setCurrentDate(prev => {
-      const newDate = new Date(prev);
-      newDate.setDate(newDate.getDate() + 1);
-      return newDate;
-    });
-  }, []);
-
-  // Get current day's prayer time data
-  const currentPrayerTimeData = useMemo(() => {
-    return getPrayerTimesByDate(initialPrayerTimes, currentDate);
-  }, [initialPrayerTimes, currentDate]);
-
-  // Find next prayer (pass currentDate to check if it's today)
-  const nextPrayer = useMemo(() => {
-    return findNextPrayer(currentPrayerTimeData, currentDate) || NEXT_PRAYER;
-  }, [currentPrayerTimeData, currentDate]);
-
-  // Check if viewing today
-  const isViewingToday = useMemo(() => {
-    const today = new Date();
-    return currentDate.getDate() === today.getDate() &&
-           currentDate.getMonth() === today.getMonth() &&
-           currentDate.getFullYear() === today.getFullYear();
-  }, [currentDate]);
-
-  // Countdown timer effect - only count down when viewing today
-  useEffect(() => {
-    const updateCountdown = () => {
-      if (isViewingToday) {
-        setCountdown(calculateCountdown(nextPrayer.time));
-      } else {
-        // Show 00:00:00 when not viewing today
-        setCountdown({ hours: "00", minutes: "00", seconds: "00" });
-      }
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-
-    return () => clearInterval(interval);
-  }, [nextPrayer, isViewingToday]);
-
-  // Transform API data to UI format for prayer times display
-  const prayerTimes = useMemo(() => {
-    if (!currentPrayerTimeData) return MOCK_PRAYER_TIMES;
-
-    // The active prayer should be the NEXT prayer (from countdown), only when viewing today
-    const nextPrayerName = isViewingToday ? nextPrayer.name : null;
-
-    // Check if today is Friday and if Jumu'ah should replace Dhuhr
-    const isFriday = currentDate.getDay() === 5;
-    const shouldReplaceWithJumuah = isFriday &&
-                                     settings?.jumuahSettings?.enabled &&
-                                     settings?.jumuahSettings?.replacesDhuhr;
-
-    const prayers: any[] = [
-      {
-        name: "Fajr",
-        begins: currentPrayerTimeData.fajr,
-        jamaah: addMinutesToTime(currentPrayerTimeData.fajr, currentPrayerTimeData.fajrIqamahDelay),
-        isActive: nextPrayerName === "FAJR"
-      },
-      {
-        name: "Sunrise",
-        begins: currentPrayerTimeData.sunrise
-      }
-    ];
-
-    // Add Zuhr OR Jumu'ah based on settings
-    if (shouldReplaceWithJumuah) {
-      // Add first Jumu'ah
-      prayers.push({
-        name: "Jumua'ah 1",
-        khutbah: settings.jumuahSettings.khutbahTime,
-        jamaah: settings.jumuahSettings.iqamahTime,
-        isActive: nextPrayerName === "DHUHR",
-        isJumuah: true
-      });
-
-      // Add second Jumu'ah if enabled
-      if (settings.jumuahSettings.enableSecondJumuah) {
-        prayers.push({
-          name: "Jumua'ah 2",
-          khutbah: settings.jumuahSettings.secondKhutbahTime,
-          jamaah: settings.jumuahSettings.secondIqamahTime,
-          isActive: false,
-          isJumuah: true
-        });
-      }
-    } else {
-      // Regular Zuhr
-      prayers.push({
-        name: "Zuhr",
-        begins: currentPrayerTimeData.dhuhr,
-        jamaah: addMinutesToTime(currentPrayerTimeData.dhuhr, currentPrayerTimeData.dhuhrIqamahDelay),
-        isActive: nextPrayerName === "DHUHR"
-      });
-    }
-
-    // Add remaining prayers
-    prayers.push(
-      {
-        name: "'Asr",
-        begins: currentPrayerTimeData.asr,
-        jamaah: addMinutesToTime(currentPrayerTimeData.asr, currentPrayerTimeData.asrIqamahDelay),
-        isActive: nextPrayerName === "ASR"
-      },
-      {
-        name: "Maghrib",
-        begins: currentPrayerTimeData.maghrib,
-        jamaah: addMinutesToTime(currentPrayerTimeData.maghrib, currentPrayerTimeData.maghribIqamahDelay),
-        isActive: nextPrayerName === "MAGHRIB"
-      },
-      {
-        name: "'Isha",
-        begins: currentPrayerTimeData.isha,
-        jamaah: addMinutesToTime(currentPrayerTimeData.isha, currentPrayerTimeData.ishaIqamahDelay),
-        isActive: nextPrayerName === "ISHA"
-      }
-    );
-
-    return prayers;
-  }, [currentPrayerTimeData, nextPrayer, isViewingToday, currentDate, settings]);
-
-  // Transform settings to UI format for Jumuah times
-  const jumuahTimes = useMemo(() => {
-    if (!settings?.jumuahSettings) {
-      return MOCK_JUMUAH_TIMES;
-    }
-
-    if (!Array.isArray(settings.jumuahSettings)) {
-      return MOCK_JUMUAH_TIMES;
-    }
-
-    return settings.jumuahSettings.map((jumuah: any, index: number) => {
-      return {
-        name: `Jumua'ah ${index + 1}`,
-        khutbah: jumuah.khutbahTime,
-        jamaah: jumuah.iqamahTime
-      };
-    });
-  }, [settings]);
-
-  // Format date info
-  const dateInfo = useMemo(() => {
-    if (!currentPrayerTimeData) return MOCK_DATE_INFO;
-
-    return {
-      gregorian: formatGregorianDate(currentDate),
-      hijri: formatHijriDate(currentPrayerTimeData.hijriDate)
-    };
-  }, [currentDate, currentPrayerTimeData]);
+  // Countdown timer - only count down when viewing today
+  const countdown = useCountdown({
+    targetTime: nextPrayer.time,
+    isActive: isViewingToday,
+  });
 
   return (
     <section className="w-full section-padding py-8">
-
       {/* Main Content Area */}
-      {activeTab === 'prayer-time' ? (
+      {activeTab === "prayer-time" ? (
         <div className="flex flex-col xl:flex-row gap-0 xl:gap-12 mb-8 xl:mb-16">
           {/* Left side - Image with countdown */}
           <div className="h-105 xl:h-152.25 w-full xl:max-w-136 relative overflow-hidden rounded-t-[12px] rounded-b-none xl:rounded-xl">
@@ -856,7 +543,6 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
               fill
               className="object-cover xl:min-w-136 xl:min-h-152.25"
               priority
-              // sizes="(max-width: 768px) 100vw, 500px"
             />
 
             {/* Overlay gradient */}
@@ -867,10 +553,15 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
               dateInfo={dateInfo}
               onPrevious={handlePreviousDay}
               onNext={handleNextDay}
+              variant="large"
             />
 
             {/* Countdown Timer */}
-            <CountdownDisplay countdown={countdown} prayerName={nextPrayer.name} />
+            <CountdownDisplay
+              countdown={countdown}
+              prayerName={nextPrayer.name}
+              variant="large"
+            />
           </div>
 
           {/* Right side - Prayer Times List */}
@@ -879,18 +570,21 @@ export default function PrayerTimesSection({ activeTab, prayerTimes: initialPray
               <h2 className="sr-only">Prayer Times</h2>
 
               {/* Daily Prayer Times (includes Jumu'ah when applicable) */}
-              {prayerTimes.map((prayer) => (
+              {prayerTimes.map((prayer) =>
                 prayer.isJumuah ? (
                   <JumuahTimeRow key={prayer.name} jumuah={prayer} />
                 ) : (
                   <PrayerTimeRow key={prayer.name} prayer={prayer} />
                 )
-              ))}
+              )}
             </div>
           </div>
         </div>
       ) : (
-        <PrayerTimesCalendar prayerTimes={initialPrayerTimes} settings={settings} />
+        <PrayerTimesCalendar
+          prayerTimes={initialPrayerTimes}
+          settings={settings}
+        />
       )}
     </section>
   );
