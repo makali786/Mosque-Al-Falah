@@ -19,6 +19,7 @@ export async function getRecentDonationData(limit: number = 4) {
     // Fetch all donors to calculate total count
     const allDonors = await payload.find({
       collection: 'donors' as any,
+        limit: 10000,
     });
 
     // Calculate total funds raised from all donors
