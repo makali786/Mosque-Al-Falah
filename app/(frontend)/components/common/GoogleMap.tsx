@@ -23,11 +23,9 @@ export default function GoogleMap({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-      console.log('GoogleMap - Coordinates:', { latitude, longitude, address });
+    useEffect(() => {
 
-      if ((!latitude || !longitude) || !mapRef.current) {
-        console.log('GoogleMap - Missing coordinates or ref');
+        if ((!latitude || !longitude) || !mapRef.current) {
       setIsLoading(false);
         setError(!latitude || !longitude);
       return;
