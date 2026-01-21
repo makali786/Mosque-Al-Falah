@@ -12,7 +12,6 @@ async function seedSermons() {
   const payloadConfigNew = await payloadConfig;
   const payload = await getPayload({ config: payloadConfigNew });
 
-  console.log('🌱 Seeding sermons...');
 
   // Get existing media items for thumbnails
   // @ts-ignore
@@ -38,14 +37,9 @@ async function seedSermons() {
     existingImams.docs.length > 2 ? existingImams.docs[2].id : imamId1;
 
   if (!imageId) {
-    console.log(
-      '❌ No media items found. Please upload at least one image first.'
-    );
     process.exit(1);
   }
 
-  console.log('📷 Using media item:', imageId);
-  console.log('👤 Using imams:', imamId1, imamId2, imamId3);
 
   // Sermon 1: The Quran is the Words of Allah
   // @ts-ignore
@@ -83,7 +77,6 @@ async function seedSermons() {
       isPublished: true,
     },
   });
-  console.log('✅ Created sermon:', sermon1.title);
 
   // Sermon 2: Respecting the Sacred Month of Rajab
   // @ts-ignore
@@ -121,7 +114,6 @@ async function seedSermons() {
       isPublished: true,
     },
   });
-  console.log('✅ Created sermon:', sermon2.title);
 
   // Sermon 3: Importance of Salah
   // @ts-ignore
@@ -201,7 +193,6 @@ async function seedSermons() {
       isPublished: true,
     },
   });
-  console.log('✅ Created sermon:', sermon4.title);
 
   // Sermon 5: Eid Khutbah
   // @ts-ignore
@@ -279,9 +270,7 @@ async function seedSermons() {
       isPublished: true,
     },
   });
-  console.log('✅ Created sermon:', sermon6.title);
 
-  console.log('🎉 Sermons seeded successfully!');
   process.exit(0);
 }
 
