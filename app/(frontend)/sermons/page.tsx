@@ -78,7 +78,7 @@ export default async function SermonsPage() {
              shareButtonText={sermonsPageData.bottomQuote.shareButtonText}
              donateButtonText={sermonsPageData.bottomQuote.donateButtonText}
              donateButtonUrl={sermonsPageData.bottomQuote.donateButtonUrl}
-             backgroundColor="#f4f4f5" // Light gray section for quote
+          backgroundColor="#f4f4f5" 
           />
        )}
     </div>

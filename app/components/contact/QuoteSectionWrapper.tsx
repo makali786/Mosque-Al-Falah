@@ -34,7 +34,7 @@ export const QuoteSectionWrapper = ({
   };
 
   const handleDonate = () => {
-    window.open(donateButtonUrl, "_blank"); // Or just location.href if internal, but using logic from before
+    window.open(donateButtonUrl, "_blank"); 
   };
 
   return (

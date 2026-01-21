@@ -29,7 +29,7 @@ const extractTextFromRichText = (richText: any) => {
     return "";
 };
 
-const NikaahMarriage = async ({ service, params }: { service: any, params: { id: string } }) => {
+const NikaahMarriage = async ({ service, params, servicesPage }: { service: any, params: { id: string }, servicesPage: any }) => {
 
     // Fetch all services for the "Other Services" section
     const allServices = await fetchServices({
@@ -161,9 +161,9 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 }))}
             />
             <AboutQuoteSection
-                quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
-                attribution={"— Prophet Muhammad ﷺ"}
-                donateButtonUrl={"/donate"}
+                quote={servicesPage.bottomQuote?.quoteText || ""}
+                attribution={servicesPage.bottomQuote?.author || ""}
+                donateButtonUrl={servicesPage.donation?.donateButtonUrl || "/donate"}
             />
 
         </div>
