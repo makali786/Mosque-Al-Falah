@@ -42,18 +42,19 @@ const SOCIAL_LINKS = [
   {
     name: "Facebook",
     icon: "/assets/common/facebook-icon.svg",
-    url: "https://facebook.com",
+    url: "https://www.facebook.com/profile.php?id=100068190076068#",
   },
   {
     name: "YouTube",
     icon: "/assets/common/youtube-icon.svg",
-    url: "https://youtube.com",
+    url: "https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw",
   },
-  {
-    name: "Instagram",
-    icon: "/assets/common/instagram-icon.svg",
-    url: "https://instagram.com",
-  },
+  // Instagram - not available yet
+  // {
+  //   name: "Instagram",
+  //   icon: "/assets/common/instagram-icon.svg",
+  //   url: "https://instagram.com",
+  // },
   // { name: "Qibla", icon: "/assets/common/qibla.png", url: "" },
 ] as const;
 
@@ -105,7 +106,7 @@ const SocialIcon = ({ name, icon, url, size = "default" }: SocialIconProps) => {
   const imgSize = size === "small" ? 14 : 16;
 
   return (
-    <a
+    <Link
       href={url}
       target="_blank"
       rel="noopener noreferrer"
@@ -119,7 +120,7 @@ const SocialIcon = ({ name, icon, url, size = "default" }: SocialIconProps) => {
         height={imgSize}
         className="shrink-0"
       />
-    </a>
+    </Link>
   );
 };
 

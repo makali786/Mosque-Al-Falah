@@ -8,25 +8,21 @@ const SUPPORTERS: any[] = [];
 
 const SOCIAL_LINKS = [
   {
-    name: "Twitter",
-    icon: "/assets/common/twitter-icon.svg",
-    url: "https://twitter.com",
-  },
-  {
     name: "Facebook",
     icon: "/assets/common/facebook-icon.svg",
-    url: "https://facebook.com",
+    url: "https://www.facebook.com/profile.php?id=100068190076068#",
   },
   {
     name: "YouTube",
     icon: "/assets/common/youtube-icon.svg",
-    url: "https://youtube.com",
+    url: "https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw",
   },
-  {
-    name: "Instagram",
-    icon: "/assets/common/instagram-icon.svg",
-    url: "https://instagram.com",
-  },
+  // Instagram - not available yet
+  // {
+  //   name: "Instagram",
+  //   icon: "/assets/common/instagram-icon.svg",
+  //   url: "https://instagram.com",
+  // },
 ] as const;
 
 const FOOTER_LINKS = [
@@ -143,6 +139,8 @@ const SocialIcon = ({
 }) => (
   <Link
     href={url}
+    target="_blank"
+    rel="noopener noreferrer"
     className="bg-white lg:bg-[#e6f1fe] p-2 rounded-full shrink-0"
     aria-label={name}
   >
