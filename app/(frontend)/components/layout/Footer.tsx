@@ -4,24 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const SUPPORTERS = [
-  { name: "Mahfuzur Rahman", amount: "£50 GBP,", time: "10 seconds ago" },
-  {
-    name: "An Anonymous kind soul",
-    amount: "£100 GBP,",
-    time: "10 minutes ago",
-  },
-  {
-    name: "An Anonymous kind soul",
-    amount: "£100 GBP,",
-    time: "10 minutes ago",
-  },
-  {
-    name: "Mahadi Hasan Abdullah",
-    amount: "£100 GBP,",
-    time: "10 minutes ago",
-  },
-] as const;
+const SUPPORTERS: any[] = [];
 
 const SOCIAL_LINKS = [
   {
@@ -93,10 +76,10 @@ const CONTACT_INFO = [
 ] as const;
 
 const STATS = [
-  { value: "04", label: "Campaigns" },
-  { value: "112", label: "Donors" },
-  { value: "£5,745", label: "Funds Raised" },
-] as const;
+  { value: "0", label: "Campaigns" },
+  { value: "0", label: "Donors" },
+  { value: "£0", label: "Funds Raised" },
+];
 
 interface SupporterCardProps {
   name: string;
@@ -252,6 +235,11 @@ export default function Footer() {
   const [services, setServices] = useState<Service[]>([]);
   const [footerColumns, setFooterColumns] = useState(STATIC_FOOTER_COLUMNS);
 
+  // Dynamic donation data
+  const [recentDonors, setRecentDonors] = useState(SUPPORTERS);
+  const [donationStats, setDonationStats] = useState(STATS);
+  const [isLoadingDonations, setIsLoadingDonations] = useState(true);
+
   const toggleColumn = (title: string) => {
     setOpenColumns((prev) => ({
       ...prev,
@@ -287,6 +275,43 @@ export default function Footer() {
     };
 
     fetchServices();
+  }, []);
+
+  // Fetch donation data
+  useEffect(() => {
+    const fetchDonations = async () => {
+      try {
+        setIsLoadingDonations(true);
+        const response = await fetch('/api/donations/recent?limit=4');
+
+        if (response.ok) {
+          const data = await response.json();
+
+          if (data.success) {
+            // Update recent donors
+            if (data.recentDonors) {
+              setRecentDonors(data.recentDonors);
+            }
+
+            // Update stats
+            if (data.stats) {
+              setDonationStats([
+                { value: String(data.stats.campaigns).padStart(2, '0'), label: 'Campaigns' },
+                { value: String(data.stats.donors), label: 'Donors' },
+                { value: data.stats.fundsRaised, label: 'Funds Raised' },
+              ]);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch donations:', error);
+        // Keep using default SUPPORTERS and STATS on error
+      } finally {
+        setIsLoadingDonations(false);
+      }
+    };
+
+    fetchDonations();
   }, []);
 
   return (
@@ -344,13 +369,13 @@ export default function Footer() {
             </h3>
             <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
               <div className="flex flex-col gap-3 lg:gap-4 flex-1">
-                {SUPPORTERS.slice(0, 2).map((supporter, idx) => (
-                  <SupporterCard key={idx} {...supporter} />
+                  {recentDonors.slice(0, 2).map((supporter, idx) => (
+                    <SupporterCard key={supporter.id || idx} {...supporter} />
                 ))}
               </div>
               <div className="hidden lg:flex flex-col gap-4 flex-1">
-                {SUPPORTERS.slice(2).map((supporter, idx) => (
-                  <SupporterCard key={idx} {...supporter} />
+                  {recentDonors.slice(2).map((supporter, idx) => (
+                    <SupporterCard key={supporter.id || idx} {...supporter} />
                 ))}
               </div>
             </div>
@@ -362,7 +387,7 @@ export default function Footer() {
               Donations & Campaigns
             </h3>
             <div className="flex items-center justify-between w-full">
-              {STATS.map((stat) => (
+                {donationStats.map((stat) => (
                 <StatsCard key={stat.label} {...stat} />
               ))}
             </div>
