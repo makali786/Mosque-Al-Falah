@@ -6,6 +6,7 @@ import { FaPlay } from "react-icons/fa";
 import Separator from "../common/Separator";
 import Tabs from "../common/Tabs";
 import { DonorProfileCard } from "../donate/shared";
+import GoogleMap from "../common/GoogleMap";
 
 interface EventMediaSectionProps {
   title?: string;
@@ -156,13 +157,13 @@ export default function EventMediaSection({
                   </p>
                 </div>
 
-                {/* Map Placeholder or Link */}
-                <a href={venueMapsLink} target="_blank" rel="noopener noreferrer" className="block w-full h-[198px] xl:max-h-[198px] xl:max-w-[357px] bg-[#E4E4E7] relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-[url('https://maps.googleapis.com/maps/api/staticmap?center=Ilford,Essex&zoom=14&size=600x300&sensor=false')] bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" />
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span className="bg-white px-3 py-1 rounded shadow text-sm font-medium">Open Map</span>
-                  </div>
-                </a>
+                {/* Interactive Google Map */}
+                <GoogleMap
+                  address={venueAddress}
+                  className="w-full"
+                  height="198px"
+                  zoom={15}
+                />
 
                 {/* Actions */}
                 <div className="flex gap-3 flex-wrap">
