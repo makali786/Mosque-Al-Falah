@@ -540,6 +540,12 @@ export default function PrayerTimesSection({
     isActive: isViewingToday,
   });
 
+ useEffect(() => {
+    if (activeTab === "prayer-time") {
+      onYearChange?.(currentDate.getFullYear());
+    }
+  }, [currentDate, activeTab, onYearChange]);
+
   return (
     <section className="w-full section-padding py-8">
       {/* Main Content Area */}

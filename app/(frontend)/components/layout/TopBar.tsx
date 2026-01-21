@@ -226,6 +226,9 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
     const nextPrayer = findNextPrayer(todayData, today);
     const nextPrayerName = nextPrayer?.name;
 
+    // Check if today is Friday
+    const isFriday = today.getDay() === 5;
+
     return [
       {
         name: "Fajr",
@@ -233,7 +236,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
         active: nextPrayerName === "FAJR",
       },
       {
-        name: "Dhur",
+        name: isFriday ? "Jum'ah" : "Dhur",
         time: todayData.dhuhr,
         active: nextPrayerName === "DHUHR",
       },
@@ -253,7 +256,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
         active: nextPrayerName === "ISHA",
       },
     ];
-  }, [prayerTimes, currentTime]);
+  }, [prayerTimes, settings, currentTime]);
 
   return (
     <div className="bg-white w-full relative">
