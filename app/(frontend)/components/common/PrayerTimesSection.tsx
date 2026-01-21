@@ -260,12 +260,12 @@ const CountdownDisplay = ({ countdown, prayerName }: CountdownDisplayProps) => {
 
   return (
     <div
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:w-93.5 md:w-72 w-[calc(100%-2rem)] backdrop-blur-[6.65px] bg-[#18181b]/80 flex flex-col gap-0 items-center lg:p-6 md:p-4 p-4 rounded-[14px]"
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 xl:w-93.5 lg:w-85 sm:w-72 w-[calc(100%-2rem)] backdrop-blur-[6.65px] bg-[#18181b]/80 flex flex-col gap-0 items-center xl:p-6 lg:p-5 md:p-4 p-4 rounded-[14px]"
       style={{ backdropFilter: "blur(6.65px)" }}
     >
       <div className="flex flex-col md:gap-2 gap-1 items-center">
         {/* Timer Title */}
-        <div className="flex lg:gap-2 gap-1 items-center lg:text-lg md:text-base text-sm text-[#fafafa] text-center lg:leading-7 md:leading-6 leading-5">
+        <div className="flex xl:gap-2 lg:gap-1.5 gap-1 items-center xl:text-lg lg:text-base md:text-base text-sm text-[#fafafa] text-center xl:leading-7 lg:leading-6 md:leading-6 leading-5">
           <p className="font-normal">The Athan of</p>
           <p className="font-semibold">{prayerName}</p>
           <p className="font-normal">is in</p>
@@ -273,14 +273,14 @@ const CountdownDisplay = ({ countdown, prayerName }: CountdownDisplayProps) => {
 
         {/* Countdown Display */}
         <div className="flex flex-col gap-1 items-start w-full">
-          <div className="flex items-center justify-center lg:text-5xl md:text-3xl text-2xl font-semibold text-[#fafafa] w-full lg:leading-12 md:leading-10 leading-8">
+          <div className="flex items-center justify-center xl:text-5xl lg:text-4xl md:text-3xl text-2xl font-semibold text-[#fafafa] w-full xl:leading-12 lg:leading-11 md:leading-10 leading-8">
             {timeUnits.map((unit, index) => (
               <div key={unit.label} className="flex items-center">
-                <div className="flex justify-center text-center lg:w-17 md:w-12 w-10">
+                <div className="flex justify-center text-center xl:w-17 lg:w-15 md:w-12 w-10">
                   <p>{unit.value}</p>
                 </div>
                 {index < timeUnits.length - 1 && (
-                  <div className="flex justify-center text-center lg:px-1 px-0.5">
+                  <div className="flex justify-center text-center xl:px-1 lg:px-0.5 px-0.5">
                     <p>:</p>
                   </div>
                 )}
@@ -289,13 +289,13 @@ const CountdownDisplay = ({ countdown, prayerName }: CountdownDisplayProps) => {
           </div>
 
           {/* Labels */}
-          <div className="flex lg:gap-3.5 gap-1.5 items-center w-full justify-center">
+          <div className="flex xl:gap-3.5 lg:gap-2.5 gap-1.5 items-center w-full justify-center">
             {timeUnits.map((unit) => (
               <div
                 key={unit.label}
-                className="bg-[#27272a] lg:h-6.25 md:h-5 h-4 rounded-lg overflow-hidden shrink-0 lg:w-17 md:w-12 w-10 flex items-center justify-center"
+                className="bg-[#27272a] xl:h-6.25 lg:h-5.5 md:h-5 h-4 rounded-lg overflow-hidden shrink-0 xl:w-17 lg:w-15 md:w-12 w-10 flex items-center justify-center"
               >
-                <p className="lg:text-sm md:text-xs text-[10px] font-normal text-[#a1a1aa] lg:leading-5 leading-3">
+                <p className="xl:text-sm lg:text-xs md:text-xs text-[10px] font-normal text-[#a1a1aa] xl:leading-5 lg:leading-4 leading-3">
                   {unit.label}
                 </p>
               </div>
@@ -314,7 +314,7 @@ interface DateNavigationProps {
 }
 
 const DateNavigation = ({ dateInfo, onPrevious, onNext }: DateNavigationProps) => (
-  <div className="absolute lg:top-31.75 md:top-24 top-4 left-1/2 -translate-x-1/2 flex items-center justify-between lg:w-81.5 md:w-72 w-[calc(100%-2rem)] z-10">
+  <div className="absolute xl:top-31.75 top-8 left-1/2 -translate-x-1/2 flex items-center justify-between xl:w-81.5 lg:w-85 md:w-72 w-[calc(100%-2rem)] z-10">
     <button
       onClick={onPrevious}
       className="md:w-8 md:h-8 w-6 h-6 shrink-0 flex items-center justify-center text-white hover:text-[#006fee] transition-colors"
