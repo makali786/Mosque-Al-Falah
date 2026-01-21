@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import { addMinutesToTime } from "@lib/prayer-times-helpers";
 import { usePrayerTimesNavigation } from "@hooks/usePrayerTimesNavigation";
@@ -44,6 +44,7 @@ interface PrayerTimesSectionProps {
   activeTab?: string;
   prayerTimes?: any[];
   settings?: any;
+  onYearChange?: (year: number) => void;
 }
 
 // ============================================================================
@@ -58,19 +59,27 @@ interface PrayerTimesCalendarProps {
 const PrayerTimesCalendar = ({
   prayerTimes,
   settings,
-}: PrayerTimesCalendarProps) => {
+  onYearChange,
+}: PrayerTimesCalendarProps & { onYearChange?: (year: number) => void }) => {
   const [calendarDate, setCalendarDate] = useState(new Date());
 
+  // Notify parent when year changes
+  useEffect(() => {
+    onYearChange?.(calendarDate.getFullYear());
+  }, [calendarDate, onYearChange]);
+
   const handlePreviousMonth = () => {
-    setCalendarDate(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
-    );
+    setCalendarDate((prev) => {
+      const newDate = new Date(prev.getFullYear(), prev.getMonth() - 1, 1);
+      return newDate;
+    });
   };
 
   const handleNextMonth = () => {
-    setCalendarDate(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
-    );
+    setCalendarDate((prev) => {
+      const newDate = new Date(prev.getFullYear(), prev.getMonth() + 1, 1);
+      return newDate;
+    });
   };
 
   // Transform prayer times data for calendar display
@@ -512,6 +521,7 @@ export default function PrayerTimesSection({
   activeTab,
   prayerTimes: initialPrayerTimes = [],
   settings,
+  onYearChange,
 }: PrayerTimesSectionProps) {
   // Use custom hooks
   const { currentDate, handlePreviousDay, handleNextDay } =
@@ -584,6 +594,7 @@ export default function PrayerTimesSection({
         <PrayerTimesCalendar
           prayerTimes={initialPrayerTimes}
           settings={settings}
+          onYearChange={onYearChange}
         />
       )}
     </section>
