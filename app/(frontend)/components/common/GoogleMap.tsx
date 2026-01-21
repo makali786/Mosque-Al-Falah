@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 interface GoogleMapProps {
     latitude?: number;
     longitude?: number;
-    address?: string; // Fallback for marker title
+    address?: string;
   className?: string;
   height?: string;
   zoom?: number;
@@ -24,20 +24,37 @@ export default function GoogleMap({
   const [error, setError] = useState(false);
 
   useEffect(() => {
+      console.log('GoogleMap - Coordinates:', { latitude, longitude, address });
+
       if ((!latitude || !longitude) || !mapRef.current) {
+        console.log('GoogleMap - Missing coordinates or ref');
       setIsLoading(false);
         setError(!latitude || !longitude);
       return;
     }
 
+      let attempts = 0;
+      const maxAttempts = 100; // 10 seconds max wait
+
     const initMap = () => {
+        attempts++;
+
       // Check if Google Maps is loaded
       if (!(window as any).google?.maps) {
-        setTimeout(initMap, 100);
+          if (attempts < maxAttempts) {
+              console.log(`GoogleMap - Waiting for API... (attempt ${attempts}/${maxAttempts})`);
+            setTimeout(initMap, 100);
+        } else {
+            console.error('GoogleMap - Timeout waiting for Google Maps API');
+            console.error('GoogleMap - window.google:', (window as any).google);
+            setError(true);
+            setIsLoading(false);
+        }
         return;
       }
 
         try {
+          console.log('GoogleMap - Initializing map with:', { latitude, longitude });
           const google = (window as any).google;
           const location = { lat: latitude, lng: longitude };
 
@@ -66,9 +83,10 @@ export default function GoogleMap({
               animation: google.maps.Animation.DROP,
           });
 
+          console.log('GoogleMap - Map initialized successfully');
           setIsLoading(false);
       } catch (err) {
-          console.error('Error initializing map:', err);
+          console.error('GoogleMap - Error initializing map:', err);
           setError(true);
           setIsLoading(false);
       }
@@ -83,7 +101,7 @@ export default function GoogleMap({
         className={`bg-[#E4E4E7] flex items-center justify-center ${className}`}
         style={{ height }}
       >
-        <span className="text-gray-500 text-sm">Map unavailable</span>
+            <span className="text-gray-500 text-sm">Map unavailable - No coordinates provided</span>
       </div>
     );
   }
@@ -94,7 +112,10 @@ export default function GoogleMap({
         className={`bg-[#E4E4E7] flex items-center justify-center ${className}`}
         style={{ height }}
       >
-        <span className="text-gray-500 text-sm">Unable to load map</span>
+            <div className="flex flex-col items-center gap-2 p-4 text-center">
+                <span className="text-gray-500 text-sm">Unable to load map</span>
+                <span className="text-gray-400 text-xs">Please refresh the page</span>
+            </div>
       </div>
     );
   }
