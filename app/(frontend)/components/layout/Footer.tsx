@@ -115,6 +115,23 @@ const StatsCard = ({ value, label }: { value: string; label: string }) => (
   </div>
 );
 
+const SupporterSkeleton = () => (
+  <div className="flex gap-2 items-center w-full animate-pulse">
+    <div className="bg-gray-700 rounded-full shrink-0 w-10 h-10"></div>
+    <div className="flex flex-col gap-1 w-full">
+      <div className="h-4 bg-gray-700 rounded w-3/4"></div>
+      <div className="h-3 bg-gray-700 rounded w-1/2"></div>
+    </div>
+  </div>
+);
+
+const StatsSkeleton = () => (
+  <div className="flex flex-col gap-2 items-center py-2 w-full animate-pulse">
+    <div className="h-7 bg-gray-700 rounded w-12"></div>
+    <div className="h-4 bg-gray-700 rounded w-16"></div>
+  </div>
+);
+
 const SocialIcon = ({
   name,
   icon,
@@ -369,14 +386,28 @@ export default function Footer() {
             </h3>
             <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
               <div className="flex flex-col gap-3 lg:gap-4 flex-1">
-                  {recentDonors.slice(0, 2).map((supporter, idx) => (
+                  {isLoadingDonations ? (
+                    <>
+                      <SupporterSkeleton />
+                      <SupporterSkeleton />
+                    </>
+                  ) : (
+                    recentDonors.slice(0, 2).map((supporter, idx) => (
                     <SupporterCard key={supporter.id || idx} {...supporter} />
-                ))}
+                  ))
+                  )}
               </div>
               <div className="hidden lg:flex flex-col gap-4 flex-1">
-                  {recentDonors.slice(2).map((supporter, idx) => (
+                  {isLoadingDonations ? (
+                    <>
+                      <SupporterSkeleton />
+                      <SupporterSkeleton />
+                    </>
+                  ) : (
+                    recentDonors.slice(2).map((supporter, idx) => (
                     <SupporterCard key={supporter.id || idx} {...supporter} />
-                ))}
+                  ))
+                  )}
               </div>
             </div>
           </div>
@@ -387,9 +418,17 @@ export default function Footer() {
               Donations & Campaigns
             </h3>
             <div className="flex items-center justify-between w-full">
-                {donationStats.map((stat) => (
-                <StatsCard key={stat.label} {...stat} />
-              ))}
+                {isLoadingDonations ? (
+                  <>
+                    <StatsSkeleton />
+                    <StatsSkeleton />
+                    <StatsSkeleton />
+                  </>
+                ) : (
+                  donationStats.map((stat) => (
+                    <StatsCard key={stat.label} {...stat} />
+                ))
+                )}
             </div>
             <div className="flex gap-5 w-full">
               <Link
