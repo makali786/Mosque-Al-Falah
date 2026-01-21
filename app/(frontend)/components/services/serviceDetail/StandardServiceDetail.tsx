@@ -21,6 +21,7 @@ export const getServiceBlocks = (contentBlocks: any[] = []) => {
         gallery: contentBlocks.filter(b => b.blockType === "gallery"),
         liveStreaming: contentBlocks.filter(b => b.blockType === "liveStreaming"),
         faqs: contentBlocks.filter(b => b.blockType === "faqs"),
+        titleSection: contentBlocks.filter(b => b.blockType === "titleBlock"),
     };
 };
 
@@ -84,7 +85,6 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
     const liveStreamUrl = service.media?.liveStreamUrl || (isLive ? service.media?.videoUrl : null);
 
     // 6. Notifications Data
-    // 6. Notifications Data
     const notificationTitle = service.notifications?.notificationTitle || "";
     const notificationDesc = service.notifications?.notificationDescription || "";
 
@@ -140,7 +140,13 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
     return (
         <div>
             {/* 1. Top Component: ServiceEventBanner */}
-            <ServiceVisionBanner greeting={bannerTitle} vision={bannerDescription} />
+            {blocks.titleSection.map((block: any) => (
+                <ServiceVisionBanner
+                    key={block.id}
+                    greeting={block.titleBlock?.greeting}
+                    vision={block.titleBlock?.title}
+                />
+            ))}
 
             {/* 2. Breadcrumbs */}
             <BreadcrumbSearchSection
@@ -165,10 +171,8 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 updatedAt={updatedAt}
                 content={
                     <div className="text-lg text-[#52525B] space-y-4">
-                        {service.fullDescription ? (
+                        {service.fullDescription && (
                             <RichTextRenderer content={service.fullDescription} />
-                        ) : (
-                            <p></p>
                         )}
                     </div>
                 }
@@ -316,8 +320,8 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
             />
 
             <AboutQuoteSection
-                quote={servicesPage?.bottomQuote?.quoteText || "Whoever guides someone to goodness will have a reward like the one who did it."}
-                attribution={servicesPage?.bottomQuote?.author || "— Prophet Muhammad ﷺ"}
+                quote={servicesPage?.bottomQuote?.quoteText || ""}
+                attribution={servicesPage?.bottomQuote?.author || ""}
                 donateButtonUrl={servicesPage?.bottomQuote?.donateButtonUrl || "/donate"}
             />
 
