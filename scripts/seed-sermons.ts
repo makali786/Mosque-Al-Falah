@@ -160,7 +160,6 @@ async function seedSermons() {
       isPublished: true,
     },
   });
-  console.log('✅ Created sermon:', sermon3.title);
 
   // Sermon 4: Taraweeh Reflections
   // @ts-ignore
