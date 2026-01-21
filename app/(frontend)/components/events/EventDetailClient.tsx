@@ -12,6 +12,7 @@ import Separator from "../common/Separator";
 import EventCard from "./EventCard";
 import Tabs from "../common/Tabs";
 import DonorProfileCard from "../donate/shared/DonorProfileCard";
+import GoogleMap from "../common/GoogleMap";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -412,16 +413,15 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                         {address || ""}
                                     </p>
 
-                                    {/* Map Placeholder */}
-                                    <div className="w-full h-49.5 bg-[#E4E4E7] mb-4 relative overflow-hidden">
-                                        <div
-                                            className="absolute inset-0 bg-cover bg-center opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500"
-                                            style={{
-                                                backgroundImage: address ? `url('https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(address)}&zoom=14&size=600x300&sensor=false')` : undefined
-                                            }}
-                                        />
-                                        {!address && <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm">Map unavailable</div>}
-                                    </div>
+                                    {/* Interactive Google Map */}
+                                    <GoogleMap
+                                        latitude={event?.venue?.coordinates?.latitude}
+                                        longitude={event?.venue?.coordinates?.longitude}
+                                        address={venue}
+                                        className="w-full mb-4"
+                                        height="198px"
+                                        zoom={15}
+                                    />
 
                                     <div className="flex gap-3">
                                         <a

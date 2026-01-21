@@ -10,6 +10,7 @@ import Footer from "./components/layout/Footer";
 import WhatsAppButton from "./components/layout/WhatsAppButton";
 import AccessibilityButton from "./components/layout/AccessibilityButton";
 import { LoadingProvider } from "./components/common/LoadingProvider";
+import GoogleMapsScript from "./components/GoogleMapsScript";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
         className={`${inter.className} antialiased`}
         suppressHydrationWarning={true}
       >
+        <GoogleMapsScript />
         <LoadingProvider>
           <TopBar prayerTimes={prayerTimes} settings={settings} />
           <MainHeader />
