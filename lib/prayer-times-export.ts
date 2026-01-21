@@ -23,7 +23,11 @@ interface PrayerTimeData {
 // CSV Export
 // ============================================================================
 
-export function exportToCSV(prayerTimes: PrayerTimeData[], year: number) {
+export function exportToCSV(
+  prayerTimes: PrayerTimeData[],
+  year: number,
+  fileName?: string
+) {
   const headers = [
     "Date",
     "Day",
@@ -43,7 +47,15 @@ export function exportToCSV(prayerTimes: PrayerTimeData[], year: number) {
 
   const rows = prayerTimes.map((pt) => {
     const date = new Date(pt.date);
-    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayNames = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
 
     return [
       date.toLocaleDateString("en-GB"),
@@ -68,17 +80,29 @@ export function exportToCSV(prayerTimes: PrayerTimeData[], year: number) {
     ...rows.map((row) => row.join(",")),
   ].join("\n");
 
-  downloadFile(csvContent, `prayer-times-${year}.csv`, "text/csv");
+  downloadFile(csvContent, fileName || `prayer-times-${year}.csv`, "text/csv");
 }
 
 // ============================================================================
 // JSON Export
 // ============================================================================
 
-export function exportToJSON(prayerTimes: PrayerTimeData[], year: number) {
+export function exportToJSON(
+  prayerTimes: PrayerTimeData[],
+  year: number,
+  fileName?: string
+) {
   const formattedData = prayerTimes.map((pt) => {
     const date = new Date(pt.date);
-    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayNames = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
 
     return {
       date: date.toISOString().split("T")[0],
@@ -121,14 +145,22 @@ export function exportToJSON(prayerTimes: PrayerTimeData[], year: number) {
     2
   );
 
-  downloadFile(jsonContent, `prayer-times-${year}.json`, "application/json");
+  downloadFile(
+    jsonContent,
+    fileName || `prayer-times-${year}.json`,
+    "application/json"
+  );
 }
 
 // ============================================================================
 // iCal Export
 // ============================================================================
 
-export function exportToICal(prayerTimes: PrayerTimeData[], year: number) {
+export function exportToICal(
+  prayerTimes: PrayerTimeData[],
+  year: number,
+  fileName?: string
+) {
   const events: string[] = [];
 
   prayerTimes.forEach((pt) => {
@@ -141,16 +173,19 @@ export function exportToICal(prayerTimes: PrayerTimeData[], year: number) {
       const eventDate = new Date(date);
       eventDate.setHours(hours, minutes, 0, 0);
 
-      const startDateTime = eventDate.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-      const endDateTime = new Date(eventDate.getTime() + 15 * 60000)
-        .toISOString()
-        .replace(/[-:]/g, "")
-        .split(".")[0] + "Z";
+      const startDateTime =
+        eventDate.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+      const endDateTime =
+        new Date(eventDate.getTime() + 15 * 60000)
+          .toISOString()
+          .replace(/[-:]/g, "")
+          .split(".")[0] + "Z";
 
       return [
         "BEGIN:VEVENT",
         `UID:${name}-${dateStr}@mosque-al-falah`,
-        `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
+        `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]
+        }Z`,
         `DTSTART:${startDateTime}`,
         `DTEND:${endDateTime}`,
         `SUMMARY:${name}`,
@@ -167,7 +202,10 @@ export function exportToICal(prayerTimes: PrayerTimeData[], year: number) {
       createEvent(
         "Fajr Prayer",
         pt.fajr,
-        `Fajr begins at ${pt.fajr}. Jamaah at ${addMinutesToTime(pt.fajr, pt.fajrIqamahDelay)}`
+        `Fajr begins at ${pt.fajr}. Jamaah at ${addMinutesToTime(
+          pt.fajr,
+          pt.fajrIqamahDelay
+        )}`
       )
     );
 
@@ -176,7 +214,10 @@ export function exportToICal(prayerTimes: PrayerTimeData[], year: number) {
       createEvent(
         "Dhuhr Prayer",
         pt.dhuhr,
-        `Dhuhr begins at ${pt.dhuhr}. Jamaah at ${addMinutesToTime(pt.dhuhr, pt.dhuhrIqamahDelay)}`
+        `Dhuhr begins at ${pt.dhuhr}. Jamaah at ${addMinutesToTime(
+          pt.dhuhr,
+          pt.dhuhrIqamahDelay
+        )}`
       )
     );
 
@@ -185,7 +226,10 @@ export function exportToICal(prayerTimes: PrayerTimeData[], year: number) {
       createEvent(
         "Asr Prayer",
         pt.asr,
-        `Asr begins at ${pt.asr}. Jamaah at ${addMinutesToTime(pt.asr, pt.asrIqamahDelay)}`
+        `Asr begins at ${pt.asr}. Jamaah at ${addMinutesToTime(
+          pt.asr,
+          pt.asrIqamahDelay
+        )}`
       )
     );
 
@@ -194,7 +238,10 @@ export function exportToICal(prayerTimes: PrayerTimeData[], year: number) {
       createEvent(
         "Maghrib Prayer",
         pt.maghrib,
-        `Maghrib begins at ${pt.maghrib}. Jamaah at ${addMinutesToTime(pt.maghrib, pt.maghribIqamahDelay)}`
+        `Maghrib begins at ${pt.maghrib}. Jamaah at ${addMinutesToTime(
+          pt.maghrib,
+          pt.maghribIqamahDelay
+        )}`
       )
     );
 
@@ -203,7 +250,10 @@ export function exportToICal(prayerTimes: PrayerTimeData[], year: number) {
       createEvent(
         "Isha Prayer",
         pt.isha,
-        `Isha begins at ${pt.isha}. Jamaah at ${addMinutesToTime(pt.isha, pt.ishaIqamahDelay)}`
+        `Isha begins at ${pt.isha}. Jamaah at ${addMinutesToTime(
+          pt.isha,
+          pt.ishaIqamahDelay
+        )}`
       )
     );
   });
@@ -221,14 +271,23 @@ export function exportToICal(prayerTimes: PrayerTimeData[], year: number) {
     "END:VCALENDAR",
   ].join("\r\n");
 
-  downloadFile(icalContent, `prayer-times-${year}.ics`, "text/calendar");
+  downloadFile(
+    icalContent,
+    fileName || `prayer-times-${year}.ics`,
+    "text/calendar"
+  );
 }
 
 // ============================================================================
 // PDF Export (Client-side using jsPDF)
 // ============================================================================
 
-export async function exportToPDF(prayerTimes: PrayerTimeData[], year: number) {
+export async function exportToPDF(
+  prayerTimes: PrayerTimeData[],
+  year: number,
+  title?: string,
+  fileName?: string
+) {
   // Dynamically import jsPDF and autoTable
   const { default: jsPDF } = await import("jspdf");
   const { default: autoTable } = await import("jspdf-autotable");
@@ -239,7 +298,7 @@ export async function exportToPDF(prayerTimes: PrayerTimeData[], year: number) {
   doc.setFontSize(20);
   doc.text("Mosque Al-Falah", 148, 15, { align: "center" });
   doc.setFontSize(16);
-  doc.text(`Prayer Times ${year}`, 148, 25, { align: "center" });
+  doc.text(title || `Prayer Times ${year}`, 148, 25, { align: "center" });
 
   // Prepare table data
   const tableData = prayerTimes.map((pt) => {
@@ -304,7 +363,7 @@ export async function exportToPDF(prayerTimes: PrayerTimeData[], year: number) {
   });
 
   // Save PDF
-  doc.save(`prayer-times-${year}.pdf`);
+  doc.save(fileName || `prayer-times-${year}.pdf`);
 }
 
 // ============================================================================
