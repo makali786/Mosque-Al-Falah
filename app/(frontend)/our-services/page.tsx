@@ -143,7 +143,7 @@ export default async function OurServicesPage() {
                 services={transformedServices}
                 breadcrumbs={[
                     { label: "Home", href: "/" },
-                    { label: "Our Services", href: "/services" },
+                    { label: "Our Services", href: "/our-services" },
                 ]}
                 searchPlaceholder="Search"
             />
