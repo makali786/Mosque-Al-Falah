@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import { FaPlay } from "react-icons/fa";
+import Link from "next/link";
+import { useState } from "react";
+import GoogleMap from "../common/GoogleMap";
 import Separator from "../common/Separator";
 import Tabs from "../common/Tabs";
 import { DonorProfileCard } from "../donate/shared";
-import GoogleMap from "../common/GoogleMap";
 
 interface EventMediaSectionProps {
   title?: string;
@@ -22,7 +22,10 @@ interface EventMediaSectionProps {
   donationTitle?: string;
   donationDescription?: string;
   donationAmounts?: number[];
+  enableDonations?: boolean;
   className?: string;
+  containerStyle?: string;
+  leftColumnStyle?: string;
 }
 
 export default function EventMediaSection({
@@ -39,7 +42,10 @@ export default function EventMediaSection({
   donationTitle = "Donate",
   donationDescription = "",
   donationAmounts = [],
+  enableDonations = false,
   className = "",
+  containerStyle,
+  leftColumnStyle
 }: EventMediaSectionProps) {
   const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Video");
   const [donationAmount, setDonationAmount] = useState<number | "Other">(10);
@@ -84,11 +90,11 @@ export default function EventMediaSection({
 
   return (
     <section className={`w-full py-12 lg:py-16 bg-white ${className}`}>
-      <div className="section-padding">
+      <div className={`${containerStyle}`}>
         <div className="flex flex-col xl:flex-row gap-8 xl:gap-11">
 
           {/* Left Column: Media & Description */}
-          <div className="w-full xl:max-w-[735px] xl:max-h[412px] space-y-6">
+          <div className={`w-full xl:max-w-[735px] xl:max-h[412px] space-y-6 ${leftColumnStyle}`}>
 
             {/* Tabs */}
             <Tabs
@@ -97,6 +103,7 @@ export default function EventMediaSection({
               onChange={(tabId) => setActiveTab(tabId as any)}
               variant="pills"
               size="md"
+              className="w-fit"
             />
 
             {/* Media Player Container */}
@@ -187,6 +194,7 @@ export default function EventMediaSection({
             {/* <div className="h-px w-full bg-[#E4E4E7]" /> */}
 
             {/* Donate Section */}
+            {enableDonations && (
             <div className="space-y-4">
               <div>
                 <h3 className="text-lg font-semibold mb-2">{donationTitle}</h3>
@@ -224,11 +232,12 @@ export default function EventMediaSection({
                 </div>
               </div>
               {/* Donate Button */}
-              <button className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm cursor-pointer">
+                <Link href="/donate" className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm cursor-pointer">
                 Donate
-              </button>
+              </Link>
 
             </div>
+            )}
           </div>
         </div>
       </div>

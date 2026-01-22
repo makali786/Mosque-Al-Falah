@@ -23,6 +23,10 @@ interface LiveStreamingProps {
    * Thumbnail alt text
    */
   thumbnailAlt?: string;
+  /**
+   * Whether the stream is currently live
+   */
+  isLive?: boolean;
 }
 
 export default function LiveStreaming({
@@ -31,6 +35,7 @@ export default function LiveStreaming({
   videoUrl,
   thumbnailUrl,
   thumbnailAlt = "",
+  isLive = true,
 }: LiveStreamingProps) {
 
   // Helper function to convert YouTube and Vimeo URLs to embed format
@@ -93,13 +98,15 @@ export default function LiveStreaming({
                 allowFullScreen
               />
               {/* Live Badge */}
-              <div className="absolute top-4 right-4 sm:top-4 sm:right-4 bg-white backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-2 z-20">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
-                </span>
-                <span className="text-sm font-semibold">Live</span>
-              </div>
+              {isLive && (
+                <div className="absolute top-4 right-4 sm:top-4 sm:right-4 bg-white backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-2 z-20">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
+                  </span>
+                  <span className="text-sm font-semibold">Live</span>
+                </div>
+              )}
             </>
           ) : (
             <>
@@ -116,13 +123,15 @@ export default function LiveStreaming({
                 </div>
 
                 {/* Live Badge */}
-                <div className="absolute top-4 right-4 sm:top-4 sm:right-4 bg-white backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-2 z-20">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
-                  </span>
-                  <span className="text-sm font-semibold">Live</span>
-                </div>
+                {isLive && (
+                  <div className="absolute top-4 right-4 sm:top-4 sm:right-4 bg-white backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-2 z-20">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
+                    </span>
+                    <span className="text-sm font-semibold">Live</span>
+                  </div>
+                )}
 
                 {/* Play Button */}
                 <div className="absolute inset-0 flex items-center justify-center z-10">

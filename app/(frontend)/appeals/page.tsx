@@ -28,7 +28,8 @@ export default async function AppealsPage() {
       quoteText: "Default quote",
       author: "Default author",
       shareButtonText: "Share",
-      donateButtonText: "Donate"
+      donateButtonText: "Donate",
+      donateButtonUrl: "/donate",
     },
     emptyStates: { noAppealsMessage: "No appeals found." }
   };

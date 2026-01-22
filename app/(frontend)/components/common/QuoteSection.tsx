@@ -21,7 +21,7 @@ export function QuoteSection({
   onDonate,
   shareButtonText = "Share this page",
   donateButtonText = "Donate Now",
-  donateButtonUrl,
+  donateButtonUrl = "/donate",
   shareData,
   backgroundColor = "#f4f4f5",
 }: QuoteSectionProps) {

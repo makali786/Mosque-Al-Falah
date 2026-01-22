@@ -33,6 +33,8 @@ export default function PrayerReminder({
 
   // Calculate the next occurrence of the target time
   const nextOccurrence = useMemo(() => {
+    if (!targetDate) return new Date();
+
     const target = new Date(targetDate);
 
     // Validate the date
