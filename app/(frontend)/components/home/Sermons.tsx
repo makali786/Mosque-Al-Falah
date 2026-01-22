@@ -106,86 +106,81 @@ export default function Sermons({
   return (
     <section className="bg-white w-full py-6 md:py-12 lg:py-18">
       <div className="section-padding">
-      {/* Header */}
-      <div className="flex flex-col gap-4 md:gap-2 lg:gap-1 mb-8 md:mb-12 lg:mb-15">
-        {/* Mobile: Stacked layout, Desktop: Side by side */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-0 md:mb-2 lg:mb-3">
-          <div className="flex flex-col gap-2 md:gap-2.5 lg:gap-3">
+        {/* Header */}
+        <div className="flex flex-col gap-4 md:gap-2 lg:gap-1 mb-8 md:mb-12 lg:mb-15">
+          {/* Mobile: Stacked layout, Desktop: Side by side */}
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-0 md:mb-2 lg:mb-3">
+            <div className="flex flex-col gap-2 md:gap-2.5 lg:gap-3">
               {subtitle && (
                 <p className="text-sm md:text-base lg:text-lg font-normal lg:font-medium text-[#006fee] leading-5 md:leading-6 lg:leading-7 sm:pt-0 pt-5">
                   {subtitle}
                 </p>
               )}
-            <h2 className="text-xl md:text-3xl lg:text-5xl font-bold lg:font-semibold text-[#27272a] leading-7 md:leading-9 lg:leading-12 max-w-full lg:max-w-126.75">
+              <h2 className="text-xl md:text-3xl lg:text-5xl font-bold lg:font-semibold text-[#27272a] leading-7 md:leading-9 lg:leading-12 max-w-full lg:max-w-126.75">
                 {title}
-            </h2>
-          </div>
+              </h2>
+            </div>
 
-          {/* Right side buttons */}
-          <div className="flex items-center justify-end gap-4 sm:justify-start md:justify-end lg:justify-start">
-            {/* Discover More Button */}
+            {/* Right side buttons */}
+            <div className="flex items-center justify-end gap-4 sm:justify-start md:justify-end lg:justify-start lg:self-end">
+              {/* Discover More Button */}
               {showDiscoverMore && (
                 <Link
                   href="/sermons"
-                  className="h-10 lg:h-12 px-0 lg:px-4 rounded-xl flex items-center gap-2 hover:bg-gray-50 transition-colors"
+                  className="h-10 lg:h-12 px-0 lg:px-4 rounded-xl flex items-center gap-2"
                 >
-                  <span className="text-sm lg:text-base font-normal text-[#006fee] underline leading-5 lg:leading-6">
+                  <span className="text-sm lg:text-base font-normal hover:underline leading-5 lg:leading-6">
                     Discover More
                   </span>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.5 15L12.5 10L7.5 5" stroke="#006fee" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
                 </Link>
               )}
 
-            {/* Navigation Arrows - Hidden on mobile */}
-            <div className="hidden lg:flex items-center gap-8">
-              <button
-                onClick={() => scroll("left")}
-                disabled={!canScrollLeft}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                  canScrollLeft
+              {/* Navigation Arrows - Hidden on mobile */}
+              <div className="hidden lg:flex items-center gap-8">
+                <button
+                  onClick={() => scroll("left")}
+                  disabled={!canScrollLeft}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${canScrollLeft
                     ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
                     : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
-                }`}
-              >
-                <Image
-                  src="/assets/sermons/arrow-left.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                  className="object-contain"
-                />
-              </button>
+                    }`}
+                >
+                  <Image
+                    src="/assets/sermons/arrow-left.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="object-contain"
+                  />
+                </button>
 
-              <button
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                  canScrollRight
+                <button
+                  onClick={() => scroll("right")}
+                  disabled={!canScrollRight}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${canScrollRight
                     ? "bg-[rgba(0,111,238,0.2)] hover:bg-[rgba(0,111,238,0.3)] cursor-pointer"
                     : "bg-[rgba(0,111,238,0.2)] opacity-50 cursor-not-allowed"
-                }`}
-              >
-                <Image
-                  src="/assets/sermons/arrow-right.svg"
-                  alt=""
-                  width={20}
-                  height={20}
-                  className="object-contain"
-                />
-              </button>
+                    }`}
+                >
+                  <Image
+                    src="/assets/sermons/arrow-right.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="object-contain"
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Sermons Container */}
-      <div
-        ref={scrollContainerRef}
-        className="flex flex-col sm:flex-row gap-9 sm:overflow-x-auto scrollbar-hide scroll-smooth"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
+        {/* Sermons Container */}
+        <div
+          ref={scrollContainerRef}
+          className="flex flex-col sm:flex-row gap-9 sm:overflow-x-auto scrollbar-hide scroll-smooth"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
           {mappedSermons.map((sermon) => (
             <div
               key={sermon.id}
@@ -194,7 +189,7 @@ export default function Sermons({
               <SermonCard sermon={sermon} layout="grid" />
             </div>
           ))}
-      </div>
+        </div>
       </div>
     </section>
   );
