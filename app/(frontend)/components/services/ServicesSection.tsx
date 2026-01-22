@@ -26,7 +26,7 @@ export default function ServicesSection({
     services = [],
 }: ServicesSectionProps) {
     return (
-        <section className={`w-full pb-12 sm:pb-16 md:pb-20 lg:pb-28 ${className}`}>
+        <section className={`w-full pb-8 sm:pb-10 lg:pb-12 ${className}`}>
             <div className="hn-container">
                 {/* Section Header */}
                 {(heading || description) && (
