@@ -32,6 +32,8 @@ export default function ServicesFilterableList({
         searchPlaceholder={searchPlaceholder}
         onSearch={handleSearch}
         liveSearch={true}
+        className={"lg:!pb-11 lg:!pt-12"}
+
       />
       <ServicesSection services={filteredServices} />
     </>
