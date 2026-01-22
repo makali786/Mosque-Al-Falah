@@ -221,15 +221,9 @@ export default function RequestServiceForm({
         {/* Submit Button */}
         <button
           type="submit"
-          className="bg-[#006FEE] flex h-10 w-fit items-center justify-center px-4 py-0 rounded-lg shrink-0 hover:bg-[#005fd4] transition-colors cursor-pointer"
+          className="bg-[#006FEE] text-white text-sm lg:text-base flex w-fit items-center justify-center px-6 py-3 rounded-xl shrink-0 hover:bg-[#005fd4] transition-colors cursor-pointer"
         >
-          <div className="flex gap-2 items-center justify-center shrink-0">
-            <div className="flex gap-2 items-center justify-center shrink-0">
-              <div className="flex flex-col font-normal justify-center leading-0 text-sm text-white whitespace-nowrap shrink-0">
-                <p className="leading-5">{submitButtonText}</p>
-              </div>
-            </div>
-          </div>
+          {submitButtonText}
         </button>
       </form>
     </div>
