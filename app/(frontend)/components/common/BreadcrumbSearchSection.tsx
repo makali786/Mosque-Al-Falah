@@ -90,7 +90,7 @@ export default function BreadcrumbSearchSection({
           {showSearch && (
             <form
               onSubmit={handleSearch}
-              className="flex items-center gap-2.5 bg-[#fafafa] rounded-lg px-3 sm:px-4 py-2 w-full xl:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
+              className="flex items-center gap-2.5 bg-[#fafafa] rounded-[8px] px-3 sm:px-4 py-2 w-full xl:w-auto md:min-w-[342px] md:max-w-[342px] border border-[#E4E4E7]"
             >
               <Image
                 src="/assets/common/search-icon.svg"
