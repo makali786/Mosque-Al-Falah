@@ -17,7 +17,7 @@ export default function ViewToggleButtons({
   className = "",
 }: ViewToggleButtonsProps) {
   return (
-    <div className={`flex sm:gap-4 gap-2 ${className}`}>
+    <div className={`flex sm:gap-5 gap-2 ${className}`}>
       {/* Audio button first */}
       {onAudioClick ? <button
         onClick={onAudioClick}

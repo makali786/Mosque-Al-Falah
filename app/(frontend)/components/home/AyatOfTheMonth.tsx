@@ -80,7 +80,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full max-w-78 sm:max-w-178.5 flex flex-col items-center gap-4.5 sm:gap-15">
+      <div className="relative z-10 w-full max-w-78 sm:max-w-178.5 flex flex-col items-center gap-4.5 sm:gap-12">
         {viewMode === "default" && (
           <>
             {/* Default View - Arabic Calligraphy & Quote */}
@@ -140,7 +140,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
               </h3>
 
               {/* Video Player */}
-              <div className="relative w-full aspect-780/438 bg-white rounded-xl overflow-hidden text-black/50">
+              <div className="relative w-full aspect-735/413 bg-white rounded-xl overflow-hidden text-black/50">
                 {embedUrl && (
                   <iframe
                     src={embedUrl}
