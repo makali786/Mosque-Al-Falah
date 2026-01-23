@@ -47,9 +47,9 @@ export default async function ServiceDetailPage(props: {
   return (
     <div className="bg-white">
       {serviceData.slug === "nikkah-marriage" ? (
-        <NikaahMarriage service={serviceDetail} params={componentParams} servicesPage={servicesPage} />
+        <NikaahMarriage service={serviceDetail} params={componentParams} />
       ) : serviceData.slug === "taraweeh-eid-prayers" ? (
-        <TaraweehEidPrayers service={serviceDetail} params={componentParams} servicesPage={servicesPage} />
+        <TaraweehEidPrayers service={serviceDetail} params={componentParams} />
       ) : (
         <StandardServiceDetail service={serviceDetail} params={componentParams} />
       )}

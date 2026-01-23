@@ -35,8 +35,8 @@ export default function EidSalahSchedule({
   return (
     <section className="w-full py-16 md:py-20 bg-[#F4F4F5]">
       <div className={`${sectionContainer}`}>
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
-          
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-13">
+
           {/* Left Side: Text Content */}
           <div className="w-full lg:w-1/2 flex flex-col gap-8">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold">
@@ -87,11 +87,10 @@ export default function EidSalahSchedule({
                 {schedule.map((slot, index) => (
                   <div
                     key={slot.id}
-                    className={`flex items-center w-full ${
-                      index !== schedule.length - 1
+                    className={`flex items-center w-full ${index !== schedule.length - 1
                       ? "border-b border-[#11111126]"
-                        : ""
-                    }`}
+                      : ""
+                      }`}
                   >
                     {/* Left Side: Jamaah Info */}
                     <div className="flex-1 p-6 sm:p-8 hover:bg-white/5 transition-colors">

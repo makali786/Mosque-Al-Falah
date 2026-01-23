@@ -73,7 +73,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
             {/* Get Directions Button - Blue */}
             <button
               onClick={() => window.open(mapsUrl, "_blank")}
-              className="inline-flex items-center justify-center gap-1.5 px-5 lg:px-3 xl:px-5 py-3 bg-[#006FEE33] text-[#006FEE] text-sm md:text-base cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-5 lg:px-3 xl:px-6 py-3 bg-[#006FEE33] text-[#006FEE] text-sm md:text-base cursor-pointer"
             >
               <FiMap className="w-[18px] h-[18px]" color="#006FEE" />
               <span className="text-xs xl:text-base">Get Directions</span>

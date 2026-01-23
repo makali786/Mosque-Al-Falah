@@ -39,7 +39,7 @@ export function ParkingNoticeSection({ title, message, quote }: ParkingNoticePro
             <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-5xl lg:leading-12 text-white mb-4 sm:mb-5 md:mb-6 lg:mb-8">
               {title}
             </h2>
-            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 xl:text-lg lg:leading-7 text-white font-[500]">
+            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-xl md:leading-7 xl:text-xl lg:leading-7 text-white font-[500]">
               <RichTextRenderer content={message} />
             </div>
           </div>

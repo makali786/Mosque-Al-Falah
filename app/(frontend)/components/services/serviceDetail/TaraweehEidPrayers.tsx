@@ -120,7 +120,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
           text: "Check Eid Salah Schedule",
           href: "#schedule",
         }}
-        className='pb-12 sm:pb-16 md:pb-20 lg:pb-21.5'
+        className='pb-10 sm:pb-12 md:pb-14 lg:pb-16 lg:!pt-16'
         sectionMainStyle='section-padding'
       />
 

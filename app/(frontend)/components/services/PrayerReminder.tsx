@@ -177,10 +177,10 @@ export default function PrayerReminder({
             <div className="bg-white rounded-2xl shadow-2xl relative overflow-hidden pb-12">
               {/* Header Info */}
               <div className="flex flex-wrap items-center justify-center text-xs sm:text-sm  mb-8 pb-4 bg-[#F4F4F5] py-4  gap-10">
-                <span className="font-medium">{dateString}</span>
+                <span className="font-medium text-xs">{dateString}</span>
                 <div className="flex gap-16">
-                  <span className="font-medium">{timeString}</span>
-                  <span className="font-medium font-arabic">{hijriString}</span>
+                  <span className="font-medium text-xs">{timeString}</span>
+                  <span className="font-medium font-arabic text-xs">{hijriString}</span>
                 </div>
               </div>
 
