@@ -7,7 +7,7 @@ import { RichTextRenderer } from "@/components/common/RichTextRenderer";
 interface CoreValueItem {
   id: string;
   question: string;
-  answer: any; 
+  answer: any;
 }
 
 interface CoreValuesSectionProps {
@@ -22,7 +22,7 @@ export function CoreValuesSection({ title, description, items }: CoreValuesSecti
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden">
+    <section className="relative w-full py-12 sm:py-16 md:py-22.5 overflow-hidden">
       {/* Background with gradient and pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -89,11 +89,10 @@ export function CoreValuesSection({ title, description, items }: CoreValuesSecti
                 </button>
 
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    expandedId === item.id
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${expandedId === item.id
+                    ? "max-h-96 opacity-100"
+                    : "max-h-0 opacity-0"
+                    }`}
                 >
                   <div className="flex items-center w-full pb-[9px]">
                     <div className="flex flex-col justify-center text-[#11181c]">
