@@ -25,10 +25,10 @@ export default function MediaDonationSidebar({
         <div className="space-y-4">
             <div>
                 <h3 className="text-lg font-semibold mb-2">
-                    {donationSettings?.donationTitle || "Donate to Masjid Al Falah"}
+                      {donationSettings?.donationTitle || ""}
                 </h3>
                 <p className="text-sm text-[#3F3F46] mb-3">
-                     {donationSettings?.donationDescription || "Support our community services and initiatives."}
+                      {donationSettings?.donationDescription || ""}
                 </p>
                 <Separator />
             </div>

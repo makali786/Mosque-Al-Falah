@@ -19,6 +19,8 @@ interface EidSalahScheduleProps {
   venueName?: string;
   venueAddress?: string;
   schedule?: JamaahTime[];
+  sectionContainer?: string
+  rightSection?: string
 }
 
 export default function EidSalahSchedule({
@@ -27,10 +29,12 @@ export default function EidSalahSchedule({
   venueName = "",
   venueAddress = "",
   schedule = [],
+  sectionContainer,
+  rightSection
 }: EidSalahScheduleProps) {
   return (
     <section className="w-full py-16 md:py-20 bg-[#F4F4F5]">
-      <div className="section-padding">
+      <div className={`${sectionContainer}`}>
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
           
           {/* Left Side: Text Content */}
@@ -58,7 +62,7 @@ export default function EidSalahSchedule({
           </div>
 
           {/* Right Side: Schedule Card */}
-          <div className="w-full lg:w-1/2 max-w-xl">
+          <div className={`w-full lg:w-1/2 max-w-xl ${rightSection}`}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               {/* Background from OurCoreValues strategy */}
               <div

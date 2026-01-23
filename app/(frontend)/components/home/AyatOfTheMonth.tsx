@@ -89,7 +89,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
                 AYAT OF THE MONTH
               </p>
 
-              <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-69 sm:max-w-full">
+              <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-178.5 sm:max-w-full">
                 {/* Arabic Calligraphy */}
                 {arabicImage && (
                   <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
@@ -104,7 +104,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
                 )}
 
                 {/* English Quote */}
-                <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
+                <p className="text-base sm:text-[35px] font-medium sm:font-bold text-white leading-6 sm:leading-13 tracking-normal text-center">
                   &quot;{englishText}&quot;
                 </p>
 
@@ -121,7 +121,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
               className="bg-[#1877f2] h-9 sm:h-12 px-6 rounded-lg flex items-center gap-2 hover:bg-[#1565d8] transition-colors"
             >
               <span className="text-xs sm:text-base font-normal text-white leading-6">
-                Read More Ayats
+                Read More
               </span>
             </Link>
           </>
