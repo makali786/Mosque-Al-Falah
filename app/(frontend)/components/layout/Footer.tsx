@@ -446,16 +446,16 @@ export default function Footer() {
                   ))
                 )}
               </div>
-              <div className="flex gap-5 w-full">
+              <div className="flex gap-5 w-full flex-wrap">
                 <Link
                   href="/discover"
-                  className="flex-1 bg-[#3f3f46] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
+                  className="w-full sm:w-fit bg-[#3f3f46] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
                 >
                   Discover
                 </Link>
                 <Link
                   href="/donate"
-                  className="flex-1 bg-[#006fee] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-xl hover:bg-[#0056cc] transition-colors"
+                  className="w-full sm:w-fit bg-[#006fee] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-xl hover:bg-[#0056cc] transition-colors"
                 >
                   Donate Now
                 </Link>
