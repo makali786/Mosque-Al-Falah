@@ -80,7 +80,7 @@ export function QuoteSection({
           {(onDonate || donateButtonUrl) && (
             <button
               onClick={handleDonate}
-              className="flex items-center justify-center text-sm md:text-base px-4 sm:px-5 md:px-6 lg:px-6 bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg cursor-pointer"
+              className="flex items-center justify-center text-sm md:text-base px-4 sm:px-5 md:px-6 lg:px-6 py-3 bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg cursor-pointer"
             >
               {donateButtonText}
             </button>
