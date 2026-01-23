@@ -193,7 +193,7 @@ const RenderNode = ({ node, index }: { node: Node; index: number }) => {
         </a>
       );
     case 'paragraph':
-      return <p key={index} className="mb-4">{children}</p>;
+      return <p key={index}>{children}</p>;
 
     default:
       return <div key={index}>{children}</div>;
