@@ -31,27 +31,17 @@ const FOOTER_LINKS = [
   { label: "Privacy policy", href: "/privacy" },
 ] as const;
 
-const STATIC_FOOTER_COLUMNS = [
-  {
-    title: "Educations",
-    links: [
-      { label: "Adult Classes", href: "/education/adult-classes" },
-      { label: "Children's Madrasah", href: "/education/madrasah" },
-      { label: "Educational Events", href: "/education/events" },
-      { label: "Youth Activities", href: "/education/youth" },
-    ],
-  },
-  {
-    title: "Donate",
-    links: [
-      { label: "Volunteer", href: "/donate/volunteer" },
-      { label: "Zakat", href: "/donate/zakat" },
-      { label: "Sadaqah", href: "/donate/sadaqah" },
-      { label: "Fidya/Kaffarah", href: "/donate/fidya" },
-      { label: "Lilah", href: "/donate/lilah" },
-    ],
-  },
-] as const;
+const EDUCATIONS_COLUMN = {
+  title: "Educations",
+  links: [
+    { label: "Adult Classes", href: "/education/adult-classes" },
+    { label: "Children's Madrasah", href: "/education/madrasah" },
+    { label: "Educational Events", href: "/education/events" },
+    { label: "Youth Activities", href: "/education/youth" },
+  ],
+};
+
+
 
 const CONTACT_INFO = [
   {
@@ -242,11 +232,18 @@ interface Service {
   isActive: boolean;
 }
 
+interface Appeal {
+  id: string;
+  title: string;
+  slug: string;
+  isActive: boolean;
+}
+
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [openColumns, setOpenColumns] = useState<Record<string, boolean>>({});
   const [services, setServices] = useState<Service[]>([]);
-  const [footerColumns, setFooterColumns] = useState(STATIC_FOOTER_COLUMNS);
+  const [footerColumns, setFooterColumns] = useState<any[]>([EDUCATIONS_COLUMN]);
 
   // Dynamic donation data
   const [recentDonors, setRecentDonors] = useState(SUPPORTERS);
@@ -260,34 +257,57 @@ export default function Footer() {
     }));
   };
 
-  // Fetch services on component mount
+  // Fetch services and appeals on component mount
   useEffect(() => {
-    const fetchServices = async () => {
+    const fetchFooterData = async () => {
       try {
-        const response = await fetch('/api/services?limit=5&where[isActive][equals]=true');
-        if (response.ok) {
-          const data = await response.json();
-          setServices(data.docs || []);
+        const [servicesRes, appealsRes] = await Promise.all([
+          fetch('/api/services?limit=5&where[isActive][equals]=true'),
+          fetch('/api/donation-appeals?limit=5&where[isActive][equals]=true&sort=order')
+        ]);
 
-          // Build dynamic footer columns with services
+        let newColumns: any[] = [EDUCATIONS_COLUMN];
+
+        // Handle Services
+        if (servicesRes.ok) {
+          const servicesData = await servicesRes.json();
+          setServices(servicesData.docs || []);
+
           const serviceColumn = {
             title: "Services",
-            links: (data.docs || []).map((service: Service) => ({
+            links: (servicesData.docs || []).map((service: Service) => ({
               label: service.title,
               href: `/our-services/${service.slug}`
             }))
           };
-
-          setFooterColumns([serviceColumn, ...STATIC_FOOTER_COLUMNS]);
+          newColumns.unshift(serviceColumn);
         }
+
+        // Handle Appeals
+        if (appealsRes.ok) {
+          const appealsData = await appealsRes.json();
+          if (appealsData.docs && appealsData.docs.length > 0) {
+            const appealColumn = {
+              title: "Donate",
+              links: appealsData.docs.map((appeal: Appeal) => ({
+                label: appeal.title,
+                href: `/appeals/${appeal.slug}`
+              }))
+            };
+            newColumns.push(appealColumn);
+          }
+        }
+
+        setFooterColumns(newColumns);
+
       } catch (error) {
-        console.error('Failed to fetch services:', error);
-        // Fallback to static columns if fetch fails
-        setFooterColumns(STATIC_FOOTER_COLUMNS);
+        console.error('Failed to fetch footer data:', error);
+        // Fallback
+        setFooterColumns([EDUCATIONS_COLUMN]);
       }
     };
 
-    fetchServices();
+    fetchFooterData();
   }, []);
 
   // Fetch donation data
