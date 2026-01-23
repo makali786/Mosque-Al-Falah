@@ -76,7 +76,7 @@ export default function PrayerReminder({
   }, [nextOccurrence]);
 
   const hijriString = useMemo(() => {
-    const parts = new Intl.DateTimeFormat("ar-SA-u-ca-islamic", {
+    const parts = new Intl.DateTimeFormat("ar-SA-u-ca-islamic-nu-latn", {
       day: "numeric",
       month: "long",
       year: "numeric",
