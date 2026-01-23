@@ -73,32 +73,32 @@ export default async function AppealsPage() {
           { label: "Appeals", href: "/appeals" },
         ]}
         showSearch={false}
-        className="section-padding"
+        className="section-padding lg:!pt-12 lg:!pb-16"
       />
 
-      <section className="pb-16 pt-2 grow section-padding">
+      <section className="pb-16 grow section-padding">
         <div>
-          <div className="flex flex-col gap-6 mb-12">
+          <div className="flex flex-col gap-6 mb-16">
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-[#27272A]">
               {pageHeader?.pageTitle || "Appeals"}
             </h1>
             <div className="text-[#52525B] font-semibold text-xl">
               {pageHeader?.pageDescription && (
                 <RichTextRenderer content={pageHeader.pageDescription} />
-              ) || "The Prophet (peace be upon him) said: “Charity does not reduce wealth” (Bukhari) Please donate generously to Masjid Al-Falah, Ilford. All proceeds go towards the upkeep of the Masjid and helping us to serve the wider community. May Allah reward you greatly for all your donations"}
+              ) || ""}
             </div>
           </div>
 
           {appealsData && appealsData.length > 0 ? (
             <div className={`grid grid-cols-1 md:grid-cols-2 ${gridClass} gap-6`}>
               {appealsData.map((appeal: any, index: number) => (
-                <AppealCard 
+                <AppealCard
                   key={appeal.id || index}
                   title={appeal?.title}
                   description={appeal?.shortDescription}
                   image={appeal?.heroMedia?.heroImage}
                   organization={{
-                    name: "Masjid Al-Falah", 
+                    name: "Masjid Al-Falah",
                     logo: "/assets/common/logo-small.svg",
                   }}
                   stats={{
@@ -110,7 +110,7 @@ export default async function AppealsPage() {
                     goal: appeal?.funding?.targetAmount || 0,
                   }}
                   links={{
-                    donate: `/donate/${appeal.slug}`,
+                    donate: `/donate`,
                     details: `/appeals/${appeal.slug}`,
                   }}
                   buttonVariant="primary"
@@ -119,7 +119,7 @@ export default async function AppealsPage() {
             </div>
           ) : (
             <div className="py-12 text-center text-gray-500">
-                {emptyStates?.noAppealsMessage || "No donation appeals available at this time."}
+              {emptyStates?.noAppealsMessage || "No donation appeals available at this time."}
             </div>
           )}
         </div>
@@ -135,7 +135,7 @@ export default async function AppealsPage() {
           shareData={{
             title: pageHeader?.pageTitle || "Appeals",
             text: "Please donate to Masjid Al-Falah",
-            url: "https://masjidalfalah.org/appeals" 
+            url: "https://masjidalfalah.org/appeals"
           }}
           donateButtonUrl="/donate"
         />
