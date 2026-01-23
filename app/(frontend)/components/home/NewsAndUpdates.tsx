@@ -55,6 +55,9 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer || displayNotices.length === 0) return;
 
+    const shouldScroll = displayNotices.length > 1;
+    if (!shouldScroll) return;
+
     const scrollSpeed = 0.5; // pixels per frame
     let animationFrameId: number;
     let currentScroll = scrollContainer.scrollTop;
@@ -119,29 +122,29 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
 
               return (
                 <Link key={event.id} href={`/events/${event.id}`} className="flex flex-col gap-4 sm:hidden">
-                {/* Event Image with Gradient Overlay (Mobile only) */}
-                <div className="relative w-full h-50.5 overflow-hidden">
+                  {/* Event Image with Gradient Overlay (Mobile only) */}
+                  <div className="relative w-full h-50.5 overflow-hidden">
                     {imageUrl && (
                       <Image
-                      src={imageUrl}
+                        src={imageUrl}
                         alt={event?.title}
                         fill
                         className="object-cover"
                       />
                     )}
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black via-[rgba(0,0,0,0.68)] to-transparent" />
-                </div>
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-linear-to-t from-black via-[rgba(0,0,0,0.68)] to-transparent" />
+                  </div>
 
-                {/* Event Info */}
-                <div className="flex flex-col gap-3">
-                  <h3 className="text-xl font-semibold text-[#27272a] leading-7">
+                  {/* Event Info */}
+                  <div className="flex flex-col gap-3">
+                    <h3 className="text-xl font-semibold text-[#27272a] leading-7">
                       {event?.title}
-                  </h3>
-                  <p className="text-base text-[#3f3f46] leading-6 line-clamp-2">
+                    </h3>
+                    <p className="text-base text-[#3f3f46] leading-6 line-clamp-2">
                       {event?.shortDescription || event?.title}
-                  </p>
-                </div>
+                    </p>
+                  </div>
                 </Link>
               )
             })}
@@ -154,38 +157,38 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
 
               return (
                 <Link key={event.id} href={`/events/${event.id}`} className="hidden sm:flex flex-col gap-4">
-                {/* Event Image with Play Button */}
-                <div className="relative w-full h-45.25 overflow-hidden">
+                  {/* Event Image with Play Button */}
+                  <div className="relative w-full h-45.25 overflow-hidden">
                     {imageUrl && (
                       <Image
-                      src={imageUrl}
+                        src={imageUrl}
                         alt={event?.title}
                         fill
                         className="object-cover"
                       />
                     )}
                     {/* Play Button Overlay - Optional, keeping as per original design */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-11 h-11 relative">
-                      <Image
-                        src="/assets/news/play-icon.svg"
-                        alt="Play"
-                        fill
-                        className="object-contain"
-                      />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-11 h-11 relative">
+                        <Image
+                          src="/assets/news/play-icon.svg"
+                          alt="Play"
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Event Info */}
-                <div className="flex flex-col gap-1">
-                  <h3 className="text-lg font-semibold text-black line-clamp-1">
+                  {/* Event Info */}
+                  <div className="flex flex-col gap-1">
+                    <h3 className="text-lg font-semibold text-black line-clamp-1">
                       {event?.title}
-                  </h3>
-                  <p className="text-sm text-[#27272a] line-clamp-2 leading-5">
+                    </h3>
+                    <p className="text-sm text-[#27272a] line-clamp-2 leading-5">
                       {event?.shortDescription || event?.title}
-                  </p>
-                </div>
+                    </p>
+                  </div>
                 </Link>
               )
             })}
@@ -252,8 +255,11 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
             className="hidden sm:flex flex-col gap-3.5 overflow-y-auto overflow-x-hidden h-150 cursor-pointer scrollbar-hide"
             style={{ scrollBehavior: "auto" }}
           >
-            {/* Duplicate notices for seamless infinite scroll */}
-            {[...displayNotices, ...displayNotices, ...displayNotices].map((notice, index) => (
+            {/* Duplicate notices for seamless infinite scroll only if we have enough items */}
+            {(displayNotices.length > 1
+              ? [...displayNotices, ...displayNotices, ...displayNotices]
+              : displayNotices
+            ).map((notice, index) => (
               <div
                 key={`${notice.id}-${index}`}
                 className="flex flex-col gap-2 shrink-0"

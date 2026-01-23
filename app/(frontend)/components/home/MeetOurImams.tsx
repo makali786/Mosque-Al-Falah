@@ -7,7 +7,7 @@ interface Imam {
   id: number;
   image: string | null;
   name: string;
-  tagline: string;
+  title: string;
   imageStyle?: string;
 }
 
@@ -18,7 +18,7 @@ interface RawImam {
   id: number;
   image?: string | { url: string } | null;
   name?: string;
-  tagline?: string;
+  title?: string;
   role?: string;
   imageStyle?: string;
 }
@@ -28,7 +28,7 @@ export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
   const mappedImams: Imam[] = imams.map((imam) => ({
     id: imam?.id,
     name: imam?.name || "",
-    tagline: imam?.tagline || imam?.role || "", // Fallback if tagline missing
+    title: imam?.title || imam?.role || "", // Fallback if tagline missing
     image: typeof imam?.image === "string" ? imam?.image : imam?.image?.url || null,
     imageStyle: imam?.imageStyle,
   }));
@@ -76,7 +76,7 @@ export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
                     {imam?.name}
                   </h3>
                   <p className="text-base font-normal text-[#e4e4e7] leading-6 overflow-hidden text-ellipsis whitespace-nowrap w-full">
-                    {imam?.tagline}
+                    {imam?.title}
                   </p>
                 </div>
               </div>
@@ -84,7 +84,7 @@ export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
               {/* Ask Imam Button - Bottom Right (extends below card) */}
               <Link
                 href={`/ask-imam/${imam?.id}`}
-                className="absolute -bottom-6 right-7.75 sm:right-7 bg-[#006fee] h-12 px-6 sm:px-5 lg:px-4 rounded-full flex items-center gap-2 hover:bg-[#0056cc] transition-colors shadow-lg z-10"
+                className="absolute -bottom-6 right-7.75 sm:right-7 bg-[#006fee] px-6 sm:px-5 lg:px-6 lg:py-3 rounded-full flex items-center gap-2 hover:bg-[#0056cc] transition-colors shadow-lg z-10"
               >
                 <div className="w-5 h-5 relative shrink-0">
                   <Image
