@@ -168,6 +168,11 @@ const PrayerTimesCalendar = ({
     });
   }, [prayerTimes, calendarDate, settings]);
 
+  // Check if current view contains Ramadan
+  const isRamadan = useMemo(() => {
+    return calendarData.some((day) => day.hijriMonthName === "Ramadan");
+  }, [calendarData]);
+
   // Format month display
   const monthDisplay = useMemo(() => {
     const monthNames = [
@@ -327,9 +332,8 @@ const PrayerTimesCalendar = ({
               const rowHeight = isFirstRow ? "h-[76px]" : "h-[46px]";
               const baseWidth = "!min-w-[70px]";
 
-              let rowBaseClass = `border-b text-sm ${rowHeight} ${
-                isFirstRow ? "align-bottom" : ""
-              }`;
+              let rowBaseClass = `border-b text-sm ${rowHeight} ${isFirstRow ? "align-bottom" : ""
+                }`;
               // Zebra striping: alternate background colors for standard rows
               let rowColors =
                 index % 2 !== 0
@@ -365,23 +369,20 @@ const PrayerTimesCalendar = ({
               return (
                 <tr key={index} className={rowClass}>
                   <td
-                    className={`${textClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.day}
                   </td>
                   <td
-                    className={`${textClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.date}
                   </td>
                   <td
-                    className={`${islamicDateClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${islamicDateClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {isFirstRow && row.hijriMonthName && (
                       <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">
@@ -391,54 +392,48 @@ const PrayerTimesCalendar = ({
                     {row.islamicDate}
                   </td>
                   <td
-                    className={`${textClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.subhaSadiq}
                   </td>
                   <td
-                    className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${
-                      row.isActive
+                    className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${isFirstRow ? "pb-3" : ""
+                      } ${row.isActive
                         ? "border-white/20"
                         : row.isFriday
-                        ? "border-[#DBEAFE]"
-                        : ""
-                    } ${baseWidth}`}
+                          ? "border-[#DBEAFE]"
+                          : ""
+                      } ${baseWidth}`}
                   >
                     {row.sunRise}
                   </td>
 
                   {/* Fajr */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
+                    {(isRamadan && isFirstRow) && <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">Sahar</span>}
                     {row.fajr.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={` ${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.fajr.jamaah}
                   </td>
 
                   {/* Zuhr */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.zuhr.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={` ${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.zuhr.isJumuah ? (
                       <div className="flex flex-col items-center gap-0.5">
@@ -458,48 +453,43 @@ const PrayerTimesCalendar = ({
 
                   {/* Asr */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.asr.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={` ${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.asr.jamaah}
                   </td>
 
                   {/* Maghrib */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
+                    {(isRamadan && isFirstRow) && <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">Iftar</span>}
                     {row.maghrib.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={` ${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.maghrib.jamaah}
                   </td>
 
                   {/* Isha */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.isha.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${lastCellBorder} ${
-                      isFirstRow ? "pb-3" : ""
-                    } ${baseWidth}`}
+                    className={` ${textClass} ${lastCellBorder} ${isFirstRow ? "pb-3" : ""
+                      } ${baseWidth}`}
                   >
                     {row.isha.jamaah}
                   </td>
@@ -540,7 +530,7 @@ export default function PrayerTimesSection({
     isActive: isViewingToday,
   });
 
- useEffect(() => {
+  useEffect(() => {
     if (activeTab === "prayer-time") {
       onYearChange?.(currentDate.getFullYear());
     }
