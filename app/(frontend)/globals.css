@@ -74,6 +74,14 @@
     @apply !text-xl;
   }
 
+  .entrance-text {
+    @apply text-[28px];
+  }
+
+  .whatsapp-group-label {
+    @apply text-xs
+  }
+
   .header-style {
     @apply flex-col !h-auto gap-5;
   }

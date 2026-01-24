@@ -92,7 +92,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
         {/* Left Section - Upcoming Events */}
         <div className="flex-1 lg:flex-[1.6] flex flex-col gap-6 sm:gap-8">
           {/* Header */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap">
             <h2 className="text-xl sm:text-4xl font-bold sm:font-semibold text-[#18181b] leading-7 sm:leading-10">
               Upcoming Events
             </h2>
