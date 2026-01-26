@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 const SUPPORTERS: any[] = [];
 
 const SOCIAL_LINKS = [
   {
-    name: "Facebook",
-    icon: "/assets/common/facebook-icon.svg",
-    url: "https://www.facebook.com/profile.php?id=100068190076068#",
+    name: 'Facebook',
+    icon: '/assets/common/facebook-icon.svg',
+    url: 'https://www.facebook.com/profile.php?id=100068190076068#',
   },
   {
-    name: "YouTube",
-    icon: "/assets/common/youtube-icon.svg",
-    url: "https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw",
+    name: 'YouTube',
+    icon: '/assets/common/youtube-icon.svg',
+    url: 'https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw',
   },
   // Instagram - not available yet
   // {
@@ -26,45 +26,43 @@ const SOCIAL_LINKS = [
 ] as const;
 
 const FOOTER_LINKS = [
-  { label: "Copyright", href: "/copyright" },
-  { label: "Terms of use", href: "/terms" },
-  { label: "Privacy policy", href: "/privacy" },
+  { label: 'Copyright', href: '/copyright' },
+  { label: 'Terms of use', href: '/terms' },
+  { label: 'Privacy policy', href: '/privacy' },
 ] as const;
 
 const EDUCATIONS_COLUMN = {
-  title: "Educations",
+  title: 'Educations',
   links: [
-    { label: "Adult Classes", href: "/education/adult-classes" },
-    { label: "Children's Madrasah", href: "/education/madrasah" },
-    { label: "Educational Events", href: "/education/events" },
-    { label: "Youth Activities", href: "/education/youth" },
+    { label: 'Adult Classes', href: '/education/adult-classes' },
+    { label: "Children's Madrasah", href: '/education/madrasah' },
+    { label: 'Educational Events', href: '/education/events' },
+    { label: 'Youth Activities', href: '/education/youth' },
   ],
 };
 
-
-
 const CONTACT_INFO = [
   {
-    icon: "/assets/footer/map-icon.svg",
-    text: "Masjid Al-Falah, North Ilford Islamic Centre, 97 Kensington Gardens, Ilford, Essex IG1 3EN",
+    icon: '/assets/footer/map-icon.svg',
+    text: 'Masjid Al-Falah, North Ilford Islamic Centre, 97 Kensington Gardens, Ilford, Essex IG1 3EN',
     href: null,
   },
   {
-    icon: "/assets/footer/phone-icon.svg",
-    text: "020 3538 7266",
-    href: "tel:02035387266",
+    icon: '/assets/footer/phone-icon.svg',
+    text: '020 3538 7266',
+    href: 'tel:02035387266',
   },
   {
-    icon: "/assets/footer/email-icon.svg",
-    text: "info@masjid-alfalah.org.uk",
-    href: "mailto:info@masjid-alfalah.org.uk",
+    icon: '/assets/footer/email-icon.svg',
+    text: 'info@masjid-alfalah.org.uk',
+    href: 'mailto:info@masjid-alfalah.org.uk',
   },
 ] as const;
 
 const STATS = [
-  { value: "0", label: "Campaigns" },
-  { value: "0", label: "Donors" },
-  { value: "£0", label: "Funds Raised" },
+  { value: '0', label: 'Campaigns' },
+  { value: '0', label: 'Donors' },
+  { value: '£0', label: 'Funds Raised' },
 ];
 
 interface SupporterCardProps {
@@ -87,7 +85,7 @@ const SupporterCard = ({ name, amount, time }: SupporterCardProps) => (
     <div className="flex flex-col leading-0">
       <p className="font-normal text-sm leading-5 text-[#ecedee]">{name}</p>
       <p className="font-normal text-xs leading-4 text-[#a1a1aa]">
-        <span className="text-[#a1a1aa]">{amount}</span>{" "}
+        <span className="text-[#a1a1aa]">{amount}</span>{' '}
         <span className="text-[#52525b]">{time}</span>
       </p>
     </div>
@@ -140,8 +138,9 @@ const SocialIcon = ({
 
 const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
   <svg
-    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${isOpen ? "rotate-90" : ""
-      }`}
+    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${
+      isOpen ? 'rotate-90' : ''
+    }`}
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -179,11 +178,12 @@ const FooterColumn = ({
       <ChevronIcon isOpen={isOpen} />
     </div>
     <div
-      className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 mt-4" : "max-h-0 lg:max-h-none"
-        }`}
+      className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${
+        isOpen ? 'max-h-96 mt-4' : 'max-h-0 lg:max-h-none'
+      }`}
     >
       <div className="flex flex-col gap-2 w-full">
-        {links.map((link) => (
+        {links.map(link => (
           <Link
             key={link.href}
             href={link.href}
@@ -240,10 +240,21 @@ interface Appeal {
 }
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState<{
+    loading: boolean;
+    message: string;
+    type: 'success' | 'error' | null;
+  }>({
+    loading: false,
+    message: '',
+    type: null,
+  });
   const [openColumns, setOpenColumns] = useState<Record<string, boolean>>({});
   const [services, setServices] = useState<Service[]>([]);
-  const [footerColumns, setFooterColumns] = useState<any[]>([EDUCATIONS_COLUMN]);
+  const [footerColumns, setFooterColumns] = useState<any[]>([
+    EDUCATIONS_COLUMN,
+  ]);
 
   // Dynamic donation data
   const [recentDonors, setRecentDonors] = useState(SUPPORTERS);
@@ -251,10 +262,77 @@ export default function Footer() {
   const [isLoadingDonations, setIsLoadingDonations] = useState(true);
 
   const toggleColumn = (title: string) => {
-    setOpenColumns((prev) => ({
+    setOpenColumns(prev => ({
       ...prev,
       [title]: !prev[title],
     }));
+  };
+
+  // Handle newsletter subscription
+  const handleNewsletterSubscribe = async () => {
+    // Reset status
+    setNewsletterStatus({ loading: false, message: '', type: null });
+
+    // Validate email
+    if (!email || !email.includes('@')) {
+      setNewsletterStatus({
+        loading: false,
+        message: 'Please enter a valid email address',
+        type: 'error',
+      });
+      return;
+    }
+
+    try {
+      setNewsletterStatus({ loading: true, message: '', type: null });
+
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          source: 'footer',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setNewsletterStatus({
+          loading: false,
+          message: data.message || 'Successfully subscribed!',
+          type: 'success',
+        });
+        setEmail(''); // Clear email input on success
+
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setNewsletterStatus({ loading: false, message: '', type: null });
+        }, 5000);
+      } else {
+        setNewsletterStatus({
+          loading: false,
+          message: data.error || 'Failed to subscribe. Please try again.',
+          type: 'error',
+        });
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      setNewsletterStatus({
+        loading: false,
+        message: 'An error occurred. Please try again later.',
+        type: 'error',
+      });
+    }
+  };
+
+  // Handle Enter key press in email input
+  const handleEmailKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleNewsletterSubscribe();
+    }
   };
 
   // Fetch services and appeals on component mount
@@ -263,7 +341,9 @@ export default function Footer() {
       try {
         const [servicesRes, appealsRes] = await Promise.all([
           fetch('/api/services?limit=5&where[isActive][equals]=true'),
-          fetch('/api/donation-appeals?limit=5&where[isActive][equals]=true&sort=order')
+          fetch(
+            '/api/donation-appeals?limit=5&where[isActive][equals]=true&sort=order'
+          ),
         ]);
 
         let newColumns: any[] = [EDUCATIONS_COLUMN];
@@ -274,11 +354,11 @@ export default function Footer() {
           setServices(servicesData.docs || []);
 
           const serviceColumn = {
-            title: "Services",
+            title: 'Services',
             links: (servicesData.docs || []).map((service: Service) => ({
               label: service.title,
-              href: `/our-services/${service.slug}`
-            }))
+              href: `/our-services/${service.slug}`,
+            })),
           };
           newColumns.unshift(serviceColumn);
         }
@@ -288,18 +368,17 @@ export default function Footer() {
           const appealsData = await appealsRes.json();
           if (appealsData.docs && appealsData.docs.length > 0) {
             const appealColumn = {
-              title: "Donate",
+              title: 'Donate',
               links: appealsData.docs.map((appeal: Appeal) => ({
                 label: appeal.title,
-                href: `/appeals/${appeal.slug}`
-              }))
+                href: `/appeals/${appeal.slug}`,
+              })),
             };
             newColumns.push(appealColumn);
           }
         }
 
         setFooterColumns(newColumns);
-
       } catch (error) {
         console.error('Failed to fetch footer data:', error);
         // Fallback
@@ -329,7 +408,10 @@ export default function Footer() {
             // Update stats
             if (data.stats) {
               setDonationStats([
-                { value: String(data.stats.campaigns).padStart(2, '0'), label: 'Campaigns' },
+                {
+                  value: String(data.stats.campaigns).padStart(2, '0'),
+                  label: 'Campaigns',
+                },
                 { value: String(data.stats.donors), label: 'Donors' },
                 { value: data.stats.fundsRaised, label: 'Funds Raised' },
               ]);
@@ -364,16 +446,37 @@ export default function Footer() {
                     type="email"
                     placeholder="Email Address"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-[#27272a] flex-1 min-w-0 text-sm sm:text-base leading-6 text-[#d4d4d8] placeholder:text-[#d4d4d8] px-2 sm:px-3 py-2 min-h-10.5 shadow-sm outline-none"
+                    onChange={e => setEmail(e.target.value)}
+                    onKeyPress={handleEmailKeyPress}
+                    disabled={newsletterStatus.loading}
+                    className="bg-[#27272a] flex-1 min-w-0 text-sm sm:text-base leading-6 text-[#d4d4d8] placeholder:text-[#d4d4d8] px-2 sm:px-3 py-2 min-h-10.5 shadow-sm outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                   />
-                  <button className="bg-[#3f3f46] text-white font-normal text-xs sm:text-sm leading-5 h-10.5 w-25 shrink-0 hover:bg-[#52525b] transition-colors whitespace-nowrap cursor-pointer">
-                    Subscribe
+                  <button
+                    onClick={handleNewsletterSubscribe}
+                    disabled={newsletterStatus.loading}
+                    className="bg-[#3f3f46] text-white font-normal text-xs sm:text-sm leading-5 h-10.5 w-25 shrink-0 hover:bg-[#52525b] transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {newsletterStatus.loading ? 'Subscribing...' : 'Subscribe'}
                   </button>
                 </div>
 
+                {/* Status Message */}
+                {newsletterStatus.message && (
+                  <div
+                    className={`text-sm px-3 py-2 rounded ${
+                      newsletterStatus.type === 'success'
+                        ? 'bg-green-900/50 text-green-200 border border-green-700'
+                        : 'bg-red-900/50 text-red-200 border border-red-700'
+                    }`}
+                  >
+                    <span className="text-white">
+                      {newsletterStatus.message}
+                    </span>
+                  </div>
+                )}
+
                 <div className="flex gap-3 lg:gap-4 items-center flex-wrap">
-                  {SOCIAL_LINKS.map((social) => (
+                  {SOCIAL_LINKS.map(social => (
                     <SocialIcon key={social.name} {...social} />
                   ))}
                   <Link
@@ -408,9 +511,14 @@ export default function Footer() {
                       <SupporterSkeleton />
                     </>
                   ) : (
-                    recentDonors.slice(0, 2).map((supporter, idx) => (
-                      <SupporterCard key={supporter.id || idx} {...supporter} />
-                    ))
+                    recentDonors
+                      .slice(0, 2)
+                      .map((supporter, idx) => (
+                        <SupporterCard
+                          key={supporter.id || idx}
+                          {...supporter}
+                        />
+                      ))
                   )}
                 </div>
                 <div className="hidden lg:flex flex-col gap-4 flex-1">
@@ -420,9 +528,14 @@ export default function Footer() {
                       <SupporterSkeleton />
                     </>
                   ) : (
-                    recentDonors.slice(2).map((supporter, idx) => (
-                      <SupporterCard key={supporter.id || idx} {...supporter} />
-                    ))
+                    recentDonors
+                      .slice(2)
+                      .map((supporter, idx) => (
+                        <SupporterCard
+                          key={supporter.id || idx}
+                          {...supporter}
+                        />
+                      ))
                   )}
                 </div>
               </div>
@@ -441,7 +554,7 @@ export default function Footer() {
                     <StatsSkeleton />
                   </>
                 ) : (
-                  donationStats.map((stat) => (
+                  donationStats.map(stat => (
                     <StatsCard key={stat.label} {...stat} />
                   ))
                 )}
@@ -513,7 +626,7 @@ export default function Footer() {
           </div>
 
           {/* Footer Columns */}
-          {footerColumns.map((column) => (
+          {footerColumns.map(column => (
             <FooterColumn
               key={column.title}
               {...column}
@@ -555,7 +668,7 @@ export default function Footer() {
         {/* Bottom Section - Copyright */}
         <div className="bg-[#18181b] flex items-center justify-center px-6 lg:px-8 py-6 lg:py-0 lg:h-25.25 w-full">
           <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center hn-container">
-            COPYRIGHT © {new Date().getFullYear()}{" "}
+            COPYRIGHT © {new Date().getFullYear()}{' '}
             <Link
               href="https://www.masjid-alfalah.org.uk/"
               className="hover:text-[#006fee]"

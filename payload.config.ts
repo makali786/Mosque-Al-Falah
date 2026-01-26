@@ -35,6 +35,9 @@ import { EventRequests } from './collections/EventRequests';
 import { Questions } from './collections/Questions';
 import { ServiceRequests } from './collections/ServiceRequests';
 
+// Communications
+import { NewsletterSubscribers } from './collections/NewsletterSubscribers';
+
 // Prayer Times
 import { PrayerTimes } from './collections/PrayerTimes';
 
@@ -114,6 +117,9 @@ export default buildConfig({
     EventRequests,
     ServiceRequests,
     Questions,
+
+    // Communications
+    NewsletterSubscribers,
   ],
   globals: [
     AboutPage,

@@ -992,6 +992,416 @@ export async function sendQuestionNotification(
   }
 }
 
+/**
+ * Newsletter Subscription Data Interface
+ */
+export interface NewsletterSubscriberData {
+  email: string;
+  firstName?: string;
+  confirmationToken: string;
+}
+
+/**
+ * Newsletter Campaign Data Interface
+ */
+export interface NewsletterCampaignData {
+  email: string;
+  firstName?: string;
+  subject: string;
+  content: string;
+  unsubscribeToken: string;
+}
+
+/**
+ * Send newsletter subscription welcome email
+ */
+export async function sendNewsletterWelcomeEmail(
+  data: NewsletterSubscriberData
+): Promise<boolean> {
+  try {
+    const html = generateNewsletterWelcomeHTML(data);
+    const text = generateNewsletterWelcomeText(data);
+
+    await transporter.sendMail({
+      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'newsletter@masjid-al-falah.org'}>`,
+      to: data.email,
+      subject: 'Welcome to Masjid Al-Falah Newsletter! 🕌',
+      text,
+      html,
+    });
+
+    console.log(`✅ Newsletter welcome email sent to ${data.email}`);
+    return true;
+  } catch (error) {
+    console.error('Failed to send newsletter welcome email:', error);
+    return false;
+  }
+}
+
+/**
+ * Send newsletter campaign email
+ */
+export async function sendNewsletterCampaign(
+  data: NewsletterCampaignData
+): Promise<boolean> {
+  try {
+    const html = generateNewsletterCampaignHTML(data);
+
+    await transporter.sendMail({
+      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'newsletter@masjid-al-falah.org'}>`,
+      to: data.email,
+      subject: data.subject,
+      html,
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Failed to send newsletter campaign:', error);
+    return false;
+  }
+}
+
+/**
+ * Generate HTML for newsletter welcome email
+ */
+function generateNewsletterWelcomeHTML(data: NewsletterSubscriberData): string {
+  const name = data.firstName || 'Friend';
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Our Newsletter</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <!-- Header -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0c478a 0%, #004797 100%); padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="center">
+              <img src="${siteUrl}/logo-white.png" alt="Masjid Al-Falah" height="60" style="margin-bottom: 20px;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Welcome to Our Newsletter!</h1>
+              <p style="color: #e0e0e0; margin: 10px 0 0; font-size: 16px;">Assalamu Alaikum wa Rahmatullahi wa Barakatuh</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Main Content -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+          <!-- Greeting -->
+          <tr>
+            <td style="padding: 30px 40px 20px;">
+              <p style="margin: 0; font-size: 18px; color: #333; font-weight: 600;">Dear ${name},</p>
+              <p style="margin: 15px 0 0; font-size: 16px; color: #555; line-height: 1.6;">
+                JazakAllah Khair for subscribing to the Masjid Al-Falah newsletter! We're delighted to have you join our community.
+              </p>
+            </td>
+          </tr>
+
+          <!-- What to Expect -->
+          <tr>
+            <td style="padding: 20px 40px;">
+              <h2 style="margin: 0 0 20px; font-size: 20px; color: #0c478a;">What You'll Receive:</h2>
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="padding: 12px 0;">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding-right: 12px; vertical-align: top;">
+                          <div style="width: 32px; height: 32px; background: #e6f1fe; border-radius: 50%; display: flex; align-items: center; justify-center;">
+                            <span style="font-size: 18px;">📅</span>
+                          </div>
+                        </td>
+                        <td>
+                          <p style="margin: 0; font-weight: 600; color: #333; font-size: 15px;">Weekly Updates</p>
+                          <p style="margin: 4px 0 0; color: #666; font-size: 14px; line-height: 1.5;">Stay informed about mosque activities, programs, and community news</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0;">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding-right: 12px; vertical-align: top;">
+                          <div style="width: 32px; height: 32px; background: #e6f1fe; border-radius: 50%;">
+                            <span style="font-size: 18px;">🎉</span>
+                          </div>
+                        </td>
+                        <td>
+                          <p style="margin: 0; font-weight: 600; color: #333; font-size: 15px;">Event Notifications</p>
+                          <p style="margin: 4px 0 0; color: #666; font-size: 14px; line-height: 1.5;">Be the first to know about upcoming lectures, classes, and special events</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0;">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding-right: 12px; vertical-align: top;">
+                          <div style="width: 32px; height: 32px; background: #e6f1fe; border-radius: 50%;">
+                            <span style="font-size: 18px;">🌙</span>
+                          </div>
+                        </td>
+                        <td>
+                          <p style="margin: 0; font-weight: 600; color: #333; font-size: 15px;">Ramadan & Special Updates</p>
+                          <p style="margin: 4px 0 0; color: #666; font-size: 14px; line-height: 1.5;">Receive timely updates during Ramadan and other important Islamic occasions</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 0;">
+                    <table cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding-right: 12px; vertical-align: top;">
+                          <div style="width: 32px; height: 32px; background: #e6f1fe; border-radius: 50%;">
+                            <span style="font-size: 18px;">💝</span>
+                          </div>
+                        </td>
+                        <td>
+                          <p style="margin: 0; font-weight: 600; color: #333; font-size: 15px;">Donation Appeals</p>
+                          <p style="margin: 4px 0 0; color: #666; font-size: 14px; line-height: 1.5;">Learn about ways to support our mosque and community initiatives</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Hadith Quote -->
+          <tr>
+            <td style="padding: 20px 40px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 8px; padding: 24px; text-align: center;">
+                <tr>
+                  <td>
+                    <p style="margin: 0; font-style: italic; color: #92400e; font-size: 16px; line-height: 1.6;">
+                      "The best of you are those who learn the Quran and teach it."
+                    </p>
+                    <p style="margin: 12px 0 0; color: #78350f; font-size: 14px;">
+                      — Prophet Muhammad ﷺ (Sahih al-Bukhari)
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- CTA Buttons -->
+          <tr>
+            <td style="padding: 20px 40px 30px; text-align: center;">
+              <p style="margin: 0 0 20px; color: #666; font-size: 14px;">Explore what's happening at Masjid Al-Falah:</p>
+              <a href="${siteUrl}/events" style="display: inline-block; background: #0c478a; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 0 5px 10px;">
+                View Events
+              </a>
+              <a href="${siteUrl}/prayer-times" style="display: inline-block; background: #10b981; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 0 5px 10px;">
+                Prayer Times
+              </a>
+              <a href="${siteUrl}/donate" style="display: inline-block; background: #f59e0b; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin: 0 5px 10px;">
+                Donate
+              </a>
+            </td>
+          </tr>
+
+          <!-- Manage Preferences -->
+          <tr>
+            <td style="padding: 0 40px 30px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background: #f8fafc; border-radius: 8px; padding: 20px; border-left: 4px solid #0c478a;">
+                <tr>
+                  <td>
+                    <p style="margin: 0; font-weight: 600; color: #333; font-size: 15px;">
+                      📧 Manage Your Preferences
+                    </p>
+                    <p style="margin: 8px 0 0; color: #555; font-size: 14px; line-height: 1.5;">
+                      You can update your email preferences or unsubscribe at any time.
+                    </p>
+                    <p style="margin: 12px 0 0;">
+                      <a href="${siteUrl}/newsletter/preferences?token=${data.confirmationToken}" style="color: #0c478a; text-decoration: none; font-weight: 600;">
+                        Update Preferences →
+                      </a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="text-align: center; padding: 20px;">
+              <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
+                <strong>Masjid Al-Falah</strong><br>
+                North Ilford Islamic Centre<br>
+                97 Kensington Gardens, Ilford, Essex IG1 3EN
+              </p>
+              <p style="margin: 0 0 20px; color: #9ca3af; font-size: 12px;">
+                Registered Charity No: 1234567
+              </p>
+              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
+                <a href="${siteUrl}" style="color: #0c478a; text-decoration: none;">Website</a> • 
+                <a href="${siteUrl}/newsletter/unsubscribe?token=${data.confirmationToken}" style="color: #0c478a; text-decoration: none;">Unsubscribe</a> • 
+                <a href="${siteUrl}/privacy" style="color: #0c478a; text-decoration: none;">Privacy Policy</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;
+}
+
+/**
+ * Generate plain text for newsletter welcome email
+ */
+function generateNewsletterWelcomeText(data: NewsletterSubscriberData): string {
+  const name = data.firstName || 'Friend';
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+
+  return `
+WELCOME TO MASJID AL-FALAH NEWSLETTER
+=====================================
+
+Assalamu Alaikum wa Rahmatullahi wa Barakatuh
+
+Dear ${name},
+
+JazakAllah Khair for subscribing to the Masjid Al-Falah newsletter! We're delighted to have you join our community.
+
+WHAT YOU'LL RECEIVE:
+-------------------
+📅 Weekly Updates - Stay informed about mosque activities and community news
+🎉 Event Notifications - Be first to know about lectures, classes, and events
+🌙 Ramadan & Special Updates - Timely updates during important Islamic occasions
+💝 Donation Appeals - Learn about ways to support our community
+
+---
+
+"The best of you are those who learn the Quran and teach it."
+— Prophet Muhammad ﷺ (Sahih al-Bukhari)
+
+---
+
+EXPLORE MASJID AL-FALAH:
+- Events: ${siteUrl}/events
+- Prayer Times: ${siteUrl}/prayer-times
+- Donate: ${siteUrl}/donate
+
+MANAGE YOUR PREFERENCES:
+You can update your email preferences or unsubscribe at any time:
+${siteUrl}/newsletter/preferences?token=${data.confirmationToken}
+
+---
+
+Masjid Al-Falah
+North Ilford Islamic Centre
+97 Kensington Gardens, Ilford, Essex IG1 3EN
+Registered Charity No: 1234567
+
+Website: ${siteUrl}
+Unsubscribe: ${siteUrl}/newsletter/unsubscribe?token=${data.confirmationToken}
+`;
+}
+
+/**
+ * Generate HTML for newsletter campaign email
+ */
+function generateNewsletterCampaignHTML(data: NewsletterCampaignData): string {
+  const name = data.firstName || 'Friend';
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${data.subject}</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <!-- Header -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0c478a 0%, #004797 100%); padding: 30px 20px;">
+    <tr>
+      <td align="center">
+        <img src="${siteUrl}/logo-white.png" alt="Masjid Al-Falah" height="50">
+      </td>
+    </tr>
+  </table>
+
+  <!-- Main Content -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+          <tr>
+            <td style="padding: 40px;">
+              <p style="margin: 0 0 20px; font-size: 16px; color: #333;">Assalamu Alaikum ${name},</p>
+              
+              ${data.content}
+              
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="text-align: center; padding: 20px;">
+              <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
+                <strong>Masjid Al-Falah</strong><br>
+                97 Kensington Gardens, Ilford, Essex IG1 3EN
+              </p>
+              <p style="margin: 0; color: #9ca3af; font-size: 12px;">
+                <a href="${siteUrl}" style="color: #0c478a; text-decoration: none;">Website</a> • 
+                <a href="${siteUrl}/newsletter/unsubscribe?token=${data.unsubscribeToken}" style="color: #0c478a; text-decoration: none;">Unsubscribe</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;
+}
+
 export default {
   sendDonationReceipt,
   sendWelcomeEmail,
@@ -1000,4 +1410,6 @@ export default {
   sendEventRequestNotification,
   sendServiceRequestNotification,
   sendQuestionNotification,
+  sendNewsletterWelcomeEmail,
+  sendNewsletterCampaign,
 };
