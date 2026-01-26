@@ -103,6 +103,7 @@ export default async function OurServicesPage() {
             console.log("Service request created successfully");
         } catch (error) {
             console.error("Error creating service request:", error);
+            throw new Error("Failed to submit request.");
         }
     }
 
