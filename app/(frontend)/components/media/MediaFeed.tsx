@@ -160,7 +160,7 @@ export default function MediaFeed({
                 ]}
                 activeTab={view}
                 onChange={(tabId) => setView(tabId as any)}
-                variant="underline"
+                variant="clean"
                 size="sm"
                 className="shrink-0 self-end sm:self-center"
               />
