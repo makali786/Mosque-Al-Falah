@@ -84,7 +84,7 @@ export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
               {/* Ask Imam Button - Bottom Right (extends below card) */}
               <Link
                 href={`/ask-imam/${imam?.id}`}
-                className="absolute -bottom-6 right-7.75 sm:right-7 bg-[#006fee] px-6 sm:px-5 lg:px-6 lg:py-3 rounded-full flex items-center gap-2 hover:bg-[#0056cc] transition-colors shadow-lg z-10"
+                className="absolute -bottom-6 right-7.75 sm:right-7 bg-[#006fee] px-6 py-3 sm:px-5 lg:px-6 rounded-full flex items-center gap-2 hover:bg-[#0056cc] transition-colors shadow-lg z-10"
               >
                 <div className="w-5 h-5 relative shrink-0">
                   <Image
