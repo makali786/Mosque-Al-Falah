@@ -35,7 +35,7 @@ const ContactUsPage = async () => {
                 address={contactUs.contactInfo.mainAddress}
                 phone={contactUs.contactInfo.phone}
                 email={contactUs.contactInfo.email}
-                mapEmbed={contactUs.contactInfo.showMap ? contactUs.contactInfo.mapEmbed : undefined}
+                showMap={contactUs.contactInfo.showMap}
             />
 
             <div className="flex flex-col lg:flex-row lg:justify-center gap-8 md:gap-10 lg:gap-12 hn-container py-12 sm:py-16 md:py-20 lg:py-28">
