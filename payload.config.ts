@@ -19,6 +19,7 @@ import { CoreValues } from './collections/CoreValues';
 import { DonationAppeals } from './collections/DonationAppeals';
 import { Donations } from './collections/Donations';
 import { Donors } from './collections/Donors';
+import { EventBookings } from './collections/EventBookings';
 import { Events } from './collections/Events';
 import { Imams } from './collections/Imams';
 import { MadrasahClasses } from './collections/MadrasahClasses';
@@ -83,6 +84,7 @@ export default buildConfig({
     // Homepage Content
     Banners,
     Events,
+    EventBookings,
     Notices,
     Services,
     Imams,
