@@ -26,7 +26,7 @@ export default function MadrasahFAQs({
 
 
   return (
-    <section className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden bg-[#004E93]">
+    <section className="relative w-full py-12 sm:py-16 md:py-22.5 overflow-hidden bg-[#004E93]">
       {/* Background with pattern - reused from CoreValues */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -46,11 +46,11 @@ export default function MadrasahFAQs({
       <div className="relative section-padding flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
         {/* Header */}
         <div className="flex items-center w-full">
-          <div className="flex flex-col gap-4 w-full">
-            <h1 className="text-3xl font-semibold sm:text-4xl text-white">
+          <div className="flex flex-col gap-5 w-full">
+            <h1 className="text-3xl font-semibold sm:text-4xl lg:text-5xl text-white">
               {title}
             </h1>
-            <p className="text-base font-medium text-white/90">
+            <p className="text-base lg:text-lg font-medium text-white">
               {description}
             </p>
           </div>
@@ -60,12 +60,12 @@ export default function MadrasahFAQs({
         <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-[14px] px-6 py-8 sm:px-8 sm:py-9 md:px-12 md:py-10 lg:px-16 lg:py-11 w-full">
           <div className="flex flex-col px-2 lg:px-2">
             {faqs.map((item, index) => (
-              <div key={item.id || index} className="flex flex-col gap-2 lg:gap-2">
+              <div key={item.id || index} className="flex flex-col">
                 <button
                   onClick={() =>
                     setExpandedId(expandedId === item.id ? "" : item.id)
                   }
-                  className="flex items-center justify-between w-full py-4 cursor-pointer hover:opacity-80 transition-opacity"
+                  className="flex items-center justify-between w-full py-4 cursor-pointer transition-opacity"
                 >
                   <h3 className="text-left text-lg font-bold text-[#11181c] flex-1">
                     {item.question}
@@ -85,13 +85,12 @@ export default function MadrasahFAQs({
                 </button>
 
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    expandedId === item.id
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${expandedId === item.id
                     ? "max-h-[500px] opacity-100" // Increased max-height for rich text potential content
-                      : "max-h-0 opacity-0"
-                  }`}
+                    : "max-h-0 opacity-0"
+                    }`}
                 >
-                  <div className="pb-4 text-[#52525b] text-base leading-relaxed">
+                  <div className="pb-[9px] text-[#11181C] text-base leading-relaxed">
                     {typeof item.answer === 'string' ? (
                       item.answer
                     ) : (
