@@ -253,7 +253,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
                 ]}
                 activeTab={view}
                 onChange={(tabId) => setView(tabId as any)}
-                variant="underline"
+                variant="clean"
                 size="sm"
                 className="shrink-0 self-end sm:self-center"
               />
