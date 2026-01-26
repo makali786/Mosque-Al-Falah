@@ -57,7 +57,7 @@ export default function MadrasahGallery({
         <div className="flex flex-col lg:w-1/2 justify-center">
           <div className="flex flex-col gap-3">
             <h4 className="text-[#006FEE] font-medium text-lg uppercase">{sectionLabel}</h4>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#27272a]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#27272a] gallery-section-heading">
               {sectionTitle}
             </h2>
           </div>
@@ -65,10 +65,10 @@ export default function MadrasahGallery({
             {description}
           </p>
           <div className="flex flex-wrap gap-6 mt-16">
-            <a href={contactButtonUrl} className="bg-[#3F3F46] text-white px-6 py-3 rounded-lg font-medium hover:bg-black transition-colors text-center">
+            <a href={contactButtonUrl} className="bg-[#3F3F46] w-full sm:w-auto text-white px-6 py-3 rounded-lg font-medium hover:bg-black transition-colors text-center">
               {contactButtonText}
             </a>
-            <a href={enrollButtonUrl} className="bg-[#006FEE] text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors text-center">
+            <a href={enrollButtonUrl} className="bg-[#006FEE] w-full sm:w-auto text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors text-center">
               {enrollButtonText}
             </a>
           </div>
@@ -119,8 +119,8 @@ export default function MadrasahGallery({
                   key={idx}
                   onClick={() => setActiveIndex(idx)}
                   className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${idx === activeIndex
-                      ? "bg-white scale-110"
-                      : "bg-white/50 hover:bg-white/75"
+                    ? "bg-white scale-110"
+                    : "bg-white/50 hover:bg-white/75"
                     }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
