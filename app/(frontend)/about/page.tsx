@@ -23,7 +23,7 @@ export default async function AboutUsPage() {
   // Mission Content
   const missionContent = (
     <div className="flex flex-col gap-4">
-      <p className="text-base leading-relaxed">
+      <p className="text-lg">
         {aboutUs?.mission?.introduction}
       </p>
       {aboutUs?.mission?.missionPoints && (
