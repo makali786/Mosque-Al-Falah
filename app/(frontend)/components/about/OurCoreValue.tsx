@@ -7,7 +7,7 @@ import { RichTextRenderer } from "@/components/common/RichTextRenderer";
 interface CoreValueItem {
   id: string;
   question: string;
-  answer: any; 
+  answer: any;
 }
 
 interface CoreValuesSectionProps {
@@ -22,7 +22,7 @@ export function CoreValuesSection({ title, description, items }: CoreValuesSecti
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden">
+    <section className="relative w-full py-12 sm:py-16 md:py-22.5 overflow-hidden">
       {/* Background with gradient and pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -60,12 +60,12 @@ export function CoreValuesSection({ title, description, items }: CoreValuesSecti
         <div className="bg-white rounded-lg sm:rounded-xl lg:rounded-[14px] px-6 py-8 sm:px-8 sm:py-9 md:px-12 md:py-10 lg:px-16 lg:py-11 w-full">
           <div className="flex flex-col px-2 lg:px-2">
             {items.map((item, index) => (
-              <div key={item.id} className="flex flex-col gap-2 lg:gap-2">
+              <div key={item.id} className="flex flex-col">
                 <button
                   onClick={() =>
                     setExpandedId(expandedId === item.id ? "" : item.id)
                   }
-                  className="flex items-center justify-between w-full py-3 sm:py-4 lg:py-4 cursor-pointer hover:opacity-80 transition-opacity"
+                  className="flex items-center justify-between w-full py-3 sm:py-4 lg:py-6 cursor-pointer"
                 >
                   <div className="flex-1 flex flex-col items-start justify-center">
                     <h3 className="text-left text-base leading-6 font-bold sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-[#11181c]">
@@ -89,14 +89,13 @@ export function CoreValuesSection({ title, description, items }: CoreValuesSecti
                 </button>
 
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    expandedId === item.id
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
-                  }`}
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${expandedId === item.id
+                    ? "max-h-96 opacity-100"
+                    : "max-h-0 opacity-0"
+                    }`}
                 >
-                  <div className="flex items-center w-full pb-2">
-                    <div className="flex-1 flex flex-col justify-center text-[#11181c]">
+                  <div className="flex items-center w-full pb-[9px]">
+                    <div className="flex flex-col justify-center text-[#11181c]">
                       <RichTextRenderer content={item?.answer} className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-6" />
                     </div>
                   </div>

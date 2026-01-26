@@ -35,6 +35,7 @@
 .section-padding {
   @apply px-8;
 }
+
 .donation-padding {
   @apply px-8;
 }
@@ -52,6 +53,7 @@
     padding-right: calc((100% - 1136px) / 2);
   }
 }
+
 @media (min-width: 1200px) {
   .donation-padding {
     padding-left: calc((100% - 768px) / 2);
@@ -68,10 +70,24 @@
     @apply text-[26px];
   }
 
+  .our-committees-title {
+    @apply !text-xl;
+  }
+
+  .entrance-text {
+    @apply text-[28px];
+  }
+
+  .whatsapp-group-label {
+    @apply text-xs
+  }
+
   .header-style {
     @apply flex-col !h-auto gap-5;
   }
 }
+
+
 
 .appeal-buttons {
   @apply flex-wrap;
@@ -162,18 +178,18 @@ article.prose blockquote .quote-source {
 }
 
 /* Image container height for blog - Responsive */
-article.prose > div > div[class*='rounded'] {
+article.prose>div>div[class*='rounded'] {
   height: 240px !important;
 }
 
 @media (min-width: 768px) {
-  article.prose > div > div[class*='rounded'] {
+  article.prose>div>div[class*='rounded'] {
     height: 400px !important;
   }
 }
 
 @media (min-width: 1024px) {
-  article.prose > div > div[class*='rounded'] {
+  article.prose>div>div[class*='rounded'] {
     height: 565px !important;
   }
 }

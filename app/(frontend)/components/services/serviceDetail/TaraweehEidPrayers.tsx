@@ -1,16 +1,14 @@
-import React from 'react'
-import ServiceEventBanner from '../ServiceEventBanner';
-import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection';
-import ServiceDetailHero from '../ServiceDetailHero';
-import PrayerReminder from '../PrayerReminder';
-import EventMediaSection from '../EventMediaSection';
-import EidSalahSchedule from '../EidSalahSchedule';
-import ServiceQuote from '../ServiceQuote';
-import OtherServices from '../OtherServices';
 import AboutQuoteSection from '@/components/about/AboutQuoteSection';
+import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection';
 import { RichTextRenderer } from '@/components/common/RichTextRenderer';
+import { fetchServices, fetchGlobal } from '../../../../../lib/fetcher';
+import EidSalahSchedule from '../EidSalahSchedule';
 import LiveStreaming from '../LiveStreaming';
-import { fetchServices } from '../../../../../lib/fetcher';
+import OtherServices from '../OtherServices';
+import PrayerReminder from '../PrayerReminder';
+import ServiceDetailHero from '../ServiceDetailHero';
+import ServiceEventBanner from '../ServiceEventBanner';
+import ServiceQuote from '../ServiceQuote';
 
 // Helper to extract simple text from Payload Rich Text
 const extractTextFromRichText = (richText: any) => {
@@ -29,7 +27,7 @@ const extractTextFromRichText = (richText: any) => {
   return "";
 };
 
-const TaraweehEidPrayers = async ({ service, params, servicesPage }: { service: any, params: { id: string }, servicesPage: any }) => {
+const TaraweehEidPrayers = async ({ service, params }: { service: any, params: { id: string } }) => {
 
   // Fetch all services for the "Other Services" section
   const allServices = await fetchServices({
@@ -37,6 +35,10 @@ const TaraweehEidPrayers = async ({ service, params, servicesPage }: { service: 
     limit: 10,
     depth: 1
   });
+
+  const servicesPage = await fetchGlobal({
+    slug: "services-page",
+  }) as any;
 
   const title = service?.title || "";
   // Attempt to extract text for banner description
@@ -118,7 +120,8 @@ const TaraweehEidPrayers = async ({ service, params, servicesPage }: { service: 
           text: "Check Eid Salah Schedule",
           href: "#schedule",
         }}
-        className='pb-12 sm:pb-16 md:pb-20 lg:pb-21.5'
+        className='pb-10 sm:pb-12 md:pb-14 lg:pb-16 lg:!pt-16'
+        sectionMainStyle='section-padding'
       />
 
       {service.notifications?.enableNotifications && (
@@ -151,6 +154,7 @@ const TaraweehEidPrayers = async ({ service, params, servicesPage }: { service: 
         venueName={venueName}
         venueAddress={venueAddress}
         schedule={service.schedule?.regularTimes || []}
+        sectionContainer="section-padding"
       />
 
       <ServiceQuote
@@ -163,10 +167,11 @@ const TaraweehEidPrayers = async ({ service, params, servicesPage }: { service: 
           attribution: t.author
         })) || []}
         images={[
-          heroImage, 
+          heroImage,
           ...(service.media?.photoGallery?.map((img: any) => img.url) || []),
           ...(service.testimonials?.map((t: any) => t.photo?.url).filter(Boolean) || [])
         ].filter(Boolean)}
+        sectionContainer='section-padding'
       />
 
       <OtherServices services={allServices
@@ -177,6 +182,7 @@ const TaraweehEidPrayers = async ({ service, params, servicesPage }: { service: 
           slug: s.slug,
           cardImage: s.media?.cardImage
         }))}
+        sectionContainer="section-padding"
       />
       {/* <QuoteSection  */}
 

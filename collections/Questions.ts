@@ -142,14 +142,9 @@ export const Questions: CollectionConfig = {
             });
 
             if (emailSent) {
-              // Update the document to mark notification as sent
-              await req.payload.update({
-                collection: 'questions',
-                id: doc.id,
-                data: {
-                  notificationSent: true,
-                },
-              });
+              // Mark notification as sent directly on the doc
+              doc.notificationSent = true;
+              console.log(`✅ Question notification sent for ${doc.id}`);
             }
           } catch (error) {
             console.error('Error sending question notification:', error);

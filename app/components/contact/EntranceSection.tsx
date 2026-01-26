@@ -53,7 +53,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
         {/* Content Section */}
         <div className="max-w-[600px]">
           {/* Heading */}
-          <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-[48px] lg:leading-12 text-black mb-6 md:mb-8">
+          <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-[48px] lg:leading-12 text-black mb-6 md:mb-8 entrance-text">
             {title}
           </h2>
 
@@ -73,7 +73,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
             {/* Get Directions Button - Blue */}
             <button
               onClick={() => window.open(mapsUrl, "_blank")}
-              className="inline-flex items-center justify-center gap-1.5 px-5 lg:px-3 xl:px-5 py-3 bg-[#006FEE33] text-[#006FEE] text-sm md:text-base cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-5 lg:px-3 xl:px-6 py-3 bg-[#006FEE33] text-[#006FEE] text-sm md:text-base cursor-pointer"
             >
               <FiMap className="w-[18px] h-[18px]" color="#006FEE" />
               <span className="text-xs xl:text-base">Get Directions</span>
@@ -93,7 +93,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
                   width={20}
                   height={20}
                 />
-                <span className="text-sm xl:text-base text-black">
+                <span className="text-sm xl:text-base text-black whatsapp-group-label">
                   {whatsappGroupLabel}
                 </span>
               </button>

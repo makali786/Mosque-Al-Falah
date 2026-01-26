@@ -52,7 +52,7 @@ const ContactInformation = ({
             </div>
 
             {/* Contact Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-8">
               {/* Phone Button */}
               <button
                 onClick={() => (window.location.href = `tel:${phone.replace(/\s/g, "")}`)}
@@ -90,7 +90,7 @@ const ContactInformation = ({
           {/* Right Column - Map */}
           {mapEmbed && (
             <div
-              className="w-full h-[300px] lg:h-[392px]"
+              className="w-full h-[300px] lg:h-[392px] lg:w-[630px]"
               dangerouslySetInnerHTML={{ __html: mapEmbed }}
             />
           )}

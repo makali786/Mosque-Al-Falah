@@ -1,5 +1,5 @@
 
-import { fetchGlobal, fetchMediaItems } from "@lib/fetcher";
+import { fetchMediaItems, fetchGlobal } from "@lib/fetcher";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import BreadcrumbSearchSection from "../../components/common/BreadcrumbSearchSection";
@@ -19,11 +19,11 @@ interface MediaDetailPageProps {
 export default async function MediaDetailPage({ params }: MediaDetailPageProps) {
   const { slug } = await params;
 
+  // Fetch dynamic configuration from Payload global
   const mediaPageConfig: any = await fetchGlobal({
     slug: 'media-page',
     depth: 1,
   });
-
 
   // 1. Fetch Request for specific slug
   const mediaItems = await fetchMediaItems({
@@ -129,7 +129,7 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
               {embedUrl && isVideo ? (
                 <iframe
                   src={embedUrl}
-                  title={title || "Video player"}
+                  title={title || ""}
                   className="w-full h-full"
                   frameBorder="0"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"

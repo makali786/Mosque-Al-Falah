@@ -12,13 +12,15 @@ interface OtherService {
     url: string;
     alt?: string;
   };
+  sectionContainer?: string
 }
 
 interface OtherServicesProps {
   services?: OtherService[];
+  sectionContainer?: string
 }
 
-export default function OtherServices({ services = [] }: OtherServicesProps) {
+export default function OtherServices({ services = [], sectionContainer }: OtherServicesProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -68,7 +70,7 @@ export default function OtherServices({ services = [] }: OtherServicesProps) {
       </div>
 
       <div className="relative">
-        <div className="section-padding mb-8 sm:mb-12">
+        <div className={`mb-8 sm:mb-12 ${sectionContainer}`}>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white">
             Other Services
           </h2>

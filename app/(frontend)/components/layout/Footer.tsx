@@ -31,27 +31,17 @@ const FOOTER_LINKS = [
   { label: "Privacy policy", href: "/privacy" },
 ] as const;
 
-const STATIC_FOOTER_COLUMNS = [
-  {
-    title: "Educations",
-    links: [
-      { label: "Adult Classes", href: "/education/adult-classes" },
-      { label: "Children's Madrasah", href: "/education/madrasah" },
-      { label: "Educational Events", href: "/education/events" },
-      { label: "Youth Activities", href: "/education/youth" },
-    ],
-  },
-  {
-    title: "Donate",
-    links: [
-      { label: "Volunteer", href: "/donate/volunteer" },
-      { label: "Zakat", href: "/donate/zakat" },
-      { label: "Sadaqah", href: "/donate/sadaqah" },
-      { label: "Fidya/Kaffarah", href: "/donate/fidya" },
-      { label: "Lilah", href: "/donate/lilah" },
-    ],
-  },
-] as const;
+const EDUCATIONS_COLUMN = {
+  title: "Educations",
+  links: [
+    { label: "Adult Classes", href: "/education/adult-classes" },
+    { label: "Children's Madrasah", href: "/education/madrasah" },
+    { label: "Educational Events", href: "/education/events" },
+    { label: "Youth Activities", href: "/education/youth" },
+  ],
+};
+
+
 
 const CONTACT_INFO = [
   {
@@ -150,9 +140,8 @@ const SocialIcon = ({
 
 const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
   <svg
-    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${
-      isOpen ? "rotate-90" : ""
-    }`}
+    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${isOpen ? "rotate-90" : ""
+      }`}
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -179,7 +168,7 @@ const FooterColumn = ({
   isOpen,
   onToggle,
 }: FooterColumnProps) => (
-  <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-0 lg:py-9 w-full lg:w-auto xl:w-57.75">
+  <div className="flex flex-col h-full px-0 lg:px-2 xl:px-4 py-0 lg:py-9 w-full lg:w-auto xl:w-[232px]">
     <div
       className="flex items-center justify-between lg:block py-4 lg:py-0 border-b lg:border-0 border-gray-700 cursor-pointer lg:cursor-default"
       onClick={onToggle}
@@ -190,9 +179,8 @@ const FooterColumn = ({
       <ChevronIcon isOpen={isOpen} />
     </div>
     <div
-      className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${
-        isOpen ? "max-h-96 mt-4" : "max-h-0 lg:max-h-none"
-      }`}
+      className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-96 mt-4" : "max-h-0 lg:max-h-none"
+        }`}
     >
       <div className="flex flex-col gap-2 w-full">
         {links.map((link) => (
@@ -218,9 +206,9 @@ const ContactItem = ({
   text: string;
   href: string | null;
 }) => (
-  <div className="flex gap-2 lg:gap-2.5 py-0 lg:py-1 w-full min-w-0">
+  <div className="flex gap-2 lg:gap-2.5 py-0 lg:py-1 w-full max-w-[352px]">
     <div className="shrink-0 w-5 h-5 lg:w-6 lg:h-6 flex items-center justify-center relative">
-      <Image src={icon} alt="" fill className="object-contain" />
+      <Image src={icon} alt="contact-icon" fill className="object-contain" />
     </div>
     {href ? (
       <a
@@ -244,11 +232,18 @@ interface Service {
   isActive: boolean;
 }
 
+interface Appeal {
+  id: string;
+  title: string;
+  slug: string;
+  isActive: boolean;
+}
+
 export default function Footer() {
   const [email, setEmail] = useState("");
   const [openColumns, setOpenColumns] = useState<Record<string, boolean>>({});
   const [services, setServices] = useState<Service[]>([]);
-  const [footerColumns, setFooterColumns] = useState(STATIC_FOOTER_COLUMNS);
+  const [footerColumns, setFooterColumns] = useState<any[]>([EDUCATIONS_COLUMN]);
 
   // Dynamic donation data
   const [recentDonors, setRecentDonors] = useState(SUPPORTERS);
@@ -262,34 +257,57 @@ export default function Footer() {
     }));
   };
 
-  // Fetch services on component mount
+  // Fetch services and appeals on component mount
   useEffect(() => {
-    const fetchServices = async () => {
+    const fetchFooterData = async () => {
       try {
-        const response = await fetch('/api/services?limit=5&where[isActive][equals]=true');
-        if (response.ok) {
-          const data = await response.json();
-          setServices(data.docs || []);
+        const [servicesRes, appealsRes] = await Promise.all([
+          fetch('/api/services?limit=5&where[isActive][equals]=true'),
+          fetch('/api/donation-appeals?limit=5&where[isActive][equals]=true&sort=order')
+        ]);
 
-          // Build dynamic footer columns with services
+        let newColumns: any[] = [EDUCATIONS_COLUMN];
+
+        // Handle Services
+        if (servicesRes.ok) {
+          const servicesData = await servicesRes.json();
+          setServices(servicesData.docs || []);
+
           const serviceColumn = {
             title: "Services",
-            links: (data.docs || []).map((service: Service) => ({
+            links: (servicesData.docs || []).map((service: Service) => ({
               label: service.title,
               href: `/our-services/${service.slug}`
             }))
           };
-
-          setFooterColumns([serviceColumn, ...STATIC_FOOTER_COLUMNS]);
+          newColumns.unshift(serviceColumn);
         }
+
+        // Handle Appeals
+        if (appealsRes.ok) {
+          const appealsData = await appealsRes.json();
+          if (appealsData.docs && appealsData.docs.length > 0) {
+            const appealColumn = {
+              title: "Donate",
+              links: appealsData.docs.map((appeal: Appeal) => ({
+                label: appeal.title,
+                href: `/appeals/${appeal.slug}`
+              }))
+            };
+            newColumns.push(appealColumn);
+          }
+        }
+
+        setFooterColumns(newColumns);
+
       } catch (error) {
-        console.error('Failed to fetch services:', error);
-        // Fallback to static columns if fetch fails
-        setFooterColumns(STATIC_FOOTER_COLUMNS);
+        console.error('Failed to fetch footer data:', error);
+        // Fallback
+        setFooterColumns([EDUCATIONS_COLUMN]);
       }
     };
 
-    fetchServices();
+    fetchFooterData();
   }, []);
 
   // Fetch donation data
@@ -337,53 +355,53 @@ export default function Footer() {
           {/* Newsletter Section */}
           <div className="hn-container flex flex-col lg:flex-row gap-6 lg:gap-15 items-start lg:items-center justify-center p-4 sm:p-8 lg:px-17 lg:py-17 w-full">
             <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-109.75">
-            <h3 className="font-bold text-sm sm:text-base leading-6 text-white">
-              Stay Connected, Join our newsletter
-            </h3>
-            <div className="flex flex-col gap-4 sm:gap-6 w-full">
-              <div className="flex items-center w-full min-w-0">
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-[#27272a] flex-1 min-w-0 text-sm sm:text-base leading-6 text-[#d4d4d8] placeholder:text-[#d4d4d8] px-2 sm:px-3 py-2 min-h-10.5 shadow-sm outline-none"
-                />
-                <button className="bg-[#3f3f46] text-white font-normal text-xs sm:text-sm leading-5 h-10.5 w-25 shrink-0 hover:bg-[#52525b] transition-colors whitespace-nowrap cursor-pointer">
-                  Subscribe
-                </button>
-              </div>
-
-              <div className="flex gap-3 lg:gap-4 items-center flex-wrap">
-                {SOCIAL_LINKS.map((social) => (
-                  <SocialIcon key={social.name} {...social} />
-                ))}
-                <Link
-                  href="https://qiblafinder.withgoogle.com/intl/en/desktop"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center rounded-full shrink-0"
-                  aria-label="Qibla Finder"
-                >
-                  <Image
-                      src="/assets/common/qibla.svg"
-                    alt="Qibla"
-                    width={34}
-                    height={34}
-                    className="shrink-0"
+              <h3 className="font-bold text-sm sm:text-base leading-6 text-white">
+                Stay Connected, Join our newsletter
+              </h3>
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <div className="flex items-center w-full min-w-0">
+                  <input
+                    type="email"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-[#27272a] flex-1 min-w-0 text-sm sm:text-base leading-6 text-[#d4d4d8] placeholder:text-[#d4d4d8] px-2 sm:px-3 py-2 min-h-10.5 shadow-sm outline-none"
                   />
-                </Link>
+                  <button className="bg-[#3f3f46] text-white font-normal text-xs sm:text-sm leading-5 h-10.5 w-25 shrink-0 hover:bg-[#52525b] transition-colors whitespace-nowrap cursor-pointer">
+                    Subscribe
+                  </button>
+                </div>
+
+                <div className="flex gap-3 lg:gap-4 items-center flex-wrap">
+                  {SOCIAL_LINKS.map((social) => (
+                    <SocialIcon key={social.name} {...social} />
+                  ))}
+                  <Link
+                    href="https://qiblafinder.withgoogle.com/intl/en/desktop"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center rounded-full shrink-0"
+                    aria-label="Qibla Finder"
+                  >
+                    <Image
+                      src="/assets/common/qibla.svg"
+                      alt="Qibla"
+                      width={34}
+                      height={34}
+                      className="shrink-0"
+                    />
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Recent Supporters Section */}
-          <div className="flex flex-col gap-4 lg:gap-6 w-full lg:w-126.5">
-            <h3 className="font-bold text-base leading-6 text-white">
-              Recent supporters
-            </h3>
-            <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
-              <div className="flex flex-col gap-3 lg:gap-4 flex-1">
+            {/* Recent Supporters Section */}
+            <div className="flex flex-col gap-4 lg:gap-6 w-full lg:w-126.5">
+              <h3 className="font-bold text-base leading-6 text-white">
+                Recent supporters
+              </h3>
+              <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
+                <div className="flex flex-col gap-3 lg:gap-4 flex-1">
                   {isLoadingDonations ? (
                     <>
                       <SupporterSkeleton />
@@ -391,11 +409,11 @@ export default function Footer() {
                     </>
                   ) : (
                     recentDonors.slice(0, 2).map((supporter, idx) => (
-                    <SupporterCard key={supporter.id || idx} {...supporter} />
-                  ))
+                      <SupporterCard key={supporter.id || idx} {...supporter} />
+                    ))
                   )}
-              </div>
-              <div className="hidden lg:flex flex-col gap-4 flex-1">
+                </div>
+                <div className="hidden lg:flex flex-col gap-4 flex-1">
                   {isLoadingDonations ? (
                     <>
                       <SupporterSkeleton />
@@ -403,19 +421,19 @@ export default function Footer() {
                     </>
                   ) : (
                     recentDonors.slice(2).map((supporter, idx) => (
-                    <SupporterCard key={supporter.id || idx} {...supporter} />
-                  ))
+                      <SupporterCard key={supporter.id || idx} {...supporter} />
+                    ))
                   )}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Donations & Campaigns Section */}
-          <div className="flex flex-col gap-6 w-full lg:w-82">
-            <h3 className="font-bold text-base leading-6 text-white">
-              Donations & Campaigns
-            </h3>
-            <div className="flex items-center justify-between w-full">
+            {/* Donations & Campaigns Section */}
+            <div className="flex flex-col gap-6 w-full lg:w-82">
+              <h3 className="font-bold text-base leading-6 text-white">
+                Donations & Campaigns
+              </h3>
+              <div className="flex items-center justify-between w-full">
                 {isLoadingDonations ? (
                   <>
                     <StatsSkeleton />
@@ -425,25 +443,25 @@ export default function Footer() {
                 ) : (
                   donationStats.map((stat) => (
                     <StatsCard key={stat.label} {...stat} />
-                ))
+                  ))
                 )}
-            </div>
-            <div className="flex gap-5 w-full">
-              <Link
-                href="/discover"
-                  className="flex-1 bg-[#3f3f46] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
-              >
-                Discover
-              </Link>
-              <Link
-                href="/donate"
-                  className="flex-1 bg-[#006fee] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-xl hover:bg-[#0056cc] transition-colors"
-              >
-                Donate Now
-              </Link>
+              </div>
+              <div className="flex gap-5 w-full flex-wrap">
+                <Link
+                  href="/discover"
+                  className="w-full sm:w-fit bg-[#3f3f46] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
+                >
+                  Discover
+                </Link>
+                <Link
+                  href="/donate"
+                  className="w-full sm:w-fit bg-[#006fee] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-xl hover:bg-[#0056cc] transition-colors"
+                >
+                  Donate Now
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
         </div>
 
         {/* Middle Section - Links */}
@@ -462,7 +480,7 @@ export default function Footer() {
           </div>
 
           {/* Desktop: Logo & Copyright Section */}
-          <div className="hidden lg:flex flex-col gap-9 items-center px-2 xl:px-6 py-9 flex-1">
+          <div className="hidden lg:flex flex-col gap-9 items-center px-2 xl:px-4 py-9 lg:min-w-[352px] lg:max-w-[352px]">
             <div className="w-32 h-32">
               <Image
                 src="/assets/footer/footer-logo.png"
@@ -505,7 +523,7 @@ export default function Footer() {
           ))}
 
           {/* Contact Information Column */}
-          <div className="flex flex-col h-full px-0 lg:px-2 xl:px-6 py-4 lg:py-9 w-full lg:flex-1 lg:min-w-0">
+          <div className="flex flex-col h-full px-0 lg:px-2 xl:px-4 py-4 lg:py-9 w-full lg:flex-1 lg:min-w-0">
             <h4 className="font-bold text-base lg:text-lg leading-7 text-white mb-3 lg:mb-4">
               Contact information
             </h4>

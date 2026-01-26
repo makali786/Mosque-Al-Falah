@@ -12,20 +12,24 @@ interface ImpactGalleryProps {
     caption?: string;
     altText?: string;
   }[];
+  className?: string;
+  headerContainer?: string;
 }
 
 export function ImpactGallery({ 
   title = "Donation Impact Gallery", 
   description = "See how your generosity transforms our Masjid and community—one contribution at a time.", 
-  images 
+  images,
+  className,
+  headerContainer,
 }: ImpactGalleryProps) {
   if (!images || images.length === 0) return null;
 
   return (
-    <section className="section-padding py-16 sm:py-20 lg:py-24 bg-white">
+    <section className={`py-16 sm:py-20 lg:py-24 bg-white ${className}`}>
       <div className="flex flex-col gap-8 lg:gap-[60px]">
         {/* Header */}
-        <div className="flex flex-col gap-6 max-w-[594px]">
+        <div className={`flex flex-col gap-6 max-w-[594px] ${headerContainer}`}>
           <h2 className="text-3xl font-bold sm:text-5xl">
             {title}
           </h2>
@@ -66,15 +70,13 @@ export function ImpactGallery({
                 key={index} 
                 className={`relative overflow-hidden group ${gridClass}`}
               >
-                 {imageUrl ? (
+                {imageUrl && (
                     <Image
                         src={imageUrl}
                         alt={imageAlt}
                         fill
                         className="object-cover"
-                    />
-                 ) : (
-                    <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">Image</div>
+                  />
                  )}
                  {item.caption && (
                      <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/70 to-transparent text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">

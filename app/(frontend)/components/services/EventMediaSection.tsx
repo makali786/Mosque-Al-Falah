@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import { FaPlay } from "react-icons/fa";
+import Link from "next/link";
+import { useState } from "react";
+import GoogleMap from "../common/GoogleMap";
 import Separator from "../common/Separator";
 import Tabs from "../common/Tabs";
 import { DonorProfileCard } from "../donate/shared";
-import GoogleMap from "../common/GoogleMap";
 
 interface EventMediaSectionProps {
   title?: string;
@@ -22,7 +22,10 @@ interface EventMediaSectionProps {
   donationTitle?: string;
   donationDescription?: string;
   donationAmounts?: number[];
+  enableDonations?: boolean;
   className?: string;
+  containerStyle?: string;
+  leftColumnStyle?: string;
 }
 
 export default function EventMediaSection({
@@ -39,7 +42,10 @@ export default function EventMediaSection({
   donationTitle = "Donate",
   donationDescription = "",
   donationAmounts = [],
+  enableDonations = false,
   className = "",
+  containerStyle,
+  leftColumnStyle
 }: EventMediaSectionProps) {
   const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Video");
   const [donationAmount, setDonationAmount] = useState<number | "Other">(10);
@@ -84,11 +90,11 @@ export default function EventMediaSection({
 
   return (
     <section className={`w-full py-12 lg:py-16 bg-white ${className}`}>
-      <div className="section-padding">
+      <div className={`${containerStyle}`}>
         <div className="flex flex-col xl:flex-row gap-8 xl:gap-11">
 
           {/* Left Column: Media & Description */}
-          <div className="w-full xl:max-w-[735px] xl:max-h[412px] space-y-6">
+          <div className={`w-full xl:max-w-[735px] xl:max-h[412px] space-y-6 ${leftColumnStyle}`}>
 
             {/* Tabs */}
             <Tabs
@@ -97,6 +103,7 @@ export default function EventMediaSection({
               onChange={(tabId) => setActiveTab(tabId as any)}
               variant="pills"
               size="md"
+              className="w-fit !mb-9"
             />
 
             {/* Media Player Container */}
@@ -113,26 +120,26 @@ export default function EventMediaSection({
                 />
               ) : (
                 <>
-                    <Image
-                      src={videoThumbnail}
-                      alt={title}
-                      fill
-                      className="object-cover"
-                    />
+                  <Image
+                    src={videoThumbnail}
+                    alt={title}
+                    fill
+                    className="object-cover"
+                  />
 
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/20" />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/20" />
 
-                    {/* Live Badge */}
-                    {isLive && (
-                      <div className="absolute top-4 right-4 bg-white backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm z-10">
-                        <span className="relative flex h-2.5 w-2.5">
-                          <span className="absolute inline-flex h-full w-full rounded-lg bg-red-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
-                        </span>
-                        <span className="text-sm font-semibold text-[#18181B]">Live</span>
-                      </div>
-                    )}
+                  {/* Live Badge */}
+                  {isLive && (
+                    <div className="absolute top-4 right-4 bg-white backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm z-10">
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="absolute inline-flex h-full w-full rounded-lg bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
+                      </span>
+                      <span className="text-sm font-semibold text-[#18181B]">Live</span>
+                    </div>
+                  )}
                 </>
               )}
             </div>
@@ -187,48 +194,50 @@ export default function EventMediaSection({
             {/* <div className="h-px w-full bg-[#E4E4E7]" /> */}
 
             {/* Donate Section */}
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-semibold mb-2">{donationTitle}</h3>
-                <p className="text-sm text-[#3F3F46] mb-3">{donationDescription}</p>
-                <Separator />
-              </div>
+            {enableDonations && (
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">{donationTitle}</h3>
+                  <p className="text-sm text-[#3F3F46] mb-3">{donationDescription}</p>
+                  <Separator />
+                </div>
 
-              <div className="space-y-3">
-                <span className="text-xs font-medium text-[#52525B] ">Amount:</span>
-                <Tabs
-                  tabs={[
-                    ...amounts.map((amount) => ({
-                      id: String(amount),
-                      label: `£${amount}`
-                    })),
-                    { id: "Other", label: "Other" }
-                  ]}
-                  activeTab={String(donationAmount)}
-                  onChange={(tabId) => setDonationAmount(tabId === "Other" ? "Other" : Number(tabId))}
-                  variant="default"
-                  size="sm"
-                  className="!mt-3"
-                />
-              </div>
-
-              {/* Privacy / Profile */}
-              <div className="space-y-2">
-                <span className="text-xs font-medium text-[#52525B]">Your donation will appear as:</span>
-                <div className="mt-3">
-                  <DonorProfileCard
-                    donationAmount={typeof donationAmount === 'number' ? donationAmount : 35}
-                    showAmount={true}
-                    variant="compact"
+                <div className="space-y-3">
+                  <span className="text-xs font-medium text-[#52525B] ">Amount:</span>
+                  <Tabs
+                    tabs={[
+                      ...amounts.map((amount) => ({
+                        id: String(amount),
+                        label: `£${amount}`
+                      })),
+                      { id: "Other", label: "Other" }
+                    ]}
+                    activeTab={String(donationAmount)}
+                    onChange={(tabId) => setDonationAmount(tabId === "Other" ? "Other" : Number(tabId))}
+                    variant="default"
+                    size="sm"
+                    className="!mt-3"
                   />
                 </div>
-              </div>
-              {/* Donate Button */}
-              <button className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm cursor-pointer">
-                Donate
-              </button>
 
-            </div>
+                {/* Privacy / Profile */}
+                <div className="space-y-2">
+                  <span className="text-xs font-medium text-[#52525B]">Your donation will appear as:</span>
+                  <div className="mt-3">
+                    <DonorProfileCard
+                      donationAmount={typeof donationAmount === 'number' ? donationAmount : 35}
+                      showAmount={true}
+                      variant="compact"
+                    />
+                  </div>
+                </div>
+                {/* Donate Button */}
+                <Link href="/donate" className="py-3 px-4 bg-[#006FEE] text-white font-medium rounded-lg text-sm cursor-pointer">
+                  Donate
+                </Link>
+
+              </div>
+            )}
           </div>
         </div>
       </div>

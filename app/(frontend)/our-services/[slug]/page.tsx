@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { fetchGlobal, fetchServices } from "../../../../lib/fetcher"
 import NikaahMarriage from "@/components/services/serviceDetail/NikaahMarriage";
 import TaraweehEidPrayers from "@/components/services/serviceDetail/TaraweehEidPrayers";
+import StandardServiceDetail from "@/components/services/serviceDetail/StandardServiceDetail";
 
 export default async function ServiceDetailPage(props: {
   params: Promise<{ slug: string }>;
@@ -32,7 +33,7 @@ export default async function ServiceDetailPage(props: {
 
 
   const serviceDetail: any = {
-    ...serviceData, 
+    ...serviceData,
     quote: serviceData.testimonials?.[0] ? {
       text: serviceData.testimonials[0].quote,
       attribution: `${serviceData.testimonials[0].author} ${serviceData.testimonials[0].authorTitle || ''}`.trim(),
@@ -46,11 +47,11 @@ export default async function ServiceDetailPage(props: {
   return (
     <div className="bg-white">
       {serviceData.slug === "nikkah-marriage" ? (
-        <NikaahMarriage service={serviceDetail} params={componentParams} servicesPage={servicesPage} />
+        <NikaahMarriage service={serviceDetail} params={componentParams} />
       ) : serviceData.slug === "taraweeh-eid-prayers" ? (
-          <TaraweehEidPrayers service={serviceDetail} params={componentParams} servicesPage={servicesPage} />
+        <TaraweehEidPrayers service={serviceDetail} params={componentParams} />
       ) : (
-            <TaraweehEidPrayers service={serviceDetail} params={componentParams} servicesPage={servicesPage} />
+        <StandardServiceDetail service={serviceDetail} params={componentParams} />
       )}
     </div>
   );

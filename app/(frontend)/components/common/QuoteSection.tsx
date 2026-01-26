@@ -21,7 +21,7 @@ export function QuoteSection({
   onDonate,
   shareButtonText = "Share this page",
   donateButtonText = "Donate Now",
-  donateButtonUrl,
+  donateButtonUrl = "/donate",
   shareData,
   backgroundColor = "#f4f4f5",
 }: QuoteSectionProps) {
@@ -70,9 +70,9 @@ export function QuoteSection({
           {(onShare || shareData) && (
             <button
               onClick={handleShare}
-              className="flex items-center justify-center h-10 sm:h-11 md:h-12 lg:h-12 px-4 sm:px-5 md:px-6 lg:px-6 bg-[#3f3f46] hover:bg-[#52525b] text-white rounded-md sm:rounded-lg lg:rounded-lg transition-colors cursor-pointer"
+              className="flex items-center justify-center px-4 sm:px-6 lg:px-6 py-3 bg-[#3f3f46] hover:bg-[#52525b] text-white rounded-lg cursor-pointer"
             >
-              <span className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-6">
+              <span className="text-sm sm:text-base">
                 {shareButtonText}
               </span>
             </button>
@@ -80,11 +80,9 @@ export function QuoteSection({
           {(onDonate || donateButtonUrl) && (
             <button
               onClick={handleDonate}
-              className="flex items-center justify-center h-10 sm:h-11 md:h-12 lg:h-12 px-4 sm:px-5 md:px-6 lg:px-6 bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg sm:rounded-xl lg:rounded-xl transition-colors cursor-pointer"
+              className="flex items-center justify-center text-sm md:text-base px-4 sm:px-5 md:px-6 lg:px-6 py-3 bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg cursor-pointer"
             >
-              <span className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-6">
-                {donateButtonText}
-              </span>
+              {donateButtonText}
             </button>
           )}
         </div>

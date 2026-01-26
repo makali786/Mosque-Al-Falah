@@ -97,7 +97,7 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                     { label: "Our Services", href: "/services" },
                     { label: title, href: `/our-services/${params.id}` },
                 ]}
-                className="pb-0! pt-6! sm:pt-8! lg:pt-16! bg-white section-padding"
+                className="pb-0! pt-6! sm:pt-8! bg-white section-padding"
                 showSearch={false}
                 breadcrumbsItemsStyle={"flex-wrap"}
             />
@@ -113,7 +113,7 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                         {service.fullDescription ? (
                             <RichTextRenderer content={service.fullDescription} />
                         ) : (
-                            <p></p>
+                                <p></p>
                         )}
                     </div>
                 }
@@ -127,7 +127,6 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 imageWidth={420}
                 sectionImageStyle="lg:!max-w-[420px] lg:!max-h-[396px]"
                 sectionMainStyle="section-padding"
-                className='lg:!pt-16'
             />
 
             <EventMediaSection
@@ -138,8 +137,6 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 isLive={service.media?.isLive}
                 venueName={service.venue?.venueName}
                 venueAddress={service.venue?.fullAddress}
-                venueLatitude={service.venue?.coordinates?.latitude}
-                venueLongitude={service.venue?.coordinates?.longitude}
                 venueMapsLink={service.venue?.googleMapsLink}
                 donationTitle={service.donation?.donationTitle}
                 donationDescription={service.donation?.donationDescription}
@@ -169,9 +166,9 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 sectionContainer="section-padding"
             />
             <AboutQuoteSection
-                quote={servicesPage.bottomQuote?.quoteText || ""}
-                attribution={servicesPage.bottomQuote?.author || ""}
-                donateButtonUrl={servicesPage.donation?.donateButtonUrl || "/donate"}
+                quote={"“Whoever guides someone to goodness will have a reward like the one who did it.”"}
+                attribution={"— Prophet Muhammad ﷺ"}
+                donateButtonUrl={"/donate"}
             />
 
         </div>

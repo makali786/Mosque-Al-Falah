@@ -53,20 +53,19 @@ export default async function EventPage({ params }: EventPageProps) {
 
   // Fetch Related/Upcoming Events (exclude current)
   const relatedEvents = await fetchEvents({
-      limit: 3,
-      sort: "timing.startDate",
-      where: {
-          id: { not_equals: eventData.id },
-          "timing.startDate": { greater_than: new Date().toISOString() }
-      }
+    sort: "timing.startDate",
+    where: {
+      id: { not_equals: eventData.id },
+      "timing.startDate": { greater_than: new Date().toISOString() }
+    }
   });
 
 
   return (
-    <EventDetailClient 
-        event={eventData} 
-        config={eventPageConfig} 
-        relatedEvents={relatedEvents}
+    <EventDetailClient
+      event={eventData}
+      config={eventPageConfig}
+      relatedEvents={relatedEvents}
     />
   );
 }

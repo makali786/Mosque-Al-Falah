@@ -220,12 +220,12 @@ export default function ServiceEventBanner({
 
               {/* Description */}
             </div>
-            <p className="text-sm sm:text-base md:text-lg text-white w-full md:max-w-78.75 line-clamp-4">
+            <p className="text-sm sm:text-base text-white w-full md:max-w-78.75 line-clamp-4">
               {description}
             </p>
-            
+
           </div>
-          
+
           {/* Separator - Only visible on XL screens */}
           <div className="hidden xl:flex xl:self-stretch px-8.5">
             <Separator orientation="vertical" className="w-px h-full" color="#FFFFFF26" thickness={1} />
@@ -238,7 +238,7 @@ export default function ServiceEventBanner({
             ) : (
               <>
                 {countdownLabel && (
-                    <p className="text-sm text-start sm:text-base text-white font-semibold mb-3 sm:mb-4 sm:text-center">
+                  <p className="text-sm text-start sm:text-base text-white font-semibold mb-3 sm:mb-4 sm:text-center">
                     {countdownLabel}
                   </p>
                 )}

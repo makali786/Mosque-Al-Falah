@@ -18,6 +18,7 @@ export default function PrayerTimesWrapper({
 }: PrayerTimesWrapperProps) {
   const [activeTab, setActiveTab] = useState<"prayer-time" | "calendar">("prayer-time");
   const [isDownloadOpen, setIsDownloadOpen] = useState(false);
+  const [isRamadanDownloadOpen, setIsRamadanDownloadOpen] = useState(false);
   const [calendarYear, setCalendarYear] = useState(new Date().getFullYear());
 
   // Get year from prayer times for download button
@@ -58,6 +59,52 @@ export default function PrayerTimesWrapper({
     } catch (error) {
       console.error("Export failed:", error);
       alert("Failed to export prayer times. Please try again.");
+    }
+  };
+
+  const handleRamadanExport = async (format: ExportFormat) => {
+    setIsRamadanDownloadOpen(false);
+
+    // Filter prayer times for the selected year
+    const yearData = initialPrayerTimes.filter((pt) => {
+      const date = new Date(pt.date);
+      return date.getFullYear() === displayYear;
+    });
+
+    // Filter for Ramadan
+    const ramadanData = yearData.filter((pt) => {
+      if (!pt.hijriDate) return false;
+      const parts = pt.hijriDate.trim().split(" ");
+      // parts[1] is month index (1-based), Ramadan is the 9th month
+      return parseInt(parts[1]) === 9;
+    });
+
+    if (ramadanData.length === 0) {
+      alert(`No Ramadan prayer times available for ${displayYear}`);
+      return;
+    }
+
+    const title = `Ramadan Timetable ${displayYear}`;
+    const fileName = `ramadan-timetable-${displayYear}`;
+
+    try {
+      switch (format) {
+        case "pdf":
+          await exportToPDF(ramadanData, displayYear, title, `${fileName}.pdf`);
+          break;
+        case "csv":
+          exportToCSV(ramadanData, displayYear, `${fileName}.csv`);
+          break;
+        case "ical":
+          exportToICal(ramadanData, displayYear, `${fileName}.ics`);
+          break;
+        case "json":
+          exportToJSON(ramadanData, displayYear, `${fileName}.json`);
+          break;
+      }
+    } catch (error) {
+      console.error("Ramadan export failed:", error);
+      alert("Failed to export Ramadan timetable. Please try again.");
     }
   };
 
@@ -137,9 +184,43 @@ export default function PrayerTimesWrapper({
             )}
           </div>
 
-          <button className="bg-[#27272A] text-white px-6 py-3 rounded-lg text-base cursor-pointer hover:bg-[#18181B] transition-colors">
-            Ramadan Timetable
-          </button>
+          <div className="relative">
+            <button
+              onClick={() => setIsRamadanDownloadOpen(!isRamadanDownloadOpen)}
+              className="bg-[#27272A] text-white px-6 py-3 rounded-lg text-base cursor-pointer hover:bg-[#18181B] transition-colors flex items-center gap-2"
+            >
+              <span>Ramadan Timetable</span>
+              <IoChevronDown
+                className={`w-4 h-4 transition-transform ${isRamadanDownloadOpen ? "rotate-180" : ""
+                  }`}
+              />
+            </button>
+
+            {/* Ramadan Dropdown Menu */}
+            {isRamadanDownloadOpen && (
+              <>
+                {/* Backdrop */}
+                <div
+                  className="fixed inset-0 z-10"
+                  onClick={() => setIsRamadanDownloadOpen(false)}
+                />
+
+                {/* Dropdown */}
+                <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg py-2 min-w-[220px] z-20 border border-gray-200">
+                  {exportOptions.map(({ format, label, icon: Icon }) => (
+                    <button
+                      key={format}
+                      onClick={() => handleRamadanExport(format)}
+                      className="w-full px-4 py-3 text-left hover:bg-gray-100 transition-colors flex items-center gap-3 text-sm"
+                    >
+                      <Icon className="w-5 h-5 text-[#006FEE]" />
+                      <span className="text-[#18181B] font-medium">{label}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
