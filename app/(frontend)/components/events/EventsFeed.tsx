@@ -10,6 +10,7 @@ import Tabs from "../common/Tabs";
 interface EventsFeedProps {
   initialEvents: EventInterface[];
   pageData: {
+    // ... existing properties
     pageHeader: {
       pageTitle: string;
       breadcrumb: string;
@@ -65,9 +66,10 @@ interface EventsFeedProps {
       noSearchResults: string;
     };
   };
+  onSubmit?: (data: any) => Promise<void>;
 }
 
-export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps) {
+export default function EventsFeed({ initialEvents, pageData, onSubmit }: EventsFeedProps) {
   const { filterOptions, viewOptions, gridSettings, emptyStates, defaultSettings, requestForm } = pageData;
 
   const dateInputRef = useRef<HTMLInputElement>(null);
@@ -293,7 +295,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
               sectionTitle={requestForm.sectionTitle}
               description={requestForm.description}
               formFields={requestForm.formFields}
-              onSubmit={(data) => console.log("Form submitted:", data)}
+              onSubmit={onSubmit}
             />
           </div>
         )}
