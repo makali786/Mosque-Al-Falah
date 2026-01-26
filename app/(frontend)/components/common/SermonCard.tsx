@@ -56,16 +56,14 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
    const guestSpeaker = sermon.guestSpeaker;
    const useGuest = !!(guestSpeaker?.name);
 
-   const authorName = (useGuest ? guestSpeaker!.name : sermon.author?.name) || "Unknown";
+   const authorName = (useGuest ? guestSpeaker!.name : sermon.author?.name) || "";
    const authorRole = (useGuest ? guestSpeaker!.title : sermon.author?.role) || "";
 
-   const rawAvatar = useGuest ? guestSpeaker!.avatar : sermon.author?.avatar;
-   const authorAvatar = (typeof rawAvatar === 'object' && rawAvatar !== null && 'url' in rawAvatar)
-      ? rawAvatar.url
-      : (typeof rawAvatar === 'string' ? rawAvatar : null);
-
+   const rawAuthorAvatar = useGuest ? sermon.guestSpeaker?.avatar : sermon.author?.avatar;
+   const authorAvatar = typeof rawAuthorAvatar === 'string'
+      ? rawAuthorAvatar
+      : getMediaUrl(rawAuthorAvatar as unknown as Media);
    const authorInitials = (!useGuest && sermon.author?.initials) || (authorName.substring(0, 2).toUpperCase());
-
    const videoUrl = sermon.videoUrl || "";
    const slug = sermon.slug || sermon.id;
 
@@ -215,7 +213,7 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
                            alt={authorName}
                            width={40}
                            height={40}
-                           className="object-contain"
+                           className="object-cover w-full h-full"
                         />
                      </div>
                   ) : (
