@@ -135,7 +135,7 @@ export default function EventsFeed({ initialEvents, pageData }: EventsFeedProps)
         <BreadcrumbSearchSection
           breadcrumbs={breadcrumbs}
           showSearch={false}
-          className="section-padding"
+          className="section-padding lg:!pt-12"
         />
       )}
 
