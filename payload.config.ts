@@ -51,6 +51,7 @@ import { ServicesPage } from './globals/ServicesPage';
 
 // Prayer Time Settings
 import { PrayerTimeSettings } from './globals/PrayerTimeSettings';
+import { PrayerTimesPage } from './globals/PrayerTimesPage';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -121,6 +122,7 @@ export default buildConfig({
     HomePage,
     MadrasahPage,
     MediaPage,
+    PrayerTimesPage,
     SermonsPage,
     ServicesPage,
 
