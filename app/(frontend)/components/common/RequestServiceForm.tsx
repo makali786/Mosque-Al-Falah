@@ -22,7 +22,7 @@ interface RequestServiceFormProps {
   /**
    * Optional callback when form is submitted
    */
-  onSubmit?: (data: FormData) => void;
+  onSubmit?: (data: FormData) => void | Promise<void>;
 
   sectionTitle?: string;
   description?: string;
@@ -53,6 +53,7 @@ export default function RequestServiceForm({
     commentLabel = "Comments",
     submitButtonText = "Submit",
   } = formFields;
+
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -60,18 +61,33 @@ export default function RequestServiceForm({
     comments: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (onSubmit) {
-      onSubmit(formData);
+    if (!onSubmit) return;
+
+    setStatus('submitting');
+    setErrorMessage("");
+
+    try {
+      await onSubmit(formData);
+      setStatus('success');
+      // Reset form after successful submission
+      setFormData({
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+        comments: "",
+      });
+      // Reset status after 3 seconds
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setStatus('error');
+      setErrorMessage("Something went wrong. Please try again.");
     }
-    // Reset form after submission
-    setFormData({
-      fullName: "",
-      email: "",
-      phoneNumber: "",
-      comments: "",
-    });
   };
 
   const handleChange = (
@@ -129,7 +145,8 @@ export default function RequestServiceForm({
                       onChange={handleChange}
                       placeholder={fullNamePlaceholder}
                       required
-                      className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0"
+                      disabled={status === 'submitting'}
+                      className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0 disabled:opacity-50"
                     />
                   </div>
                 </div>
@@ -159,7 +176,8 @@ export default function RequestServiceForm({
                       onChange={handleChange}
                       placeholder={emailPlaceholder}
                       required
-                      className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0"
+                      disabled={status === 'submitting'}
+                      className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0 disabled:opacity-50"
                     />
                   </div>
                 </div>
@@ -186,7 +204,8 @@ export default function RequestServiceForm({
                     value={formData.phoneNumber}
                     onChange={handleChange}
                     placeholder={phonePlaceholder}
-                    className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0"
+                    disabled={status === 'submitting'}
+                    className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none w-full shrink-0 disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -211,19 +230,33 @@ export default function RequestServiceForm({
                   onChange={handleChange}
                   rows={2}
                   placeholder="Enter your comments"
-                  className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none resize-none w-full shrink-0"
+                  disabled={status === 'submitting'}
+                  className="font-normal leading-5 text-sm text-[#11181C] placeholder:text-[#71717A] bg-transparent outline-none resize-none w-full shrink-0 disabled:opacity-50"
                 />
               </div>
             </div>
           </div>
         </div>
 
+        {/* Messages */}
+        {status === 'success' && (
+          <div className="text-green-600 text-sm font-medium">
+            Request submitted successfully! We will contact you soon.
+          </div>
+        )}
+        {status === 'error' && (
+          <div className="text-red-600 text-sm font-medium">
+            {errorMessage}
+          </div>
+        )}
+
         {/* Submit Button */}
         <button
           type="submit"
-          className="bg-[#006FEE] text-white text-sm lg:text-base flex w-fit items-center justify-center px-6 py-3 rounded-xl shrink-0 hover:bg-[#005fd4] transition-colors cursor-pointer"
+          disabled={status === 'submitting'}
+          className="bg-[#006FEE] text-white text-sm lg:text-base flex w-fit items-center justify-center px-6 py-3 rounded-xl shrink-0 hover:bg-[#005fd4] transition-colors cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          {submitButtonText}
+          {status === 'submitting' ? 'Submitting...' : submitButtonText}
         </button>
       </form>
     </div>
