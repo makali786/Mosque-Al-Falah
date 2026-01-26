@@ -465,7 +465,7 @@ export default function Footer() {
         </div>
 
         {/* Middle Section - Links */}
-        <div className="flex flex-col lg:flex-row items-start py-0 w-full hn-container ">
+        <div className="flex flex-col lg:flex-row lg:flex-wrap items-start py-0 w-full hn-container ">
           {/* Mobile: Logo */}
           <div className="flex flex-col items-center gap-6 py-8 lg:hidden w-full hn-container ">
             <div className="w-24 h-24">
