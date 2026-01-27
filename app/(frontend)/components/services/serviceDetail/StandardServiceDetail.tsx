@@ -135,7 +135,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
 
     const blocks = getServiceBlocks(service.contentBlocks);
 
-    console.log("blocks", blocks);
+    console.log("service.media?.photoGallery", service.media?.photoGallery);
 
     return (
         <div>
@@ -193,6 +193,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 title={mediaTitle}
                 description={service.media?.mediaDescription || ""}
                 videoThumbnail={heroImage}
+                photos={service.media?.photoGallery?.map((item: any) => item.photo?.url).filter(Boolean) || []}
                 videoUrl={mediaVideoUrl}
                 isLive={isLive}
                 venueName={service.venue?.venueName}
@@ -298,7 +299,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 })) || []}
                 images={[
                     heroImage,
-                    ...(service.media?.photoGallery?.map((img: any) => img.url) || []),
+                    ...(service.media?.photoGallery?.map((item: any) => item.photo?.url).filter(Boolean) || []),
                     ...(service.testimonials?.map((t: any) => t.photo?.url).filter(Boolean) || [])
                 ].filter(Boolean)}
                 sectionContainer='hn-container'
