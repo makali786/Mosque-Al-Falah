@@ -128,17 +128,17 @@ export default function AudioPlayer({
   // Conditional styles based on variant
   const containerStyles = variant === 'dark'
     ? 'bg-black/30 border-0'
-    : 'bg-white border border-[#E4E4E7] shadow-sm';
+    : 'bg-gradient-to-br from-white to-gray-50/50 border border-[#E4E4E7] shadow-lg';
 
   const buttonStyles = variant === 'dark'
-    ? 'w-10 h-10 bg-white hover:bg-gray-100'
-    : 'w-14 h-14 bg-[#006FEE] hover:bg-[#0062D1] shadow-md';
+    ? 'w-12 h-12 sm:w-14 sm:h-14 bg-white hover:bg-gray-100 shadow-lg'
+    : 'w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#006FEE] to-[#0062D1] hover:from-[#0062D1] hover:to-[#0052B1] shadow-xl hover:shadow-2xl';
 
   const iconColor = variant === 'dark' ? 'black' : 'white';
 
   const timeStyles = variant === 'dark'
     ? 'text-xs text-[#a7a7a7]'
-    : 'text-sm font-medium text-[#52525B]';
+    : 'text-sm font-semibold text-[#71717A]';
 
   const seekbarBgStyles = variant === 'dark'
     ? 'bg-white/30'
@@ -146,14 +146,14 @@ export default function AudioPlayer({
 
   const seekbarProgressStyles = variant === 'dark'
     ? 'bg-white'
-    : 'bg-[#006FEE]';
+    : 'bg-gradient-to-r from-[#006FEE] to-[#0080FF]';
 
   const navButtonStyles = variant === 'dark'
     ? 'w-8 h-8 hover:bg-white/10'
     : 'w-10 h-10 hover:bg-gray-100';
 
   return (
-    <div className={`${containerStyles} rounded-[14px] p-6 sm:p-8 flex flex-col gap-6 w-full relative ${className}`}>
+    <div className={`${containerStyles} rounded-[20px] p-8 sm:p-10 flex flex-col gap-8 w-full relative ${className}`}>
       {/* Hidden native audio element */}
       <audio
         ref={audioRef}
@@ -162,13 +162,13 @@ export default function AudioPlayer({
       />
 
       {/* Controls */}
-      <div className="flex items-center justify-center gap-6 w-full">
+      <div className="flex items-center justify-center gap-8 w-full">
         {showPreviousNext && (
-          <div className="flex-1 flex justify-end gap-3">
+          <div className="flex-1 flex justify-end gap-4">
             <button
               onClick={onPrevious}
               disabled={!onPrevious}
-              className={`${navButtonStyles} flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full transition-colors`}
+              className={`${navButtonStyles} flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full transition-all duration-200`}
             >
               <Image
                 src="/assets/ayat/previous.svg"
@@ -184,14 +184,14 @@ export default function AudioPlayer({
         <button
           onClick={handlePlayPause}
           disabled={!isReady}
-          className={`${buttonStyles} rounded-full flex items-center justify-center cursor-pointer transition-colors ${!isReady ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`${buttonStyles} rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105 active:scale-95 ${!isReady ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isPlaying ? (
-            <FaPause className={variant === 'dark' ? 'text-black w-5 h-5' : 'text-white w-5 h-5'} />
+            <FaPause className={variant === 'dark' ? 'text-black w-5 h-5 sm:w-6 sm:h-6' : 'text-white w-6 h-6 sm:w-7 sm:h-7'} />
           ) : (
             <svg
-              width="20"
-              height="24"
+              width={variant === 'dark' ? '20' : '24'}
+              height={variant === 'dark' ? '24' : '28'}
               viewBox="0 0 20 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -209,11 +209,11 @@ export default function AudioPlayer({
         </button>
 
         {showPreviousNext && (
-          <div className="flex-1 flex gap-3">
+          <div className="flex-1 flex gap-4">
             <button
               onClick={onNext}
               disabled={!onNext}
-              className={`${navButtonStyles} flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full transition-colors`}
+              className={`${navButtonStyles} flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full transition-all duration-200`}
             >
               <Image
                 src="/assets/ayat/next.svg"
@@ -228,14 +228,20 @@ export default function AudioPlayer({
       </div>
 
       {/* Seekbar */}
-      <div className="flex items-center gap-3 sm:gap-4 w-full">
-        <span className={`${timeStyles} min-w-[40px] text-left whitespace-nowrap`}>
+      <div className="flex items-center gap-4 sm:gap-5 w-full">
+        <span className={`${timeStyles} min-w-[45px] text-left whitespace-nowrap tabular-nums`}>
           {formatTime(currentTime)}
         </span>
-        <div className={`flex-1 h-2 ${seekbarBgStyles} rounded-full relative`}>
+        <div className={`flex-1 h-2.5 ${seekbarBgStyles} rounded-full relative group cursor-pointer`}>
+          {/* Progress bar */}
           <div
-            className={`absolute top-0 left-0 h-full ${seekbarProgressStyles} rounded-full pointer-events-none transition-all`}
+            className={`absolute top-0 left-0 h-full ${seekbarProgressStyles} rounded-full pointer-events-none transition-all duration-150 shadow-sm`}
             style={{ width: `${played * 100}%` }}
+          />
+          {/* Thumb/Handle */}
+          <div
+            className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 ${variant === 'dark' ? 'bg-white' : 'bg-[#006FEE]'} rounded-full pointer-events-none transition-all duration-150 shadow-md opacity-0 group-hover:opacity-100`}
+            style={{ left: `calc(${played * 100}% - 8px)` }}
           />
           <input
             type="range"
@@ -249,14 +255,14 @@ export default function AudioPlayer({
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
           />
         </div>
-        <span className={`${timeStyles} min-w-[40px] text-right whitespace-nowrap`}>
+        <span className={`${timeStyles} min-w-[45px] text-right whitespace-nowrap tabular-nums`}>
           {formatTime(duration)}
         </span>
       </div>
 
       {/* Error Message */}
       {error && (
-        <div className="text-sm text-red-500 text-center">
+        <div className="text-sm text-red-500 text-center font-medium">
           {error}
         </div>
       )}
