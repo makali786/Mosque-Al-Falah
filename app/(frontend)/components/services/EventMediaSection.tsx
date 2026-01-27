@@ -8,12 +8,14 @@ import Separator from "../common/Separator";
 import Tabs from "../common/Tabs";
 import { DonorProfileCard } from "../donate/shared";
 import GalleryCarousel from "../common/GalleryCarousel";
+import AudioPlayer from "../common/AudioPlayer";
 
 interface EventMediaSectionProps {
   title?: string;
   description?: string;
   videoThumbnail?: string;
   photos?: string[];
+  audioUrl?: string; // Added audioUrl
   videoUrl?: string; // Added videoUrl
   isLive?: boolean; // Added isLive
   venueName?: string;
@@ -35,6 +37,7 @@ export default function EventMediaSection({
   description = "",
   videoThumbnail = "/assets/placeholder.png",
   photos = [], // Added photos prop
+  audioUrl = "", // Added audioUrl prop
   videoUrl = "",
   isLive = false,
   venueName = "",
@@ -90,6 +93,11 @@ export default function EventMediaSection({
   };
 
   const embedUrl = getEmbedUrl(videoUrl);
+
+  // Construct full audio URL if it's a relative path
+  const fullAudioUrl = audioUrl && audioUrl.startsWith('/')
+    ? `${typeof window !== 'undefined' ? window.location.origin : ''}${audioUrl}`
+    : audioUrl;
 
   return (
     <section className={`w-full py-12 lg:py-16 bg-white ${className}`}>
@@ -154,8 +162,14 @@ export default function EventMediaSection({
             )}
 
             {activeTab === 'Audio' && (
-              <div className="relative w-full aspect-video rounded-[14px] overflow-hidden bg-gray-100 flex items-center justify-center">
-                <p className="text-gray-400">Audio not available</p>
+              <div className="w-full">
+                {fullAudioUrl ? (
+                  <AudioPlayer audioUrl={fullAudioUrl} showPreviousNext={false} />
+                ) : (
+                  <div className="relative w-full aspect-video rounded-[14px] overflow-hidden bg-gray-100 flex items-center justify-center">
+                    <p className="text-gray-400">Audio not available</p>
+                  </div>
+                )}
               </div>
             )}
 

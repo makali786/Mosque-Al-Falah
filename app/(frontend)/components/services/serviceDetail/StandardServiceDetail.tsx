@@ -194,6 +194,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 description={service.media?.mediaDescription || ""}
                 videoThumbnail={heroImage}
                 photos={service.media?.photoGallery?.map((item: any) => item.photo?.url).filter(Boolean) || []}
+                audioUrl={service.media?.audioUrl}
                 videoUrl={mediaVideoUrl}
                 isLive={isLive}
                 venueName={service.venue?.venueName}

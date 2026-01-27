@@ -135,6 +135,7 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 description="Join us via live stream and immerse yourself in the spiritual atmosphere."
                 videoThumbnail={heroImage}
                 videoUrl={service.media?.videoUrl}
+                audioUrl={service.media?.audioFiles?.[0]?.audioFile?.url}
                 photos={service.media?.photoGallery?.map((item: any) => item.photo?.url).filter(Boolean) || []}
                 isLive={service.media?.isLive}
                 venueName={service.venue?.venueName}
