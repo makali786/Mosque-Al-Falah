@@ -12,7 +12,7 @@ interface TabsProps {
   tabs: Tab[];
   activeTab: string;
   onChange: (tabId: string) => void;
-  variant?: "default" | "pills" | "underline";
+  variant?: "default" | "pills" | "underline" | "clean";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   className?: string;
@@ -43,6 +43,13 @@ export default function Tabs({
           active: "border-[#006FEE] text-[#006FEE]",
           inactive: "border-transparent text-[#71717A] hover:text-[#18181B]",
         };
+      case "clean":
+        return {
+          container: "flex flex-wrap items-center gap-6",
+          tab: "transition-all cursor-pointer",
+          active: "text-[#006FEE] font-medium",
+          inactive: "text-[#71717A] hover:text-[#18181B]",
+        };
       default:
         return {
           container: "flex flex-wrap items-center gap-2",
@@ -58,21 +65,21 @@ export default function Tabs({
       case "sm":
         return variant === "pills"
           ? "px-3 py-1 text-sm rounded-lg"
-          : variant === "underline"
-          ? "px-2 py-2 text-sm"
-          : "px-3 py-1.5 text-sm rounded-lg";
+          : variant === "underline" || variant === "clean"
+            ? "px-2 py-2 text-sm"
+            : "px-3 py-1.5 text-sm rounded-lg";
       case "lg":
         return variant === "pills"
           ? "px-5 py-2.5 text-base rounded-lg"
-          : variant === "underline"
-          ? "px-4 py-3 text-base"
-          : "px-5 py-3 text-base rounded-xl";
+          : variant === "underline" || variant === "clean"
+            ? "px-4 py-3 text-base"
+            : "px-5 py-3 text-base rounded-xl";
       default:
         return variant === "pills"
           ? "px-3 py-1 text-base rounded-lg"
-          : variant === "underline"
-          ? "px-3 py-2.5 text-base"
-          : "px-4 py-2 text-base rounded-lg";
+          : variant === "underline" || variant === "clean"
+            ? "px-3 py-2.5 text-base"
+            : "px-4 py-2 text-base rounded-lg";
     }
   };
 
@@ -88,9 +95,8 @@ export default function Tabs({
         <button
           key={tab.id}
           onClick={() => onChange(tab.id)}
-          className={`${sizeStyles} ${styles.tab} ${
-            activeTab === tab.id ? styles.active : styles.inactive
-          } ${fullWidth ? 'flex-1' : ''} flex items-center justify-center gap-2`}
+          className={`${sizeStyles} ${styles.tab} ${activeTab === tab.id ? styles.active : styles.inactive
+            } ${fullWidth ? 'flex-1' : ''} flex items-center justify-center gap-2`}
           role="tab"
           aria-selected={activeTab === tab.id}
           aria-controls={`tabpanel-${tab.id}`}

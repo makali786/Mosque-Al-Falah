@@ -26,8 +26,8 @@ export default function MadrasahClasses({
   sectionTitle = "Classes"
 }: MadrasahClassesProps) {
   return (
-    <section className="w-full bg-white py-12 sm:py-16 md:py-20">
-      <div className="section-padding flex flex-col gap-8 md:gap-12">
+    <section className="w-full bg-white py-8 sm:py-10 md:py-12">
+      <div className="section-padding flex flex-col gap-8 md:gap-13">
         <div className="flex flex-col gap-4">
           <h2 className="text-4xl font-semibold text-[#27272a]">{sectionTitle}</h2>
         </div>
@@ -51,7 +51,7 @@ export default function MadrasahClasses({
                 )}
               </div>
 
-              <div className="flex flex-col p-4 gap-4 bg-[#FAFAFA]">
+              <div className="flex flex-col p-4 gap-6 bg-[#FAFAFA]">
                 <h3 className="text-lg font-semibold text-[#18181B] mb-6">{item.title}</h3>
                 <p className="text-[#27272A] text-base line-clamp-4">
                   {item.shortDescription}

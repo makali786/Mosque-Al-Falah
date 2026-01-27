@@ -7,6 +7,10 @@ import { QuoteSectionWrapper } from '../../components/contact/QuoteSectionWrappe
 import { fetchGlobal } from '../../../lib/fetcher';
 import { ContactPageData } from './types';
 
+// ... imports
+import { getPayload } from "payload";
+import configPromise from "@payload-config";
+
 const ContactUsPage = async () => {
     const contactUs = await fetchGlobal({ slug: "contact-page" }) as ContactPageData;
 
@@ -20,6 +24,28 @@ const ContactUsPage = async () => {
         const href = label.toLowerCase() === 'home' ? '/' : `/${label.toLowerCase().replace(/\s+/g, '-')}`;
         return { label, href };
     });
+
+    async function handleQuestionSubmit(data: any) {
+        "use server";
+        try {
+            const payload = await getPayload({ config: configPromise });
+
+            await payload.create({
+                collection: 'questions' as any,
+                data: {
+                    name: data.name,
+                    email: data.email,
+                    topic: data.topic,
+                    message: data.message,
+                    status: 'pending',
+                },
+            });
+            console.log("Question submitted successfully");
+        } catch (error) {
+            console.error("Error submitting question:", error);
+            throw new Error("Failed to submit question.");
+        }
+    }
 
     return (
         <div className="bg-white">
@@ -35,7 +61,7 @@ const ContactUsPage = async () => {
                 address={contactUs.contactInfo.mainAddress}
                 phone={contactUs.contactInfo.phone}
                 email={contactUs.contactInfo.email}
-                mapEmbed={contactUs.contactInfo.showMap ? contactUs.contactInfo.mapEmbed : undefined}
+                showMap={contactUs.contactInfo.showMap}
             />
 
             <div className="flex flex-col lg:flex-row lg:justify-center gap-8 md:gap-10 lg:gap-12 hn-container py-12 sm:py-16 md:py-20 lg:py-28">
@@ -82,6 +108,7 @@ const ContactUsPage = async () => {
                     topicOptions={contactUs.contactForm.topicOptions}
                     successMessage={contactUs.contactForm.successMessage}
                     recipientEmail={contactUs.contactForm.recipientEmail}
+                    onSubmit={handleQuestionSubmit}
                 />
             )}
 

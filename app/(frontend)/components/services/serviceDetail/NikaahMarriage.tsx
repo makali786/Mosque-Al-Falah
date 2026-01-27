@@ -94,7 +94,7 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
             <BreadcrumbSearchSection
                 breadcrumbs={[
                     { label: "Home", href: "/" },
-                    { label: "Our Services", href: "/services" },
+                    { label: "Our Services", href: "/our-services" },
                     { label: title, href: `/our-services/${params.id}` },
                 ]}
                 className="pb-0! pt-6! sm:pt-8! lg:pt-16! bg-white section-padding"
@@ -135,6 +135,8 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 description="Join us via live stream and immerse yourself in the spiritual atmosphere."
                 videoThumbnail={heroImage}
                 videoUrl={service.media?.videoUrl}
+                audioUrl={service.media?.audioFiles?.[0]?.audioFile?.url}
+                photos={service.media?.photoGallery?.map((item: any) => item.photo?.url).filter(Boolean) || []}
                 isLive={service.media?.isLive}
                 venueName={service.venue?.venueName}
                 venueAddress={service.venue?.fullAddress}

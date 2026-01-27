@@ -90,7 +90,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
       <BreadcrumbSearchSection
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Our Services", href: "/services" },
+          { label: "Our Services", href: "/our-services" },
           { label: title, href: `/our-services/${params.id}` },
         ]}
         className="pb-0! pt-10! sm:pt-16! bg-white section-padding"
@@ -122,6 +122,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
         }}
         className='pb-10 sm:pb-12 md:pb-14 lg:pb-16 lg:!pt-16'
         sectionMainStyle='section-padding'
+        sectionImageContainerStyle={"lg:!max-h-[424px]"}
       />
 
       {service.notifications?.enableNotifications && (

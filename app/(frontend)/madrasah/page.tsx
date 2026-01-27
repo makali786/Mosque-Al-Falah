@@ -9,6 +9,8 @@ import ParentReviews from "../components/madrasah/ParentReviews";
 
 import { Metadata } from 'next';
 import { fetchCommittees, fetchGlobal, findFromPayload } from "@lib/fetcher";
+import { getPayload } from "payload";
+import configPromise from "@payload-config";
 
 // Define Interfaces based on API response
 
@@ -99,6 +101,29 @@ export default async function MadrasahPage() {
         return <div>Loading...</div>;
     }
 
+    // Server Action for form submission
+    async function handleMadrasahQuestionSubmit(data: any) {
+        "use server";
+        try {
+            const payload = await getPayload({ config: configPromise });
+
+            await payload.create({
+                collection: 'questions' as any,
+                data: {
+                    name: data.fullName,
+                    email: data.email,
+                    topic: 'madrasah',
+                    message: `Phone: ${data.phoneNumber}\n\n${data.comments}`,
+                    status: 'pending',
+                },
+            });
+            console.log("Madrasah question submitted successfully");
+        } catch (error) {
+            console.error("Error submitting madrasah question:", error);
+            throw new Error("Failed to submit question.");
+        }
+    }
+
     return (
         <div className="bg-white">
             {/* 1. Hero Section */}
@@ -171,6 +196,7 @@ export default async function MadrasahPage() {
                         sectionTitle={pageData.contactSection.sectionTitle}
                         description={pageData.contactSection.description}
                         className="my-8 lg:my-18"
+                        onSubmit={handleMadrasahQuestionSubmit}
                     />
                 </div>
             )}

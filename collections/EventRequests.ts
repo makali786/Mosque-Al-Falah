@@ -124,14 +124,9 @@ export const EventRequests: CollectionConfig = {
             });
 
             if (emailSent) {
-              // Update the document to mark notification as sent
-              await req.payload.update({
-                collection: 'event-requests',
-                id: doc.id,
-                data: {
-                  notificationSent: true,
-                },
-              });
+              // Mark notification as sent directly on the doc
+              doc.notificationSent = true;
+              console.log(`✅ Event request notification sent for ${doc.id}`);
             }
           } catch (error) {
             console.error('Error sending event request notification:', error);

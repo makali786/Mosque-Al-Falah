@@ -15,6 +15,11 @@ interface Sermon {
   image: string | null;
   date: string;
   title: string;
+  guestSpeaker?: {
+    name?: string;
+    title?: string;
+    avatar?: string | { url: string } | null;
+  };
   author: {
     name: string;
     role?: string;
@@ -36,9 +41,16 @@ interface RawSermon {
   guestSpeaker?: {
     name?: string;
     title?: string;
+    avatar?: string | { url: string } | null;
   };
   videoUrl?: string;
   slug?: string;
+  author?: {
+    name: string;
+    role?: string;
+    avatar?: string;
+    initials?: string;
+  };
 }
 
 interface SermonsProps {
@@ -61,11 +73,12 @@ export default function Sermons({
     image: getMediaUrl(sermon.image as unknown as Media),
     date: sermon.sermonDate ? new Date(sermon.sermonDate).toLocaleDateString() : "No Date",
     title: sermon.title,
-    author: {
-      name: sermon.guestSpeaker?.name || "Unknown",
-      role: sermon.guestSpeaker?.title || "",
-      avatar: undefined, // guestSpeaker in payload doesn't seem to have an image
-      initials: sermon.guestSpeaker?.name ? sermon.guestSpeaker.name.substring(0, 2).toUpperCase() : "NA",
+    guestSpeaker: sermon.guestSpeaker,
+    author: sermon.author || {
+      name: "",
+      role: "",
+      avatar: undefined,
+      initials: ""
     },
     videoUrl: sermon.videoUrl
   }));
