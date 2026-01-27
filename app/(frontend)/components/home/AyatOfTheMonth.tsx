@@ -192,7 +192,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
             </div>
 
             {/* Audio Player */}
-            <AudioPlayer audioUrl={audioUrl} />
+            <AudioPlayer audioUrl={audioUrl} variant="dark" />
           </>
         )}
       </div>

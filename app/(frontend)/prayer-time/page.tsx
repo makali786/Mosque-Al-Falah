@@ -13,6 +13,7 @@ export default async function PrayerTimePage() {
 
   // Fetch prayer time settings (Jumuah, Ramadan, etc.)
   const settings = await fetchGlobal({ slug: "prayer-time-settings" });
+  const prayerTimesPage = await fetchGlobal({ slug: "prayer-times-page" });
 
   return (
     <div className="bg-white">
@@ -20,16 +21,39 @@ export default async function PrayerTimePage() {
         initialPrayerTimes={prayerTimes || []}
         settings={settings}
       />
-      <QuoteSection
-        quote="The best of you is the one who is the best to his family."
-        attribution="— Prophet Muhammad ﷺ"
-        donateButtonUrl="/donate"
-        shareData={{
-          title: "Prayer Times",
-          text: "The best of you is the one who is the best to his family.",
-          url: "/prayer-time"
-        }}
-      />
+      {/* Quote Section */}
+      {prayerTimesPage?.quoteSection?.showQuote && (
+        <QuoteSection
+          quote={prayerTimesPage.quoteSection.quoteText}
+          attribution={prayerTimesPage.quoteSection.quoteAttribution}
+          // Find donate button from CTA buttons if available
+          donateButtonUrl={
+            prayerTimesPage.ctaButtons?.showCTAButtons
+              ? prayerTimesPage.ctaButtons.buttons?.find(
+                (b: any) =>
+                  b.action === "navigate" &&
+                  (b.text.toLowerCase().includes("donate") ||
+                    b.url?.toLowerCase().includes("donate"))
+              )?.url || "/donate"
+              : "/donate"
+          }
+          // Construct share data
+          shareData={{
+            title: prayerTimesPage.pageHeader?.title || "Prayer Times",
+            text: prayerTimesPage.quoteSection.quoteText,
+            url: "/prayer-time",
+          }}
+          backgroundColor={
+            prayerTimesPage.quoteSection.quoteBackgroundColor === "white"
+              ? "#ffffff"
+              : prayerTimesPage.quoteSection.quoteBackgroundColor === "blue"
+                ? "#eff6ff" // blue-50
+                : prayerTimesPage.quoteSection.quoteBackgroundColor === "dark"
+                  ? "#18181b" // zinc-900
+                  : "#f4f4f5" // gray (default)
+          }
+        />
+      )}
     </div>
   );
 }

@@ -136,25 +136,6 @@ function DonationCompleteContent() {
           </p>
         </div>
 
-        {/* Share Section */}
-        <div className="mb-8">
-          <h3 className="font-bold mb-4">Spread the word</h3>
-          <p className="text-gray-600 mb-4">
-            Help others contribute by sharing this cause on social media
-          </p>
-          <div className="flex gap-4 justify-center">
-            <button className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg cursor-pointer">
-              <span>f</span> Share on Facebook
-            </button>
-            <button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg cursor-pointer">
-              <span>📱</span> WhatsApp
-            </button>
-            <button className="flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg cursor-pointer">
-              <span>🔗</span> Copy Link
-            </button>
-          </div>
-        </div>
-
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
