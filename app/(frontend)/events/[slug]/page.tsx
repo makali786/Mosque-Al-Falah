@@ -2,6 +2,8 @@
 import { notFound } from "next/navigation";
 import { fetchGlobal, fetchEvents } from "@lib/fetcher";
 import EventDetailClient from "../../components/events/EventDetailClient";
+import { getPayload } from "payload";
+import configPromise from "@payload-config";
 
 interface EventPageProps {
   params: {
@@ -61,11 +63,36 @@ export default async function EventPage({ params }: EventPageProps) {
   });
 
 
+  async function handleBookingSubmit(data: any) {
+    "use server";
+    try {
+      const payload = await getPayload({ config: configPromise });
+
+      await payload.create({
+        collection: 'event-bookings' as any,
+        data: {
+          event: data.eventId,
+          fullName: data.fullName,
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+          numberOfGuests: data.numberOfGuests,
+          status: 'pending',
+          confirmationSent: false,
+        },
+      });
+      console.log("Booking submitted successfully");
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+      throw new Error("Failed to submit booking.");
+    }
+  }
+
   return (
     <EventDetailClient
       event={eventData}
       config={eventPageConfig}
       relatedEvents={relatedEvents}
+      onBookingSubmit={handleBookingSubmit}
     />
   );
 }
