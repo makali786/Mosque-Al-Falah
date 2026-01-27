@@ -38,6 +38,9 @@ interface ServicesPageData {
     seo?: any;
 }
 
+import { getPayload } from "payload";
+import configPromise from "@payload-config";
+
 export default async function OurServicesPage() {
     const servicesPage = await fetchGlobal({
         slug: "services-page",
@@ -84,7 +87,24 @@ export default async function OurServicesPage() {
     // Server Action for form submission
     async function handleFormSubmit(data: any) {
         "use server";
-        console.log("Form submitted:", data);
+        try {
+            const payload = await getPayload({ config: configPromise });
+
+            await payload.create({
+                collection: 'service-requests' as any,
+                data: {
+                    fullName: data.fullName,
+                    email: data.email,
+                    phoneNumber: data.phoneNumber,
+                    comments: data.comments,
+                    status: 'pending',
+                },
+            });
+            console.log("Service request created successfully");
+        } catch (error) {
+            console.error("Error creating service request:", error);
+            throw new Error("Failed to submit request.");
+        }
     }
 
     return (
@@ -124,7 +144,7 @@ export default async function OurServicesPage() {
                 services={transformedServices}
                 breadcrumbs={[
                     { label: "Home", href: "/" },
-                    { label: "Our Services", href: "/services" },
+                    { label: "Our Services", href: "/our-services" },
                 ]}
                 searchPlaceholder="Search"
             />

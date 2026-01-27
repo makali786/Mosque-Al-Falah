@@ -243,7 +243,7 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                         block.twoColumnBlock?.content ? (
                             <RichTextRenderer
                                 content={block.twoColumnBlock.content}
-                                className="[&_ul]:!space-y-3 [&_ul]:!mt-2"
+                                className="[&_ul]:!space-y-3 [&_ul]:!mt-2 [&_li_strong]:whitespace-nowrap [&_li_strong]:mr-2"
                             />
                         ) : null
                     }

@@ -28,7 +28,7 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
   // 1. Fetch Request for specific slug
   const mediaItems = await fetchMediaItems({
     where: {
-      slug: { equals: decodedSlug(slug) }, 
+      slug: { equals: decodedSlug(slug) },
     },
     limit: 1,
   });
@@ -38,19 +38,46 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
   }
 
   const mediaItem = mediaItems[0];
-  const { title, description, mediaType, mediaContent, thumbnail, publishedDate, donationSettings } = mediaItem;
+  const { title, description, mediaType, mediaContent, thumbnail, publishedDate, donationSettings, category } = mediaItem;
 
-  const relatedItemsRaw = await fetchMediaItems({
-    limit: 4,
-    where: {
-      id: { not_equals: mediaItem.id },
-      isActive: { equals: true }
-    },
-    sort: "-publishedDate" 
-  });
+  // Strategy: Prioritize items from the same category, then fallback to recent
+  let relatedItemsRaw = [];
+
+  // 1. Try to fetch strictly by category first
+  if (category) {
+    relatedItemsRaw = await fetchMediaItems({
+      where: {
+        id: { not_equals: mediaItem.id },
+        isActive: { equals: true },
+        category: { equals: category }
+      },
+      sort: "-publishedDate"
+    });
+  }
+
+  // 2. If we don't have enough items (need 3), backfill with general recent items
+  if (relatedItemsRaw.length < 3) {
+    const generalRecentItems = await fetchMediaItems({
+      where: {
+        id: { not_equals: mediaItem.id },
+        isActive: { equals: true }
+      },
+      sort: "-publishedDate"
+    });
+
+    // Merge and Deduplicate
+    const currentIds = new Set(relatedItemsRaw.map((i: any) => i.id));
+
+    for (const item of generalRecentItems) {
+      if (!currentIds.has(item.id)) {
+        relatedItemsRaw.push(item);
+        currentIds.add(item.id);
+      }
+    }
+  }
 
   // Map related items to MediaCard props
-  const relatedMedia: MediaItem[] = relatedItemsRaw.slice(0, 3).map((item: any) => ({
+  const relatedMedia: MediaItem[] = relatedItemsRaw.map((item: any) => ({
     id: item.id,
     title: item.title,
     description: item.description,
@@ -63,8 +90,8 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
 
   // Video Source handling
   const videoSrc = mediaContent?.videoUrl;
-  const isVideo = mediaType === 'video' || (mediaType === 'audio_podcast'); // Handle different potential types
-  
+  const isVideo = mediaType === 'video' || (mediaType === 'audio_podcast');
+
   // Helper function to convert YouTube and Vimeo URLs to embed format
   const getEmbedUrl = (url: string) => {
     if (!url) return "";
@@ -100,9 +127,9 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
 
   return (
     <div className="bg-white min-h-screen">
-      
+
       <div>
-        
+
         {/* Breadcrumb */}
 
         <BreadcrumbSearchSection
@@ -117,14 +144,14 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
         />
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 xl:gap-11 section-padding">
-            
-            {/* Left Column: Media Player & Content */}
+
+          {/* Left Column: Media Player & Content */}
           <div className="xl:col-span-2">
-                
-                {/* Title (Mobile/Top) */}
+
+            {/* Title (Mobile/Top) */}
             <h1 className="text-2xl md:text-3xl font-semibold mb-6">{title}</h1>
 
-                {/* Media Player Container */}
+            {/* Media Player Container */}
             <div className="relative w-full aspect-video bg-black rounded-[14px] overflow-hidden mb-8 group  lg:max-w-[735px] lg:max-h-[412px]">
               {embedUrl && isVideo ? (
                 <iframe
@@ -136,47 +163,47 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
                 />
-                    ) : (
-                  ""
-                    )}
+              ) : (
+                ""
+              )}
 
-                    {/* Live Badge */}
-                    {mediaContent?.isLive && (
-                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2 z-10">
-                            <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-                            <span className="text-xs font-bold text-red-600 uppercase tracking-wide">Live</span>
-                        </div>
-                    )}
+              {/* Live Badge */}
+              {mediaContent?.isLive && (
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2 z-10">
+                  <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+                  <span className="text-xs font-bold text-red-600 uppercase tracking-wide">Live</span>
                 </div>
-
-                {/* Description */}
-                <div className="prose prose-lg text-gray-600 max-w-none">
-                    <p>{description}</p>
-                </div>
-
+              )}
             </div>
 
-            {/* Right Column: Donation Sidebar */}
+            {/* Description */}
+            <div className="prose prose-lg text-gray-600 max-w-none">
+              <p>{description}</p>
+            </div>
+
+          </div>
+
+          {/* Right Column: Donation Sidebar */}
           <div className="xl:col-span-1">
             <MediaDonationSidebar donationSettings={donationSettings} />
-            </div>
+          </div>
 
         </div>
 
         {/* Related Media Section */}
         <section className="my-12 section-padding">
           <div>
-               <MediaCarousel 
-                  items={relatedMedia}
-                  title="Related Media"
-               />
-             </div>
+            <MediaCarousel
+              items={relatedMedia}
+              title="Related Media"
+            />
+          </div>
         </section>
 
       </div>
 
       {/* Quote Section */}
-      <QuoteSection 
+      <QuoteSection
         quote={mediaPageConfig.bottomQuote.quoteText || ""}
         attribution={mediaPageConfig.bottomQuote.author || ""}
         shareButtonText={mediaPageConfig.bottomQuote.shareButtonText || ""}
@@ -196,9 +223,9 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
 
 // Simple Helper for decoding slug if necessary
 function decodedSlug(slug: string) {
-    try {
-        return decodeURIComponent(slug);
-    } catch {
-        return slug;
-    }
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
 }

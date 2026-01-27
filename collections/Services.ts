@@ -478,6 +478,7 @@ export const Services: CollectionConfig = {
           options: [
             { label: 'Title Block', value: 'titleBlock' },
             { label: 'Hero Section', value: 'hero' },
+            { label: 'Congratulations Section', value: 'congratulations' },
             { label: 'Media Section (Video/Photos/Audio)', value: 'media' },
             { label: 'FAQs Section', value: 'faqs' },
             { label: 'Live Streaming Section', value: 'liveStreaming' },
@@ -579,6 +580,60 @@ export const Services: CollectionConfig = {
               ],
               defaultValue: 'medium',
               label: 'Padding Size',
+            },
+          ],
+        },
+
+        // Congratulations Block
+        {
+          name: 'congratulationsBlock',
+          type: 'group',
+          label: 'Congratulations Section Settings',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.blockType === 'congratulations',
+          },
+          fields: [
+            {
+              name: 'emoji',
+              type: 'text',
+              label: 'Emoji',
+              admin: {
+                description: 'e.g., "🎉", "🌙", "✨"',
+                placeholder: '🎉',
+              },
+            },
+            {
+              name: 'title',
+              type: 'text',
+              required: true,
+              label: 'Title',
+              admin: {
+                description: 'e.g., "Celebrate Eid with Us!"',
+                placeholder: 'Celebrate Eid with Us!',
+              },
+            },
+            {
+              name: 'description',
+              type: 'richText',
+              required: true,
+              label: 'Description',
+              admin: {
+                description:
+                  'Main message text (e.g., "Eid is a time of joy, gratitude, and unity...")',
+              },
+            },
+            {
+              name: 'backgroundColor',
+              type: 'select',
+              options: [
+                { label: 'White', value: 'white' },
+                { label: 'Light Gray', value: 'gray' },
+                { label: 'Blue', value: 'blue' },
+                { label: 'Green', value: 'green' },
+              ],
+              defaultValue: 'white',
+              label: 'Background Color',
             },
           ],
         },

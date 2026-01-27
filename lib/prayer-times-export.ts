@@ -293,6 +293,7 @@ export async function exportToPDF(
   const { default: autoTable } = await import("jspdf-autotable");
 
   const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
+  const isRamadan = title?.toLowerCase().includes("ramadan");
 
   // Add title
   doc.setFontSize(20);
@@ -308,6 +309,7 @@ export async function exportToPDF(
     return [
       date.toLocaleDateString("en-GB", { day: "2-digit", month: "short" }),
       dayNames[date.getDay()],
+      pt.hijriDate, // Added Islamic Date
       pt.fajr,
       addMinutesToTime(pt.fajr, pt.fajrIqamahDelay),
       pt.sunrise,
@@ -328,6 +330,7 @@ export async function exportToPDF(
       [
         "Date",
         "Day",
+        "Islamic Date",
         { content: "Fajr", colSpan: 2 },
         "Sunrise",
         { content: "Dhuhr", colSpan: 2 },
@@ -338,14 +341,15 @@ export async function exportToPDF(
       [
         "",
         "",
-        "Begins",
+        "",
+        isRamadan ? "Sahar" : "Begins",
         "Jamaah",
         "",
         "Begins",
         "Jamaah",
         "Begins",
         "Jamaah",
-        "Begins",
+        isRamadan ? "Iftar" : "Begins",
         "Jamaah",
         "Begins",
         "Jamaah",
@@ -353,12 +357,14 @@ export async function exportToPDF(
     ],
     body: tableData,
     startY: 35,
-    styles: { fontSize: 8, cellPadding: 2 },
-    headStyles: { fillColor: [0, 46, 98], textColor: 255 },
+    styles: { fontSize: 8, cellPadding: 2, halign: "center" },
+    headStyles: { fillColor: [0, 46, 98], textColor: 255, halign: "center", valign: "middle" },
     alternateRowStyles: { fillColor: [245, 245, 245] },
     columnStyles: {
       0: { cellWidth: 18 },
       1: { cellWidth: 12 },
+      2: { cellWidth: 20 }, // Islamic Date width
+      // Adjust other columns if necessary, but autoTable handles them relatively well
     },
   });
 
