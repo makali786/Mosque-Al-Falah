@@ -136,14 +136,6 @@ function DonationCompleteContent() {
           </p>
         </div>
 
-        {/* Share Section */}
-        <div className="mb-8">
-          <h3 className="font-bold mb-4">Spread the word</h3>
-          <p className="text-gray-600 mb-4">
-            Help others contribute by sharing this cause on social media
-          </p>
-        </div>
-
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
