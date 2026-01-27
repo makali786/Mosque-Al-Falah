@@ -13,6 +13,7 @@ import EventCard from "./EventCard";
 import Tabs from "../common/Tabs";
 import DonorProfileCard from "../donate/shared/DonorProfileCard";
 import GoogleMap from "../common/GoogleMap";
+import EventBookingForm from "./EventBookingForm";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -37,10 +38,18 @@ const formatTime = (dateString: string) => {
 
 
 
-export default function EventDetailClient({ event, config, relatedEvents }: any) {
+// Define props interface if not already (or just use any)
+interface EventDetailClientProps {
+    event: any;
+    config: any;
+    relatedEvents: any;
+    onBookingSubmit?: (data: any) => Promise<void>;
+}
+
+export default function EventDetailClient({ event, config, relatedEvents, onBookingSubmit }: EventDetailClientProps) {
     const [activeTab, setActiveTab] = useState<"video" | "photos" | "audio">("video");
     const [donationAmount, setDonationAmount] = useState<number | string | null>(null);
-    const [guestCount, setGuestCount] = useState<number>(1);
+    // guestCount moved to EventBookingForm
 
     // Get donation amounts from event.donation.suggestedAmounts
     const amounts = event?.donation?.suggestedAmounts?.map((item: any) => item.amount) || config?.donationAmounts || [];
@@ -354,49 +363,13 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         </div>
 
                         {/* Booking Form */}
-                        <div>
-                            <h3 className="text-[24px] font-semibold mb-8">Book a place</h3>
-                            <form className="lg:max-w-183.75 space-y-4 border border-[#E6F1FE] rounded-xl px-3 py-6 sm:px-6 sm:py-8">
-                                <div className="flex flex-col sm:flex-row gap-4">
-                                    <div className="flex-1 bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
-                                        <label className="text-xs font-normal text-[#52525B]">Full Name <span className="text-[#EF4444]">*</span></label>
-                                        <input type="text" placeholder="Enter your full name" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
-                                    </div>
-                                    <div className="w-full sm:w-45 bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit flex items-center justify-between cursor-pointer relative">
-                                        <select
-                                            value={guestCount}
-                                            onChange={(e) => setGuestCount(Number(e.target.value))}
-                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer appearance-none z-10"
-                                        >
-                                            {Array.from({ length: maxGuests }, (_, i) => i + 1).map((num) => (
-                                                <option key={num} value={num}>
-                                                    {num} {num === 1 ? 'Guest' : 'Guests'}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <div>
-                                            <span className="text-xs font-normal text-[#52525B] block">Guests</span>
-                                            <span className="text-sm text-[#11181C]">{guestCount} {guestCount === 1 ? 'Guest' : 'Guests'}</span>
-                                        </div>
-                                        <svg className="w-4 h-4 text-[#71717A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                                    </div>
-                                </div>
-
-                                <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
-                                    <label className="text-xs font-normal text-[#52525B]">Email <span className="text-[#EF4444]">*</span></label>
-                                    <input type="email" placeholder="Enter your Email" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
-                                </div>
-
-                                <div className="bg-[#F4F4F5] border border-[#F4F4F5] rounded-lg px-1.5 py-1 h-fit">
-                                    <label className="text-xs font-normal text-[#52525B]">Phone Number</label>
-                                    <input type="tel" placeholder="Enter your phone number" className="w-full text-sm text-[#11181C] placeholder:text-[#71717A] outline-none bg-transparent" />
-                                </div>
-
-                                <button className="px-6 py-3 bg-[#D4D4D8] text-sm rounded-xl cursor-pointer">
-                                    Book Now
-                                </button>
-                            </form>
-                        </div>
+                        {onBookingSubmit && (
+                            <EventBookingForm
+                                eventId={event?.id}
+                                maxGuests={maxGuests || 5}
+                                onBookingSubmit={onBookingSubmit}
+                            />
+                        )}
                     </div>
 
                     {/* Right Column: 1/3 sidebar */}
