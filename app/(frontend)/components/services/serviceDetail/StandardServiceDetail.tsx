@@ -22,6 +22,9 @@ export const getServiceBlocks = (contentBlocks: any[] = []) => {
         liveStreaming: contentBlocks.filter(b => b.blockType === "liveStreaming"),
         faqs: contentBlocks.filter(b => b.blockType === "faqs"),
         titleSection: contentBlocks.filter(b => b.blockType === "titleBlock"),
+        eidTitle: contentBlocks.filter(b => b.blockType === "congratulations"),
+
+
     };
 };
 
@@ -136,6 +139,9 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
     const blocks = getServiceBlocks(service.contentBlocks);
 
     console.log("service.media?.photoGallery", service.media?.photoGallery);
+    console.log("blocks.eidTitle", blocks.eidTitle);
+    console.log("congratulationsBlock", blocks.eidTitle[0]?.congratulationsBlock);
+    console.log("eidTitle - title being passed:", blocks.eidTitle[0]?.congratulationsBlock?.title);
 
     return (
         <div>
@@ -266,10 +272,23 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
 
 
             {/* Eid Salah Schedule  */}
-            {service.schedule && (
-                <EidSalahSchedule
-                    title={service.taraweehEid.eidScheduleTitle}
-                    description={service.schedule?.eidNote ? <RichTextRenderer content={service.taraweehEid.eidNote} /> : null}
+            {service.schedule && blocks.eidTitle.length > 0 && (
+                <EidSalahSchedule title={service.taraweehEid.eidScheduleTitle}
+                    description={
+                        <>
+                            {blocks.eidTitle[0]?.congratulationsBlock?.title && (
+                                <p className="mb-2">{blocks.eidTitle[0].congratulationsBlock.title}</p>
+                            )}
+                            {blocks.eidTitle[0]?.congratulationsBlock?.description && (
+                                <RichTextRenderer content={blocks.eidTitle[0].congratulationsBlock.description} />
+                            )}
+                            {service.taraweehEid?.eidNote && (
+                                <div className="mt-4">
+                                    <RichTextRenderer content={service.taraweehEid.eidNote} />
+                                </div>
+                            )}
+                        </>
+                    }
                     venueName={service.venue?.venueName}
                     venueAddress={service.venue?.fullAddress}
                     schedule={service.schedule?.regularTimes || []}
