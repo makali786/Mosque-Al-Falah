@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useActionState, useEffect, useState } from "react";
-import { submitContactForm } from "../../actions/contact";
+import { useEffect, useState } from "react";
 
 interface AskQuestionProps {
   title: string;
@@ -21,13 +20,8 @@ interface AskQuestionProps {
   topicOptions?: string[] | { label: string; value: string; }[];
   successMessage?: string;
   recipientEmail?: string;
+  onSubmit?: (data: any) => Promise<void>;
 }
-
-const initialState = {
-  success: false,
-  message: "",
-  errors: {},
-};
 
 export function AskQuestionSection({
   title,
@@ -37,11 +31,8 @@ export function AskQuestionSection({
   topicOptions = [],
   successMessage: defaultSuccessMessage,
   recipientEmail,
+  onSubmit,
 }: AskQuestionProps) {
-  const [state, formAction, isPending] = useActionState(
-    submitContactForm,
-    initialState
-  );
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,17 +40,32 @@ export function AskQuestionSection({
     message: "",
   });
 
-  // Reset form on success
-  useEffect(() => {
-    if (state.success) {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!onSubmit) return;
+
+    setStatus("submitting");
+    setErrorMessage("");
+
+    try {
+      await onSubmit(formData);
+      setStatus("success");
       setFormData({
         name: "",
         email: "",
         topic: "",
         message: "",
       });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
+      setErrorMessage("Failed to submit. Please try again.");
     }
-  }, [state.success]);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -137,19 +143,19 @@ export function AskQuestionSection({
 
             {/* Form */}
             <form
-              action={formAction}
+              onSubmit={handleSubmit}
               className="flex flex-col gap-5 sm:gap-6 lg:gap-5 xl:gap-6"
             >
-              <input type="hidden" name="recipientEmail" value={recipientEmail || ""} />
 
-              {state.success && (
+
+              {status === 'success' && (
                 <div className="p-4 bg-green-50 text-green-700 rounded-xl border border-green-200">
-                  {defaultSuccessMessage || state.message}
+                  {defaultSuccessMessage || "Message sent successfully!"}
                 </div>
               )}
-              {state.errors && Object.keys(state.errors).length > 0 && !state.success && (
+              {status === 'error' && (
                 <div className="p-4 bg-red-50 text-red-700 rounded-xl border border-red-200">
-                  Please correct the errors below.
+                  {errorMessage}
                 </div>
               )}
 
@@ -171,11 +177,10 @@ export function AskQuestionSection({
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className={`w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black outline-none ${state.errors?.name ? "border-2 border-red-500" : ""
-                      }`}
+                    disabled={status === 'submitting'}
+                    className={`w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black outline-none disabled:opacity-50`}
                     placeholder="Enter your name"
                   />
-                  {state.errors?.name && <span className="text-red-500 text-xs">{state.errors.name}</span>}
                 </div>
 
                 {/* Email Input */}
@@ -194,11 +199,10 @@ export function AskQuestionSection({
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className={`w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F5F5F5] rounded-lg sm:rounded-xl text-base text-black placeholder:text-[#999999] outline-none ${state.errors?.email ? "border-2 border-red-500" : ""
-                      }`}
+                    disabled={status === 'submitting'}
+                    className={`w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F5F5F5] rounded-lg sm:rounded-xl text-base text-black placeholder:text-[#999999] outline-none disabled:opacity-50`}
                     placeholder="Enter your email"
                   />
-                  {state.errors?.email && <span className="text-red-500 text-xs">{state.errors.email}</span>}
                 </div>
               </div>
 
@@ -216,7 +220,8 @@ export function AskQuestionSection({
                     name="topic"
                     value={formData.topic}
                     onChange={handleChange}
-                    className="w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black appearance-none cursor-pointer outline-none"
+                    disabled={status === 'submitting'}
+                    className="w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black appearance-none cursor-pointer outline-none disabled:opacity-50"
                   >
                     <option value="">Select a topic</option>
                     {topicsToRender.map((topic) => (
@@ -251,21 +256,20 @@ export function AskQuestionSection({
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}
-                  className={`w-full px-4 sm:px-5 py-3 sm:py-4 bg-[#F4F4F5] rounded-xl text-base text-black focus:outline-none resize-none ${state.errors?.message ? "border-2 border-red-500" : ""
-                    }`}
+                  disabled={status === 'submitting'}
+                  className={`w-full px-4 sm:px-5 py-3 sm:py-4 bg-[#F4F4F5] rounded-xl text-base text-black focus:outline-none resize-none disabled:opacity-50`}
                   placeholder="Enter your message"
                 />
-                {state.errors?.message && <span className="text-red-500 text-xs">{state.errors.message}</span>}
               </div>
 
               {/* Submit Button */}
               <div className="flex items-start">
                 <button
                   type="submit"
-                  disabled={isPending}
+                  disabled={status === 'submitting'}
                   className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-sm sm:text-base rounded-xl disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  {isPending ? "Sending..." : formSettings.submitButtonText}
+                  {status === 'submitting' ? "Sending..." : formSettings.submitButtonText}
                 </button>
               </div>
             </form>

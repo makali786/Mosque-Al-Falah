@@ -392,6 +392,165 @@ export const Events: CollectionConfig = {
             description: 'If using external booking system (Eventbrite, etc.)',
           },
         },
+        {
+          name: 'bookingFormSettings',
+          type: 'group',
+          label: 'Booking Form Settings',
+          admin: {
+            description: 'Configure the "Book a place" form',
+            condition: (data, siblingData) => siblingData?.enableRegistration,
+          },
+          fields: [
+            {
+              name: 'formTitle',
+              type: 'text',
+              defaultValue: 'Book a place',
+              label: 'Form Title',
+            },
+            {
+              name: 'formDescription',
+              type: 'textarea',
+              label: 'Form Description',
+              admin: {
+                description: 'Text shown above the booking form',
+                rows: 2,
+              },
+            },
+            {
+              name: 'requirePhoneNumber',
+              type: 'checkbox',
+              defaultValue: true,
+              label: 'Require Phone Number',
+            },
+            {
+              name: 'allowMultipleGuests',
+              type: 'checkbox',
+              defaultValue: true,
+              label: 'Allow Multiple Guests',
+              admin: {
+                description: 'Let attendees book for multiple people',
+              },
+            },
+            {
+              name: 'maxGuestsPerBooking',
+              type: 'number',
+              defaultValue: 10,
+              label: 'Max Guests Per Booking',
+              admin: {
+                description: 'Maximum number of guests one person can book for',
+                condition: (data, siblingData) =>
+                  siblingData?.allowMultipleGuests,
+              },
+            },
+            {
+              name: 'showSpecialRequirements',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Show Special Requirements Field',
+              admin: {
+                description:
+                  'Allow attendees to specify dietary/accessibility needs',
+              },
+            },
+            {
+              name: 'customFields',
+              type: 'array',
+              label: 'Custom Form Fields',
+              admin: {
+                description: 'Add additional fields to the booking form',
+              },
+              fields: [
+                {
+                  name: 'fieldLabel',
+                  type: 'text',
+                  required: true,
+                  label: 'Field Label',
+                },
+                {
+                  name: 'fieldType',
+                  type: 'select',
+                  required: true,
+                  options: [
+                    { label: 'Text Input', value: 'text' },
+                    { label: 'Text Area', value: 'textarea' },
+                    { label: 'Number', value: 'number' },
+                    { label: 'Dropdown', value: 'select' },
+                    { label: 'Checkbox', value: 'checkbox' },
+                  ],
+                  defaultValue: 'text',
+                  label: 'Field Type',
+                },
+                {
+                  name: 'required',
+                  type: 'checkbox',
+                  defaultValue: false,
+                  label: 'Required Field',
+                },
+                {
+                  name: 'options',
+                  type: 'array',
+                  label: 'Dropdown Options',
+                  admin: {
+                    condition: (data, siblingData) =>
+                      siblingData?.fieldType === 'select',
+                  },
+                  fields: [
+                    {
+                      name: 'option',
+                      type: 'text',
+                      required: true,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              name: 'termsAndConditions',
+              type: 'richText',
+              label: 'Terms and Conditions',
+              admin: {
+                description: 'Terms that attendees must agree to',
+              },
+            },
+            {
+              name: 'requireTermsAcceptance',
+              type: 'checkbox',
+              defaultValue: false,
+              label: 'Require Terms Acceptance',
+            },
+            {
+              name: 'buttonText',
+              type: 'text',
+              defaultValue: 'Book Now',
+              label: 'Submit Button Text',
+            },
+            {
+              name: 'confirmationMessage',
+              type: 'richText',
+              label: 'Confirmation Message',
+              admin: {
+                description: 'Message shown after successful booking',
+              },
+            },
+            {
+              name: 'sendConfirmationEmail',
+              type: 'checkbox',
+              defaultValue: true,
+              label: 'Send Confirmation Email',
+            },
+            {
+              name: 'confirmationEmailTemplate',
+              type: 'richText',
+              label: 'Confirmation Email Template',
+              admin: {
+                description:
+                  'Email sent to attendees. Use {{name}}, {{event}}, {{date}}, {{confirmationCode}} as placeholders',
+                condition: (data, siblingData) =>
+                  siblingData?.sendConfirmationEmail,
+              },
+            },
+          ],
+        },
       ],
     },
 

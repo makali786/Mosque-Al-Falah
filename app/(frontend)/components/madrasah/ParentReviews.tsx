@@ -11,6 +11,7 @@ interface TestimonialItem {
   authorName: string;
   authorInitials: string;
   authorRole: string;
+  authorPhoto?: { url: string };
 }
 
 interface ParentReviewsProps {
@@ -69,7 +70,7 @@ export default function WhatParentsSay({
     <section className="w-full bg-white py-16 sm:py-20 md:py-24">
       <div className="section-padding flex flex-col gap-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="flex flex-col md:flex-row justify-between gap-6 lg:min-h-[188px] lg:max-h-[188px]">
           <div className="flex flex-col gap-3 max-w-2xl">
             <h4 className="text-[#006FEE] font-medium text-lg tracking-wide uppercase">{sectionLabel}</h4>
             <h2 className="text-3xl lg:text-4xl font-bold text-[#27272a] leading-tight">
@@ -78,7 +79,7 @@ export default function WhatParentsSay({
           </div>
 
           {/* Navigation Arrows */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-8 self-end">
             <button
               onClick={() => scroll("left")}
               disabled={!canScrollLeft}
@@ -106,7 +107,7 @@ export default function WhatParentsSay({
         {/* Carousel */}
         <div
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide pb-4"
+          className="flex gap-8 overflow-x-auto scrollbar-hide"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {reviews.map((review, index) => (
@@ -148,8 +149,17 @@ export default function WhatParentsSay({
 
               {/* Author */}
               <div className="flex items-center gap-3 mt-auto pt-4">
-                <div className="w-10 h-10 rounded-full bg-[#D4D4D8] flex items-center justify-center text-[#11181C] text-base">
-                  {review.authorInitials}
+                <div className="w-10 h-10 rounded-full bg-[#D4D4D8] flex items-center justify-center text-[#11181C] text-base relative overflow-hidden">
+                  {review.authorPhoto?.url ? (
+                    <Image
+                      src={review.authorPhoto.url}
+                      alt={review.authorName}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    review.authorInitials
+                  )}
                 </div>
                 <span className="text-[#11181C] text-sm">
                   {review.authorName}

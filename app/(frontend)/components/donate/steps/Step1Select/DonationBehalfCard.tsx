@@ -13,7 +13,7 @@ export default function DonationBehalfCard({
   onProfileChange,
 }: DonationBehalfCardProps) {
   return (
-    <Card className="w-full flex flex-col gap-4">
+    <Card className="w-full flex flex-col gap-4 !p-8">
       <p className="text-sm font-normal leading-5 text-black">
         Donation of behalf of
       </p>

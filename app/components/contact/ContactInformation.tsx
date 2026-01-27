@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React from "react";
+import GoogleMap from "../../(frontend)/components/common/GoogleMap";
 
 interface ContactInfoProps {
   title: string;
@@ -12,7 +13,9 @@ interface ContactInfoProps {
   };
   phone: string;
   email: string;
-  mapEmbed?: string;
+  latitude?: number;
+  longitude?: number;
+  showMap?: boolean;
 }
 
 const ContactInformation = ({
@@ -21,7 +24,9 @@ const ContactInformation = ({
   address,
   phone,
   email,
-  mapEmbed,
+  latitude,
+  longitude,
+  showMap = true,
 }: ContactInfoProps) => {
   return (
     <section className="w-full bg-white py-12 sm:py-16 md:py-20 lg:py-28 hn-container">
@@ -88,11 +93,16 @@ const ContactInformation = ({
           </div>
 
           {/* Right Column - Map */}
-          {mapEmbed && (
-            <div
-              className="w-full h-[300px] lg:h-[392px] lg:w-[630px]"
-              dangerouslySetInnerHTML={{ __html: mapEmbed }}
-            />
+          {showMap && (
+            <div className="w-full h-[300px] lg:h-[392px] lg:w-[630px] rounded-2xl overflow-hidden">
+              <GoogleMap
+                latitude={latitude || 52.508361}
+                longitude={longitude || -1.899675}
+                address={`${address.line1}, ${address.line2}`}
+                height="100%"
+                className="w-full h-full"
+              />
+            </div>
           )}
         </div>
       </div>

@@ -71,16 +71,15 @@ export default function ContentImageSection({
       {/* Container with max-width */}
       <div className="w-full hn-container">
         <div
-          className={`flex flex-col ${
-            layout === "image-left" ? "lg:flex-row-reverse" : "lg:flex-row"
-          } gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start`}
+          className={`flex flex-col ${layout === "image-left" ? "lg:flex-row-reverse" : "lg:flex-row"
+            } gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start`}
         >
           {/* Text Content - Takes remaining space */}
           <div className="w-full flex flex-col gap-6 sm:gap-7 md:gap-8 lg:gap-8 lg:w-[48%]">
             <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 lg:text-[48px] lg:leading-12 text-black">
               {heading}
             </h2>
-            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black [&>p]:mb-0 [&>p+p]:mt-4 sm:[&>p+p]:mt-5 md:[&>p+p]:mt-6 [&>ul]:list-disc [&>ul]:ml-6 [&>ul>li]:leading-7">
+            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black [&_p]:mb-0 [&_p+p]:mt-4 sm:[&_p+p]:mt-5 md:[&_p+p]:mt-6 [&_ul]:list-disc [&_ul]:ml-6 [&_ul>li]:leading-7">
               {content}
             </div>
           </div>
@@ -95,11 +94,10 @@ export default function ContentImageSection({
             }}
           >
             <div
-              className={`relative w-full ${
-                imageStyle === "rounded"
+              className={`relative w-full ${imageStyle === "rounded"
                   ? "rounded-lg sm:rounded-xl lg:rounded-[14px] overflow-hidden"
                   : ""
-              }`}
+                }`}
               style={{
                 aspectRatio: `${imageWidth} / ${imageHeight}`,
               }}

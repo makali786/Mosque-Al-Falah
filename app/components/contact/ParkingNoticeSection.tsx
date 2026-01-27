@@ -33,7 +33,7 @@ export function ParkingNoticeSection({ title, message, quote }: ParkingNoticePro
 
       {/* Content Container */}
       <div className="relative w-full hn-container">
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-12 items-start lg:items-center">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-7 md:gap-8 lg:gap-9 items-start lg:items-center">
           {/* Left Side - Text Content */}
           <div className="w-full lg:flex-1">
             <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[42px] md:leading-11 xl:text-5xl lg:leading-12 text-white mb-4 sm:mb-5 md:mb-6 lg:mb-8">
@@ -59,11 +59,32 @@ export function ParkingNoticeSection({ title, message, quote }: ParkingNoticePro
 
               {/* Quote Content */}
               <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 pt-4 sm:pt-4">
-                <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-base xl:text-lg lg:leading-7 text-black">
+                <div className="text-base leading-6 md:text-base xl:text-base text-black">
                   <p className="mb-2">
-                    <strong className="font-bold">
-                      &quot;{quote.quoteText}&quot;
-                    </strong>
+                    {(() => {
+                      const text = quote.quoteText || "";
+                      const separatorIndex = text.indexOf(":");
+
+                      if (separatorIndex !== -1) {
+                        const prefix = text.substring(0, separatorIndex + 1);
+                        const content = text
+                          .substring(separatorIndex + 1)
+                          .trim()
+                          .replace(/^["“']+|["”']+$/g, "");
+
+                        return (
+                          <>
+                            {prefix} <strong className="font-bold">&quot;{content}&quot;</strong>
+                          </>
+                        );
+                      }
+
+                      return (
+                        <strong className="font-bold">
+                          &quot;{text.replace(/^["“']+|["”']+$/g, "")}&quot;
+                        </strong>
+                      );
+                    })()}
                   </p>
                   <p className="text-sm sm:text-[14px] md:text-[15px] font-medium">
                     {quote.source}

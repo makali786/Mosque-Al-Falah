@@ -19,6 +19,7 @@ import { CoreValues } from './collections/CoreValues';
 import { DonationAppeals } from './collections/DonationAppeals';
 import { Donations } from './collections/Donations';
 import { Donors } from './collections/Donors';
+import { EventBookings } from './collections/EventBookings';
 import { Events } from './collections/Events';
 import { Imams } from './collections/Imams';
 import { MadrasahClasses } from './collections/MadrasahClasses';
@@ -51,6 +52,7 @@ import { ServicesPage } from './globals/ServicesPage';
 
 // Prayer Time Settings
 import { PrayerTimeSettings } from './globals/PrayerTimeSettings';
+import { PrayerTimesPage } from './globals/PrayerTimesPage';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -82,6 +84,7 @@ export default buildConfig({
     // Homepage Content
     Banners,
     Events,
+    EventBookings,
     Notices,
     Services,
     Imams,
@@ -121,6 +124,7 @@ export default buildConfig({
     HomePage,
     MadrasahPage,
     MediaPage,
+    PrayerTimesPage,
     SermonsPage,
     ServicesPage,
 

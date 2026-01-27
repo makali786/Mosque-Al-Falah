@@ -13,6 +13,7 @@ import EventCard from "./EventCard";
 import Tabs from "../common/Tabs";
 import DonorProfileCard from "../donate/shared/DonorProfileCard";
 import GoogleMap from "../common/GoogleMap";
+import GalleryCarousel from "../common/GalleryCarousel";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -98,6 +99,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
     const speaker = event?.speakers?.[0]?.guestSpeaker || event?.speakers?.[0]?.imamAccount || {};
     const featuredImage = event?.media?.featuredImage?.url || "/assets/placeholders/event-placeholder.png";
     const videoUrl = event?.media?.videoUrl;
+    const photos = event?.media?.photos?.map((p: any) => p.photo?.url).filter(Boolean) || [];
 
     // Helper function to convert YouTube and Vimeo URLs to embed format
     const getEmbedUrl = (url: string) => {
@@ -161,7 +163,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
             {/* 1. Breadcrumbs */}
             <BreadcrumbSearchSection
                 breadcrumbs={breadcrumbs}
-                className="section-padding py-12"
+                className="section-padding lg:!pt-12"
                 showSearch={false}
                 breadcrumbsItemsStyle={"flex-wrap"}
             />
@@ -169,7 +171,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
             <div className="section-padding pb-12 sm:pb-20">
 
                 {/* 2. Header Hero */}
-                <div className="flex flex-col lg:flex-row gap-8 mb-12">
+                <div className="flex flex-col lg:flex-row gap-9 mb-12">
                     {/* Left: Featured Image */}
                     <div className="w-full lg:max-w-100 xl:max-w-100 shrink-0">
                         <div className="relative aspect-4/5 w-full overflow-hidden lg:max-w-100 lg:max-h-100">
@@ -275,7 +277,7 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                         </div>
                     </div>
                 </div>
-                <Separator className="my-12" />
+                <Separator className="my-11" />
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 space-y-12">
                     {/* Left Column: 2/3 */}
@@ -294,13 +296,13 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                 onChange={(tabId) => setActiveTab(tabId as any)}
                                 variant="pills"
                                 size="md"
-                                className="w-full sm:w-fit overflow-x-auto scrollbar-hide"
+                                className="w-full sm:w-fit overflow-x-auto scrollbar-hide lg:!mb-8"
                             />
 
                             {/* Content */}
-                            <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-                                {activeTab === "video" && (
-                                    embedUrl ? (
+                            {activeTab === "video" && (
+                                <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                                    {embedUrl ? (
                                         <div className="w-full h-full flex items-center justify-center relative bg-black group">
                                             <iframe
                                                 src={embedUrl}
@@ -323,27 +325,26 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                             <div className="text-center">
                                                 <FiVideo className="w-12 h-12 mx-auto mb-2 opacity-50" />
                                                 <p className="text-sm">No video available</p>
-                                                </div>
                                             </div>
-                                        )
-                                )}
-                                {activeTab === "photos" && (
-                                    <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
-                                        <div className="text-center">
-                                            <FiImage className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                                            <p className="text-sm">No photos available</p>
                                         </div>
-                                    </div>
-                                )}
-                                {activeTab === "audio" && (
+                                    )}
+                                </div>
+                            )}
+
+                            {activeTab === "photos" && (
+                                <GalleryCarousel images={photos} />
+                            )}
+
+                            {activeTab === "audio" && (
+                                <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
                                     <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
                                         <div className="text-center">
                                             <FiMic className="w-12 h-12 mx-auto mb-2 opacity-50" />
                                             <p className="text-sm">No audio recordings available</p>
                                         </div>
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            )}
                         </div>
 
                         {/* Description */}
@@ -472,22 +473,20 @@ export default function EventDetailClient({ event, config, relatedEvents }: any)
                                         <button
                                             key={amount}
                                             onClick={() => setDonationAmount(amount)}
-                                            className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
-                                                donationAmount === amount
+                                            className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === amount
                                                 ? "bg-black text-white"
                                                 : "bg-[#E4E4E7] text-black hover:bg-gray-300"
-                                            }`}
+                                                }`}
                                         >
                                             £{amount}
                                         </button>
                                     ))}
                                     <button
                                         onClick={() => setDonationAmount("Other")}
-                                        className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
-                                            donationAmount === "Other"
+                                        className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === "Other"
                                             ? "bg-black text-white"
                                             : "bg-[#E4E4E7] text-black hover:bg-gray-300"
-                                        }`}
+                                            }`}
                                     >
                                         Other
                                     </button>

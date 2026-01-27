@@ -78,6 +78,10 @@
     @apply text-[28px];
   }
 
+  .gallery-section-heading {
+    @apply text-[28px];
+  }
+
   .whatsapp-group-label {
     @apply text-xs
   }

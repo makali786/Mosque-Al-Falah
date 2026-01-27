@@ -123,8 +123,8 @@ export default function PrayerTimesWrapper({
           <button
             onClick={() => setActiveTab("prayer-time")}
             className={`flex-1 md:flex-none px-4 md:px-10 py-2.5 rounded-md text-sm md:text-base font-medium transition-all md:min-w-[174px] md:max-w-[174px] cursor-pointer text-center whitespace-nowrap ${activeTab === "prayer-time"
-                ? "bg-white text-[#18181B] shadow-sm"
-                : "text-[#71717A] hover:text-[#18181B]"
+              ? "bg-white text-[#18181B] shadow-sm"
+              : "text-[#71717A] hover:text-[#18181B]"
               }`}
           >
             Prayer Time
@@ -132,8 +132,8 @@ export default function PrayerTimesWrapper({
           <button
             onClick={() => setActiveTab("calendar")}
             className={`flex-1 md:flex-none px-4 md:px-10 py-2.5 rounded-md text-sm md:text-base font-medium transition-all md:min-w-[174px] md:max-w-[174px] cursor-pointer text-center whitespace-nowrap ${activeTab === "calendar"
-                ? "bg-white text-[#18181B] shadow-sm"
-                : "text-[#71717A] hover:text-[#18181B]"
+              ? "bg-white text-[#18181B] shadow-sm"
+              : "text-[#71717A] hover:text-[#18181B]"
               }`}
           >
             Calendar
@@ -146,7 +146,7 @@ export default function PrayerTimesWrapper({
           <div className="relative">
             <button
               onClick={() => setIsDownloadOpen(!isDownloadOpen)}
-              className="bg-[#27272A] text-white px-6 py-3 rounded-lg text-base cursor-pointer hover:bg-[#18181B] transition-colors flex items-center gap-2 w-full sm:w-auto justify-center"
+              className="bg-[#27272A] text-white px-6 py-3 rounded-lg text-sm sm:text-base cursor-pointer hover:bg-[#18181B] transition-colors flex items-center gap-2 w-full sm:w-auto justify-center"
             >
               <span>Download {displayYear} timetable</span>
               <IoChevronDown
@@ -184,7 +184,7 @@ export default function PrayerTimesWrapper({
           <div className="relative">
             <button
               onClick={() => setIsRamadanDownloadOpen(!isRamadanDownloadOpen)}
-              className="bg-[#27272A] text-white px-6 py-3 rounded-lg text-base cursor-pointer hover:bg-[#18181B] transition-colors flex items-center gap-2"
+              className="bg-[#27272A] w-full sm:w-auto text-white px-6 py-3 rounded-lg text-sm sm:text-base cursor-pointer hover:bg-[#18181B] transition-colors flex items-center gap-2"
             >
               <span>Ramadan Timetable</span>
               <IoChevronDown
