@@ -537,7 +537,7 @@ export default function PrayerTimesSection({
   }, [currentDate, activeTab, onYearChange]);
 
   return (
-    <section className="w-full section-padding py-8">
+    <section className="w-full section-padding py-8 lg:pb-24">
       {/* Main Content Area */}
       {activeTab === "prayer-time" ? (
         <div className="flex flex-col xl:flex-row gap-0 xl:gap-12 mb-8 xl:mb-16">

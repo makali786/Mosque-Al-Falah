@@ -14,6 +14,7 @@ import Tabs from "../common/Tabs";
 import DonorProfileCard from "../donate/shared/DonorProfileCard";
 import GoogleMap from "../common/GoogleMap";
 import EventBookingForm from "./EventBookingForm";
+import GalleryCarousel from "../common/GalleryCarousel";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -107,6 +108,7 @@ export default function EventDetailClient({ event, config, relatedEvents, onBook
     const speaker = event?.speakers?.[0]?.guestSpeaker || event?.speakers?.[0]?.imamAccount || {};
     const featuredImage = event?.media?.featuredImage?.url || "/assets/placeholders/event-placeholder.png";
     const videoUrl = event?.media?.videoUrl;
+    const photos = event?.media?.photos?.map((p: any) => p.photo?.url).filter(Boolean) || [];
 
     // Helper function to convert YouTube and Vimeo URLs to embed format
     const getEmbedUrl = (url: string) => {
@@ -307,9 +309,9 @@ export default function EventDetailClient({ event, config, relatedEvents, onBook
                             />
 
                             {/* Content */}
-                            <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-                                {activeTab === "video" && (
-                                    embedUrl ? (
+                            {activeTab === "video" && (
+                                <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                                    {embedUrl ? (
                                         <div className="w-full h-full flex items-center justify-center relative bg-black group">
                                             <iframe
                                                 src={embedUrl}
@@ -334,25 +336,24 @@ export default function EventDetailClient({ event, config, relatedEvents, onBook
                                                 <p className="text-sm">No video available</p>
                                             </div>
                                         </div>
-                                    )
-                                )}
-                                {activeTab === "photos" && (
-                                    <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
-                                        <div className="text-center">
-                                            <FiImage className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                                            <p className="text-sm">No photos available</p>
-                                        </div>
-                                    </div>
-                                )}
-                                {activeTab === "audio" && (
+                                    )}
+                                </div>
+                            )}
+
+                            {activeTab === "photos" && (
+                                <GalleryCarousel images={photos} />
+                            )}
+
+                            {activeTab === "audio" && (
+                                <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
                                     <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
                                         <div className="text-center">
                                             <FiMic className="w-12 h-12 mx-auto mb-2 opacity-50" />
                                             <p className="text-sm">No audio recordings available</p>
                                         </div>
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            )}
                         </div>
 
                         {/* Description */}
