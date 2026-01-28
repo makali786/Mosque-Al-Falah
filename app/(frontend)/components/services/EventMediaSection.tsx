@@ -174,11 +174,13 @@ export default function EventMediaSection({
             )}
 
             {/* Description Text */}
-            <div>
-              <p className="text-base">
-                {description}
-              </p>
-            </div>
+            {activeTab === 'Video' && (
+              <div>
+                <p className="text-base">
+                  {description}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Right Column: Sidebar (Venue & Donate) */}

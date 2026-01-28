@@ -109,11 +109,11 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 layout="image-left"
                 updatedAt={updatedAt}
                 content={
-                    <div className="text-base text-[#52525B] space-y-4">
+                    <div className="text-base text-[#52525B] space-y-4 lg:max-w-[680px]">
                         {service.fullDescription ? (
                             <RichTextRenderer content={service.fullDescription} />
                         ) : (
-                            <p></p>
+                            ""
                         )}
                     </div>
                 }
