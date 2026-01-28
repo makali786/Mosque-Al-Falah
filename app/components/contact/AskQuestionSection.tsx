@@ -136,7 +136,7 @@ export function AskQuestionSection({
               <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 xl:text-5xl lg:leading-12 text-black">
                 {title}
               </h2>
-              <p className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 xl:text-lg lg:leading-7 text-[#666666]">
+              <p className="text-base sm:text-base md:text-lg xl:text-lg">
                 {description}
               </p>
             </div>

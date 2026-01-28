@@ -11,6 +11,8 @@ interface QuoteSectionProps {
   donateButtonUrl?: string;
   shareData?: { title: string; text: string; url: string };
   backgroundColor?: string;
+  showShareButton?: boolean;
+  showDonateButton?: boolean;
 }
 
 export function QuoteSection({
@@ -24,16 +26,35 @@ export function QuoteSection({
   donateButtonUrl = "/donate",
   shareData,
   backgroundColor = "#f4f4f5",
+  showShareButton = false,
+  showDonateButton = false,
 }: QuoteSectionProps) {
-  const handleShare = () => {
+  const handleShare = async () => {
     if (onShare) {
       onShare();
       return;
     }
-    if (shareData && navigator.share) {
-      navigator.share(shareData).catch((err) => console.log("Share failed:", err));
-    } else if (shareData) {
-      alert("Share this page: " + shareData.url);
+
+    const data = shareData || {
+      title: document.title,
+      text: "Check out this page",
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(data);
+      } catch (err) {
+        console.log("Share failed:", err);
+      }
+    } else {
+      // Fallback: Copy to clipboard or alert
+      try {
+        await navigator.clipboard.writeText(data.url);
+        alert("Link copied to clipboard: " + data.url);
+      } catch (err) {
+        alert("Share this page: " + data.url);
+      }
     }
   };
 
@@ -67,7 +88,7 @@ export function QuoteSection({
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-6 w-full lg:w-auto shrink-0">
-          {(onShare || shareData) && (
+          {(showShareButton || onShare || shareData) && (
             <button
               onClick={handleShare}
               className="flex items-center justify-center px-4 sm:px-6 lg:px-6 py-3 bg-[#3f3f46] hover:bg-[#52525b] text-white rounded-lg cursor-pointer"
@@ -77,7 +98,7 @@ export function QuoteSection({
               </span>
             </button>
           )}
-          {(onDonate || donateButtonUrl) && (
+          {(showDonateButton || onDonate || donateButtonUrl) && (
             <button
               onClick={handleDonate}
               className="flex items-center justify-center text-sm md:text-base px-4 sm:px-5 md:px-6 lg:px-6 py-3 bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg cursor-pointer"

@@ -205,6 +205,8 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 isLive={isLive}
                 venueName={service.venue?.venueName}
                 venueAddress={service.venue?.fullAddress}
+                venueLatitude={service.venue?.coordinates?.latitude}
+                venueLongitude={service.venue?.coordinates?.longitude}
                 venueMapsLink={service.venue?.googleMapsLink}
                 donationTitle={service.donation?.donationTitle}
                 donationDescription={service.donation?.donationDescription}
@@ -315,7 +317,8 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 }}
                 testimonials={service.testimonials?.map((t: any) => ({
                     text: t.quote,
-                    attribution: t.author
+                    attribution: t.author,
+                    subTitle: t.authorTitle
                 })) || []}
                 images={[
                     heroImage,

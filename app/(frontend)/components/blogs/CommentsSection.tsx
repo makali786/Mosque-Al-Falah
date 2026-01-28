@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { updateComment, updateReply, submitReply } from "../../blogs/[slug]/actions";
 import { useToast } from "../../hooks/useToast";
@@ -40,6 +40,11 @@ export default function CommentsSection({ postId, comments: initialComments }: C
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { toasts, removeToast, success, error } = useToast();
 
+    // Sync comments when initialComments updates (e.g. after revalidatePath)
+    useEffect(() => {
+        setComments(initialComments);
+    }, [initialComments]);
+
     // Start editing a comment
     const handleEditComment = (comment: Comment) => {
         setEditingCommentId(comment.id || null);
@@ -75,7 +80,7 @@ export default function CommentsSection({ postId, comments: initialComments }: C
                 throw new Error(result.error || "Failed to update comment");
             }
 
-            // Update local state
+            // Update local state is handled by useEffect on revalidate, but we can optimistically update too
             const updatedComments = comments.map((c) => {
                 if (c.id === commentId) {
                     return { ...c, comment: editText.trim() };
@@ -168,6 +173,7 @@ export default function CommentsSection({ postId, comments: initialComments }: C
 
             // Update local state
             const newReply: Reply = {
+                id: `temp-${Date.now()}`,
                 userName: replyUserName.trim(),
                 replyText: replyText.trim(),
                 replyDate: new Date().toISOString(),

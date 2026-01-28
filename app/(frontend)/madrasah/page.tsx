@@ -95,7 +95,7 @@ export default async function MadrasahPage() {
     const classesData = await findFromPayload({ collection: "madrasah-classes" });
     const testimonialsData = await findFromPayload({ collection: "madrasah-testimonials" });
 
-    const committeeMembers = await fetchCommittees<CommitteeMember>({ sort: 'order', where: { isActive: { equals: true } } });
+    const committeeMembers = await fetchCommittees<CommitteeMember>({ limit: 4, sort: 'order', where: { isActive: { equals: true } } });
 
     if (!pageData) {
         return <div>Loading...</div>;

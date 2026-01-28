@@ -83,7 +83,7 @@ const TaraweehEidPrayers = async ({ service, params }: { service: any, params: {
       description={bannerDescription}
       updateLabel="Update"
       updateDate={updateAt}
-      countdownLabel={service.taraweehEid?.enableCountdown ? "Next Taraweeh Prayer in" : undefined}
+      countdownLabel={service.taraweehEid?.enableCountdown ? service.taraweehEid?.countdownLabel : undefined}
       targetDate={service.taraweehEid?.countdownTargetDate ? (targetDate || "") : undefined}
     />
 
