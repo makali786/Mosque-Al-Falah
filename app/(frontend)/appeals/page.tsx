@@ -48,7 +48,7 @@ export default async function AppealsPage() {
 
     // Simplifed query syntax to be safer
     appealsData = await fetchDonationAppeals(
-      { limit: appealsPage.gridSettings?.itemsPerPage || 12, depth: 1, where: { isActive: { equals: true } } }
+      { limit: appealsPage.gridSettings?.itemsPerPage || 1000, depth: 1, where: { isActive: { equals: true } } }
     );
   } catch (error) {
     console.error("Error fetching appeals data:", error);

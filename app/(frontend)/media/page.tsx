@@ -23,10 +23,10 @@ export default async function MediaPage() {
   });
 
   const fetchedMedia = await fetchMediaItems({
-    limit: mediaPageConfig.gridSettings?.itemsPerPage || 12,
+    limit: mediaPageConfig.gridSettings?.itemsPerPage || 1000,
     depth: 1,
     where: { isActive: { equals: true } },
-    sort: '-publishedDate' 
+    sort: '-publishedDate'
   });
 
   const mediaData: MediaItem[] = fetchedMedia.map((item: any) => ({
@@ -43,16 +43,16 @@ export default async function MediaPage() {
 
   return (
     <div className="bg-white min-h-screen">
-      <MediaFeed 
+      <MediaFeed
         initialMedia={mediaData}
         viewOptions={mediaPageConfig.viewOptions}
         filterTabs={mediaPageConfig.filterTabs}
         loadMoreText={mediaPageConfig.gridSettings.loadMoreButtonText}
         emptyStateMessage={mediaPageConfig.emptyStates.noMediaMessage}
       />
-      
+
       {mediaPageConfig.bottomQuote.enableSection && (
-        <QuoteSection 
+        <QuoteSection
           quote={mediaPageConfig.bottomQuote.quoteText}
           attribution={mediaPageConfig.bottomQuote.author}
           shareButtonText={mediaPageConfig.bottomQuote.shareButtonText}

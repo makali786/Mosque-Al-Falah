@@ -33,7 +33,7 @@ interface SermonsPageData {
 
 export default async function SermonsPage() {
   const sermonsPageData = (await fetchGlobal({ slug: "sermons-page" })) as SermonsPageData;
-  const sermonsData = await fetchSermons({ sort: "-sermonDate", limit: 100 }); // Fetch enough for now
+  const sermonsData = await fetchSermons({ sort: "-sermonDate", limit: 1000 });
 
   // Map sermons to SermonCard format
   const mappedSermons = sermonsData.map((sermon: any) => {
@@ -44,7 +44,7 @@ export default async function SermonsPage() {
     const speakerAvatar = sermon.speaker?.image
       ? getMediaUrl(sermon.speaker.image) || undefined
       : undefined;
-    
+
     return {
       id: sermon.id,
       image: getMediaUrl(sermon.image),
@@ -64,23 +64,23 @@ export default async function SermonsPage() {
 
   return (
     <div className="bg-white min-h-screen">
-       <SermonsFeed 
-          initialSermons={mappedSermons}
-          viewOptions={sermonsPageData.viewOptions}
-          loadMoreText={sermonsPageData.gridSettings?.loadMoreButtonText}
-          emptyStateMessage={sermonsPageData.emptyStates?.noSermonsMessage}
-       />
-       
-       {sermonsPageData.bottomQuote?.enableSection && (
-          <QuoteSection 
-             quote={sermonsPageData.bottomQuote.quoteText}
-             attribution={sermonsPageData.bottomQuote.author}
-             shareButtonText={sermonsPageData.bottomQuote.shareButtonText}
-             donateButtonText={sermonsPageData.bottomQuote.donateButtonText}
-             donateButtonUrl={sermonsPageData.bottomQuote.donateButtonUrl}
-          backgroundColor="#f4f4f5" 
-          />
-       )}
+      <SermonsFeed
+        initialSermons={mappedSermons}
+        viewOptions={sermonsPageData.viewOptions}
+        loadMoreText={sermonsPageData.gridSettings?.loadMoreButtonText}
+        emptyStateMessage={sermonsPageData.emptyStates?.noSermonsMessage}
+      />
+
+      {sermonsPageData.bottomQuote?.enableSection && (
+        <QuoteSection
+          quote={sermonsPageData.bottomQuote.quoteText}
+          attribution={sermonsPageData.bottomQuote.author}
+          shareButtonText={sermonsPageData.bottomQuote.shareButtonText}
+          donateButtonText={sermonsPageData.bottomQuote.donateButtonText}
+          donateButtonUrl={sermonsPageData.bottomQuote.donateButtonUrl}
+          backgroundColor="#f4f4f5"
+        />
+      )}
     </div>
   );
 }
