@@ -41,9 +41,15 @@ export default async function SermonsPage() {
     const speakerName = sermon.speaker?.name || sermon.guestSpeaker?.name || "Unknown Author";
     const speakerRole = sermon.speaker?.title || sermon.guestSpeaker?.title || "";
     // speaker.image might be a Media object or ID. getMediaUrl handles Media object.
-    const speakerAvatar = sermon.speaker?.image
-      ? getMediaUrl(sermon.speaker.image) || undefined
-      : undefined;
+    let speakerAvatar = undefined;
+    if (sermon.speaker?.image) {
+      speakerAvatar = getMediaUrl(sermon.speaker.image) || undefined;
+    } else if (sermon.guestSpeaker?.avatar) {
+      const gsAvatar = sermon.guestSpeaker.avatar;
+      speakerAvatar = typeof gsAvatar === 'string'
+        ? gsAvatar
+        : getMediaUrl(gsAvatar) || undefined;
+    }
 
     return {
       id: sermon.id,
