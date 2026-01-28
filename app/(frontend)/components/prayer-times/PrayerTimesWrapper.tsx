@@ -117,7 +117,7 @@ export default function PrayerTimesWrapper({
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-between items-center mb-6 gap-4 section-padding pt-8">
+      <div className="flex flex-col lg:flex-row justify-between items-center gap-4 section-padding pt-8">
         {/* Toggle Switch */}
         <div className="bg-[#FAFAFA] p-1 rounded-lg flex w-full flex-wrap md:w-auto">
           <button

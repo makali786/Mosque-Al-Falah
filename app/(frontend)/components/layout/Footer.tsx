@@ -465,7 +465,7 @@ export default function Footer() {
         </div>
 
         {/* Middle Section - Links */}
-        <div className="flex flex-col lg:flex-row items-start py-0 w-full hn-container">
+        <div className="flex flex-col lg:flex-row lg:flex-wrap xl:flex-nowrap items-start py-0 w-full hn-container ">
           {/* Mobile: Logo */}
           <div className="flex flex-col items-center gap-6 py-8 lg:hidden w-full hn-container ">
             <div className="w-24 h-24">
@@ -480,7 +480,7 @@ export default function Footer() {
           </div>
 
           {/* Desktop: Logo & Copyright Section */}
-          <div className="hidden lg:flex flex-col gap-9 items-center px-2 xl:px-4 py-9 lg:min-w-[260px] lg:max-w-[260px] xl:min-w-[352px] xl:max-w-[352px]">
+          <div className="hidden lg:flex flex-col gap-9 items-center px-2 xl:px-4 py-9 lg:w-auto lg:min-w-[240px] xl:min-w-[352px] xl:max-w-[352px]">
             <div className="w-32 h-32">
               <Image
                 src="/assets/footer/footer-logo.png"
@@ -523,7 +523,7 @@ export default function Footer() {
           ))}
 
           {/* Contact Information Column */}
-          <div className="flex flex-col h-full px-0 lg:px-2 xl:px-4 py-4 lg:py-9 w-full lg:flex-1 lg:min-w-0">
+          <div className="flex flex-col h-full px-0 lg:px-2 xl:px-4 py-4 lg:py-9 w-full lg:flex-1 lg:min-w-[280px] xl:min-w-0">
             <h4 className="font-bold text-base lg:text-lg leading-7 text-white mb-3 lg:mb-4">
               Contact information
             </h4>
