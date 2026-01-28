@@ -557,7 +557,7 @@ export default function Footer() {
           <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center hn-container">
             COPYRIGHT © {new Date().getFullYear()}{" "}
             <Link
-              href="https://www.masjid-alfalah.org.uk/"
+              href=""
               className="hover:text-[#006fee]"
             >
               Masjid Al Falah
