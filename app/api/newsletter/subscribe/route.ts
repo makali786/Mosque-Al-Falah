@@ -105,7 +105,7 @@ export const POST = async (request: NextRequest) => {
     // Send welcome email
     try {
       const { sendNewsletterWelcomeEmail } =
-        await import('@/lib/email/email-service');
+        await import('@lib/email/email-service');
 
       await sendNewsletterWelcomeEmail({
         email: newSubscriber.email,
