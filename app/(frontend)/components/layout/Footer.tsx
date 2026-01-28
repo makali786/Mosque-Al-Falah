@@ -153,7 +153,7 @@ const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
       d="M9 5l7 7-7 7"
     />
   </svg>
-);
+)
 
 interface FooterColumnProps {
   title: string;
