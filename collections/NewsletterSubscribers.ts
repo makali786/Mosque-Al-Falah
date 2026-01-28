@@ -171,6 +171,7 @@ export const NewsletterSubscribers: CollectionConfig = {
       type: 'select',
       options: [
         { label: 'Website Footer', value: 'footer' },
+        { label: 'Prayer Reminder', value: 'prayer-reminder' },
         { label: 'Event Registration', value: 'event' },
         { label: 'Service Request', value: 'service' },
         { label: 'Donation Page', value: 'donation' },
