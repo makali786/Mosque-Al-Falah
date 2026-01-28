@@ -146,6 +146,7 @@ const NikaahMarriage = async ({ service, params }: { service: any, params: { id:
                 donationTitle={service.donation?.donationTitle}
                 donationDescription={service.donation?.donationDescription}
                 donationAmounts={service.donation?.suggestedAmounts?.map((a: any) => a.amount) || []}
+                enableDonations={service.donation?.enableDonations}
                 containerStyle='section-padding'
             />
 
