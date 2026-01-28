@@ -79,7 +79,7 @@ export default function ContentImageSection({
             <h2 className="text-3xl leading-9 font-semibold sm:text-4xl sm:leading-10 md:text-[44px] md:leading-11 lg:text-[48px] lg:leading-12 text-black">
               {heading}
             </h2>
-            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black [&_p]:mb-0 [&_p+p]:mt-4 sm:[&_p+p]:mt-5 md:[&_p+p]:mt-6 [&_ul]:list-disc [&_ul]:ml-6 [&_ul>li]:leading-7">
+            <div className="text-base leading-6 sm:text-[17px] sm:leading-7 md:text-lg md:leading-7 lg:text-[18px] lg:leading-7 text-black [&_p]:mb-0 [&_p+p]:mt-4 sm:[&_p+p]:mt-5 md:[&_p+p]:mt-6 [&_ul]:list-disc [&_ul]:2 [&_ul>li]:leading-7">
               {content}
             </div>
           </div>
@@ -95,8 +95,8 @@ export default function ContentImageSection({
           >
             <div
               className={`relative w-full ${imageStyle === "rounded"
-                  ? "rounded-lg sm:rounded-xl lg:rounded-[14px] overflow-hidden"
-                  : ""
+                ? "rounded-lg sm:rounded-xl lg:rounded-[14px] overflow-hidden"
+                : ""
                 }`}
               style={{
                 aspectRatio: `${imageWidth} / ${imageHeight}`,
