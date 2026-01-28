@@ -348,6 +348,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     backgroundColor="#F4F4F5"
                     shareButtonText={pageConfig.bottomQuote.shareButtonText}
                     donateButtonText={pageConfig.bottomQuote.donateButtonText}
+                    showShareButton={pageConfig.bottomQuote.showShareButton}
+                    showDonateButton={pageConfig.bottomQuote.showDonateButton}
                 />
             )}
         </main>

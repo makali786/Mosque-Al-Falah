@@ -77,21 +77,23 @@ export default async function BlogsPage() {
 
   return (
     <main className="bg-white">
-      <BlogsFeed 
-        initialPosts={initialPosts} 
-        categories={categories} 
-        config={config} 
+      <BlogsFeed
+        initialPosts={initialPosts}
+        categories={categories}
+        config={config}
       />
-        {/* Quote Section */}
+      {/* Quote Section */}
       {config.bottomQuote.enableSection && (
-         <QuoteSection 
-           quote={config.bottomQuote.quoteText}
-           attribution={config.bottomQuote.author}
-           donateButtonUrl="/donate"
-           backgroundColor="#F4F4F5"
-           shareButtonText={config.bottomQuote.shareButtonText}
-           donateButtonText={config.bottomQuote.donateButtonText}
-         />
+        <QuoteSection
+          quote={config.bottomQuote.quoteText}
+          attribution={config.bottomQuote.author}
+          donateButtonUrl="/donate"
+          backgroundColor="#F4F4F5"
+          shareButtonText={config.bottomQuote.shareButtonText}
+          donateButtonText={config.bottomQuote.donateButtonText}
+          showShareButton={config.bottomQuote.showShareButton}
+          showDonateButton={config.bottomQuote.showDonateButton}
+        />
       )}
     </main>
   );
