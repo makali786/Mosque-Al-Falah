@@ -7,10 +7,12 @@ interface ServiceQuoteProps {
   quote?: {
     text: string;
     attribution: string;
+    subTitle?: string;
   };
   testimonials?: {
     text: string;
     attribution: string;
+    subTitle?: string;
   }[];
   images: string[];
   sectionContainer?: string
@@ -43,7 +45,7 @@ export default function ServiceQuote({ quote, testimonials = [], images, section
   const currentImageIndex = getSafeIndex(currentIndex, images.length);
   const currentTestimonialIndex = getSafeIndex(currentIndex, allTestimonials.length);
 
-  const currentTestimonial = allTestimonials[currentTestimonialIndex] || { text: "", attribution: "" };
+  const currentTestimonial = allTestimonials[currentTestimonialIndex] || { text: "", attribution: "", subTitle: "" };
 
   return (
     <section className="w-full my-16">
@@ -64,6 +66,11 @@ export default function ServiceQuote({ quote, testimonials = [], images, section
                   <span className="font-bold text-black">{currentTestimonial.attribution}</span>
                   {currentTestimonial.text}
                 </p>
+                {currentTestimonial.subTitle && (
+                  <p className="text-base md:text-base mt-2">
+                    {currentTestimonial.subTitle}
+                  </p>
+                )}
               </div>
 
               <div className="flex justify-end">

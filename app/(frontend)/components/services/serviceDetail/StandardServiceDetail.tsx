@@ -317,7 +317,8 @@ const StandardServiceDetail = async ({ service, params }: { service: any, params
                 }}
                 testimonials={service.testimonials?.map((t: any) => ({
                     text: t.quote,
-                    attribution: t.author
+                    attribution: t.author,
+                    subTitle: t.authorTitle
                 })) || []}
                 images={[
                     heroImage,
