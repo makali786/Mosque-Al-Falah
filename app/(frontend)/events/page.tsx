@@ -8,7 +8,7 @@ import configPromise from "@payload-config";
 export default async function EventsPage() {
 
     const eventPage = await fetchGlobal({ slug: "events-page" });
-    const eventData = await fetchEvents({ limit: 12, depth: 1, where: { isPublished: { equals: true } }, sort: '-publishedDate' });
+    const eventData = await fetchEvents({ limit: 1000, depth: 1, where: { isPublished: { equals: true } }, sort: '-publishedDate' });
 
     async function handleEventRequestSubmit(data: any) {
         "use server";
