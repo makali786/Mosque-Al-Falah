@@ -121,7 +121,11 @@ export default function WhatParentsSay({
                 <div className="flex gap-1">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M10 1L12.939 6.955L19.511 7.91L14.756 12.545L15.878 19.09L10 16L4.122 19.09L5.244 12.545L0.489001 7.91L7.061 6.955L10 1Z" fill="#F59E0B" stroke="#F59E0B" strokeLinejoin="round" />
+                      <path d="M10 1L12.939 6.955L19.511 7.91L14.756 12.545L15.878 19.09L10 16L4.122 19.09L5.244 12.545L0.489001 7.91L7.061 6.955L10 1Z"
+                        fill={i < review.rating ? "#F59E0B" : "#D4D4D8"}
+                        stroke={i < review.rating ? "#F59E0B" : "#D4D4D8"}
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   ))}
                 </div>
