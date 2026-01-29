@@ -162,7 +162,7 @@ function DonationCompleteContent() {
         <div className="mt-12 text-sm text-gray-500">
           <p>
             Have questions about your donation?{' '}
-            <Link href="/contact" className="text-blue-500 underline">
+            <Link href="/contact-us" className="text-blue-500 underline">
               Contact us
             </Link>
           </p>

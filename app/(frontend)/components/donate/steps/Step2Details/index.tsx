@@ -133,14 +133,14 @@ export default function Step2Details({
             <>
               I have read and agree to the Enthuse{' '}
               <a
-                href="https://www.enthuse.com/legal/"
+                href="/terms-of-services"
                 className="text-lg underline text-black hover:no-underline"
               >
                 terms & conditions
               </a>{' '}
               and{' '}
               <a
-                href="https://www.enthuse.com/privacy/"
+                href="/privacy-policy"
                 className="text-lg underline text-black hover:no-underline"
               >
                 privacy policy.
