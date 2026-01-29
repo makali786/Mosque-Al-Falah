@@ -189,7 +189,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
 
                 {/* Citation */}
                 <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  — {citation}
+                  {citation}
                 </p>
               </div>
             </div>
