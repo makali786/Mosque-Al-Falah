@@ -15,6 +15,7 @@ import DonorProfileCard from "../donate/shared/DonorProfileCard";
 import GoogleMap from "../common/GoogleMap";
 import EventBookingForm from "./EventBookingForm";
 import GalleryCarousel from "../common/GalleryCarousel";
+import AudioPlayer from "../common/AudioPlayer";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -109,6 +110,11 @@ export default function EventDetailClient({ event, config, relatedEvents, onBook
     const featuredImage = event?.media?.featuredImage?.url || "/assets/placeholders/event-placeholder.png";
     const videoUrl = event?.media?.videoUrl;
     const photos = event?.media?.photos?.map((p: any) => p.photo?.url).filter(Boolean) || [];
+    const audioUrl = event?.media?.audioRecordings?.[0]?.audioFile?.url;
+
+    const fullAudioUrl = audioUrl && audioUrl.startsWith('/')
+        ? `${typeof window !== 'undefined' ? window.location.origin : ''}${audioUrl}`
+        : audioUrl;
 
     // Helper function to convert YouTube and Vimeo URLs to embed format
     const getEmbedUrl = (url: string) => {
@@ -345,13 +351,19 @@ export default function EventDetailClient({ event, config, relatedEvents, onBook
                             )}
 
                             {activeTab === "audio" && (
-                                <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-                                    <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
-                                        <div className="text-center">
-                                            <FiMic className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                                            <p className="text-sm">No audio recordings available</p>
+                                <div className="w-full">
+                                    {fullAudioUrl ? (
+                                        <AudioPlayer audioUrl={fullAudioUrl} showPreviousNext={false} />
+                                    ) : (
+                                        <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                                            <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
+                                                <div className="text-center">
+                                                    <FiMic className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                                                    <p className="text-sm">No audio recordings available</p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                 </div>
                             )}
                         </div>
