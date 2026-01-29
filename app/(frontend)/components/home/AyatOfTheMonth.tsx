@@ -14,6 +14,7 @@ interface Ayat {
   videoThumbnail?: { url?: string };
   videoUrl?: string;
   audioUrl?: string;
+  audioFile?: { url?: string };
 }
 
 type ViewMode = "default" | "video" | "audio";
@@ -61,9 +62,11 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
   const citation = data?.surahName || "";
   const videoTitle = data?.videoTitle || "";
   const videoUrl = data?.videoUrl || "";
-  const audioUrl = data.audioUrl || "";
+  const audioUrl = data.audioFile?.url || data.audioUrl || "";
+  const fullAudioUrl = audioUrl && audioUrl.startsWith('/')
+    ? `${typeof window !== 'undefined' ? window.location.origin : ''}${audioUrl}`
+    : audioUrl;
   const embedUrl = getEmbedUrl(videoUrl);
-
 
 
   return (
@@ -192,7 +195,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
             </div>
 
             {/* Audio Player */}
-            <AudioPlayer audioUrl={audioUrl} variant="dark" />
+            <AudioPlayer audioUrl={fullAudioUrl} variant="dark" />
           </>
         )}
       </div>
