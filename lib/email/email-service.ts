@@ -202,6 +202,8 @@ function getDonationTypeLabel(type: string): string {
  * Generate HTML email for donation receipt
  */
 function generateReceiptEmailHTML(data: DonationReceiptData): string {
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
   const currencySymbol =
     data.currency === 'GBP' ? '£' : data.currency === 'USD' ? '$' : '€';
 
@@ -221,7 +223,8 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-              <img src="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/logo-white.png" alt="Masjid Al-Falah" height="60" style="margin-bottom: 20px;">
+            <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Thank You for Your Donation</h1>
               <p style="color: #e0e0e0; margin: 10px 0 0; font-size: 16px;">JazakAllahu Khairan</p>
             </td>
@@ -501,6 +504,7 @@ function generateWelcomeEmailHTML(donor: DonorData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0c478a 0%, #004797 100%); padding: 40px 20px;">
     <tr>
       <td align="center">
+        <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
         <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Welcome to Masjid Al-Falah</h1>
       </td>
     </tr>
@@ -564,6 +568,7 @@ function generateReminderEmailHTML(data: {
         <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 40px;">
           <tr>
             <td>
+              <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
               <h2 style="color: #333; margin: 0 0 20px;">Upcoming Donation Reminder</h2>
               <p style="font-size: 16px; color: #555; line-height: 1.6;">
                 Assalamu Alaikum ${data.name},
@@ -639,6 +644,7 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 30px 20px;">
     <tr>
       <td align="center">
+        <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 15px;">
         <h1 style="color: #ffffff; margin: 0; font-size: 24px;">🎉 New Donation Received!</h1>
       </td>
     </tr>
@@ -731,6 +737,8 @@ export async function sendEventRequestNotification(
     'admin@masjid-al-falah.org';
 
   try {
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
     const html = `
 <!DOCTYPE html>
 <html>
@@ -738,51 +746,83 @@ export async function sendEventRequestNotification(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); padding: 30px 20px;">
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
+  <!-- Header -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000000; padding: 32px 20px;">
     <tr>
       <td align="center">
-        <h1 style="color: #ffffff; margin: 0; font-size: 24px;">📅 New Event/Lecture Request</h1>
+        <table width="600" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="center">
+             <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
   </table>
 
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 20px;">
+  <!-- Main Content -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 20px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 30px;">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+          <!-- Title -->
           <tr>
-            <td>
-              <h2 style="margin: 0 0 20px; color: #333; font-size: 20px;">Request Details</h2>
-              <table width="100%" cellpadding="0" cellspacing="0">
+            <td style="padding: 32px 40px 24px;">
+              <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #171717;">New Event/Lecture Request</h1>
+              <p style="margin: 8px 0 0; font-size: 14px; color: #71717a;">An event or lecture request has been submitted</p>
+            </td>
+          </tr>
+
+          <!-- Request Details -->
+          <tr>
+            <td style="padding: 0 40px 24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background: #f4f4f5; border-radius: 8px; padding: 24px;">
                 <tr>
-                  <td style="padding: 8px 0; color: #666;">Name:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600;">${data.fullName}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Email:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.email}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Phone:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.phoneNumber}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Date:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${formatDate(data.date)}</td>
+                  <td>
+                    <h2 style="margin: 0 0 16px; font-size: 16px; font-weight: 600; color: #171717;">Request Details</h2>
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Name:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-weight: 600; font-size: 14px;">${data.fullName}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Email:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${data.email}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Phone:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${data.phoneNumber}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Date:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${formatDate(data.date)}</td>
+                      </tr>
+                    </table>
+                  </td>
                 </tr>
               </table>
-              
-              <div style="margin-top: 20px; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #7c3aed;">
-                <p style="margin: 0 0 8px; font-weight: 600; color: #333;">Comments/Details:</p>
-                <p style="margin: 0; color: #555; line-height: 1.6; white-space: pre-wrap;">${data.comments}</p>
+            </td>
+          </tr>
+
+          <!-- Comments -->
+          <tr>
+            <td style="padding: 0 40px 32px;">
+              <div style="padding: 20px; background: #fef9c3; border-radius: 8px; border-left: 4px solid #ca8a04;">
+                <p style="margin: 0 0 8px; font-weight: 600; color: #713f12; font-size: 14px;">Comments/Details:</p>
+                <p style="margin: 0; color: #854d0e; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${data.comments}</p>
               </div>
-              
-              <p style="margin-top: 20px; text-align: center;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/admin/collections/event-requests/${data.requestId}" style="display: inline-block; background: #7c3aed; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                  View in Admin Panel
-                </a>
-              </p>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding: 0 40px 40px; text-align: center;">
+              <a href="${siteUrl}/admin/collections/event-requests/${data.requestId}" style="display: inline-block; background: #006fee; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+                View in Admin Panel
+              </a>
             </td>
           </tr>
         </table>
@@ -796,7 +836,7 @@ export async function sendEventRequestNotification(
     await transporter.sendMail({
       from: `"Masjid Al-Falah Requests" <${process.env.EMAIL_FROM || 'requests@masjid-al-falah.org'}>`,
       to: adminEmails,
-      subject: `📅 New Event/Lecture Request from ${data.fullName}`,
+      subject: `New Event/Lecture Request from ${data.fullName}`,
       html,
     });
 
@@ -822,6 +862,8 @@ export async function sendServiceRequestNotification(
     'admin@masjid-al-falah.org';
 
   try {
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
     const html = `
 <!DOCTYPE html>
 <html>
@@ -829,51 +871,84 @@ export async function sendServiceRequestNotification(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%); padding: 30px 20px;">
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
+  <!-- Header -->
+ <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000000; padding: 32px 20px;">
     <tr>
       <td align="center">
-        <h1 style="color: #ffffff; margin: 0; font-size: 24px;">🤝 New Service Request</h1>
+        <table width="600" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="center">
+          <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
+
+
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
   </table>
 
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 20px;">
+  <!-- Main Content -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 20px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 30px;">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+          <!-- Title -->
           <tr>
-            <td>
-              <h2 style="margin: 0 0 20px; color: #333; font-size: 20px;">Request Details</h2>
-              <table width="100%" cellpadding="0" cellspacing="0">
+            <td style="padding: 32px 40px 24px;">
+              <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #171717;">New Service Request</h1>
+              <p style="margin: 8px 0 0; font-size: 14px; color: #71717a;">A service request has been submitted</p>
+            </td>
+          </tr>
+
+          <!-- Request Details -->
+          <tr>
+            <td style="padding: 0 40px 24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background: #f4f4f5; border-radius: 8px; padding: 24px;">
                 <tr>
-                  <td style="padding: 8px 0; color: #666;">Name:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600;">${data.fullName}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Email:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.email}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Phone:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.phoneNumber}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Date:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${formatDate(data.date)}</td>
+                  <td>
+                    <h2 style="margin: 0 0 16px; font-size: 16px; font-weight: 600; color: #171717;">Request Details</h2>
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Name:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-weight: 600; font-size: 14px;">${data.fullName}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Email:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${data.email}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Phone:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${data.phoneNumber}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Date:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${formatDate(data.date)}</td>
+                      </tr>
+                    </table>
+                  </td>
                 </tr>
               </table>
-              
-              <div style="margin-top: 20px; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #0891b2;">
-                <p style="margin: 0 0 8px; font-weight: 600; color: #333;">Comments/Details:</p>
-                <p style="margin: 0; color: #555; line-height: 1.6; white-space: pre-wrap;">${data.comments}</p>
+            </td>
+          </tr>
+
+          <!-- Comments -->
+          <tr>
+            <td style="padding: 0 40px 32px;">
+              <div style="padding: 20px; background: #dbeafe; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <p style="margin: 0 0 8px; font-weight: 600; color: #1e3a8a; font-size: 14px;">Comments/Details:</p>
+                <p style="margin: 0; color: #1e40af; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${data.comments}</p>
               </div>
-              
-              <p style="margin-top: 20px; text-align: center;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/admin/collections/service-requests/${data.requestId}" style="display: inline-block; background: #0891b2; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                  View in Admin Panel
-                </a>
-              </p>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding: 0 40px 40px; text-align: center;">
+              <a href="${siteUrl}/admin/collections/service-requests/${data.requestId}" style="display: inline-block; background: #006fee; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+                View in Admin Panel
+              </a>
             </td>
           </tr>
         </table>
@@ -887,7 +962,7 @@ export async function sendServiceRequestNotification(
     await transporter.sendMail({
       from: `"Masjid Al-Falah Requests" <${process.env.EMAIL_FROM || 'requests@masjid-al-falah.org'}>`,
       to: adminEmails,
-      subject: `🤝 New Service Request from ${data.fullName}`,
+      subject: `New Service Request from ${data.fullName}`,
       html,
     });
 
@@ -913,6 +988,8 @@ export async function sendQuestionNotification(
     'admin@masjid-al-falah.org';
 
   try {
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
     const html = `
 <!DOCTYPE html>
 <html>
@@ -920,51 +997,83 @@ export async function sendQuestionNotification(
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); padding: 30px 20px;">
+<body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">
+  <!-- Header -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #000000; padding: 32px 20px;">
     <tr>
       <td align="center">
-        <h1 style="color: #ffffff; margin: 0; font-size: 24px;">❓ New Question Submitted</h1>
+        <table width="600" cellpadding="0" cellspacing="0">
+          <tr>
+            <td align="center">
+           <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
+
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
   </table>
 
-  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 20px;">
+  <!-- Main Content -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding: 40px 20px;">
     <tr>
       <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 30px;">
+        <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+          <!-- Title -->
           <tr>
-            <td>
-              <h2 style="margin: 0 0 20px; color: #333; font-size: 20px;">Question Details</h2>
-              <table width="100%" cellpadding="0" cellspacing="0">
+            <td style="padding: 32px 40px 24px;">
+              <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #171717;">New Question Submitted</h1>
+              <p style="margin: 8px 0 0; font-size: 14px; color: #71717a;">A question has been submitted</p>
+            </td>
+          </tr>
+
+          <!-- Question Details -->
+          <tr>
+            <td style="padding: 0 40px 24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background: #f4f4f5; border-radius: 8px; padding: 24px;">
                 <tr>
-                  <td style="padding: 8px 0; color: #666;">Name:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600;">${data.name}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Email:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${data.email}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Topic:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${getTopicLabel(data.topic)}</td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0; color: #666;">Date:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right;">${formatDate(data.date)}</td>
+                  <td>
+                    <h2 style="margin: 0 0 16px; font-size: 16px; font-weight: 600; color: #171717;">Question Details</h2>
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Name:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-weight: 600; font-size: 14px;">${data.name}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Email:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${data.email}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Topic:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${getTopicLabel(data.topic)}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; color: #71717a; font-size: 14px;">Date:</td>
+                        <td style="padding: 8px 0; color: #171717; text-align: right; font-size: 14px;">${formatDate(data.date)}</td>
+                      </tr>
+                    </table>
+                  </td>
                 </tr>
               </table>
-              
-              <div style="margin-top: 20px; padding: 20px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #ea580c;">
-                <p style="margin: 0 0 8px; font-weight: 600; color: #333;">Message:</p>
-                <p style="margin: 0; color: #555; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
+            </td>
+          </tr>
+
+          <!-- Message -->
+          <tr>
+            <td style="padding: 0 40px 32px;">
+              <div style="padding: 20px; background: #ffedd5; border-radius: 8px; border-left: 4px solid #f97316;">
+                <p style="margin: 0 0 8px; font-weight: 600; color: #9a3412; font-size: 14px;">Message:</p>
+                <p style="margin: 0; color: #c2410c; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
               </div>
-              
-              <p style="margin-top: 20px; text-align: center;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/admin/collections/questions/${data.questionId}" style="display: inline-block; background: #ea580c; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                  View in Admin Panel
-                </a>
-              </p>
+            </td>
+          </tr>
+
+          <!-- CTA -->
+          <tr>
+            <td style="padding: 0 40px 40px; text-align: center;">
+              <a href="${siteUrl}/admin/collections/questions/${data.questionId}" style="display: inline-block; background: #006fee; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
+                View in Admin Panel
+              </a>
             </td>
           </tr>
         </table>
@@ -978,7 +1087,7 @@ export async function sendQuestionNotification(
     await transporter.sendMail({
       from: `"Masjid Al-Falah Questions" <${process.env.EMAIL_FROM || 'questions@masjid-al-falah.org'}>`,
       to: adminEmails,
-      subject: `❓ New Question: ${getTopicLabel(data.topic)} from ${data.name}`,
+      subject: `New Question: ${getTopicLabel(data.topic)} from ${data.name}`,
       html,
     });
 
@@ -1085,7 +1194,8 @@ function generateNewsletterWelcomeHTML(data: NewsletterSubscriberData): string {
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-              <img src="${siteUrl}/logo-white.png" alt="Masjid Al-Falah" height="60" style="margin-bottom: 20px;">
+             <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Welcome to Our Newsletter!</h1>
               <p style="color: #e0e0e0; margin: 10px 0 0; font-size: 16px;">Assalamu Alaikum wa Rahmatullahi wa Barakatuh</p>
             </td>
@@ -1353,7 +1463,8 @@ function generateNewsletterCampaignHTML(data: NewsletterCampaignData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0c478a 0%, #004797 100%); padding: 30px 20px;">
     <tr>
       <td align="center">
-        <img src="${siteUrl}/logo-white.png" alt="Masjid Al-Falah" height="50">
+      <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+
       </td>
     </tr>
   </table>
