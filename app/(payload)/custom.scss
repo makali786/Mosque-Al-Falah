@@ -1,18 +1,53 @@
 :root {
   --theme-elevation-100: #b3ccff;
- --theme-elevation-200: #7196f4;
- --theme-elevation-800: #2155c5;
-// --color-base-0: #ffffff00;
+  --theme-elevation-200: #7196f4;
+  --theme-elevation-800: #2155c5;
+  --nav-width: 208px;
+  // --color-base-0: #ffffff00;
 }
-.card{
+
+.card {
   background-color: var(--theme-elevation-100);
-  border: 1px solid  var(--theme-elevation-200);
+  border: 1px solid var(--theme-elevation-200);
   border-radius: 1px;
 }
-.app-header{
-  background-color: #c3d5f9;
+
+.collections {
+  display: none !important;
 }
-.nav{
+
+// Hide default Payload sidebar navigation
+.nav-group,
+.nav__list,
+.template-default nav.nav {
+  display: none !important;
+}
+
+#custom-header-bar {
+  width: calc(100% - var(--nav-width)) !important;
+}
+
+// Make room for custom navigation
+.template-default .app__wrap {
+  padding-left: 16rem !important;
+  padding-top: 4rem !important;
+}
+
+// Hide default Payload header
+.app-header {
+  display: none !important;
+}
+
+.collection-list {
+  padding-top: 2rem;
+}
+
+.dashboard {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.nav {
   background-color: #e7efff;
 }
 
@@ -43,18 +78,21 @@
 }
 
 /* Login card container */
-.template-minimal > * {
+.template-minimal>* {
   position: relative;
   z-index: 1;
 }
-.login__form__inputWrap input{
+
+.login__form__inputWrap input {
   background-color: rgba(21, 21, 21, 0.434);
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   color: white
 }
+
 .login__form a {
   color: rgba(255, 255, 255, 0.641);
 }
+
 /* Login card styling */
 .template-minimal .card,
 .template-minimal .account,
@@ -74,7 +112,7 @@
 .template-minimal button[type="submit"] {
   background: linear-gradient(135deg, #006fee 0%, #2155c5 100%) !important;
   border: none !important;
- 
+
   padding: 0.875rem 1.5rem !important;
   font-weight: 600 !important;
   font-size: 1rem !important;

@@ -60,7 +60,7 @@ async function testEmailConfiguration() {
     console.log('📨 Sending test email...');
     const info = await transporter.sendMail({
       from: `"Masjid Al-Falah Test" <${process.env.EMAIL_FROM}>`,
-      to: process.env.EMAIL_SERVER_USER, // Send to yourself
+      to: "sirajmuneerfsd1@gmail.com", // Send to yourself
       subject: '✅ Email System Test - Masjid Al-Falah',
       text: 'This is a test email from your Masjid Al-Falah email system. If you received this, your email configuration is working correctly!',
       html: `

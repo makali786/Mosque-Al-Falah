@@ -78,7 +78,7 @@ export default buildConfig({
         Logo: './app/(payload)/components/payload/Logo',
         Icon: './app/(payload)/components/payload/Icon',
       },
-      beforeDashboard: ['./app/(payload)/components/Dashboard'],
+      afterDashboard: ['./app/(payload)/components/Dashboard'],
     },
   },
   collections: [

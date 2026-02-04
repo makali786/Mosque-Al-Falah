@@ -8,7 +8,7 @@ import nodemailer from 'nodemailer';
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER_HOST || 'smtp.gmail.com',
   port: Number(process.env.EMAIL_SERVER_PORT) || 587,
-  secure: false, // true for 465, false for other ports
+  secure: Number(process.env.EMAIL_SERVER_PORT) === 465, // true for 465 (SSL), false for other ports like 587 (TLS)
   auth: {
     user: process.env.EMAIL_SERVER_USER,
     pass: process.env.EMAIL_SERVER_PASSWORD,
@@ -269,16 +269,15 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
                         <td style="padding: 8px 0; color: #666;">Donation Type:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${getDonationTypeLabel(data.donationType)}</td>
                       </tr>
-                      ${
-                        data.appealTitle
-                          ? `
+                      ${data.appealTitle
+      ? `
                       <tr>
                         <td style="padding: 8px 0; color: #666;">Appeal:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${data.appealTitle}</td>
                       </tr>
                       `
-                          : ''
-                      }
+      : ''
+    }
                       <tr>
                         <td style="padding: 8px 0; color: #666;">Frequency:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${getFrequencyLabel(data.frequency)}</td>
@@ -290,16 +289,15 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
                         <td style="padding: 8px 0; color: #666;">Donation Amount:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${currencySymbol}${data.amount.toFixed(2)}</td>
                       </tr>
-                      ${
-                        data.platformFee && data.platformFee > 0
-                          ? `
+                      ${data.platformFee && data.platformFee > 0
+      ? `
                       <tr>
                         <td style="padding: 8px 0; color: #666;">Platform Support:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${currencySymbol}${data.platformFee.toFixed(2)}</td>
                       </tr>
                       `
-                          : ''
-                      }
+      : ''
+    }
                       <tr>
                         <td style="padding: 12px 0; font-weight: 600; color: #333; font-size: 18px; border-top: 2px solid #0c478a;">Total Paid:</td>
                         <td style="padding: 12px 0; font-weight: 600; color: #0c478a; text-align: right; font-size: 18px; border-top: 2px solid #0c478a;">${currencySymbol}${data.totalAmount.toFixed(2)}</td>
@@ -311,9 +309,8 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
             </td>
           </tr>
 
-          ${
-            data.giftAidAmount && data.giftAidAmount > 0
-              ? `
+          ${data.giftAidAmount && data.giftAidAmount > 0
+      ? `
           <!-- Gift Aid Section -->
           <tr>
             <td style="padding: 0 40px 20px;">
@@ -332,12 +329,11 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
             </td>
           </tr>
           `
-              : ''
-          }
+      : ''
+    }
 
-          ${
-            data.isRecurring
-              ? `
+          ${data.isRecurring
+      ? `
           <!-- Recurring Notice -->
           <tr>
             <td style="padding: 0 40px 20px;">
@@ -357,8 +353,8 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
             </td>
           </tr>
           `
-              : ''
-          }
+      : ''
+    }
 
           <!-- Hadith Quote -->
           <tr>
@@ -450,26 +446,24 @@ Donation Amount: ${currencySymbol}${data.amount.toFixed(2)}
 ${data.platformFee && data.platformFee > 0 ? `Platform Support: ${currencySymbol}${data.platformFee.toFixed(2)}` : ''}
 Total Paid: ${currencySymbol}${data.totalAmount.toFixed(2)}
 
-${
-  data.giftAidAmount && data.giftAidAmount > 0
-    ? `
+${data.giftAidAmount && data.giftAidAmount > 0
+      ? `
 GIFT AID
 --------
 Thanks to your Gift Aid declaration, we can claim an extra ${currencySymbol}${data.giftAidAmount.toFixed(2)} from HMRC!
 `
-    : ''
-}
+      : ''
+    }
 
-${
-  data.isRecurring
-    ? `
+${data.isRecurring
+      ? `
 RECURRING DONATION
 ------------------
 Your ${getFrequencyLabel(data.frequency).toLowerCase()} donation will continue automatically.
 You can manage or cancel at any time.
 `
-    : ''
-}
+      : ''
+    }
 
 ---
 
@@ -677,16 +671,15 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
                   <td style="padding: 8px 0; color: #666;">Frequency:</td>
                   <td style="padding: 8px 0; color: #333; text-align: right;">${getFrequencyLabel(data.frequency)}</td>
                 </tr>
-                ${
-                  data.giftAidAmount && data.giftAidAmount > 0
-                    ? `
+                ${data.giftAidAmount && data.giftAidAmount > 0
+      ? `
                 <tr>
                   <td style="padding: 8px 0; color: #666;">Gift Aid:</td>
                   <td style="padding: 8px 0; color: #10b981; text-align: right;">+${currencySymbol}${data.giftAidAmount.toFixed(2)}</td>
                 </tr>
                 `
-                    : ''
-                }
+      : ''
+    }
                 <tr>
                   <td style="padding: 12px 0; font-weight: 600; color: #333; border-top: 2px solid #10b981;">Total:</td>
                   <td style="padding: 12px 0; font-weight: 600; color: #10b981; text-align: right; font-size: 20px; border-top: 2px solid #10b981;">${currencySymbol}${data.totalAmount.toFixed(2)}</td>

@@ -33,7 +33,7 @@ export const cloudinaryAdapter = ({
       name: 'cloudinary',
 
       generateURL: ({ filename, prefix: filePrefix }) => {
-        const publicId = path
+        const publicId = path.posix
           .join(filePrefix || baseFolder, filename)
           .replace(/\.[^/.]+$/, '');
         return cloudinary.url(publicId, { secure: true });
@@ -41,7 +41,7 @@ export const cloudinaryAdapter = ({
 
       handleDelete: async ({ filename }) => {
         try {
-          const publicId = path
+          const publicId = path.posix
             .join(baseFolder, filename)
             .replace(/\.[^/.]+$/, '');
           await cloudinary.uploader.destroy(publicId);
@@ -83,7 +83,7 @@ export const cloudinaryAdapter = ({
 
       staticHandler: async (req, { params }) => {
         const { filename } = params;
-        const publicId = path
+        const publicId = path.posix
           .join(baseFolder, filename)
           .replace(/\.[^/.]+$/, '');
         const url = cloudinary.url(publicId, { secure: true });
