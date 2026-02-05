@@ -20,14 +20,16 @@ export default function DonatePage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toasts, removeToast, success, error } = useToast();
 
-  // Get amount from URL parameter
+  // Get amount and appealId from URL parameters
   const urlAmount = searchParams.get('amount');
+  const urlAppealId = searchParams.get('appealId');
   const initialAmount = urlAmount ? parseFloat(urlAmount) : 20;
 
   const [formData, setFormData] = useState<DonationFormData>({
     // Step 1: Select
     frequency: 'one-time',
     donationType: 'general',
+    appealId: urlAppealId || undefined, // Pre-select appeal from URL if present
     amount: initialAmount,
     customAmount: '',
     platformFeeEnabled: true,
@@ -54,6 +56,24 @@ export default function DonatePage() {
     giftAidEnabled: false,
     giftAidDeclaration: false,
   });
+
+  // Fetch appeal details if appealId is in URL to set correct donation type
+  useEffect(() => {
+    if (urlAppealId) {
+      fetch(`/api/donation-appeals/${urlAppealId}`)
+        .then(res => res.json())
+        .then(appeal => {
+          if (appeal && appeal.category) {
+            setFormData(prev => ({
+              ...prev,
+              appealId: urlAppealId,
+              donationType: appeal.category || 'general',
+            }));
+          }
+        })
+        .catch(err => console.error('Failed to fetch appeal:', err));
+    }
+  }, [urlAppealId]);
 
   const handleStep1Next = () => {
     setCurrentStep(2);
@@ -82,6 +102,7 @@ export default function DonatePage() {
           currency: 'gbp',
           frequency: formData.frequency,
           donationType: formData.donationType,
+          appealId: formData.appealId, // Link donation to specific appeal
           email: formData.email,
           firstName: formData.firstName,
           lastName: formData.lastName,

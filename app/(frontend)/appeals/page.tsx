@@ -110,7 +110,7 @@ export default async function AppealsPage() {
                     goal: appeal?.funding?.targetAmount || 0,
                   }}
                   links={{
-                    donate: `/donate`,
+                    donate: `/donate?appealId=${appeal.id}`,
                     details: `/appeals/${appeal.slug}`,
                   }}
                   buttonVariant="primary"

@@ -88,6 +88,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Validate donation type - ensure it matches valid options
+    const validDonationTypes = ['general', 'zakat', 'sadaqah', 'building', 'ramadan', 'gaza', 'orphan', 'education'];
+    const validatedDonationType = validDonationTypes.includes(donationType) ? donationType : 'general';
+
     const payload = await getPayload({ config: configPromise });
 
     // Find or create donor
@@ -133,12 +137,12 @@ export async function POST(req: NextRequest) {
         phone,
         address: address
           ? {
-              line1: address.line1,
-              line2: address.line2,
-              city: address.city,
-              postal_code: address.postcode,
-              country: address.country,
-            }
+            line1: address.line1,
+            line2: address.line2,
+            city: address.city,
+            postal_code: address.postcode,
+            country: address.country,
+          }
           : undefined,
         metadata: {
           donorId: donor.id,
@@ -170,7 +174,7 @@ export async function POST(req: NextRequest) {
         customer: stripeCustomerId,
         metadata: {
           donorId: donor.id,
-          donationType,
+          donationType: validatedDonationType,
           appealId: appealId || '',
           giftAid: giftAid ? 'true' : 'false',
           giftAidAmount: giftAidAmount.toString(),
@@ -190,7 +194,7 @@ export async function POST(req: NextRequest) {
           amount: donationAmount / 100, // Convert to pounds
           currency: currency.toUpperCase(),
           frequency: 'one-time',
-          donationType,
+          donationType: validatedDonationType,
           appeal: appealId || undefined,
           donorEmail: email,
           donorFirstName: firstName,
@@ -279,7 +283,7 @@ export async function POST(req: NextRequest) {
       product_data: {
         name: `${donationType} - ${frequency} donation`,
         metadata: {
-          donationType,
+          donationType: validatedDonationType,
           appealId: appealId || '',
         },
       },
@@ -295,7 +299,7 @@ export async function POST(req: NextRequest) {
       },
       metadata: {
         donorId: donor.id,
-        donationType,
+        donationType: validatedDonationType,
         appealId: appealId || '',
         giftAid: giftAid ? 'true' : 'false',
         frequency,
@@ -378,7 +382,7 @@ export async function POST(req: NextRequest) {
         amount: donationAmount / 100,
         currency: currency.toUpperCase(),
         frequency,
-        donationType,
+        donationType: validatedDonationType,
         appeal: appealId || undefined,
         donorEmail: email,
         donorFirstName: firstName,
@@ -422,7 +426,7 @@ export async function POST(req: NextRequest) {
             stripeSubscriptionId: subscription.id,
             amount: donationAmount / 100,
             frequency,
-            donationType,
+            donationType: validatedDonationType,
             status: 'active',
             nextPaymentDate:
               periodEnd && !isNaN(periodEnd)

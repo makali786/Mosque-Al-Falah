@@ -9,6 +9,7 @@ function DonationCompleteContent() {
   const [status, setStatus] = useState<'success' | 'processing' | 'error'>(
     'processing'
   );
+  const [confirming, setConfirming] = useState(false);
   const paymentIntent = searchParams.get('payment_intent');
 
   useEffect(() => {
@@ -22,13 +23,37 @@ function DonationCompleteContent() {
     const redirectStatus = searchParams.get('redirect_status');
 
     if (redirectStatus === 'succeeded') {
-      setStatus('success');
+      // Call API to update donation status and appeal stats
+      const confirmPayment = async () => {
+        if (confirming) return;
+        setConfirming(true);
+
+        try {
+          const response = await fetch('/api/donations/confirm-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ paymentIntentId: paymentIntent }),
+          });
+
+          if (!response.ok) {
+            console.error('Failed to confirm payment:', await response.json());
+          } else {
+            console.log('Payment confirmed successfully');
+          }
+        } catch (error) {
+          console.error('Error confirming payment:', error);
+        }
+
+        setStatus('success');
+      };
+
+      confirmPayment();
     } else if (redirectStatus === 'processing') {
       setStatus('processing');
     } else {
       setStatus('error');
     }
-  }, [paymentIntent, searchParams]);
+  }, [paymentIntent, searchParams, confirming]);
 
   if (status === 'processing') {
     return (

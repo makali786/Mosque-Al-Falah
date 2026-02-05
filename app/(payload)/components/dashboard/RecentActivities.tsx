@@ -158,7 +158,7 @@ export const RecentActivities: React.FC<RecentActivitiesProps> = ({ activities }
             </div>
             <div style={{ padding: '0 1.5rem 1.5rem 1.5rem' }}>
                 <a
-                    href="#"
+                    href="/admin/activities"
                     style={{
                         display: 'inline-flex',
                         alignItems: 'center',

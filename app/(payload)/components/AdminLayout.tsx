@@ -1,11 +1,30 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import CustomNav from './payload/CustomNav';
 import CustomHeader from './payload/CustomHeader';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+    const pathname = usePathname();
+
+    // Don't show custom components on login, logout, forgot password pages
+    const isAuthPage = pathname?.includes('/admin/login') ||
+        pathname?.includes('/admin/logout') ||
+        pathname?.includes('/admin/create-first-user') ||
+        pathname?.includes('/admin/forgot');
+
     useEffect(() => {
+        // Skip injection on auth pages
+        if (isAuthPage) {
+            // Clean up any existing custom components
+            const customNav = document.getElementById('custom-nav-sidebar');
+            if (customNav) customNav.remove();
+            const customHeader = document.getElementById('custom-header-bar');
+            if (customHeader) customHeader.remove();
+            return;
+        }
+
         // Inject custom navigation after page loads
         const injectCustomComponents = () => {
             const body = document.body;
@@ -54,7 +73,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 customHeader.remove();
             }
         };
-    }, []);
+    }, [isAuthPage]);
 
     return <>{children}</>;
 }

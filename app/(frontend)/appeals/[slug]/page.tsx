@@ -136,7 +136,7 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
             text: appeal.shortDescription,
             url: `https://masjidalfalah.org/appeals/${slug}`
           }}
-          donateButtonUrl="/donate"
+          donateButtonUrl={`/donate?appealId=${appeal.id}`}
         />
       )}
     </main>

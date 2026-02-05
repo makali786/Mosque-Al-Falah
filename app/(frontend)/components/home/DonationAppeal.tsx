@@ -21,10 +21,11 @@ interface DonationAppealData {
   };
 }
 
-export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal: DonationAppealData[] }) {
+export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal: (DonationAppealData & { id?: string })[] }) {
   if (!donationAppeal || donationAppeal.length === 0) return null;
   const appeal = donationAppeal[0];
 
+  const appealId = appeal.id || "";
   const title = appeal.title || "";
   const slug = appeal.slug || "";
   const shortDescription = appeal.shortDescription || "";
@@ -257,7 +258,7 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
 
                   {/* Donate Now */}
                   <Link
-                    href="/donate"
+                    href={appealId ? `/donate?appealId=${appealId}` : "/donate"}
                     className="flex-1 lg:flex-none h-12 px-6 bg-[#006fee] text-white rounded-xl flex items-center justify-center hover:bg-[#0060d8] transition-colors"
                   >
                     <span className="text-sm sm:text-base font-normal text-white leading-6 whitespace-nowrap">

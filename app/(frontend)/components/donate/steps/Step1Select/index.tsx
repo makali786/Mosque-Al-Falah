@@ -53,8 +53,9 @@ export default function Step1Select({
           {/* Donation Type Selector */}
           <DonationTypeSelector
             selectedType={formData.donationType}
-            onTypeChange={donationType =>
-              setFormData({ ...formData, donationType })
+            selectedAppealId={formData.appealId}
+            onTypeChange={(donationType, appealId) =>
+              setFormData({ ...formData, donationType, appealId })
             }
           />
 

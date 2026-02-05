@@ -5,7 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { DonationFormData } from '../../types';
 import PaymentForm from './PaymentForm';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripePromise = loadStripe("pk_test_lSAe5DVxV0HxJyEBMyUnZpGO00zVoMOeyz");
 
 interface Step4PaymentProps {
   formData: DonationFormData;

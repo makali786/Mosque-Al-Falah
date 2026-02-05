@@ -2,6 +2,7 @@ export interface DonationFormData {
   // Step 1: Select
   frequency: 'one-time' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
   donationType: string;
+  appealId?: string; // Optional: links donation to a specific appeal
   amount: number;
   customAmount: string;
   platformFeeEnabled: boolean;
