@@ -142,9 +142,16 @@ export default function Sermons({
                   href="/sermons"
                   className="h-10 lg:h-12 px-0 lg:px-4 rounded-xl flex items-center gap-2"
                 >
-                  <span className="text-sm lg:text-base font-normal hover:underline leading-5 lg:leading-6">
+                  <span className="text-sm lg:text-base font-normal leading-5 lg:leading-6 underline sm:no-underline text-[#006fee] sm:text-black">
                     Discover More
                   </span>
+                  <Image
+                    src="/assets/sermons/arrow-right.svg"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="object-contain sm:hidden"
+                  />
                 </Link>
               )}
 

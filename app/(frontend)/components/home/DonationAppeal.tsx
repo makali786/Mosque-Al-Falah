@@ -217,9 +217,9 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
 
                   {/* Progress Bar */}
                   <div className="flex flex-col gap-2 w-full">
-                    <div className="w-full h-3 bg-[#e4e4e7] rounded-full flex items-start overflow-hidden">
+                    <div className="w-full h-1 sm:h-3 bg-[#e4e4e7] rounded-full flex items-start overflow-hidden">
                       <div
-                        className="h-3 bg-[#006fee] rounded-full shrink-0"
+                        className="h-1 sm:h-3 bg-[#006fee] rounded-full shrink-0"
                         style={{ width: `${progressPercentage}%` }}
                       />
                     </div>

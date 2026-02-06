@@ -163,7 +163,7 @@ export default function SermonCard({ sermon, layout = "grid" }: SermonCardProps)
 
    return (
       <CardWrapper className="flex flex-col gap-6.25 w-full group relative">
-         <div className="relative w-full lg:w-[355px] lg:h-[199.5px] rounded-[14px] overflow-visible">
+         <div className="relative w-full aspect-[16/9] lg:aspect-auto lg:w-[355px] lg:h-[199.5px] rounded-[14px] overflow-visible">
             <div className="relative w-full h-full rounded-[14px] overflow-hidden">
                {imageUrl && (
                   <Image

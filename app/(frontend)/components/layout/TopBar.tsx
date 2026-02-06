@@ -262,7 +262,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
   return (
     <div className="bg-white w-full relative">
       {/* Mobile Layout - Below sm */}
-      <div className="sm:hidden px-2 py-3">
+      <div className="sm:hidden py-3 px-16 sm:px-2">
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-center w-full px-2">
             <div className="flex items-center justify-center gap-3">
