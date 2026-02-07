@@ -29,15 +29,15 @@
 }
 
 .hn-container {
-  @apply px-8;
+  @apply px-4;
 }
 
 .section-padding {
-  @apply px-8;
+  @apply px-4;
 }
 
 .donation-padding {
-  @apply px-8;
+  @apply px-4;
 }
 
 @media (min-width: 1320px) {
@@ -83,15 +83,13 @@
   }
 
   .whatsapp-group-label {
-    @apply text-xs
+    @apply text-xs;
   }
 
   .header-style {
     @apply flex-col !h-auto gap-5;
   }
 }
-
-
 
 .appeal-buttons {
   @apply flex-wrap;
@@ -182,18 +180,18 @@ article.prose blockquote .quote-source {
 }
 
 /* Image container height for blog - Responsive */
-article.prose>div>div[class*='rounded'] {
+article.prose > div > div[class*='rounded'] {
   height: 240px !important;
 }
 
 @media (min-width: 768px) {
-  article.prose>div>div[class*='rounded'] {
+  article.prose > div > div[class*='rounded'] {
     height: 400px !important;
   }
 }
 
 @media (min-width: 1024px) {
-  article.prose>div>div[class*='rounded'] {
+  article.prose > div > div[class*='rounded'] {
     height: 565px !important;
   }
 }

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRef, useState } from 'react';
 
 interface Service {
   id: number;
@@ -23,17 +23,26 @@ interface RawService {
   };
 }
 
-export default function Services({ services = [] }: { services: RawService[] }) {
+export default function Services({
+  services = [],
+}: {
+  services: RawService[];
+}) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
   // Map incoming services to local format
-  const mappedServices: Service[] = services.map((service) => ({
+  const mappedServices: Service[] = services.map(service => ({
     id: service.id,
     title: service.title,
     slug: service.slug,
-    image: (typeof service.image === "string" ? service.image : service.image?.url) || (service.media?.cardImage?.url) || null,
+    image:
+      (typeof service.image === 'string'
+        ? service.image
+        : service.image?.url) ||
+      service.media?.cardImage?.url ||
+      null,
   }));
 
   const checkScrollPosition = () => {
@@ -45,16 +54,16 @@ export default function Services({ services = [] }: { services: RawService[] }) 
     }
   };
 
-  const scroll = (direction: "left" | "right") => {
+  const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const scrollAmount = 400;
       const newScrollLeft =
         scrollContainerRef.current.scrollLeft +
-        (direction === "right" ? scrollAmount : -scrollAmount);
+        (direction === 'right' ? scrollAmount : -scrollAmount);
 
       scrollContainerRef.current.scrollTo({
         left: newScrollLeft,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
 
       setTimeout(checkScrollPosition, 300);
@@ -68,14 +77,14 @@ export default function Services({ services = [] }: { services: RawService[] }) 
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(169.508deg, #0C478A 46.629%, #004797 71.1%)",
+            'linear-gradient(169.508deg, #0C478A 46.629%, #004797 71.1%)',
         }}
       >
         <div
           className="absolute inset-0 opacity-30 bg-repeat"
           style={{
             backgroundImage: "url('/assets/services/bg-pattern.png')",
-            backgroundSize: "154px 154px",
+            backgroundSize: '154px 154px',
           }}
         />
       </div>
@@ -117,11 +126,11 @@ export default function Services({ services = [] }: { services: RawService[] }) 
 
       {/* Grid Layout - Mobile only */}
       <div className="sm:hidden px-4">
-        <div className="grid grid-cols-2 gap-5 w-full grid-style">
-          {mappedServices.slice(0, 6).map((service) => (
+        <div className="grid grid-cols-2 gap-5 w-full grid-style justify-items-center">
+          {mappedServices.slice(0, 6).map(service => (
             <div
               key={service.id}
-              className="relative w-full h-51.5 rounded-lg overflow-hidden px-2 py-3 flex flex-col justify-between"
+              className="relative w-[170px] h-51.5 rounded-lg overflow-hidden px-2 py-3 flex flex-col justify-between"
             >
               {/* Background Image */}
               {service.image && (
@@ -143,7 +152,7 @@ export default function Services({ services = [] }: { services: RawService[] }) 
               {/* Learn More Button */}
               <Link
                 href={`/our-services/${service?.slug}`}
-                className="relative z-10 bg-[rgba(63,63,70,0.4)] h-8 px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
+                className="relative z-10 bg-[rgba(63,63,70,0.4)] h-8 w-[117px] mx-auto px-3 rounded-lg flex items-center justify-center gap-2 hover:bg-[rgba(63,63,70,0.6)] transition-colors"
               >
                 <span className="text-xs font-normal text-white leading-4">
                   Learn More
@@ -168,9 +177,9 @@ export default function Services({ services = [] }: { services: RawService[] }) 
           ref={scrollContainerRef}
           onScroll={checkScrollPosition}
           className="flex gap-6 sm:gap-6 md:gap-7 lg:gap-8 px-6 sm:px-8 md:px-10 lg:px-12 overflow-x-auto scrollbar-hide"
-          style={{ scrollbarWidth: "none" }}
+          style={{ scrollbarWidth: 'none' }}
         >
-          {mappedServices.map((service) => (
+          {mappedServices.map(service => (
             <div
               key={service?.id}
               className="relative shrink-0 w-65 h-95 sm:w-70 sm:h-100 md:w-75 md:h-106.25 lg:w-69.5 lg:h-112.5 rounded-xl overflow-hidden p-4 sm:p-4 md:p-4.5 lg:p-5 flex flex-col justify-between"
@@ -214,12 +223,13 @@ export default function Services({ services = [] }: { services: RawService[] }) 
 
         {/* Navigation Arrows */}
         <button
-          onClick={() => scroll("left")}
+          onClick={() => scroll('left')}
           disabled={!canScrollLeft}
-          className={`absolute top-1/2 -translate-y-1/2 left-4 lg:left-8 xl:left-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${canScrollLeft
-            ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
-            : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
-            }`}
+          className={`absolute top-1/2 -translate-y-1/2 left-4 lg:left-8 xl:left-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
+            canScrollLeft
+              ? 'bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer'
+              : 'bg-[#d4d4d8] opacity-50 cursor-not-allowed'
+          }`}
         >
           <Image
             src="/assets/news/arrow-icon.svg"
@@ -231,12 +241,13 @@ export default function Services({ services = [] }: { services: RawService[] }) 
         </button>
 
         <button
-          onClick={() => scroll("right")}
+          onClick={() => scroll('right')}
           disabled={!canScrollRight}
-          className={`absolute top-1/2 -translate-y-1/2 right-4 lg:right-8 xl:right-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${canScrollRight
-            ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
-            : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
-            }`}
+          className={`absolute top-1/2 -translate-y-1/2 right-4 lg:right-8 xl:right-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
+            canScrollRight
+              ? 'bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer'
+              : 'bg-[#d4d4d8] opacity-50 cursor-not-allowed'
+          }`}
         >
           <Image
             src="/assets/news/arrow-icon.svg"

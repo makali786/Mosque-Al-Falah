@@ -1,13 +1,16 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useState, useEffect, useMemo } from "react";
-import CalendarModal from "./CalendarModal";
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
-import { getPrayerTimesByDate, findNextPrayer, addMinutesToTime } from "@lib/prayer-times-helpers";
+import {
+  findNextPrayer,
+  getPrayerTimesByDate,
+} from '@lib/prayer-times-helpers';
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useMemo, useState } from 'react';
+import CalendarModal from './CalendarModal';
 
 // Extend dayjs with timezone support
 dayjs.extend(utc);
@@ -24,7 +27,7 @@ const formatHijriDate = (date: Date): string => {
     const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
       day: 'numeric',
       month: 'long',
-      timeZone: 'Europe/London'
+      timeZone: 'Europe/London',
     });
 
     const parts = formatter.formatToParts(date);
@@ -40,14 +43,14 @@ const formatHijriDate = (date: Date): string => {
 
 const SOCIAL_LINKS = [
   {
-    name: "Facebook",
-    icon: "/assets/common/facebook-icon.svg",
-    url: "https://www.facebook.com/profile.php?id=100068190076068#",
+    name: 'Facebook',
+    icon: '/assets/common/facebook-icon.svg',
+    url: 'https://www.facebook.com/profile.php?id=100068190076068#',
   },
   {
-    name: "YouTube",
-    icon: "/assets/common/youtube-icon.svg",
-    url: "https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw",
+    name: 'YouTube',
+    icon: '/assets/common/youtube-icon.svg',
+    url: 'https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw',
   },
   // Instagram - not available yet
   // {
@@ -60,14 +63,14 @@ const SOCIAL_LINKS = [
 
 const NAVIGATION_LINKS = [
   {
-    name: "Qibla Finder",
-    icon: "/assets/topbar/compass-icon.svg",
-    url: "https://qiblafinder.withgoogle.com/intl/en/desktop",
+    name: 'Qibla Finder',
+    icon: '/assets/topbar/compass-icon.svg',
+    url: 'https://qiblafinder.withgoogle.com/intl/en/desktop',
   },
   {
-    name: "Mosque Finder",
-    icon: "/assets/topbar/gps-icon.svg",
-    url: "https://mosques.muslimsinbritain.org/maps-mobile",
+    name: 'Mosque Finder',
+    icon: '/assets/topbar/gps-icon.svg',
+    url: 'https://mosques.muslimsinbritain.org/maps-mobile',
   },
 ] as const;
 
@@ -80,7 +83,7 @@ interface DateItemProps {
 const DateItem = ({
   label,
   iconSize = 16,
-  textClass = "text-xs xl:text-sm text-[#52525b]",
+  textClass = 'text-xs xl:text-sm text-[#52525b]',
 }: DateItemProps) => (
   <div className="flex gap-1 items-center shrink-0">
     <Image
@@ -98,12 +101,12 @@ interface SocialIconProps {
   name: string;
   icon: string;
   url: string;
-  size?: "small" | "default";
+  size?: 'small' | 'default';
 }
 
-const SocialIcon = ({ name, icon, url, size = "default" }: SocialIconProps) => {
-  const padding = size === "small" ? "p-1.5" : "p-2";
-  const imgSize = size === "small" ? 14 : 16;
+const SocialIcon = ({ name, icon, url, size = 'default' }: SocialIconProps) => {
+  const padding = size === 'small' ? 'p-1.5' : 'p-2';
+  const imgSize = size === 'small' ? 14 : 16;
 
   return (
     <Link
@@ -128,38 +131,38 @@ interface PrayerTimeProps {
   name: string;
   time: string;
   active: boolean;
-  variant?: "mobile" | "tablet" | "desktop";
+  variant?: 'mobile' | 'tablet' | 'desktop';
 }
 
 const PrayerTime = ({
   name,
   time,
   active,
-  variant = "mobile",
+  variant = 'mobile',
 }: PrayerTimeProps) => {
   const variants = {
     mobile: {
       container: active
-        ? "flex flex-col items-center px-2 py-1 bg-[#005bc4] rounded"
-        : "flex flex-col items-center",
-      nameClass: `font-semibold text-[11px] ${
-        active ? "text-white" : "text-black"
+        ? 'flex flex-col items-center justify-center w-[58px] h-[54px] bg-[#005bc4] rounded-[12px]'
+        : 'flex flex-col items-center justify-center w-[58px] h-[54px]',
+      nameClass: `font-medium text-[12px] leading-4 ${
+        active ? 'text-white' : 'text-black'
       }`,
-      timeClass: `text-[11px] ${active ? "text-white" : "text-gray-600"}`,
+      timeClass: `text-[13px] font-semibold leading-5 ${active ? 'text-white' : 'text-[#52525B]'}`,
     },
     tablet: {
       container: active
-        ? "flex gap-1 items-center px-2 py-1 bg-[#005BC4] rounded-lg text-xs text-white"
-        : "flex gap-1 items-center px-2 py-1 text-xs text-black",
-      nameClass: "font-semibold whitespace-nowrap",
-      timeClass: "font-normal whitespace-nowrap",
+        ? 'flex gap-1 items-center px-2 py-1 bg-[#005BC4] rounded-lg text-xs text-white'
+        : 'flex gap-1 items-center px-2 py-1 text-xs text-black',
+      nameClass: 'font-semibold whitespace-nowrap',
+      timeClass: 'font-normal whitespace-nowrap',
     },
     desktop: {
       container: active
-        ? "bg-[#005BC4] flex gap-1 xl:gap-3 items-start px-1.5 xl:px-2 py-1 rounded-lg shrink-0 text-xs xl:text-sm text-white text-center whitespace-nowrap"
-        : "flex gap-1 xl:gap-3 items-start justify-center px-1.5 xl:px-2 py-1 shrink-0 text-xs xl:text-sm text-black text-center whitespace-nowrap",
-      nameClass: "font-semibold leading-5 whitespace-nowrap",
-      timeClass: "font-normal leading-5 whitespace-nowrap",
+        ? 'bg-[#005BC4] flex gap-1 xl:gap-3 items-start px-1.5 xl:px-2 py-1 rounded-lg shrink-0 text-xs xl:text-sm text-white text-center whitespace-nowrap'
+        : 'flex gap-1 xl:gap-3 items-start justify-center px-1.5 xl:px-2 py-1 shrink-0 text-xs xl:text-sm text-black text-center whitespace-nowrap',
+      nameClass: 'font-semibold leading-5 whitespace-nowrap',
+      timeClass: 'font-normal leading-5 whitespace-nowrap',
     },
   } as const;
 
@@ -173,7 +176,10 @@ const PrayerTime = ({
   );
 };
 
-export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {}) {
+export default function TopBar({
+  prayerTimes = [],
+  settings,
+}: TopBarProps = {}) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -192,10 +198,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
     const gregorianDate = now.format('DD MMMM YYYY');
     const hijriDate = formatHijriDate(currentTime);
 
-    return [
-      { label: gregorianDate },
-      { label: hijriDate }
-    ];
+    return [{ label: gregorianDate }, { label: hijriDate }];
   }, [currentTime]);
 
   // Get today's prayer times and transform them for display
@@ -203,11 +206,11 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
     if (!prayerTimes || prayerTimes.length === 0) {
       // Fallback to mock data if no prayer times available
       return [
-        { name: "Fajr", time: "5:53", active: false },
-        { name: "Dhur", time: "12:19", active: true },
-        { name: "Asr", time: "12:19", active: false },
-        { name: "Maghrib", time: "3:6", active: false },
-        { name: "Ishā", time: "6:33", active: false },
+        { name: 'Fajr', time: '5:53', active: false },
+        { name: 'Dhur', time: '12:19', active: true },
+        { name: 'Asr', time: '12:19', active: false },
+        { name: 'Maghrib', time: '3:6', active: false },
+        { name: 'Ishā', time: '6:33', active: false },
       ];
     }
 
@@ -216,11 +219,11 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
 
     if (!todayData) {
       return [
-        { name: "Fajr", time: "5:53", active: false },
-        { name: "Dhur", time: "12:19", active: true },
-        { name: "Asr", time: "12:19", active: false },
-        { name: "Maghrib", time: "3:6", active: false },
-        { name: "Ishā", time: "6:33", active: false },
+        { name: 'Fajr', time: '5:53', active: false },
+        { name: 'Dhur', time: '12:19', active: true },
+        { name: 'Asr', time: '12:19', active: false },
+        { name: 'Maghrib', time: '3:6', active: false },
+        { name: 'Ishā', time: '6:33', active: false },
       ];
     }
 
@@ -232,29 +235,29 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
 
     return [
       {
-        name: "Fajr",
+        name: 'Fajr',
         time: todayData.fajr,
-        active: nextPrayerName === "FAJR",
+        active: nextPrayerName === 'FAJR',
       },
       {
-        name: isFriday ? "Jum'ah" : "Dhur",
+        name: isFriday ? "Jum'ah" : 'Dhur',
         time: todayData.dhuhr,
-        active: nextPrayerName === "DHUHR",
+        active: nextPrayerName === 'DHUHR',
       },
       {
-        name: "Asr",
+        name: 'Asr',
         time: todayData.asr,
-        active: nextPrayerName === "ASR",
+        active: nextPrayerName === 'ASR',
       },
       {
-        name: "Maghrib",
+        name: 'Maghrib',
         time: todayData.maghrib,
-        active: nextPrayerName === "MAGHRIB",
+        active: nextPrayerName === 'MAGHRIB',
       },
       {
-        name: "Ishā",
+        name: 'Ishā',
         time: todayData.isha,
-        active: nextPrayerName === "ISHA",
+        active: nextPrayerName === 'ISHA',
       },
     ];
   }, [prayerTimes, settings, currentTime]);
@@ -262,22 +265,22 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
   return (
     <div className="bg-white w-full relative">
       {/* Mobile Layout - Below sm */}
-      <div className="sm:hidden py-3 px-16 sm:px-2">
+      <div className="sm:hidden py-3 px-4 sm:px-2">
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-center w-full px-2">
-            <div className="flex items-center justify-center gap-3">
-              {dates.map((date) => (
+            <div className="flex items-center justify-center gap-8">
+              {dates.map(date => (
                 <DateItem
                   key={date.label}
                   label={date.label}
-                  iconSize={14}
-                  textClass="text-[11px] text-gray-700"
+                  iconSize={16}
+                  textClass="text-[14px] text-gray-700"
                 />
               ))}
             </div>
           </div>
-          <div className="flex items-center justify-between gap-1 w-full px-1">
-            {displayPrayerTimes.map((prayer) => (
+          <div className="flex items-center justify-evenly w-full px-8">
+            {displayPrayerTimes.map(prayer => (
               <PrayerTime key={prayer.name} {...prayer} variant="mobile" />
             ))}
           </div>
@@ -288,7 +291,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
       <div className="hidden sm:flex lg:hidden flex-col gap-3 hn-container py-3 w-full">
         <div className="flex items-center justify-between w-full">
           <div className="flex gap-3 items-center">
-            {dates.map((date) => (
+            {dates.map(date => (
               <DateItem
                 key={date.label}
                 label={date.label}
@@ -298,7 +301,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
             ))}
           </div>
           <div className="flex gap-2 items-center">
-            {SOCIAL_LINKS.map((social) => (
+            {SOCIAL_LINKS.map(social => (
               <SocialIcon key={social.name} {...social} size="small" />
             ))}
             <Link
@@ -319,7 +322,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
           </div>
         </div>
         <div className="flex items-center justify-center gap-1 w-full">
-          {displayPrayerTimes.map((prayer) => (
+          {displayPrayerTimes.map(prayer => (
             <PrayerTime key={prayer.name} {...prayer} variant="tablet" />
           ))}
           <div className="relative ml-2">
@@ -360,11 +363,11 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
       <div className="hidden lg:flex items-center justify-between hn-container py-3 w-full">
         {/* Left Section - Date & Location Info */}
         <div className="flex gap-2 xl:gap-4 items-center shrink-0">
-          {dates.map((date) => (
+          {dates.map(date => (
             <DateItem key={date.label} label={date.label} />
           ))}
-          {NAVIGATION_LINKS.map((link) => (
-            <Link 
+          {NAVIGATION_LINKS.map(link => (
+            <Link
               key={link.name}
               href={link.url}
               target="_blank"
@@ -386,7 +389,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
 
         {/* Middle Section - Social Media & Profile */}
         <div className="flex gap-2 xl:gap-3.5 items-center justify-end shrink-0">
-          {SOCIAL_LINKS.map((social) => (
+          {SOCIAL_LINKS.map(social => (
             <SocialIcon key={social.name} {...social} />
           ))}
           <Link
@@ -409,7 +412,7 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
         {/* Right Section - Prayer Times & Calendar */}
         <div className="flex gap-2 xl:gap-4 items-center shrink-0">
           <div className="flex gap-0.5 xl:gap-1.75 items-center shrink-0">
-            {displayPrayerTimes.map((prayer) => (
+            {displayPrayerTimes.map(prayer => (
               <PrayerTime key={prayer.name} {...prayer} variant="desktop" />
             ))}
           </div>
@@ -446,7 +449,6 @@ export default function TopBar({ prayerTimes = [], settings }: TopBarProps = {})
           </div>
         </div>
       </div>
-
     </div>
   );
 }

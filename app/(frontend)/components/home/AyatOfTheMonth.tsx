@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import ViewToggleButtons from "../common/ViewToggleButtons";
-import AudioPlayer from "../common/AudioPlayer";
+import Image from 'next/image';
+import { useState } from 'react';
+import AudioPlayer from '../common/AudioPlayer';
+import ViewToggleButtons from '../common/ViewToggleButtons';
 
 interface Ayat {
   arabicCalligraphyImage?: { url?: string; alt?: string };
@@ -17,18 +16,21 @@ interface Ayat {
   audioFile?: { url?: string };
 }
 
-type ViewMode = "default" | "video" | "audio";
+type ViewMode = 'default' | 'video' | 'audio';
 
-export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth: Ayat[] }) {
-
-  const [viewMode, setViewMode] = useState<ViewMode>("default");
+export default function AyatOfTheMonth({
+  ayatOfTheMonth = [],
+}: {
+  ayatOfTheMonth: Ayat[];
+}) {
+  const [viewMode, setViewMode] = useState<ViewMode>('default');
 
   // Helper function to convert YouTube and Vimeo URLs to embed format
   const getEmbedUrl = (url: string) => {
-    if (!url) return "";
+    if (!url) return '';
 
     // If already an embed URL, return as is
-    if (url.includes("/embed/")) return url;
+    if (url.includes('/embed/')) return url;
 
     // Convert youtube.com/watch?v= or youtu.be/ to embed format
     const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/;
@@ -57,17 +59,19 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
   if (!ayatOfTheMonth || ayatOfTheMonth.length === 0) return null;
   const data = ayatOfTheMonth[0];
   // Mapping logic
-  const arabicImage = data?.arabicCalligraphyImage?.url ? data?.arabicCalligraphyImage?.url : null;
-  const englishText = data?.englishTranslation || "";
-  const citation = data?.surahName || "";
-  const videoTitle = data?.videoTitle || "";
-  const videoUrl = data?.videoUrl || "";
-  const audioUrl = data.audioFile?.url || data.audioUrl || "";
-  const fullAudioUrl = audioUrl && audioUrl.startsWith('/')
-    ? `${typeof window !== 'undefined' ? window.location.origin : ''}${audioUrl}`
-    : audioUrl;
+  const arabicImage = data?.arabicCalligraphyImage?.url
+    ? data?.arabicCalligraphyImage?.url
+    : null;
+  const englishText = data?.englishTranslation || '';
+  const citation = data?.surahName || '';
+  const videoTitle = data?.videoTitle || '';
+  const videoUrl = data?.videoUrl || '';
+  const audioUrl = data.audioFile?.url || data.audioUrl || '';
+  const fullAudioUrl =
+    audioUrl && audioUrl.startsWith('/')
+      ? `${typeof window !== 'undefined' ? window.location.origin : ''}${audioUrl}`
+      : audioUrl;
   const embedUrl = getEmbedUrl(videoUrl);
-
 
   return (
     <section className="relative w-full py-8 pb-32 px-4 sm:py-18 sm:px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-112.5 sm:min-h-197.75">
@@ -84,7 +88,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
 
       {/* Content Container */}
       <div className="relative z-10 w-full max-w-78 sm:max-w-178.5 flex flex-col items-center gap-4.5 sm:gap-12">
-        {viewMode === "default" && (
+        {viewMode === 'default' && (
           <>
             {/* Default View - Arabic Calligraphy & Quote */}
             <div className="flex flex-col items-center gap-4.5 sm:gap-8.25 w-full">
@@ -98,7 +102,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
                   <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
                     <Image
                       src={arabicImage}
-                      alt={data?.arabicCalligraphyImage?.alt || ""}
+                      alt={data?.arabicCalligraphyImage?.alt || ''}
                       fill
                       className="object-contain"
                       unoptimized
@@ -119,18 +123,18 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
             </div>
 
             {/* Read More Button */}
-            <Link
+            {/* <Link
               href="/ayat"
               className="bg-[#1877f2] h-9 sm:h-12 px-6 rounded-lg flex items-center gap-2 hover:bg-[#1565d8] transition-colors"
             >
               <span className="text-xs sm:text-base font-normal text-white leading-6">
                 Read More
               </span>
-            </Link>
+            </Link> */}
           </>
         )}
 
-        {viewMode === "video" && (
+        {viewMode === 'video' && (
           <>
             {/* Video View */}
             <p className="text-base sm:text-lg font-medium text-white leading-4 sm:leading-7">
@@ -147,7 +151,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
                 {embedUrl && (
                   <iframe
                     src={embedUrl}
-                    title={videoTitle || "Video player"}
+                    title={videoTitle || 'Video player'}
                     className="w-full h-full"
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
@@ -160,7 +164,7 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
           </>
         )}
 
-        {viewMode === "audio" && (
+        {viewMode === 'audio' && (
           <>
             {/* Audio View */}
             <div className="flex flex-col items-center gap-4.5 sm:gap-8.25 w-full">
@@ -201,23 +205,23 @@ export default function AyatOfTheMonth({ ayatOfTheMonth = [] }: { ayatOfTheMonth
       </div>
 
       {/* View Toggle Buttons - Bottom Right (only show in default view) */}
-      {viewMode === "default" && (
+      {viewMode === 'default' && (
         <ViewToggleButtons
           onAudioClick={() => {
-            setViewMode("audio");
+            setViewMode('audio');
           }}
           onVideoClick={() => {
-            setViewMode("video");
+            setViewMode('video');
           }}
           className="absolute bottom-10 right-4 sm:right-8 lg:right-40.25 sm:bottom-26.75 z-20"
         />
       )}
 
       {/* Back Button (show in video/audio views) */}
-      {viewMode !== "default" && (
+      {viewMode !== 'default' && (
         <button
           onClick={() => {
-            setViewMode("default");
+            setViewMode('default');
           }}
           className="absolute sm:top-4 top-2 sm:right-4 right-2 z-20 bg-white/20 hover:bg-white/30 text-white sm:px-4 px-3 sm:py-2 py-1.5 sm:rounded-lg rounded-md sm:text-base text-sm transition-colors cursor-pointer"
         >

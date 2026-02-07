@@ -152,7 +152,7 @@ const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
       d="M9 5l7 7-7 7"
     />
   </svg>
-)
+);
 
 interface FooterColumnProps {
   title: string;
@@ -503,7 +503,7 @@ export default function Footer() {
               <h3 className="font-bold text-base leading-6 text-white">
                 Recent supporters
               </h3>
-              <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row w-full">
+              <div className="flex flex-row gap-3 lg:gap-0 w-full">
                 <div className="flex flex-col gap-3 lg:gap-4 flex-1">
                   {isLoadingDonations ? (
                     <>
@@ -521,7 +521,7 @@ export default function Footer() {
                       ))
                   )}
                 </div>
-                <div className="hidden lg:flex flex-col gap-4 flex-1">
+                <div className="flex flex-col gap-4 flex-1">
                   {isLoadingDonations ? (
                     <>
                       <SupporterSkeleton />
@@ -559,7 +559,7 @@ export default function Footer() {
                   ))
                 )}
               </div>
-              <div className="flex gap-5 w-full flex-wrap">
+              <div className="flex gap-5 w-full">
                 <Link
                   href="/discover"
                   className="w-full sm:w-fit bg-[#3f3f46] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
@@ -669,10 +669,7 @@ export default function Footer() {
         <div className="bg-[#18181b] flex items-center justify-center px-6 lg:px-8 py-6 lg:py-0 lg:h-25.25 w-full">
           <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center hn-container">
             COPYRIGHT © {new Date().getFullYear()}{' '}
-            <Link
-              href=""
-              className="hover:text-[#006fee]"
-            >
+            <Link href="" className="hover:text-[#006fee]">
               Masjid Al Falah
             </Link>
             <span className="text-[#006fee]">.</span> All Rights Reserved.

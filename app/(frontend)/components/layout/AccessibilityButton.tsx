@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import PrayerTimesPanel from "./PrayerTimesPanel";
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import PrayerTimesPanel from './PrayerTimesPanel';
 
 export default function AccessibilityButton() {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
@@ -16,8 +16,8 @@ export default function AccessibilityButton() {
       setIsScrolled(window.scrollY > 100);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Fetch prayer times data when component mounts
@@ -25,7 +25,9 @@ export default function AccessibilityButton() {
     const fetchData = async () => {
       try {
         // Fetch prayer times
-        const prayerTimesRes = await fetch('/api/prayer-times?limit=10000&sort=date');
+        const prayerTimesRes = await fetch(
+          '/api/prayer-times?limit=10000&sort=date'
+        );
         const prayerTimesData = await prayerTimesRes.json();
 
         // Fetch settings
@@ -58,17 +60,17 @@ export default function AccessibilityButton() {
           className="bg-[#002e62] hover:bg-[#001b3d] flex items-center justify-center transition-all duration-300 rounded-bl-[50px] rounded-tl-[50px] shadow-[0px_4px_6px_-1px_rgba(0,112,243,0.4),0px_2px_4px_-1px_rgba(0,0,0,0.06)] hover:shadow-[0px_6px_8px_-1px_rgba(0,112,243,0.5),0px_3px_5px_-1px_rgba(0,0,0,0.08)] sm:w-17.5 w-12 sm:h-14 h-10 cursor-pointer"
           aria-label="Prayer Times"
           style={{
-            width: isScrolled ? "56px" : undefined,
-            height: isScrolled ? "45px" : undefined,
+            width: isScrolled ? '56px' : undefined,
+            height: isScrolled ? '45px' : undefined,
           }}
         >
           {/* Prayer Times Icon */}
           <div
             className="absolute top-1/2 -translate-y-1/2 flex items-center justify-center transition-all duration-300 sm:left-5.5 left-3.5"
             style={{
-              left: isScrolled ? "18px" : undefined,
-              width: isScrolled ? "20px" : "24px",
-              height: isScrolled ? "34px" : "42px",
+              left: isScrolled ? '18px' : undefined,
+              width: isScrolled ? '20px' : '24px',
+              height: isScrolled ? '34px' : '42px',
             }}
           >
             <div className="rotate-180 scale-y-[-1]">

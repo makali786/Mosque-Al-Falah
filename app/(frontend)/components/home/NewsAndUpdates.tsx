@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState, useMemo } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { Media } from "../../../../payload-types";
+import { Media } from '../../../../payload-types';
 
 interface Event {
   id: string;
@@ -20,10 +20,9 @@ interface Notice {
   title: string;
   date: string;
   tag: string;
-  tagColor: "events" | "news";
+  tagColor: 'events' | 'news';
   isCancelled?: boolean;
 }
-
 
 interface RawNotice {
   id: number;
@@ -33,20 +32,39 @@ interface RawNotice {
   isCancelled?: boolean;
 }
 
-
-export default function NewsAndUpdates({ events = [], notices = [] }: { events?: unknown[], notices?: RawNotice[] }) {
-
+export default function NewsAndUpdates({
+  events = [],
+  notices = [],
+}: {
+  events?: unknown[];
+  notices?: RawNotice[];
+}) {
   const typedEvents = events as unknown as Event[];
-  const typedNotices: Notice[] = useMemo(() => notices.map((notice) => ({
-    id: notice?.id,
-    title: notice?.title,
-    date: notice?.noticeDate ? new Date(notice.noticeDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : "",
-    tag: notice?.category ? notice?.category.charAt(0).toUpperCase() + notice?.category.slice(1) : "News",
-    tagColor: notice?.category === 'events' ? 'events' : 'news',
-    isCancelled: notice?.isCancelled
-  })), [notices]);
+  const typedNotices: Notice[] = useMemo(
+    () =>
+      notices.map(notice => ({
+        id: notice?.id,
+        title: notice?.title,
+        date: notice?.noticeDate
+          ? new Date(notice.noticeDate).toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            })
+          : '',
+        tag: notice?.category
+          ? notice?.category.charAt(0).toUpperCase() + notice?.category.slice(1)
+          : 'News',
+        tagColor: notice?.category === 'events' ? 'events' : 'news',
+        isCancelled: notice?.isCancelled,
+      })),
+    [notices]
+  );
 
-  const displayNotices = useMemo(() => typedNotices.length > 0 ? typedNotices : [], [typedNotices]);
+  const displayNotices = useMemo(
+    () => (typedNotices.length > 0 ? typedNotices : []),
+    [typedNotices]
+  );
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -98,14 +116,14 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
             </h2>
             <Link
               href="/events"
-              className="flex items-center gap-2 px-4 py-2 rounded-xl group"
+              className="flex items-center gap-2  py-2 rounded-xl group"
             >
               <span className="text-base text-[#27272a] group-hover:text-[#006fee] leading-6 transition-colors">
                 See all
               </span>
               <Image
-                src={"/assets/news/arrow-icon.svg"}
-                alt={"Arrow Right"}
+                src={'/assets/news/arrow-icon.svg'}
+                alt={'Arrow Right'}
                 height={6}
                 width={6}
                 className="object-cover group-hover:filter-[brightness(0)_saturate(100%)_invert(32%)_sepia(99%)_saturate(2618%)_hue-rotate(199deg)_brightness(100%)_contrast(107%)] transition-all"
@@ -115,13 +133,19 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
 
           {/* Events Grid - Show only 1 on mobile, 2 on md, 4 on lg+ */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-x-11 sm:gap-y-8">
-            {typedEvents.slice(0, 1).map((event) => {
-              const imageUrl = typeof event.media?.featuredImage === 'object' && event.media?.featuredImage?.url
-                ? event.media.featuredImage.url
-                : null;
+            {typedEvents.slice(0, 1).map(event => {
+              const imageUrl =
+                typeof event.media?.featuredImage === 'object' &&
+                event.media?.featuredImage?.url
+                  ? event.media.featuredImage.url
+                  : null;
 
               return (
-                <Link key={event.id} href={`/events/${event.id}`} className="flex flex-col gap-4 sm:hidden">
+                <Link
+                  key={event.id}
+                  href={`/events/${event.id}`}
+                  className="flex flex-col gap-4 sm:hidden"
+                >
                   {/* Event Image with Gradient Overlay (Mobile only) */}
                   <div className="relative w-full h-50.5 overflow-hidden">
                     {imageUrl && (
@@ -146,17 +170,23 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                     </p>
                   </div>
                 </Link>
-              )
+              );
             })}
 
             {/* Desktop Events Grid */}
-            {typedEvents.map((event) => {
-              const imageUrl = typeof event.media?.featuredImage === 'object' && event.media?.featuredImage?.url
-                ? event.media.featuredImage.url
-                : null;
+            {typedEvents.map(event => {
+              const imageUrl =
+                typeof event.media?.featuredImage === 'object' &&
+                event.media?.featuredImage?.url
+                  ? event.media.featuredImage.url
+                  : null;
 
               return (
-                <Link key={event.id} href={`/events/${event.id}`} className="hidden sm:flex flex-col gap-4">
+                <Link
+                  key={event.id}
+                  href={`/events/${event.id}`}
+                  className="hidden sm:flex flex-col gap-4"
+                >
                   {/* Event Image with Play Button */}
                   <div className="relative w-full h-45.25 overflow-hidden">
                     {imageUrl && (
@@ -190,7 +220,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                     </p>
                   </div>
                 </Link>
-              )
+              );
             })}
           </div>
         </div>
@@ -204,7 +234,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
 
           {/* Notices List - Mobile: Static (4 items), Desktop: Auto Scrolling */}
           <div className="sm:hidden flex flex-col gap-6 max-h-140.25 overflow-y-auto">
-            {displayNotices.slice(0, 4).map((notice) => (
+            {displayNotices.slice(0, 4).map(notice => (
               <div key={notice.id} className="flex flex-col gap-2">
                 {/* Notice Title */}
                 <h3 className="text-lg font-normal text-[#006fee] line-clamp-2 leading-7">
@@ -230,13 +260,13 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                   {/* Tags */}
                   <div className="flex items-center gap-3.5">
                     {notice.isCancelled && (
-                      <div className="bg-[#f31260] px-2 py-1 rounded-lg">
+                      <div className="bg-[#f31260] flex justify-center items-center px-2 py-1 rounded-lg">
                         <span className="text-xs text-white leading-4">
                           Cancelled
                         </span>
                       </div>
                     )}
-                    <div className="bg-[rgba(120,40,200,0.2)] px-2 py-1 rounded-lg">
+                    <div className="bg-[rgba(120,40,200,0.2)] flex justify-center items-center px-2 py-1  rounded-lg">
                       <span className="text-xs text-[#301050] leading-4">
                         {notice.tag}
                       </span>
@@ -253,7 +283,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             className="hidden sm:flex flex-col gap-3.5 overflow-y-auto overflow-x-hidden h-150 cursor-pointer scrollbar-hide"
-            style={{ scrollBehavior: "auto" }}
+            style={{ scrollBehavior: 'auto' }}
           >
             {/* Duplicate notices for seamless infinite scroll only if we have enough items */}
             {(displayNotices.length > 1
@@ -294,7 +324,7 @@ export default function NewsAndUpdates({ events = [], notices = [] }: { events?:
                         </span>
                       </div>
                     )}
-                    <div className="bg-[rgba(120,40,200,0.2)] px-2 py-1 rounded-lg">
+                    <div className="bg-[rgba(120,40,200,0.2)] flex justify-center items-center px-2 py-1 rounded-lg">
                       <span className="text-xs text-[#301050] leading-4">
                         {notice?.tag}
                       </span>
