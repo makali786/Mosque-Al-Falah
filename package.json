@@ -21,6 +21,7 @@
     "@vercel/analytics": "^1.6.1",
     "@vercel/blob": "^2.0.0",
     "cloudinary": "^2.9.0",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
     "framer-motion": "^12.34.0",
     "graphql": "^16.8.1",
@@ -38,6 +39,7 @@
     "react-player": "^3.4.0",
     "sharp": "^0.34.5",
     "stripe": "^20.1.0",
+    "tailwind-merge": "^3.4.0",
     "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {

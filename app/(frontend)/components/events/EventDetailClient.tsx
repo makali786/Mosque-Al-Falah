@@ -16,6 +16,7 @@ import GoogleMap from "../common/GoogleMap";
 import EventBookingForm from "./EventBookingForm";
 import GalleryCarousel from "../common/GalleryCarousel";
 import AudioPlayer from "../common/AudioPlayer";
+import AddToCalendar from "./AddToCalendar";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -283,10 +284,24 @@ export default function EventDetailClient({ event, config, relatedEvents, onBook
 
                         {/* Action Buttons */}
                         <div className="flex flex-wrap gap-4 mt-auto">
-                            <button className="px-6 py-3 bg-[#3F3F46] text-white rounded-lg text-base cursor-pointer">
-                                Add to calendar
-                            </button>
-                            <button className="px-6 py-3 bg-[#006FEE] text-white rounded-lg text-base cursor-pointer">
+                            <AddToCalendar
+                                event={{
+                                    title,
+                                    description: description || "",
+                                    location: venue || address || "",
+                                    startDate: sDate || new Date(),
+                                    endDate: eDate || new Date()
+                                }}
+                            />
+                            <button
+                                onClick={() => {
+                                    const element = document.getElementById("booking-form");
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                }}
+                                className="px-6 py-3 bg-[#006FEE] text-white rounded-lg text-base cursor-pointer"
+                            >
                                 Register your interest
                             </button>
                         </div>
@@ -377,11 +392,13 @@ export default function EventDetailClient({ event, config, relatedEvents, onBook
 
                         {/* Booking Form */}
                         {onBookingSubmit && (
-                            <EventBookingForm
-                                eventId={event?.id}
-                                maxGuests={maxGuests || 5}
-                                onBookingSubmit={onBookingSubmit}
-                            />
+                            <div id="booking-form" className="scroll-mt-24">
+                                <EventBookingForm
+                                    eventId={event?.id}
+                                    maxGuests={maxGuests || 5}
+                                    onBookingSubmit={onBookingSubmit}
+                                />
+                            </div>
                         )}
                     </div>
 
@@ -436,9 +453,16 @@ export default function EventDetailClient({ event, config, relatedEvents, onBook
                                         <p><span className="font-semibold">Start:</span> {formatDate(startDate)} at {formatTime(startDate)}</p>
                                         <p><span className="font-semibold">End:</span> {formatDate(endDate)} at {formatTime(endDate)}</p>
                                     </div>
-                                    <button className="w-fit py-3 px-4 bg-[#006FEE] text-white text-sm font-medium rounded-lg cursor-pointer">
-                                        Add to calendar
-                                    </button>
+                                    <AddToCalendar
+                                        event={{
+                                            title,
+                                            description: description || "",
+                                            location: venue || address || "",
+                                            startDate: sDate || new Date(),
+                                            endDate: eDate || new Date()
+                                        }}
+                                        className="w-full sm:w-fit"
+                                    />
                                 </div>
                             </div>
                         </div>

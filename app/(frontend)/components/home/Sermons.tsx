@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
+import Image from "@/components/common/CustomImage";
 import Link from "next/link";
 import ViewToggleButtons from "../common/ViewToggleButtons";
 import SermonCard from "../common/SermonCard";

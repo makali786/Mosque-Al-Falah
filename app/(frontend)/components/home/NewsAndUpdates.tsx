@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import Image from '@/components/common/CustomImage';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -47,10 +47,10 @@ export default function NewsAndUpdates({
         title: notice?.title,
         date: notice?.noticeDate
           ? new Date(notice.noticeDate).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-            })
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          })
           : '',
         tag: notice?.category
           ? notice?.category.charAt(0).toUpperCase() + notice?.category.slice(1)
@@ -136,7 +136,7 @@ export default function NewsAndUpdates({
             {typedEvents.slice(0, 1).map(event => {
               const imageUrl =
                 typeof event.media?.featuredImage === 'object' &&
-                event.media?.featuredImage?.url
+                  event.media?.featuredImage?.url
                   ? event.media.featuredImage.url
                   : null;
 
@@ -177,7 +177,7 @@ export default function NewsAndUpdates({
             {typedEvents.map(event => {
               const imageUrl =
                 typeof event.media?.featuredImage === 'object' &&
-                event.media?.featuredImage?.url
+                  event.media?.featuredImage?.url
                   ? event.media.featuredImage.url
                   : null;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/common/CustomImage";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -189,15 +189,13 @@ export default function MainHeader() {
       {/* Mobile Menu */}
       <>
         <div
-          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-9998 ${
-            mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
-          }`}
+          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-9998 ${mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
+            }`}
           onClick={() => setMobileMenuOpen(false)}
         />
         <div
-          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-9999 overflow-y-auto transition-transform duration-300 ease-in-out ${
-            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-9999 overflow-y-auto transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
         >
           <div className="flex justify-end p-4">
             <button onClick={() => setMobileMenuOpen(false)} className="text-white cursor-pointer" aria-label="Close menu">

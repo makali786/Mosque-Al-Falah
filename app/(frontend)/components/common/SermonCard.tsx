@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import Image from "@/components/common/CustomImage";
 import ViewToggleButtons from "./ViewToggleButtons";
 import Link from "next/link";
 import { Media } from "../../../../payload-types";

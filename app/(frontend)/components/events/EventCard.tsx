@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import Image from "@/components/common/CustomImage";
 import Link from "next/link";
 import { getMediaUrl } from "../../../../lib/helper";
 
@@ -131,9 +131,9 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
                 </div>
               ) : platforms.some(p => p.platform === 'meet') ? (
                 <div className="flex items-center gap-1.5">
-                    <Image src="/assets/common/google-meet-logo.svg" alt="Meet" width={18} height={18} />
-                    <span className="text-[#52525B] text-[13px]">Google Meet</span>
-                  </div>
+                  <Image src="/assets/common/google-meet-logo.svg" alt="Meet" width={18} height={18} />
+                  <span className="text-[#52525B] text-[13px]">Google Meet</span>
+                </div>
               ) : null}
 
               {/* Always showing In-person as per typical mosque events or if venue is present */}

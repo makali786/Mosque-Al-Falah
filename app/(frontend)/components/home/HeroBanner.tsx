@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
+import Image from "@/components/common/CustomImage";
 import Link from "next/link";
 import { Media } from "../../../../payload-types";
 
@@ -137,11 +137,10 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full border-2 md:border-3 w-5.5 h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 cursor-pointer ${
-                index === currentSlide
+              className={`transition-all duration-300 rounded-full border-2 md:border-3 w-5.5 h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 cursor-pointer ${index === currentSlide
                   ? "bg-[#006fee] border-white"
                   : "bg-transparent border-white/50 hover:border-white"
-              }`}
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -179,11 +178,10 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`transition-all duration-300 rounded-full w-2 h-2 cursor-pointer ${
-                      index === currentSlide
+                    className={`transition-all duration-300 rounded-full w-2 h-2 cursor-pointer ${index === currentSlide
                         ? "bg-white"
                         : "bg-white/30 hover:bg-white/50"
-                    }`}
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
