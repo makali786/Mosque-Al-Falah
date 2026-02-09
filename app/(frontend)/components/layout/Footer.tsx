@@ -561,7 +561,7 @@ export default function Footer() {
               </div>
               <div className="flex gap-5 w-full">
                 <Link
-                  href="/discover"
+                  href="/appeals"
                   className="w-full sm:w-fit bg-[#3f3f46] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
                 >
                   Discover

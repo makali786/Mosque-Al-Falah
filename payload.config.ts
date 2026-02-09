@@ -56,6 +56,7 @@ import { SermonsPage } from './globals/SermonsPage';
 import { ServicesPage } from './globals/ServicesPage';
 
 // Prayer Time Settings
+import { Notifications } from './collections/Notifications';
 import { PrayerTimeSettings } from './globals/PrayerTimeSettings';
 import { PrayerTimesPage } from './globals/PrayerTimesPage';
 
@@ -122,6 +123,7 @@ export default buildConfig({
 
     // Communications
     NewsletterSubscribers,
+    Notifications,
   ],
   globals: [
     AboutPage,

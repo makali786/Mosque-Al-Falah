@@ -8,7 +8,9 @@ export const Services: CollectionConfig = {
     description: 'Comprehensive mosque services management',
   },
   access: {
+    // read: () => true, // Re-enabling public update temporarily
     read: () => true,
+    update: () => true,
   },
   fields: [
     // ============================================================================
@@ -491,6 +493,7 @@ export const Services: CollectionConfig = {
             { label: 'Requirements/Steps Carousel', value: 'requirements' },
             { label: 'Rich Content', value: 'richContent' },
             { label: 'Call to Action', value: 'cta' },
+            { label: 'Donation Section', value: 'donation' },
           ],
         },
 

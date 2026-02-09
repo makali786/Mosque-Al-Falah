@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useState, useMemo, useEffect } from "react";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { addMinutesToTime } from "@lib/prayer-times-helpers";
-import { usePrayerTimesNavigation } from "@hooks/usePrayerTimesNavigation";
-import { usePrayerTimes } from "@hooks/usePrayerTimes";
-import { useCountdown } from "@hooks/useCountdown";
 import {
   CountdownDisplay,
   DateNavigation,
-  PrayerTimeRow,
   JumuahTimeRow,
-} from "@/components/prayer-times/PrayerTimeComponents";
+  PrayerTimeRow,
+} from '@/components/prayer-times/PrayerTimeComponents';
+import { useCountdown } from '@hooks/useCountdown';
+import { usePrayerTimes } from '@hooks/usePrayerTimes';
+import { usePrayerTimesNavigation } from '@hooks/usePrayerTimesNavigation';
+import { addMinutesToTime } from '@lib/prayer-times-helpers';
+import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
+import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
 // ============================================================================
 // Types & Interfaces
@@ -69,14 +69,14 @@ const PrayerTimesCalendar = ({
   }, [calendarDate, onYearChange]);
 
   const handlePreviousMonth = () => {
-    setCalendarDate((prev) => {
+    setCalendarDate(prev => {
       const newDate = new Date(prev.getFullYear(), prev.getMonth() - 1, 1);
       return newDate;
     });
   };
 
   const handleNextMonth = () => {
-    setCalendarDate((prev) => {
+    setCalendarDate(prev => {
       const newDate = new Date(prev.getFullYear(), prev.getMonth() + 1, 1);
       return newDate;
     });
@@ -87,7 +87,7 @@ const PrayerTimesCalendar = ({
     if (!prayerTimes || prayerTimes.length === 0) return [];
 
     const today = new Date();
-    const todayStr = today.toISOString().split("T")[0];
+    const todayStr = today.toISOString().split('T')[0];
 
     // Filter prayer times for the selected month
     const filteredPrayerTimes = prayerTimes.filter((pt: any) => {
@@ -100,34 +100,34 @@ const PrayerTimesCalendar = ({
 
     return filteredPrayerTimes.map((pt: any) => {
       const date = new Date(pt.date);
-      const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+      const dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
       const isFriday = date.getDay() === 5;
-      const isToday = pt.date.split("T")[0] === todayStr;
+      const isToday = pt.date.split('T')[0] === todayStr;
 
       // Parse hijri date "1 12 1441446" -> day: 1, month: 12, year: 1441446
       const hijriParts = pt.hijriDate
-        ? pt.hijriDate.trim().split(" ")
-        : ["1", "1", "1446"];
+        ? pt.hijriDate.trim().split(' ')
+        : ['1', '1', '1446'];
       const islamicDate = parseInt(hijriParts[0]) || 1;
       const islamicMonth = parseInt(hijriParts[1]) || 1;
-      const islamicYear = hijriParts[2] || "1446";
+      const islamicYear = hijriParts[2] || '1446';
 
       // Get hijri month name
       const hijriMonths = [
-        "Muharram",
-        "Safar",
-        "Rabi-al-Awwal",
-        "Rabi-al-Thani",
-        "Jamadi-al-Awwal",
-        "Jamadi-al-Thani",
-        "Rajab",
-        "Shaban",
-        "Ramadan",
-        "Shawwal",
-        "Dhul-Qadah",
-        "Dhul-Hijjah",
+        'Muharram',
+        'Safar',
+        'Rabi-al-Awwal',
+        'Rabi-al-Thani',
+        'Jamadi-al-Awwal',
+        'Jamadi-al-Thani',
+        'Rajab',
+        'Shaban',
+        'Ramadan',
+        'Shawwal',
+        'Dhul-Qadah',
+        'Dhul-Hijjah',
       ];
-      const hijriMonthName = hijriMonths[islamicMonth - 1] || "";
+      const hijriMonthName = hijriMonths[islamicMonth - 1] || '';
 
       // Get Jumu'ah time from settings
       const jumuahTime = settings?.jumuahSettings?.iqamahTime || null;
@@ -170,24 +170,24 @@ const PrayerTimesCalendar = ({
 
   // Check if current view contains Ramadan
   const isRamadan = useMemo(() => {
-    return calendarData.some((day) => day.hijriMonthName === "Ramadan");
+    return calendarData.some(day => day.hijriMonthName === 'Ramadan');
   }, [calendarData]);
 
   // Format month display
   const monthDisplay = useMemo(() => {
     const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ];
     return `${monthNames[calendarDate.getMonth()]} ${calendarDate.getFullYear()}`;
   }, [calendarDate]);
@@ -329,39 +329,53 @@ const PrayerTimesCalendar = ({
             {calendarData.map((row, index) => {
               // Row styling logic
               const isFirstRow = index === 0;
-              const rowHeight = isFirstRow ? "h-[76px]" : "h-[46px]";
-              const baseWidth = "!min-w-[70px]";
+              const rowHeight = isFirstRow ? 'h-[76px]' : 'h-[46px]';
+              const baseWidth = '!min-w-[70px]';
 
-              let rowBaseClass = `border-b text-sm ${rowHeight} ${isFirstRow ? "align-bottom" : ""
-                }`;
+              const isRamadanRow = row.hijriMonthName === 'Ramadan';
+
+              let rowBaseClass = `border-b text-sm ${rowHeight} ${
+                isFirstRow ? 'align-bottom' : ''
+              }`;
               // Zebra striping: alternate background colors for standard rows
               let rowColors =
                 index % 2 !== 0
-                  ? "bg-[#FAFAFA] border-[#F4F4F5]"
-                  : "bg-white border-[#F4F4F5]";
-              let cellBorder =
-                "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
-              let lastCellBorder =
-                "border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]";
+                  ? 'bg-[#FAFAFA] border-[#F4F4F5]'
+                  : 'bg-white border-[#F4F4F5]';
 
-              let textClass = "";
-              let beginsClass = "";
-              let islamicDateClass = "";
+              // Ramadan styling override
+              if (isRamadanRow && !row.isActive) {
+                rowColors =
+                  index % 2 !== 0
+                    ? 'bg-[#ecfdf5] border-[#F4F4F5]' // emerald-50
+                    : 'bg-[#f0fdf4] border-[#F4F4F5]'; // green-50
+              }
+
+              let cellBorder =
+                'border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]';
+              let lastCellBorder =
+                'border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)]';
+
+              let textClass = '';
+              let beginsClass = '';
+              let islamicDateClass = '';
 
               if (row.isActive) {
-                rowColors = "bg-[#006FEE] text-white border-[#006FEE]";
-                cellBorder = "border-x border-white";
-                lastCellBorder = "border-x border-white";
-                textClass = "text-white";
-                beginsClass = "text-white";
-                islamicDateClass = "text-white font-medium";
+                rowColors = 'bg-[#006FEE] text-white border-[#006FEE]';
+                cellBorder = 'border-x border-white';
+                lastCellBorder = 'border-x border-white';
+                textClass = 'text-white';
+                beginsClass = 'text-white';
+                islamicDateClass = 'text-white font-medium';
               } else if (row.isFriday) {
-                rowColors = "bg-[#e6f1fe] border-[#F4F4F5]";
-                cellBorder = "border-x border-[#F4F4F5]";
-                lastCellBorder = "border-x border-[#F4F4F5]";
-                textClass = "text-[#006FEE]";
-                beginsClass = "text-[#006FEE]";
-                islamicDateClass = "text-[#006FEE]";
+                rowColors = 'bg-[#e6f1fe] border-[#F4F4F5]';
+                cellBorder = 'border-x border-[#F4F4F5]';
+                lastCellBorder = 'border-x border-[#F4F4F5]';
+                textClass = 'text-[#006FEE]';
+                beginsClass = 'text-[#006FEE]';
+                islamicDateClass = 'text-[#006FEE]';
+              } else if (isRamadanRow) {
+                // Keep default borders for Ramadan rows as requested
               }
 
               const rowClass = `${rowBaseClass} ${rowColors}`;
@@ -369,71 +383,92 @@ const PrayerTimesCalendar = ({
               return (
                 <tr key={index} className={rowClass}>
                   <td
-                    className={`${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${textClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.day}
                   </td>
                   <td
-                    className={`${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${textClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.date}
                   </td>
                   <td
-                    className={`${islamicDateClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${islamicDateClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {isFirstRow && row.hijriMonthName && (
                       <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">
                         {row.hijriMonthName}
                       </span>
                     )}
-                    {row.islamicDate}
+                    <div className="flex flex-col items-center justify-center gap-1">
+                      <span>{row.islamicDate}</span>
+                      {isRamadanRow && !isFirstRow && (
+                        <span className="text-[9px] font-medium bg-[#10b981] text-white px-1.5 py-0.5 rounded-full leading-none">
+                          Ramadan
+                        </span>
+                      )}
+                    </div>
                   </td>
                   <td
-                    className={`${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${textClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.subhaSadiq}
                   </td>
                   <td
-                    className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${isFirstRow ? "pb-3" : ""
-                      } ${row.isActive
-                        ? "border-white/20"
+                    className={`${textClass} border-x border-solid border-[var(--colors-layout-foreground-100,#F4F4F5)] ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${
+                      row.isActive
+                        ? 'border-white/20'
                         : row.isFriday
-                          ? "border-[#DBEAFE]"
-                          : ""
-                      } ${baseWidth}`}
+                          ? 'border-[#DBEAFE]'
+                          : ''
+                    } ${baseWidth}`}
                   >
                     {row.sunRise}
                   </td>
 
                   {/* Fajr */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
-                    {(isRamadan && isFirstRow) && <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">Sahar</span>}
+                    {isRamadan && isFirstRow && (
+                      <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">
+                        Sahar
+                      </span>
+                    )}
                     {row.fajr.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={` ${textClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.fajr.jamaah}
                   </td>
 
                   {/* Zuhr */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.zuhr.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={` ${textClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.zuhr.isJumuah ? (
                       <div className="flex flex-col items-center gap-0.5">
@@ -453,43 +488,53 @@ const PrayerTimesCalendar = ({
 
                   {/* Asr */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.asr.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={` ${textClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.asr.jamaah}
                   </td>
 
                   {/* Maghrib */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
-                    {(isRamadan && isFirstRow) && <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">Iftar</span>}
+                    {isRamadan && isFirstRow && (
+                      <span className="block text-[8px] text-[#006FEE] leading-tight mb-2.5">
+                        Iftar
+                      </span>
+                    )}
                     {row.maghrib.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={` ${textClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.maghrib.jamaah}
                   </td>
 
                   {/* Isha */}
                   <td
-                    className={`${beginsClass} ${cellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={`${beginsClass} ${cellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.isha.begins}
                   </td>
                   <td
-                    className={` ${textClass} ${lastCellBorder} ${isFirstRow ? "pb-3" : ""
-                      } ${baseWidth}`}
+                    className={` ${textClass} ${lastCellBorder} ${
+                      isFirstRow ? 'pb-3' : ''
+                    } ${baseWidth}`}
                   >
                     {row.isha.jamaah}
                   </td>
@@ -531,7 +576,7 @@ export default function PrayerTimesSection({
   });
 
   useEffect(() => {
-    if (activeTab === "prayer-time") {
+    if (activeTab === 'prayer-time') {
       onYearChange?.(currentDate.getFullYear());
     }
   }, [currentDate, activeTab, onYearChange]);
@@ -539,7 +584,7 @@ export default function PrayerTimesSection({
   return (
     <section className="w-full section-padding py-8 lg:pb-24">
       {/* Main Content Area */}
-      {activeTab === "prayer-time" ? (
+      {activeTab === 'prayer-time' ? (
         <div className="flex flex-col xl:flex-row gap-0 xl:gap-12 mb-8 xl:mb-16">
           {/* Left side - Image with countdown */}
           <div className="h-105 xl:h-152.25 w-full xl:max-w-136 relative overflow-hidden rounded-t-[12px] rounded-b-none xl:rounded-xl">
@@ -568,6 +613,24 @@ export default function PrayerTimesSection({
               prayerName={nextPrayer.name}
               variant="large"
             />
+
+            {/* Ramadan Title Overlay - ONLY VISIBLE DURING RAMADAN */}
+            {dateInfo.hijri.includes('Ramadan') && (
+              <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 text-center w-full px-4">
+                <h2
+                  className="text-white text-2xl font-bold drop-shadow-md"
+                  style={{ textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
+                >
+                  Ramadan Mubarak
+                </h2>
+                <p
+                  className="text-white/90 text-sm font-medium drop-shadow-md"
+                  style={{ textShadow: '0 1px 2px rgba(0,0,0,0.5)' }}
+                >
+                  {dateInfo.hijri.split(' ')[2] || '1447'} AH
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Right side - Prayer Times List */}
@@ -576,7 +639,7 @@ export default function PrayerTimesSection({
               <h2 className="sr-only">Prayer Times</h2>
 
               {/* Daily Prayer Times (includes Jumu'ah when applicable) */}
-              {prayerTimes.map((prayer) =>
+              {prayerTimes.map(prayer =>
                 prayer.isJumuah ? (
                   <JumuahTimeRow key={prayer.name} jumuah={prayer} />
                 ) : (

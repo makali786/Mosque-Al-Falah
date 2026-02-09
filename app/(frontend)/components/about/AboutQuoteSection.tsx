@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { QuoteSection } from "@/components/common/QuoteSection";
+import { QuoteSection } from '@/components/common/QuoteSection';
 
 interface AboutQuoteSectionProps {
   quote: string;
@@ -8,21 +8,11 @@ interface AboutQuoteSectionProps {
   donateButtonUrl?: string;
 }
 
-export default function AboutQuoteSection({ quote, attribution, donateButtonUrl }: AboutQuoteSectionProps) {
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Islamic Guidance",
-          text: quote,
-          url: window.location.href,
-        })
-        .catch((err) => console.log("Share failed:", err));
-    } else {
-      alert("Share this page: " + window.location.href);
-    }
-  };
-
+export default function AboutQuoteSection({
+  quote,
+  attribution,
+  donateButtonUrl,
+}: AboutQuoteSectionProps) {
   const handleDonate = () => {
     if (donateButtonUrl) {
       window.location.href = donateButtonUrl;
@@ -33,8 +23,12 @@ export default function AboutQuoteSection({ quote, attribution, donateButtonUrl 
     <QuoteSection
       quote={quote}
       attribution={attribution}
-      showAttributionSymbol={false} 
-      onShare={handleShare}
+      showAttributionSymbol={false}
+      shareData={{
+        title: 'Islamic Guidance',
+        text: quote,
+        url: typeof window !== 'undefined' ? window.location.href : '',
+      }}
       onDonate={donateButtonUrl ? handleDonate : undefined}
       shareButtonText="Share this page"
       donateButtonText="Donate Now"

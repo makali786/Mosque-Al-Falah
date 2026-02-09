@@ -1,4 +1,7 @@
-"use client";
+'use client';
+
+import { ShareModal } from '@/components/common/ShareModal';
+import { useState } from 'react';
 
 interface QuoteSectionProps {
   quote: string;
@@ -21,40 +24,28 @@ export function QuoteSection({
   showAttributionSymbol = true,
   onShare,
   onDonate,
-  shareButtonText = "Share this page",
-  donateButtonText = "Donate Now",
-  donateButtonUrl = "/donate",
+  shareButtonText = 'Share this page',
+  donateButtonText = 'Donate Now',
+  donateButtonUrl = '/donate',
   shareData,
-  backgroundColor = "#f4f4f5",
+  backgroundColor = '#f4f4f5',
   showShareButton = false,
   showDonateButton = false,
 }: QuoteSectionProps) {
-  const handleShare = async () => {
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  // Default values for client-side
+  const defaultUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const defaultTitle = typeof document !== 'undefined' ? document.title : '';
+
+  const modalUrl = shareData?.url || defaultUrl;
+  const modalTitle = shareData?.title || defaultTitle;
+
+  const handleShareClick = () => {
     if (onShare) {
       onShare();
-      return;
-    }
-
-    const data = shareData || {
-      title: document.title,
-      text: "Check out this page",
-      url: window.location.href,
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(data);
-      } catch (err) {
-        console.log("Share failed:", err);
-      }
     } else {
-      // Fallback: Copy to clipboard or alert
-      try {
-        await navigator.clipboard.writeText(data.url);
-        alert("Link copied to clipboard: " + data.url);
-      } catch (err) {
-        alert("Share this page: " + data.url);
-      }
+      setIsShareModalOpen(true);
     }
   };
 
@@ -69,45 +60,48 @@ export function QuoteSection({
   };
 
   return (
-    <section
-      className="w-full py-10 sm:py-11 lg:py-12"
-      style={{ backgroundColor }}
-    >
-      <div className="w-full section-padding flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start lg:items-center lg:justify-end">
-        {/* Quote and Attribution */}
-        <div className="flex-1 w-full">
-          <blockquote className="text-lg leading-7 font-medium sm:text-xl sm:leading-8 md:text-[22px] md:leading-7.5 lg:text-[24px] lg:leading-8 text-black">
-            <p className="mb-2">
-              "{quote}"
-            </p>
-            <p className="mb-0">
-              {attribution}
-            </p>
-          </blockquote>
-        </div>
+    <>
+      <section
+        className="w-full py-10 sm:py-11 lg:py-12"
+        style={{ backgroundColor }}
+      >
+        <div className="w-full section-padding flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-start lg:items-center lg:justify-end">
+          {/* Quote and Attribution */}
+          <div className="flex-1 w-full">
+            <blockquote className="text-lg leading-7 font-medium sm:text-xl sm:leading-8 md:text-[22px] md:leading-7.5 lg:text-[24px] lg:leading-8 text-black">
+              <p className="mb-2">"{quote}"</p>
+              <p className="mb-0">{attribution}</p>
+            </blockquote>
+          </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-6 w-full lg:w-auto shrink-0">
-          {(showShareButton || onShare || shareData) && (
-            <button
-              onClick={handleShare}
-              className="flex items-center justify-center px-4 sm:px-6 lg:px-6 py-3 bg-[#3f3f46] hover:bg-[#52525b] text-white rounded-lg cursor-pointer"
-            >
-              <span className="text-sm sm:text-base">
-                {shareButtonText}
-              </span>
-            </button>
-          )}
-          {(showDonateButton || onDonate || donateButtonUrl) && (
-            <button
-              onClick={handleDonate}
-              className="flex items-center justify-center text-sm md:text-base px-4 sm:px-5 md:px-6 lg:px-6 py-3 bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg cursor-pointer"
-            >
-              {donateButtonText}
-            </button>
-          )}
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 md:gap-6 lg:gap-6 w-full lg:w-auto shrink-0">
+            {(showShareButton || onShare || shareData) && (
+              <button
+                onClick={handleShareClick}
+                className="flex items-center justify-center px-4 sm:px-6 lg:px-6 py-3 bg-[#3f3f46] hover:bg-[#52525b] text-white rounded-lg cursor-pointer"
+              >
+                <span className="text-sm sm:text-base">{shareButtonText}</span>
+              </button>
+            )}
+            {(showDonateButton || onDonate || donateButtonUrl) && (
+              <button
+                onClick={handleDonate}
+                className="flex items-center justify-center text-sm md:text-base px-4 sm:px-5 md:px-6 lg:px-6 py-3 bg-[#006fee] hover:bg-[#005fdd] text-white rounded-lg cursor-pointer"
+              >
+                {donateButtonText}
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        url={modalUrl}
+        title={modalTitle}
+      />
+    </>
   );
 }

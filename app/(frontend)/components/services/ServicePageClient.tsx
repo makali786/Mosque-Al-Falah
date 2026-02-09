@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import BreadcrumbSearchSection from "@/components/common/BreadcrumbSearchSection";
-import RequestServiceForm from "@/components/common/RequestServiceForm";
-import { QuoteSection } from "@/components/common/QuoteSection";
+import BreadcrumbSearchSection from '@/components/common/BreadcrumbSearchSection';
+import { QuoteSection } from '@/components/common/QuoteSection';
+import RequestServiceForm from '@/components/common/RequestServiceForm';
+import Image from 'next/image';
 
 interface ServiceDetail {
   id: string;
@@ -17,7 +17,7 @@ interface ServiceDetail {
     content: string;
     image?: string;
     imageAlt?: string;
-    layout?: "image-right" | "image-left";
+    layout?: 'image-right' | 'image-left';
   }[];
   timings?: {
     title: string;
@@ -39,25 +39,10 @@ interface ServicePageClientProps {
 
 export default function ServicePageClient({ service }: ServicePageClientProps) {
   const handleSearch = (query: string) => {
-    console.log("Search query:", query);
+    console.log('Search query:', query);
   };
-
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: service.title,
-          text: service.subtitle,
-          url: window.location.href,
-        })
-        .catch((err) => console.log("Share failed:", err));
-    } else {
-      alert("Share this page: " + window.location.href);
-    }
-  };
-
   const handleDonate = () => {
-    window.location.href = "/donate";
+    window.location.href = '/donate';
   };
 
   return (
@@ -88,8 +73,8 @@ export default function ServicePageClient({ service }: ServicePageClientProps) {
       {/* Breadcrumb */}
       <BreadcrumbSearchSection
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Our Services", href: "/our-services" },
+          { label: 'Home', href: '/' },
+          { label: 'Our Services', href: '/our-services' },
           { label: service.title, href: `/our-services/${service.id}` },
         ]}
         searchPlaceholder="Search services"
@@ -99,8 +84,8 @@ export default function ServicePageClient({ service }: ServicePageClientProps) {
       {/* Request Service Form */}
       <div className="hn-container py-12 sm:py-16 lg:py-20">
         <RequestServiceForm
-          onSubmit={(data) => {
-            console.log("Service request submitted:", data);
+          onSubmit={data => {
+            console.log('Service request submitted:', data);
           }}
         />
       </div>
@@ -111,7 +96,11 @@ export default function ServicePageClient({ service }: ServicePageClientProps) {
           quote={service.quote.text}
           attribution={service.quote.attribution}
           showAttributionSymbol={true}
-          onShare={handleShare}
+          shareData={{
+            title: service.title,
+            text: service.subtitle,
+            url: typeof window !== 'undefined' ? window.location.href : '',
+          }}
           onDonate={handleDonate}
           shareButtonText="Share this page"
           donateButtonText="Donate Now"
