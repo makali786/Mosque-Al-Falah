@@ -129,7 +129,7 @@ const SocialIcon = ({
     href={url}
     target="_blank"
     rel="noopener noreferrer"
-    className="bg-white lg:bg-[#e6f1fe] p-2 rounded-full shrink-0"
+    className="bg-white h-[32px] w-[32px] lg:bg-[#e6f1fe] flex items-center justify-center p-2 rounded-full shrink-0"
     aria-label={name}
   >
     <Image src={icon} alt={name} width={16} height={16} />
@@ -462,8 +462,8 @@ export default function Footer() {
                 {newsletterStatus.message && (
                   <div
                     className={`text-sm px-3 py-2 rounded ${newsletterStatus.type === 'success'
-                        ? 'bg-green-900/50 text-green-200 border border-green-700'
-                        : 'bg-red-900/50 text-red-200 border border-red-700'
+                      ? 'bg-green-900/50 text-green-200 border border-green-700'
+                      : 'bg-red-900/50 text-red-200 border border-red-700'
                       }`}
                   >
                     <span className="text-white">

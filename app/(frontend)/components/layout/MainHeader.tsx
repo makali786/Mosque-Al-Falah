@@ -83,7 +83,7 @@ const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, 
               <Link
                 key={dropdownItem.label}
                 href={dropdownItem.href}
-                className={isMobile ? "text-gray-400 hover:text-white py-2" : "block px-6 py-3 text-black hover:bg-gray-100 transition-colors"}
+                className={isMobile ? "text-gray-400 hover:text-white py-2" : "block px-6 py-3 text-black hover:bg-gray-100 transition-colors text-center"}
                 onClick={() => {
                   onDropdownToggle();
                   onCloseMenu?.();

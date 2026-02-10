@@ -225,11 +225,10 @@ export default function Services({
         <button
           onClick={() => scroll('left')}
           disabled={!canScrollLeft}
-          className={`absolute top-1/2 -translate-y-1/2 left-4 lg:left-8 xl:left-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
-            canScrollLeft
-              ? 'bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer'
-              : 'bg-[#d4d4d8] opacity-50 cursor-not-allowed'
-          }`}
+          className={`absolute top-1/2 -translate-y-1/2 left-4 lg:left-7 xl:left-7 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${canScrollLeft
+            ? 'bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer'
+            : 'bg-[#d4d4d8] opacity-50 cursor-not-allowed'
+            }`}
         >
           <Image
             src="/assets/news/arrow-icon.svg"
@@ -243,11 +242,10 @@ export default function Services({
         <button
           onClick={() => scroll('right')}
           disabled={!canScrollRight}
-          className={`absolute top-1/2 -translate-y-1/2 right-4 lg:right-8 xl:right-16 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${
-            canScrollRight
-              ? 'bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer'
-              : 'bg-[#d4d4d8] opacity-50 cursor-not-allowed'
-          }`}
+          className={`absolute top-1/2 -translate-y-1/2 right-4 lg:right-7 xl:right-7 w-12 h-12 rounded-full flex items-center justify-center transition-all z-10 ${canScrollRight
+            ? 'bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer'
+            : 'bg-[#d4d4d8] opacity-50 cursor-not-allowed'
+            }`}
         >
           <Image
             src="/assets/news/arrow-icon.svg"

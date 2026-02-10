@@ -3,10 +3,12 @@
  * 
  * POST /api/donations/confirm-payment
  * 
+ * 
  * Called when user returns to the complete page after successful payment.
  * Updates donation status and appeal statistics.
  */
 
+import { sendAdminNotification, sendDonationReceipt } from '@lib/email/email-service';
 import configPromise from '@payload-config';
 import { NextRequest, NextResponse } from 'next/server';
 import { getPayload } from 'payload';
@@ -150,6 +152,65 @@ export async function POST(req: NextRequest) {
             } catch (error) {
                 console.error('Error updating appeal:', error);
                 // Don't fail the whole request if appeal update fails
+            }
+        }
+
+        // Send emails if not already sent (e.g. by webhook)
+        // We check receiptSent flag again to be sure, although we just checked status
+        if (!donation.receiptSent) {
+            try {
+                // Send donation receipt email
+                const receiptSent = await sendDonationReceipt({
+                    donorEmail: donation.donorEmail as string,
+                    donorName:
+                        `${donation.donorFirstName || ''} ${donation.donorLastName || ''}`.trim() ||
+                        'Friend',
+                    amount: donation.amount as number,
+                    currency: (donation.currency as string) || 'GBP',
+                    donationType: (donation.donationType as string) || 'general',
+                    frequency: (donation.frequency as string) || 'one-time',
+                    giftAidAmount: donation.giftAid?.amount as number | undefined,
+                    platformFee: donation.platformFee?.amount as number | undefined,
+                    totalAmount: donation.totalAmount as number,
+                    donationId: donation.id,
+                    date: new Date(),
+                    isRecurring: donation.frequency !== 'one-time',
+                    appealTitle: typeof donation.appeal === 'object' ? (donation.appeal as any)?.title : undefined
+                });
+
+                if (receiptSent) {
+                    // Update receiptSent flag
+                    await payload.update({
+                        collection: 'donations' as any,
+                        id: donation.id,
+                        data: {
+                            receiptSent: true,
+                        },
+                    });
+                    console.log(`📧 Receipt email sent for donation ${donation.id}`);
+                }
+
+                // Send admin notification
+                await sendAdminNotification({
+                    donorName:
+                        `${donation.donorFirstName || ''} ${donation.donorLastName || ''}`.trim() ||
+                        'Anonymous',
+                    donorEmail: donation.donorEmail as string,
+                    amount: donation.amount as number,
+                    currency: (donation.currency as string) || 'GBP',
+                    donationType: (donation.donationType as string) || 'general',
+                    frequency: (donation.frequency as string) || 'one-time',
+                    giftAidAmount: donation.giftAid?.amount as number | undefined,
+                    totalAmount: donation.totalAmount as number,
+                    donationId: donation.id,
+                    date: new Date(),
+                    isRecurring: donation.frequency !== 'one-time',
+                });
+                console.log(`📧 Admin notification sent for donation ${donation.id}`);
+
+            } catch (emailError) {
+                console.error('Failed to send emails during confirmation:', emailError);
+                // Don't fail the request, as the payment was successful
             }
         }
 

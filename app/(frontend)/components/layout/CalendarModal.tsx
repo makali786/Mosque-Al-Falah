@@ -54,11 +54,10 @@ export default function CalendarModal({
 
       {/* Dropdown Modal */}
       <div
-        className={`absolute top-full right-0 mt-8 lg:mr-16 w-[min(440px,calc(100vw-2rem))] z-50 origin-top-right transition-all duration-300 ease-out ${
-          isOpen
-            ? "opacity-100 scale-100 translate-y-0"
-            : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-        }`}
+        className={`absolute top-full right-0 mt-8 lg:mr-16 w-[min(440px,calc(100vw-2rem))] z-50 origin-top-right transition-all duration-300 ease-out ${isOpen
+          ? "opacity-100 scale-100 translate-y-0"
+          : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+          }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="calendar-modal-title"
@@ -86,21 +85,28 @@ export default function CalendarModal({
             data-node-id="6634:273217"
           >
             {/* Daily Prayer Times */}
-            {prayerTimes.map((prayer) =>
-              prayer.isJumuah ? (
-                <JumuahTimeRow
-                  key={prayer.name}
-                  jumuah={prayer}
-                  variant="compact"
-                />
-              ) : (
+            {prayerTimes
+              .filter((p) => !p.isJumuah)
+              .map((prayer) => (
                 <PrayerTimeRow
                   key={prayer.name}
                   prayer={prayer}
                   variant="compact"
                 />
-              )
-            )}
+              ))}
+            {prayerTimes?.filter((p) => p.isJumuah)?.length !== 0 &&
+              <div className="border-t border-gray-200 w-full" />}
+
+            {/* Jumuah Prayers - Always at the end */}
+            {prayerTimes
+              .filter((p) => p.isJumuah)
+              .map((prayer) => (
+                <JumuahTimeRow
+                  key={prayer.name}
+                  jumuah={prayer}
+                  variant="compact"
+                />
+              ))}
           </div>
         </div>
       </div>

@@ -9,17 +9,22 @@ export async function getRecentDonationData(limit: number = 4) {
   try {
     const payload = await getPayload({ config: configPromise });
 
-    // Fetch recent donors (sorted by most recent donation)
-    const recentDonors = await payload.find({
-      collection: 'donors' as any,
+    // Fetch recent donations (sorted by most recent)
+    const recentDonations = await payload.find({
+      collection: 'donations' as any,
       limit,
-      sort: '-lastDonationDate',
+      sort: '-createdAt',
+      where: {
+        status: {
+          equals: 'completed',
+        },
+      },
     });
 
     // Fetch all donors to calculate total count
     const allDonors = await payload.find({
       collection: 'donors' as any,
-        limit: 10000,
+      limit: 10000,
     });
 
     // Calculate total funds raised from all donors
@@ -38,15 +43,15 @@ export async function getRecentDonationData(limit: number = 4) {
       },
     });
 
-    // Format recent donors for display
-    const formattedDonors = recentDonors.docs.map((donor: any) => {
-      // Calculate time ago from last donation date
+    // Format recent donations for display
+    const formattedDonors = recentDonations.docs.map((donation: any) => {
+      // Calculate time ago from donation date
       let timeAgo = ''; // Default fallback
-      
-      if (donor.lastDonationDate) {
-        const lastDonation = new Date(donor.lastDonationDate);
+
+      if (donation.createdAt) {
+        const donationDate = new Date(donation.createdAt);
         const now = new Date();
-        const diffMs = now.getTime() - lastDonation.getTime();
+        const diffMs = now.getTime() - donationDate.getTime();
         const diffMins = Math.floor(diffMs / 60000);
         const diffHours = Math.floor(diffMins / 60);
         const diffDays = Math.floor(diffHours / 24);
@@ -66,19 +71,21 @@ export async function getRecentDonationData(limit: number = 4) {
       }
 
       // Get donor name
-      const displayName = donor.isAnonymous
+      const displayName = donation.isAnonymous
         ? 'An Anonymous kind soul'
-        : donor.displayName || `${donor.firstName || ''} ${donor.lastName || ''}`.trim() || 'Anonymous Donor';
+        : donation.displayName || `${donation.donorFirstName || ''} ${donation.donorLastName || ''}`.trim() || 'Anonymous Donor';
 
-      // Get last donation amount (or total if last amount not available)
-      const lastAmount = donor.lastDonationAmount || donor.totalDonated || 0;
+      // Get donation amount
+      const amount = donation.amount || 0;
+      const currency = donation.currency || 'GBP';
+      const currencySymbol = currency === 'USD' ? '$' : currency === 'EUR' ? '€' : '£';
 
       return {
-        id: donor.id,
+        id: donation.id,
         name: displayName,
-        amount: `£${lastAmount.toFixed(0)} GBP,`,
+        amount: `${currencySymbol}${amount.toFixed(0)} ${currency},`,
         time: timeAgo,
-        isAnonymous: donor.isAnonymous || false,
+        isAnonymous: donation.isAnonymous || false,
       };
     });
 

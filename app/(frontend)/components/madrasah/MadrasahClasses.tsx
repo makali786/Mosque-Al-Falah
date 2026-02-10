@@ -52,7 +52,7 @@ export default function MadrasahClasses({
               </div>
 
               <div className="flex flex-col p-4 gap-6 bg-[#FAFAFA]">
-                <h3 className="text-lg font-semibold text-[#18181B] mb-6">{item.title}</h3>
+                <h3 className="text-lg font-semibold text-[#18181B] mb-6 min-h-[56px]">{item.title}</h3>
                 <p className="text-[#27272A] text-base line-clamp-4">
                   {item.shortDescription}
                 </p>
