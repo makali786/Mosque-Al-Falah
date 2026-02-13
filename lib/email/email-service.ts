@@ -13,6 +13,11 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_SERVER_USER,
     pass: process.env.EMAIL_SERVER_PASSWORD,
   },
+  // EHLO hostname - required for HostGator/cPanel shared hosting to relay emails externally
+  name: 'masjid-alfalah.org.uk',
+  tls: {
+    rejectUnauthorized: false,
+  },
 });
 
 export interface DonationReceiptData {

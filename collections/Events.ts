@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -16,6 +17,46 @@ export const Events: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    beforeChange: [
+      async ({ data, req, operation }) => {
+        // Autofill venue details from selected location
+        if (data.venue?.locationPreset) {
+          try {
+            const locationId =
+              typeof data.venue.locationPreset === 'object'
+                ? data.venue.locationPreset.id
+                : data.venue.locationPreset;
+
+            const location = await req.payload.findByID({
+              // @ts-expect-error - Collection slug will be valid after types regeneration
+              collection: 'locations',
+              id: locationId,
+            });
+
+            if (location) {
+              data.venue = {
+                ...data.venue,
+                name: location.name,
+                fullAddress: location.fullAddress,
+                googleMapsLink: location.googleMapsLink,
+                coordinates: {
+                  latitude: location.coordinates?.latitude,
+                  longitude: location.coordinates?.longitude,
+                },
+              };
+            }
+          } catch (error) {
+            console.error('Error autofilling location details:', error);
+          }
+        }
+        return data;
+      },
+    ],
+    afterChange: [
+      createNewsletterHook('event', 'isPublished'),
+    ],
   },
   fields: [
     // ============================================================================
@@ -136,9 +177,20 @@ export const Events: CollectionConfig = {
       label: 'Venue Information',
       fields: [
         {
+          name: 'locationPreset',
+          type: 'relationship',
+          // @ts-expect-error - Collection slug will be valid after types regeneration
+          relationTo: 'locations',
+          label: 'Select Preset Location',
+          admin: {
+            description: 'Select a saved location to autofill the details below',
+          },
+        },
+        {
           name: 'name',
           type: 'text',
           label: 'Venue Name',
+          defaultValue: 'London Central Mosque',
           admin: {
             description: 'e.g., "London Muslim Centre, Ground Floor Hall"',
           },
@@ -147,6 +199,7 @@ export const Events: CollectionConfig = {
           name: 'fullAddress',
           type: 'textarea',
           label: 'Full Address',
+          defaultValue: '146 Park Rd, London NW8 7RG', // Address for London Central Mosque
           admin: {
             description: 'Complete address with postcode',
           },
@@ -159,10 +212,12 @@ export const Events: CollectionConfig = {
             {
               name: 'latitude',
               type: 'number',
+              defaultValue: 51.528938,
             },
             {
               name: 'longitude',
               type: 'number',
+              defaultValue: -0.1650437,
             },
           ],
         },
@@ -170,6 +225,7 @@ export const Events: CollectionConfig = {
           name: 'googleMapsLink',
           type: 'text',
           label: 'Google Maps Link',
+          defaultValue: 'https://www.google.com/maps/place/London+Central+Mosque/@51.6041892,-0.1691641,29353m/data=!3m1!1e3!4m10!1m2!2m1!1slondon+mosque!3m6!1s0x48761b2558395ef3:0x124e691956844ac2!8m2!3d51.528938!4d-0.1650437!15sCg1sb25kb24gbW9zcXVlWg8iDWxvbmRvbiBtb3NxdWWSAQZtb3NxdWWaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVTlhiRFJ5Y2s5M0VBReABAPoBBAgVEEI!16zL20vMDU3ODAz?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D',
         },
       ],
     },

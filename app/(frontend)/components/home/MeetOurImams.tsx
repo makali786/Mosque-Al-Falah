@@ -9,6 +9,7 @@ interface Imam {
   name: string;
   title: string;
   imageStyle?: string;
+  email?: string | null;
 }
 
 // Remove hardcoded IMAMS constant
@@ -21,6 +22,7 @@ interface RawImam {
   title?: string;
   role?: string;
   imageStyle?: string;
+  email?: string | null;
 }
 
 export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
@@ -31,6 +33,7 @@ export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
     title: imam?.title || imam?.role || "", // Fallback if tagline missing
     image: typeof imam?.image === "string" ? imam?.image : imam?.image?.url || null,
     imageStyle: imam?.imageStyle,
+    email: imam?.email,
   }));
 
   const hasImams = mappedImams.length > 0;
@@ -82,22 +85,27 @@ export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
               </div>
 
               {/* Ask Imam Button - Bottom Right (extends below card) */}
-              <Link
-                href={`/ask-imam/${imam?.id}`}
-                className="absolute -bottom-6 right-7.75 sm:right-7 bg-[#006fee] px-6 py-3 sm:px-5 lg:px-6 rounded-full flex items-center gap-2 hover:bg-[#0056cc] transition-colors shadow-lg z-10"
-              >
-                <div className="w-5 h-5 relative shrink-0">
-                  <Image
-                    src="/assets/imams/messages-icon.svg"
-                    alt=""
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-                <span className="text-base font-normal text-white leading-6">
-                  Ask Imam
-                </span>
-              </Link>
+              {imam.email ? (
+                <a
+                  href={`mailto:${imam.email}`}
+                  className="absolute -bottom-6 right-7.75 sm:right-7 bg-[#006fee] px-6 py-3 sm:px-5 lg:px-6 rounded-full flex items-center gap-2 hover:bg-[#0056cc] transition-colors shadow-lg z-10"
+                >
+                  <div className="w-5 h-5 relative shrink-0">
+                    <Image
+                      src="/assets/imams/messages-icon.svg"
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-base font-normal text-white leading-6">
+                    Ask Imam
+                  </span>
+                </a>
+              ) : (
+                /* Fallback if no email? Maybe just hide it or show simplified */
+                null
+              )}
             </div>
           ))}
         </div>

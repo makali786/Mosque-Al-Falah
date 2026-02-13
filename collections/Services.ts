@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -1819,4 +1820,9 @@ export const Services: CollectionConfig = {
       },
     },
   ],
+  hooks: {
+    afterChange: [
+      createNewsletterHook('service', 'isActive'),
+    ],
+  },
 };

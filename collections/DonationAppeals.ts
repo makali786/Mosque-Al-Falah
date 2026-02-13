@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 
 export const DonationAppeals: CollectionConfig = {
   slug: 'donation-appeals',
@@ -858,4 +859,9 @@ export const DonationAppeals: CollectionConfig = {
       },
     },
   ],
+  hooks: {
+    afterChange: [
+      createNewsletterHook('donation-appeal', 'isActive'),
+    ],
+  },
 };

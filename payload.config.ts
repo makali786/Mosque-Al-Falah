@@ -42,6 +42,7 @@ import { NewsletterSubscribers } from './collections/NewsletterSubscribers';
 
 // Prayer Times
 import { PrayerTimes } from './collections/PrayerTimes';
+import { Locations } from './collections/Locations';
 
 // Globals
 import { AboutPage } from './globals/AboutPage';
@@ -124,6 +125,7 @@ export default buildConfig({
     // Communications
     NewsletterSubscribers,
     Notifications,
+    Locations,
   ],
   globals: [
     AboutPage,
