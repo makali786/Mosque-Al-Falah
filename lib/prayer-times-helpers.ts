@@ -27,13 +27,24 @@ export function addMinutesToTime(time: string, minutes: number): string {
 }
 
 // Get prayer times for a specific date
-export function getPrayerTimesByDate(prayerTimes: PrayerTimeData[], date: Date): PrayerTimeData | null {
+export function getPrayerTimesByDate(
+  prayerTimes: PrayerTimeData[],
+  date: Date
+): PrayerTimeData | null {
   if (!prayerTimes || prayerTimes.length === 0) return null;
-  const dateStr = date.toISOString().split('T')[0];
-  return prayerTimes.find(pt => {
-    const ptDate = typeof pt.date === 'string' ? pt.date.split('T')[0] : pt.date;
-    return ptDate === dateStr;
-  }) || null;
+  // Use local date components to avoid timezone shifts (e.g., UTC+5 shifting 00:00 to previous day)
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const dateStr = `${year}-${month}-${day}`;
+
+  return (
+    prayerTimes.find(pt => {
+      const ptDate =
+        typeof pt.date === 'string' ? pt.date.split('T')[0] : pt.date;
+      return ptDate === dateStr;
+    }) || null
+  );
 }
 
 // Format date to readable string
@@ -42,7 +53,7 @@ export function formatGregorianDate(date: Date): string {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   };
   return date.toLocaleDateString('en-GB', options);
 }
@@ -60,9 +71,18 @@ export function formatHijriDate(hijriDate: string): string {
   const year = parts[2];
 
   const hijriMonths = [
-    'Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani',
-    'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Shaban',
-    'Ramadan', 'Shawwal', 'Dhul-Qadah', 'Dhul-Hijjah'
+    'Muharram',
+    'Safar',
+    'Rabi al-Awwal',
+    'Rabi al-Thani',
+    'Jumada al-Awwal',
+    'Jumada al-Thani',
+    'Rajab',
+    'Shaban',
+    'Ramadan',
+    'Shawwal',
+    'Dhul-Qadah',
+    'Dhul-Hijjah',
   ];
 
   const monthName = hijriMonths[monthNum - 1] || `Month ${monthNum}`;
@@ -70,12 +90,21 @@ export function formatHijriDate(hijriDate: string): string {
 }
 
 // Find next prayer - accepts selected date to determine if it's today
-export function findNextPrayer(prayerTimeData: PrayerTimeData | null, selectedDate?: Date): { name: string; time: string } | null {
+export function findNextPrayer(
+  prayerTimeData: PrayerTimeData | null,
+  selectedDate?: Date
+): { name: string; time: string } | null {
   if (!prayerTimeData) return null;
 
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const selected = selectedDate ? new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()) : today;
+  const selected = selectedDate
+    ? new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate()
+      )
+    : today;
 
   // If selected date is not today, return first prayer (Fajr) with no countdown
   if (selected.getTime() !== today.getTime()) {
@@ -109,13 +138,17 @@ export function findNextPrayer(prayerTimeData: PrayerTimeData | null, selectedDa
 // Check if selected date is today
 export function isToday(date: Date): boolean {
   const today = new Date();
-  return date.getDate() === today.getDate() &&
-         date.getMonth() === today.getMonth() &&
-         date.getFullYear() === today.getFullYear();
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
 }
 
 // Determine which prayer is currently active
-export function getCurrentActivePrayer(prayerTimeData: PrayerTimeData | null): string | null {
+export function getCurrentActivePrayer(
+  prayerTimeData: PrayerTimeData | null
+): string | null {
   if (!prayerTimeData) return null;
 
   const now = new Date();

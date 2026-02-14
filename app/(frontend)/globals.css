@@ -31,6 +31,9 @@
 .hn-container {
   @apply px-4;
 }
+.hn-container-footer {
+  @apply px-4;
+}
 
 .section-padding {
   @apply px-4;
@@ -44,6 +47,26 @@
   .hn-container {
     padding-left: calc((100% - 1296px) / 2);
     padding-right: calc((100% - 1296px) / 2);
+  }
+}
+@media (min-width: 1320px) {
+  .hn-container-footer {
+    padding-left: calc((100% - 1496px) / 2);
+    padding-right: calc((100% - 1496px) / 2);
+  }
+}
+
+@media (min-width: 1200px) {
+  .section-padding {
+    padding-left: calc((100% - 1136px) / 2);
+    padding-right: calc((100% - 1136px) / 2);
+  }
+}
+
+@media (min-width: 1200px) {
+  .section-padding-prayer {
+    padding-left: calc((100% - 1336px) / 2);
+    padding-right: calc((100% - 1336px) / 2);
   }
 }
 
@@ -216,4 +239,589 @@ article.prose > div > div[class*='rounded'] {
 
 .StripeElement--webkit-autofill {
   background-color: #f4f4f5 !important;
+}
+
+/* ==========================================
+   Ramadan Countdown Styles
+   ========================================== */
+
+/* ── Floating Button ── */
+.rc-floating-btn {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 50;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(15, 15, 30, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(212, 175, 55, 0.2);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.rc-floating-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  border-color: rgba(212, 175, 55, 0.8);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(212, 175, 55, 0.4);
+}
+.rc-floating-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: #d4af37;
+  color: #0a0a1a;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Modal Overlay ── */
+.rc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 26, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: rcFadeIn 0.5s ease-out forwards;
+  padding: 16px;
+}
+
+/* ── Modal Container ── */
+.rc-modal {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  min-height: 600px;
+  max-height: 90vh;
+  background: #0a0a1a;
+  border-radius: 32px;
+  overflow: hidden; /* Changed from auto to hidden for background containment */
+  overflow-y: auto; /* Allow scrolling for content */
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: rcScaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ── Close Button ── */
+.rc-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 60;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+}
+.rc-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+/* ── Background Layers ── */
+.rc-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/assets/images/ramadan-bg.jpeg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px) brightness(0.4);
+  transform: scale(1.1);
+}
+.rc-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 26, 0.4) 0%,
+    rgba(10, 10, 26, 0.7) 100%
+  );
+}
+
+/* ── Effects Layer ── */
+.rc-effects-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+.rc-nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: rcNebula 20s ease-in-out infinite;
+}
+.rc-nebula-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.3) 0%,
+    transparent 70%
+  );
+  top: -50px;
+  left: -50px;
+}
+.rc-nebula-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.2) 0%,
+    transparent 70%
+  );
+  bottom: -100px;
+  right: -100px;
+  animation-delay: 5s;
+}
+
+/* ── Content ── */
+.rc-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 24px;
+  color: #f5f5f7;
+}
+
+/* ── Moon Decoration ── */
+.rc-moon-decor {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  animation: rcFloat 6s ease-in-out infinite;
+  display: none;
+}
+@media (min-width: 768px) {
+  .rc-moon-decor {
+    display: block;
+  }
+}
+.rc-moon-svg {
+  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+}
+
+/* ── Logo ── */
+.rc-logo-wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+.rc-logo-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.4) 0%,
+    transparent 70%
+  );
+  filter: blur(20px);
+}
+.rc-logo-inner {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+}
+.rc-logo-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* ── Typography ── */
+.rc-bismillah {
+  font-family: 'Amiri', serif;
+  font-size: 24px;
+  color: #d4af37;
+  margin-bottom: 16px;
+}
+.rc-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 36px; /* Default for mobile */
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 8px 0;
+  background: linear-gradient(to bottom, #fff, #e2e8f0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+}
+@media (min-width: 768px) {
+  .rc-title {
+    font-size: 48px;
+  }
+}
+
+.rc-subtitle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.rc-line-accent {
+  height: 1px;
+  width: 40px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 195, 74, 0.8),
+    transparent
+  );
+}
+.rc-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  color: #a0a0b8;
+  letter-spacing: 0.2em;
+  font-weight: 300;
+}
+.rc-description {
+  font-size: 16px;
+  color: #8080a0;
+  max-width: 400px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* ── Flip Clock ── */
+.rc-clock-container {
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: 40px;
+}
+.rc-clock-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 32px 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+.rc-clock-grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rc-flip-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.rc-flip-digits {
+  display: flex;
+  gap: 4px;
+}
+.rc-flip-card {
+  position: relative;
+  width: 44px;
+  height: 60px;
+  background: rgba(15, 15, 30, 0.8);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+@media (min-width: 768px) {
+  .rc-flip-card {
+    width: 54px;
+    height: 72px;
+  }
+  .rc-clock-grid {
+    gap: 20px;
+  }
+  .rc-flip-digits {
+    gap: 6px;
+  }
+}
+
+.rc-digit {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  z-index: 1;
+}
+@media (min-width: 768px) {
+  .rc-digit {
+    font-size: 40px;
+  }
+}
+
+/* Horizontal line inside flip card */
+.rc-flip-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(212, 175, 55, 0.3);
+  z-index: 2;
+}
+/* Top half glare */
+.rc-flip-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  border-radius: 6px 6px 0 0;
+  z-index: 0;
+}
+
+/* Flip animation overlay */
+.rc-flip-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 15, 30, 0.9);
+  border-radius: 6px;
+  z-index: 5;
+  animation: rcFlipFade 0.4s ease-out forwards;
+}
+.rc-flip-overlay::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: rgba(212, 175, 55, 0.3);
+}
+
+.rc-flip-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #d4af37;
+}
+@media (min-width: 768px) {
+  .rc-flip-label {
+    font-size: 12px;
+  }
+}
+
+.rc-separator {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 20px;
+}
+.rc-dot {
+  width: 4px;
+  height: 4px;
+  background: #d4af37;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.6);
+}
+
+/* ── Progress Bar ── */
+.rc-progress-wrap {
+  margin-top: 24px;
+  padding: 0 8px;
+}
+.rc-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #a0a0b8;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.rc-progress-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.rc-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #8bc34a, #d4af37);
+  border-radius: 99px;
+  transition: width 1s ease-out;
+  position: relative;
+}
+.rc-progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  background: #fff;
+  opacity: 0.5;
+  filter: blur(4px);
+}
+
+/* ── Hadith Card ── */
+.rc-hadith-card {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 32px 24px;
+  position: relative;
+}
+.rc-ornamental-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+  opacity: 0.5;
+}
+.rc-orn-line {
+  height: 1px;
+  width: 40px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+.rc-orn-diamond {
+  width: 6px;
+  height: 6px;
+  background: #d4af37;
+  transform: rotate(45deg);
+}
+.rc-hadith-arabic {
+  font-family: 'Amiri', serif;
+  font-size: 20px;
+  line-height: 1.8;
+  color: rgba(212, 175, 55, 0.9);
+  margin-bottom: 12px;
+}
+.rc-hadith-english {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-style: italic;
+  color: #c0c0d0;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.rc-hadith-source {
+  font-size: 12px;
+  color: #8080a0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── Animations ── */
+@keyframes rcFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes rcScaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes rcFlipFade {
+  0% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scaleY(0.9);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes rcNebula {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+@keyframes rcTwinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+@keyframes rcFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

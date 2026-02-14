@@ -13,6 +13,18 @@ interface Event {
   media?: {
     featuredImage?: Media | string | null;
   };
+  timing?: {
+    startDate: string;
+    endDate: string;
+  };
+  recurrence?: {
+    isRecurring: boolean;
+    frequency?: 'weekly' | 'monthly';
+    weeklyPattern?: string[];
+    monthlyDay?: number;
+  };
+  nextOccurrenceDate?: Date;
+  displayDate?: Date;
 }
 
 interface Notice {
@@ -47,10 +59,10 @@ export default function NewsAndUpdates({
         title: notice?.title,
         date: notice?.noticeDate
           ? new Date(notice.noticeDate).toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-          })
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+            })
           : '',
         tag: notice?.category
           ? notice?.category.charAt(0).toUpperCase() + notice?.category.slice(1)
@@ -136,7 +148,7 @@ export default function NewsAndUpdates({
             {typedEvents.slice(0, 1).map(event => {
               const imageUrl =
                 typeof event.media?.featuredImage === 'object' &&
-                  event.media?.featuredImage?.url
+                event.media?.featuredImage?.url
                   ? event.media.featuredImage.url
                   : null;
 
@@ -177,7 +189,7 @@ export default function NewsAndUpdates({
             {typedEvents.map(event => {
               const imageUrl =
                 typeof event.media?.featuredImage === 'object' &&
-                  event.media?.featuredImage?.url
+                event.media?.featuredImage?.url
                   ? event.media.featuredImage.url
                   : null;
 

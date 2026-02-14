@@ -1,5 +1,5 @@
-import type { CollectionConfig } from 'payload';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
+import type { CollectionConfig } from 'payload';
 
 export const DonationAppeals: CollectionConfig = {
   slug: 'donation-appeals',
@@ -73,12 +73,22 @@ export const DonationAppeals: CollectionConfig = {
           required: true,
           defaultValue: 0,
           label: 'Current Amount Raised (£)',
+          admin: {
+            readOnly: true,
+            description:
+              'Auto-calculated from actual donations. Cannot be manually edited.',
+          },
         },
         {
           name: 'totalDonors',
           type: 'number',
           defaultValue: 0,
           label: 'Total Number of Donors',
+          admin: {
+            readOnly: true,
+            description:
+              'Auto-calculated from actual donations. Cannot be manually edited.',
+          },
         },
         {
           name: 'monthlyGoal',
@@ -860,8 +870,6 @@ export const DonationAppeals: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [
-      createNewsletterHook('donation-appeal', 'isActive'),
-    ],
+    afterChange: [createNewsletterHook('donation-appeal', 'isActive')],
   },
 };

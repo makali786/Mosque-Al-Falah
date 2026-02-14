@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a1a" />
+    <title>Ramadan Countdown 2026 | Masjid Al-Falah</title>
+    <meta
+      name="description"
+      content="Count down to the blessed month of Ramadan 2026/1447. Prepare your heart and soul for the holy month."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+              arabic: ['"Amiri"', 'serif'],
+            },
+            colors: {
+              background: '#0a0a1a',
+              foreground: '#f5f5f7',
+              primary: '#8bc34a',
+              accent: '#d4af37',
+              muted: '#65657a',
+              border: '#1e1e3a',
+              card: '#12122a',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background: #0a0a1a;
+        color: #f5f5f7;
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+        margin: 0;
+        overflow-x: hidden;
+      }
+
+      /* ── Background Image Layer ── */
+      .bg-image-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background-image: url('Create_a_background_202602131839.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: blur(6px) brightness(0.35);
+        transform: scale(1.05);
+      }
+      .bg-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(
+          to bottom,
+          rgba(10, 10, 26, 0.7) 0%,
+          rgba(26, 16, 53, 0.5) 30%,
+          rgba(26, 16, 53, 0.5) 60%,
+          rgba(10, 10, 26, 0.8) 100%
+        );
+      }
+
+      /* ── Animations ── */
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.2;
+          transform: scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+      @keyframes nebula {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+          opacity: 0.6;
+        }
+        33% {
+          transform: translate(30px, -20px) scale(1.1);
+          opacity: 0.8;
+        }
+        66% {
+          transform: translate(-20px, 15px) scale(0.95);
+          opacity: 0.5;
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-16px);
+        }
+      }
+      @keyframes glow-pulse {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+        }
+        50% {
+          filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.7));
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      @keyframes shooting-star {
+        0% {
+          transform: translate(0, 0) rotate(-45deg);
+          opacity: 1;
+        }
+        70% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-300px, 300px) rotate(-45deg);
+          opacity: 0;
+        }
+      }
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow:
+            0 0 20px rgba(139, 195, 74, 0.2),
+            0 0 40px rgba(139, 195, 74, 0.1);
+        }
+        50% {
+          box-shadow:
+            0 0 30px rgba(139, 195, 74, 0.4),
+            0 0 60px rgba(139, 195, 74, 0.2);
+        }
+      }
+      @keyframes progress-fill {
+        from {
+          width: 0%;
+        }
+        to {
+          width: var(--progress);
+        }
+      }
+      @keyframes rotate-slow {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slide-up-fade {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-twinkle {
+        animation: twinkle var(--dur, 3s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+      }
+      .animate-nebula {
+        animation: nebula 20s ease-in-out infinite;
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-glow-pulse {
+        animation: glow-pulse 4s ease-in-out infinite;
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 1s ease-out forwards;
+      }
+      .animate-fade-in {
+        animation: fadeIn 1.5s ease-out forwards;
+      }
+
+      .shooting-star {
+        position: absolute;
+        width: 80px;
+        height: 2px;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.8),
+          transparent
+        );
+        border-radius: 50%;
+        animation: shooting-star 1.5s ease-out infinite;
+        opacity: 0;
+      }
+
+      /* ── Glassmorphism Card ── */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+      }
+      .glass-card-strong {
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      /* ── Flip Clock ── */
+      .flip-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+      .flip-digits {
+        display: flex;
+        gap: 6px;
+      }
+      .flip-card {
+        position: relative;
+        width: 54px;
+        height: 72px;
+        background: rgba(15, 15, 30, 0.9);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow:
+          0 4px 15px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        overflow: hidden;
+        border: 1px solid rgba(212, 175, 55, 0.1);
+      }
+      @media (min-width: 768px) {
+        .flip-card {
+          width: 64px;
+          height: 84px;
+        }
+        .flip-card .digit {
+          font-size: 42px;
+        }
+      }
+      .flip-card .digit {
+        font-size: 36px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+        position: relative;
+        z-index: 1;
+      }
+      .flip-card::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 1px;
+        background: rgba(212, 175, 55, 0.3);
+        z-index: 2;
+      }
+      .flip-card::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        z-index: 0;
+        border-radius: 8px 8px 0 0;
+      }
+      .flip-card .flip-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 15, 30, 0.9);
+        border-radius: 8px;
+        z-index: 5;
+        animation: flipFade 0.4s ease-out forwards;
+      }
+      .flip-card .flip-overlay::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 1px;
+        background: rgba(212, 175, 55, 0.3);
+      }
+      .flip-card .flip-overlay::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 50%;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px 8px 0 0;
+      }
+      @keyframes flipFade {
+        0% {
+          opacity: 1;
+          transform: scaleY(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: scaleY(0.95);
+        }
+        100% {
+          opacity: 0;
+          transform: scaleY(1);
+        }
+      }
+      .flip-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #d4af37;
+      }
+      @media (min-width: 768px) {
+        .flip-label {
+          font-size: 13px;
+        }
+      }
+      .flip-separator {
+        display: flex;
+        align-items: center;
+        padding-top: 0;
+        gap: 6px;
+        flex-direction: column;
+      }
+      .flip-separator .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #d4af37;
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+      }
+
+      /* ── Buttons ── */
+      .action-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(8px);
+        color: #f5f5f7;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+      .action-btn:hover {
+        border-color: #8bc34a;
+        background: #8bc34a;
+        color: #0a0a1a;
+        box-shadow: 0 0 20px rgba(139, 195, 74, 0.4);
+      }
+      .action-btn.gold:hover {
+        border-color: #d4af37;
+        background: #d4af37;
+        color: #0a0a1a;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      }
+      .action-btn .shimmer {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+        transform: translateX(-100%);
+      }
+      .action-btn:hover .shimmer {
+        animation: shimmer 0.7s ease forwards;
+      }
+      .action-btn svg {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.3s;
+      }
+      .action-btn:hover svg {
+        transform: scale(1.15);
+      }
+
+      /* ── Progress Bar ── */
+      .progress-track {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 99px;
+        overflow: hidden;
+        position: relative;
+      }
+      .progress-fill {
+        height: 100%;
+        border-radius: 99px;
+        background: linear-gradient(90deg, #8bc34a, #d4af37, #8bc34a);
+        background-size: 200% 100%;
+        animation: progress-fill 2s ease-out forwards;
+        position: relative;
+      }
+      .progress-fill::after {
+        content: '';
+        position: absolute;
+        right: -2px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #d4af37;
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+      }
+
+      /* ── Hadith Card ── */
+      .hadith-card {
+        position: relative;
+        overflow: hidden;
+      }
+      .hadith-card::before {
+        content: '"';
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        font-size: 120px;
+        font-family: 'Amiri', serif;
+        color: rgba(212, 175, 55, 0.08);
+        line-height: 1;
+        pointer-events: none;
+      }
+
+      /* ── Islamic Geometric Corner ── */
+      .corner-ornament {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        opacity: 0.15;
+      }
+      .corner-ornament svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ── Divider ── */
+      .ornamental-divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+      }
+      .ornamental-divider .line {
+        height: 1px;
+        width: 60px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(212, 175, 55, 0.4),
+          transparent
+        );
+      }
+      .ornamental-divider .diamond {
+        width: 6px;
+        height: 6px;
+        background: #d4af37;
+        transform: rotate(45deg);
+        opacity: 0.6;
+      }
+
+      /* ── Feature icons ── */
+      .feature-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(139, 195, 74, 0.1);
+        border: 1px solid rgba(139, 195, 74, 0.15);
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <!-- ═══ Blurred Background Image ═══ -->
+    <div class="bg-image-layer" aria-hidden="true"></div>
+    <div class="bg-overlay" aria-hidden="true"></div>
+
+    <div class="min-h-screen flex flex-col relative" style="z-index: 2">
+      <!-- ═══ Background: Nebulas & Stars ═══ -->
+      <div
+        class="fixed inset-0 overflow-hidden pointer-events-none"
+        style="z-index: 3"
+        aria-hidden="true"
+      >
+        <div
+          class="absolute w-96 h-96 rounded-full animate-nebula"
+          style="
+            background: radial-gradient(
+              ellipse,
+              rgba(139, 92, 246, 0.12) 0%,
+              transparent 70%
+            );
+            top: 10%;
+            left: 10%;
+          "
+        ></div>
+        <div
+          class="absolute w-80 h-80 rounded-full animate-nebula"
+          style="
+            background: radial-gradient(
+              ellipse,
+              rgba(99, 102, 241, 0.08) 0%,
+              transparent 70%
+            );
+            top: 50%;
+            right: 15%;
+            animation-delay: 5s;
+          "
+        ></div>
+        <div
+          class="absolute w-64 h-64 rounded-full animate-nebula"
+          style="
+            background: radial-gradient(
+              ellipse,
+              rgba(168, 85, 247, 0.06) 0%,
+              transparent 70%
+            );
+            bottom: 20%;
+            left: 30%;
+            animation-delay: 10s;
+          "
+        ></div>
+        <div id="stars-container"></div>
+        <div
+          class="shooting-star"
+          style="
+            top: 15%;
+            left: 60%;
+            animation-delay: 3s;
+            animation-duration: 1.8s;
+          "
+        ></div>
+        <div
+          class="shooting-star"
+          style="
+            top: 25%;
+            left: 80%;
+            animation-delay: 8s;
+            animation-duration: 1.5s;
+          "
+        ></div>
+        <div
+          class="shooting-star"
+          style="
+            top: 40%;
+            left: 40%;
+            animation-delay: 13s;
+            animation-duration: 2s;
+          "
+        ></div>
+      </div>
+
+      <!-- ═══ Crescent Moon (top right) ═══ -->
+      <div
+        class="absolute top-12 right-6 md:right-16 lg:right-24 animate-float"
+        style="z-index: 10"
+      >
+        <div class="relative">
+          <svg
+            width="90"
+            height="90"
+            viewBox="0 0 100 100"
+            class="animate-glow-pulse drop-shadow-lg"
+          >
+            <defs>
+              <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFE082" />
+                <stop offset="50%" stop-color="#FFD700" />
+                <stop offset="100%" stop-color="#FFA500" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M50 5C25 5 5 25 5 50C5 75 25 95 50 95C60 95 69 92 77 86C65 92 50 88 40 75C30 62 30 45 40 32C50 19 65 15 77 21C69 12 60 5 50 5Z"
+              fill="url(#moonGrad)"
+            />
+          </svg>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            class="absolute -left-5 top-4 text-yellow-400 animate-twinkle"
+            style="--delay: 0.3s; --dur: 2.5s"
+          >
+            <path
+              d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z"
+              fill="currentColor"
+            />
+          </svg>
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            class="absolute -left-1 -top-2 text-white animate-twinkle"
+            style="--delay: 0.8s; --dur: 3s"
+          >
+            <path
+              d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z"
+              fill="currentColor"
+            />
+          </svg>
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 24 24"
+            class="absolute right-1 top-2 text-white/70 animate-twinkle"
+            style="--delay: 1.2s; --dur: 3.5s"
+          >
+            <path
+              d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- ═══ Small decorative moon (top left, desktop) ═══ -->
+      <div
+        class="absolute top-28 left-8 md:left-16 animate-float hidden md:block"
+        style="animation-delay: 2s; z-index: 10"
+      >
+        <svg width="36" height="36" viewBox="0 0 100 100" class="opacity-30">
+          <path
+            d="M50 5C25 5 5 25 5 50C5 75 25 95 50 95C60 95 69 92 77 86C65 92 50 88 40 75C30 62 30 45 40 32C50 19 65 15 77 21C69 12 60 5 50 5Z"
+            fill="#E2C6FF"
+          />
+        </svg>
+      </div>
+
+      <!-- ═══ Main Content ═══ -->
+      <main
+        class="flex-1 flex flex-col items-center justify-center px-4 py-12 relative"
+        style="z-index: 10"
+      >
+        <div
+          class="relative w-full max-w-4xl mx-auto flex flex-col items-center"
+        >
+          <!-- ── Logo ── -->
+          <div class="flex justify-center mb-8 animate-fade-in-up">
+            <div class="relative">
+              <div
+                class="absolute inset-0 blur-[80px] bg-gradient-to-b from-sky-400/40 via-blue-500/20 to-transparent rounded-full scale-[2.5]"
+              ></div>
+              <div
+                class="absolute inset-0 blur-[40px] bg-sky-400/20 rounded-full scale-150"
+              ></div>
+              <div
+                class="relative z-10 w-28 h-28 md:w-36 md:h-36 rounded-full bg-black/80 flex items-center justify-center border border-white/10"
+                style="
+                  box-shadow:
+                    0 0 60px rgba(56, 189, 248, 0.4),
+                    0 0 100px rgba(56, 189, 248, 0.2);
+                "
+              >
+                <img
+                  alt="Masjid Al-Falah Logo"
+                  width="100"
+                  height="100"
+                  class="object-contain w-18 h-18 md:w-22 md:h-22"
+                  src="https://www.masjid-alfalah.org.uk/assets/images/ftrlgo.png"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Arabic Bismillah ── -->
+          <p
+            class="font-arabic text-xl md:text-2xl text-center mb-3 animate-fade-in-up"
+            style="color: rgba(212, 175, 55, 0.7); animation-delay: 0.1s"
+          >
+            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+          </p>
+
+          <!-- ── Title ── -->
+          <div
+            class="relative text-center animate-fade-in-up"
+            style="animation-delay: 0.2s"
+          >
+            <h1
+              class="relative z-10 text-3xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-widest uppercase"
+            >
+              <span
+                class="bg-gradient-to-b from-white via-white to-white/80 bg-clip-text text-transparent"
+                style="filter: drop-shadow(0 4px 30px rgba(212, 175, 55, 0.4))"
+              >
+                Ramadan Countdown
+              </span>
+            </h1>
+            <div class="relative z-10 flex flex-col items-center gap-3">
+              <div class="flex items-center gap-4">
+                <span
+                  class="h-px w-12 md:w-20 bg-gradient-to-r from-transparent via-[#8bc34a]/70 to-[#8bc34a]"
+                ></span>
+                <p
+                  class="text-lg md:text-xl tracking-[0.2em] font-light"
+                  style="color: #a0a0b8"
+                >
+                  2026 | 1447 AH
+                </p>
+                <span
+                  class="h-px w-12 md:w-20 bg-gradient-to-l from-transparent via-[#8bc34a]/70 to-[#8bc34a]"
+                ></span>
+              </div>
+              <p
+                class="text-sm md:text-base max-w-lg text-center leading-relaxed"
+                style="color: #8080a0"
+              >
+                Prepare your heart and soul for the blessed month of fasting,
+                prayer, and reflection.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ Flip Clock Countdown ═══ -->
+        <div
+          class="mt-10 w-full max-w-3xl animate-fade-in-up"
+          style="animation-delay: 0.4s"
+        >
+          <div class="glass-card-strong py-8 px-6 md:px-10">
+            <div
+              id="countdown"
+              class="flex items-start justify-center gap-3 md:gap-5 flex-wrap"
+            >
+              <!-- Days -->
+              <div class="flip-unit">
+                <div class="flip-digits">
+                  <div class="flip-card" id="days-tens">
+                    <span class="digit">0</span>
+                  </div>
+                  <div class="flip-card" id="days-ones">
+                    <span class="digit">0</span>
+                  </div>
+                </div>
+                <span class="flip-label">Days</span>
+              </div>
+              <div class="flip-separator pt-4 md:pt-5">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <!-- Hours -->
+              <div class="flip-unit">
+                <div class="flip-digits">
+                  <div class="flip-card" id="hours-tens">
+                    <span class="digit">0</span>
+                  </div>
+                  <div class="flip-card" id="hours-ones">
+                    <span class="digit">0</span>
+                  </div>
+                </div>
+                <span class="flip-label">Hours</span>
+              </div>
+              <div class="flip-separator pt-4 md:pt-5">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <!-- Minutes -->
+              <div class="flip-unit">
+                <div class="flip-digits">
+                  <div class="flip-card" id="mins-tens">
+                    <span class="digit">0</span>
+                  </div>
+                  <div class="flip-card" id="mins-ones">
+                    <span class="digit">0</span>
+                  </div>
+                </div>
+                <span class="flip-label">Minutes</span>
+              </div>
+              <div class="flip-separator pt-4 md:pt-5">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <!-- Seconds -->
+              <div class="flip-unit">
+                <div class="flip-digits">
+                  <div class="flip-card" id="secs-tens">
+                    <span class="digit">0</span>
+                  </div>
+                  <div class="flip-card" id="secs-ones">
+                    <span class="digit">0</span>
+                  </div>
+                </div>
+                <span class="flip-label">Seconds</span>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mt-8 px-2">
+              <div
+                class="flex justify-between text-xs mb-2"
+                style="color: #a0a0b8"
+              >
+                <span>Sha'ban 1447</span>
+                <span id="progress-label">0% Complete</span>
+                <span>Ramadan 1447</span>
+              </div>
+              <div class="progress-track">
+                <div
+                  class="progress-fill"
+                  id="progress-bar"
+                  style="--progress: 0%; width: 0%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ Action Buttons ═══ -->
+        <div
+          class="flex flex-wrap justify-center gap-3 md:gap-4 mt-10 animate-fade-in-up"
+          style="animation-delay: 0.6s"
+        >
+          <button class="action-btn">
+            <span class="shimmer"></span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+              />
+            </svg>
+            <span>Mash'Allah</span>
+          </button>
+          <button class="action-btn">
+            <span class="shimmer"></span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 7v14" />
+              <path
+                d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+              />
+            </svg>
+            <span>Duas & Dhikr</span>
+          </button>
+          <button class="action-btn gold">
+            <span class="shimmer"></span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" />
+              <path
+                d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"
+              />
+              <path d="m2 15 6 6" />
+              <path
+                d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z"
+              />
+            </svg>
+            <span>Donate</span>
+          </button>
+          <button class="action-btn">
+            <span class="shimmer"></span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
+              <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
+            </svg>
+            <span>Share</span>
+          </button>
+        </div>
+
+        <!-- ═══ Hadith / Inspiration Card ═══ -->
+        <div
+          class="mt-12 w-full max-w-2xl animate-fade-in-up"
+          style="animation-delay: 0.7s"
+        >
+          <div
+            class="glass-card hadith-card py-8 px-8 md:px-12 text-center relative"
+          >
+            <div class="ornamental-divider mb-5">
+              <div class="line"></div>
+              <div class="diamond"></div>
+              <div class="line"></div>
+            </div>
+            <p
+              class="font-arabic text-lg md:text-xl leading-relaxed mb-4"
+              style="color: rgba(212, 175, 55, 0.85)"
+              dir="rtl"
+            >
+              مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا
+              تَقَدَّمَ مِنْ ذَنْبِهِ
+            </p>
+            <p
+              class="text-sm md:text-base italic leading-relaxed"
+              style="color: #b0b0c8"
+            >
+              "Whoever fasts during Ramadan with faith and seeking reward, all
+              his past sins will be forgiven."
+            </p>
+            <p class="text-xs mt-3" style="color: #6a6a80">
+              — Sahih Al-Bukhari & Muslim
+            </p>
+            <div class="ornamental-divider mt-5">
+              <div class="line"></div>
+              <div class="diamond"></div>
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // ── Generate twinkling stars ──
+      (function generateStars() {
+        const container = document.getElementById('stars-container');
+        const count = 150;
+        for (let i = 0; i < count; i++) {
+          const star = document.createElement('div');
+          const size = Math.random() * 3 + 0.5;
+          const opacity = size > 2 ? 1 : size > 1.5 ? 0.9 : 0.5;
+          star.className = 'absolute rounded-full animate-twinkle';
+          star.style.cssText = `
+            left:${Math.random() * 100}%;
+            top:${Math.random() * 100}%;
+            width:${size}px;
+            height:${size}px;
+            background:rgba(255,255,255,${opacity});
+            --delay:${(Math.random() * 5).toFixed(2)}s;
+            --dur:${(Math.random() * 3 + 2).toFixed(2)}s;
+          `;
+          if (size > 3) {
+            star.style.boxShadow = `0 0 6px 2px rgba(255,255,255,0.6)`;
+          }
+          container.appendChild(star);
+        }
+      })();
+
+      // ── Flip Clock Countdown Logic ──
+      const TARGET = new Date('2026-02-17T17:35:00+05:00').getTime();
+      // Sha'ban start date (approx 30 days before Ramadan)
+      const SHABAN_START = new Date('2026-01-19T00:00:00+05:00').getTime();
+      const TOTAL_SHABAN = TARGET - SHABAN_START;
+
+      const flipCards = {
+        'days-tens': { current: null },
+        'days-ones': { current: null },
+        'hours-tens': { current: null },
+        'hours-ones': { current: null },
+        'mins-tens': { current: null },
+        'mins-ones': { current: null },
+        'secs-tens': { current: null },
+        'secs-ones': { current: null },
+      };
+
+      function flipTo(cardId, newDigit) {
+        const state = flipCards[cardId];
+        if (state.current === newDigit) return;
+
+        const el = document.getElementById(cardId);
+        if (!el) return;
+
+        const oldDigit = state.current;
+        state.current = newDigit;
+
+        const digitEl = el.querySelector('.digit');
+
+        if (oldDigit === null) {
+          digitEl.textContent = newDigit;
+          return;
+        }
+
+        const overlay = document.createElement('div');
+        overlay.className = 'flip-overlay';
+        overlay.innerHTML = `<span class="digit" style="font-size:inherit;font-weight:700;color:#fff;position:relative;z-index:1;">${oldDigit}</span>`;
+        el.appendChild(overlay);
+
+        digitEl.textContent = newDigit;
+
+        setTimeout(() => {
+          overlay.remove();
+        }, 400);
+      }
+
+      function updateCountdown() {
+        const now = Date.now();
+        let diff = TARGET - now;
+
+        if (diff <= 0) {
+          diff = 0;
+        }
+
+        const totalSecs = Math.floor(diff / 1000);
+        const days = Math.floor(totalSecs / 86400);
+        const hours = Math.floor((totalSecs % 86400) / 3600);
+        const mins = Math.floor((totalSecs % 3600) / 60);
+        const secs = totalSecs % 60;
+
+        const d = String(days).padStart(2, '0');
+        const h = String(hours).padStart(2, '0');
+        const m = String(mins).padStart(2, '0');
+        const s = String(secs).padStart(2, '0');
+
+        flipTo('days-tens', d[0]);
+        flipTo('days-ones', d[1]);
+        flipTo('hours-tens', h[0]);
+        flipTo('hours-ones', h[1]);
+        flipTo('mins-tens', m[0]);
+        flipTo('mins-ones', m[1]);
+        flipTo('secs-tens', s[0]);
+        flipTo('secs-ones', s[1]);
+
+        // Update progress bar
+        const elapsed = now - SHABAN_START;
+        const progress = Math.min(
+          Math.max((elapsed / TOTAL_SHABAN) * 100, 0),
+          100
+        );
+        const progressBar = document.getElementById('progress-bar');
+        const progressLabel = document.getElementById('progress-label');
+        if (progressBar) {
+          progressBar.style.setProperty(
+            '--progress',
+            progress.toFixed(1) + '%'
+          );
+          progressBar.style.width = progress.toFixed(1) + '%';
+        }
+        if (progressLabel) {
+          progressLabel.textContent = Math.round(progress) + '% Complete';
+        }
+      }
+
+      // Initial update + interval
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>

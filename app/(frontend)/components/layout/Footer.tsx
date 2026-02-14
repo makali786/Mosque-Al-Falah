@@ -45,7 +45,7 @@ const CONTACT_INFO = [
   {
     icon: '/assets/footer/map-icon.svg',
     text: 'Masjid Al-Falah, North Ilford Islamic Centre, 97 Kensington Gardens, Ilford, Essex IG1 3EN',
-    href: null,
+    href: 'https://www.google.com/maps/dir/?api=1&destination=97+Kensington+Gardens+Ilford+Essex+IG1+3EN',
   },
   {
     icon: '/assets/footer/phone-icon.svg',
@@ -138,8 +138,9 @@ const SocialIcon = ({
 
 const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
   <svg
-    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${isOpen ? 'rotate-90' : ''
-      }`}
+    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${
+      isOpen ? 'rotate-90' : ''
+    }`}
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -177,8 +178,9 @@ const FooterColumn = ({
       <ChevronIcon isOpen={isOpen} />
     </div>
     <div
-      className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 mt-4' : 'max-h-0 lg:max-h-none'
-        }`}
+      className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${
+        isOpen ? 'max-h-96 mt-4' : 'max-h-0 lg:max-h-none'
+      }`}
     >
       <div className="flex flex-col gap-2 w-full">
         {links.map(link => (
@@ -211,12 +213,14 @@ const ContactItem = ({
     {href ? (
       <a
         href={href}
-        className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white hover:text-[#006FEE] wrap-break-word overflow-wrap-anywhere"
+        target={href.startsWith('http') ? '_blank' : undefined}
+        rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+        className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white hover:text-[#006FEE] wrap-break-word"
       >
         {text}
       </a>
     ) : (
-      <p className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white">
+      <p className="flex-1 min-w-0 font-normal text-sm lg:text-base leading-5 lg:leading-6 text-white wrap-break-word">
         {text}
       </p>
     )}
@@ -433,7 +437,7 @@ export default function Footer() {
         {/* Top Section - Newsletter, Supporters, Donations */}
         <div className="bg-[#18181b] ">
           {/* Newsletter Section */}
-          <div className="hn-container flex flex-col lg:flex-row gap-6 lg:gap-15 items-start lg:items-center justify-center p-4 sm:p-8 lg:px-17 lg:py-17 w-full">
+          <div className="hn-container-footer flex flex-col lg:flex-row gap-6 lg:gap-15 items-start lg:items-center justify-center p-4 sm:p-8 lg:px-17 lg:py-17 w-full">
             <div className="flex flex-col gap-4 sm:gap-6 w-full lg:w-109.75">
               <h3 className="font-bold text-sm sm:text-base leading-6 text-white">
                 Stay Connected, Join our newsletter
@@ -461,10 +465,11 @@ export default function Footer() {
                 {/* Status Message */}
                 {newsletterStatus.message && (
                   <div
-                    className={`text-sm px-3 py-2 rounded ${newsletterStatus.type === 'success'
-                      ? 'bg-green-900/50 text-green-200 border border-green-700'
-                      : 'bg-red-900/50 text-red-200 border border-red-700'
-                      }`}
+                    className={`text-sm px-3 py-2 rounded ${
+                      newsletterStatus.type === 'success'
+                        ? 'bg-green-900/50 text-green-200 border border-green-700'
+                        : 'bg-red-900/50 text-red-200 border border-red-700'
+                    }`}
                   >
                     <span className="text-white">
                       {newsletterStatus.message}
@@ -556,7 +561,7 @@ export default function Footer() {
                   ))
                 )}
               </div>
-              <div className="flex gap-5 w-full">
+              <div className="flex gap-5 w-full justify-center ">
                 <Link
                   href="/appeals"
                   className="w-full sm:w-fit bg-[#3f3f46] text-white font-normal text-base leading-6 px-4 h-12 flex items-center justify-center rounded-lg hover:bg-[#52525b] transition-colors"
@@ -575,7 +580,7 @@ export default function Footer() {
         </div>
 
         {/* Middle Section - Links */}
-        <div className="flex flex-col lg:flex-row lg:flex-wrap xl:flex-nowrap items-start py-0 w-full hn-container ">
+        <div className="flex flex-col lg:flex-row lg:flex-wrap xl:flex-nowrap items-start py-0 w-full hn-container-footer ">
           {/* Mobile: Logo */}
           <div className="flex flex-col items-center gap-6 py-8 lg:hidden w-full hn-container ">
             <div className="w-24 h-24">

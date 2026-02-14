@@ -4,6 +4,9 @@ import { Inter } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LoadingProvider } from './components/common/LoadingProvider';
+import { MediaPlayerProvider } from './components/common/MediaPlayerContext';
+import MiniPlayer from './components/common/MiniPlayer';
+import RamadanCountdown from './components/common/RamadanCountdown';
 import DonationToast from './components/donation/DonationToast';
 import GoogleMapsScript from './components/GoogleMapsScript';
 import AccessibilityButton from './components/layout/AccessibilityButton';
@@ -72,14 +75,18 @@ export default function RootLayout({
       >
         <GoogleMapsScript />
         <LoadingProvider>
-          <TopBar prayerTimes={prayerTimes} settings={settings} />
-          <MainHeader />
-          <main className="min-h-screen">{children}</main>
-          {!hideFooter && <Footer />}
-          {notification && <NotificationBar notification={notification} />}
-          <DonationToast />
-          <WhatsAppButton />
-          <AccessibilityButton />
+          <MediaPlayerProvider>
+            <TopBar prayerTimes={prayerTimes} settings={settings} />
+            <MainHeader />
+            <main className="min-h-screen">{children}</main>
+            {!hideFooter && <Footer />}
+            {notification && <NotificationBar notification={notification} />}
+            <DonationToast />
+            <WhatsAppButton />
+            <AccessibilityButton />
+            <MiniPlayer />
+            <RamadanCountdown />
+          </MediaPlayerProvider>
         </LoadingProvider>
       </body>
     </html>

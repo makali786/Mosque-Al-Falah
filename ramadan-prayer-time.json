@@ -1,0 +1,343 @@
+{
+  "masjid_details": {
+    "name": "Masjid Al Falah / North Ilford Islamic Centre",
+    "address": "97 Kensington Gardens, Ilford, Essex, IG1 3EN",
+    "website": "www.Masjid-AlFalah.org.uk",
+    "email": "Admin@Masjid-AlFalah.org.uk",
+    "charity_trust_number": "1062761"
+  },
+  "ramadhan_timetable_2026": [
+    {
+      "gregorian_date": "Wed 18 Feb",
+      "ramadhan_day": "1",
+      "suhoor_ends": "5:23",
+      "fajr_jamaah": "5:45",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:15",
+      "iftaar_maghrib_adhaan": "5:24",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Thur 19 Feb",
+      "ramadhan_day": "2",
+      "suhoor_ends": "5:21",
+      "fajr_jamaah": "5:45",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:15",
+      "iftaar_maghrib_adhaan": "5:26",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Fri 20 Feb",
+      "ramadhan_day": "3",
+      "suhoor_ends": "5:19",
+      "fajr_jamaah": "5:45",
+      "dhuhr_jamaah": "12.45",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:28",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Sat 21 Feb",
+      "ramadhan_day": "4",
+      "suhoor_ends": "5:17",
+      "fajr_jamaah": "5:45",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:30",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Sun 22 Feb",
+      "ramadhan_day": "5",
+      "suhoor_ends": "5:15",
+      "fajr_jamaah": "5:45",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:31",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Mon 23 Feb",
+      "ramadhan_day": "6",
+      "suhoor_ends": "5:13",
+      "fajr_jamaah": "5:35",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:33",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Tue 24 Feb",
+      "ramadhan_day": "7",
+      "suhoor_ends": "5:11",
+      "fajr_jamaah": "5:35",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:35",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Wed 25 Feb",
+      "ramadhan_day": "8",
+      "suhoor_ends": "5:09",
+      "fajr_jamaah": "5:35",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:37",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Thur 26 Feb",
+      "ramadhan_day": "9",
+      "suhoor_ends": "5:07",
+      "fajr_jamaah": "5:35",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:39",
+      "esha_jamaah_taraweeh": "7:30"
+    },
+    {
+      "gregorian_date": "Fri 27 Feb",
+      "ramadhan_day": "10",
+      "suhoor_ends": "5:04",
+      "fajr_jamaah": "5:25",
+      "dhuhr_jamaah": "12.45",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:40",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Sat 28 Feb",
+      "ramadhan_day": "11",
+      "suhoor_ends": "5:02",
+      "fajr_jamaah": "5:25",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:42",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Sun 1 Mar",
+      "ramadhan_day": "12",
+      "suhoor_ends": "5:00",
+      "fajr_jamaah": "5:25",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:44",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Mon 2 Mar",
+      "ramadhan_day": "13",
+      "suhoor_ends": "4:58",
+      "fajr_jamaah": "5:20",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:46",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Tue 3 Mar",
+      "ramadhan_day": "14",
+      "suhoor_ends": "4:56",
+      "fajr_jamaah": "5:20",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:47",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Wed 4 Mar",
+      "ramadhan_day": "15",
+      "suhoor_ends": "4:54",
+      "fajr_jamaah": "5:20",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:49",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Thur 5 Mar",
+      "ramadhan_day": "16",
+      "suhoor_ends": "4:51",
+      "fajr_jamaah": "5:20",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:30",
+      "iftaar_maghrib_adhaan": "5:51",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Fri 6 Mar",
+      "ramadhan_day": "17",
+      "suhoor_ends": "4:49",
+      "fajr_jamaah": "5:10",
+      "dhuhr_jamaah": "12.45",
+      "asr_jamaah": "4:45",
+      "iftaar_maghrib_adhaan": "5:53",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Sat 7 Mar",
+      "ramadhan_day": "18",
+      "suhoor_ends": "4:47",
+      "fajr_jamaah": "5:10",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:45",
+      "iftaar_maghrib_adhaan": "5:54",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Sun 8 Mar",
+      "ramadhan_day": "19",
+      "suhoor_ends": "4:45",
+      "fajr_jamaah": "5:10",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:45",
+      "iftaar_maghrib_adhaan": "5:56",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Mon 9 Mar",
+      "ramadhan_day": "20",
+      "suhoor_ends": "4:43",
+      "fajr_jamaah": "5:05",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:45",
+      "iftaar_maghrib_adhaan": "5:58",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Tue 10 Mar",
+      "ramadhan_day": "21",
+      "suhoor_ends": "4:40",
+      "fajr_jamaah": "5:05",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:45",
+      "iftaar_maghrib_adhaan": "6:00",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Wed 11 Mar",
+      "ramadhan_day": "22",
+      "suhoor_ends": "4:38",
+      "fajr_jamaah": "5:05",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:45",
+      "iftaar_maghrib_adhaan": "6:01",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Thur 12 Mar",
+      "ramadhan_day": "23",
+      "suhoor_ends": "4:36",
+      "fajr_jamaah": "5:05",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "4:45",
+      "iftaar_maghrib_adhaan": "6:03",
+      "esha_jamaah_taraweeh": "7:45"
+    },
+    {
+      "gregorian_date": "Fri 13 Mar",
+      "ramadhan_day": "24",
+      "suhoor_ends": "4:34",
+      "fajr_jamaah": "4:55",
+      "dhuhr_jamaah": "12.45",
+      "asr_jamaah": "5:00",
+      "iftaar_maghrib_adhaan": "6:05",
+      "esha_jamaah_taraweeh": "8:00"
+    },
+    {
+      "gregorian_date": "Sat 14 Mar",
+      "ramadhan_day": "25",
+      "suhoor_ends": "4:31",
+      "fajr_jamaah": "4:55",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "5:00",
+      "iftaar_maghrib_adhaan": "6:06",
+      "esha_jamaah_taraweeh": "8:00"
+    },
+    {
+      "gregorian_date": "Sun 15 Mar",
+      "ramadhan_day": "26",
+      "suhoor_ends": "4:29",
+      "fajr_jamaah": "4:55",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "5:00",
+      "iftaar_maghrib_adhaan": "6:08",
+      "esha_jamaah_taraweeh": "8:00"
+    },
+    {
+      "gregorian_date": "Mon 16 Mar",
+      "ramadhan_day": "27",
+      "suhoor_ends": "4:27",
+      "fajr_jamaah": "4:50",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "5:00",
+      "iftaar_maghrib_adhaan": "6:10",
+      "esha_jamaah_taraweeh": "8:00"
+    },
+    {
+      "gregorian_date": "Tue 17 Mar",
+      "ramadhan_day": "28",
+      "suhoor_ends": "4:24",
+      "fajr_jamaah": "4:50",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "5:00",
+      "iftaar_maghrib_adhaan": "6:12",
+      "esha_jamaah_taraweeh": "8:00"
+    },
+    {
+      "gregorian_date": "Wed 18 Mar",
+      "ramadhan_day": "29°",
+      "suhoor_ends": "4:22",
+      "fajr_jamaah": "4:50",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "5:00",
+      "iftaar_maghrib_adhaan": "6:13",
+      "esha_jamaah_taraweeh": "8:00"
+    },
+    {
+      "gregorian_date": "Thur 19 Mar",
+      "ramadhan_day": "30",
+      "suhoor_ends": "4:20",
+      "fajr_jamaah": "4:50",
+      "dhuhr_jamaah": "1.00",
+      "asr_jamaah": "5:00",
+      "iftaar_maghrib_adhaan": "6:15",
+      "esha_jamaah_taraweeh": "8:00"
+    }
+  ],
+  "ramadhan_programs": {
+    "daily_taleem": "1:15pm",
+    "bayaan": "After Asr Jama'ah on certain days",
+    "daily_quran_bitesize": "5 minutes after Taraweeh",
+    "jumuah_reminder": "12pm",
+    "listen_live": {
+      "website": "www.emasjidlive.co.uk/listen/masjidalfalahilford",
+      "app": "eMasjid app Download for free from the App Store/ Google Play. Search for: Masjid Al-Falah"
+    }
+  },
+  "duas": {
+    "iftaar_dua_1": {
+      "arabic": "اللَّهُمَّ إِنِّي لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ",
+      "transliteration": "Allah humma inni laka sumtu wa 'ala rizqika aftartu.",
+      "translation": "O Allah! for You I fasted and I break my fast with Your sustenance."
+    },
+    "iftaar_dua_2": {
+      "arabic": "ذَهَبَ الظَّمَأُ وَابْتَلَتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ الله",
+      "transliteration": "Dhahabadh-dhama', wabtallatil 'urooq, wa thabatal ajru insha Allah.",
+      "translation": "The thirst has gone and the veins have been moistened and the reward has been secured, if Allah wills."
+    }
+  },
+  "sadaqatul_fitr": {
+    "cost": "£5 per person (based on the current price of wheat)",
+    "details": "Fitrana is compulsory for all adults and children. This must be given before the Eid prayer. One can give more if they want."
+  },
+  "notes": [
+    "The beginning and the end of Ramadhan is dependent on the visibility of the moon.",
+    "Maghrib Jama'ah will commence 5 minutes after Iftaar.",
+    "Jumu'ah (Friday) - 1st Jama'ah: 12:45pm/2nd Jama'ah: 1:30pm",
+    "Eid Jama'ah - Timings to be confirmed"
+  ]
+}

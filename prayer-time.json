@@ -1,0 +1,7329 @@
+{
+  "prayer_times_2026": {
+    "january": [
+      {
+        "date": "01",
+        "day": "Thur",
+        "islamic_date": "12 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:26",
+          "sun_rise": "8:06",
+          "dhur": "12:08",
+          "asr": "2:15",
+          "maghrib_adhaan": "4:05",
+          "isha": "5:42"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "1:00",
+          "asr": "2:45",
+          "maghrib": "4:07",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Fri",
+        "islamic_date": "13 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:26",
+          "sun_rise": "8:06",
+          "dhur": "12:09",
+          "asr": "2:16",
+          "maghrib_adhaan": "4:06",
+          "isha": "5:43"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "3:00",
+          "maghrib": "4:08",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "03",
+        "day": "Sat",
+        "islamic_date": "14 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:25",
+          "sun_rise": "8:05",
+          "dhur": "12:09",
+          "asr": "2:17",
+          "maghrib_adhaan": "4:07",
+          "isha": "5:44"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:09",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "04",
+        "day": "Sun",
+        "islamic_date": "15 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:25",
+          "sun_rise": "8:05",
+          "dhur": "12:10",
+          "asr": "2:19",
+          "maghrib_adhaan": "4:08",
+          "isha": "5:45"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:10",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "05",
+        "day": "Mon",
+        "islamic_date": "16 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:25",
+          "sun_rise": "8:05",
+          "dhur": "12:10",
+          "asr": "2:20",
+          "maghrib_adhaan": "4:10",
+          "isha": "5:47"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:12",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "06",
+        "day": "Tues",
+        "islamic_date": "17 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:24",
+          "sun_rise": "8:04",
+          "dhur": "12:11",
+          "asr": "2:21",
+          "maghrib_adhaan": "4:11",
+          "isha": "5:48"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:13",
+          "isha": null
+        }
+      },
+      {
+        "date": "07",
+        "day": "Wed",
+        "islamic_date": "18 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:24",
+          "sun_rise": "8:04",
+          "dhur": "12:11",
+          "asr": "2:22",
+          "maghrib_adhaan": "4:12",
+          "isha": "5:49"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:14",
+          "isha": null
+        }
+      },
+      {
+        "date": "08",
+        "day": "Thur",
+        "islamic_date": "19 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:24",
+          "sun_rise": "8:04",
+          "dhur": "12:11",
+          "asr": "2:24",
+          "maghrib_adhaan": "4:14",
+          "isha": "5:51"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:16",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Fri",
+        "islamic_date": "20 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:23",
+          "sun_rise": "8:03",
+          "dhur": "12:12",
+          "asr": "2:25",
+          "maghrib_adhaan": "4:15",
+          "isha": "5:52"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "3:15",
+          "maghrib": "4:17",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "10",
+        "day": "Sat",
+        "islamic_date": "21 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:23",
+          "sun_rise": "8:03",
+          "dhur": "12:12",
+          "asr": "2:26",
+          "maghrib_adhaan": "4:16",
+          "isha": "5:53"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:18",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "11",
+        "day": "Sun",
+        "islamic_date": "22 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:22",
+          "sun_rise": "8:02",
+          "dhur": "12:13",
+          "asr": "2:27",
+          "maghrib_adhaan": "4:18",
+          "isha": "5:55"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:20",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "12",
+        "day": "Mon",
+        "islamic_date": "23 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:21",
+          "sun_rise": "8:01",
+          "dhur": "12:13",
+          "asr": "2:29",
+          "maghrib_adhaan": "4:19",
+          "isha": "5:56"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:21",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "13",
+        "day": "Tues",
+        "islamic_date": "24 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:21",
+          "sun_rise": "8:01",
+          "dhur": "12:13",
+          "asr": "2:30",
+          "maghrib_adhaan": "4:21",
+          "isha": "5:58"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:23",
+          "isha": null
+        }
+      },
+      {
+        "date": "14",
+        "day": "Wed",
+        "islamic_date": "25 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:20",
+          "sun_rise": "8:00",
+          "dhur": "12:14",
+          "asr": "2:32",
+          "maghrib_adhaan": "4:22",
+          "isha": "5:59"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:24",
+          "isha": null
+        }
+      },
+      {
+        "date": "15",
+        "day": "Thur",
+        "islamic_date": "26 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:19",
+          "sun_rise": "7:59",
+          "dhur": "12:14",
+          "asr": "2:33",
+          "maghrib_adhaan": "4:24",
+          "isha": "6:01"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Fri",
+        "islamic_date": "27 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:18",
+          "sun_rise": "7:58",
+          "dhur": "12:14",
+          "asr": "2:35",
+          "maghrib_adhaan": "4:25",
+          "isha": "6:02"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "3:30",
+          "maghrib": "4:27",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "17",
+        "day": "Sat",
+        "islamic_date": "28 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:17",
+          "sun_rise": "7:57",
+          "dhur": "12:15",
+          "asr": "2:36",
+          "maghrib_adhaan": "4:27",
+          "isha": "6:04"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:29",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "18",
+        "day": "Sun",
+        "islamic_date": "29 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:16",
+          "sun_rise": "7:56",
+          "dhur": "12:15",
+          "asr": "2:38",
+          "maghrib_adhaan": "4:29",
+          "isha": "6:06"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:31",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "19",
+        "day": "Mon",
+        "islamic_date": "30 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:15",
+          "sun_rise": "7:55",
+          "dhur": "12:15",
+          "asr": "2:39",
+          "maghrib_adhaan": "4:30",
+          "isha": "6:07"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:32",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "20",
+        "day": "Tues",
+        "islamic_date": "1 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:14",
+          "sun_rise": "7:54",
+          "dhur": "12:16",
+          "asr": "2:41",
+          "maghrib_adhaan": "4:32",
+          "isha": "6:09"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:34",
+          "isha": null
+        }
+      },
+      {
+        "date": "21",
+        "day": "Wed",
+        "islamic_date": "2 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:13",
+          "sun_rise": "7:53",
+          "dhur": "12:16",
+          "asr": "2:43",
+          "maghrib_adhaan": "4:34",
+          "isha": "6:11"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:36",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Thur",
+        "islamic_date": "3 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:12",
+          "sun_rise": "7:52",
+          "dhur": "12:16",
+          "asr": "2:44",
+          "maghrib_adhaan": "4:35",
+          "isha": "6:12"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:37",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Fri",
+        "islamic_date": "4 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:11",
+          "sun_rise": "7:51",
+          "dhur": "12:17",
+          "asr": "2:46",
+          "maghrib_adhaan": "4:37",
+          "isha": "6:14"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "3:30",
+          "maghrib": "4:39",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "24",
+        "day": "Sat",
+        "islamic_date": "5 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:09",
+          "sun_rise": "7:49",
+          "dhur": "12:17",
+          "asr": "2:47",
+          "maghrib_adhaan": "4:39",
+          "isha": "6:16"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:41",
+          "isha": "6:45"
+        }
+      },
+      {
+        "date": "25",
+        "day": "Sun",
+        "islamic_date": "6 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:08",
+          "sun_rise": "7:48",
+          "dhur": "12:17",
+          "asr": "2:49",
+          "maghrib_adhaan": "4:40",
+          "isha": "6:17"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:42",
+          "isha": "6:45"
+        }
+      },
+      {
+        "date": "26",
+        "day": "Mon",
+        "islamic_date": "7 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:07",
+          "sun_rise": "7:47",
+          "dhur": "12:17",
+          "asr": "2:51",
+          "maghrib_adhaan": "4:42",
+          "isha": "6:19"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:44",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "27",
+        "day": "Tues",
+        "islamic_date": "8 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:06",
+          "sun_rise": "7:46",
+          "dhur": "12:17",
+          "asr": "2:52",
+          "maghrib_adhaan": "4:44",
+          "isha": "6:21"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:46",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Wed",
+        "islamic_date": "9 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:04",
+          "sun_rise": "7:44",
+          "dhur": "12:18",
+          "asr": "2:54",
+          "maghrib_adhaan": "4:46",
+          "isha": "6:23"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:48",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Thur",
+        "islamic_date": "10 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:03",
+          "sun_rise": "7:43",
+          "dhur": "12:18",
+          "asr": "2:56",
+          "maghrib_adhaan": "4:48",
+          "isha": "6:25"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:50",
+          "isha": null
+        }
+      },
+      {
+        "date": "30",
+        "day": "Fri",
+        "islamic_date": "11 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:01",
+          "sun_rise": "7:41",
+          "dhur": "12:18",
+          "asr": "2:57",
+          "maghrib_adhaan": "4:49",
+          "isha": "6:26"
+        },
+        "jamaat_times": {
+          "fajr": "6:45",
+          "dhur_jumua": "12:45",
+          "asr": "3:45",
+          "maghrib": "4:51",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "31",
+        "day": "Sat",
+        "islamic_date": "12 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "6:00",
+          "sun_rise": "7:40",
+          "dhur": "12:18",
+          "asr": "2:59",
+          "maghrib_adhaan": "4:51",
+          "isha": "6:28"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:53",
+          "isha": "6:45"
+        }
+      }
+    ],
+    "february": [
+      {
+        "date": "01",
+        "day": "Sun",
+        "islamic_date": "13 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:58",
+          "sun_rise": "7:38",
+          "dhur": "12:18",
+          "asr": "3:01",
+          "maghrib_adhaan": "4:53",
+          "isha": "6:28"
+        },
+        "jamaat_times": {
+          "fajr": "6:45",
+          "dhur_jumua": "1:00",
+          "asr": "3:45",
+          "maghrib": "4:55",
+          "isha": "6:45"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Mon",
+        "islamic_date": "14 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:57",
+          "sun_rise": "7:37",
+          "dhur": "12:18",
+          "asr": "3:03",
+          "maghrib_adhaan": "4:55",
+          "isha": "6:30"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:57",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "03",
+        "day": "Tues",
+        "islamic_date": "15 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:55",
+          "sun_rise": "7:35",
+          "dhur": "12:19",
+          "asr": "3:04",
+          "maghrib_adhaan": "4:57",
+          "isha": "6:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Wed",
+        "islamic_date": "16 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:53",
+          "sun_rise": "7:33",
+          "dhur": "12:19",
+          "asr": "3:06",
+          "maghrib_adhaan": "4:58",
+          "isha": "6:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:00",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Thur",
+        "islamic_date": "17 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:52",
+          "sun_rise": "7:32",
+          "dhur": "12:19",
+          "asr": "3:08",
+          "maghrib_adhaan": "5:00",
+          "isha": "6:33"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:02",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Fri",
+        "islamic_date": "18 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:50",
+          "sun_rise": "7:30",
+          "dhur": "12:19",
+          "asr": "3:09",
+          "maghrib_adhaan": "5:02",
+          "isha": "6:35"
+        },
+        "jamaat_times": {
+          "fajr": "6:30",
+          "dhur_jumua": "12:45",
+          "asr": "4:00",
+          "maghrib": "5:04",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "07",
+        "day": "Sat",
+        "islamic_date": "19 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:48",
+          "sun_rise": "7:28",
+          "dhur": "12:19",
+          "asr": "3:11",
+          "maghrib_adhaan": "5:04",
+          "isha": "6:36"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "5:06",
+          "isha": "7:00"
+        }
+      },
+      {
+        "date": "08",
+        "day": "Sun",
+        "islamic_date": "20 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:47",
+          "sun_rise": "7:27",
+          "dhur": "12:19",
+          "asr": "3:13",
+          "maghrib_adhaan": "5:06",
+          "isha": "6:38"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:08",
+          "isha": "7:00"
+        }
+      },
+      {
+        "date": "09",
+        "day": "Mon",
+        "islamic_date": "21 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:45",
+          "sun_rise": "7:25",
+          "dhur": "12:19",
+          "asr": "3:15",
+          "maghrib_adhaan": "5:08",
+          "isha": "6:39"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:10",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "10",
+        "day": "Tues",
+        "islamic_date": "22 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:43",
+          "sun_rise": "7:23",
+          "dhur": "12:19",
+          "asr": "3:16",
+          "maghrib_adhaan": "5:09",
+          "isha": "6:40"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:11",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Wed",
+        "islamic_date": "23 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:41",
+          "sun_rise": "7:21",
+          "dhur": "12:19",
+          "asr": "3:18",
+          "maghrib_adhaan": "5:11",
+          "isha": "6:42"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:13",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Thur",
+        "islamic_date": "24 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:39",
+          "sun_rise": "7:19",
+          "dhur": "12:19",
+          "asr": "3:20",
+          "maghrib_adhaan": "5:13",
+          "isha": "6:44"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:15",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Fri",
+        "islamic_date": "25 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:38",
+          "sun_rise": "7:18",
+          "dhur": "12:19",
+          "asr": "3:21",
+          "maghrib_adhaan": "5:15",
+          "isha": "6:45"
+        },
+        "jamaat_times": {
+          "fajr": "6:15",
+          "dhur_jumua": "12:45",
+          "asr": "4:15",
+          "maghrib": "5:17",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "14",
+        "day": "Sat",
+        "islamic_date": "26 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:36",
+          "sun_rise": "7:16",
+          "dhur": "12:19",
+          "asr": "3:23",
+          "maghrib_adhaan": "5:17",
+          "isha": "6:47"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "5:19",
+          "isha": "7:00"
+        }
+      },
+      {
+        "date": "15",
+        "day": "Sun",
+        "islamic_date": "27 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:34",
+          "sun_rise": "7:14",
+          "dhur": "12:19",
+          "asr": "3:25",
+          "maghrib_adhaan": "5:19",
+          "isha": "6:49"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:21",
+          "isha": "7:00"
+        }
+      },
+      {
+        "date": "16",
+        "day": "Mon",
+        "islamic_date": "28 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:32",
+          "sun_rise": "7:12",
+          "dhur": "12:19",
+          "asr": "3:27",
+          "maghrib_adhaan": "5:20",
+          "isha": "6:50"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:22",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "17",
+        "day": "Tues",
+        "islamic_date": "29 Sha'baan",
+        "beginning_times": {
+          "subha_sadiq": "5:30",
+          "sun_rise": "7:10",
+          "dhur": "12:19",
+          "asr": "3:28",
+          "maghrib_adhaan": "5:22",
+          "isha": "6:51"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:24",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Wed",
+        "islamic_date": "1 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:28",
+          "sun_rise": "7:08",
+          "dhur": "12:19",
+          "asr": "3:30",
+          "maghrib_adhaan": "5:24",
+          "isha": "6:53"
+        },
+        "jamaat_times": {
+          "fajr": "5:45",
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Thur",
+        "islamic_date": "2 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:26",
+          "sun_rise": "7:06",
+          "dhur": "12:19",
+          "asr": "3:31",
+          "maghrib_adhaan": "5:26",
+          "isha": "6:55"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:28",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Fri",
+        "islamic_date": "3 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:24",
+          "sun_rise": "7:04",
+          "dhur": "12:18",
+          "asr": "3:33",
+          "maghrib_adhaan": "5:28",
+          "isha": "6:57"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "12:45",
+          "asr": "4:30",
+          "maghrib": "5:30",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "21",
+        "day": "Sat",
+        "islamic_date": "4 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:22",
+          "sun_rise": "7:02",
+          "dhur": "12:18",
+          "asr": "3:35",
+          "maghrib_adhaan": "5:30",
+          "isha": "6:58"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "5:32",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Sun",
+        "islamic_date": "5 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:20",
+          "sun_rise": "7:00",
+          "dhur": "12:18",
+          "asr": "3:36",
+          "maghrib_adhaan": "5:31",
+          "isha": "6:59"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:33",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Mon",
+        "islamic_date": "6 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:18",
+          "sun_rise": "6:58",
+          "dhur": "12:18",
+          "asr": "3:38",
+          "maghrib_adhaan": "5:33",
+          "isha": "7:01"
+        },
+        "jamaat_times": {
+          "fajr": "5:35",
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:35",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Tues",
+        "islamic_date": "7 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:16",
+          "sun_rise": "6:56",
+          "dhur": "12:18",
+          "asr": "3:40",
+          "maghrib_adhaan": "5:35",
+          "isha": "7:03"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:37",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Wed",
+        "islamic_date": "8 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:14",
+          "sun_rise": "6:54",
+          "dhur": "12:18",
+          "asr": "3:41",
+          "maghrib_adhaan": "5:37",
+          "isha": "7:04"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:39",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Thur",
+        "islamic_date": "9 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:12",
+          "sun_rise": "6:52",
+          "dhur": "12:18",
+          "asr": "3:43",
+          "maghrib_adhaan": "5:39",
+          "isha": "7:06"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:41",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Fri",
+        "islamic_date": "10 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:09",
+          "sun_rise": "6:49",
+          "dhur": "12:17",
+          "asr": "3:44",
+          "maghrib_adhaan": "5:40",
+          "isha": "7:07"
+        },
+        "jamaat_times": {
+          "fajr": "5:25",
+          "dhur_jumua": "12:45",
+          "asr": "4:30",
+          "maghrib": "5:42",
+          "isha": "7:45"
+        }
+      },
+      {
+        "date": "28",
+        "day": "Sat",
+        "islamic_date": "11 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:07",
+          "sun_rise": "6:47",
+          "dhur": "12:17",
+          "asr": "3:46",
+          "maghrib_adhaan": "5:42",
+          "isha": "7:09"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "5:44",
+          "isha": null
+        }
+      }
+    ],
+    "march": [
+      {
+        "date": "01",
+        "day": "Sun",
+        "islamic_date": "12 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:05",
+          "sun_rise": "6:45",
+          "dhur": "12:17",
+          "asr": "3:48",
+          "maghrib_adhaan": "5:44",
+          "isha": "7:10"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": "4:30",
+          "maghrib": "5:46",
+          "isha": "7:45"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Mon",
+        "islamic_date": "13 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:03",
+          "sun_rise": "6:43",
+          "dhur": "12:17",
+          "asr": "3:49",
+          "maghrib_adhaan": "5:46",
+          "isha": "7:12"
+        },
+        "jamaat_times": {
+          "fajr": "5:20",
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:48",
+          "isha": null
+        }
+      },
+      {
+        "date": "03",
+        "day": "Tues",
+        "islamic_date": "14 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "5:01",
+          "sun_rise": "6:41",
+          "dhur": "12:17",
+          "asr": "3:51",
+          "maghrib_adhaan": "5:47",
+          "isha": "7:12"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:49",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Wed",
+        "islamic_date": "15 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:59",
+          "sun_rise": "6:39",
+          "dhur": "12:16",
+          "asr": "3:52",
+          "maghrib_adhaan": "5:49",
+          "isha": "7:14"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:51",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Thur",
+        "islamic_date": "16 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:56",
+          "sun_rise": "6:36",
+          "dhur": "12:16",
+          "asr": "3:54",
+          "maghrib_adhaan": "5:51",
+          "isha": "7:15"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:53",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Fri",
+        "islamic_date": "17 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:54",
+          "sun_rise": "6:34",
+          "dhur": "12:16",
+          "asr": "3:55",
+          "maghrib_adhaan": "5:53",
+          "isha": "7:17"
+        },
+        "jamaat_times": {
+          "fajr": "5:10",
+          "dhur_jumua": "12:45",
+          "asr": "4:45",
+          "maghrib": "5:55",
+          "isha": "7:45"
+        }
+      },
+      {
+        "date": "07",
+        "day": "Sat",
+        "islamic_date": "18 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:52",
+          "sun_rise": "6:32",
+          "dhur": "12:16",
+          "asr": "3:57",
+          "maghrib_adhaan": "5:54",
+          "isha": "7:17"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "5:56",
+          "isha": null
+        }
+      },
+      {
+        "date": "08",
+        "day": "Sun",
+        "islamic_date": "19 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:50",
+          "sun_rise": "6:30",
+          "dhur": "12:15",
+          "asr": "3:58",
+          "maghrib_adhaan": "5:56",
+          "isha": "7:19"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:58",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Mon",
+        "islamic_date": "20 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:48",
+          "sun_rise": "6:28",
+          "dhur": "12:15",
+          "asr": "4:00",
+          "maghrib_adhaan": "5:58",
+          "isha": "7:20"
+        },
+        "jamaat_times": {
+          "fajr": "5:05",
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:00",
+          "isha": null
+        }
+      },
+      {
+        "date": "10",
+        "day": "Tues",
+        "islamic_date": "21 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:45",
+          "sun_rise": "6:25",
+          "dhur": "12:15",
+          "asr": "4:01",
+          "maghrib_adhaan": "6:00",
+          "isha": "7:22"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:02",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Wed",
+        "islamic_date": "22 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:43",
+          "sun_rise": "6:23",
+          "dhur": "12:15",
+          "asr": "4:03",
+          "maghrib_adhaan": "6:01",
+          "isha": "7:23"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:03",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Thur",
+        "islamic_date": "23 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:41",
+          "sun_rise": "6:21",
+          "dhur": "12:14",
+          "asr": "4:04",
+          "maghrib_adhaan": "6:03",
+          "isha": "7:25"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:05",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Fri",
+        "islamic_date": "24 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:39",
+          "sun_rise": "6:19",
+          "dhur": "12:14",
+          "asr": "4:05",
+          "maghrib_adhaan": "6:05",
+          "isha": "7:26"
+        },
+        "jamaat_times": {
+          "fajr": "4:55",
+          "dhur_jumua": "12:45",
+          "asr": "5:00",
+          "maghrib": "6:07",
+          "isha": "8:00"
+        }
+      },
+      {
+        "date": "14",
+        "day": "Sat",
+        "islamic_date": "25 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:36",
+          "sun_rise": "6:16",
+          "dhur": "12:14",
+          "asr": "4:07",
+          "maghrib_adhaan": "6:06",
+          "isha": "7:27"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "6:08",
+          "isha": null
+        }
+      },
+      {
+        "date": "15",
+        "day": "Sun",
+        "islamic_date": "26 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:34",
+          "sun_rise": "6:14",
+          "dhur": "12:14",
+          "asr": "4:08",
+          "maghrib_adhaan": "6:08",
+          "isha": "7:29"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:10",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Mon",
+        "islamic_date": "27 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:32",
+          "sun_rise": "6:12",
+          "dhur": "12:13",
+          "asr": "4:10",
+          "maghrib_adhaan": "6:10",
+          "isha": "7:31"
+        },
+        "jamaat_times": {
+          "fajr": "4:50",
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:12",
+          "isha": null
+        }
+      },
+      {
+        "date": "17",
+        "day": "Tues",
+        "islamic_date": "28 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:29",
+          "sun_rise": "6:09",
+          "dhur": "12:13",
+          "asr": "4:11",
+          "maghrib_adhaan": "6:12",
+          "isha": "7:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:14",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Wed",
+        "islamic_date": "29 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:27",
+          "sun_rise": "6:07",
+          "dhur": "12:13",
+          "asr": "4:12",
+          "maghrib_adhaan": "6:13",
+          "isha": "7:33"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:15",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Thur",
+        "islamic_date": "30 Ramadhan",
+        "beginning_times": {
+          "subha_sadiq": "4:25",
+          "sun_rise": "6:05",
+          "dhur": "12:12",
+          "asr": "4:14",
+          "maghrib_adhaan": "6:15",
+          "isha": "7:35"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:17",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Fri",
+        "islamic_date": "1 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:24",
+          "sun_rise": "6:03",
+          "dhur": "12:12",
+          "asr": "4:15",
+          "maghrib_adhaan": "6:17",
+          "isha": "7:37"
+        },
+        "jamaat_times": {
+          "fajr": "5:15",
+          "dhur_jumua": "12:45",
+          "asr": "5:15",
+          "maghrib": "6:19",
+          "isha": "8:00"
+        }
+      },
+      {
+        "date": "21",
+        "day": "Sat",
+        "islamic_date": "2 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:21",
+          "sun_rise": "6:00",
+          "dhur": "12:12",
+          "asr": "4:16",
+          "maghrib_adhaan": "6:18",
+          "isha": "7:37"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "6:20",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Sun",
+        "islamic_date": "3 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:20",
+          "sun_rise": "5:58",
+          "dhur": "12:12",
+          "asr": "4:18",
+          "maghrib_adhaan": "6:20",
+          "isha": "7:39"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:22",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Mon",
+        "islamic_date": "4 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:18",
+          "sun_rise": "5:56",
+          "dhur": "12:11",
+          "asr": "4:19",
+          "maghrib_adhaan": "6:22",
+          "isha": "7:41"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:24",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Tues",
+        "islamic_date": "5 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:15",
+          "sun_rise": "5:53",
+          "dhur": "12:11",
+          "asr": "4:20",
+          "maghrib_adhaan": "6:24",
+          "isha": "7:43"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Wed",
+        "islamic_date": "6 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:13",
+          "sun_rise": "5:51",
+          "dhur": "12:11",
+          "asr": "4:22",
+          "maghrib_adhaan": "6:25",
+          "isha": "7:43"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Thur",
+        "islamic_date": "7 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:12",
+          "sun_rise": "5:49",
+          "dhur": "12:10",
+          "asr": "4:23",
+          "maghrib_adhaan": "6:27",
+          "isha": "7:45"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:29",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Fri",
+        "islamic_date": "8 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:10",
+          "sun_rise": "5:47",
+          "dhur": "12:10",
+          "asr": "4:24",
+          "maghrib_adhaan": "6:29",
+          "isha": "7:47"
+        },
+        "jamaat_times": {
+          "fajr": "5:00",
+          "dhur_jumua": "12:45",
+          "asr": "5:30",
+          "maghrib": "6:31",
+          "isha": "8:15"
+        }
+      },
+      {
+        "date": "28",
+        "day": "Sat",
+        "islamic_date": "9 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:08",
+          "sun_rise": "5:44",
+          "dhur": "12:10",
+          "asr": "4:26",
+          "maghrib_adhaan": "6:30",
+          "isha": "7:48"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "6:32",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Sun",
+        "islamic_date": "10 Shaw'waal (BST)",
+        "beginning_times": {
+          "subha_sadiq": "5:06",
+          "sun_rise": "6:42",
+          "dhur": "1:09",
+          "asr": "5:27",
+          "maghrib_adhaan": "7:32",
+          "isha": "8:49"
+        },
+        "jamaat_times": {
+          "fajr": "6:00",
+          "dhur_jumua": "1:30",
+          "asr": "6:30",
+          "maghrib": "7:34",
+          "isha": "9:15"
+        }
+      },
+      {
+        "date": "30",
+        "day": "Mon",
+        "islamic_date": "11 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "5:04",
+          "sun_rise": "6:40",
+          "dhur": "1:09",
+          "asr": "5:28",
+          "maghrib_adhaan": "7:34",
+          "isha": "8:51"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:36",
+          "isha": null
+        }
+      },
+      {
+        "date": "31",
+        "day": "Tues",
+        "islamic_date": "12 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "5:02",
+          "sun_rise": "6:37",
+          "dhur": "1:09",
+          "asr": "5:29",
+          "maghrib_adhaan": "7:35",
+          "isha": "8:52"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:37",
+          "isha": null
+        }
+      }
+    ],
+
+    "april": [
+      {
+        "date": "01",
+        "day": "Wed",
+        "islamic_date": "13 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "5:00",
+          "sun_rise": "6:35",
+          "dhur": "1:09",
+          "asr": "5:31",
+          "maghrib_adhaan": "7:37",
+          "isha": "8:54"
+        },
+        "jamaat_times": {
+          "fajr": "6:00",
+          "dhur_jumua": "1:30",
+          "asr": "6:30",
+          "maghrib": "7:39",
+          "isha": "9:15"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Thur",
+        "islamic_date": "14 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:58",
+          "sun_rise": "6:33",
+          "dhur": "1:08",
+          "asr": "5:32",
+          "maghrib_adhaan": "7:39",
+          "isha": "8:56"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:41",
+          "isha": null
+        }
+      },
+      {
+        "date": "03",
+        "day": "Fri",
+        "islamic_date": "15 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:56",
+          "sun_rise": "6:31",
+          "dhur": "1:08",
+          "asr": "5:33",
+          "maghrib_adhaan": "7:40",
+          "isha": "8:56"
+        },
+        "jamaat_times": {
+          "fajr": "5:45",
+          "dhur_jumua": "1:30",
+          "asr": "6:30",
+          "maghrib": "7:42",
+          "isha": "9:15"
+        }
+      },
+      {
+        "date": "04",
+        "day": "Sat",
+        "islamic_date": "16 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:53",
+          "sun_rise": "6:28",
+          "dhur": "1:08",
+          "asr": "5:34",
+          "maghrib_adhaan": "7:42",
+          "isha": "8:58"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:44",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Sun",
+        "islamic_date": "17 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:51",
+          "sun_rise": "6:26",
+          "dhur": "1:07",
+          "asr": "5:35",
+          "maghrib_adhaan": "7:44",
+          "isha": "9:00"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:46",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Mon",
+        "islamic_date": "18 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:49",
+          "sun_rise": "6:24",
+          "dhur": "1:07",
+          "asr": "5:37",
+          "maghrib_adhaan": "7:45",
+          "isha": "9:01"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:47",
+          "isha": null
+        }
+      },
+      {
+        "date": "07",
+        "day": "Tues",
+        "islamic_date": "19 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:47",
+          "sun_rise": "6:22",
+          "dhur": "1:07",
+          "asr": "5:38",
+          "maghrib_adhaan": "7:47",
+          "isha": "9:03"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:49",
+          "isha": null
+        }
+      },
+      {
+        "date": "08",
+        "day": "Wed",
+        "islamic_date": "20 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:44",
+          "sun_rise": "6:19",
+          "dhur": "1:07",
+          "asr": "5:39",
+          "maghrib_adhaan": "7:49",
+          "isha": "9:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:51",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Thur",
+        "islamic_date": "21 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:42",
+          "sun_rise": "6:17",
+          "dhur": "1:06",
+          "asr": "5:40",
+          "maghrib_adhaan": "7:50",
+          "isha": "9:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:52",
+          "isha": null
+        }
+      },
+      {
+        "date": "10",
+        "day": "Fri",
+        "islamic_date": "22 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:40",
+          "sun_rise": "6:15",
+          "dhur": "1:06",
+          "asr": "5:41",
+          "maghrib_adhaan": "7:52",
+          "isha": "9:07"
+        },
+        "jamaat_times": {
+          "fajr": "5:30",
+          "dhur_jumua": "1:30",
+          "asr": "6:45",
+          "maghrib": "7:54",
+          "isha": "9:30"
+        }
+      },
+      {
+        "date": "11",
+        "day": "Sat",
+        "islamic_date": "23 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:38",
+          "sun_rise": "6:13",
+          "dhur": "1:06",
+          "asr": "5:42",
+          "maghrib_adhaan": "7:54",
+          "isha": "9:09"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:56",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Sun",
+        "islamic_date": "24 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:36",
+          "sun_rise": "6:11",
+          "dhur": "1:05",
+          "asr": "5:44",
+          "maghrib_adhaan": "7:55",
+          "isha": "9:10"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:57",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Mon",
+        "islamic_date": "25 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:33",
+          "sun_rise": "6:08",
+          "dhur": "1:05",
+          "asr": "5:45",
+          "maghrib_adhaan": "7:57",
+          "isha": "9:12"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "14",
+        "day": "Tues",
+        "islamic_date": "26 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:31",
+          "sun_rise": "6:06",
+          "dhur": "1:05",
+          "asr": "5:46",
+          "maghrib_adhaan": "7:59",
+          "isha": "9:14"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:01",
+          "isha": null
+        }
+      },
+      {
+        "date": "15",
+        "day": "Wed",
+        "islamic_date": "27 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:29",
+          "sun_rise": "6:04",
+          "dhur": "1:05",
+          "asr": "5:47",
+          "maghrib_adhaan": "8:00",
+          "isha": "9:15"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:02",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Thur",
+        "islamic_date": "28 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:27",
+          "sun_rise": "6:02",
+          "dhur": "1:05",
+          "asr": "5:48",
+          "maghrib_adhaan": "8:02",
+          "isha": "9:17"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:04",
+          "isha": null
+        }
+      },
+      {
+        "date": "17",
+        "day": "Fri",
+        "islamic_date": "29 Shaw'waal",
+        "beginning_times": {
+          "subha_sadiq": "4:25",
+          "sun_rise": "6:00",
+          "dhur": "1:04",
+          "asr": "5:49",
+          "maghrib_adhaan": "8:04",
+          "isha": "9:18"
+        },
+        "jamaat_times": {
+          "fajr": "5:15",
+          "dhur_jumua": "1:30",
+          "asr": "6:45",
+          "maghrib": "8:06",
+          "isha": "9:45"
+        }
+      },
+      {
+        "date": "18",
+        "day": "Sat",
+        "islamic_date": "1 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:22",
+          "sun_rise": "5:58",
+          "dhur": "1:04",
+          "asr": "5:50",
+          "maghrib_adhaan": "8:06",
+          "isha": "9:20"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:08",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Sun",
+        "islamic_date": "2 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:20",
+          "sun_rise": "5:56",
+          "dhur": "1:04",
+          "asr": "5:51",
+          "maghrib_adhaan": "8:07",
+          "isha": "9:21"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:09",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Mon",
+        "islamic_date": "3 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:17",
+          "sun_rise": "5:53",
+          "dhur": "1:04",
+          "asr": "5:53",
+          "maghrib_adhaan": "8:09",
+          "isha": "9:23"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:11",
+          "isha": null
+        }
+      },
+      {
+        "date": "21",
+        "day": "Tues",
+        "islamic_date": "4 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:14",
+          "sun_rise": "5:51",
+          "dhur": "1:03",
+          "asr": "5:54",
+          "maghrib_adhaan": "8:11",
+          "isha": "9:25"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:13",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Wed",
+        "islamic_date": "5 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:12",
+          "sun_rise": "5:49",
+          "dhur": "1:03",
+          "asr": "5:55",
+          "maghrib_adhaan": "8:12",
+          "isha": "9:26"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:14",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Thur",
+        "islamic_date": "6 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:10",
+          "sun_rise": "5:47",
+          "dhur": "1:03",
+          "asr": "5:56",
+          "maghrib_adhaan": "8:14",
+          "isha": "9:27"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:16",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Fri",
+        "islamic_date": "7 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:07",
+          "sun_rise": "5:45",
+          "dhur": "1:03",
+          "asr": "5:57",
+          "maghrib_adhaan": "8:16",
+          "isha": "9:29"
+        },
+        "jamaat_times": {
+          "fajr": "5:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:15",
+          "maghrib": "8:18",
+          "isha": "9:45"
+        }
+      },
+      {
+        "date": "25",
+        "day": "Sat",
+        "islamic_date": "8 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:05",
+          "sun_rise": "5:43",
+          "dhur": "1:03",
+          "asr": "5:58",
+          "maghrib_adhaan": "8:17",
+          "isha": "9:30"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:19",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Sun",
+        "islamic_date": "9 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:03",
+          "sun_rise": "5:41",
+          "dhur": "1:03",
+          "asr": "5:59",
+          "maghrib_adhaan": "8:19",
+          "isha": "9:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:21",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Mon",
+        "islamic_date": "10 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "4:00",
+          "sun_rise": "5:39",
+          "dhur": "1:02",
+          "asr": "6:00",
+          "maghrib_adhaan": "8:21",
+          "isha": "9:33"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:23",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Tues",
+        "islamic_date": "11 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "3:58",
+          "sun_rise": "5:37",
+          "dhur": "1:02",
+          "asr": "6:01",
+          "maghrib_adhaan": "8:22",
+          "isha": "9:34"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:24",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Wed",
+        "islamic_date": "12 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "3:56",
+          "sun_rise": "5:35",
+          "dhur": "1:02",
+          "asr": "6:02",
+          "maghrib_adhaan": "8:24",
+          "isha": "9:34"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "30",
+        "day": "Thur",
+        "islamic_date": "13 Dhul Qa'dah",
+        "beginning_times": {
+          "subha_sadiq": "3:53",
+          "sun_rise": "5:33",
+          "dhur": "1:02",
+          "asr": "6:03",
+          "maghrib_adhaan": "8:26",
+          "isha": "9:36"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:28",
+          "isha": null
+        }
+      }
+    ],
+    "may": [
+      {
+        "date": "01",
+        "day": "Fri",
+        "islamic_date": "14 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:51",
+          "sun_rise": "5:32",
+          "dhur": "1:02",
+          "asr": "6:04",
+          "maghrib_adhaan": "8:27",
+          "isha": "9:36"
+        },
+        "jamaat_times": {
+          "fajr": "4:45",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "8:29",
+          "isha": "10:00"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Sat",
+        "islamic_date": "15 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:49",
+          "sun_rise": "5:30",
+          "dhur": "1:02",
+          "asr": "6:05",
+          "maghrib_adhaan": "8:29",
+          "isha": "9:37"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:31",
+          "isha": null
+        }
+      },
+      {
+        "date": "03",
+        "day": "Sun",
+        "islamic_date": "16 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:46",
+          "sun_rise": "5:28",
+          "dhur": "1:02",
+          "asr": "6:06",
+          "maghrib_adhaan": "8:30",
+          "isha": "9:37"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:32",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Mon",
+        "islamic_date": "17 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:44",
+          "sun_rise": "5:26",
+          "dhur": "1:01",
+          "asr": "6:07",
+          "maghrib_adhaan": "8:32",
+          "isha": "9:38"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:34",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Tues",
+        "islamic_date": "18 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:41",
+          "sun_rise": "5:24",
+          "dhur": "1:01",
+          "asr": "6:08",
+          "maghrib_adhaan": "8:34",
+          "isha": "9:38"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:36",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Wed",
+        "islamic_date": "19 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:39",
+          "sun_rise": "5:22",
+          "dhur": "1:01",
+          "asr": "6:09",
+          "maghrib_adhaan": "8:35",
+          "isha": "9:39"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:37",
+          "isha": null
+        }
+      },
+      {
+        "date": "07",
+        "day": "Thur",
+        "islamic_date": "20 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:37",
+          "sun_rise": "5:21",
+          "dhur": "1:01",
+          "asr": "6:10",
+          "maghrib_adhaan": "8:37",
+          "isha": "9:39"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:39",
+          "isha": null
+        }
+      },
+      {
+        "date": "08",
+        "day": "Fri",
+        "islamic_date": "21 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:35",
+          "sun_rise": "5:19",
+          "dhur": "1:01",
+          "asr": "6:11",
+          "maghrib_adhaan": "8:38",
+          "isha": "9:40"
+        },
+        "jamaat_times": {
+          "fajr": "4:30",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "8:40",
+          "isha": "10:15"
+        }
+      },
+      {
+        "date": "09",
+        "day": "Sat",
+        "islamic_date": "22 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:32",
+          "sun_rise": "5:17",
+          "dhur": "1:01",
+          "asr": "6:12",
+          "maghrib_adhaan": "8:40",
+          "isha": "9:45"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:42",
+          "isha": null
+        }
+      },
+      {
+        "date": "10",
+        "day": "Sun",
+        "islamic_date": "23 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:31",
+          "sun_rise": "5:16",
+          "dhur": "1:01",
+          "asr": "6:13",
+          "maghrib_adhaan": "8:42",
+          "isha": "9:47"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:44",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Mon",
+        "islamic_date": "24 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:28",
+          "sun_rise": "5:14",
+          "dhur": "1:01",
+          "asr": "6:14",
+          "maghrib_adhaan": "8:43",
+          "isha": "9:50"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:45",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Tues",
+        "islamic_date": "25 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:26",
+          "sun_rise": "5:12",
+          "dhur": "1:01",
+          "asr": "6:15",
+          "maghrib_adhaan": "8:45",
+          "isha": "9:52"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:47",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Wed",
+        "islamic_date": "26 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:24",
+          "sun_rise": "5:11",
+          "dhur": "1:01",
+          "asr": "6:16",
+          "maghrib_adhaan": "8:46",
+          "isha": "9:56"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:48",
+          "isha": null
+        }
+      },
+      {
+        "date": "14",
+        "day": "Thur",
+        "islamic_date": "27 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:22",
+          "sun_rise": "5:09",
+          "dhur": "1:01",
+          "asr": "6:17",
+          "maghrib_adhaan": "8:48",
+          "isha": "9:58"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:50",
+          "isha": null
+        }
+      },
+      {
+        "date": "15",
+        "day": "Fri",
+        "islamic_date": "28 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:20",
+          "sun_rise": "5:08",
+          "dhur": "1:01",
+          "asr": "6:17",
+          "maghrib_adhaan": "8:49",
+          "isha": "9:59"
+        },
+        "jamaat_times": {
+          "fajr": "4:15",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "8:51",
+          "isha": "10:15"
+        }
+      },
+      {
+        "date": "16",
+        "day": "Sat",
+        "islamic_date": "29 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:18",
+          "sun_rise": "5:06",
+          "dhur": "1:01",
+          "asr": "6:18",
+          "maghrib_adhaan": "8:51",
+          "isha": "10:00"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:53",
+          "isha": null
+        }
+      },
+      {
+        "date": "17",
+        "day": "Sun",
+        "islamic_date": "30 Dhul Qadh",
+        "beginning_times": {
+          "subha_sadiq": "3:16",
+          "sun_rise": "5:05",
+          "dhur": "1:01",
+          "asr": "6:19",
+          "maghrib_adhaan": "8:52",
+          "isha": "10:03"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:54",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Mon",
+        "islamic_date": "1 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:14",
+          "sun_rise": "5:03",
+          "dhur": "1:01",
+          "asr": "6:20",
+          "maghrib_adhaan": "8:54",
+          "isha": "10:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:56",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Tues",
+        "islamic_date": "2 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:12",
+          "sun_rise": "5:02",
+          "dhur": "1:01",
+          "asr": "6:21",
+          "maghrib_adhaan": "8:55",
+          "isha": "10:04"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:57",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Wed",
+        "islamic_date": "3 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:11",
+          "sun_rise": "5:01",
+          "dhur": "1:01",
+          "asr": "6:22",
+          "maghrib_adhaan": "8:57",
+          "isha": "10:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "21",
+        "day": "Thur",
+        "islamic_date": "4 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:08",
+          "sun_rise": "4:59",
+          "dhur": "1:01",
+          "asr": "6:23",
+          "maghrib_adhaan": "8:58",
+          "isha": "10:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:00",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Fri",
+        "islamic_date": "5 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:07",
+          "sun_rise": "4:58",
+          "dhur": "1:01",
+          "asr": "6:23",
+          "maghrib_adhaan": "8:59",
+          "isha": "10:06"
+        },
+        "jamaat_times": {
+          "fajr": "4:15",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:01",
+          "isha": "10:30"
+        }
+      },
+      {
+        "date": "23",
+        "day": "Sat",
+        "islamic_date": "6 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:05",
+          "sun_rise": "4:57",
+          "dhur": "1:01",
+          "asr": "6:24",
+          "maghrib_adhaan": "9:01",
+          "isha": "10:08"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:03",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Sun",
+        "islamic_date": "7 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:03",
+          "sun_rise": "4:56",
+          "dhur": "1:02",
+          "asr": "6:25",
+          "maghrib_adhaan": "9:02",
+          "isha": "10:09"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:04",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Mon",
+        "islamic_date": "8 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:01",
+          "sun_rise": "4:55",
+          "dhur": "1:02",
+          "asr": "6:26",
+          "maghrib_adhaan": "9:03",
+          "isha": "10:10"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:05",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Tues",
+        "islamic_date": "9 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "3:00",
+          "sun_rise": "4:54",
+          "dhur": "1:02",
+          "asr": "6:26",
+          "maghrib_adhaan": "9:05",
+          "isha": "10:15"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:07",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Wed",
+        "islamic_date": "10 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:58",
+          "sun_rise": "4:53",
+          "dhur": "1:02",
+          "asr": "6:27",
+          "maghrib_adhaan": "9:06",
+          "isha": "10:16"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:08",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Thur",
+        "islamic_date": "11 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:57",
+          "sun_rise": "4:52",
+          "dhur": "1:02",
+          "asr": "6:28",
+          "maghrib_adhaan": "9:07",
+          "isha": "10:16"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:09",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Fri",
+        "islamic_date": "12 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:55",
+          "sun_rise": "4:51",
+          "dhur": "1:02",
+          "asr": "6:29",
+          "maghrib_adhaan": "9:08",
+          "isha": "10:17"
+        },
+        "jamaat_times": {
+          "fajr": "4:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:10",
+          "isha": "10:40"
+        }
+      },
+      {
+        "date": "30",
+        "day": "Sat",
+        "islamic_date": "13 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:54",
+          "sun_rise": "4:50",
+          "dhur": "1:02",
+          "asr": "6:29",
+          "maghrib_adhaan": "9:10",
+          "isha": "10:17"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:12",
+          "isha": null
+        }
+      },
+      {
+        "date": "31",
+        "day": "Sun",
+        "islamic_date": "14 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:52",
+          "sun_rise": "4:49",
+          "dhur": "1:02",
+          "asr": "6:30",
+          "maghrib_adhaan": "9:11",
+          "isha": "10:18"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:13",
+          "isha": null
+        }
+      }
+    ],
+    "june": [
+      {
+        "date": "01",
+        "day": "Mon",
+        "islamic_date": "15 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:51",
+          "sun_rise": "4:48",
+          "dhur": "1:03",
+          "asr": "6:31",
+          "maghrib_adhaan": "9:12",
+          "isha": "10:19"
+        },
+        "jamaat_times": {
+          "fajr": "4:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:14",
+          "isha": "10:40"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Tues",
+        "islamic_date": "16 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:49",
+          "sun_rise": "4:47",
+          "dhur": "1:03",
+          "asr": "6:31",
+          "maghrib_adhaan": "9:13",
+          "isha": "10:20"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:15",
+          "isha": null
+        }
+      },
+      {
+        "date": "03",
+        "day": "Wed",
+        "islamic_date": "17 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:48",
+          "sun_rise": "4:46",
+          "dhur": "1:03",
+          "asr": "6:32",
+          "maghrib_adhaan": "9:14",
+          "isha": "10:21"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:16",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Thur",
+        "islamic_date": "18 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:47",
+          "sun_rise": "4:46",
+          "dhur": "1:03",
+          "asr": "6:33",
+          "maghrib_adhaan": "9:15",
+          "isha": "10:22"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:17",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Fri",
+        "islamic_date": "19 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:46",
+          "sun_rise": "4:45",
+          "dhur": "1:03",
+          "asr": "6:33",
+          "maghrib_adhaan": "9:16",
+          "isha": "10:23"
+        },
+        "jamaat_times": {
+          "fajr": "4:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:18",
+          "isha": "10:40"
+        }
+      },
+      {
+        "date": "06",
+        "day": "Sat",
+        "islamic_date": "20 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:45",
+          "sun_rise": "4:45",
+          "dhur": "1:03",
+          "asr": "6:34",
+          "maghrib_adhaan": "9:17",
+          "isha": "10:24"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:19",
+          "isha": null
+        }
+      },
+      {
+        "date": "07",
+        "day": "Sun",
+        "islamic_date": "21 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:44",
+          "sun_rise": "4:44",
+          "dhur": "1:04",
+          "asr": "6:34",
+          "maghrib_adhaan": "9:18",
+          "isha": "10:25"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:20",
+          "isha": null
+        }
+      },
+      {
+        "date": "08",
+        "day": "Mon",
+        "islamic_date": "22 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:43",
+          "sun_rise": "4:44",
+          "dhur": "1:04",
+          "asr": "6:35",
+          "maghrib_adhaan": "9:18",
+          "isha": "10:25"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:20",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Tues",
+        "islamic_date": "23 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:42",
+          "sun_rise": "4:43",
+          "dhur": "1:04",
+          "asr": "6:35",
+          "maghrib_adhaan": "9:19",
+          "isha": "10:26"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:21",
+          "isha": null
+        }
+      },
+      {
+        "date": "10",
+        "day": "Wed",
+        "islamic_date": "24 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:41",
+          "sun_rise": "4:43",
+          "dhur": "1:04",
+          "asr": "6:36",
+          "maghrib_adhaan": "9:20",
+          "isha": "10:27"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:22",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Thur",
+        "islamic_date": "25 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:40",
+          "sun_rise": "4:42",
+          "dhur": "1:04",
+          "asr": "6:36",
+          "maghrib_adhaan": "9:21",
+          "isha": "10:28"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:23",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Fri",
+        "islamic_date": "26 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:39",
+          "sun_rise": "4:42",
+          "dhur": "1:05",
+          "asr": "6:37",
+          "maghrib_adhaan": "9:21",
+          "isha": "10:28"
+        },
+        "jamaat_times": {
+          "fajr": "4:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:23",
+          "isha": "10:45"
+        }
+      },
+      {
+        "date": "13",
+        "day": "Sat",
+        "islamic_date": "27 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:38",
+          "sun_rise": "4:42",
+          "dhur": "1:05",
+          "asr": "6:37",
+          "maghrib_adhaan": "9:22",
+          "isha": "10:29"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:24",
+          "isha": null
+        }
+      },
+      {
+        "date": "14",
+        "day": "Sun",
+        "islamic_date": "28 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:38",
+          "sun_rise": "4:42",
+          "dhur": "1:05",
+          "asr": "6:37",
+          "maghrib_adhaan": "9:23",
+          "isha": "10:30"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:25",
+          "isha": null
+        }
+      },
+      {
+        "date": "15",
+        "day": "Mon",
+        "islamic_date": "29 Dhul Hajj",
+        "beginning_times": {
+          "subha_sadiq": "2:38",
+          "sun_rise": "4:42",
+          "dhur": "1:05",
+          "asr": "6:38",
+          "maghrib_adhaan": "9:23",
+          "isha": "10:30"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:25",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Tues",
+        "islamic_date": "1 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:38",
+          "sun_rise": "4:42",
+          "dhur": "1:05",
+          "asr": "6:38",
+          "maghrib_adhaan": "9:24",
+          "isha": "10:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "17",
+        "day": "Wed",
+        "islamic_date": "2 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:38",
+          "sun_rise": "4:42",
+          "dhur": "1:06",
+          "asr": "6:39",
+          "maghrib_adhaan": "9:24",
+          "isha": "10:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Thur",
+        "islamic_date": "3 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:38",
+          "sun_rise": "4:42",
+          "dhur": "1:06",
+          "asr": "6:39",
+          "maghrib_adhaan": "9:24",
+          "isha": "10:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Fri",
+        "islamic_date": "4 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:38",
+          "sun_rise": "4:42",
+          "dhur": "1:06",
+          "asr": "6:39",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": "4:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:27",
+          "isha": "10:45"
+        }
+      },
+      {
+        "date": "20",
+        "day": "Sat",
+        "islamic_date": "5 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:39",
+          "sun_rise": "4:42",
+          "dhur": "1:06",
+          "asr": "6:39",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "21",
+        "day": "Sun",
+        "islamic_date": "6 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:39",
+          "sun_rise": "4:42",
+          "dhur": "1:07",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Mon",
+        "islamic_date": "7 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:39",
+          "sun_rise": "4:42",
+          "dhur": "1:07",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Tues",
+        "islamic_date": "8 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:40",
+          "sun_rise": "4:42",
+          "dhur": "1:07",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Wed",
+        "islamic_date": "9 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:41",
+          "sun_rise": "4:43",
+          "dhur": "1:07",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Thur",
+        "islamic_date": "10 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:41",
+          "sun_rise": "4:43",
+          "dhur": "1:07",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Fri",
+        "islamic_date": "11 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:43",
+          "sun_rise": "4:44",
+          "dhur": "1:08",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": "4:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:27",
+          "isha": "10:45"
+        }
+      },
+      {
+        "date": "27",
+        "day": "Sat",
+        "islamic_date": "12 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:43",
+          "sun_rise": "4:44",
+          "dhur": "1:08",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Sun",
+        "islamic_date": "13 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:45",
+          "sun_rise": "4:45",
+          "dhur": "1:08",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Mon",
+        "islamic_date": "14 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:45",
+          "sun_rise": "4:45",
+          "dhur": "1:08",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "30",
+        "day": "Tues",
+        "islamic_date": "15 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:46",
+          "sun_rise": "4:46",
+          "dhur": "1:08",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:25",
+          "isha": "10:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:27",
+          "isha": null
+        }
+      }
+    ],
+    "july": [
+      {
+        "date": "01",
+        "day": "Wed",
+        "islamic_date": "16 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:47",
+          "sun_rise": "4:46",
+          "dhur": "1:09",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:24",
+          "isha": "10:31"
+        },
+        "jamaat_times": {
+          "fajr": "4:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:24",
+          "isha": "10:45"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Thur",
+        "islamic_date": "17 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:49",
+          "sun_rise": "4:47",
+          "dhur": "1:09",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:24",
+          "isha": "10:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "03",
+        "day": "Fri",
+        "islamic_date": "18 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:50",
+          "sun_rise": "4:48",
+          "dhur": "1:09",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:24",
+          "isha": "10:31"
+        },
+        "jamaat_times": {
+          "fajr": "4:15",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:26",
+          "isha": "10:40"
+        }
+      },
+      {
+        "date": "04",
+        "day": "Sat",
+        "islamic_date": "19 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:52",
+          "sun_rise": "4:49",
+          "dhur": "1:09",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:23",
+          "isha": "10:30"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:25",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Sun",
+        "islamic_date": "20 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:53",
+          "sun_rise": "4:50",
+          "dhur": "1:09",
+          "asr": "6:40",
+          "maghrib_adhaan": "9:23",
+          "isha": "10:30"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:25",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Mon",
+        "islamic_date": "21 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:53",
+          "sun_rise": "4:50",
+          "dhur": "1:10",
+          "asr": "6:39",
+          "maghrib_adhaan": "9:22",
+          "isha": "10:29"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:24",
+          "isha": null
+        }
+      },
+      {
+        "date": "07",
+        "day": "Tues",
+        "islamic_date": "22 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:55",
+          "sun_rise": "4:51",
+          "dhur": "1:10",
+          "asr": "6:39",
+          "maghrib_adhaan": "9:22",
+          "isha": "10:29"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:24",
+          "isha": null
+        }
+      },
+      {
+        "date": "08",
+        "day": "Wed",
+        "islamic_date": "23 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:56",
+          "sun_rise": "4:52",
+          "dhur": "1:10",
+          "asr": "6:39",
+          "maghrib_adhaan": "9:21",
+          "isha": "10:28"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:23",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Thur",
+        "islamic_date": "24 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:58",
+          "sun_rise": "4:53",
+          "dhur": "1:10",
+          "asr": "6:39",
+          "maghrib_adhaan": "9:20",
+          "isha": "10:27"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:22",
+          "isha": null
+        }
+      },
+      {
+        "date": "10",
+        "day": "Fri",
+        "islamic_date": "25 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "2:59",
+          "sun_rise": "4:54",
+          "dhur": "1:10",
+          "asr": "6:38",
+          "maghrib_adhaan": "9:19",
+          "isha": "10:26"
+        },
+        "jamaat_times": {
+          "fajr": "4:15",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:21",
+          "isha": "10:40"
+        }
+      },
+      {
+        "date": "11",
+        "day": "Sat",
+        "islamic_date": "26 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "3:00",
+          "sun_rise": "4:55",
+          "dhur": "1:10",
+          "asr": "6:38",
+          "maghrib_adhaan": "9:19",
+          "isha": "10:26"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:21",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Sun",
+        "islamic_date": "27 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "3:02",
+          "sun_rise": "4:56",
+          "dhur": "1:10",
+          "asr": "6:38",
+          "maghrib_adhaan": "9:18",
+          "isha": "10:25"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:20",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Mon",
+        "islamic_date": "28 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "3:03",
+          "sun_rise": "4:57",
+          "dhur": "1:11",
+          "asr": "6:37",
+          "maghrib_adhaan": "9:17",
+          "isha": "10:24"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:19",
+          "isha": null
+        }
+      },
+      {
+        "date": "14",
+        "day": "Tues",
+        "islamic_date": "29 Moharram",
+        "beginning_times": {
+          "subha_sadiq": "3:06",
+          "sun_rise": "4:59",
+          "dhur": "1:11",
+          "asr": "6:37",
+          "maghrib_adhaan": "9:16",
+          "isha": "10:23"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:18",
+          "isha": null
+        }
+      },
+      {
+        "date": "15",
+        "day": "Wed",
+        "islamic_date": "1 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:07",
+          "sun_rise": "5:00",
+          "dhur": "1:11",
+          "asr": "6:36",
+          "maghrib_adhaan": "9:15",
+          "isha": "10:22"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:17",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Thur",
+        "islamic_date": "2 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:08",
+          "sun_rise": "5:01",
+          "dhur": "1:11",
+          "asr": "6:36",
+          "maghrib_adhaan": "9:14",
+          "isha": "10:21"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:16",
+          "isha": null
+        }
+      },
+      {
+        "date": "17",
+        "day": "Fri",
+        "islamic_date": "3 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:10",
+          "sun_rise": "5:02",
+          "dhur": "1:11",
+          "asr": "6:35",
+          "maghrib_adhaan": "9:13",
+          "isha": "10:20"
+        },
+        "jamaat_times": {
+          "fajr": "4:30",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:15",
+          "isha": "10:30"
+        }
+      },
+      {
+        "date": "18",
+        "day": "Sat",
+        "islamic_date": "4 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:11",
+          "sun_rise": "5:03",
+          "dhur": "1:11",
+          "asr": "6:35",
+          "maghrib_adhaan": "9:12",
+          "isha": "10:19"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:14",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Sun",
+        "islamic_date": "5 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:14",
+          "sun_rise": "5:05",
+          "dhur": "1:11",
+          "asr": "6:34",
+          "maghrib_adhaan": "9:11",
+          "isha": "10:18"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:13",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Mon",
+        "islamic_date": "6 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:15",
+          "sun_rise": "5:06",
+          "dhur": "1:11",
+          "asr": "6:33",
+          "maghrib_adhaan": "9:09",
+          "isha": "10:16"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:11",
+          "isha": null
+        }
+      },
+      {
+        "date": "21",
+        "day": "Tues",
+        "islamic_date": "7 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:16",
+          "sun_rise": "5:07",
+          "dhur": "1:11",
+          "asr": "6:33",
+          "maghrib_adhaan": "9:08",
+          "isha": "10:14"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:10",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Wed",
+        "islamic_date": "8 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:19",
+          "sun_rise": "5:09",
+          "dhur": "1:11",
+          "asr": "6:32",
+          "maghrib_adhaan": "9:07",
+          "isha": "10:12"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:09",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Thur",
+        "islamic_date": "9 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:20",
+          "sun_rise": "5:10",
+          "dhur": "1:11",
+          "asr": "6:31",
+          "maghrib_adhaan": "9:06",
+          "isha": "10:11"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:08",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Fri",
+        "islamic_date": "10 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:22",
+          "sun_rise": "5:11",
+          "dhur": "1:11",
+          "asr": "6:30",
+          "maghrib_adhaan": "9:04",
+          "isha": "10:09"
+        },
+        "jamaat_times": {
+          "fajr": "4:30",
+          "dhur_jumua": "1:30",
+          "asr": "7:30",
+          "maghrib": "9:06",
+          "isha": "10:30"
+        }
+      },
+      {
+        "date": "25",
+        "day": "Sat",
+        "islamic_date": "11 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:24",
+          "sun_rise": "5:13",
+          "dhur": "1:11",
+          "asr": "6:30",
+          "maghrib_adhaan": "9:03",
+          "isha": "10:07"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:05",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Sun",
+        "islamic_date": "12 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:26",
+          "sun_rise": "5:14",
+          "dhur": "1:11",
+          "asr": "6:29",
+          "maghrib_adhaan": "9:01",
+          "isha": "10:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:03",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Mon",
+        "islamic_date": "13 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:28",
+          "sun_rise": "5:16",
+          "dhur": "1:11",
+          "asr": "6:28",
+          "maghrib_adhaan": "9:00",
+          "isha": "10:04"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:02",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Tues",
+        "islamic_date": "14 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:30",
+          "sun_rise": "5:17",
+          "dhur": "1:11",
+          "asr": "6:27",
+          "maghrib_adhaan": "8:58",
+          "isha": "10:01"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "9:00",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Wed",
+        "islamic_date": "15 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:32",
+          "sun_rise": "5:19",
+          "dhur": "1:11",
+          "asr": "6:26",
+          "maghrib_adhaan": "8:57",
+          "isha": "10:00"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "30",
+        "day": "Thur",
+        "islamic_date": "16 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:34",
+          "sun_rise": "5:20",
+          "dhur": "1:11",
+          "asr": "6:25",
+          "maghrib_adhaan": "8:55",
+          "isha": "9:58"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:57",
+          "isha": null
+        }
+      },
+      {
+        "date": "31",
+        "day": "Fri",
+        "islamic_date": "17 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:36",
+          "sun_rise": "5:22",
+          "dhur": "1:11",
+          "asr": "6:24",
+          "maghrib_adhaan": "8:54",
+          "isha": "9:57"
+        },
+        "jamaat_times": {
+          "fajr": "4:45",
+          "dhur_jumua": "1:30",
+          "asr": "7:15",
+          "maghrib": "8:56",
+          "isha": "10:15"
+        }
+      }
+    ],
+    "august": [
+      {
+        "date": "01",
+        "day": "Sat",
+        "islamic_date": "18 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:38",
+          "sun_rise": "5:23",
+          "dhur": "1:11",
+          "asr": "6:23",
+          "maghrib_adhaan": "8:52",
+          "isha": "9:56"
+        },
+        "jamaat_times": {
+          "fajr": "4:45",
+          "dhur_jumua": "1:30",
+          "asr": "7:15",
+          "maghrib": "8:54",
+          "isha": "10:15"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Sun",
+        "islamic_date": "19 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:40",
+          "sun_rise": "5:25",
+          "dhur": "1:11",
+          "asr": "6:22",
+          "maghrib_adhaan": "8:50",
+          "isha": "9:54"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:52",
+          "isha": null
+        }
+      },
+      {
+        "date": "03",
+        "day": "Mon",
+        "islamic_date": "20 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:42",
+          "sun_rise": "5:26",
+          "dhur": "1:11",
+          "asr": "6:21",
+          "maghrib_adhaan": "8:49",
+          "isha": "9:53"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:51",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Tues",
+        "islamic_date": "21 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:44",
+          "sun_rise": "5:28",
+          "dhur": "1:11",
+          "asr": "6:20",
+          "maghrib_adhaan": "8:47",
+          "isha": "9:51"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:49",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Wed",
+        "islamic_date": "22 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:46",
+          "sun_rise": "5:29",
+          "dhur": "1:11",
+          "asr": "6:19",
+          "maghrib_adhaan": "8:45",
+          "isha": "9:49"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:47",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Thur",
+        "islamic_date": "23 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:48",
+          "sun_rise": "5:31",
+          "dhur": "1:11",
+          "asr": "6:18",
+          "maghrib_adhaan": "8:43",
+          "isha": "9:48"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:45",
+          "isha": null
+        }
+      },
+      {
+        "date": "07",
+        "day": "Fri",
+        "islamic_date": "24 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:49",
+          "sun_rise": "5:32",
+          "dhur": "1:11",
+          "asr": "6:17",
+          "maghrib_adhaan": "8:42",
+          "isha": "9:47"
+        },
+        "jamaat_times": {
+          "fajr": "5:00",
+          "dhur_jumua": "1:30",
+          "asr": "7:00",
+          "maghrib": "8:44",
+          "isha": "10:00"
+        }
+      },
+      {
+        "date": "08",
+        "day": "Sat",
+        "islamic_date": "25 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:52",
+          "sun_rise": "5:34",
+          "dhur": "1:10",
+          "asr": "6:15",
+          "maghrib_adhaan": "8:40",
+          "isha": "9:45"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:42",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Sun",
+        "islamic_date": "26 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:53",
+          "sun_rise": "5:35",
+          "dhur": "1:10",
+          "asr": "6:14",
+          "maghrib_adhaan": "8:38",
+          "isha": "9:43"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:40",
+          "isha": null
+        }
+      },
+      {
+        "date": "10",
+        "day": "Mon",
+        "islamic_date": "27 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:55",
+          "sun_rise": "5:37",
+          "dhur": "1:10",
+          "asr": "6:13",
+          "maghrib_adhaan": "8:36",
+          "isha": "9:41"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:38",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Tues",
+        "islamic_date": "28 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:58",
+          "sun_rise": "5:39",
+          "dhur": "1:10",
+          "asr": "6:12",
+          "maghrib_adhaan": "8:34",
+          "isha": "9:40"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:36",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Wed",
+        "islamic_date": "29 Safr",
+        "beginning_times": {
+          "subha_sadiq": "3:59",
+          "sun_rise": "5:40",
+          "dhur": "1:10",
+          "asr": "6:10",
+          "maghrib_adhaan": "8:32",
+          "isha": "9:38"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:34",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Thur",
+        "islamic_date": "30 Safr",
+        "beginning_times": {
+          "subha_sadiq": "4:01",
+          "sun_rise": "5:42",
+          "dhur": "1:10",
+          "asr": "6:09",
+          "maghrib_adhaan": "8:30",
+          "isha": "9:36"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:32",
+          "isha": null
+        }
+      },
+      {
+        "date": "14",
+        "day": "Fri",
+        "islamic_date": "1 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:03",
+          "sun_rise": "5:43",
+          "dhur": "1:09",
+          "asr": "6:08",
+          "maghrib_adhaan": "8:28",
+          "isha": "9:34"
+        },
+        "jamaat_times": {
+          "fajr": "5:00",
+          "dhur_jumua": "1:30",
+          "asr": "6:45",
+          "maghrib": "8:30",
+          "isha": "9:45"
+        }
+      },
+      {
+        "date": "15",
+        "day": "Sat",
+        "islamic_date": "2 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:05",
+          "sun_rise": "5:45",
+          "dhur": "1:09",
+          "asr": "6:06",
+          "maghrib_adhaan": "8:26",
+          "isha": "9:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:28",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Sun",
+        "islamic_date": "3 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:07",
+          "sun_rise": "5:47",
+          "dhur": "1:09",
+          "asr": "6:05",
+          "maghrib_adhaan": "8:24",
+          "isha": "9:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:26",
+          "isha": null
+        }
+      },
+      {
+        "date": "17",
+        "day": "Mon",
+        "islamic_date": "4 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:09",
+          "sun_rise": "5:48",
+          "dhur": "1:09",
+          "asr": "6:03",
+          "maghrib_adhaan": "8:22",
+          "isha": "9:29"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:24",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Tues",
+        "islamic_date": "5 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:11",
+          "sun_rise": "5:50",
+          "dhur": "1:09",
+          "asr": "6:02",
+          "maghrib_adhaan": "8:20",
+          "isha": "9:27"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:22",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Wed",
+        "islamic_date": "6 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:12",
+          "sun_rise": "5:51",
+          "dhur": "1:08",
+          "asr": "6:01",
+          "maghrib_adhaan": "8:18",
+          "isha": "9:25"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:20",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Thur",
+        "islamic_date": "7 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:15",
+          "sun_rise": "5:53",
+          "dhur": "1:08",
+          "asr": "5:59",
+          "maghrib_adhaan": "8:16",
+          "isha": "9:23"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:18",
+          "isha": null
+        }
+      },
+      {
+        "date": "21",
+        "day": "Fri",
+        "islamic_date": "8 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:17",
+          "sun_rise": "5:55",
+          "dhur": "1:08",
+          "asr": "5:58",
+          "maghrib_adhaan": "8:14",
+          "isha": "9:22"
+        },
+        "jamaat_times": {
+          "fajr": "5:15",
+          "dhur_jumua": "1:30",
+          "asr": "6:30",
+          "maghrib": "8:16",
+          "isha": "9:45"
+        }
+      },
+      {
+        "date": "22",
+        "day": "Sat",
+        "islamic_date": "9 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:18",
+          "sun_rise": "5:56",
+          "dhur": "1:08",
+          "asr": "5:56",
+          "maghrib_adhaan": "8:12",
+          "isha": "9:20"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:14",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Sun",
+        "islamic_date": "10 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:21",
+          "sun_rise": "5:58",
+          "dhur": "1:07",
+          "asr": "5:55",
+          "maghrib_adhaan": "8:10",
+          "isha": "9:18"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:12",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Mon",
+        "islamic_date": "11 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:22",
+          "sun_rise": "5:59",
+          "dhur": "1:07",
+          "asr": "5:53",
+          "maghrib_adhaan": "8:08",
+          "isha": "9:16"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:10",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Tues",
+        "islamic_date": "12 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:24",
+          "sun_rise": "6:01",
+          "dhur": "1:07",
+          "asr": "5:51",
+          "maghrib_adhaan": "8:06",
+          "isha": "9:15"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:08",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Wed",
+        "islamic_date": "13 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:27",
+          "sun_rise": "6:03",
+          "dhur": "1:07",
+          "asr": "5:50",
+          "maghrib_adhaan": "8:04",
+          "isha": "9:13"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:06",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Thur",
+        "islamic_date": "14 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:28",
+          "sun_rise": "6:04",
+          "dhur": "1:06",
+          "asr": "5:48",
+          "maghrib_adhaan": "8:01",
+          "isha": "9:10"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "8:03",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Fri",
+        "islamic_date": "15 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:30",
+          "sun_rise": "6:06",
+          "dhur": "1:06",
+          "asr": "5:46",
+          "maghrib_adhaan": "7:59",
+          "isha": "9:08"
+        },
+        "jamaat_times": {
+          "fajr": "5:30",
+          "dhur_jumua": "1:30",
+          "asr": "6:15",
+          "maghrib": "8:01",
+          "isha": "9:30"
+        }
+      },
+      {
+        "date": "29",
+        "day": "Sat",
+        "islamic_date": "16 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:32",
+          "sun_rise": "6:07",
+          "dhur": "1:06",
+          "asr": "5:45",
+          "maghrib_adhaan": "7:57",
+          "isha": "9:07"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "30",
+        "day": "Sun",
+        "islamic_date": "17 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:34",
+          "sun_rise": "6:09",
+          "dhur": "1:05",
+          "asr": "5:43",
+          "maghrib_adhaan": "7:55",
+          "isha": "9:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:57",
+          "isha": null
+        }
+      },
+      {
+        "date": "31",
+        "day": "Mon",
+        "islamic_date": "18 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:36",
+          "sun_rise": "6:11",
+          "dhur": "1:05",
+          "asr": "5:41",
+          "maghrib_adhaan": "7:53",
+          "isha": "9:03"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:55",
+          "isha": null
+        }
+      }
+    ],
+    "september": [
+      {
+        "date": "01",
+        "day": "Tues",
+        "islamic_date": "19 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:37",
+          "sun_rise": "6:12",
+          "dhur": "1:05",
+          "asr": "5:40",
+          "maghrib_adhaan": "7:50",
+          "isha": "9:01"
+        },
+        "jamaat_times": {
+          "fajr": "5:30",
+          "dhur_jumua": "1:30",
+          "asr": "6:15",
+          "maghrib": "7:52",
+          "isha": "9:30"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Wed",
+        "islamic_date": "20 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:39",
+          "sun_rise": "6:14",
+          "dhur": "1:04",
+          "asr": "5:38",
+          "maghrib_adhaan": "7:48",
+          "isha": "8:59"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:50",
+          "isha": null
+        }
+      },
+      {
+        "date": "03",
+        "day": "Thur",
+        "islamic_date": "21 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:40",
+          "sun_rise": "6:15",
+          "dhur": "1:04",
+          "asr": "5:36",
+          "maghrib_adhaan": "7:46",
+          "isha": "8:57"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:48",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Fri",
+        "islamic_date": "22 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:42",
+          "sun_rise": "6:17",
+          "dhur": "1:04",
+          "asr": "5:34",
+          "maghrib_adhaan": "7:44",
+          "isha": "8:56"
+        },
+        "jamaat_times": {
+          "fajr": "5:30",
+          "dhur_jumua": "1:30",
+          "asr": "6:15",
+          "maghrib": "7:46",
+          "isha": "9:15"
+        }
+      },
+      {
+        "date": "05",
+        "day": "Sat",
+        "islamic_date": "23 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:43",
+          "sun_rise": "6:18",
+          "dhur": "1:03",
+          "asr": "5:33",
+          "maghrib_adhaan": "7:41",
+          "isha": "8:53"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:43",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Sun",
+        "islamic_date": "24 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:45",
+          "sun_rise": "6:20",
+          "dhur": "1:03",
+          "asr": "5:31",
+          "maghrib_adhaan": "7:39",
+          "isha": "8:51"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:41",
+          "isha": null
+        }
+      },
+      {
+        "date": "07",
+        "day": "Mon",
+        "islamic_date": "25 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:47",
+          "sun_rise": "6:22",
+          "dhur": "1:03",
+          "asr": "5:29",
+          "maghrib_adhaan": "7:37",
+          "isha": "8:50"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:39",
+          "isha": null
+        }
+      },
+      {
+        "date": "08",
+        "day": "Tues",
+        "islamic_date": "26 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:48",
+          "sun_rise": "6:23",
+          "dhur": "1:02",
+          "asr": "5:27",
+          "maghrib_adhaan": "7:35",
+          "isha": "8:48"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:37",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Wed",
+        "islamic_date": "27 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:50",
+          "sun_rise": "6:25",
+          "dhur": "1:02",
+          "asr": "5:25",
+          "maghrib_adhaan": "7:32",
+          "isha": "8:45"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:34",
+          "isha": null
+        }
+      },
+      {
+        "date": "10",
+        "day": "Thur",
+        "islamic_date": "28 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:51",
+          "sun_rise": "6:26",
+          "dhur": "1:02",
+          "asr": "5:24",
+          "maghrib_adhaan": "7:30",
+          "isha": "8:43"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:32",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Fri",
+        "islamic_date": "29 Rabi-Ul-Awwal",
+        "beginning_times": {
+          "subha_sadiq": "4:53",
+          "sun_rise": "6:28",
+          "dhur": "1:01",
+          "asr": "5:22",
+          "maghrib_adhaan": "7:28",
+          "isha": "8:42"
+        },
+        "jamaat_times": {
+          "fajr": "5:45",
+          "dhur_jumua": "1:30",
+          "asr": "6:00",
+          "maghrib": "7:30",
+          "isha": "9:00"
+        }
+      },
+      {
+        "date": "12",
+        "day": "Sat",
+        "islamic_date": "1 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "4:55",
+          "sun_rise": "6:30",
+          "dhur": "1:01",
+          "asr": "5:20",
+          "maghrib_adhaan": "7:25",
+          "isha": "8:39"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:27",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Sun",
+        "islamic_date": "2 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "4:56",
+          "sun_rise": "6:31",
+          "dhur": "1:01",
+          "asr": "5:18",
+          "maghrib_adhaan": "7:23",
+          "isha": "8:37"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:25",
+          "isha": null
+        }
+      },
+      {
+        "date": "14",
+        "day": "Mon",
+        "islamic_date": "3 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "4:58",
+          "sun_rise": "6:33",
+          "dhur": "1:00",
+          "asr": "5:16",
+          "maghrib_adhaan": "7:21",
+          "isha": "8:35"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:21",
+          "isha": null
+        }
+      },
+      {
+        "date": "15",
+        "day": "Tues",
+        "islamic_date": "4 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "4:59",
+          "sun_rise": "6:34",
+          "dhur": "1:00",
+          "asr": "5:14",
+          "maghrib_adhaan": "7:18",
+          "isha": "8:33"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:20",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Wed",
+        "islamic_date": "5 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:02",
+          "sun_rise": "6:36",
+          "dhur": "1:00",
+          "asr": "5:12",
+          "maghrib_adhaan": "7:16",
+          "isha": "8:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:18",
+          "isha": null
+        }
+      },
+      {
+        "date": "17",
+        "day": "Thur",
+        "islamic_date": "6 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:04",
+          "sun_rise": "6:38",
+          "dhur": "12:59",
+          "asr": "5:10",
+          "maghrib_adhaan": "7:14",
+          "isha": "8:29"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:16",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Fri",
+        "islamic_date": "7 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:05",
+          "sun_rise": "6:39",
+          "dhur": "12:59",
+          "asr": "5:08",
+          "maghrib_adhaan": "7:11",
+          "isha": "8:26"
+        },
+        "jamaat_times": {
+          "fajr": "6:00",
+          "dhur_jumua": "1:30",
+          "asr": "5:45",
+          "maghrib": "7:13",
+          "isha": "8:45"
+        }
+      },
+      {
+        "date": "19",
+        "day": "Sat",
+        "islamic_date": "8 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:08",
+          "sun_rise": "6:41",
+          "dhur": "12:59",
+          "asr": "5:06",
+          "maghrib_adhaan": "7:09",
+          "isha": "8:24"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:11",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Sun",
+        "islamic_date": "9 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:09",
+          "sun_rise": "6:42",
+          "dhur": "12:58",
+          "asr": "5:05",
+          "maghrib_adhaan": "7:07",
+          "isha": "8:22"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:09",
+          "isha": null
+        }
+      },
+      {
+        "date": "21",
+        "day": "Mon",
+        "islamic_date": "10 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:11",
+          "sun_rise": "6:44",
+          "dhur": "12:58",
+          "asr": "5:03",
+          "maghrib_adhaan": "7:05",
+          "isha": "8:21"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:07",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Tues",
+        "islamic_date": "11 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:14",
+          "sun_rise": "6:46",
+          "dhur": "12:57",
+          "asr": "5:01",
+          "maghrib_adhaan": "7:02",
+          "isha": "8:18"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:04",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Wed",
+        "islamic_date": "12 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:15",
+          "sun_rise": "6:47",
+          "dhur": "12:57",
+          "asr": "4:59",
+          "maghrib_adhaan": "7:00",
+          "isha": "8:16"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:02",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Thur",
+        "islamic_date": "13 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:17",
+          "sun_rise": "6:49",
+          "dhur": "12:57",
+          "asr": "4:57",
+          "maghrib_adhaan": "6:58",
+          "isha": "8:14"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "7:00",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Fri",
+        "islamic_date": "14 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:20",
+          "sun_rise": "6:51",
+          "dhur": "12:56",
+          "asr": "4:55",
+          "maghrib_adhaan": "6:55",
+          "isha": "8:12"
+        },
+        "jamaat_times": {
+          "fajr": "6:15",
+          "dhur_jumua": "1:30",
+          "asr": "5:30",
+          "maghrib": "6:57",
+          "isha": "8:30"
+        }
+      },
+      {
+        "date": "26",
+        "day": "Sat",
+        "islamic_date": "15 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:21",
+          "sun_rise": "6:52",
+          "dhur": "12:56",
+          "asr": "4:53",
+          "maghrib_adhaan": "6:53",
+          "isha": "8:10"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:55",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Sun",
+        "islamic_date": "16 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:23",
+          "sun_rise": "6:54",
+          "dhur": "12:56",
+          "asr": "4:51",
+          "maghrib_adhaan": "6:51",
+          "isha": "8:08"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:53",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Mon",
+        "islamic_date": "17 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:25",
+          "sun_rise": "6:55",
+          "dhur": "12:55",
+          "asr": "4:49",
+          "maghrib_adhaan": "6:48",
+          "isha": "8:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:50",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Tues",
+        "islamic_date": "18 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:27",
+          "sun_rise": "6:57",
+          "dhur": "12:55",
+          "asr": "4:47",
+          "maghrib_adhaan": "6:46",
+          "isha": "8:03"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:48",
+          "isha": null
+        }
+      },
+      {
+        "date": "30",
+        "day": "Wed",
+        "islamic_date": "19 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:29",
+          "sun_rise": "6:59",
+          "dhur": "12:55",
+          "asr": "4:45",
+          "maghrib_adhaan": "6:44",
+          "isha": "8:01"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:46",
+          "isha": null
+        }
+      }
+    ],
+    "october": [
+      {
+        "date": "01",
+        "day": "Thur",
+        "islamic_date": "20 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:29",
+          "sun_rise": "7:00",
+          "dhur": "12:54",
+          "asr": "4:43",
+          "maghrib_adhaan": "6:42",
+          "isha": "8:00"
+        },
+        "jamaat_times": {
+          "fajr": "6:15",
+          "dhur_jumua": "1:30",
+          "asr": "5:30",
+          "maghrib": "6:44",
+          "isha": "8:30"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Fri",
+        "islamic_date": "21 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:31",
+          "sun_rise": "7:02",
+          "dhur": "12:54",
+          "asr": "4:41",
+          "maghrib_adhaan": "6:39",
+          "isha": "7:57"
+        },
+        "jamaat_times": {
+          "fajr": "6:30",
+          "dhur_jumua": "1:30",
+          "asr": "5:15",
+          "maghrib": "6:41",
+          "isha": "8:15"
+        }
+      },
+      {
+        "date": "03",
+        "day": "Sat",
+        "islamic_date": "22 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:33",
+          "sun_rise": "7:04",
+          "dhur": "12:54",
+          "asr": "4:39",
+          "maghrib_adhaan": "6:37",
+          "isha": "7:56"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:39",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Sun",
+        "islamic_date": "23 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:34",
+          "sun_rise": "7:05",
+          "dhur": "12:53",
+          "asr": "4:37",
+          "maghrib_adhaan": "6:35",
+          "isha": "7:54"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:37",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Mon",
+        "islamic_date": "24 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:35",
+          "sun_rise": "7:07",
+          "dhur": "12:53",
+          "asr": "4:35",
+          "maghrib_adhaan": "6:32",
+          "isha": "7:51"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:34",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Tues",
+        "islamic_date": "25 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:37",
+          "sun_rise": "7:09",
+          "dhur": "12:53",
+          "asr": "4:33",
+          "maghrib_adhaan": "6:30",
+          "isha": "7:49"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:32",
+          "isha": null
+        }
+      },
+      {
+        "date": "07",
+        "day": "Wed",
+        "islamic_date": "26 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:38",
+          "sun_rise": "7:10",
+          "dhur": "12:53",
+          "asr": "4:31",
+          "maghrib_adhaan": "6:28",
+          "isha": "7:49"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:30",
+          "isha": null
+        }
+      },
+      {
+        "date": "08",
+        "day": "Thur",
+        "islamic_date": "27 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:39",
+          "sun_rise": "7:12",
+          "dhur": "12:52",
+          "asr": "4:29",
+          "maghrib_adhaan": "6:26",
+          "isha": "7:47"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:28",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Fri",
+        "islamic_date": "28 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:41",
+          "sun_rise": "7:14",
+          "dhur": "12:52",
+          "asr": "4:27",
+          "maghrib_adhaan": "6:24",
+          "isha": "7:45"
+        },
+        "jamaat_times": {
+          "fajr": "6:30",
+          "dhur_jumua": "1:30",
+          "asr": "4:45",
+          "maghrib": "6:26",
+          "isha": "8:00"
+        }
+      },
+      {
+        "date": "10",
+        "day": "Sat",
+        "islamic_date": "29 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:42",
+          "sun_rise": "7:15",
+          "dhur": "12:52",
+          "asr": "4:25",
+          "maghrib_adhaan": "6:21",
+          "isha": "7:42"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:23",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Sun",
+        "islamic_date": "30 Rabi-Ul-Thani",
+        "beginning_times": {
+          "subha_sadiq": "5:43",
+          "sun_rise": "7:17",
+          "dhur": "12:51",
+          "asr": "4:23",
+          "maghrib_adhaan": "6:19",
+          "isha": "7:40"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:21",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Mon",
+        "islamic_date": "1 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:45",
+          "sun_rise": "7:19",
+          "dhur": "12:51",
+          "asr": "4:21",
+          "maghrib_adhaan": "6:17",
+          "isha": "7:38"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:19",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Tues",
+        "islamic_date": "2 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:46",
+          "sun_rise": "7:20",
+          "dhur": "12:51",
+          "asr": "4:19",
+          "maghrib_adhaan": "6:15",
+          "isha": "7:38"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:17",
+          "isha": null
+        }
+      },
+      {
+        "date": "14",
+        "day": "Wed",
+        "islamic_date": "3 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:47",
+          "sun_rise": "7:22",
+          "dhur": "12:51",
+          "asr": "4:17",
+          "maghrib_adhaan": "6:13",
+          "isha": "7:36"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:15",
+          "isha": null
+        }
+      },
+      {
+        "date": "15",
+        "day": "Thur",
+        "islamic_date": "4 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:49",
+          "sun_rise": "7:24",
+          "dhur": "12:51",
+          "asr": "4:15",
+          "maghrib_adhaan": "6:10",
+          "isha": "7:33"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:12",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Fri",
+        "islamic_date": "5 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:50",
+          "sun_rise": "7:25",
+          "dhur": "12:50",
+          "asr": "4:13",
+          "maghrib_adhaan": "6:08",
+          "isha": "7:31"
+        },
+        "jamaat_times": {
+          "fajr": "6:45",
+          "dhur_jumua": "1:30",
+          "asr": "4:30",
+          "maghrib": "6:10",
+          "isha": "7:45"
+        }
+      },
+      {
+        "date": "17",
+        "day": "Sat",
+        "islamic_date": "6 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:51",
+          "sun_rise": "7:27",
+          "dhur": "12:50",
+          "asr": "4:11",
+          "maghrib_adhaan": "6:06",
+          "isha": "7:29"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:08",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Sun",
+        "islamic_date": "7 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:53",
+          "sun_rise": "7:29",
+          "dhur": "12:50",
+          "asr": "4:09",
+          "maghrib_adhaan": "6:04",
+          "isha": "7:27"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:06",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Mon",
+        "islamic_date": "8 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:55",
+          "sun_rise": "7:31",
+          "dhur": "12:50",
+          "asr": "4:07",
+          "maghrib_adhaan": "6:02",
+          "isha": "7:25"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:04",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Tues",
+        "islamic_date": "9 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:56",
+          "sun_rise": "7:32",
+          "dhur": "12:50",
+          "asr": "4:05",
+          "maghrib_adhaan": "6:00",
+          "isha": "7:23"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:02",
+          "isha": null
+        }
+      },
+      {
+        "date": "21",
+        "day": "Wed",
+        "islamic_date": "10 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:57",
+          "sun_rise": "7:34",
+          "dhur": "12:49",
+          "asr": "4:03",
+          "maghrib_adhaan": "5:58",
+          "isha": "7:23"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "6:00",
+          "isha": null
+        }
+      },
+      {
+        "date": "22",
+        "day": "Thur",
+        "islamic_date": "11 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:59",
+          "sun_rise": "7:36",
+          "dhur": "12:49",
+          "asr": "4:02",
+          "maghrib_adhaan": "5:56",
+          "isha": "7:21"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:58",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Fri",
+        "islamic_date": "12 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:59",
+          "sun_rise": "7:37",
+          "dhur": "12:49",
+          "asr": "4:00",
+          "maghrib_adhaan": "5:54",
+          "isha": "7:19"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "1:30",
+          "asr": "4:15",
+          "maghrib": "5:56",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "24",
+        "day": "Sat",
+        "islamic_date": "13 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "6:01",
+          "sun_rise": "7:39",
+          "dhur": "12:49",
+          "asr": "3:58",
+          "maghrib_adhaan": "5:52",
+          "isha": "7:17"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "5:54",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Sun",
+        "islamic_date": "14 Jamadi-Ul-Ula (BST Ends)",
+        "beginning_times": {
+          "subha_sadiq": "5:03",
+          "sun_rise": "6:41",
+          "dhur": "11:49",
+          "asr": "2:56",
+          "maghrib_adhaan": "4:50",
+          "isha": "6:17"
+        },
+        "jamaat_times": {
+          "fajr": "6:00",
+          "dhur_jumua": "1:00",
+          "asr": "3:15",
+          "maghrib": "4:52",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Mon",
+        "islamic_date": "15 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:04",
+          "sun_rise": "6:43",
+          "dhur": "11:49",
+          "asr": "2:54",
+          "maghrib_adhaan": "4:48",
+          "isha": "6:15"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:50",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Tues",
+        "islamic_date": "16 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:05",
+          "sun_rise": "6:44",
+          "dhur": "11:49",
+          "asr": "2:52",
+          "maghrib_adhaan": "4:46",
+          "isha": "6:13"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:48",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Wed",
+        "islamic_date": "17 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:07",
+          "sun_rise": "6:46",
+          "dhur": "11:49",
+          "asr": "2:51",
+          "maghrib_adhaan": "4:44",
+          "isha": "6:11"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:46",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Thur",
+        "islamic_date": "18 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:08",
+          "sun_rise": "6:48",
+          "dhur": "11:48",
+          "asr": "2:49",
+          "maghrib_adhaan": "4:42",
+          "isha": "6:09"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:44",
+          "isha": null
+        }
+      },
+      {
+        "date": "30",
+        "day": "Fri",
+        "islamic_date": "19 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:10",
+          "sun_rise": "6:50",
+          "dhur": "11:48",
+          "asr": "2:47",
+          "maghrib_adhaan": "4:40",
+          "isha": "6:07"
+        },
+        "jamaat_times": {
+          "fajr": "6:15",
+          "dhur_jumua": "12:45",
+          "asr": "3:00",
+          "maghrib": "4:42",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "31",
+        "day": "Sat",
+        "islamic_date": "20 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:12",
+          "sun_rise": "6:52",
+          "dhur": "11:48",
+          "asr": "2:45",
+          "maghrib_adhaan": "4:38",
+          "isha": "6:05"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:40",
+          "isha": "6:30"
+        }
+      }
+    ],
+    "november": [
+      {
+        "date": "01",
+        "day": "Sun",
+        "islamic_date": "21 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:13",
+          "sun_rise": "6:53",
+          "dhur": "11:48",
+          "asr": "2:44",
+          "maghrib_adhaan": "4:37",
+          "isha": "6:05"
+        },
+        "jamaat_times": {
+          "fajr": "6:15",
+          "dhur_jumua": "1:00",
+          "asr": "3:00",
+          "maghrib": "4:39",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Mon",
+        "islamic_date": "22 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:15",
+          "sun_rise": "6:55",
+          "dhur": "11:48",
+          "asr": "2:42",
+          "maghrib_adhaan": "4:35",
+          "isha": "6:03"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:37",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "03",
+        "day": "Tues",
+        "islamic_date": "23 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:17",
+          "sun_rise": "6:57",
+          "dhur": "11:48",
+          "asr": "2:40",
+          "maghrib_adhaan": "4:33",
+          "isha": "6:02"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:35",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Wed",
+        "islamic_date": "24 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:18",
+          "sun_rise": "6:59",
+          "dhur": "11:48",
+          "asr": "2:39",
+          "maghrib_adhaan": "4:31",
+          "isha": "6:00"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:33",
+          "isha": null
+        }
+      },
+      {
+        "date": "05",
+        "day": "Thur",
+        "islamic_date": "25 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:19",
+          "sun_rise": "7:00",
+          "dhur": "11:48",
+          "asr": "2:37",
+          "maghrib_adhaan": "4:30",
+          "isha": "6:00"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:32",
+          "isha": null
+        }
+      },
+      {
+        "date": "06",
+        "day": "Fri",
+        "islamic_date": "26 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:21",
+          "sun_rise": "7:02",
+          "dhur": "11:48",
+          "asr": "2:36",
+          "maghrib_adhaan": "4:28",
+          "isha": "5:58"
+        },
+        "jamaat_times": {
+          "fajr": "6:30",
+          "dhur_jumua": "12:45",
+          "asr": "2:45",
+          "maghrib": "4:30",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "07",
+        "day": "Sat",
+        "islamic_date": "27 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:22",
+          "sun_rise": "7:04",
+          "dhur": "11:48",
+          "asr": "2:34",
+          "maghrib_adhaan": "4:26",
+          "isha": "5:57"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:28",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "08",
+        "day": "Sun",
+        "islamic_date": "28 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:24",
+          "sun_rise": "7:06",
+          "dhur": "11:48",
+          "asr": "2:33",
+          "maghrib_adhaan": "4:25",
+          "isha": "5:56"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:27",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "09",
+        "day": "Mon",
+        "islamic_date": "29 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:25",
+          "sun_rise": "7:07",
+          "dhur": "11:49",
+          "asr": "2:31",
+          "maghrib_adhaan": "4:23",
+          "isha": "5:55"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:25",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "10",
+        "day": "Tues",
+        "islamic_date": "30 Jamadi-Ul-Ula",
+        "beginning_times": {
+          "subha_sadiq": "5:26",
+          "sun_rise": "7:09",
+          "dhur": "11:49",
+          "asr": "2:30",
+          "maghrib_adhaan": "4:21",
+          "isha": "5:53"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:23",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Wed",
+        "islamic_date": "1 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:28",
+          "sun_rise": "7:11",
+          "dhur": "11:49",
+          "asr": "2:28",
+          "maghrib_adhaan": "4:20",
+          "isha": "5:52"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:22",
+          "isha": null
+        }
+      },
+      {
+        "date": "12",
+        "day": "Thur",
+        "islamic_date": "2 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:30",
+          "sun_rise": "7:13",
+          "dhur": "11:49",
+          "asr": "2:27",
+          "maghrib_adhaan": "4:18",
+          "isha": "5:50"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:20",
+          "isha": null
+        }
+      },
+      {
+        "date": "13",
+        "day": "Fri",
+        "islamic_date": "3 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:30",
+          "sun_rise": "7:14",
+          "dhur": "11:49",
+          "asr": "2:25",
+          "maghrib_adhaan": "4:17",
+          "isha": "5:50"
+        },
+        "jamaat_times": {
+          "fajr": "6:30",
+          "dhur_jumua": "12:45",
+          "asr": "2:45",
+          "maghrib": "4:19",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "14",
+        "day": "Sat",
+        "islamic_date": "4 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:32",
+          "sun_rise": "7:16",
+          "dhur": "11:49",
+          "asr": "2:24",
+          "maghrib_adhaan": "4:16",
+          "isha": "5:49"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:18",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "15",
+        "day": "Sun",
+        "islamic_date": "5 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:34",
+          "sun_rise": "7:18",
+          "dhur": "11:49",
+          "asr": "2:23",
+          "maghrib_adhaan": "4:14",
+          "isha": "5:47"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:16",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "16",
+        "day": "Mon",
+        "islamic_date": "6 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:35",
+          "sun_rise": "7:20",
+          "dhur": "11:50",
+          "asr": "2:21",
+          "maghrib_adhaan": "4:13",
+          "isha": "5:46"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:15",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "17",
+        "day": "Tues",
+        "islamic_date": "7 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:36",
+          "sun_rise": "7:21",
+          "dhur": "11:50",
+          "asr": "2:20",
+          "maghrib_adhaan": "4:12",
+          "isha": "5:46"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:14",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Wed",
+        "islamic_date": "8 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:38",
+          "sun_rise": "7:23",
+          "dhur": "11:50",
+          "asr": "2:19",
+          "maghrib_adhaan": "4:10",
+          "isha": "5:44"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:12",
+          "isha": null
+        }
+      },
+      {
+        "date": "19",
+        "day": "Thur",
+        "islamic_date": "9 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:40",
+          "sun_rise": "7:25",
+          "dhur": "11:50",
+          "asr": "2:18",
+          "maghrib_adhaan": "4:09",
+          "isha": "5:43"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:11",
+          "isha": null
+        }
+      },
+      {
+        "date": "20",
+        "day": "Fri",
+        "islamic_date": "10 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:41",
+          "sun_rise": "7:26",
+          "dhur": "11:50",
+          "asr": "2:17",
+          "maghrib_adhaan": "4:08",
+          "isha": "5:42"
+        },
+        "jamaat_times": {
+          "fajr": "6:45",
+          "dhur_jumua": "12:45",
+          "asr": "2:45",
+          "maghrib": "4:10",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "21",
+        "day": "Sat",
+        "islamic_date": "11 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:43",
+          "sun_rise": "7:28",
+          "dhur": "11:51",
+          "asr": "2:16",
+          "maghrib_adhaan": "4:07",
+          "isha": "5:42"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:09",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "22",
+        "day": "Sun",
+        "islamic_date": "12 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:45",
+          "sun_rise": "7:30",
+          "dhur": "11:51",
+          "asr": "2:15",
+          "maghrib_adhaan": "4:06",
+          "isha": "5:41"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:08",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "23",
+        "day": "Mon",
+        "islamic_date": "13 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:46",
+          "sun_rise": "7:31",
+          "dhur": "11:51",
+          "asr": "2:14",
+          "maghrib_adhaan": "4:05",
+          "isha": "5:40"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:07",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "24",
+        "day": "Tues",
+        "islamic_date": "14 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:48",
+          "sun_rise": "7:33",
+          "dhur": "11:51",
+          "asr": "2:13",
+          "maghrib_adhaan": "4:04",
+          "isha": "5:39"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:06",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Wed",
+        "islamic_date": "15 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:49",
+          "sun_rise": "7:34",
+          "dhur": "11:52",
+          "asr": "2:12",
+          "maghrib_adhaan": "4:03",
+          "isha": "5:39"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:05",
+          "isha": null
+        }
+      },
+      {
+        "date": "26",
+        "day": "Thur",
+        "islamic_date": "16 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:51",
+          "sun_rise": "7:36",
+          "dhur": "11:52",
+          "asr": "2:11",
+          "maghrib_adhaan": "4:02",
+          "isha": "5:38"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:04",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Fri",
+        "islamic_date": "17 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:52",
+          "sun_rise": "7:37",
+          "dhur": "11:52",
+          "asr": "2:10",
+          "maghrib_adhaan": "4:01",
+          "isha": "5:37"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "2:45",
+          "maghrib": "4:03",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "28",
+        "day": "Sat",
+        "islamic_date": "18 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:54",
+          "sun_rise": "7:39",
+          "dhur": "11:53",
+          "asr": "2:10",
+          "maghrib_adhaan": "4:00",
+          "isha": "5:36"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:02",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "29",
+        "day": "Sun",
+        "islamic_date": "19 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:55",
+          "sun_rise": "7:40",
+          "dhur": "11:53",
+          "asr": "2:09",
+          "maghrib_adhaan": "3:59",
+          "isha": "5:36"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:01",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "30",
+        "day": "Mon",
+        "islamic_date": "20 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:57",
+          "sun_rise": "7:42",
+          "dhur": "11:53",
+          "asr": "2:08",
+          "maghrib_adhaan": "3:59",
+          "isha": "5:36"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:01",
+          "isha": "7:30"
+        }
+      }
+    ],
+    "december": [
+      {
+        "date": "01",
+        "day": "Tues",
+        "islamic_date": "21 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "5:58",
+          "sun_rise": "7:43",
+          "dhur": "11:54",
+          "asr": "2:08",
+          "maghrib_adhaan": "3:58",
+          "isha": "5:35"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "1:00",
+          "asr": "2:45",
+          "maghrib": "4:00",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "02",
+        "day": "Wed",
+        "islamic_date": "22 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "6:00",
+          "sun_rise": "7:45",
+          "dhur": "11:54",
+          "asr": "2:07",
+          "maghrib_adhaan": "3:57",
+          "isha": "5:34"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "03",
+        "day": "Thur",
+        "islamic_date": "23 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "6:01",
+          "sun_rise": "7:46",
+          "dhur": "11:55",
+          "asr": "2:07",
+          "maghrib_adhaan": "3:57",
+          "isha": "5:34"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "04",
+        "day": "Fri",
+        "islamic_date": "24 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "6:02",
+          "sun_rise": "7:47",
+          "dhur": "11:55",
+          "asr": "2:06",
+          "maghrib_adhaan": "3:56",
+          "isha": "5:33"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "2:45",
+          "maghrib": "3:58",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "05",
+        "day": "Sat",
+        "islamic_date": "25 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "6:04",
+          "sun_rise": "7:49",
+          "dhur": "11:55",
+          "asr": "2:06",
+          "maghrib_adhaan": "3:56",
+          "isha": "5:33"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "3:58",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "06",
+        "day": "Sun",
+        "islamic_date": "26 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "6:05",
+          "sun_rise": "7:50",
+          "dhur": "11:56",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:55",
+          "isha": "5:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:57",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "07",
+        "day": "Mon",
+        "islamic_date": "27 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "6:06",
+          "sun_rise": "7:51",
+          "dhur": "11:56",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:55",
+          "isha": "5:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:57",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "08",
+        "day": "Tues",
+        "islamic_date": "28 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "6:07",
+          "sun_rise": "7:52",
+          "dhur": "11:57",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:55",
+          "isha": "5:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:57",
+          "isha": null
+        }
+      },
+      {
+        "date": "09",
+        "day": "Wed",
+        "islamic_date": "29 Jamadi-Ul-Ukhra",
+        "beginning_times": {
+          "subha_sadiq": "6:08",
+          "sun_rise": "7:53",
+          "dhur": "11:57",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:55",
+          "isha": "5:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:57",
+          "isha": null
+        }
+      },
+      {
+        "date": "10",
+        "day": "Thur",
+        "islamic_date": "1 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:09",
+          "sun_rise": "7:54",
+          "dhur": "11:58",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:54",
+          "isha": "5:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:56",
+          "isha": null
+        }
+      },
+      {
+        "date": "11",
+        "day": "Fri",
+        "islamic_date": "2 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:10",
+          "sun_rise": "7:55",
+          "dhur": "11:58",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:54",
+          "isha": "5:31"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "2:45",
+          "maghrib": "3:56",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "12",
+        "day": "Sat",
+        "islamic_date": "3 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:11",
+          "sun_rise": "7:56",
+          "dhur": "11:58",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:54",
+          "isha": "5:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "3:56",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "13",
+        "day": "Sun",
+        "islamic_date": "4 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:12",
+          "sun_rise": "7:57",
+          "dhur": "11:59",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:54",
+          "isha": "5:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:56",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "14",
+        "day": "Mon",
+        "islamic_date": "5 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:13",
+          "sun_rise": "7:58",
+          "dhur": "11:59",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:54",
+          "isha": "5:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:56",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "15",
+        "day": "Tues",
+        "islamic_date": "6 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:14",
+          "sun_rise": "7:59",
+          "dhur": "12:00",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:54",
+          "isha": "5:31"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:56",
+          "isha": null
+        }
+      },
+      {
+        "date": "16",
+        "day": "Wed",
+        "islamic_date": "7 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:16",
+          "sun_rise": "8:00",
+          "dhur": "12:00",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:55",
+          "isha": "5:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:57",
+          "isha": null
+        }
+      },
+      {
+        "date": "17",
+        "day": "Thur",
+        "islamic_date": "8 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:17",
+          "sun_rise": "8:01",
+          "dhur": "12:01",
+          "asr": "2:05",
+          "maghrib_adhaan": "3:55",
+          "isha": "5:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:57",
+          "isha": null
+        }
+      },
+      {
+        "date": "18",
+        "day": "Fri",
+        "islamic_date": "9 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:17",
+          "sun_rise": "8:01",
+          "dhur": "12:01",
+          "asr": "2:06",
+          "maghrib_adhaan": "3:55",
+          "isha": "5:32"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "2:45",
+          "maghrib": "3:57",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "19",
+        "day": "Sat",
+        "islamic_date": "10 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:18",
+          "sun_rise": "8:02",
+          "dhur": "12:02",
+          "asr": "2:06",
+          "maghrib_adhaan": "3:55",
+          "isha": "5:32"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "3:57",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "20",
+        "day": "Sun",
+        "islamic_date": "11 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:20",
+          "sun_rise": "8:03",
+          "dhur": "12:02",
+          "asr": "2:06",
+          "maghrib_adhaan": "3:56",
+          "isha": "5:33"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:58",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "21",
+        "day": "Mon",
+        "islamic_date": "12 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:20",
+          "sun_rise": "8:03",
+          "dhur": "12:03",
+          "asr": "2:07",
+          "maghrib_adhaan": "3:56",
+          "isha": "5:33"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:58",
+          "isha": "7:30"
+        }
+      },
+      {
+        "date": "22",
+        "day": "Tues",
+        "islamic_date": "13 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:21",
+          "sun_rise": "8:04",
+          "dhur": "12:03",
+          "asr": "2:07",
+          "maghrib_adhaan": "3:57",
+          "isha": "5:34"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "23",
+        "day": "Wed",
+        "islamic_date": "14 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:21",
+          "sun_rise": "8:04",
+          "dhur": "12:04",
+          "asr": "2:08",
+          "maghrib_adhaan": "3:57",
+          "isha": "5:34"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "3:59",
+          "isha": null
+        }
+      },
+      {
+        "date": "24",
+        "day": "Thur",
+        "islamic_date": "15 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:22",
+          "sun_rise": "8:05",
+          "dhur": "12:04",
+          "asr": "2:09",
+          "maghrib_adhaan": "3:58",
+          "isha": "5:35"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:00",
+          "isha": null
+        }
+      },
+      {
+        "date": "25",
+        "day": "Fri",
+        "islamic_date": "16 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:22",
+          "sun_rise": "8:05",
+          "dhur": "12:05",
+          "asr": "2:09",
+          "maghrib_adhaan": "3:59",
+          "isha": "5:36"
+        },
+        "jamaat_times": {
+          "fajr": "7:00",
+          "dhur_jumua": "12:45",
+          "asr": "2:45",
+          "maghrib": "4:01",
+          "isha": "6:30"
+        }
+      },
+      {
+        "date": "26",
+        "day": "Sat",
+        "islamic_date": "17 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:24",
+          "sun_rise": "8:05",
+          "dhur": "12:05",
+          "asr": "2:10",
+          "maghrib_adhaan": "3:59",
+          "isha": "5:36"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": "1:00",
+          "asr": null,
+          "maghrib": "4:01",
+          "isha": null
+        }
+      },
+      {
+        "date": "27",
+        "day": "Sun",
+        "islamic_date": "18 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:24",
+          "sun_rise": "8:05",
+          "dhur": "12:06",
+          "asr": "2:11",
+          "maghrib_adhaan": "4:00",
+          "isha": "5:37"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:02",
+          "isha": null
+        }
+      },
+      {
+        "date": "28",
+        "day": "Mon",
+        "islamic_date": "19 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:25",
+          "sun_rise": "8:06",
+          "dhur": "12:06",
+          "asr": "2:11",
+          "maghrib_adhaan": "4:01",
+          "isha": "5:38"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:03",
+          "isha": null
+        }
+      },
+      {
+        "date": "29",
+        "day": "Tues",
+        "islamic_date": "20 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:26",
+          "sun_rise": "8:06",
+          "dhur": "12:07",
+          "asr": "2:12",
+          "maghrib_adhaan": "4:02",
+          "isha": "5:39"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:04",
+          "isha": null
+        }
+      },
+      {
+        "date": "30",
+        "day": "Wed",
+        "islamic_date": "21 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:26",
+          "sun_rise": "8:06",
+          "dhur": "12:07",
+          "asr": "2:13",
+          "maghrib_adhaan": "4:03",
+          "isha": "5:40"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:05",
+          "isha": null
+        }
+      },
+      {
+        "date": "31",
+        "day": "Thur",
+        "islamic_date": "22 Rajab",
+        "beginning_times": {
+          "subha_sadiq": "6:26",
+          "sun_rise": "8:06",
+          "dhur": "12:08",
+          "asr": "2:14",
+          "maghrib_adhaan": "4:04",
+          "isha": "5:41"
+        },
+        "jamaat_times": {
+          "fajr": null,
+          "dhur_jumua": null,
+          "asr": null,
+          "maghrib": "4:06",
+          "isha": null
+        }
+      }
+    ]
+  }
+}

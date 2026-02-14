@@ -101,8 +101,8 @@ export default function DonationToast() {
                   to {getDonationLabel(donation.donationType)}
                 </div>
                 <div className="self-stretch inline-flex justify-start items-center gap-1.5 mt-1">
-                  <div className="w-5 h-3.5 relative shadow-sm rounded-sm overflow-hidden">
-                    {/* British Flag / Union Jack SVG */}
+                  {/* <div className="w-5 h-3.5 relative shadow-sm rounded-sm overflow-hidden">
+                   
                     <svg viewBox="0 0 60 30" className="w-full h-full">
                       <clipPath id="t">
                         <path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z" />
@@ -130,7 +130,7 @@ export default function DonationToast() {
                         strokeWidth="6"
                       />
                     </svg>
-                  </div>
+                  </div> */}
                   <div className="text-slate-500 text-xs font-normal font-['Inter'] leading-4">
                     {donation.city}, {donation.country}
                   </div>

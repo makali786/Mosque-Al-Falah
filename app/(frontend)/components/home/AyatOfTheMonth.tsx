@@ -1,8 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
+import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import AudioPlayer from '../common/AudioPlayer';
+import { useMediaPlayer } from '../common/MediaPlayerContext';
 import ViewToggleButtons from '../common/ViewToggleButtons';
 
 interface Ayat {
@@ -24,6 +27,18 @@ export default function AyatOfTheMonth({
   ayatOfTheMonth: Ayat[];
 }) {
   const [viewMode, setViewMode] = useState<ViewMode>('default');
+  const sectionRef = useRef<HTMLElement>(null);
+  const { play, setShowMiniPlayer, mediaData, stop } = useMediaPlayer();
+  const isInView = useIntersectionObserver(sectionRef, { threshold: 0.3 });
+
+  // Handle scroll detection - show mini player when section is out of view and media is playing
+  useEffect(() => {
+    if (viewMode !== 'default' && !isInView) {
+      setShowMiniPlayer(true);
+    } else if (isInView) {
+      setShowMiniPlayer(false);
+    }
+  }, [isInView, viewMode, setShowMiniPlayer]);
 
   // Helper function to convert YouTube and Vimeo URLs to embed format
   const getEmbedUrl = (url: string) => {
@@ -74,7 +89,11 @@ export default function AyatOfTheMonth({
   const embedUrl = getEmbedUrl(videoUrl);
 
   return (
-    <section className="relative w-full py-8 pb-32 px-4 sm:py-18 sm:px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-112.5 sm:min-h-197.75">
+    <section
+      ref={sectionRef}
+      id="ayat-of-the-month"
+      className="relative w-full py-8 pb-32 px-4 sm:py-18 sm:px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-112.5 sm:min-h-197.75"
+    >
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 pointer-events-none">
         <Image
@@ -88,6 +107,22 @@ export default function AyatOfTheMonth({
 
       {/* Content Container */}
       <div className="relative z-10 w-full max-w-78 sm:max-w-178.5 flex flex-col items-center gap-4.5 sm:gap-12">
+        {/* Back Button (show in video/audio views) - Positioned at top outside player content */}
+        {viewMode !== 'default' && (
+          <div className="w-full flex justify-center">
+            <button
+              onClick={() => {
+                setViewMode('default');
+                stop();
+              }}
+              className="bg-white/90 hover:bg-white text-gray-900 px-6 py-3 rounded-lg text-base font-medium transition-all shadow-lg hover:shadow-xl flex items-center gap-2 cursor-pointer"
+            >
+              <FaArrowLeft size={16} />
+              <span>Back to Ayat</span>
+            </button>
+          </div>
+        )}
+
         {viewMode === 'default' && (
           <>
             {/* Default View - Arabic Calligraphy & Quote */}
@@ -137,11 +172,11 @@ export default function AyatOfTheMonth({
         {viewMode === 'video' && (
           <>
             {/* Video View */}
-            <p className="text-base sm:text-lg font-medium text-white leading-4 sm:leading-7">
+            <p className="text-base sm:text-lg font-medium text-white leading-4 sm:leading-7 text-center">
               AYAT OF THE MONTH
             </p>
 
-            <div className="flex flex-col gap-4 sm:gap-6.25 w-full max-w-full sm:max-w-[735.5px]">
+            <div className="flex flex-col items-center gap-4 sm:gap-6.25 w-full max-w-full sm:max-w-[735.5px]">
               <h3 className="text-xl sm:text-4xl font-bold text-white leading-7 sm:leading-13 text-center overflow-hidden text-ellipsis whitespace-nowrap px-4">
                 {videoTitle}
               </h3>
@@ -209,25 +244,28 @@ export default function AyatOfTheMonth({
         <ViewToggleButtons
           onAudioClick={() => {
             setViewMode('audio');
+            play({
+              type: 'audio',
+              url: fullAudioUrl,
+              title: videoTitle || 'AYAT OF THE MONTH',
+              citation: citation,
+              arabicImage: arabicImage || undefined,
+            });
           }}
           onVideoClick={() => {
             setViewMode('video');
+            play({
+              type: 'video',
+              url: videoUrl,
+              title: videoTitle || 'AYAT OF THE MONTH',
+              citation: citation,
+            });
           }}
           className="absolute bottom-10 right-4 sm:right-8 lg:right-40.25 sm:bottom-26.75 z-20"
         />
       )}
 
-      {/* Back Button (show in video/audio views) */}
-      {viewMode !== 'default' && (
-        <button
-          onClick={() => {
-            setViewMode('default');
-          }}
-          className="absolute sm:top-4 top-2 sm:right-4 right-2 z-20 bg-white/20 hover:bg-white/30 text-white sm:px-4 px-3 sm:py-2 py-1.5 sm:rounded-lg rounded-md sm:text-base text-sm transition-colors cursor-pointer"
-        >
-          Back
-        </button>
-      )}
+      {/* Back Button moved to top - see line ~113 */}
     </section>
   );
 }

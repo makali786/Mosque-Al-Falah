@@ -104,15 +104,6 @@ const PrayerTimesCalendar = ({
       const isFriday = date.getDay() === 5;
       const isToday = pt.date.split('T')[0] === todayStr;
 
-      // Parse hijri date "1 12 1441446" -> day: 1, month: 12, year: 1441446
-      const hijriParts = pt.hijriDate
-        ? pt.hijriDate.trim().split(' ')
-        : ['1', '1', '1446'];
-      const islamicDate = parseInt(hijriParts[0]) || 1;
-      const islamicMonth = parseInt(hijriParts[1]) || 1;
-      const islamicYear = hijriParts[2] || '1446';
-
-      // Get hijri month name
       const hijriMonths = [
         'Muharram',
         'Safar',
@@ -127,7 +118,57 @@ const PrayerTimesCalendar = ({
         'Dhul-Qadah',
         'Dhul-Hijjah',
       ];
-      const hijriMonthName = hijriMonths[islamicMonth - 1] || '';
+
+      // Parse hijri date "1 12 1446" -> day: 1, month: 12, year: 1446
+      // OR "1 Ramadhan" -> day: 1, month: "Ramadhan", year: ?
+      const hijriParts = pt.hijriDate
+        ? pt.hijriDate.trim().split(' ')
+        : ['1', '1', '1446'];
+
+      const islamicDate = parseInt(hijriParts[0]) || 1;
+      let islamicMonth = 1;
+      let hijriMonthName = '';
+
+      // Check if the second part is a number or string
+      const monthPart = hijriParts[1];
+      const parsedMonth = parseInt(monthPart);
+
+      if (!isNaN(parsedMonth)) {
+        // It's a number (1-12)
+        islamicMonth = parsedMonth;
+        hijriMonthName = hijriMonths[islamicMonth - 1] || '';
+      } else {
+        // It's a string (e.g., "Ramadhan")
+        // Try to match with hijriMonths array or just use it as is
+        // Normalize for comparison
+        const normalizedMonth = monthPart ? monthPart.toLowerCase() : '';
+
+        // Map common variations if needed, or just find in array
+        const foundIndex = hijriMonths.findIndex(
+          m =>
+            m.toLowerCase() === normalizedMonth ||
+            (normalizedMonth === 'ramadhan' && m === 'Ramadan') // Handle spelling diff
+        );
+
+        if (foundIndex !== -1) {
+          islamicMonth = foundIndex + 1;
+          hijriMonthName = hijriMonths[foundIndex];
+        } else {
+          // If not found in our list, use the string directly (e.g. from JSON)
+          hijriMonthName = monthPart || '';
+          // Try to guess index if simple string match failed?
+          // For now, if it's "Ramadhan", we want to ensure we flag it as Ramadan for styling
+          if (
+            hijriMonthName.toLowerCase().includes('ramada') ||
+            hijriMonthName.toLowerCase().includes('ramaha')
+          ) {
+            // Force standard name for comparison logic later
+            hijriMonthName = 'Ramadan';
+          }
+        }
+      }
+
+      const islamicYear = hijriParts[2] || '1446';
 
       // Get Jumu'ah time from settings
       const jumuahTime = settings?.jumuahSettings?.iqamahTime || null;
@@ -582,10 +623,10 @@ export default function PrayerTimesSection({
   }, [currentDate, activeTab, onYearChange]);
 
   return (
-    <section className="w-full section-padding py-8 lg:pb-24">
+    <section className="w-full section-padding-prayer py-8 lg:pb-24">
       {/* Main Content Area */}
       {activeTab === 'prayer-time' ? (
-        <div className="flex flex-col xl:flex-row gap-0 xl:gap-12 mb-8 xl:mb-16">
+        <div className="flex flex-col justify-between xl:flex-row gap-0 xl:gap-12 mb-8 xl:mb-16">
           {/* Left side - Image with countdown */}
           <div className="h-105 xl:h-152.25 w-full xl:max-w-136 relative overflow-hidden rounded-t-[12px] rounded-b-none xl:rounded-xl">
             <Image

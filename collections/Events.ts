@@ -1,5 +1,5 @@
-import type { CollectionConfig } from 'payload';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
+import type { CollectionConfig } from 'payload';
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -54,9 +54,7 @@ export const Events: CollectionConfig = {
         return data;
       },
     ],
-    afterChange: [
-      createNewsletterHook('event', 'isPublished'),
-    ],
+    afterChange: [createNewsletterHook('event', 'isPublished')],
   },
   fields: [
     // ============================================================================
@@ -135,6 +133,118 @@ export const Events: CollectionConfig = {
     },
 
     // ============================================================================
+    // Event Recurrence
+    // ============================================================================
+    {
+      name: 'recurrence',
+      type: 'group',
+      label: 'Event Recurrence',
+      fields: [
+        {
+          name: 'isRecurring',
+          type: 'checkbox',
+          defaultValue: false,
+          label: 'Recurring Event',
+          admin: {
+            description: 'Enable if this event repeats on a schedule',
+          },
+        },
+        {
+          name: 'frequency',
+          type: 'select',
+          options: [
+            { label: 'Weekly', value: 'weekly' },
+            { label: 'Monthly', value: 'monthly' },
+          ],
+          label: 'Repeat Frequency',
+          admin: {
+            condition: (data, siblingData) => siblingData?.isRecurring,
+            description: 'How often the event repeats',
+          },
+        },
+        {
+          name: 'weeklyPattern',
+          type: 'select',
+          options: [
+            { label: 'Sunday', value: '0' },
+            { label: 'Monday', value: '1' },
+            { label: 'Tuesday', value: '2' },
+            { label: 'Wednesday', value: '3' },
+            { label: 'Thursday', value: '4' },
+            { label: 'Friday', value: '5' },
+            { label: 'Saturday', value: '6' },
+          ],
+          hasMany: true,
+          label: 'Days of Week',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.isRecurring && siblingData?.frequency === 'weekly',
+            description: 'Select which days of the week the event repeats',
+          },
+        },
+        {
+          name: 'monthlyDay',
+          type: 'number',
+          min: 1,
+          max: 31,
+          label: 'Day of Month',
+          admin: {
+            description: 'Which day of the month (1-31)',
+            condition: (data, siblingData) =>
+              siblingData?.isRecurring && siblingData?.frequency === 'monthly',
+          },
+        },
+        {
+          name: 'recurrenceEnd',
+          type: 'group',
+          label: 'Recurrence End',
+          admin: {
+            condition: (data, siblingData) => siblingData?.isRecurring,
+            description: 'When should the recurring event stop',
+          },
+          fields: [
+            {
+              name: 'type',
+              type: 'select',
+              options: [
+                {
+                  label: 'No end date (continues indefinitely)',
+                  value: 'never',
+                },
+                { label: 'End on a specific date', value: 'date' },
+                { label: 'End after a number of occurrences', value: 'count' },
+              ],
+              defaultValue: 'never',
+              label: 'End Type',
+            },
+            {
+              name: 'endDate',
+              type: 'date',
+              label: 'End Date',
+              admin: {
+                date: {
+                  pickerAppearance: 'dayOnly',
+                },
+                condition: (data, siblingData) => siblingData?.type === 'date',
+                description: 'Last date the event will occur',
+              },
+            },
+            {
+              name: 'occurrences',
+              type: 'number',
+              min: 1,
+              label: 'Number of Occurrences',
+              admin: {
+                condition: (data, siblingData) => siblingData?.type === 'count',
+                description: 'How many times the event will repeat',
+              },
+            },
+          ],
+        },
+      ],
+    },
+
+    // ============================================================================
     // Platform & Format
     // ============================================================================
     {
@@ -183,7 +293,8 @@ export const Events: CollectionConfig = {
           relationTo: 'locations',
           label: 'Select Preset Location',
           admin: {
-            description: 'Select a saved location to autofill the details below',
+            description:
+              'Select a saved location to autofill the details below',
           },
         },
         {
@@ -225,7 +336,8 @@ export const Events: CollectionConfig = {
           name: 'googleMapsLink',
           type: 'text',
           label: 'Google Maps Link',
-          defaultValue: 'https://www.google.com/maps/place/London+Central+Mosque/@51.6041892,-0.1691641,29353m/data=!3m1!1e3!4m10!1m2!2m1!1slondon+mosque!3m6!1s0x48761b2558395ef3:0x124e691956844ac2!8m2!3d51.528938!4d-0.1650437!15sCg1sb25kb24gbW9zcXVlWg8iDWxvbmRvbiBtb3NxdWWSAQZtb3NxdWWaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVTlhiRFJ5Y2s5M0VBReABAPoBBAgVEEI!16zL20vMDU3ODAz?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D',
+          defaultValue:
+            'https://www.google.com/maps/place/London+Central+Mosque/@51.6041892,-0.1691641,29353m/data=!3m1!1e3!4m10!1m2!2m1!1slondon+mosque!3m6!1s0x48761b2558395ef3:0x124e691956844ac2!8m2!3d51.528938!4d-0.1650437!15sCg1sb25kb24gbW9zcXVlWg8iDWxvbmRvbiBtb3NxdWWSAQZtb3NxdWWaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVTlhiRFJ5Y2s5M0VBReABAPoBBAgVEEI!16zL20vMDU3ODAz?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D',
         },
       ],
     },
