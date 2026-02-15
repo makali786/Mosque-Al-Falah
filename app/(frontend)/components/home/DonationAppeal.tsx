@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
-import { getMediaUrl } from "../../../../lib/helper";
+import Image from 'next/image';
+import Link from 'next/link';
+import { getMediaUrl } from '../../../../lib/helper';
 
-import { Media } from "../../../../payload-types";
+import { Media } from '../../../../payload-types';
 
 interface DonationAppealData {
   title?: string;
@@ -21,25 +21,37 @@ interface DonationAppealData {
   };
 }
 
-export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal: (DonationAppealData & { id?: string })[] }) {
+export default function DonationAppeal({
+  donationAppeal = [],
+}: {
+  donationAppeal: (DonationAppealData & { id?: string })[];
+}) {
   if (!donationAppeal || donationAppeal.length === 0) return null;
   const appeal = donationAppeal[0];
 
-  const appealId = appeal.id || "";
-  const title = appeal.title || "";
-  const slug = appeal.slug || "";
-  const shortDescription = appeal.shortDescription || "";
-  const description = appeal.shortDescription || "";
+  const appealId = appeal.id || '';
+  const title = appeal.title || '';
+  const slug = appeal.slug || '';
+  const shortDescription = appeal.shortDescription || '';
+  const description = appeal.shortDescription || '';
 
   const target = appeal.funding?.targetAmount || 0;
   const funded = appeal.funding?.currentAmount || 0;
-  const progressPercentage = target > 0 ? Math.min((funded / target) * 100, 100) : 0;
+  const progressPercentage =
+    target > 0 ? Math.min((funded / target) * 100, 100) : 0;
   const donorsCount = appeal.funding?.totalDonors || 0;
 
   // Calculate days left
-  const endDate = appeal.timeline?.endDate ? new Date(appeal.timeline.endDate) : null;
+  const endDate = appeal.timeline?.endDate
+    ? new Date(appeal.timeline.endDate)
+    : null;
   const daysLeft = endDate
-    ? Math.max(0, Math.ceil((endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))
+    ? Math.max(
+        0,
+        Math.ceil(
+          (endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+        )
+      )
     : 0;
 
   const image1 = getMediaUrl(appeal.heroMedia?.heroImage);
@@ -51,8 +63,8 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
           className="absolute inset-0 opacity-30 pointer-events-none"
           style={{
             backgroundImage: "url('/assets/donation/pattern.png')",
-            backgroundRepeat: "repeat",
-            backgroundSize: "154px 154px",
+            backgroundRepeat: 'repeat',
+            backgroundSize: '154px 154px',
           }}
         />
 
@@ -96,21 +108,12 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
               <div className="absolute inset-0 overflow-hidden">
                 {/* Desktop Image with specific positioning */}
                 {image1 && (
-                  <div
-                    className="hidden lg:block absolute w-full max-w-none"
-                    style={{
-                      height: "178.24%",
-                      left: "-0.63%",
-                      top: "-70.34%",
-                    }}
-                  >
-                    <Image
-                      src={image1}
-                      alt={title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+                  <Image
+                    src={image1}
+                    alt={title}
+                    fill
+                    className="object-contain"
+                  />
                 )}
 
                 {/* Mobile Image - Standard Cover */}
@@ -124,31 +127,6 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
                     />
                   </div>
                 )}
-              </div>
-              <div
-                className="absolute inset-0 hidden lg:block"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(180.093deg, rgba(255, 255, 255, 0) 26.41%, rgb(232, 232, 232) 73.008%)",
-                }}
-              />
-              <div className="absolute inset-0 mix-blend-multiply overflow-hidden hidden lg:block">
-                <div
-                  className="absolute max-w-none"
-                  style={{
-                    height: "127.16%",
-                    left: "-16.04%",
-                    top: "41.98%",
-                    width: "177.58%",
-                  }}
-                >
-                  <Image
-                    src="/assets/donation/donation-image-2.png"
-                    alt=""
-                    fill
-                    className="object-cover"
-                  />
-                </div>
               </div>
             </div>
 
@@ -248,7 +226,7 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
                 <div className="flex items-start gap-4 w-full lg:w-auto appeal-buttons">
                   {/* Learn More */}
                   <Link
-                    href={slug ? `/appeals/${slug}` : "/appeals"}
+                    href={slug ? `/appeals/${slug}` : '/appeals'}
                     className="flex-1 lg:flex-none h-12 px-6 bg-[#3f3f46] text-white rounded-xl flex items-center justify-center hover:bg-[#2f2f36] transition-colors"
                   >
                     <span className="text-sm sm:text-base font-normal text-white leading-6 whitespace-nowrap">
@@ -258,7 +236,7 @@ export default function DonationAppeal({ donationAppeal = [] }: { donationAppeal
 
                   {/* Donate Now */}
                   <Link
-                    href={appealId ? `/donate?appealId=${appealId}` : "/donate"}
+                    href={appealId ? `/donate?appealId=${appealId}` : '/donate'}
                     className="flex-1 lg:flex-none h-12 px-6 bg-[#006fee] text-white rounded-xl flex items-center justify-center hover:bg-[#0060d8] transition-colors"
                   >
                     <span className="text-sm sm:text-base font-normal text-white leading-6 whitespace-nowrap">

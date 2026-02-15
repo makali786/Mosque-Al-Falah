@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import { FiMap } from "react-icons/fi";
-import Image from "next/image";
+import Image from 'next/image';
+import React from 'react';
+import { FiMap } from 'react-icons/fi';
 
 interface EntranceSectionProps {
   title: string;
@@ -36,10 +36,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
       <div>
         {/* Hero Image */}
         <div className="hidden lg:block w-full mb-6 sm:mb-7 md:mb-8 lg:mb-10 overflow-hidden xl:w-[624px]">
-          <div
-            className="relative w-full"
-            style={{ aspectRatio: "624 / 380" }}
-          >
+          <div className="relative w-full" style={{ aspectRatio: '624 / 380' }}>
             <Image
               src={imageSrc}
               alt={imageAlt}
@@ -72,7 +69,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             {/* Get Directions Button - Blue */}
             <button
-              onClick={() => window.open(mapsUrl, "_blank")}
+              onClick={() => window.open(mapsUrl, '_blank')}
               className="inline-flex items-center justify-center gap-2 px-5 lg:px-3 xl:px-6 py-3 bg-[#006FEE33] text-[#006FEE] text-sm md:text-base cursor-pointer"
             >
               <FiMap className="w-[18px] h-[18px]" color="#006FEE" />
@@ -80,7 +77,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
             </button>
 
             {/* WhatsApp Group Button - Light Gray */}
-            {whatsappGroupLabel && (
+            {/* {whatsappGroupLabel && (
               <button
                 onClick={() =>
                   whatsappUrl ? window.open(whatsappUrl, "_blank") : null
@@ -97,7 +94,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
                   {whatsappGroupLabel}
                 </span>
               </button>
-            )}
+            )} */}
           </div>
         </div>
       </div>

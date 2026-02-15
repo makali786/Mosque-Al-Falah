@@ -24,13 +24,81 @@ export default function PlatformFeeSection({
     { percentage: 20, label: '20%' },
   ];
 
-  const handleOptionClick = (percentage: number) => {
-    onPlatformFeeChange(percentage > 0, percentage);
+  // Points configuration for the slider
+  // Visual % -> Value %
+  // 0 -> 0
+  // 25 -> 7.5
+  // 50 -> 12.5
+  // 75 -> 17.5
+  // 100 -> 20
+  const SLIDER_POINTS = [
+    { pos: 0, val: 0 },
+    { pos: 25, val: 7.5 },
+    { pos: 50, val: 12.5 },
+    { pos: 75, val: 17.5 },
+    { pos: 100, val: 20 },
+  ];
+
+  // Helper to get visual position (0-100) from fee value
+  const getPositionFromValue = (value: number) => {
+    // If value > max point, cap at 100 or extrapolate?
+    // Requirement is usually within this range for slider, custom for outside.
+    if (value >= 20) return 100;
+    if (value <= 0) return 0;
+
+    // Find the segment this value belongs to
+    for (let i = 0; i < SLIDER_POINTS.length - 1; i++) {
+      const p1 = SLIDER_POINTS[i];
+      const p2 = SLIDER_POINTS[i + 1];
+      if (value >= p1.val && value <= p2.val) {
+        // Interpolate
+        const rangeVal = p2.val - p1.val;
+        const rangePos = p2.pos - p1.pos;
+        const percentInRange = (value - p1.val) / rangeVal;
+        return p1.pos + percentInRange * rangePos;
+      }
+    }
+    return 0;
   };
+
+  // Helper to get fee value from visual position (0-100)
+  const getValueFromPosition = (pos: number) => {
+    if (pos >= 100) return 20;
+    if (pos <= 0) return 0;
+
+    for (let i = 0; i < SLIDER_POINTS.length - 1; i++) {
+      const p1 = SLIDER_POINTS[i];
+      const p2 = SLIDER_POINTS[i + 1];
+      if (pos >= p1.pos && pos <= p2.pos) {
+        // Interpolate
+        const rangePos = p2.pos - p1.pos;
+        const rangeVal = p2.val - p1.val;
+        const percentInRange = (pos - p1.pos) / rangePos;
+        const rawValue = p1.val + percentInRange * rangeVal;
+        // Return with 1 decimal place precision if needed, or raw
+        return Math.round(rawValue * 10) / 10;
+      }
+    }
+    return 0;
+  };
+
+  const sliderPosition = getPositionFromValue(platformFeePercentage);
+
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const visualPos = parseFloat(e.target.value);
+    const newValue = getValueFromPosition(visualPos);
+    onPlatformFeeChange(newValue > 0, newValue);
+  };
+
+  // Helper to determine if we are "on" a dot for styling (visually close)
+  // Check if current position is close to a standard dot position (within 2%)
+  const isNearDot = (pos: number, targetPos: number) =>
+    Math.abs(pos - targetPos) < 2;
 
   const handleCustomAmount = () => {
     const customPercentage = prompt(
-      'Enter custom platform fee percentage (0-100):'
+      'Enter custom platform fee percentage (0-100):',
+      platformFeePercentage.toString()
     );
     if (customPercentage !== null) {
       const percentage = parseFloat(customPercentage);
@@ -106,85 +174,106 @@ export default function PlatformFeeSection({
 
       {/* Right side - Slider and Controls */}
       <div className="flex flex-col gap-2 w-full md:w-[314px] h-[188px] items-center justify-end shrink-0">
-        {/* Slider with Tooltip */}
-        <div className="flex flex-col items-center justify-center w-full relative gap-2 px-0 py-[3px]">
-          {/* Slider control container */}
-          <div className="w-full relative flex flex-col items-start">
-            {/* Slider track with dots */}
-            <div className="bg-[#E4E4E7] rounded-full px-4 py-0.5 flex items-center justify-between w-full">
-              {[0, 1, 2, 3, 4].map(i => (
-                <button
-                  key={i}
-                  onClick={() => {
-                    const percentages = [0, 7.5, 12.5, 17.5, 20];
-                    handleOptionClick(percentages[i]);
-                  }}
-                  className="w-1 h-1 rounded-full shrink-0 cursor-pointer hover:scale-125 transition-transform"
-                  style={{
-                    backgroundColor:
-                      i === 2 && platformFeePercentage === 12.5
-                        ? '#F9C97C'
-                        : '#D4D4D8',
-                  }}
-                  aria-label={`Set platform fee to ${[0, 7.5, 12.5, 17.5, 20][i]}%`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* Tooltip and Thumb - Positioned absolutely */}
+        {/* Slider Container */}
+        <div className="flex flex-col items-center justify-center w-full relative h-24 mb-4">
+          {/* Tooltip - Absolute positioned above thumb */}
+          {/* Always visible or only when dragging? Requirement implies "professional", typically always visible or hover. 
+              Let's keep it visible since it shows the value. */}
           <div
-            className="absolute bottom-0 flex flex-col gap-2 items-center w-[124px]"
+            className="absolute z-20 flex flex-col items-center transition-all duration-75 ease-out pointer-events-none"
             style={{
-              left:
-                platformFeePercentage === 0
-                  ? '-44px'
-                  : platformFeePercentage === 7.5
-                    ? 'calc(25% - 62px)'
-                    : platformFeePercentage === 12.5
-                      ? 'calc(50% - 62px)'
-                      : platformFeePercentage === 17.5
-                        ? 'calc(75% - 62px)'
-                        : platformFeePercentage === 20
-                          ? 'calc(100% - 80px)'
-                          : 'calc(50% - 62px)',
+              left: `${sliderPosition}%`,
+              transform: `translateX(-50%)`,
+              bottom: '30px', // Lift above the track
+              opacity: 1,
             }}
           >
-            {/* Tooltip */}
-            <div className="flex flex-col items-center w-full relative">
-              {/* Arrow pointer */}
-              <div className="absolute -bottom-[12px] left-1/2 -translate-x-1/2 w-[14.142px] h-[14.142px] flex items-center justify-center">
-                <div className="w-[10px] h-[10px] bg-[#F5A524] rotate-45 rounded-[2px] shadow-[0px_0px_5px_0px_rgba(0,0,0,0.02),0px_2px_10px_0px_rgba(0,0,0,0.06),0px_0px_1px_0px_rgba(0,0,0,0.3)]" />
-              </div>
-
-              {/* Tooltip container */}
-              <div className="bg-[#FAFAFA] flex flex-col items-center justify-center rounded-lg shadow-[0px_0px_15px_0px_rgba(0,0,0,0.03),0px_2px_30px_0px_rgba(0,0,0,0.08),0px_0px_1px_0px_rgba(0,0,0,0.3)] mb-2 overflow-hidden">
-                {/* RECOMMENDED header - only show for 12.5% */}
-                {platformFeePercentage === 12.5 && (
-                  <div className="bg-[#F5A524] px-3 py-1 flex items-center justify-center w-full">
-                    <p className="text-xs font-normal leading-4 text-[#FAFAFA]">
+            {/* Tooltip Content */}
+            <div className="flex flex-col items-center w-[140px] relative filter drop-shadow-md">
+              <div className="bg-[#FAFAFA] w-full rounded-lg overflow-hidden flex flex-col items-center shadow-sm border border-gray-100">
+                {/* RECOMMENDED Badge - Show only near 50% (12.5% value) position */}
+                {isNearDot(sliderPosition, 50) && (
+                  <div className="bg-[#F5A524] w-full py-1 flex items-center justify-center">
+                    <p className="text-[10px] font-bold text-white tracking-wider">
                       RECOMMENDED
                     </p>
                   </div>
                 )}
-                {/* Percentage and Amount */}
-                <div className="flex items-center justify-center gap-2 px-2 py-1 text-sm font-normal leading-5 text-[#18181B] w-full">
-                  <span>{platformFeePercentage}%</span>
-                  <span className="text-[#52525B]">
-                    (£
-                    {((donationAmount * platformFeePercentage) / 100).toFixed(2)}
-                    )
-                  </span>
+                {/* Amount Display */}
+                <div className="px-3 py-2 flex flex-col items-center justify-center bg-white w-full">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-lg font-bold text-[#18181B]">
+                      {platformFeePercentage}%
+                    </span>
+                    <span className="text-sm text-[#52525B]">
+                      (£
+                      {((donationAmount * platformFeePercentage) / 100).toFixed(
+                        2
+                      )}
+                      )
+                    </span>
+                  </div>
                 </div>
               </div>
+              {/* Arrow */}
+              <div className="w-4 h-4 bg-white transform rotate-45 -mt-2 z-[-1] border-b border-r border-gray-100"></div>
+            </div>
+          </div>
+
+          {/* Slider Track Area */}
+          <div className="relative w-full h-8 flex items-center justify-center">
+            {/* Visual Track Line */}
+            <div className="absolute w-full h-1.5 bg-[#E4E4E7] rounded-full overflow-hidden">
+              {/* Filled portion of track */}
+              <div
+                className="h-full bg-[#F5A524] transition-all duration-75 ease-out"
+                style={{ width: `${sliderPosition}%` }}
+              />
             </div>
 
-            {/* Slider thumb */}
-            <div className="w-4 h-4 relative shrink-0">
-              {/* Outline */}
-              <div className="absolute -inset-1 bg-white rounded-full" />
-              {/* Thumb */}
-              <div className="absolute inset-0 bg-white rounded-full border-2 border-[#F5A524]" />
+            {/* Dots - Positioned visually at 0, 25, 50, 75, 100 */}
+            <div className="absolute w-full h-full pointer-events-none">
+              {SLIDER_POINTS.map((pt, i) => {
+                const isActive = sliderPosition >= pt.pos;
+
+                return (
+                  <div
+                    key={i}
+                    className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full z-10 transition-colors duration-300 ${
+                      isActive ? 'bg-[#F5A524]' : 'bg-[#D4D4D8]'
+                    }`}
+                    style={{
+                      left: `${pt.pos}%`,
+                      transform: `translate(-50%, -50%)`, // Center the dot
+                    }}
+                  />
+                );
+              })}
+            </div>
+
+            {/* Functional Range Input */}
+            {/* Uses 0-100 range for the visual position */}
+            <input
+              type="range"
+              min="0"
+              max="100"
+              step="0.5" // visual step
+              value={sliderPosition}
+              onChange={handleSliderChange}
+              className="absolute w-full h-full opacity-0 cursor-pointer z-30"
+              style={{ margin: 0 }}
+              aria-label="Platform fee percentage"
+            />
+
+            {/* Visual Thumb - Follows exact position */}
+            <div
+              className="absolute w-6 h-6 bg-white border-[3px] border-[#F5A524] rounded-full shadow-md z-20 pointer-events-none transition-all duration-75 ease-out flex items-center justify-center"
+              style={{
+                left: `${sliderPosition}%`,
+                transform: 'translateX(-50%)',
+              }}
+            >
+              <div className="w-2 h-2 bg-[#F5A524] rounded-full"></div>
             </div>
           </div>
         </div>
@@ -192,7 +281,7 @@ export default function PlatformFeeSection({
         {/* Other amount button */}
         <button
           onClick={handleCustomAmount}
-          className="flex items-center justify-center h-10 px-4 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors"
+          className="flex items-center justify-center h-10 px-4 rounded-xl cursor-pointer hover:bg-[#F4F4F5] transition-colors mt-2"
         >
           <p className="text-sm font-normal leading-5 text-black">
             Other amount
@@ -200,8 +289,8 @@ export default function PlatformFeeSection({
         </button>
 
         {/* Green info box */}
-        <div className="bg-[#0E793C] rounded-lg px-4 py-3 flex items-center justify-center overflow-hidden w-full">
-          <p className="text-xs leading-4 text-[#E8FAF0]">
+        <div className="bg-[#0E793C] rounded-lg px-4 py-3 flex items-center justify-center overflow-hidden w-full mt-2">
+          <p className="text-xs leading-4 text-[#E8FAF0] text-center">
             <span className="font-bold">75% of donors</span>
             {' have helped keep Masjid System '}
             <span className="font-bold">
