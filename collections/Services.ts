@@ -274,11 +274,20 @@ export const Services: CollectionConfig = {
           },
         },
         {
+          name: 'videoUpload',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Featured Video Upload',
+          admin: {
+            description: 'Upload a video file directly (MP4, etc.)',
+          },
+        },
+        {
           name: 'videoUrl',
           type: 'text',
           label: 'Featured Video URL',
           admin: {
-            description: 'YouTube, Vimeo, or stream URL',
+            description: 'YouTube, Vimeo, or stream URL (Treated same as stream URL)',
           },
         },
         {

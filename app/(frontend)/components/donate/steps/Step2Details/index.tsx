@@ -131,7 +131,7 @@ export default function Step2Details({
           onChange={checked => setFormData({ ...formData, termsAccepted: checked })}
           label={
             <>
-              I have read and agree to the Enthuse{' '}
+              I have read and agree to the{' '}
               <a
                 href="/terms-of-services"
                 className="text-lg underline text-black hover:no-underline"

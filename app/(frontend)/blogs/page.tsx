@@ -8,6 +8,7 @@ export default async function BlogsPage() {
   const blogPage = await fetchGlobal({ slug: "blogs-page" });
   const postsData = await fetchBlogPosts({
     depth: 1,
+    limit: 1000,
     sort: blogPage.defaultSorting?.sortBy || '-publishedDate',
     where: {
       isPublished: { equals: true }

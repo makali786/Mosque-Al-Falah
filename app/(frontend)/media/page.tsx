@@ -23,7 +23,7 @@ export default async function MediaPage() {
   });
 
   const fetchedMedia = await fetchMediaItems({
-    limit: mediaPageConfig.gridSettings?.itemsPerPage || 1000,
+    limit: 1000,
     depth: 1,
     where: { isActive: { equals: true } },
     sort: '-publishedDate'

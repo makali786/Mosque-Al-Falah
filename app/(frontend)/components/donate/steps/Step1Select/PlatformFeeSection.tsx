@@ -239,12 +239,11 @@ export default function PlatformFeeSection({
                 return (
                   <div
                     key={i}
-                    className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full z-10 transition-colors duration-300 ${
-                      isActive ? 'bg-[#F5A524]' : 'bg-[#D4D4D8]'
-                    }`}
+                    className={`absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full z-10 transition-colors duration-300 ${isActive ? 'bg-[#F5A524]' : 'bg-[#D4D4D8]'
+                      }`}
                     style={{
                       left: `${pt.pos}%`,
-                      transform: `translate(-50%, -50%)`, // Center the dot
+                      transform: `translate(-50%, -3%)`, // Center the dot
                     }}
                   />
                 );

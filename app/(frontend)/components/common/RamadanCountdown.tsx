@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-// Ramadan 2026 target date
-const TARGET = new Date('2026-02-17T17:35:00+05:00').getTime();
-const SHABAN_START = new Date('2026-01-19T00:00:00+05:00').getTime();
+// Ramadan 2026 target date: 1st Ramadan 1447 is expected Feb 18, 2026.
+// Islamic day starts at Maghrib (sunset) on the previous day (Feb 17).
+// Sunset in Ilford, UK on Feb 17, 2026 is approx 17:22.
+const TARGET = new Date('2026-02-17T17:22:00+00:00').getTime();
+const SHABAN_START = new Date('2026-01-19T00:00:00+00:00').getTime();
 const TOTAL_SHABAN = TARGET - SHABAN_START;
 
 interface FlipCardState {
