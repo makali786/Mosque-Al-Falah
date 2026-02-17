@@ -8,6 +8,7 @@ import { MediaItem } from "../../components/media/MediaCard";
 import MediaCarousel from "../../components/media/MediaCarousel";
 import MediaDonationSidebar from "../../components/media/MediaDonationSidebar";
 import GalleryCarousel from "../../components/common/GalleryCarousel";
+import MediaDetailPlayer from "../../components/media/MediaDetailPlayer";
 
 interface MediaDetailPageProps {
   params: {
@@ -160,29 +161,14 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
                 />
               </div>
             ) : (
-              <div className="relative w-full aspect-video bg-black rounded-[14px] overflow-hidden mb-8 group lg:max-w-[735px] lg:max-h-[412px]">
-                {embedUrl && isVideo ? (
-                  <iframe
-                    src={embedUrl}
-                    title={title || ""}
-                    className="w-full h-full"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  />
-                ) : (
-                  ""
-                )}
-
-                {/* Live Badge */}
-                {mediaContent?.isLive && (
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2 z-10">
-                    <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
-                    <span className="text-xs font-bold text-red-600 uppercase tracking-wide">Live</span>
-                  </div>
-                )}
-              </div>
+              <MediaDetailPlayer
+                title={title}
+                videoUrl={mediaContent?.videoUrl || ""}
+                thumbnail={thumbnail?.url}
+                isLive={mediaContent?.isLive}
+                type={mediaType === 'audio_podcast' ? 'audio' : 'video'}
+                description={description}
+              />
             )}
 
             {/* Description */}

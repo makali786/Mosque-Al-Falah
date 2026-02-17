@@ -32,7 +32,7 @@ export default function MiniPlayer() {
     const youtubeMatch = url.match(youtubeRegex);
 
     if (youtubeMatch && youtubeMatch[1]) {
-      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1`;
     }
 
     // Convert vimeo.com/video/ID to player.vimeo.com/video/ID format
@@ -43,8 +43,8 @@ export default function MiniPlayer() {
       const videoId = vimeoMatch[1];
       const hash = vimeoMatch[2];
       return hash
-        ? `https://player.vimeo.com/video/${videoId}?h=${hash}`
-        : `https://player.vimeo.com/video/${videoId}`;
+        ? `https://player.vimeo.com/video/${videoId}?h=${hash}&autoplay=1`
+        : `https://player.vimeo.com/video/${videoId}?autoplay=1`;
     }
 
     // Return original URL for other platforms

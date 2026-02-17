@@ -159,9 +159,16 @@ export default function RamadanCountdown() {
     }
   }, [isOpen]);
 
-  // Check if Ramadan has started (hide the feature entirely)
+  // Show "Ramadan Mubarak" for 10 days after start
+  const DAYS_TO_SHOW_MUBARAK = 10;
+  const RAMADAN_MUBARAK_END =
+    TARGET + DAYS_TO_SHOW_MUBARAK * 24 * 60 * 60 * 1000;
+
+  // Check if we are past the 10-day celebration period
   const now = Date.now();
-  if (now >= TARGET) return null;
+  if (now >= RAMADAN_MUBARAK_END) return null;
+
+  const isRamadanStarted = now >= TARGET;
 
   return (
     <>
@@ -295,100 +302,143 @@ export default function RamadanCountdown() {
               </p>
 
               {/* Title */}
-              <h2 className="rc-title">Ramadan Countdown</h2>
+              <h2 className="rc-title">
+                {isRamadanStarted ? 'Ramadān Mubārak' : 'Ramadān Countdown'}
+              </h2>
               <div className="rc-subtitle-wrap">
                 <span className="rc-line-accent" />
                 <p className="rc-subtitle">2026 | 1447 AH</p>
                 <span className="rc-line-accent" />
               </div>
               <p className="rc-description !text-white">
-                Prepare your heart and soul for the blessed month of fasting,
-                prayer, and reflection.
+                {isRamadanStarted
+                  ? 'May Allah start this month for us with safety, faith, and peace.'
+                  : 'Prepare your heart and soul for the blessed month of fasting, prayer, and reflection.'}
               </p>
 
-              {/* ═══ Flip Clock ═══ */}
-              <div className="rc-clock-container">
-                <div className="rc-clock-glass">
-                  <div className="rc-clock-grid">
-                    {/* Days */}
-                    <div className="rc-flip-unit">
-                      <div className="rc-flip-digits">
-                        <div className="rc-flip-card" id="rc-days-tens">
-                          <span className="rc-digit">0</span>
-                        </div>
-                        <div className="rc-flip-card" id="rc-days-ones">
-                          <span className="rc-digit">0</span>
-                        </div>
-                      </div>
-                      <span className="rc-flip-label">Days</span>
-                    </div>
-                    <div className="rc-separator">
-                      <div className="rc-dot" />
-                      <div className="rc-dot" />
-                    </div>
-                    {/* Hours */}
-                    <div className="rc-flip-unit">
-                      <div className="rc-flip-digits">
-                        <div className="rc-flip-card" id="rc-hours-tens">
-                          <span className="rc-digit">0</span>
-                        </div>
-                        <div className="rc-flip-card" id="rc-hours-ones">
-                          <span className="rc-digit">0</span>
-                        </div>
-                      </div>
-                      <span className="rc-flip-label">Hours</span>
-                    </div>
-                    <div className="rc-separator">
-                      <div className="rc-dot" />
-                      <div className="rc-dot" />
-                    </div>
-                    {/* Minutes */}
-                    <div className="rc-flip-unit">
-                      <div className="rc-flip-digits">
-                        <div className="rc-flip-card" id="rc-mins-tens">
-                          <span className="rc-digit">0</span>
-                        </div>
-                        <div className="rc-flip-card" id="rc-mins-ones">
-                          <span className="rc-digit">0</span>
-                        </div>
-                      </div>
-                      <span className="rc-flip-label">Minutes</span>
-                    </div>
-                    <div className="rc-separator">
-                      <div className="rc-dot" />
-                      <div className="rc-dot" />
-                    </div>
-                    {/* Seconds */}
-                    <div className="rc-flip-unit">
-                      <div className="rc-flip-digits">
-                        <div className="rc-flip-card" id="rc-secs-tens">
-                          <span className="rc-digit">0</span>
-                        </div>
-                        <div className="rc-flip-card" id="rc-secs-ones">
-                          <span className="rc-digit">0</span>
-                        </div>
-                      </div>
-                      <span className="rc-flip-label">Seconds</span>
-                    </div>
-                  </div>
+              {/* Donation Button */}
+              <a
+                href="/donate"
+                className="rc-donate-btn"
+                aria-label="Donate to Masjid Al-Falah"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  <span>Donate to Masjid Al-Falah</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z" />
+                  </svg>
+                </span>
+                <div className="rc-donate-glow" />
+              </a>
 
-                  {/* Progress Bar */}
-                  <div className="rc-progress-wrap">
-                    <div className="rc-progress-labels">
-                      <span>Sha&apos;ban 1447</span>
-                      <span id="rc-progress-label">0% Complete</span>
-                      <span>Ramadan 1447</span>
+              {/* ═══ Flip Clock OR Greeting ═══ */}
+              {!isRamadanStarted ? (
+                <div className="rc-clock-container">
+                  <div className="rc-clock-glass">
+                    <div className="rc-clock-grid">
+                      {/* Days */}
+                      <div className="rc-flip-unit">
+                        <div className="rc-flip-digits">
+                          <div className="rc-flip-card" id="rc-days-tens">
+                            <span className="rc-digit">0</span>
+                          </div>
+                          <div className="rc-flip-card" id="rc-days-ones">
+                            <span className="rc-digit">0</span>
+                          </div>
+                        </div>
+                        <span className="rc-flip-label">Days</span>
+                      </div>
+                      <div className="rc-separator">
+                        <div className="rc-dot" />
+                        <div className="rc-dot" />
+                      </div>
+                      {/* Hours */}
+                      <div className="rc-flip-unit">
+                        <div className="rc-flip-digits">
+                          <div className="rc-flip-card" id="rc-hours-tens">
+                            <span className="rc-digit">0</span>
+                          </div>
+                          <div className="rc-flip-card" id="rc-hours-ones">
+                            <span className="rc-digit">0</span>
+                          </div>
+                        </div>
+                        <span className="rc-flip-label">Hours</span>
+                      </div>
+                      <div className="rc-separator">
+                        <div className="rc-dot" />
+                        <div className="rc-dot" />
+                      </div>
+                      {/* Minutes */}
+                      <div className="rc-flip-unit">
+                        <div className="rc-flip-digits">
+                          <div className="rc-flip-card" id="rc-mins-tens">
+                            <span className="rc-digit">0</span>
+                          </div>
+                          <div className="rc-flip-card" id="rc-mins-ones">
+                            <span className="rc-digit">0</span>
+                          </div>
+                        </div>
+                        <span className="rc-flip-label">Minutes</span>
+                      </div>
+                      <div className="rc-separator">
+                        <div className="rc-dot" />
+                        <div className="rc-dot" />
+                      </div>
+                      {/* Seconds */}
+                      <div className="rc-flip-unit">
+                        <div className="rc-flip-digits">
+                          <div className="rc-flip-card" id="rc-secs-tens">
+                            <span className="rc-digit">0</span>
+                          </div>
+                          <div className="rc-flip-card" id="rc-secs-ones">
+                            <span className="rc-digit">0</span>
+                          </div>
+                        </div>
+                        <span className="rc-flip-label">Seconds</span>
+                      </div>
                     </div>
-                    <div className="rc-progress-track">
-                      <div
-                        className="rc-progress-fill"
-                        id="rc-progress-bar"
-                        style={{ ['--progress' as string]: '0%', width: '0%' }}
-                      />
+
+                    {/* Progress Bar */}
+                    <div className="rc-progress-wrap">
+                      <div className="rc-progress-labels">
+                        <span>Sha&apos;ban 1447</span>
+                        <span id="rc-progress-label">0% Complete</span>
+                        <span>Ramadan 1447</span>
+                      </div>
+                      <div className="rc-progress-track">
+                        <div
+                          className="rc-progress-fill"
+                          id="rc-progress-bar"
+                          style={{
+                            ['--progress' as string]: '0%',
+                            width: '0%',
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="py-8 text-center">
+                  <div className="animate-pulse text-gold-400 text-4xl mb-4">
+                    🌙
+                  </div>
+                  <p className="text-white text-lg max-w-md mx-auto leading-relaxed">
+                    We wish you and your family a blessed Ramadān. May this month
+                    bring you closer to Allah and fill your life with light and
+                    guidance.
+                  </p>
+                </div>
+              )}
 
               {/* Hadith Card */}
               <div className="rc-hadith-card">

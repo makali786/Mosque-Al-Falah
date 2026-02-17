@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import { getMediaUrl } from '../../../../lib/helper';
 import { Media } from '../../../../payload-types';
+import { useMediaPlayer } from './MediaPlayerContext';
 import ViewToggleButtons from './ViewToggleButtons';
 
 export interface SermonCardProps {
@@ -25,6 +26,7 @@ export interface SermonCardProps {
       initials?: string;
     };
     videoUrl?: string;
+    audioUrl?: string;
     description?: string; // Sometimes needed for list view
     slug?: string;
   };
@@ -35,6 +37,7 @@ export default function SermonCard({
   sermon,
   layout = 'grid',
 }: SermonCardProps) {
+  const { play } = useMediaPlayer();
   const imageUrl =
     typeof sermon.image === 'string'
       ? sermon.image
@@ -43,7 +46,6 @@ export default function SermonCard({
   const date = (() => {
     if (sermon.sermonDate) {
       const dateObj = new Date(sermon.sermonDate);
-      // Check if the date is valid
       if (!isNaN(dateObj.getTime())) {
         return dateObj.toLocaleDateString('en-GB', {
           day: 'numeric',
@@ -56,14 +58,10 @@ export default function SermonCard({
   })();
 
   const title = sermon.title;
-
   const guestSpeaker = sermon.guestSpeaker;
   const useGuest = !!guestSpeaker?.name;
-
-  const authorName =
-    (useGuest ? guestSpeaker!.name : sermon.author?.name) || '';
-  const authorRole =
-    (useGuest ? guestSpeaker!.title : sermon.author?.role) || '';
+  const authorName = (useGuest ? guestSpeaker!.name : sermon.author?.name) || '';
+  const authorRole = (useGuest ? guestSpeaker!.title : sermon.author?.role) || '';
 
   const rawAuthorAvatar = useGuest
     ? sermon.guestSpeaker?.avatar
@@ -75,7 +73,9 @@ export default function SermonCard({
   const authorInitials =
     (!useGuest && sermon.author?.initials) ||
     authorName.substring(0, 2).toUpperCase();
-  const videoUrl = sermon.videoUrl || '';
+  // Ensure strict string | undefined for optional props
+  const videoUrl = sermon.videoUrl || undefined;
+  const audioUrl = sermon.audioUrl || undefined;
   const slug = sermon.slug || sermon.id;
 
   const CardWrapper = ({
@@ -110,20 +110,35 @@ export default function SermonCard({
               className="object-cover rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none"
             />
           )}
-          {/* Hover overlay */}
           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none" />
           <div onClick={e => e.stopPropagation()}>
             <ViewToggleButtons
-              onAudioClick={e => {
-                e?.preventDefault();
-                console.log('Audio clicked:', sermon.id);
-              }}
+              onAudioClick={
+                audioUrl
+                  ? e => {
+                    e?.preventDefault();
+                    play({
+                      type: 'audio',
+                      url: audioUrl,
+                      title: title,
+                      citation: authorName,
+                      thumbnail: imageUrl || undefined,
+                    });
+                  }
+                  : undefined
+              }
               onVideoClick={
                 videoUrl
                   ? e => {
-                      e?.preventDefault();
-                      window.open(videoUrl, '_blank');
-                    }
+                    e?.preventDefault();
+                    play({
+                      type: 'video',
+                      url: videoUrl,
+                      title: title,
+                      citation: authorName,
+                      thumbnail: imageUrl || undefined,
+                    });
+                  }
                   : undefined
               }
               className="absolute bottom-3 right-3"
@@ -133,13 +148,14 @@ export default function SermonCard({
 
         <div className="flex flex-col flex-1 p-4 md:py-6 md:pr-6 justify-center gap-4">
           <div className="flex items-center gap-2">
-            <Image
-              src={'/assets/topbar/calendar-icon.svg'}
-              alt={'calendar'}
-              width={16}
-              height={16}
-              className="w-4 h-4 text-gray-500"
-            />
+            <div className="w-4 h-4 relative">
+              <Image
+                src={'/assets/topbar/calendar-icon.svg'}
+                alt={'calendar'}
+                fill
+                className="object-contain"
+              />
+            </div>
             <p className="text-sm text-gray-500 leading-5">{date}</p>
           </div>
 
@@ -155,17 +171,16 @@ export default function SermonCard({
 
           <div className="flex items-center gap-3 mt-auto">
             {authorAvatar ? (
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 relative">
                 <Image
                   src={authorAvatar}
                   alt={authorName}
-                  width={40}
-                  height={40}
-                  className="object-cover w-full h-full"
+                  fill
+                  className="object-cover"
                 />
               </div>
             ) : (
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 text-xs font-medium">
+              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 text-xs font-medium shrink-0">
                 {authorInitials}
               </div>
             )}
@@ -189,22 +204,37 @@ export default function SermonCard({
           {imageUrl && (
             <Image src={imageUrl} alt={title} fill className="object-cover" />
           )}
-          {/* Hover overlay */}
           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
         </div>
 
         <div onClick={e => e.stopPropagation()}>
           <ViewToggleButtons
-            onAudioClick={e => {
-              e?.preventDefault();
-              console.log('Audio clicked:', sermon.id);
-            }}
+            onAudioClick={
+              audioUrl
+                ? e => {
+                  e?.preventDefault();
+                  play({
+                    type: 'audio',
+                    url: audioUrl,
+                    title: title,
+                    citation: authorName,
+                    thumbnail: imageUrl || undefined,
+                  });
+                }
+                : undefined
+            }
             onVideoClick={
               videoUrl
                 ? e => {
-                    e?.preventDefault();
-                    window.open(videoUrl, '_blank');
-                  }
+                  e?.preventDefault();
+                  play({
+                    type: 'video',
+                    url: videoUrl,
+                    title: title,
+                    citation: authorName,
+                    thumbnail: imageUrl || undefined,
+                  });
+                }
                 : undefined
             }
             className="absolute -bottom-6 right-4 lg:-bottom-6 lg:right-3.75"
@@ -214,13 +244,14 @@ export default function SermonCard({
 
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2">
-          <Image
-            src={'/assets/topbar/calendar-icon.svg'}
-            alt={'calendar'}
-            width={16}
-            height={16}
-            className="object-cover"
-          />
+          <div className="w-4 h-4 relative">
+            <Image
+              src={'/assets/topbar/calendar-icon.svg'}
+              alt={'calendar'}
+              fill
+              className="object-contain"
+            />
+          </div>
           <p className="text-sm font-normal text-[#27272a] leading-5">{date}</p>
         </div>
 
@@ -231,17 +262,16 @@ export default function SermonCard({
 
           <div className="flex items-center gap-2">
             {authorAvatar ? (
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa]">
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa] relative">
                 <Image
                   src={authorAvatar}
                   alt={authorName}
-                  width={40}
-                  height={40}
-                  className="object-cover w-full h-full"
+                  fill
+                  className="object-cover"
                 />
               </div>
             ) : (
-              <div className="w-10 h-10 rounded-full bg-[#d4d4d8] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-[#d4d4d8] flex items-center justify-center shrink-0">
                 <span className="text-xs font-normal text-[#11181c]">
                   {authorInitials}
                 </span>

@@ -7,7 +7,7 @@ export const Media: CollectionConfig = {
   },
 
   upload: {
-    disableLocalStorage: true, // 🔥 VERY IMPORTANT
+    disableLocalStorage: true,
   },
   hooks: {
     beforeChange: [

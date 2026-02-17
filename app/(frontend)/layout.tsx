@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { LoadingProvider } from './components/common/LoadingProvider';
 import { MediaPlayerProvider } from './components/common/MediaPlayerContext';
 import MiniPlayer from './components/common/MiniPlayer';
+import PopupManager from './components/common/PopupManager';
 import RamadanCountdown from './components/common/RamadanCountdown';
 import DonationToast from './components/donation/DonationToast';
 import GoogleMapsScript from './components/GoogleMapsScript';
@@ -86,6 +87,7 @@ export default function RootLayout({
             <AccessibilityButton />
             <MiniPlayer />
             <RamadanCountdown />
+            <PopupManager />
           </MediaPlayerProvider>
         </LoadingProvider>
       </body>

@@ -1,5 +1,4 @@
-"use client";
-
+import { useMediaPlayer } from "@/components/common/MediaPlayerContext";
 import React from "react";
 import Image from "@/components/common/CustomImage";
 import Link from "next/link";
@@ -13,7 +12,8 @@ export interface MediaItem {
   date?: string;
   duration?: string;
   slug?: string;
-  videoUrl?: string;
+  videoUrl?: string; // This might be used for audio too in some contexts, or add audioUrl if needed
+  audioUrl?: string;
 }
 
 interface MediaCardProps {
@@ -22,7 +22,8 @@ interface MediaCardProps {
 }
 
 export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
-  const { title, description, image, type, slug } = media;
+  const { title, description, image, type, slug, videoUrl, audioUrl } = media;
+  const { play } = useMediaPlayer();
 
   // Determine icon and label based on type
   const getTypeStyle = () => {
@@ -53,7 +54,32 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
 
   const { icon, label } = getTypeStyle();
 
+  const handlePlay = (e: React.MouseEvent) => {
+    if (type === "video" || type === "audio" || type === "podcast") {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const url = type === 'video' ? videoUrl : (audioUrl || videoUrl); // Fallback if audioUrl missing
+
+      if (url) {
+        play({
+          type: type === 'video' ? 'video' : 'audio',
+          url: url,
+          title: title,
+          thumbnail: image,
+          citation: description, // Use description as citation/subtitle
+        });
+      }
+    }
+  };
+
   const Wrapper = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+    // If it's playable media, the whole card (or specific parts) might trigger play
+    // But usually we want the image play button to trigger play, and the title to link to detail page.
+    // However, for consistency with SermonCard, maybe we want specific buttons?
+    // The requirement says "MiniPlayer is implemented for the ayat of the month implement for the sermons videos for media videos"
+    // Usually clicking the card goes to detail, but play button plays.
+
     if (slug) {
       return (
         <Link href={`/media/${slug}`} className={className}>
@@ -68,7 +94,7 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
     return (
       <Wrapper className="flex flex-col md:flex-row w-full gap-6 bg-white rounded-[14px] overflow-hidden cursor-pointer group">
         {/* Image Section */}
-        <div className="relative w-full md:w-75 lg:w-87.5 aspect-video md:h-auto shrink-0">
+        <div className="relative w-full md:w-75 lg:w-87.5 aspect-video md:h-auto shrink-0" onClick={handlePlay}>
           {image && (
             <Image
               src={image}
@@ -80,7 +106,7 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
           {/* Centered Play Button Overlay */}
           {(type === "video" || type === "audio" || type === "podcast") && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors">
-              <div className="w-14 h-14 rounded-full flex items-center justify-center transition-colors">
+              <div className="w-14 h-14 rounded-full flex items-center justify-center transition-colors hover:scale-110 duration-200">
                 <Image
                   src="/assets/common/play-icon.svg"
                   alt="Play"
@@ -122,7 +148,7 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
   return (
     <Wrapper className="flex flex-col gap-4 w-full group cursor-pointer shadow-[0px_1px_2px_-1px_#0000001A,0px_1px_3px_0px_#0000001A]">
       {/* Image Container */}
-      <div className="relative w-full aspect-square overflow-hidden">
+      <div className="relative w-full aspect-square overflow-hidden" onClick={handlePlay}>
         {image && (
           <Image
             src={image}
@@ -134,8 +160,8 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
 
         {/* Centered Play Button Overlay for Video/Podcast */}
         {(type === "video" || type === "audio" || type === "podcast") && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors">
+            <div className="w-16 h-16 flex items-center justify-center hover:scale-110 duration-200">
               <Image
                 src="/assets/common/play-icon.svg"
                 alt="Play"

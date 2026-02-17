@@ -54,6 +54,18 @@
   background-color: #e7efff;
 }
 
+:root {
+  --gutter-h: 100px !important;
+}
+
+.drawer__content {
+  margin-top: 51px !important;
+}
+
+.drawer__content {
+  width: calc(100% - (2 * var(--gutter-h))) !important;
+}
+
 /* ============================================================================
    Login Page Styling
    ============================================================================ */

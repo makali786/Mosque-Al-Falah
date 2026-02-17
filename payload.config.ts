@@ -29,6 +29,7 @@ import { MadrasahTestimonials } from './collections/MadrasahTestimonials';
 import { MediaItems } from './collections/MediaItems';
 import { Notices } from './collections/Notices';
 import { PageSections } from './collections/PageSections';
+import { Popups } from './collections/Popups';
 import { Sermons } from './collections/Sermons';
 import { Services } from './collections/Services';
 
@@ -93,6 +94,7 @@ export default buildConfig({
     Events,
     EventBookings,
     Notices,
+    Popups,
     Services,
     Imams,
     AyatOfTheMonth,
