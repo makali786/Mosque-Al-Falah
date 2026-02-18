@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 
 export const Imams: CollectionConfig = {
@@ -10,6 +11,12 @@ export const Imams: CollectionConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('imams')],
+
+  },
+
   fields: [
     {
       name: 'name',

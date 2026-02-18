@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 
@@ -1830,7 +1831,7 @@ export const Services: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [
+    afterChange: [createRevalidateHook('services'), 
       createNewsletterHook('service', 'isActive'),
     ],
   },

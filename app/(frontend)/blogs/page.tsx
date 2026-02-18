@@ -3,6 +3,8 @@ import BlogsFeed from "../components/blogs/BlogsFeed";
 import { getMediaUrl } from "../../../lib/helper";
 import { QuoteSection } from "@/components/common/QuoteSection";
 
+export const revalidate = 60;
+
 export default async function BlogsPage() {
 
   const blogPage = await fetchGlobal({ slug: "blogs-page" });

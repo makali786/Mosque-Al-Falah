@@ -53,7 +53,7 @@ export function AppealHero({
                 src={imageUrl}
                 alt={imageAlt}
                 fill
-                className=" z-50 object-contain"
+                className=" z-0 object-contain"
                 priority
               />
             </>

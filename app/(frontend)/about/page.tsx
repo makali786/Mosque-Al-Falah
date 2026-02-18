@@ -1,16 +1,28 @@
-import PageHero from "@/components/common/PageHero";
-import ContentImageSection from "@/components/common/ContentImageSection";
-import { CoreValuesSection } from "@/components/about/OurCoreValue";
-import { CommitteesSection, CommitteeMember } from "@/components/about/CommitiesCard";
-import ConnectWithUsSection from "@/components/about/ConnectWithUs";
-import AboutQuoteSection from "@/components/about/AboutQuoteSection";
-import { fetchGlobal, fetchCoreValues, fetchCommittees } from "../../../lib/fetcher";
-import { RichTextRenderer } from "@/components/common/RichTextRenderer";
+import AboutQuoteSection from '@/components/about/AboutQuoteSection';
+import {
+  CommitteeMember,
+  CommitteesSection,
+} from '@/components/about/CommitiesCard';
+import ConnectWithUsSection from '@/components/about/ConnectWithUs';
+import { CoreValuesSection } from '@/components/about/OurCoreValue';
+import ContentImageSection from '@/components/common/ContentImageSection';
+import PageHero from '@/components/common/PageHero';
+import { RichTextRenderer } from '@/components/common/RichTextRenderer';
+import {
+  fetchCommittees,
+  fetchCoreValues,
+  fetchGlobal,
+} from '../../../lib/fetcher';
+
+export const revalidate = 60;
 
 export default async function AboutUsPage() {
-  const aboutUs = await fetchGlobal({ slug: "about-page" });
+  const aboutUs = await fetchGlobal({ slug: 'about-page' });
   const coreValuesDocs = await fetchCoreValues({ sort: 'order' });
-  const committeesDocs = await fetchCommittees<CommitteeMember>({ sort: 'order', where: { isActive: { equals: true } } });
+  const committeesDocs = await fetchCommittees<CommitteeMember>({
+    sort: 'order',
+    where: { isActive: { equals: true } },
+  });
   if (!aboutUs) return null;
 
   // Transform core values
@@ -23,16 +35,14 @@ export default async function AboutUsPage() {
   // Mission Content
   const missionContent = (
     <div className="flex flex-col gap-4">
-      <p className="text-lg">
-        {aboutUs?.mission?.introduction}
-      </p>
+      <p className="text-lg">{aboutUs?.mission?.introduction}</p>
       {aboutUs?.mission?.missionPoints && (
         <ul className="list-disc pl-5 space-y-3 mt-2">
           {aboutUs?.mission?.missionPoints.map((point: any, index: number) => (
-            <li
-              key={point?.id || index}
-            >
-              <span className="font-bold whitespace-nowrap mr-2">{point.title}</span>
+            <li key={point?.id || index}>
+              <span className="font-bold whitespace-nowrap mr-2">
+                {point.title}
+              </span>
               <span>{point.description}</span>
             </li>
           ))}
@@ -44,20 +54,20 @@ export default async function AboutUsPage() {
   return (
     <div className="bg-white dark:bg-gray-950">
       <PageHero
-        title={aboutUs.hero?.title || ""}
+        title={aboutUs.hero?.title || ''}
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "About Us", href: "/about-us" },
+          { label: 'Home', href: '/' },
+          { label: 'About Us', href: '/about-us' },
         ]}
-        backgroundImage={aboutUs.hero?.backgroundImage?.url || ""}
+        backgroundImage={aboutUs.hero?.backgroundImage?.url || ''}
       />
 
       {aboutUs.history?.enableSection && (
         <div id="history">
           <ContentImageSection
             heading={aboutUs.history.sectionTitle}
-            imageSrc={aboutUs.history.image?.url || ""}
-            imageAlt={aboutUs.history.image?.alt || ""}
+            imageSrc={aboutUs.history.image?.url || ''}
+            imageAlt={aboutUs.history.image?.alt || ''}
             layout="image-right"
             imageWidth={664}
             imageHeight={498}
@@ -70,8 +80,8 @@ export default async function AboutUsPage() {
         <div id="mission">
           <ContentImageSection
             heading={aboutUs.mission.sectionTitle}
-            imageSrc={aboutUs.mission.image?.url || ""}
-            imageAlt={aboutUs.mission.image?.alt || ""}
+            imageSrc={aboutUs.mission.image?.url || ''}
+            imageAlt={aboutUs.mission.image?.alt || ''}
             layout="image-left"
             imageWidth={584}
             imageHeight={438}
@@ -103,8 +113,8 @@ export default async function AboutUsPage() {
           title={aboutUs.connect.sectionTitle}
           description={aboutUs.connect.description}
           image={{
-            src: aboutUs.connect.image?.url || "",
-            alt: aboutUs.connect.image?.alt || "Connect with Us"
+            src: aboutUs.connect.image?.url || '',
+            alt: aboutUs.connect.image?.alt || 'Connect with Us',
           }}
           primaryButton={aboutUs.connect.primaryButton}
           secondaryButton={aboutUs.connect.secondaryButton}

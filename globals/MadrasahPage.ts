@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { GlobalConfig } from 'payload';
 
 export const MadrasahPage: GlobalConfig = {
@@ -9,6 +10,12 @@ export const MadrasahPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('madrasah-page')],
+
+  },
+
   fields: [
     // ============================================================================
     // Hero Section

@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 
 export const Donations: CollectionConfig = {
@@ -417,7 +418,7 @@ export const Donations: CollectionConfig = {
         return data;
       },
     ],
-    afterChange: [
+    afterChange: [createRevalidateHook('donations'), 
       async ({ doc, req }) => {
         if (doc.donorEmail) {
           try {

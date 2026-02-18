@@ -2,6 +2,8 @@ import PrayerTimesWrapper from "@/components/prayer-times/PrayerTimesWrapper";
 import { QuoteSection } from "@/components/common/QuoteSection";
 import { fetchPrayerTimes, fetchGlobal } from "@lib/fetcher";
 
+export const revalidate = 60;
+
 export default async function PrayerTimePage() {
   // Fetch ALL prayer times from all years in database
   // Setting high limit to ensure we get all records

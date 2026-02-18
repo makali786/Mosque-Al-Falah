@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function WhatsAppButton() {
   return (
@@ -10,7 +10,7 @@ export default function WhatsAppButton() {
 
       {/* Main button */}
       <a
-        href="https://wa.me/447587875319"
+        href="https://chat.whatsapp.com/Gyc3WxXRHG6IqoL3FFDraP"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contact us on WhatsApp"

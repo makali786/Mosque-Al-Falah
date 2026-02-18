@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import LoadingSpinner from '../components/common/LoadingSpinner';
+import { ToastContainer } from '../components/common/Toast';
 import { StepIndicator } from '../components/donate/shared';
 import Step1Select from '../components/donate/steps/Step1Select';
 import Step2Details from '../components/donate/steps/Step2Details';
@@ -9,9 +11,7 @@ import Step3GiftAid from '../components/donate/steps/Step3GiftAid';
 import Step4Payment from '../components/donate/steps/Step4Payment';
 import { DonationFormData } from '../components/donate/types';
 import GoogleMapsScript from '../components/GoogleMapsScript';
-import LoadingSpinner from '../components/common/LoadingSpinner';
 import { useToast } from '../hooks/useToast';
-import { ToastContainer } from '../components/common/Toast';
 
 export default function DonatePage() {
   const searchParams = useSearchParams();
@@ -79,7 +79,12 @@ export default function DonatePage() {
     setCurrentStep(2);
   };
 
-  const handleStep2Next = async () => {
+  const handleStep2Next = () => {
+    // Just advance to Gift Aid step — PaymentIntent is created after Gift Aid decision
+    setCurrentStep(3);
+  };
+
+  const handleStep3Next = async () => {
     setIsLoading(true);
     try {
       const donationAmount = formData.customAmount
@@ -102,7 +107,7 @@ export default function DonatePage() {
           currency: 'gbp',
           frequency: formData.frequency,
           donationType: formData.donationType,
-          appealId: formData.appealId, // Link donation to specific appeal
+          appealId: formData.appealId,
           email: formData.email,
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -110,7 +115,7 @@ export default function DonatePage() {
           address: formData.address,
           isAnonymous: formData.isAnonymous,
           displayName: formData.displayName,
-          giftAid: formData.giftAidEnabled,
+          giftAid: formData.giftAidEnabled, // ✅ Now includes user's Gift Aid decision
           platformFeePercentage: formData.platformFeePercentage,
           marketingConsent: formData.marketingConsent,
         }),
@@ -121,7 +126,7 @@ export default function DonatePage() {
       if (data.success) {
         setClientSecret(data.clientSecret);
         success('Payment intent created successfully');
-        setCurrentStep(3);
+        setCurrentStep(4);
       } else {
         error(data.error || 'Failed to create payment intent');
       }
@@ -130,10 +135,6 @@ export default function DonatePage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleStep3Next = () => {
-    setCurrentStep(4);
   };
 
   const handleBack = () => {

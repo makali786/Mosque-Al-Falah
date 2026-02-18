@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 
 export const CoreValues: CollectionConfig = {
@@ -10,6 +11,12 @@ export const CoreValues: CollectionConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('core-values')],
+
+  },
+
   fields: [
     {
       name: 'question',

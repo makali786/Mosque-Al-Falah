@@ -64,59 +64,6 @@ export function ShareModal({
         {/* Content */}
         <div className="p-8 flex flex-col gap-8">
           {/* Social Buttons */}
-          <div className="flex gap-4 md:gap-6 justify-between">
-            {/* Whatsapp */}
-            <a
-              href={shareLinks.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 h-24 md:h-36 bg-white rounded-xl shadow-sm border border-blue-100 flex justify-center items-center hover:bg-gray-50 transition-colors"
-            >
-              <div className="relative w-12 h-12 md:w-20 md:h-20">
-                <Image
-                  src="/assets/icons/whatsapp.png"
-                  alt="WhatsApp"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </a>
-
-            {/* Facebook */}
-            <a
-              href={shareLinks.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 h-24 md:h-36 bg-white rounded-xl shadow-sm border border-blue-100 flex justify-center items-center hover:bg-gray-50 transition-colors"
-            >
-              <div className="relative w-12 h-12 md:w-20 md:h-20">
-                <Image
-                  src="/assets/icons/Facebook.png"
-                  alt="Facebook"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </a>
-
-            {/* X / Twitter */}
-            <a
-              href={shareLinks.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 h-24 md:h-36 bg-white rounded-xl shadow-sm border border-blue-100 flex justify-center items-center hover:bg-gray-50 transition-colors"
-            >
-              <div className="relative w-10 h-10 md:w-16 md:h-16">
-                {/* X icon might differ in size slightly based on the actual png, adjusting generic size */}
-                <Image
-                  src="/assets/icons/x-twitter.png"
-                  alt="X"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </a>
-          </div>
 
           {/* Copy Link */}
           <div

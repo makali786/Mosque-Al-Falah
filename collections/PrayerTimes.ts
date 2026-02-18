@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import { CollectionConfig } from 'payload';
 
 export const PrayerTimes: CollectionConfig = {
@@ -11,6 +12,12 @@ export const PrayerTimes: CollectionConfig = {
     create: () => true,
     update: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('prayer-times')],
+
+  },
+
   fields: [
     {
       name: 'date',

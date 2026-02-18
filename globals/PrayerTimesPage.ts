@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { GlobalConfig } from 'payload';
 
 export const PrayerTimesPage: GlobalConfig = {
@@ -9,6 +10,12 @@ export const PrayerTimesPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('prayer-times-page')],
+
+  },
+
   fields: [
     // ============================================================================
     // Page Header Section

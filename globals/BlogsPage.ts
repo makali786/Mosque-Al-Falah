@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { GlobalConfig } from 'payload';
 
 export const BlogsPage: GlobalConfig = {
@@ -9,6 +10,12 @@ export const BlogsPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('blogs-page')],
+
+  },
+
   fields: [
     // ============================================================================
     // Page Header

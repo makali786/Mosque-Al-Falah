@@ -3,6 +3,8 @@ import { QuoteSection } from "../components/common/QuoteSection";
 import { MediaItem } from "../components/media/MediaCard";
 import { fetchMediaItems, fetchGlobal } from "@lib/fetcher";
 
+export const revalidate = 60;
+
 // Helper function to format date
 const formatDate = (dateString?: string) => {
   if (!dateString) return "";

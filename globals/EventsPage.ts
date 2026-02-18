@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { GlobalConfig } from 'payload';
 
 export const EventsPage: GlobalConfig = {
@@ -9,6 +10,12 @@ export const EventsPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('events-page')],
+
+  },
+
   fields: [
     // ============================================================================
     // Page Header

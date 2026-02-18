@@ -42,8 +42,8 @@ import { ServiceRequests } from './collections/ServiceRequests';
 import { NewsletterSubscribers } from './collections/NewsletterSubscribers';
 
 // Prayer Times
-import { PrayerTimes } from './collections/PrayerTimes';
 import { Locations } from './collections/Locations';
+import { PrayerTimes } from './collections/PrayerTimes';
 
 // Globals
 import { AboutPage } from './globals/AboutPage';
@@ -153,8 +153,8 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: mongooseAdapter({
-    // url: process.env.DATABASE_URI || process.env.DATABASE_URL || process.env.MONGODB_URI || process.env.MONGO_URI || 'mongodb+srv://mosque-admin:mosque123@cluster0.oggca09.mongodb.net/mosque-al-falah',
-    url: 'mongodb+srv://mosque-admin:mosque123@cluster0.oggca09.mongodb.net/mosque-al-falah',
+    url: 'mongodb://admin:M%40sjid786@127.0.0.1:27017/mosque-al-falah?authSource=admin',
+    // url: 'mongodb+srv://mosque-admin:mosque123@cluster0.oggca09.mongodb.net/mosque-al-falah',
   }),
   sharp,
   plugins: [

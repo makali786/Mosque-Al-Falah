@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 
 export const Banners: CollectionConfig = {
@@ -10,6 +11,12 @@ export const Banners: CollectionConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('banners')],
+
+  },
+
   fields: [
     {
       name: 'title',

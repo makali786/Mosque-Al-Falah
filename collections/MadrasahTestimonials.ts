@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 
 export const MadrasahTestimonials: CollectionConfig = {
@@ -10,6 +11,12 @@ export const MadrasahTestimonials: CollectionConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('madrasah-testimonials')],
+
+  },
+
   fields: [
     // ============================================================================
     // Testimonial Content

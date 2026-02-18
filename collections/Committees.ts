@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 
 export const Committees: CollectionConfig = {
@@ -10,6 +11,12 @@ export const Committees: CollectionConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('committees')],
+
+  },
+
   fields: [
     // ============================================================================
     // Basic Information

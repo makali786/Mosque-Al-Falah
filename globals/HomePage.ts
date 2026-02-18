@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { GlobalConfig } from 'payload';
 
 export const HomePage: GlobalConfig = {
@@ -9,6 +10,12 @@ export const HomePage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('home-page')],
+
+  },
+
   fields: [
     // ============================================================================
     // Hero/Banner Section

@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 
 export const MediaItems: CollectionConfig = {
@@ -20,6 +21,12 @@ export const MediaItems: CollectionConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('media-items')],
+
+  },
+
   fields: [
     // ============================================================================
     // Basic Information

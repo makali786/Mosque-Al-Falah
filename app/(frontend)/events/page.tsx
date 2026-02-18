@@ -4,6 +4,8 @@ import { fetchEvents, fetchGlobal } from "@lib/fetcher";
 import { getPayload } from "payload";
 import configPromise from "@payload-config";
 
+export const revalidate = 60;
+
 
 export default async function EventsPage() {
 

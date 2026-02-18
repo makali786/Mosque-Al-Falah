@@ -3,7 +3,7 @@
  *
  * Provides social login for:
  * - Google
- * - Apple
+ * - Apple (JWT client secret generated from .p8 key)
  * - Facebook
  * - Email/Magic Link
  */
@@ -15,132 +15,147 @@ import EmailProvider from 'next-auth/providers/email';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
 import { getPayload } from 'payload';
+import { generateAppleClientSecret } from './apple-client-secret';
 
-export const authOptions: AuthOptions = {
-  providers: [
-    // Google OAuth
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+/**
+ * Returns a fresh NextAuth options object.
+ * Called per-request so generateAppleClientSecret() runs after env vars are loaded.
+ */
+export function getAuthOptions(): AuthOptions {
+  // Generate Apple JWT client secret at request time (not module load time)
+  let appleClientSecret = '';
+  try {
+    appleClientSecret = generateAppleClientSecret();
+  } catch (e) {
+    console.error('[NextAuth] Apple client secret generation failed:', e);
+  }
 
-    // Apple OAuth
-    AppleProvider({
-      clientId: process.env.APPLE_CLIENT_ID!,
-      clientSecret: process.env.APPLE_CLIENT_SECRET!,
-    }),
+  return {
+    providers: [
+      // Google OAuth
+      GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID!,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      }),
 
-    // Facebook OAuth
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
-    }),
+      // Apple OAuth — clientSecret is a JWT signed with the .p8 private key
+      AppleProvider({
+        clientId: process.env.APPLE_CLIENT_ID || 'com.masjid.alfalah',
+        clientSecret: appleClientSecret,
+      }),
 
-    // Magic Link (Email)
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: Number(process.env.EMAIL_SERVER_PORT),
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
+      // Facebook OAuth
+      FacebookProvider({
+        clientId: process.env.FACEBOOK_CLIENT_ID!,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+      }),
+
+      // Magic Link (Email)
+      EmailProvider({
+        server: {
+          host: process.env.EMAIL_SERVER_HOST,
+          port: Number(process.env.EMAIL_SERVER_PORT),
+          auth: {
+            user: process.env.EMAIL_SERVER_USER,
+            pass: process.env.EMAIL_SERVER_PASSWORD,
+          },
         },
-      },
-      from: process.env.EMAIL_FROM || 'noreply@masjid-al-falah.org',
-    }),
-  ],
+        from: process.env.EMAIL_FROM || 'noreply@masjid-al-falah.org',
+      }),
+    ],
 
-  pages: {
-    signIn: '/donate/login',
-    error: '/donate/error',
-    verifyRequest: '/donate/verify',
-  },
+    pages: {
+      signIn: '/donate/login',
+      error: '/donate/error',
+      verifyRequest: '/donate/verify',
+    },
 
-  callbacks: {
-    async signIn({ user, account }) {
-      if (!user.email) return false;
+    callbacks: {
+      async signIn({ user, account }) {
+        if (!user.email) return false;
 
-      try {
-        const payload = await getPayload({ config: configPromise });
+        try {
+          const payload = await getPayload({ config: configPromise });
 
-        // Check if donor exists
-        const existingDonors = await payload.find({
-          collection: 'donors',
-          where: { email: { equals: user.email } },
-          limit: 1,
-        });
-
-        if (existingDonors.docs.length === 0) {
-          // Create new donor from social login
-          await payload.create({
-            collection: 'donors',
-            data: {
-              email: user.email,
-              firstName: user.name?.split(' ')[0] || '',
-              lastName: user.name?.split(' ').slice(1).join(' ') || '',
-              displayName: user.name || 'Anonymous',
-              authProvider: account?.provider || 'email',
-              authProviderId: account?.providerAccountId || '',
-            },
+          const existingDonors = await payload.find({
+            collection: 'donors' as any,
+            where: { email: { equals: user.email } },
+            limit: 1,
           });
-        } else {
-          // Update existing donor with auth provider info
-          const donor = existingDonors.docs[0];
-          if (!donor.authProvider) {
-            await payload.update({
-              collection: 'donors',
-              id: donor.id,
+
+          if (existingDonors.docs.length === 0) {
+            await payload.create({
+              collection: 'donors' as any,
               data: {
+                email: user.email,
+                firstName: user.name?.split(' ')[0] || '',
+                lastName: user.name?.split(' ').slice(1).join(' ') || '',
+                displayName: user.name || 'Anonymous',
                 authProvider: account?.provider || 'email',
                 authProviderId: account?.providerAccountId || '',
               },
             });
+          } else {
+            const donor = existingDonors.docs[0];
+            if (!(donor as any).authProvider) {
+              await payload.update({
+                collection: 'donors' as any,
+                id: donor.id,
+                data: {
+                  authProvider: account?.provider || 'email',
+                  authProviderId: account?.providerAccountId || '',
+                },
+              });
+            }
           }
-        }
 
-        return true;
-      } catch (error) {
-        console.error('SignIn callback error:', error);
-        return true; // Allow sign in even if database update fails
-      }
-    },
-
-    async session({ session, token }) {
-      if (session.user && token.sub) {
-        // Add donor ID to session
-        try {
-          const payload = await getPayload({ config: configPromise });
-          const donors = await payload.find({
-            collection: 'donors',
-            where: { email: { equals: session.user.email } },
-            limit: 1,
-          });
-
-          if (donors.docs.length > 0) {
-            (session.user as { donorId?: string }).donorId = donors.docs[0].id;
-          }
+          return true;
         } catch (error) {
-          console.error('Session callback error:', error);
+          console.error('SignIn callback error:', error);
+          return true; // Allow sign in even if database update fails
         }
-      }
-      return session;
+      },
+
+      async session({ session, token }) {
+        if (session.user && token.sub) {
+          try {
+            const payload = await getPayload({ config: configPromise });
+            const donors = await payload.find({
+              collection: 'donors' as any,
+              where: { email: { equals: session.user.email } },
+              limit: 1,
+            });
+
+            if (donors.docs.length > 0) {
+              (session.user as { donorId?: string }).donorId =
+                donors.docs[0].id;
+            }
+          } catch (error) {
+            console.error('Session callback error:', error);
+          }
+        }
+        return session;
+      },
+
+      async jwt({ token, account, user }) {
+        if (account && user) {
+          token.provider = account.provider;
+          token.providerAccountId = account.providerAccountId;
+        }
+        return token;
+      },
     },
 
-    async jwt({ token, account, user }) {
-      if (account && user) {
-        token.provider = account.provider;
-        token.providerAccountId = account.providerAccountId;
-      }
-      return token;
+    session: {
+      strategy: 'jwt',
+      maxAge: 30 * 24 * 60 * 60, // 30 days
     },
-  },
 
-  session: {
-    strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
+    secret: process.env.NEXTAUTH_SECRET,
 
-  secret: process.env.NEXTAUTH_SECRET,
+    debug: process.env.NODE_ENV === 'development',
+  };
+}
 
-  debug: process.env.NODE_ENV === 'development',
-};
+// Static export for backward compatibility (used by any code that imports authOptions)
+export const authOptions: AuthOptions = getAuthOptions();

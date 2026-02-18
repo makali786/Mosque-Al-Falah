@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { GlobalConfig } from 'payload';
 
 export const MediaPage: GlobalConfig = {
@@ -9,6 +10,12 @@ export const MediaPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('media-page')],
+
+  },
+
   fields: [
     // ============================================================================
     // Page Header

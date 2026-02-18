@@ -145,8 +145,9 @@ const PrayerTime = ({
       container: active
         ? 'flex flex-col items-center justify-center w-[58px] h-[54px] bg-[#005bc4] rounded-[12px]'
         : 'flex flex-col items-center justify-center w-[58px] h-[54px]',
-      nameClass: `font-medium text-[12px] leading-4 ${active ? 'text-white' : 'text-black'
-        }`,
+      nameClass: `font-medium text-[12px] leading-4 ${
+        active ? 'text-white' : 'text-black'
+      }`,
       timeClass: `text-[13px] font-semibold leading-5 ${active ? 'text-white' : 'text-[#52525B]'}`,
     },
     tablet: {
@@ -392,7 +393,7 @@ export default function TopBar({
             <SocialIcon key={social.name} {...social} />
           ))}
           <Link
-            href="https://qiblafinder.withgoogle.com/intl/en/desktop"
+            href="https://emasjidlive.co.uk/listen/masjidalfalahilford"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center rounded-full shrink-0"

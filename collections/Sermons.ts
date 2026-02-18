@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 
@@ -191,7 +192,7 @@ export const Sermons: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [
+    afterChange: [createRevalidateHook('sermons'), 
       createNewsletterHook('sermon', 'isPublished'),
     ],
   },

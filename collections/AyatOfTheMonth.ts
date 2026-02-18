@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 
 export const AyatOfTheMonth: CollectionConfig = {
@@ -10,6 +11,12 @@ export const AyatOfTheMonth: CollectionConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('ayat-of-the-month')],
+
+  },
+
   fields: [
     {
       name: 'surahName',

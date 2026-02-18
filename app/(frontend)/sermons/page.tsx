@@ -4,6 +4,8 @@ import { QuoteSection } from "../components/common/QuoteSection";
 import { fetchGlobal, fetchSermons } from "@lib/fetcher";
 import { getMediaUrl } from "@lib/helper";
 
+export const revalidate = 60;
+
 
 // Helper to define loosely what we expect from the unchecked global/collection fetch
 interface SermonsPageData {

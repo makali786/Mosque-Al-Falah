@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { GlobalConfig } from 'payload';
 
 export const DonationAppealsPage: GlobalConfig = {
@@ -10,6 +11,12 @@ export const DonationAppealsPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('donation-appeals-page')],
+
+  },
+
   fields: [
     // ============================================================================
     // Page Header

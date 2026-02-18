@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import { GlobalConfig } from 'payload';
 
 export const PrayerTimeSettings: GlobalConfig = {
@@ -18,6 +19,12 @@ export const PrayerTimeSettings: GlobalConfig = {
     read: () => true,
     update: () => true, // Allow updates from custom view
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('prayer-time-settings')],
+
+  },
+
   fields: [
     {
       name: 'calculationMethod',

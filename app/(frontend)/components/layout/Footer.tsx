@@ -47,11 +47,7 @@ const CONTACT_INFO = [
     text: 'Masjid Al-Falah, North Ilford Islamic Centre, 97 Kensington Gardens, Ilford, Essex IG1 3EN',
     href: 'https://www.google.com/maps/dir/?api=1&destination=97+Kensington+Gardens+Ilford+Essex+IG1+3EN',
   },
-  {
-    icon: '/assets/footer/phone-icon.svg',
-    text: '020 3538 7266',
-    href: 'tel:02035387266',
-  },
+
   {
     icon: '/assets/footer/email-icon.svg',
     text: 'info@masjid-alfalah.org.uk',
@@ -482,7 +478,7 @@ export default function Footer() {
                     <SocialIcon key={social.name} {...social} />
                   ))}
                   <Link
-                    href="https://qiblafinder.withgoogle.com/intl/en/desktop"
+                    href="https://emasjidlive.co.uk/listen/masjidalfalahilford"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center rounded-full shrink-0"

@@ -4,6 +4,8 @@ import BreadcrumbSearchSection from "../components/common/BreadcrumbSearchSectio
 import { QuoteSection } from "../components/common/QuoteSection";
 import { RichTextRenderer } from "../components/common/RichTextRenderer";
 
+export const revalidate = 60;
+
 // Helper to calculate days left
 const getDaysLeft = (dateString?: string) => {
   if (!dateString) return 0;

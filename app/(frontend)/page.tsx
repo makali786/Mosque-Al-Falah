@@ -18,6 +18,8 @@ import NewsAndUpdates from './components/home/NewsAndUpdates';
 import Sermons from './components/home/Sermons';
 import Services from './components/home/Services';
 
+export const revalidate = 60;
+
 export default async function Home() {
   // Fetch home page configuration
   const homePageConfig = await fetchGlobal({ slug: 'home-page' });

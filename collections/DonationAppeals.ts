@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 import type { CollectionConfig } from 'payload';
 
@@ -870,6 +871,6 @@ export const DonationAppeals: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [createNewsletterHook('donation-appeal', 'isActive')],
+    afterChange: [createRevalidateHook('donation-appeals'), createNewsletterHook('donation-appeal', 'isActive')],
   },
 };

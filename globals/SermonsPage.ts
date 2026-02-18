@@ -1,3 +1,4 @@
+import { createRevalidateHook } from '../lib/revalidation';
 import type { GlobalConfig } from 'payload';
 
 export const SermonsPage: GlobalConfig = {
@@ -9,6 +10,12 @@ export const SermonsPage: GlobalConfig = {
   access: {
     read: () => true,
   },
+  hooks: {
+
+    afterChange: [createRevalidateHook('sermons-page')],
+
+  },
+
   fields: [
     // ============================================================================
     // Page Header
