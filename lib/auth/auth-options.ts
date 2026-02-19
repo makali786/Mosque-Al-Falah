@@ -25,7 +25,7 @@ export function getAuthOptions(): AuthOptions {
   // Generate Apple JWT client secret at request time (not module load time)
   let appleClientSecret = '';
   try {
-    appleClientSecret = generateAppleClientSecret();
+    appleClientSecret = "eyJhbGciOiJFUzI1NiIsImtpZCI6Ikw0TVc2NlAyNDYifQ.eyJpc3MiOiI5NFFNMkg1Q1FRIiwiaWF0IjoxNzcxNTI4MjM2LCJleHAiOjE3ODczMDUyMzYsImF1ZCI6Imh0dHBzOi8vYXBwbGVpZC5hcHBsZS5jb20iLCJzdWIiOiJjb20ubWFzamlkLmFsZmFsYWcud2ViIn0.qZeAsnW8JZclP9GhuopA6Ak5Znxjqr6AR9eHrrO0-2TGfo58obkMw9odUGkmkvlziRa7B2wGq106kOrTtaYdWg";
   } catch (e) {
     console.error('[NextAuth] Apple client secret generation failed:', e);
   }
