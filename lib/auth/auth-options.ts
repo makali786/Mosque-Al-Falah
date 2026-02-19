@@ -11,7 +11,7 @@
 import configPromise from '@payload-config';
 import { AuthOptions } from 'next-auth';
 import AppleProvider from 'next-auth/providers/apple';
-import EmailProvider from 'next-auth/providers/email';
+// import EmailProvider from 'next-auth/providers/email';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GoogleProvider from 'next-auth/providers/google';
 import { getPayload } from 'payload';
@@ -51,6 +51,7 @@ export function getAuthOptions(): AuthOptions {
       }),
 
       // Magic Link (Email)
+      /*
       EmailProvider({
         server: {
           host: process.env.EMAIL_SERVER_HOST,
@@ -62,6 +63,7 @@ export function getAuthOptions(): AuthOptions {
         },
         from: process.env.EMAIL_FROM || 'noreply@masjid-al-falah.org',
       }),
+      */
     ],
 
     pages: {
