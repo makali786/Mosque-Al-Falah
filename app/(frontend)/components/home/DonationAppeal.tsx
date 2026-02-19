@@ -12,6 +12,7 @@ interface DonationAppealData {
     targetAmount?: number;
     currentAmount?: number;
     totalDonors?: number;
+    isOngoing?: boolean;
   };
   timeline?: {
     endDate?: string;
@@ -37,22 +38,24 @@ export default function DonationAppeal({
 
   const target = appeal.funding?.targetAmount || 0;
   const funded = appeal.funding?.currentAmount || 0;
+  const isOngoing = appeal.funding?.isOngoing || false;
   const progressPercentage =
-    target > 0 ? Math.min((funded / target) * 100, 100) : 0;
+    !isOngoing && target > 0 ? Math.min((funded / target) * 100, 100) : 0;
   const donorsCount = appeal.funding?.totalDonors || 0;
 
-  // Calculate days left
+  // Calculate days left — only relevant when there's an end date and not ongoing
   const endDate = appeal.timeline?.endDate
     ? new Date(appeal.timeline.endDate)
     : null;
-  const daysLeft = endDate
-    ? Math.max(
-        0,
-        Math.ceil(
-          (endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+  const daysLeft =
+    !isOngoing && endDate
+      ? Math.max(
+          0,
+          Math.ceil(
+            (endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+          )
         )
-      )
-    : 0;
+      : null;
 
   const image1 = getMediaUrl(appeal.heroMedia?.heroImage);
   return (
@@ -177,31 +180,35 @@ export default function DonationAppeal({
                       </p>
                     </div>
 
-                    {/* Days Left */}
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 relative overflow-hidden shrink-0">
-                        <Image
-                          src="/assets/donation/clock-icon.svg"
-                          alt=""
-                          fill
-                          className="object-contain"
-                        />
+                    {/* Days Left — hidden for ongoing campaigns */}
+                    {daysLeft !== null && (
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 relative overflow-hidden shrink-0">
+                          <Image
+                            src="/assets/donation/clock-icon.svg"
+                            alt=""
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <p className="text-base font-normal text-[#71717a] leading-6">
+                          {daysLeft} days left
+                        </p>
                       </div>
-                      <p className="text-base font-normal text-[#71717a] leading-6">
-                        {daysLeft} days left
-                      </p>
-                    </div>
+                    )}
                   </div>
 
-                  {/* Progress Bar */}
-                  <div className="flex flex-col gap-2 w-full">
-                    <div className="w-full h-1 sm:h-3 bg-[#e4e4e7] rounded-full flex items-start overflow-hidden">
-                      <div
-                        className="h-1 sm:h-3 bg-[#006fee] rounded-full shrink-0"
-                        style={{ width: `${progressPercentage}%` }}
-                      />
+                  {/* Progress Bar — hidden for ongoing campaigns */}
+                  {!isOngoing && (
+                    <div className="flex flex-col gap-2 w-full">
+                      <div className="w-full h-1 sm:h-3 bg-[#e4e4e7] rounded-full flex items-start overflow-hidden">
+                        <div
+                          className="h-1 sm:h-3 bg-[#006fee] rounded-full shrink-0"
+                          style={{ width: `${progressPercentage}%` }}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Description */}
@@ -218,7 +225,9 @@ export default function DonationAppeal({
                     £{funded.toLocaleString()}
                   </p>
                   <p className="text-base font-normal text-[#71717a] leading-6 text-left">
-                    funded of £{(target / 1000).toFixed(0)}K
+                    {isOngoing
+                      ? 'Running Total'
+                      : `funded of £${(target / 1000).toFixed(0)}K`}
                   </p>
                 </div>
 

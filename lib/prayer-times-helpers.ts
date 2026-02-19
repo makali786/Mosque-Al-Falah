@@ -116,7 +116,7 @@ export function findNextPrayer(
 
   const prayers = [
     { name: 'FAJR', time: prayerTimeData.fajr },
-    { name: 'SUNRISE', time: prayerTimeData.sunrise },
+    // SUNRISE intentionally excluded — it has no Athan and should not appear in the countdown
     { name: 'DHUHR', time: prayerTimeData.dhuhr },
     { name: 'ASR', time: prayerTimeData.asr },
     { name: 'MAGHRIB', time: prayerTimeData.maghrib },

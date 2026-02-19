@@ -1,6 +1,6 @@
-import { createRevalidateHook } from '../lib/revalidation';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 import type { CollectionConfig } from 'payload';
+import { createRevalidateHook } from '../lib/revalidation';
 
 export const DonationAppeals: CollectionConfig = {
   slug: 'donation-appeals',
@@ -60,12 +60,23 @@ export const DonationAppeals: CollectionConfig = {
       label: 'Fundraising Goals',
       fields: [
         {
+          name: 'isOngoing',
+          type: 'checkbox',
+          defaultValue: false,
+          label: 'Ongoing Campaign (No End Date / No Fixed Target)',
+          admin: {
+            description:
+              'Enable for open-ended campaigns. Hides the target amount, progress bar, and days left. Shows a running total instead.',
+          },
+        },
+        {
           name: 'targetAmount',
           type: 'number',
-          required: true,
           label: 'Target Amount (£)',
           admin: {
-            description: 'Fundraising goal in British Pounds',
+            description:
+              'Fundraising goal in British Pounds. Leave blank for ongoing campaigns.',
+            condition: (data, siblingData) => !siblingData?.isOngoing,
           },
         },
         {
@@ -97,6 +108,7 @@ export const DonationAppeals: CollectionConfig = {
           label: 'Monthly Target (£)',
           admin: {
             description: 'For recurring donation campaigns',
+            condition: (data, siblingData) => !siblingData?.isOngoing,
           },
         },
       ],
@@ -129,7 +141,9 @@ export const DonationAppeals: CollectionConfig = {
             date: {
               pickerAppearance: 'dayAndTime',
             },
-            description: 'Leave blank for ongoing campaigns',
+            description:
+              'Leave blank for ongoing campaigns with no fixed end date',
+            condition: data => !data?.funding?.isOngoing,
           },
         },
         {
@@ -137,6 +151,9 @@ export const DonationAppeals: CollectionConfig = {
           type: 'checkbox',
           defaultValue: true,
           label: 'Show "Days Left" Countdown',
+          admin: {
+            condition: data => !data?.funding?.isOngoing,
+          },
         },
       ],
     },
@@ -871,6 +888,9 @@ export const DonationAppeals: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [createRevalidateHook('donation-appeals'), createNewsletterHook('donation-appeal', 'isActive')],
+    afterChange: [
+      createRevalidateHook('donation-appeals'),
+      createNewsletterHook('donation-appeal', 'isActive'),
+    ],
   },
 };

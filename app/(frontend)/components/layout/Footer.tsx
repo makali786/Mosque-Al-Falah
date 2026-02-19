@@ -665,13 +665,26 @@ export default function Footer() {
 
         {/* Bottom Section - Copyright */}
         <div className="bg-[#18181b] flex items-center justify-center px-6 lg:px-8 py-6 lg:py-0 lg:h-25.25 w-full">
-          <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center hn-container">
-            COPYRIGHT © {new Date().getFullYear()}{' '}
-            <Link href="" className="hover:text-[#006fee]">
-              Masjid Al Falah
-            </Link>
-            <span className="text-[#006fee]">.</span> All Rights Reserved.
-          </p>
+          <div className="hn-container flex flex-col sm:flex-row items-center justify-between gap-2 w-full">
+            <p className="font-normal text-xs lg:text-sm leading-5 text-white text-center sm:text-left">
+              COPYRIGHT © {new Date().getFullYear()}{' '}
+              <Link href="" className="hover:text-[#006fee]">
+                Masjid Al Falah
+              </Link>
+              <span className="text-[#006fee]">.</span> All Rights Reserved.
+            </p>
+            <p className="font-normal text-xs lg:text-sm leading-5 text-[#71717a] text-center sm:text-right whitespace-nowrap">
+              Developed by{' '}
+              <Link
+                href="https://qibla-tech.co.uk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#006fee] hover:text-[#0056cc] transition-colors"
+              >
+                Qibla Tech
+              </Link>
+            </p>
+          </div>
         </div>
       </footer>
     </>

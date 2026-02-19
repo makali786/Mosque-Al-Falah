@@ -206,7 +206,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Dashboard"
-            isActive={pathname === '/admin'}
+            isActive={pathname?.includes('/admin')}
           />
 
           {/* Academy */}
@@ -239,7 +239,9 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Courses"
-              isActive={pathname === '/admin/collections/madrasah-classes'}
+              isActive={pathname?.includes(
+                '/admin/collections/madrasah-classes'
+              )}
               isSubItem
             />
             <NavItem
@@ -256,7 +258,9 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Testimonials"
-              isActive={pathname === '/admin/collections/madrasah-testimonials'}
+              isActive={pathname?.includes(
+                '/admin/collections/madrasah-testimonials'
+              )}
               isSubItem
             />
           </CollapsibleNav>
@@ -297,7 +301,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Pages"
-              isActive={pathname === '/admin/collections/blog-posts'}
+              isActive={pathname?.includes('/admin/collections/blog-posts')}
               isSubItem
             />
           </CollapsibleNav>
@@ -321,7 +325,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Pages"
-            isActive={pathname === '/admin/collections/page-sections'}
+            isActive={pathname?.includes('/admin/collections/page-sections')}
           />
 
           {/* Banners */}
@@ -340,7 +344,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Banners"
-            isActive={pathname === '/admin/collections/banners'}
+            isActive={pathname?.includes('/admin/collections/banners')}
           />
 
           {/* Media Library */}
@@ -360,7 +364,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Media Library"
-            isActive={pathname === '/admin/collections/media'}
+            isActive={pathname?.includes('/admin/collections/media')}
           />
 
           {/* Prayer Times */}
@@ -379,7 +383,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Prayer Times"
-            isActive={pathname === '/admin/globals/prayer-time-settings'}
+            isActive={pathname?.includes('/admin/globals/prayer-time-settings')}
           />
 
           {/* Services */}
@@ -397,7 +401,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Services"
-            isActive={pathname === '/admin/collections/services'}
+            isActive={pathname?.includes('/admin/collections/services')}
           />
 
           {/* Appeals */}
@@ -429,7 +433,9 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="All Appeals"
-              isActive={pathname === '/admin/collections/donation-appeals'}
+              isActive={pathname?.includes(
+                '/admin/collections/donation-appeals'
+              )}
               isSubItem
             />
             <NavItem
@@ -447,7 +453,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Donations"
-              isActive={pathname === '/admin/collections/donations'}
+              isActive={pathname?.includes('/admin/collections/donations')}
               isSubItem
             />
             <NavItem
@@ -467,7 +473,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Donors"
-              isActive={pathname === '/admin/collections/donors'}
+              isActive={pathname?.includes('/admin/collections/donors')}
               isSubItem
             />
           </CollapsibleNav>
@@ -501,7 +507,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="All Sermons"
-              isActive={pathname === '/admin/collections/sermons'}
+              isActive={pathname?.includes('/admin/collections/sermons')}
               isSubItem
             />
             <NavItem
@@ -521,7 +527,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Imams"
-              isActive={pathname === '/admin/collections/imams'}
+              isActive={pathname?.includes('/admin/collections/imams')}
               isSubItem
             />
           </CollapsibleNav>
@@ -544,7 +550,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Events"
-            isActive={pathname === '/admin/collections/events'}
+            isActive={pathname?.includes('/admin/collections/events')}
           />
 
           {/* Event Bookings */}
@@ -568,7 +574,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Event Bookings"
-            isActive={pathname === '/admin/collections/event-bookings'}
+            isActive={pathname?.includes('/admin/collections/event-bookings')}
           />
 
           {/* Announcements */}
@@ -586,7 +592,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Announcements"
-            isActive={pathname === '/admin/collections/notices'}
+            isActive={pathname?.includes('/admin/collections/notices')}
           />
 
           {/* Popups */}
@@ -605,7 +611,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Popups"
-            isActive={pathname === '/admin/collections/popups'}
+            isActive={pathname?.includes('/admin/collections/popups')}
           />
 
           {/* Q&A / Fatwa */}
@@ -623,7 +629,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Q&A / Fatwa"
-            isActive={pathname === '/admin/collections/questions'}
+            isActive={pathname?.includes('/admin/collections/questions')}
           />
 
           {/* Newsletter */}
@@ -642,7 +648,9 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Newsletter"
-            isActive={pathname === '/admin/collections/newsletter-subscribers'}
+            isActive={pathname?.includes(
+              '/admin/collections/newsletter-subscribers'
+            )}
           />
 
           {/* Requests */}
@@ -677,7 +685,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Event Requests"
-              isActive={pathname === '/admin/collections/event-requests'}
+              isActive={pathname?.includes('/admin/collections/event-requests')}
               isSubItem
             />
             <NavItem
@@ -694,7 +702,9 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Service Requests"
-              isActive={pathname === '/admin/collections/service-requests'}
+              isActive={pathname?.includes(
+                '/admin/collections/service-requests'
+              )}
               isSubItem
             />
           </CollapsibleNav>
@@ -715,7 +725,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Media Items"
-            isActive={pathname === '/admin/collections/media-items'}
+            isActive={pathname?.includes('/admin/collections/media-items')}
           />
 
           {/* Ayat of the Month */}
@@ -733,7 +743,9 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Ayat of the Month"
-            isActive={pathname === '/admin/collections/ayat-of-the-month'}
+            isActive={pathname?.includes(
+              '/admin/collections/ayat-of-the-month'
+            )}
           />
 
           {/* Appearance */}
@@ -770,7 +782,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Home Page"
-              isActive={pathname === '/admin/globals/home-page'}
+              isActive={pathname?.includes('/admin/globals/home-page')}
               isSubItem
             />
             <NavItem
@@ -789,7 +801,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="About Page"
-              isActive={pathname === '/admin/globals/about-page'}
+              isActive={pathname?.includes('/admin/globals/about-page')}
               isSubItem
             />
             <NavItem
@@ -807,7 +819,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Contact Page"
-              isActive={pathname === '/admin/globals/contact-page'}
+              isActive={pathname?.includes('/admin/globals/contact-page')}
               isSubItem
             />
             <NavItem
@@ -824,7 +836,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Madrasah Page"
-              isActive={pathname === '/admin/globals/madrasah-page'}
+              isActive={pathname?.includes('/admin/globals/madrasah-page')}
               isSubItem
             />
             <NavItem
@@ -843,7 +855,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Events Page"
-              isActive={pathname === '/admin/globals/events-page'}
+              isActive={pathname?.includes('/admin/globals/events-page')}
               isSubItem
             />
             <NavItem
@@ -860,7 +872,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Services Page"
-              isActive={pathname === '/admin/globals/services-page'}
+              isActive={pathname?.includes('/admin/globals/services-page')}
               isSubItem
             />
             <NavItem
@@ -877,7 +889,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Sermons Page"
-              isActive={pathname === '/admin/globals/sermons-page'}
+              isActive={pathname?.includes('/admin/globals/sermons-page')}
               isSubItem
             />
             <NavItem
@@ -894,7 +906,9 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Appeals Page"
-              isActive={pathname === '/admin/globals/donation-appeals-page'}
+              isActive={pathname?.includes(
+                '/admin/globals/donation-appeals-page'
+              )}
               isSubItem
             />
             <NavItem
@@ -911,7 +925,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Blogs Page"
-              isActive={pathname === '/admin/globals/blogs-page'}
+              isActive={pathname?.includes('/admin/globals/blogs-page')}
               isSubItem
             />
             <NavItem
@@ -929,7 +943,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Media Page"
-              isActive={pathname === '/admin/globals/media-page'}
+              isActive={pathname?.includes('/admin/globals/media-page')}
               isSubItem
             />
             <NavItem
@@ -947,7 +961,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Prayer Page"
-              isActive={pathname === '/admin/globals/prayer-times-page'}
+              isActive={pathname?.includes('/admin/globals/prayer-times-page')}
               isSubItem
             />
             <NavItem
@@ -964,7 +978,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Core Values"
-              isActive={pathname === '/admin/collections/core-values'}
+              isActive={pathname?.includes('/admin/collections/core-values')}
               isSubItem
             />
             <NavItem
@@ -983,8 +997,8 @@ const CustomNav: React.FC = () => {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                 </svg>
               }
-              label="Committees"
-              isActive={pathname === '/admin/collections/committees'}
+              label="Trustees"
+              isActive={pathname?.includes('/admin/collections/committees')}
               isSubItem
             />
             <NavItem
@@ -1002,7 +1016,7 @@ const CustomNav: React.FC = () => {
                 </svg>
               }
               label="Notifications"
-              isActive={pathname === '/admin/collections/notifications'}
+              isActive={pathname?.includes('/admin/collections/notifications')}
               isSubItem
             />
           </CollapsibleNav>
@@ -1023,7 +1037,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Settings"
-            isActive={pathname === '/admin/account'}
+            isActive={pathname?.includes('/admin/account')}
           />
 
           {/* Users */}
@@ -1044,7 +1058,7 @@ const CustomNav: React.FC = () => {
               </svg>
             }
             label="Users"
-            isActive={pathname === '/admin/collections/users'}
+            isActive={pathname?.includes('/admin/collections/users')}
           />
         </div>
       </div>

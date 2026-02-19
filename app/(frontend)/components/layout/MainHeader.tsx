@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Image from "@/components/common/CustomImage";
-import Link from "next/link";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import Image from '@/components/common/CustomImage';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 type NavItem = {
   label: string;
@@ -12,34 +12,52 @@ type NavItem = {
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about", hasDropdown: true },
-  { label: "Our Services", href: "/our-services" },
-  { label: "Appeals", href: "/appeals" },
-  { label: "Madrasah", href: "/madrasah" },
-  { label: "Sermons", href: "/sermons" },
-  { label: "Media", href: "/media" },
-  { label: "Prayer Times", href: "/prayer-time" },
-  { label: "Blogs", href: "/blogs" },
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about', hasDropdown: true },
+  { label: 'Our Services', href: '/our-services' },
+  { label: 'Appeals', href: '/appeals' },
+  { label: 'Madrasah', href: '/madrasah' },
+  { label: 'Sermons', href: '/sermons' },
+  { label: 'Media', href: '/media' },
+  { label: 'Prayer Times', href: '/prayer-time' },
+  { label: 'Blogs', href: '/blogs' },
 ];
 
 const ABOUT_DROPDOWN = [
-  { label: "About Us", href: "/about" },
-  { label: "History", href: "/about#history" },
-  { label: "Mission", href: "/about#mission" },
-  { label: "Staff", href: "/about#committees" },
-  { label: "Contact Us", href: "/contact-us" },
+  { label: 'About Us', href: '/about' },
+  { label: 'History', href: '/about#history' },
+  { label: 'Mission', href: '/about#mission' },
+  { label: 'Staff', href: '/about#committees' },
+  { label: 'Contact Us', href: '/contact-us' },
 ] as const;
 
-const ChevronIcon = ({ className = "" }: { className?: string }) => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={className}>
-    <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+const ChevronIcon = ({ className = '' }: { className?: string }) => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    className={className}
+  >
+    <path
+      d="M4 6L8 10L12 6"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
 const CloseIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M18 6L6 18M6 6L18 18"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
@@ -53,43 +71,98 @@ interface NavItemProps {
   isBlogPage?: boolean;
 }
 
-const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, isMobile = false, isBlogPage = false }: NavItemProps) => {
+const NavItem = ({
+  item,
+  pathname,
+  dropdownOpen,
+  onDropdownToggle,
+  onCloseMenu,
+  isMobile = false,
+  isBlogPage = false,
+}: NavItemProps) => {
   const isActive = item.hasDropdown
-    ? pathname.startsWith("/about") || pathname.startsWith("/contact-us")
-    : item.href === "/"
-      ? pathname === "/"
+    ? pathname.startsWith('/about') || pathname.startsWith('/contact-us')
+    : item.href === '/'
+      ? pathname === '/'
       : pathname.startsWith(item.href);
 
-  // Adjust colors based on page context
-  const inactiveColor = isMobile ? "text-white" : isBlogPage ? "text-[#52525b]" : "text-[#fafafa]";
-  const activeClass = isActive ? "text-[#06b7db]" : inactiveColor;
+  const inactiveColor = isMobile
+    ? 'text-white'
+    : isBlogPage
+      ? 'text-[#52525b]'
+      : 'text-[#fafafa]';
+  const activeClass = isActive ? 'text-[#06b7db]' : inactiveColor;
+
+  // ── Hooks must always be at the top level — no hooks inside conditionals ──
+  // Wraps the trigger button + panel so we can detect outside clicks
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close on outside mousedown (desktop only, dropdown items only)
+  useEffect(() => {
+    if (!item.hasDropdown || isMobile) return;
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        if (dropdownOpen) onDropdownToggle();
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, [item.hasDropdown, dropdownOpen, isMobile, onDropdownToggle]);
+  // ──────────────────────────────────────────────────────────────────────────
 
   if (item.hasDropdown) {
     return (
-      <div className={isMobile ? "" : "relative"}>
+      <div ref={dropdownRef} className={isMobile ? '' : 'relative'}>
         <button
           onClick={onDropdownToggle}
-          className={`flex gap-1 items-center ${isMobile ? "justify-between w-full" : "shrink-0"} ${activeClass} cursor-pointer`}
+          className={`flex gap-1 items-center ${isMobile ? 'justify-between w-full' : 'shrink-0'} ${activeClass} cursor-pointer`}
         >
-          <span className={`font-normal ${isMobile ? "text-base" : "text-sm xl:text-base leading-6"} whitespace-nowrap`}>
+          <span
+            className={`font-normal ${isMobile ? 'text-base' : 'text-sm xl:text-base leading-6'} whitespace-nowrap`}
+          >
             {item.label}
           </span>
-          <ChevronIcon className={isMobile ? `transform transition-transform ${dropdownOpen ? "rotate-180" : ""}` : "shrink-0 w-4 h-4"} />
+          <ChevronIcon
+            className={
+              isMobile
+                ? `transform transition-transform ${dropdownOpen ? 'rotate-180' : ''}`
+                : 'shrink-0 w-4 h-4'
+            }
+          />
         </button>
 
         {dropdownOpen && (
-          <div className={isMobile ? "mt-2 ml-4 flex flex-col gap-2" : "absolute top-full left-0 mt-6 bg-white rounded-lg shadow-lg py-2 min-w-45 z-50"}>
-            {ABOUT_DROPDOWN.map((dropdownItem) => (
+          <div
+            className={
+              isMobile
+                ? 'mt-2 ml-4 flex flex-col gap-2'
+                : 'absolute top-full left-0 mt-6 bg-white rounded-lg shadow-lg py-2 min-w-45 z-50'
+            }
+          >
+            {ABOUT_DROPDOWN.map(dropdownItem => (
               <Link
                 key={dropdownItem.label}
                 href={dropdownItem.href}
-                className={isMobile ? "text-gray-400 hover:text-white py-2" : "block px-6 py-3 text-black hover:bg-gray-100 transition-colors text-center"}
+                className={
+                  isMobile
+                    ? 'text-gray-400 hover:text-white py-2'
+                    : 'block px-6 py-3 text-black hover:bg-gray-100 transition-colors text-center'
+                }
                 onClick={() => {
                   onDropdownToggle();
                   onCloseMenu?.();
                 }}
               >
-                {isMobile ? dropdownItem.label : <p className="font-normal text-base leading-6 whitespace-nowrap">{dropdownItem.label}</p>}
+                {isMobile ? (
+                  dropdownItem.label
+                ) : (
+                  <p className="font-normal text-base leading-6 whitespace-nowrap">
+                    {dropdownItem.label}
+                  </p>
+                )}
               </Link>
             ))}
           </div>
@@ -99,8 +172,14 @@ const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, 
   }
 
   return (
-    <Link href={item.href} className={isMobile ? "" : "flex gap-1 items-center shrink-0"} onClick={onCloseMenu}>
-      <p className={`font-normal ${isMobile ? "text-base" : "text-sm xl:text-base leading-6"} whitespace-nowrap ${activeClass}`}>
+    <Link
+      href={item.href}
+      className={isMobile ? '' : 'flex gap-1 items-center shrink-0'}
+      onClick={onCloseMenu}
+    >
+      <p
+        className={`font-normal ${isMobile ? 'text-base' : 'text-sm xl:text-base leading-6'} whitespace-nowrap ${activeClass}`}
+      >
         {item.label}
       </p>
     </Link>
@@ -108,7 +187,12 @@ const NavItem = ({ item, pathname, dropdownOpen, onDropdownToggle, onCloseMenu, 
 };
 
 const HamburgerIcon = () => (
-  <Image src="/assets/common/hamburger-icon.svg" alt="Menu" width={24} height={24} />
+  <Image
+    src="/assets/common/hamburger-icon.svg"
+    alt="Menu"
+    width={24}
+    height={24}
+  />
 );
 
 export default function MainHeader() {
@@ -116,9 +200,14 @@ export default function MainHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // Close dropdown whenever the route changes
+  useEffect(() => {
+    setAboutUsOpen(false);
+  }, [pathname]);
+
   // Check if we're on the blog page
-  const isBlogPage = pathname.startsWith("/blogs");
-  const headerBgClass = isBlogPage ? "bg-[#e6f1fe]" : "bg-black";
+  const isBlogPage = pathname.startsWith('/blogs');
+  const headerBgClass = isBlogPage ? 'bg-[#e6f1fe]' : 'bg-black';
 
   return (
     <header className={`${headerBgClass} w-full sticky top-0 z-40`}>
@@ -126,16 +215,23 @@ export default function MainHeader() {
         {/* Hamburger Menu */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`lg:hidden flex flex-col gap-1 w-6 h-5 justify-center cursor-pointer ${isBlogPage ? "brightness-0" : ""}`}
+          className={`lg:hidden flex flex-col gap-1 w-6 h-5 justify-center cursor-pointer ${isBlogPage ? 'brightness-0' : ''}`}
           aria-label="Menu"
         >
           <HamburgerIcon />
         </button>
 
         {/* Logo */}
-        <Link href="/" className="relative shrink-0 w-24 h-10 lg:w-28 xl:w-32.25 lg:h-11 xl:h-13">
+        <Link
+          href="/"
+          className="relative shrink-0 w-24 h-10 lg:w-28 xl:w-32.25 lg:h-11 xl:h-13"
+        >
           <Image
-            src={isBlogPage ? "/assets/common/logo-2.png" : "/assets/header/logo.svg"}
+            src={
+              isBlogPage
+                ? '/assets/common/logo-2.png'
+                : '/assets/header/logo.svg'
+            }
             alt="Masjid Logo"
             fill
             className="object-contain"
@@ -145,11 +241,12 @@ export default function MainHeader() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex gap-3 xl:gap-6 2xl:gap-10 items-center shrink-0">
           <nav className="flex gap-2 xl:gap-4 2xl:gap-6 items-center shrink-0">
-            {NAV_ITEMS.map((item) => {
+            {NAV_ITEMS.map(item => {
               const isActive = item.hasDropdown
-                ? pathname.startsWith("/about") || pathname.startsWith("/contact-us")
-                : item.href === "/"
-                  ? pathname === "/"
+                ? pathname.startsWith('/about') ||
+                  pathname.startsWith('/contact-us')
+                : item.href === '/'
+                  ? pathname === '/'
                   : pathname.startsWith(item.href);
               return (
                 <div
@@ -163,48 +260,78 @@ export default function MainHeader() {
                     onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
                     isBlogPage={isBlogPage}
                   />
-                  <div className={`h-1 w-full ${isActive ? 'bg-[#06b7db]' : 'bg-transparent'}`} />
+                  <div
+                    className={`h-1 w-full ${isActive ? 'bg-[#06b7db]' : 'bg-transparent'}`}
+                  />
                 </div>
               );
             })}
           </nav>
 
-          <Link href="/donate" className={`flex items-center justify-center gap-2 px-3 rounded-lg shrink-0 h-8 ${isBlogPage ? "bg-[#006fee]" : "bg-white"}`}>
+          <Link
+            href="/donate"
+            className={`flex items-center justify-center gap-2 px-3 rounded-lg shrink-0 h-8 ${isBlogPage ? 'bg-[#006fee]' : 'bg-white'}`}
+          >
             {isBlogPage && (
-              <Image src="/assets/header/donate-blog.svg" alt="" width={20} height={20} className="shrink-0" />
+              <Image
+                src="/assets/header/donate-blog.svg"
+                alt=""
+                width={20}
+                height={20}
+                className="shrink-0"
+              />
             )}
-            <span className={`font-normal text-xs leading-4 whitespace-nowrap ${isBlogPage ? "text-white" : "text-black"}`}>Donate Now</span>
+            <span
+              className={`font-normal text-xs leading-4 whitespace-nowrap ${isBlogPage ? 'text-white' : 'text-black'}`}
+            >
+              Donate Now
+            </span>
           </Link>
         </div>
 
         {/* Mobile Donate Button */}
-        <Link href="/donate" className={`lg:hidden flex items-center justify-center gap-2 px-3 py-1.5 rounded-md shrink-0 ${isBlogPage ? "bg-[#006fee]" : "bg-white"}`}>
+        <Link
+          href="/donate"
+          className={`lg:hidden flex items-center justify-center gap-2 px-3 py-1.5 rounded-md shrink-0 ${isBlogPage ? 'bg-[#006fee]' : 'bg-white'}`}
+        >
           {isBlogPage && (
-            <Image src="/assets/header/donate-blog.svg" alt="" width={16} height={16} className="shrink-0" />
+            <Image
+              src="/assets/header/donate-blog.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="shrink-0"
+            />
           )}
-          <span className={`font-medium text-xs whitespace-nowrap ${isBlogPage ? "text-white" : "text-black"}`}>Donate</span>
+          <span
+            className={`font-medium text-xs whitespace-nowrap ${isBlogPage ? 'text-white' : 'text-black'}`}
+          >
+            Donate
+          </span>
         </Link>
       </div>
 
       {/* Mobile Menu */}
       <>
         <div
-          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-9998 ${mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
-            }`}
+          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-9998 ${mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'}`}
           onClick={() => setMobileMenuOpen(false)}
         />
         <div
-          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-9999 overflow-y-auto transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-            }`}
+          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-9999 overflow-y-auto transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
         >
           <div className="flex justify-end p-4">
-            <button onClick={() => setMobileMenuOpen(false)} className="text-white cursor-pointer" aria-label="Close menu">
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-white cursor-pointer"
+              aria-label="Close menu"
+            >
               <CloseIcon />
             </button>
           </div>
 
           <nav className="flex flex-col px-6 py-4">
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.map(item => (
               <div key={item.label} className="py-3 border-b border-gray-800">
                 <NavItem
                   item={item}

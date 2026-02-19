@@ -13,6 +13,7 @@ interface AppealHeroProps {
     donors: number;
     goal: number;
     daysLeft: number;
+    isOngoing?: boolean;
   };
 }
 
@@ -24,8 +25,11 @@ export function AppealHero({
 }: AppealHeroProps) {
   const imageUrl = getMediaUrl(heroImage);
   const imageAlt = getMediaAlt(heroImage) || title;
+  const isOngoing = stats.isOngoing || false;
   const progress =
-    stats.goal > 0 ? Math.min((stats.raised / stats.goal) * 100, 100) : 0;
+    !isOngoing && stats.goal > 0
+      ? Math.min((stats.raised / stats.goal) * 100, 100)
+      : 0;
 
   return (
     <section className="w-full">
@@ -111,13 +115,19 @@ export function AppealHero({
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-[22px] px-4 sm:px-8 bg-[#001731] rounded-xl backdrop-blur-sm">
+            <div
+              className={`grid gap-4 py-[22px] px-4 sm:px-8 bg-[#001731] rounded-xl backdrop-blur-sm ${
+                isOngoing
+                  ? 'grid-cols-1 sm:grid-cols-2'
+                  : 'grid-cols-2 md:grid-cols-4'
+              }`}
+            >
               <div className="flex flex-col items-center justify-center text-center gap-1">
                 <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
                   £{stats.raised.toLocaleString()}
                 </span>
                 <span className="text-sm sm:text-lg font-medium uppercase">
-                  Raised
+                  {isOngoing ? 'Running Total' : 'Raised'}
                 </span>
               </div>
               <div className="flex flex-col items-center justify-center text-center gap-1">
@@ -128,45 +138,51 @@ export function AppealHero({
                   Donations
                 </span>
               </div>
-              <div className="flex flex-col items-center justify-center text-center gap-1">
-                <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
-                  £{stats.goal.toLocaleString()}
-                </span>
-                <span className="text-sm sm:text-lg font-medium uppercase">
-                  Goal
-                </span>
-              </div>
-              <div className="flex flex-col items-center justify-center text-center gap-1">
-                <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
-                  {stats.daysLeft}
-                </span>
-                <span className="text-sm sm:text-lg font-medium uppercase">
-                  Days To Go
-                </span>
-              </div>
+              {!isOngoing && (
+                <>
+                  <div className="flex flex-col items-center justify-center text-center gap-1">
+                    <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
+                      £{stats.goal.toLocaleString()}
+                    </span>
+                    <span className="text-sm sm:text-lg font-medium uppercase">
+                      Goal
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-center justify-center text-center gap-1">
+                    <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
+                      {stats.daysLeft}
+                    </span>
+                    <span className="text-sm sm:text-lg font-medium uppercase">
+                      Days To Go
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
 
-            {/* Progress Bar */}
-            <div className="flex flex-col gap-3">
-              <div className="w-full h-3 bg-white rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#006FEE] rounded-full transition-all duration-700 ease-out"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              {/* Optional: Add "Asset Verified Fundraiser" or similar text if needed as per image */}
-              <div className="flex items-center gap-2 mt-2">
-                <div className="w-5 h-5">
-                  <Image
-                    src="/assets/common/zakat-tag.svg"
-                    alt="Verified"
-                    width={20}
-                    height={20}
+            {/* Progress Bar — hidden for ongoing campaigns */}
+            {!isOngoing && (
+              <div className="flex flex-col gap-3">
+                <div className="w-full h-3 bg-white rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#006FEE] rounded-full transition-all duration-700 ease-out"
+                    style={{ width: `${progress}%` }}
                   />
                 </div>
-                <span className="text-xm">Asset Verified Fundraiser</span>
+                {/* Optional: Add "Asset Verified Fundraiser" or similar text if needed as per image */}
+                <div className="flex items-center gap-2 mt-2">
+                  <div className="w-5 h-5">
+                    <Image
+                      src="/assets/common/zakat-tag.svg"
+                      alt="Verified"
+                      width={20}
+                      height={20}
+                    />
+                  </div>
+                  <span className="text-xm">Asset Verified Fundraiser</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

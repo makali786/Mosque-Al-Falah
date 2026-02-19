@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import Image from "@/components/common/CustomImage";
-import Link from "next/link";
-import { Media } from "../../../../payload-types";
+import Image from '@/components/common/CustomImage';
+import Link from 'next/link';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Media } from '../../../../payload-types';
 
 export interface BannerSlide {
   id: number | string;
@@ -36,8 +36,11 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Touch swipe support (mobile only)
+  const touchStartX = useRef<number | null>(null);
+  const SWIPE_THRESHOLD = 50; // minimum px to count as a swipe
 
-  const slides: BannerSlide[] = banners.map((banner) => ({
+  const slides: BannerSlide[] = banners.map(banner => ({
     id: banner.id,
     title: banner.title,
     description: banner.description,
@@ -45,14 +48,40 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
     bannerImage: banner.mobileImage,
     primaryButton: banner.primaryButton,
     secondaryButton: banner.secondaryButton,
-  }))
+  }));
   // If no slides are provided, don't render anything or render a placeholder
   const hasSlides = slides && slides.length > 0;
 
   const nextSlide = useCallback(() => {
     if (!hasSlides) return;
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide(prev => (prev + 1) % slides.length);
   }, [slides.length, hasSlides]);
+
+  const prevSlide = useCallback(() => {
+    if (!hasSlides) return;
+    setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
+  }, [slides.length, hasSlides]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(delta) < SWIPE_THRESHOLD) return; // too short, ignore
+    if (delta > 0) {
+      // Swiped left → next slide
+      nextSlide();
+    } else {
+      // Swiped right → previous slide
+      prevSlide();
+    }
+    // Brief auto-rotate pause after a manual swipe
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 8000);
+    touchStartX.current = null;
+  };
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -75,13 +104,14 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
 
   // Helper to get image URL
   const getImageUrl = (img: string | Media | null | undefined) => {
-    if (!img) return "";
-    if (typeof img === "string") return img;
-    return img.url || "";
+    if (!img) return '';
+    if (typeof img === 'string') return img;
+    return img.url || '';
   };
 
   const desktopImage = getImageUrl(currentSlideData?.image);
-  const mobileImage = getImageUrl(currentSlideData?.bannerImage) || desktopImage;
+  const mobileImage =
+    getImageUrl(currentSlideData?.bannerImage) || desktopImage;
 
   return (
     <>
@@ -137,18 +167,23 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full border-2 md:border-3 w-5.5 h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 cursor-pointer ${index === currentSlide
-                ? "bg-[#006fee] border-white"
-                : "bg-transparent border-white/50 hover:border-white"
-                }`}
+              className={`transition-all duration-300 rounded-full border-2 md:border-3 w-5.5 h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 cursor-pointer ${
+                index === currentSlide
+                  ? 'bg-[#006fee] border-white'
+                  : 'bg-transparent border-white/50 hover:border-white'
+              }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
       </section>
 
-      {/* Mobile Hero Section */}
-      <section className="relative w-full h-auto overflow-hidden sm:hidden">
+      {/* Mobile Hero Section — touch swipe enabled */}
+      <section
+        className="relative w-full h-auto overflow-hidden sm:hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Full gradient background on mobile */}
         <div className="absolute inset-0 bg-linear-to-r from-[#001731] from-[2.344%] to-[#004797]" />
 
@@ -178,10 +213,11 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`transition-all duration-300 rounded-full w-2 h-2 cursor-pointer ${index === currentSlide
-                      ? "bg-white"
-                      : "bg-white/30 hover:bg-white/50"
-                      }`}
+                    className={`transition-all duration-300 rounded-full w-2 h-2 cursor-pointer ${
+                      index === currentSlide
+                        ? 'bg-white'
+                        : 'bg-white/30 hover:bg-white/50'
+                    }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}

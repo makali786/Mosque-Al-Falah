@@ -16,6 +16,7 @@ export interface MediaData {
 interface MediaPlayerContextType {
   isPlaying: boolean;
   showMiniPlayer: boolean;
+  userClosed: boolean;
   mediaData: MediaData | null;
   play: (media: MediaData) => void;
   pause: () => void;
@@ -33,10 +34,14 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showMiniPlayer, setShowMiniPlayer] = useState(false);
   const [mediaData, setMediaData] = useState<MediaData | null>(null);
+  // Tracks whether the user explicitly closed the MiniPlayer via the ✕ button.
+  // Reset to false whenever play() is called so the MiniPlayer can re-appear.
+  const [userClosed, setUserClosed] = useState(false);
 
   const play = (media: MediaData) => {
     setMediaData(media);
     setIsPlaying(true);
+    setUserClosed(false); // allow MiniPlayer to show again after a close
   };
 
   const pause = () => {
@@ -51,10 +56,11 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     setIsPlaying(false);
     setShowMiniPlayer(false);
     setMediaData(null);
+    setUserClosed(true); // user explicitly closed — suppress auto-show until next play()
   };
 
   const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
+    setIsPlaying(prev => !prev);
   };
 
   return (
@@ -62,6 +68,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
       value={{
         isPlaying,
         showMiniPlayer,
+        userClosed,
         mediaData,
         play,
         pause,

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import Image from 'next/image';
+import { useState } from 'react';
 
 interface AskQuestionProps {
   title: string;
@@ -17,7 +17,7 @@ interface AskQuestionProps {
     messageLabel: string;
     submitButtonText: string;
   };
-  topicOptions?: string[] | { label: string; value: string; }[];
+  topicOptions?: string[] | { label: string; value: string }[];
   successMessage?: string;
   recipientEmail?: string;
   onSubmit?: (data: any) => Promise<void>;
@@ -34,36 +34,38 @@ export function AskQuestionSection({
   onSubmit,
 }: AskQuestionProps) {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    topic: "",
-    message: "",
+    name: '',
+    email: '',
+    topic: '',
+    message: '',
   });
 
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState<
+    'idle' | 'submitting' | 'success' | 'error'
+  >('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!onSubmit) return;
 
-    setStatus("submitting");
-    setErrorMessage("");
+    setStatus('submitting');
+    setErrorMessage('');
 
     try {
       await onSubmit(formData);
-      setStatus("success");
+      setStatus('success');
       setFormData({
-        name: "",
-        email: "",
-        topic: "",
-        message: "",
+        name: '',
+        email: '',
+        topic: '',
+        message: '',
       });
       setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
       console.error(error);
-      setStatus("error");
-      setErrorMessage("Failed to submit. Please try again.");
+      setStatus('error');
+      setErrorMessage('Failed to submit. Please try again.');
     }
   };
 
@@ -73,25 +75,36 @@ export function AskQuestionSection({
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  // Default topics if none provided
+  // Default topics — values MUST match the Payload Questions collection enum exactly
   const defaultTopics = [
-    { value: "general", label: "General Inquiry" },
-    { value: "prayer", label: "Prayer Times" },
-    { value: "events", label: "Events" },
-    { value: "donations", label: "Donations" },
-    { value: "education", label: "Education" },
-    { value: "other", label: "Other" },
+    { value: 'general', label: 'General Inquiry' },
+    { value: 'prayer-times', label: 'Prayer Times' },
+    { value: 'events', label: 'Events & Programs' },
+    { value: 'donations', label: 'Donations' },
+    { value: 'madrasah', label: 'Education / Madrasah' },
+    { value: 'services', label: 'Services' },
+    { value: 'islamic-guidance', label: 'Islamic Guidance' },
+    { value: 'facilities', label: 'Facilities' },
+    { value: 'other', label: 'Other' },
   ];
 
-  const normalizeTopics = (topics: string[] | { label: string; value: string; }[]) => {
+  const normalizeTopics = (
+    topics: string[] | { label: string; value: string }[]
+  ) => {
     if (!topics || topics.length === 0) return defaultTopics;
-    return topics.map((t) => (typeof t === "string" ? { value: t, label: t } : t));
+    // If CMS sends plain strings, use them as labels and try to derive a value.
+    // Fall back to defaultTopics so we always have valid enum values.
+    return topics.map(t =>
+      typeof t === 'string'
+        ? { value: t.toLowerCase().replace(/\s+/g, '-'), label: t }
+        : t
+    );
   };
 
   const topicsToRender = normalizeTopics(topicOptions);
@@ -110,8 +123,8 @@ export function AskQuestionSection({
             className="hidden lg:block w-full lg:shrink-0 lg:max-w-124.5 xl:max-w-[766px]"
             style={{
               // @ts-expect-error CSS custom properties
-              "--img-width": `${imageWidth}px`,
-              "--img-width-sm": `${Math.round(imageWidth * 0.75)}px`,
+              '--img-width': `${imageWidth}px`,
+              '--img-width-sm': `${Math.round(imageWidth * 0.75)}px`,
             }}
           >
             <div
@@ -146,11 +159,9 @@ export function AskQuestionSection({
               onSubmit={handleSubmit}
               className="flex flex-col gap-5 sm:gap-6 lg:gap-5 xl:gap-6"
             >
-
-
               {status === 'success' && (
                 <div className="p-4 bg-green-50 text-green-700 rounded-xl border border-green-200">
-                  {defaultSuccessMessage || "Message sent successfully!"}
+                  {defaultSuccessMessage || 'Message sent successfully!'}
                 </div>
               )}
               {status === 'error' && (
@@ -167,7 +178,7 @@ export function AskQuestionSection({
                     htmlFor="name"
                     className="text-xs sm:text-xs text-[#52525B]"
                   >
-                    {formSettings.nameLabel}{" "}
+                    {formSettings.nameLabel}{' '}
                     <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -189,7 +200,7 @@ export function AskQuestionSection({
                     htmlFor="email"
                     className="text-xs sm:text-xs text-[#52525B]"
                   >
-                    {formSettings.emailLabel}{" "}
+                    {formSettings.emailLabel}{' '}
                     <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -224,7 +235,7 @@ export function AskQuestionSection({
                     className="w-full h-9 sm:h-[42px] px-4 sm:px-5 bg-[#F4F4F5] rounded-lg sm:rounded-xl text-base text-black appearance-none cursor-pointer outline-none disabled:opacity-50"
                   >
                     <option value="">Select a topic</option>
-                    {topicsToRender.map((topic) => (
+                    {topicsToRender.map(topic => (
                       <option key={topic.value} value={topic.value}>
                         {topic.label}
                       </option>
@@ -269,7 +280,9 @@ export function AskQuestionSection({
                   disabled={status === 'submitting'}
                   className="inline-flex items-center justify-center px-6 py-3 bg-[#006FEE] hover:bg-[#005BC5] text-white text-sm sm:text-base rounded-xl disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
-                  {status === 'submitting' ? "Sending..." : formSettings.submitButtonText}
+                  {status === 'submitting'
+                    ? 'Sending...'
+                    : formSettings.submitButtonText}
                 </button>
               </div>
             </form>

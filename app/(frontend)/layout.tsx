@@ -68,6 +68,11 @@ export default function RootLayout({
     fetchData();
   }, []);
 
+  // Scroll to top on every route change — prevents new pages starting mid-scroll
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
+
   return (
     <html lang="en">
       <body

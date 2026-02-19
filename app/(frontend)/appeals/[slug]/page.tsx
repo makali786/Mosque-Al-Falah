@@ -1,14 +1,18 @@
-import { notFound } from "next/navigation";
-import { AppealHero } from "../../components/appeals/AppealHero";
-import { ImpactGallery } from "../../components/appeals/ImpactGallery";
-import { WaysToGive } from "../../components/appeals/WaysToGive";
-import { QuoteSection } from "../../components/common/QuoteSection";
-import { RichTextRenderer } from "../../components/common/RichTextRenderer";
-import Image from "next/image";
-import { fetchDonationAppeals, fetchGlobal } from "@lib/fetcher";
+import { fetchDonationAppeals, fetchGlobal } from '@lib/fetcher';
+import Image from 'next/image';
+import { notFound } from 'next/navigation';
+import { AppealHero } from '../../components/appeals/AppealHero';
+import { ImpactGallery } from '../../components/appeals/ImpactGallery';
+import { WaysToGive } from '../../components/appeals/WaysToGive';
+import { QuoteSection } from '../../components/common/QuoteSection';
+import { RichTextRenderer } from '../../components/common/RichTextRenderer';
 
 // Generate static params for SSG if needed, or just rely on dynamic rendering
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = await params;
   const appeals = await fetchDonationAppeals({
     where: { slug: { equals: slug } },
@@ -24,16 +28,18 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function AppealDetailPage({ params }: { params: { slug: string } }) {
+export default async function AppealDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { slug } = await params;
-
 
   // Fetch Appeal Data
   const appeals = await fetchDonationAppeals({
     where: { slug: { equals: slug } },
     limit: 1,
   });
-
 
   const appeal = appeals[0];
 
@@ -42,9 +48,10 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
   }
 
   // Fetch Global Page Data for generic sections (like Quote) if needed
-  const appealsPageGlobal = await fetchGlobal({ slug: "donation-appeals-page" });
+  const appealsPageGlobal = await fetchGlobal({
+    slug: 'donation-appeals-page',
+  });
   const bottomQuote = appealsPageGlobal?.bottomQuote;
-
 
   // Calculate Days Left
   const getDaysLeft = (dateString?: string) => {
@@ -57,11 +64,13 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
   };
 
   // Prepare Stats
+  const isOngoing = (appeal.funding as any)?.isOngoing || false;
   const stats = {
     raised: appeal.funding?.currentAmount || 0,
     donors: appeal.funding?.totalDonors || 0,
     goal: appeal.funding?.targetAmount || 0,
-    daysLeft: getDaysLeft(appeal.timeline?.endDate),
+    daysLeft: isOngoing ? 0 : getDaysLeft(appeal.timeline?.endDate),
+    isOngoing,
   };
 
   return (
@@ -91,8 +100,11 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
               {appeal.whyMatters?.featuredImage && (
                 <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[565px] rounded-[14px] overflow-hidden">
                   <Image
-                    src={appeal?.whyMatters?.featuredImage?.url || ""}
-                    alt={appeal?.whyMatters?.featuredImage?.alt || "Featured Impact Image"}
+                    src={appeal?.whyMatters?.featuredImage?.url || ''}
+                    alt={
+                      appeal?.whyMatters?.featuredImage?.alt ||
+                      'Featured Impact Image'
+                    }
                     fill
                     className="object-cover"
                   />
@@ -107,7 +119,7 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
       {appeal.impactGallery?.enableGallery && (
         <ImpactGallery
           title={appeal.impactGallery.galleryTitle}
-          description={appeal.impactGallery.galleryDescription || ""}
+          description={appeal.impactGallery.galleryDescription || ''}
           images={appeal.impactGallery.images || []}
           className="section-padding"
         />
@@ -119,7 +131,7 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
           title={appeal?.waysToGive?.sectionTitle}
           description={appeal?.waysToGive?.sectionDescription}
           methods={appeal?.waysToGive?.givingMethods || []}
-          image={appeal?.waysToGive?.sectionImage?.url || ""}
+          image={appeal?.waysToGive?.sectionImage?.url || ''}
         />
       )}
 
@@ -134,7 +146,7 @@ export default async function AppealDetailPage({ params }: { params: { slug: str
           shareData={{
             title: appeal.title,
             text: appeal.shortDescription,
-            url: `https://masjidalfalah.org/appeals/${slug}`
+            url: `https://masjidalfalah.org/appeals/${slug}`,
           }}
           donateButtonUrl={`/donate?appealId=${appeal.id}`}
         />

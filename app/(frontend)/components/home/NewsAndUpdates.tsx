@@ -169,7 +169,7 @@ export default function NewsAndUpdates({
                       />
                     )}
                     {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-linear-to-t from-black via-[rgba(0,0,0,0.68)] to-transparent" />
+                    {/* <div className="absolute inset-0 bg-linear-to-t from-black via-[rgba(0,0,0,0.68)] to-transparent" /> */}
                   </div>
 
                   {/* Event Info */}
