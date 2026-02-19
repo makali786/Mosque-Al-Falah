@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import { DonationFormData } from '../../types';
 import { DonationHeader, SocialLoginSection, NavigationButtons } from '../../shared';
 import { FormInput, Checkbox, Button, PhoneInput } from '../../ui';
@@ -24,6 +24,7 @@ export default function Step2Details({
 }: Step2DetailsProps) {
   const { data: session } = useSession();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoadingDonor, setIsLoadingDonor] = useState(false);
 
   // Load user data from localStorage or Session on mount/update
   useEffect(() => {
@@ -41,26 +42,59 @@ export default function Step2Details({
     }
 
     // 2. Try NextAuth Session (for Apple/Google/Social)
-    if (session?.user) {
+    if (session?.user?.email) {
       setIsLoggedIn(true);
-      const nameParts = session.user.name ? session.user.name.split(' ') : [];
-      let firstName = '';
-      let lastName = '';
 
-      if (nameParts.length > 0) {
-        firstName = nameParts[0];
-        lastName = nameParts.slice(1).join(' ');
-      }
+      // Fetch full donor details from DB
+      const fetchDonorDetails = async () => {
+        setIsLoadingDonor(true);
+        try {
+          const res = await fetch('/api/donors/me');
+          const data = await res.json();
 
-      // Check if we already have data to avoid infinite loops/overwrites if user is editing
-      if (!formData.email || formData.email !== session.user.email) {
-        setFormData({
-          ...formData,
-          email: session.user.email || formData.email,
-          firstName: firstName || formData.firstName,
-          lastName: lastName || formData.lastName,
-        });
-      }
+          if (data.found && data.donor) {
+            setFormData({
+              ...formData,
+              email: data.donor.email || session.user?.email || formData.email,
+              firstName: data.donor.firstName || formData.firstName,
+              lastName: data.donor.lastName || formData.lastName,
+              phone: data.donor.phone || formData.phone,
+              address: {
+                line1: data.donor.address?.line1 || formData.address?.line1 || '',
+                line2: data.donor.address?.line2 || formData.address?.line2 || '',
+                city: data.donor.address?.city || formData.address?.city || '',
+                postcode: data.donor.address?.postcode || formData.address?.postcode || '',
+                country: data.donor.address?.country || 'GB',
+              }
+            });
+          } else {
+            // Fallback to session data if no donor record found
+            const nameParts = session.user?.name ? session.user.name.split(' ') : [];
+            let firstName = '';
+            let lastName = '';
+
+            if (nameParts.length > 0) {
+              firstName = nameParts[0];
+              lastName = nameParts.slice(1).join(' ');
+            }
+
+            if (!formData.email || formData.email !== session.user?.email) {
+              setFormData({
+                ...formData,
+                email: session.user?.email || formData.email,
+                firstName: firstName || formData.firstName,
+                lastName: lastName || formData.lastName,
+              });
+            }
+          }
+        } catch (error) {
+          console.error("Failed to fetch donor details:", error);
+        } finally {
+          setIsLoadingDonor(false);
+        }
+      };
+
+      fetchDonorDetails();
     } else {
       setIsLoggedIn(false);
     }
@@ -84,6 +118,24 @@ export default function Step2Details({
     <div className="w-full flex flex-col gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 donation-padding">
       {/* Header with Back Button */}
       <DonationHeader showBackButton onBack={onBack} />
+
+      {/* Auth Status Banner */}
+      {isLoggedIn && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex justify-between items-center">
+          <div>
+            <p className="text-sm text-blue-800">
+              Signed in as <strong>{formData.email}</strong>
+            </p>
+            {isLoadingDonor && <p className="text-xs text-blue-600">Loading your details...</p>}
+          </div>
+          <button
+            onClick={() => signOut()}
+            className="text-sm text-blue-600 hover:text-blue-800 underline font-medium"
+          >
+            Sign Out
+          </button>
+        </div>
+      )}
 
       {/* Email Field */}
       <div className="flex flex-col gap-4 w-full">

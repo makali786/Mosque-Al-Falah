@@ -97,17 +97,37 @@ export async function POST(req: NextRequest) {
     // Find or create donor
     let donor;
     const existingDonors = await payload.find({
-      collection: 'donors',
+      collection: 'donors' as any,
       where: { email: { equals: email } },
       limit: 1,
     });
 
     if (existingDonors.docs.length > 0) {
       donor = existingDonors.docs[0];
+      // Update existing donor with latest info
+      donor = await payload.update({
+        collection: 'donors' as any,
+        id: donor.id,
+        data: {
+          firstName: firstName || donor.firstName,
+          lastName: lastName || donor.lastName,
+          phone: phone || donor.phone,
+          address: address ? {
+            line1: address.line1 || donor.address?.line1,
+            line2: address.line2 || donor.address?.line2,
+            city: address.city || donor.address?.city,
+            postcode: address.postcode || donor.address?.postcode,
+            country: address.country || donor.address?.country,
+          } : donor.address,
+          // Update Gift Aid if provided
+          giftAidEligible: giftAid !== undefined ? giftAid : donor.giftAidEligible,
+          giftAidDeclarationDate: giftAid ? new Date().toISOString() : donor.giftAidDeclarationDate,
+        },
+      });
     } else {
       // Create new donor
       donor = await payload.create({
-        collection: 'donors',
+        collection: 'donors' as any,
         data: {
           email,
           firstName,
@@ -152,7 +172,7 @@ export async function POST(req: NextRequest) {
 
       // Update donor with Stripe customer ID
       await payload.update({
-        collection: 'donors',
+        collection: 'donors' as any,
         id: donor.id,
         data: { stripeCustomerId },
       });
@@ -189,7 +209,7 @@ export async function POST(req: NextRequest) {
 
       // Create donation record
       const donation = await payload.create({
-        collection: 'donations',
+        collection: 'donations' as any,
         data: {
           amount: donationAmount / 100, // Convert to pounds
           currency: currency.toUpperCase(),
@@ -377,7 +397,7 @@ export async function POST(req: NextRequest) {
 
     // Create donation record
     const donation = await payload.create({
-      collection: 'donations',
+      collection: 'donations' as any,
       data: {
         amount: donationAmount / 100,
         currency: currency.toUpperCase(),
@@ -417,7 +437,7 @@ export async function POST(req: NextRequest) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const periodEnd = (subscription as any).current_period_end;
     await payload.update({
-      collection: 'donors',
+      collection: 'donors' as any,
       id: donor.id,
       data: {
         activeSubscriptions: [
