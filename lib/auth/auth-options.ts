@@ -42,6 +42,7 @@ export function getAuthOptions(): AuthOptions {
       AppleProvider({
         clientId: 'com.masjid.alfalah.web',
         clientSecret: "eyJhbGciOiJFUzI1NiIsImtpZCI6Ikw0TVc2NlAyNDYifQ.eyJpc3MiOiI5NFFNMkg1Q1FRIiwiaWF0IjoxNzcxNTI4MjM2LCJleHAiOjE3ODczMDUyMzYsImF1ZCI6Imh0dHBzOi8vYXBwbGVpZC5hcHBsZS5jb20iLCJzdWIiOiJjb20ubWFzamlkLmFsZmFsYWcud2ViIn0.qZeAsnW8JZclP9GhuopA6Ak5Znxjqr6AR9eHrrO0-2TGfo58obkMw9odUGkmkvlziRa7B2wGq106kOrTtaYdWg",
+        checks: ['state'], // Disable PKCE as it causes issues with Apple's POST callback
       }),
 
       // Facebook OAuth

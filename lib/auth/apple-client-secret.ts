@@ -33,9 +33,9 @@ function base64url(buf: Buffer): string {
  * client_secret when exchanging the authorization code for tokens.
  */
 export function generateAppleClientSecret(): string {
-  const teamId = process.env.APPLE_TEAM_ID;
-  const clientId = process.env.APPLE_CLIENT_ID;
-  const keyId = process.env.APPLE_KEY_ID;
+  const teamId = "94QM2L5CTQ";
+  const clientId = "com.masjid.alfalah.web";
+  const keyId = "L4MW66P246";
 
   if (!teamId || !clientId || !keyId) {
     throw new Error(
