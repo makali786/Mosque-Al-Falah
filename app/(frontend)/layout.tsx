@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LoadingProvider } from './components/common/LoadingProvider';
 import { MediaPlayerProvider } from './components/common/MediaPlayerContext';
+import AuthProvider from './components/common/AuthProvider';
 import MiniPlayer from './components/common/MiniPlayer';
 import PopupManager from './components/common/PopupManager';
 import RamadanCountdown from './components/common/RamadanCountdown';
@@ -80,21 +81,23 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <GoogleMapsScript />
-        <LoadingProvider>
-          <MediaPlayerProvider>
-            <TopBar prayerTimes={prayerTimes} settings={settings} />
-            <MainHeader />
-            <main className="min-h-screen">{children}</main>
-            {!hideFooter && <Footer />}
-            {notification && <NotificationBar notification={notification} />}
-            <DonationToast />
-            <WhatsAppButton />
-            <AccessibilityButton />
-            <MiniPlayer />
-            <RamadanCountdown />
-            <PopupManager />
-          </MediaPlayerProvider>
-        </LoadingProvider>
+        <AuthProvider>
+          <LoadingProvider>
+            <MediaPlayerProvider>
+              <TopBar prayerTimes={prayerTimes} settings={settings} />
+              <MainHeader />
+              <main className="min-h-screen">{children}</main>
+              {!hideFooter && <Footer />}
+              {notification && <NotificationBar notification={notification} />}
+              <DonationToast />
+              <WhatsAppButton />
+              <AccessibilityButton />
+              <MiniPlayer />
+              <RamadanCountdown />
+              <PopupManager />
+            </MediaPlayerProvider>
+          </LoadingProvider>
+        </AuthProvider>
       </body>
     </html>
   );
