@@ -7,7 +7,7 @@ import { DonationFormData } from '../../types';
 import { DonationHeader, SocialLoginSection, NavigationButtons } from '../../shared';
 import { FormInput, Checkbox, Button, PhoneInput } from '../../ui';
 import AddressAutocomplete from '../../ui/AddressAutocomplete';
-import { getUserData } from '@lib/utils/userStorage';
+import { getUserData, clearUserData } from '@lib/utils/userStorage';
 
 interface Step2DetailsProps {
   formData: DonationFormData;
@@ -25,6 +25,32 @@ export default function Step2Details({
   const { data: session } = useSession();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoadingDonor, setIsLoadingDonor] = useState(false);
+
+  const handleClearForm = async () => {
+    // 1. Sign out from NextAuth (Apple/Session) without redirection
+    await signOut({ redirect: false });
+
+    // 2. Clear localStorage (Google/Facebook)
+    clearUserData();
+
+    // 3. Reset form data
+    setFormData({
+      ...formData,
+      email: '',
+      firstName: '',
+      lastName: '',
+      phone: '',
+      address: {
+        line1: '',
+        line2: '',
+        city: '',
+        postcode: '',
+        country: 'GB',
+      },
+    });
+
+    setIsLoggedIn(false);
+  };
 
   // Load user data from localStorage or Session on mount/update
   useEffect(() => {
@@ -119,20 +145,15 @@ export default function Step2Details({
       {/* Header with Back Button */}
       <DonationHeader showBackButton onBack={onBack} />
 
-      {/* Auth Status Banner */}
-      {isLoggedIn && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex justify-between items-center">
-          <div>
-            <p className="text-sm text-blue-800">
-              Signed in as <strong>{formData.email}</strong>
-            </p>
-            {isLoadingDonor && <p className="text-xs text-blue-600">Loading your details...</p>}
-          </div>
+      {/* Clear Info Button - Only show if fields are populated */}
+      {(formData.email || formData.firstName || formData.lastName) && (
+        <div className="flex justify-end -mt-4">
           <button
-            onClick={() => signOut()}
-            className="text-sm text-blue-600 hover:text-blue-800 underline font-medium"
+            onClick={handleClearForm}
+            className="text-sm text-gray-400 hover:text-red-500 flex items-center gap-1.5 transition-colors group"
           >
-            Sign Out
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity">Clear form data</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 group-hover:text-red-500"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
           </button>
         </div>
       )}
@@ -149,8 +170,8 @@ export default function Step2Details({
         />
       </div>
 
-      {/* Social Login - Only show if user is not logged in */}
-      {!isLoggedIn && <SocialLoginSection onUserDataLoaded={handleUserDataLoaded} />}
+      {/* Social Login Options */}
+      <SocialLoginSection onUserDataLoaded={handleUserDataLoaded} />
 
       {/* Name Fields */}
       <div className="flex flex-col gap-4 sm:gap-6 w-full">
