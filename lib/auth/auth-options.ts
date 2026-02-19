@@ -39,10 +39,20 @@ export function getAuthOptions(): AuthOptions {
       }),
 
       // Apple OAuth — clientSecret is a JWT signed with the .p8 private key
+      // Apple OAuth — clientSecret is a JWT signed with the .p8 private key
       AppleProvider({
         clientId: 'com.masjid.alfalah.web',
         clientSecret: "eyJhbGciOiJFUzI1NiIsImtpZCI6Ikw0TVc2NlAyNDYifQ.eyJhdWQiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiaXNzIjoiOTRRTTJINUNRUSIsImlhdCI6MTc3MTUzMTE2OSwiZXhwIjoxNzg3MDgzMTcwLCJzdWIiOiJjb20ubWFzamlkLmFsZmFsYWgud2ViIn0.9coLPUziwhcUvCI_MeF1SL01xr__X9DKm20vQIcH1FDPvfMr2OwyhVBZ1gCJNQXfKxnOOJxsxYB1P0VWPKFeeg",
         checks: ['state'], // Disable PKCE as it causes issues with Apple's POST callback
+        profile(profile) {
+          console.log('Apple Provider Profile:', JSON.stringify(profile, null, 2));
+          return {
+            id: profile.sub,
+            name: profile.name?.firstName ? `${profile.name.firstName} ${profile.name.lastName}` : profile.email,
+            email: profile.email,
+            image: null,
+          }
+        },
       }),
 
       // Facebook OAuth
