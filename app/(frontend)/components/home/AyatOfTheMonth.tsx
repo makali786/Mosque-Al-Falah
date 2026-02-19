@@ -41,8 +41,14 @@ export default function AyatOfTheMonth({
   const [taraweehActive, setTaraweehActive] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
-  const { play, setShowMiniPlayer, mediaData, stop, userClosed } =
-    useMediaPlayer();
+  const {
+    play,
+    setShowMiniPlayer,
+    showMiniPlayer,
+    mediaData,
+    stop,
+    userClosed,
+  } = useMediaPlayer();
   const isInView = useIntersectionObserver(
     sectionRef as React.RefObject<Element>,
     { threshold: 0.3 }
@@ -81,6 +87,9 @@ export default function AyatOfTheMonth({
   }, []);
 
   // ── MiniPlayer on scroll-out (video / audio views only) ───────────────────
+  // NOTE: we ONLY call setShowMiniPlayer(true) — never false.
+  // The MiniPlayer stays visible regardless of scroll-back; only the ✕ button
+  // (which calls stop()) can hide it.
   useEffect(() => {
     if (
       viewMode !== 'default' &&
@@ -236,7 +245,7 @@ export default function AyatOfTheMonth({
               <div className="relative w-full aspect-735/413 bg-white rounded-xl overflow-hidden text-black/50">
                 {embedUrl && (
                   <iframe
-                    src={embedUrl}
+                    src={showMiniPlayer ? 'about:blank' : embedUrl}
                     title={videoTitle || 'Video player'}
                     className="w-full h-full"
                     frameBorder="0"
