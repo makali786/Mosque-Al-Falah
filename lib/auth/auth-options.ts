@@ -40,8 +40,8 @@ export function getAuthOptions(): AuthOptions {
 
       // Apple OAuth — clientSecret is a JWT signed with the .p8 private key
       AppleProvider({
-        clientId: 'com.masjid-alfalah.org.uk.masjid',
-        clientSecret: "eyJhbGciOiJFUzI1NiIsImtpZCI6IjUzOVQ4QTM5VTMifQ.eyJpc3MiOiI5NFFNMkg1Q1FRIiwiaWF0IjoxNzcxNTI0NDE1LCJleHAiOjE3ODczMDE0MTUsImF1ZCI6Imh0dHBzOi8vYXBwbGVpZC5hcHBsZS5jb20iLCJzdWIiOiJjb20ubWFzamlkLmFsZmFsYWgifQ.39r690-NWnYhlV7olhvl4YRk_FQdG2WSaO5MtARP_27GgSUKzWGCq8mWoDAekMoXMipI6c8wvAxfvT_VOpTdsQ",
+        clientId: 'com.masjid.alfalah.web',
+        clientSecret: "eyJhbGciOiJFUzI1NiIsImtpZCI6Ikw0TVc2NlAyNDYifQ.eyJpc3MiOiI5NFFNMkg1Q1FRIiwiaWF0IjoxNzcxNTI4MjM2LCJleHAiOjE3ODczMDUyMzYsImF1ZCI6Imh0dHBzOi8vYXBwbGVpZC5hcHBsZS5jb20iLCJzdWIiOiJjb20ubWFzamlkLmFsZmFsYWcud2ViIn0.qZeAsnW8JZclP9GhuopA6Ak5Znxjqr6AR9eHrrO0-2TGfo58obkMw9odUGkmkvlziRa7B2wGq106kOrTtaYdWg",
       }),
 
       // Facebook OAuth
