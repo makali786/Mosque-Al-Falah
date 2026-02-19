@@ -24,13 +24,28 @@ export default function AddressAutocomplete({
 }: AddressAutocompleteProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-  const [showManualEntry, setShowManualEntry] = useState(false);
+  const [showManualEntry, setShowManualEntry] = useState(!!value?.line1);
   const [manualAddress, setManualAddress] = useState({
     line1: value?.line1 || '',
     line2: value?.line2 || '',
     city: value?.city || '',
     postcode: value?.postcode || '',
   });
+
+  // Keep manual address in sync with props
+  useEffect(() => {
+    if (value) {
+      setManualAddress({
+        line1: value.line1 || '',
+        line2: value.line2 || '',
+        city: value.city || '',
+        postcode: value.postcode || '',
+      });
+      if (value.line1 && !showManualEntry) {
+        setShowManualEntry(true);
+      }
+    }
+  }, [value]);
 
   useEffect(() => {
     let mounted = true;

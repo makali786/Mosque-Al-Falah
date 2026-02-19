@@ -56,13 +56,13 @@ export default function Step2Details({
   useEffect(() => {
     // 1. Try LocalStorage (legacy/custom flow)
     const userData = getUserData();
-    if (userData) {
+    if (userData && !formData.email && !formData.firstName) {
       setIsLoggedIn(true);
       setFormData({
         ...formData,
-        email: userData.email || formData.email,
-        firstName: userData.firstName || formData.firstName,
-        lastName: userData.lastName || formData.lastName,
+        email: formData.email || userData.email,
+        firstName: formData.firstName || userData.firstName,
+        lastName: formData.lastName || userData.lastName,
       });
       return;
     }
@@ -79,22 +79,23 @@ export default function Step2Details({
           const data = await res.json();
 
           if (data.found && data.donor) {
+            // Only update fields that are currently empty to avoid overwriting user's session edits
             setFormData({
               ...formData,
-              email: data.donor.email || session.user?.email || formData.email,
-              firstName: data.donor.firstName || formData.firstName,
-              lastName: data.donor.lastName || formData.lastName,
-              phone: data.donor.phone || formData.phone,
+              email: formData.email || data.donor.email || session.user?.email || '',
+              firstName: formData.firstName || data.donor.firstName || '',
+              lastName: formData.lastName || data.donor.lastName || '',
+              phone: formData.phone || data.donor.phone || '',
               address: {
-                line1: data.donor.address?.line1 || formData.address?.line1 || '',
-                line2: data.donor.address?.line2 || formData.address?.line2 || '',
-                city: data.donor.address?.city || formData.address?.city || '',
-                postcode: data.donor.address?.postcode || formData.address?.postcode || '',
-                country: data.donor.address?.country || 'GB',
+                line1: formData.address?.line1 || data.donor.address?.line1 || '',
+                line2: formData.address?.line2 || data.donor.address?.line2 || '',
+                city: formData.address?.city || data.donor.address?.city || '',
+                postcode: formData.address?.postcode || data.donor.address?.postcode || '',
+                country: formData.address?.country || data.donor.address?.country || 'GB',
               }
             });
           } else {
-            // Fallback to session data if no donor record found
+            // Fallback to session data if no donor record found and fields are empty
             const nameParts = session.user?.name ? session.user.name.split(' ') : [];
             let firstName = '';
             let lastName = '';
@@ -104,12 +105,12 @@ export default function Step2Details({
               lastName = nameParts.slice(1).join(' ');
             }
 
-            if (!formData.email || formData.email !== session.user?.email) {
+            if (!formData.email || !formData.firstName) {
               setFormData({
                 ...formData,
-                email: session.user?.email || formData.email,
-                firstName: firstName || formData.firstName,
-                lastName: lastName || formData.lastName,
+                email: formData.email || session.user?.email || '',
+                firstName: formData.firstName || firstName || '',
+                lastName: formData.lastName || lastName || '',
               });
             }
           }
@@ -201,6 +202,7 @@ export default function Step2Details({
 
         {/* Address Field with Google Places Autocomplete */}
         <AddressAutocomplete
+          value={formData.address}
           onAddressSelect={address => {
             setFormData({
               ...formData,
