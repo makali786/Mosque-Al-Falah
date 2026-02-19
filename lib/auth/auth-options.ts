@@ -41,7 +41,7 @@ export function getAuthOptions(): AuthOptions {
       // Apple OAuth — clientSecret is a JWT signed with the .p8 private key
       AppleProvider({
         clientId: 'com.masjid.alfalah.web',
-        clientSecret: "eyJhbGciOiJFUzI1NiIsImtpZCI6Ikw0TVc2NlAyNDYifQ.eyJpc3MiOiI5NFFNMkg1Q1FRIiwiaWF0IjoxNzcxNTMwNTI5LCJleHAiOjE3ODczMDc1MjksImF1ZCI6Imh0dHBzOi8vYXBwbGVpZC5hcHBsZS5jb20iLCJzdWIiOiJjb20ubWFzamlkLmFsZmFsYWcud2ViIn0.7JfOYUbLhMkPz8Azr9ZLK9pIKcTfRuQTXpLgwMK51Cz2mpVuQLjygPasGygRLH6PL5tfCazu-YxE02m7lkfpuw",
+        clientSecret: "eyJhbGciOiJFUzI1NiIsImtpZCI6Ikw0TVc2NlAyNDYifQ.eyJhdWQiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiaXNzIjoiOTRRTTJINUNRUSIsImlhdCI6MTc3MTUzMTE2OSwiZXhwIjoxNzg3MDgzMTcwLCJzdWIiOiJjb20ubWFzamlkLmFsZmFsYWgud2ViIn0.9coLPUziwhcUvCI_MeF1SL01xr__X9DKm20vQIcH1FDPvfMr2OwyhVBZ1gCJNQXfKxnOOJxsxYB1P0VWPKFeeg",
         checks: ['state'], // Disable PKCE as it causes issues with Apple's POST callback
       }),
 
