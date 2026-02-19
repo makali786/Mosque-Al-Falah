@@ -40,8 +40,8 @@ export function getAuthOptions(): AuthOptions {
 
       // Apple OAuth — clientSecret is a JWT signed with the .p8 private key
       AppleProvider({
-        clientId: process.env.APPLE_CLIENT_ID || 'com.masjid.alfalah',
-        clientSecret: appleClientSecret,
+        clientId: 'com.masjid.alfalah',
+        clientSecret: "eyJhbGciOiJFUzI1NiIsImtpZCI6IjUzOVQ4QTM5VTMifQ.eyJpc3MiOiI5NFFNMkg1Q1FRIiwiaWF0IjoxNzcxNTI0NDE1LCJleHAiOjE3ODczMDE0MTUsImF1ZCI6Imh0dHBzOi8vYXBwbGVpZC5hcHBsZS5jb20iLCJzdWIiOiJjb20ubWFzamlkLmFsZmFsYWgifQ.39r690-NWnYhlV7olhvl4YRk_FQdG2WSaO5MtARP_27GgSUKzWGCq8mWoDAekMoXMipI6c8wvAxfvT_VOpTdsQ",
       }),
 
       // Facebook OAuth
