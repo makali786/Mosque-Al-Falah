@@ -23,8 +23,18 @@ export default function Step3GiftAid({
   const donationAmount = formData.customAmount
     ? parseFloat(formData.customAmount)
     : formData.amount;
+
+  const platformFee = formData.platformFeeEnabled
+    ? (donationAmount * formData.platformFeePercentage) / 100
+    : 0;
+
   const giftAidAmount = donationAmount * 0.25;
-  const totalWithGiftAid = donationAmount + giftAidAmount;
+
+  // Total donor commitment (including platform fee)
+  const totalBeforeGiftAid = donationAmount + platformFee;
+
+  // Total impact for charity (donation + gift aid + platform fee)
+  const totalWithGiftAid = donationAmount + giftAidAmount + platformFee;
 
   return (
     <div className="w-full flex flex-col gap-4 sm:gap-6 lg:gap-8 pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 lg:pb-8 donation-padding">
@@ -44,7 +54,7 @@ export default function Step3GiftAid({
               {/* Before Gift Aid */}
               <div className="flex flex-col gap-[5px] items-center text-center">
                 <p className="text-xl sm:text-2xl font-medium leading-tight sm:leading-8 text-black">
-                  £{donationAmount.toFixed(2)}
+                  £{totalBeforeGiftAid.toFixed(2)}
                 </p>
                 <p className="text-xs font-normal leading-4 text-[#52525B]">
                   Your donation
@@ -88,13 +98,35 @@ export default function Step3GiftAid({
           </div>
         </div>
 
-        {/* Description */}
-        <div className="flex flex-col gap-2 w-full">
+        {/* Description & Review Summary */}
+        <div className="flex flex-col gap-6 w-full mt-2">
+          {/* Review Rows */}
+          <div className="flex flex-col gap-3 py-4 border-t border-b border-[#E4E4E7]">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-[#52525B]">Your donation amount</span>
+              <span className="font-medium">£{donationAmount.toFixed(2)}</span>
+            </div>
+            {formData.platformFeeEnabled && (
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-[#52525B]">Masjid Al-Falah ({formData.platformFeePercentage}%)</span>
+                <span className="font-medium">£{platformFee.toFixed(2)}</span>
+              </div>
+            )}
+            <div className="flex justify-between items-center text-base pt-2 border-t border-[#E4E4E7]">
+              <span className="font-bold text-black text-lg">Total amount to pay</span>
+              <span className="font-bold text-black text-lg">£{totalBeforeGiftAid.toFixed(2)}</span>
+            </div>
+          </div>
+
           <p className="text-sm font-normal leading-5 text-[#52525B]">
             I am a UK taxpayer and understand that if I pay less Income Tax
             and/or Capital Gains Tax in the current tax year than the amount of
             Gift Aid claimed on all my donations, it is my responsibility to pay
             any difference.
+            <br />
+            <span className="text-[#006FEE] font-medium mt-1 inline-block italic">
+              * Gift Aid is claimed from the government and does not increase your payment.
+            </span>
           </p>
           <Link
             href="https://www.gov.uk/donating-to-charity/gift-aid"
