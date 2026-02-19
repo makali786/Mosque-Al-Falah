@@ -37,7 +37,7 @@ export function initializeGoogleSignIn(onSuccess?: () => void, onError?: (error:
 
         // Initialize Google Sign-In
         window.google.accounts.id.initialize({
-          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+          client_id: "455177295457-brng01g5f8m81br1f7kmsu5282t0hk21.apps.googleusercontent.com",
           callback: window.handleGoogleCredentialResponse,
           auto_select: false,
           cancel_on_tap_outside: true,
