@@ -72,12 +72,12 @@ export default function AyatOfTheMonth({
           setViewMode('taraweeh');
           // Scroll the section into view after the DOM updates
           // Scroll the player into view after the DOM updates
-          setTimeout(() => {
-            playerRef.current?.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center',
-            });
-          }, 500);
+          // setTimeout(() => {
+          //   playerRef.current?.scrollIntoView({
+          //     behavior: 'smooth',
+          //     block: 'center',
+          //   });
+          // }, 500);
         }
       } catch {
         // Fail silently — Taraweeh tab still shows, just not auto-selected
@@ -102,17 +102,17 @@ export default function AyatOfTheMonth({
   }, [isInView, viewMode, userClosed, setShowMiniPlayer]);
 
   // ── Auto-scroll when Taraweeh mode becomes active ──────────────────────────
-  useEffect(() => {
-    if (viewMode === 'taraweeh' && playerRef.current) {
-      // Small timeout to ensure layout stability before scrolling
-      setTimeout(() => {
-        playerRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-      }, 100);
-    }
-  }, [viewMode]); // Runs whenever viewMode changes
+  // useEffect(() => {
+  //   if (viewMode === 'taraweeh' && playerRef.current) {
+  //     // Small timeout to ensure layout stability before scrolling
+  //     setTimeout(() => {
+  //       playerRef.current?.scrollIntoView({
+  //         behavior: 'smooth',
+  //         block: 'center',
+  //       });
+  //     }, 100);
+  //   }
+  // }, [viewMode]); // Runs whenever viewMode changes
 
   // ── Helpers ────────────────────────────────────────────────────────────────
   const getEmbedUrl = (url: string) => {
