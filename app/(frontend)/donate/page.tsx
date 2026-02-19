@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import { ToastContainer } from '../components/common/Toast';
@@ -15,20 +15,10 @@ import { useToast } from '../hooks/useToast';
 
 export default function DonatePage() {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const urlStep = searchParams.get('step');
-  const [currentStep, setCurrentStep] = useState(urlStep ? parseInt(urlStep) : 1);
+  const [currentStep, setCurrentStep] = useState(1);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toasts, removeToast, success, error } = useToast();
-
-  // Sync currentStep with URL
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('step', currentStep.toString());
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }, [currentStep, searchParams, pathname, router]);
 
   // Get amount and appealId from URL parameters
   const urlAmount = searchParams.get('amount');

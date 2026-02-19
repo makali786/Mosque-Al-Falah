@@ -1,23 +1,91 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
+import { useEffect } from 'react';
 import { SocialLoginButton } from '../ui';
+import { initializeGoogleSignIn, signInWithGoogle } from '@lib/utils/googleAuth';
+import { initializeFacebookSDK, signInWithFacebook } from '@lib/utils/facebookAuth';
+import { initializeAppleSignIn, signInWithApple } from '@lib/utils/appleAuth';
 
 interface SocialLoginSectionProps {
   onUserDataLoaded?: () => void;
 }
 
 export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSectionProps) {
+
+  // Initialize Google Sign-In, Facebook, and Apple on mount
+  useEffect(() => {
+    initializeGoogleSignIn(
+      () => {
+        // Success callback
+        if (onUserDataLoaded) {
+          onUserDataLoaded();
+        }
+      },
+      (error) => {
+        // Error callback
+        console.error('Google sign-in error:', error);
+      }
+    );
+
+    initializeFacebookSDK(
+      () => {
+        // Success callback
+        if (onUserDataLoaded) {
+          onUserDataLoaded();
+        }
+      },
+      (error) => {
+        // Error callback
+        console.error('Facebook sign-in error:', error);
+      }
+    );
+
+    initializeAppleSignIn(
+      () => {
+        // Success callback
+        if (onUserDataLoaded) {
+          onUserDataLoaded();
+        }
+      },
+      (error) => {
+        // Error callback
+        console.error('Apple sign-in error:', error);
+      }
+    );
+  }, [onUserDataLoaded]);
+
   const handleGoogleSignIn = () => {
-    signIn('google', { callbackUrl: window.location.href });
+    signInWithGoogle();
   };
 
   const handleFacebookSignIn = () => {
-    signIn('facebook', { callbackUrl: window.location.href });
+    signInWithFacebook(
+      () => {
+        // Success callback
+        if (onUserDataLoaded) {
+          onUserDataLoaded();
+        }
+      },
+      (error) => {
+        // Error callback
+        console.error('Facebook sign-in error:', error);
+      }
+    );
   };
 
   const handleAppleSignIn = () => {
-    signIn('apple', { callbackUrl: window.location.href });
+    signInWithApple(
+      () => {
+        // Success callback
+        if (onUserDataLoaded) {
+          onUserDataLoaded();
+        }
+      },
+      (error) => {
+        // Error callback
+        console.error('Apple sign-in error:', error);
+      }
+    );
   };
 
   return (

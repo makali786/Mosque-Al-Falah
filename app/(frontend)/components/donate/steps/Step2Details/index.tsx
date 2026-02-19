@@ -96,23 +96,6 @@ export default function Step2Details({
 
       fetchDonorDetails();
     } else {
-      // If was logged in but now not (signed out), clear donor fields
-      if (isLoggedIn) {
-        setFormData({
-          ...formData,
-          email: '',
-          firstName: '',
-          lastName: '',
-          phone: '',
-          address: {
-            line1: '',
-            line2: '',
-            city: '',
-            postcode: '',
-            country: 'GB',
-          }
-        });
-      }
       setIsLoggedIn(false);
     }
   }, [session]); // Dependent on session
@@ -146,7 +129,7 @@ export default function Step2Details({
             {isLoadingDonor && <p className="text-xs text-blue-600">Loading your details...</p>}
           </div>
           <button
-            onClick={() => signOut({ redirect: false })}
+            onClick={() => signOut()}
             className="text-sm text-blue-600 hover:text-blue-800 underline font-medium"
           >
             Sign Out
