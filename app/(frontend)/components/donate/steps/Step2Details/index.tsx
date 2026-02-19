@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { signIn } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import { DonationFormData } from '../../types';
 import { DonationHeader, SocialLoginSection, NavigationButtons } from '../../shared';
 import { FormInput, Checkbox, Button, PhoneInput } from '../../ui';
@@ -22,10 +22,12 @@ export default function Step2Details({
   onNext,
   onBack,
 }: Step2DetailsProps) {
+  const { data: session } = useSession();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Load user data from localStorage on mount
+  // Load user data from localStorage or Session on mount/update
   useEffect(() => {
+    // 1. Try LocalStorage (legacy/custom flow)
     const userData = getUserData();
     if (userData) {
       setIsLoggedIn(true);
@@ -35,10 +37,34 @@ export default function Step2Details({
         firstName: userData.firstName || formData.firstName,
         lastName: userData.lastName || formData.lastName,
       });
+      return;
+    }
+
+    // 2. Try NextAuth Session (for Apple/Google/Social)
+    if (session?.user) {
+      setIsLoggedIn(true);
+      const nameParts = session.user.name ? session.user.name.split(' ') : [];
+      let firstName = '';
+      let lastName = '';
+
+      if (nameParts.length > 0) {
+        firstName = nameParts[0];
+        lastName = nameParts.slice(1).join(' ');
+      }
+
+      // Check if we already have data to avoid infinite loops/overwrites if user is editing
+      if (!formData.email || formData.email !== session.user.email) {
+        setFormData({
+          ...formData,
+          email: session.user.email || formData.email,
+          firstName: firstName || formData.firstName,
+          lastName: lastName || formData.lastName,
+        });
+      }
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  }, [session]); // Dependent on session
 
   // Handle when user data is loaded from Google Sign-In
   const handleUserDataLoaded = () => {

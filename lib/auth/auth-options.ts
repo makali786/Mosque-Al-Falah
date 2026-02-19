@@ -46,9 +46,15 @@ export function getAuthOptions(): AuthOptions {
         checks: ['state'], // Disable PKCE as it causes issues with Apple's POST callback
         profile(profile) {
           console.log('Apple Provider Profile:', JSON.stringify(profile, null, 2));
+          // Apple only sends name on first login. Fallback to null/email if missing.
+          let name = null;
+          if (profile.name) {
+            name = `${profile.name.firstName} ${profile.name.lastName}`;
+          }
+
           return {
             id: profile.sub,
-            name: profile.name?.firstName ? `${profile.name.firstName} ${profile.name.lastName}` : profile.email,
+            name: name, // Will be null on subsequent logins
             email: profile.email,
             image: null,
           }
