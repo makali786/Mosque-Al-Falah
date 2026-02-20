@@ -13,7 +13,7 @@ export const Popups: CollectionConfig = {
     },
     hooks: {
 
-      afterChange: [createRevalidateHook('popups')],
+        afterChange: [createRevalidateHook('popups')],
 
     },
 
@@ -90,6 +90,24 @@ export const Popups: CollectionConfig = {
                         },
                     },
                 },
+                {
+                    name: 'daysOfWeek',
+                    type: 'select',
+                    label: 'Recurring Days (Optional)',
+                    hasMany: true,
+                    options: [
+                        { label: 'Monday', value: '1' },
+                        { label: 'Tuesday', value: '2' },
+                        { label: 'Wednesday', value: '3' },
+                        { label: 'Thursday', value: '4' },
+                        { label: 'Friday', value: '5' },
+                        { label: 'Saturday', value: '6' },
+                        { label: 'Sunday', value: '0' },
+                    ],
+                    admin: {
+                        description: 'Select specific days of the week to show this popup. If none are selected, it will show on all days.',
+                    }
+                }
             ],
         },
         {

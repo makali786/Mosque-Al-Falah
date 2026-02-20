@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Media } from '@/payload-types';
+import { RichTextRenderer } from './RichTextRenderer';
 
 // Loose type definition until generation works
 interface Popup {
@@ -14,6 +15,7 @@ interface Popup {
     scheduling?: {
         startDate?: string;
         endDate?: string;
+        daysOfWeek?: string[];
     };
     content?: {
         message?: any;
@@ -57,6 +59,12 @@ export default function PopupManager() {
             if (!popup.isActive) return false;
             if (popup.scheduling?.startDate && new Date(popup.scheduling.startDate) > now) return false;
             if (popup.scheduling?.endDate && new Date(popup.scheduling.endDate) < now) return false;
+
+            if (popup.scheduling?.daysOfWeek && popup.scheduling.daysOfWeek.length > 0) {
+                const currentDayIndex = now.getDay().toString();
+                if (!popup.scheduling.daysOfWeek.includes(currentDayIndex)) return false;
+            }
+
             return true;
         });
 
@@ -147,6 +155,24 @@ export default function PopupManager() {
                 {/* Content */}
                 <div className="rc-content relative z-10 p-8 flex flex-col items-center text-center h-full justify-center overflow-y-auto">
 
+
+
+                    {/* Title */}
+                    <h2 className="rc-title !text-3xl md:!text-4xl mb-4">
+                        {activePopup.title}
+                    </h2>
+
+                    <div className="rc-subtitle-wrap mb-6">
+                        <span className="rc-line-accent" />
+                        <span className="rc-line-accent" />
+                    </div>
+
+                    {/* Message */}
+                    {content?.message && (
+                        <div className="rc-description !text-lg !text-gray-200 mb-8 max-w-2xl">
+                            <RichTextRenderer content={content.message} />
+                        </div>
+                    )}
                     {/* Featured Media (Image/Video) */}
                     {contentMedia?.url && (
                         <div className="mb-6 w-full max-w-md rounded-xl overflow-hidden shadow-2xl border border-white/10">
@@ -178,29 +204,6 @@ export default function PopupManager() {
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                             />
-                        </div>
-                    )}
-
-                    {/* Title */}
-                    <h2 className="rc-title !text-3xl md:!text-4xl mb-4">
-                        {activePopup.title}
-                    </h2>
-
-                    <div className="rc-subtitle-wrap mb-6">
-                        <span className="rc-line-accent" />
-                        <span className="rc-line-accent" />
-                    </div>
-
-                    {/* Message */}
-                    {content?.message && (
-                        <div className="rc-description !text-lg !text-gray-200 mb-8 max-w-2xl">
-                            {/* Simple render - for complex rich text, use a renderer */}
-                            {/* @ts-ignore */}
-                            {content.message.root?.children?.map((child: any, i: number) => (
-                                <p key={i} className="mb-2">
-                                    {child.children?.map((c: any, j: number) => c.text).join('')}
-                                </p>
-                            ))}
                         </div>
                     )}
 
