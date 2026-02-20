@@ -65,7 +65,9 @@ export default function AddressAutocomplete({
         autocompleteRef.current = new google.maps.places.Autocomplete(
           inputRef.current,
           {
-            types: ['address'],
+            // Removing types: ['address'] to allow searching by postal_code
+            // Restricting to GB for better UK postcode mapping
+            componentRestrictions: { country: 'gb' },
             fields: ['address_components', 'formatted_address'],
           }
         );
@@ -78,6 +80,8 @@ export default function AddressAutocomplete({
           }
 
           // Extract components
+          let streetNumber = '';
+          let route = '';
           let locality = '';
           let postalTown = '';
           let adminArea1 = '';
@@ -87,27 +91,33 @@ export default function AddressAutocomplete({
           place.address_components.forEach((component: google.maps.GeocoderAddressComponent) => {
             const types = component.types;
 
+            if (types.includes('street_number')) streetNumber = component.long_name;
+            if (types.includes('route')) route = component.long_name;
             if (types.includes('locality')) locality = component.long_name;
             if (types.includes('postal_town')) postalTown = component.long_name;
             if (types.includes('administrative_area_level_1')) adminArea1 = component.long_name;
             if (types.includes('administrative_area_level_2')) adminArea2 = component.long_name;
+
+            // Handle both full postal code and prefix/prefix-matching
             if (types.includes('postal_code')) postcode = component.long_name;
             if (types.includes('postal_code_prefix') && !postcode) postcode = component.long_name;
           });
 
-          // Build line1 from formatted address - take everything before city
-          const formatted = place.formatted_address || '';
-          const parts = formatted.split(',').map(p => p.trim());
-
-          // line1: first part(s) before city/region
+          // Accurate Line 1 construction from thoroughfare (street_number + route)
           let line1 = '';
-          if (parts.length >= 3) {
-            // Take all except last 2 (region + country)
-            line1 = parts.slice(0, -2).join(', ');
-          } else if (parts.length === 2) {
-            line1 = parts[0];
+          if (streetNumber && route) {
+            line1 = `${streetNumber} ${route}`;
+          } else if (route) {
+            line1 = route;
           } else {
-            line1 = formatted;
+            // Fallback to splitting formatted_address if exact street/route missing
+            const formatted = place.formatted_address || '';
+            const parts = formatted.split(',').map(p => p.trim());
+            if (parts.length >= 3) {
+              line1 = parts.slice(0, -2).join(', ');
+            } else if (parts.length > 0) {
+              line1 = parts[0];
+            }
           }
 
           // City: prefer postal_town, then locality, then admin areas
@@ -121,6 +131,14 @@ export default function AddressAutocomplete({
             country: 'GB',
           };
 
+          // Automatically switch to manual entry and pre-fill form
+          setManualAddress({
+            line1: result.line1,
+            line2: result.line2,
+            city: result.city,
+            postcode: result.postcode,
+          });
+          setShowManualEntry(true);
           onAddressSelect(result);
         });
       } catch (error) {
@@ -130,6 +148,10 @@ export default function AddressAutocomplete({
 
     if (!showManualEntry) {
       initAutocomplete();
+    } else if (autocompleteRef.current) {
+      // Clear autocomplete if we switch to manual entry
+      google.maps.event.clearInstanceListeners(autocompleteRef.current);
+      autocompleteRef.current = null;
     }
 
     // Inject styles
