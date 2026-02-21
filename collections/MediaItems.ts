@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const MediaItems: CollectionConfig = {
   slug: 'media-items',
+  orderable: true,
   labels: {
     singular: 'Media Item',
     plural: 'Media Items',

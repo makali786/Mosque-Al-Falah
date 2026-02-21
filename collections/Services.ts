@@ -4,6 +4,7 @@ import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 
 export const Services: CollectionConfig = {
   slug: 'services',
+  orderable: true,
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'serviceType', 'order', 'isActive'],

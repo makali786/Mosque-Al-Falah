@@ -35,7 +35,7 @@ interface SermonsPageData {
 
 export default async function SermonsPage() {
   const sermonsPageData = (await fetchGlobal({ slug: "sermons-page" })) as SermonsPageData;
-  const sermonsData = await fetchSermons({ sort: "-sermonDate", limit: 1000 });
+  const sermonsData = await fetchSermons({ sort: "_order", limit: 1000 });
 
   // Map sermons to SermonCard format
   const mappedSermons = sermonsData.map((sermon: any) => {

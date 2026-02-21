@@ -106,7 +106,7 @@ export default async function MadrasahPage() {
 
   const committeeMembers = await fetchCommittees<CommitteeMember>({
     limit: 4,
-    sort: 'order',
+    sort: '_order',
     where: { isActive: { equals: true } },
   });
 

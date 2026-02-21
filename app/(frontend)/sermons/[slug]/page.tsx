@@ -53,7 +53,7 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
 
   const relatedSermons = await fetchSermons({
     limit: 10,
-    sort: "-sermonDate",
+    sort: "_order",
     where: {
       id: { not_equals: sermon.id }
     }

@@ -206,7 +206,8 @@ export default function MainHeader() {
   }, [pathname]);
 
   // Check if we're on the blog page
-  const isBlogPage = pathname.startsWith('/blogs');
+  // const isBlogPage = pathname.startsWith('/blogs');
+  const isBlogPage = false
   const headerBgClass = isBlogPage ? 'bg-[#e6f1fe]' : 'bg-black';
 
   return (
@@ -244,7 +245,7 @@ export default function MainHeader() {
             {NAV_ITEMS.map(item => {
               const isActive = item.hasDropdown
                 ? pathname.startsWith('/about') ||
-                  pathname.startsWith('/contact-us')
+                pathname.startsWith('/contact-us')
                 : item.href === '/'
                   ? pathname === '/'
                   : pathname.startsWith(item.href);

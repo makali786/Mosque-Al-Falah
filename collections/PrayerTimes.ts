@@ -3,6 +3,7 @@ import { CollectionConfig } from 'payload';
 
 export const PrayerTimes: CollectionConfig = {
   slug: 'prayer-times',
+  orderable: true,
   admin: {
     useAsTitle: 'date',
     hidden: true, // Managed via Global View

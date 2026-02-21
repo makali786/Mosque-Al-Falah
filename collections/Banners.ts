@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const Banners: CollectionConfig = {
   slug: 'banners',
+  orderable: true,
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'isActive', 'order'],

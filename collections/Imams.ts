@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const Imams: CollectionConfig = {
   slug: 'imams',
+  orderable: true,
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'title', 'order'],

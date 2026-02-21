@@ -20,7 +20,7 @@ interface Ayat {
 
 type ViewMode = 'default' | 'video' | 'audio' | 'taraweeh';
 
-const TARAWEEH_URL = 'https://emasjidlive.co.uk/listen/masjidalfalahilford';
+const TARAWEEH_URL = 'https://emasjidlive.co.uk/miniplayer/masjidalfalahilford?theme=dark';
 
 /** Returns true if current local time is within the Taraweeh window (after Isha until midnight). */
 function isInTaraweehWindow(ishaTime: string): boolean {
@@ -310,12 +310,11 @@ export default function AyatOfTheMonth({
             <div
               ref={playerRef}
               className="relative w-full rounded-xl overflow-hidden shadow-2xl bg-[#111]"
-              style={{ height: '420px' }}
             >
               <iframe
                 src={TARAWEEH_URL}
                 title="Live Taraweeh — Masjid Al-Falah Ilford"
-                className="w-full h-full border-0"
+                style={{ border: 'none', width: '100%', height: '172px', overflow: 'hidden' }}
                 allow="autoplay"
                 allowFullScreen
               />
@@ -323,7 +322,7 @@ export default function AyatOfTheMonth({
 
             {/* Fallback link */}
             <a
-              href={TARAWEEH_URL}
+              href="https://emasjidlive.co.uk/listen/masjidalfalahilford"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs sm:text-sm text-white/60 hover:text-white underline transition-colors"
@@ -335,22 +334,23 @@ export default function AyatOfTheMonth({
       </div>
 
       {/* ── Toggle Buttons — original circular style + Live Taraweeh ─────── */}
-      <div className="absolute bottom-10 right-4 sm:right-8 lg:right-40.25 sm:bottom-26.75 z-20 flex sm:gap-5 gap-2">
+      <div className="absolute bottom-10 right-4 sm:right-8 lg:right-40.25 sm:bottom-26.75 z-20 flex flex-wrap justify-end sm:gap-5 gap-2 w-full max-w-[calc(100%-2rem)] sm:max-w-none sm:w-auto">
         {/* Back button — shown when not in default view */}
         {viewMode !== 'default' && (
           <button
             onClick={handleBack}
-            className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer"
+            className="h-10 sm:h-12 px-4 sm:px-5 bg-[#0e793c] rounded-full flex items-center justify-center gap-2 shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer shrink-0"
             title="Back to Ayat"
           >
             <FaArrowLeft size={14} className="text-white" />
+            <span className="text-white text-sm sm:text-base font-medium whitespace-nowrap">Back</span>
           </button>
         )}
 
         {/* Audio */}
         <button
           onClick={() => handleTabClick('audio')}
-          className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer"
+          className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer shrink-0"
           title="Listen Audio"
         >
           <Image
@@ -366,7 +366,7 @@ export default function AyatOfTheMonth({
         {/* Video */}
         <button
           onClick={() => handleTabClick('video')}
-          className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer"
+          className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer shrink-0"
           title="Watch Video"
         >
           <Image
@@ -382,13 +382,14 @@ export default function AyatOfTheMonth({
         {/* Live Taraweeh */}
         <button
           onClick={() => handleTabClick('taraweeh')}
-          className="sm:w-12 sm:h-12 w-10 h-10 bg-[#0e793c] rounded-full flex items-center justify-center shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer relative"
+          className="h-10 sm:h-12 px-4 sm:px-5 bg-[#0e793c] rounded-full flex items-center justify-center gap-2 shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer shrink-0 relative"
           title="Live Taraweeh"
         >
           {taraweehActive && (
-            <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse" />
+            <span className="absolute top-0 right-0 -mr-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse" />
           )}
           <FaCircle size={10} className="text-white" />
+          <span className="text-white text-sm sm:text-base font-medium whitespace-nowrap">Live Taraweeh</span>
         </button>
       </div>
     </section>

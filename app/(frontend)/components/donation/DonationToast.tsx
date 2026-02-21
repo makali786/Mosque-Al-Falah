@@ -26,7 +26,20 @@ export default function DonationToast() {
       const data = await res.json();
 
       if (data && data.id !== lastDonationId) {
-        // New donation found
+        // Check if the donation is under 24 hours old
+        if (data.timestamp) {
+          const donationTime = new Date(data.timestamp).getTime();
+          const now = new Date().getTime();
+          const twentyFourHoursMs = 24 * 60 * 60 * 1000;
+
+          if (now - donationTime > twentyFourHoursMs) {
+            // Donation is older than 24 hours, update lastDonationId so we don't keep checking it but do not show toast
+            setLastDonationId(data.id);
+            return;
+          }
+        }
+
+        // New donation found within 24 hours
         setDonation(data);
         setLastDonationId(data.id);
         setIsVisible(true);

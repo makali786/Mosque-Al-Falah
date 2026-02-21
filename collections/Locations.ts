@@ -2,6 +2,7 @@ import { CollectionConfig } from 'payload';
 
 export const Locations: CollectionConfig = {
     slug: 'locations',
+  orderable: true,
     admin: {
         useAsTitle: 'name',
         defaultColumns: ['name', 'fullAddress'],

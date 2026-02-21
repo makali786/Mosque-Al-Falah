@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const AyatOfTheMonth: CollectionConfig = {
   slug: 'ayat-of-the-month',
+  orderable: true,
   admin: {
     useAsTitle: 'englishTranslation',
     defaultColumns: ['surahName', 'ayahNumber', 'monthYear', 'isActive'],

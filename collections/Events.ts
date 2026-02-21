@@ -4,6 +4,7 @@ import type { CollectionConfig } from 'payload';
 
 export const Events: CollectionConfig = {
   slug: 'events',
+  orderable: true,
   admin: {
     useAsTitle: 'title',
     defaultColumns: [

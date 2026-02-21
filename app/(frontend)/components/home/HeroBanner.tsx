@@ -117,7 +117,7 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
     <>
       {/* Desktop Hero Section */}
       <section
-        className="relative w-full hidden sm:block sm:h-125 md:h-137.5 overflow-hidden lg:h-[calc(100vh-130px)] bg-cover bg-center bg-no-repeat"
+        className="relative w-full hidden sm:block sm:h-125 md:h-137.5 overflow-hidden lg:h-[calc(100vh-155px)] bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: desktopImage ? `url('${desktopImage}')` : 'none',
         }}
@@ -167,11 +167,10 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full border-2 md:border-3 w-5.5 h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 cursor-pointer ${
-                index === currentSlide
-                  ? 'bg-[#006fee] border-white'
-                  : 'bg-transparent border-white/50 hover:border-white'
-              }`}
+              className={`transition-all duration-300 rounded-full border-2 md:border-3 w-5.5 h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 cursor-pointer ${index === currentSlide
+                ? 'bg-[#006fee] border-white'
+                : 'bg-transparent border-white/50 hover:border-white'
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -213,11 +212,10 @@ export default function HeroBanner({ banners = [] }: HeroBannerProps) {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`transition-all duration-300 rounded-full w-2 h-2 cursor-pointer ${
-                      index === currentSlide
-                        ? 'bg-white'
-                        : 'bg-white/30 hover:bg-white/50'
-                    }`}
+                    className={`transition-all duration-300 rounded-full w-2 h-2 cursor-pointer ${index === currentSlide
+                      ? 'bg-white'
+                      : 'bg-white/30 hover:bg-white/50'
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}

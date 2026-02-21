@@ -3,6 +3,7 @@ import { sendEventRequestNotification } from '../lib/email/email-service';
 
 export const EventRequests: CollectionConfig = {
   slug: 'event-requests',
+  orderable: true,
   labels: {
     singular: 'Event/Lecture Request',
     plural: 'Event/Lecture Requests',

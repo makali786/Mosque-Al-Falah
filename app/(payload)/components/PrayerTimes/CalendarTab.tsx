@@ -28,7 +28,10 @@ interface DisplayPrayerTime {
 }
 
 const CalendarTab: React.FC = () => {
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 0, 1));
+  const [currentDate, setCurrentDate] = useState(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), 1);
+  });
   const [prayerTimes, setPrayerTimes] = useState<DisplayPrayerTime[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -56,6 +59,7 @@ const CalendarTab: React.FC = () => {
         const day = i + 1;
         const date = new Date(year, month - 1, day);
         const isFriday = date.getDay() === 5;
+        const dateISO = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         // Basic fallback values
         return {
           date: date.toLocaleDateString('en-US', {
@@ -63,7 +67,7 @@ const CalendarTab: React.FC = () => {
             month: 'short',
             day: 'numeric',
           }),
-          dateISO: date.toISOString().split('T')[0],
+          dateISO,
           hijri: { day: 11 + i, month: 'Rajab', year: '1447H' }, // Dummy hijri
           fajr: { start: '4:19 AM', iqamah: '4:39 AM' },
           shuruq: '6:19 AM',
@@ -80,7 +84,8 @@ const CalendarTab: React.FC = () => {
 
   const convertToDisplayFormat = useCallback(
     (data: PrayerTimeData): DisplayPrayerTime => {
-      const date = new Date(data.date);
+      const [year, month, day] = data.date.split('T')[0].split('-').map(Number);
+      const date = new Date(year, month - 1, day);
       const isFriday = date.getDay() === 5;
 
       return {
@@ -175,7 +180,8 @@ const CalendarTab: React.FC = () => {
     if (day.rawData) {
       setSelectedPrayerTime(day.rawData);
     } else {
-      const date = new Date(day.dateISO);
+      const [year, month, dayNum] = day.dateISO.split('-').map(Number);
+      const date = new Date(year, month - 1, dayNum);
       setSelectedPrayerTime({
         date: day.dateISO,
         hijriDate: `${day.hijri.day} ${day.hijri.month} ${day.hijri.year}`,
@@ -257,6 +263,7 @@ const CalendarTab: React.FC = () => {
           await updatePrayerTime(originalDay.rawData.id, changes);
         } else {
           // Create new
+          const [y, m, d] = dateISO.split('-').map(Number);
           const defaultData: PrayerTimeData = {
             date: dateISO,
             hijriDate: `${originalDay.hijri.day} ${originalDay.hijri.month} ${originalDay.hijri.year}`,
@@ -271,7 +278,7 @@ const CalendarTab: React.FC = () => {
             asrIqamahDelay: 15,
             maghribIqamahDelay: 10,
             ishaIqamahDelay: 15,
-            isJumuah: new Date(dateISO).getDay() === 5,
+            isJumuah: new Date(y, m - 1, d).getDay() === 5,
             ...(originalDay.rawData || {}),
           };
           await createPrayerTime({ ...defaultData, ...changes });

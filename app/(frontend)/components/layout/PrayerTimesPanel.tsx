@@ -55,6 +55,7 @@ export default function PrayerTimesPanel({
     currentDate,
   });
 
+
   // Countdown timer - only count down when viewing today and panel is open
   const countdown = useCountdown({
     targetTime: nextPrayer.time,
@@ -74,9 +75,8 @@ export default function PrayerTimesPanel({
 
       {/* Panel - Centered Modal */}
       <div
-        className={`fixed top-1/2 left-1/2 -translate-x-1/2 z-50 transform transition-transform duration-500 ease-in-out ${
-          isOpen ? "-translate-y-1/2" : "translate-y-[150%]"
-        }`}
+        className={`fixed top-1/2 left-1/2 -translate-x-1/2 z-50 transform transition-transform duration-500 ease-in-out ${isOpen ? "-translate-y-1/2" : "translate-y-[150%]"
+          }`}
         style={{
           maxWidth: "1200px",
           width: "calc(100% - 48px)",

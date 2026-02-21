@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const MadrasahTestimonials: CollectionConfig = {
   slug: 'madrasah-testimonials',
+  orderable: true,
   admin: {
     useAsTitle: 'authorName',
     defaultColumns: ['authorName', 'rating', 'order', 'isActive'],

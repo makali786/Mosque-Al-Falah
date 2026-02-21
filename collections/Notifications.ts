@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 export const Notifications: CollectionConfig = {
   slug: 'notifications',
+  orderable: true,
   admin: {
     useAsTitle: 'title',
     description: 'Global notification bar management',

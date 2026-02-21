@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  addMinutesToTime,
   findNextPrayer,
   getPrayerTimesByDate,
 } from '@lib/prayer-times-helpers';
@@ -130,48 +131,67 @@ const SocialIcon = ({ name, icon, url, size = 'default' }: SocialIconProps) => {
 interface PrayerTimeProps {
   name: string;
   time: string;
+  jamaah: string;
   active: boolean;
   variant?: 'mobile' | 'tablet' | 'desktop';
 }
 
+const RowLabels = ({ variant = 'mobile' }: { variant?: 'mobile' | 'tablet' | 'desktop' }) => {
+  const sizes = {
+    mobile: 'text-[11px] leading-4',
+    tablet: 'text-[12px] leading-tight',
+    desktop: 'text-[12px] xl:text-[14px] leading-tight',
+  };
+  const sizeClass = sizes[variant];
+  const mtClass = variant === 'desktop' ? 'mt-0.5 xl:mt-1' : 'mt-0.5';
+  const mbClass = variant === 'desktop' ? 'mb-0.5 xl:mb-1' : 'mb-0.5';
+
+  return (
+    <div className="flex flex-col items-end justify-end shrink-0 pr-2 xl:pr-3 pb-[2px] xl:pb-1">
+      <span className={`${sizeClass} invisible ${mbClass}`}>Prayer</span>
+      <span className={`${sizeClass} text-[#52525B]`}>Begins</span>
+      <span className={`${sizeClass} font-semibold text-black ${mtClass}`}>Jamā'ah</span>
+    </div>
+  );
+};
+
 const PrayerTime = ({
   name,
   time,
+  jamaah,
   active,
   variant = 'mobile',
 }: PrayerTimeProps) => {
+  const baseContainer = "flex flex-col items-center justify-center shrink-0 transition-colors px-1";
+
   const variants = {
     mobile: {
-      container: active
-        ? 'flex flex-col items-center justify-center w-[58px] h-[54px] bg-[#005bc4] rounded-[12px]'
-        : 'flex flex-col items-center justify-center w-[58px] h-[54px]',
-      nameClass: `font-medium text-[12px] leading-4 ${
-        active ? 'text-white' : 'text-black'
-      }`,
-      timeClass: `text-[13px] font-semibold leading-5 ${active ? 'text-white' : 'text-[#52525B]'}`,
+      container: `${baseContainer} min-w-[46px] ${active ? 'bg-[#005bc4] rounded-[10px] py-0.5 shadow-sm' : ''}`,
+      nameClass: `font-semibold text-[11px] leading-4 mb-0.5 ${active ? 'text-white' : 'text-black'}`,
+      timeClass: `text-[11px] leading-4 ${active ? 'text-white/90' : 'text-[#52525B]'}`,
+      jamaahClass: `text-[11px] leading-4 mt-0.5 font-semibold ${active ? 'text-white' : 'text-black'}`,
     },
     tablet: {
-      container: active
-        ? 'flex gap-1 items-center px-2 py-1 bg-[#005BC4] rounded-lg text-xs text-white'
-        : 'flex gap-1 items-center px-2 py-1 text-xs text-black',
-      nameClass: 'font-semibold whitespace-nowrap',
-      timeClass: 'font-normal whitespace-nowrap',
+      container: `${baseContainer} min-w-[50px] ${active ? 'bg-[#005BC4] rounded-[10px] py-0.5 shadow-sm' : ''}`,
+      nameClass: `font-semibold text-[12px] leading-tight mb-0.5 ${active ? 'text-white' : 'text-black'}`,
+      timeClass: `font-normal text-[12px] leading-tight ${active ? 'text-white/90' : 'text-[#52525B]'}`,
+      jamaahClass: `font-semibold text-[12px] leading-tight mt-0.5 ${active ? 'text-white' : 'text-black'}`,
     },
     desktop: {
-      container: active
-        ? 'bg-[#005BC4] flex gap-1 xl:gap-3 items-start px-1.5 xl:px-2 py-1 rounded-lg shrink-0 text-xs xl:text-sm text-white text-center whitespace-nowrap'
-        : 'flex gap-1 xl:gap-3 items-start justify-center px-1.5 xl:px-2 py-1 shrink-0 text-xs xl:text-sm text-black text-center whitespace-nowrap',
-      nameClass: 'font-semibold leading-5 whitespace-nowrap',
-      timeClass: 'font-normal leading-5 whitespace-nowrap',
+      container: `${baseContainer} min-w-[54px] xl:min-w-[58px] ${active ? 'bg-[#005BC4] rounded-[10px] py-1 shadow-sm' : ''}`,
+      nameClass: `font-semibold text-[12px] xl:text-[14px] mb-0.5 xl:mb-1 leading-tight ${active ? 'text-white' : 'text-black'}`,
+      timeClass: `font-normal text-[12px] xl:text-[14px] leading-tight ${active ? 'text-white/90' : 'text-[#52525B]'}`,
+      jamaahClass: `font-semibold text-[12px] xl:text-[14px] mt-0.5 xl:mt-1 leading-tight ${active ? 'text-white' : 'text-black'}`,
     },
   } as const;
 
-  const { container, nameClass, timeClass } = variants[variant];
+  const { container, nameClass, timeClass, jamaahClass } = variants[variant];
 
   return (
     <div className={container}>
       <span className={nameClass}>{name}</span>
       <span className={timeClass}>{time}</span>
+      <span className={jamaahClass}>{jamaah}</span>
     </div>
   );
 };
@@ -206,11 +226,11 @@ export default function TopBar({
     if (!prayerTimes || prayerTimes.length === 0) {
       // Fallback to mock data if no prayer times available
       return [
-        { name: 'Fajr', time: '5:53', active: false },
-        { name: 'Dhur', time: '12:19', active: true },
-        { name: 'Asr', time: '12:19', active: false },
-        { name: 'Maghrib', time: '3:6', active: false },
-        { name: 'Ishā', time: '6:33', active: false },
+        { name: 'Fajr', time: '5:53', jamaah: '6:15', active: false },
+        { name: 'Dhur', time: '12:19', jamaah: '1:00', active: true },
+        { name: 'Asr', time: '12:19', jamaah: '4:30', active: false },
+        { name: 'Maghrib', time: '3:06', jamaah: '3:10', active: false },
+        { name: 'Ishā', time: '6:33', jamaah: '7:30', active: false },
       ];
     }
 
@@ -219,11 +239,11 @@ export default function TopBar({
 
     if (!todayData) {
       return [
-        { name: 'Fajr', time: '5:53', active: false },
-        { name: 'Dhur', time: '12:19', active: true },
-        { name: 'Asr', time: '12:19', active: false },
-        { name: 'Maghrib', time: '3:6', active: false },
-        { name: 'Ishā', time: '6:33', active: false },
+        { name: 'Fajr', time: '5:53', jamaah: '6:15', active: false },
+        { name: 'Dhur', time: '12:19', jamaah: '1:00', active: true },
+        { name: 'Asr', time: '12:19', jamaah: '4:30', active: false },
+        { name: 'Maghrib', time: '3:06', jamaah: '3:10', active: false },
+        { name: 'Ishā', time: '6:33', jamaah: '7:30', active: false },
       ];
     }
 
@@ -237,26 +257,31 @@ export default function TopBar({
       {
         name: 'Fajr',
         time: todayData.fajr,
+        jamaah: addMinutesToTime(todayData.fajr, todayData.fajrIqamahDelay),
         active: nextPrayerName === 'FAJR',
       },
       {
         name: isFriday ? "Jum'ah" : 'Dhur',
         time: todayData.dhuhr,
+        jamaah: addMinutesToTime(todayData.dhuhr, todayData.dhuhrIqamahDelay),
         active: nextPrayerName === 'DHUHR',
       },
       {
         name: 'Asr',
         time: todayData.asr,
+        jamaah: addMinutesToTime(todayData.asr, todayData.asrIqamahDelay),
         active: nextPrayerName === 'ASR',
       },
       {
         name: 'Maghrib',
         time: todayData.maghrib,
+        jamaah: addMinutesToTime(todayData.maghrib, todayData.maghribIqamahDelay),
         active: nextPrayerName === 'MAGHRIB',
       },
       {
         name: 'Ishā',
         time: todayData.isha,
+        jamaah: addMinutesToTime(todayData.isha, todayData.ishaIqamahDelay),
         active: nextPrayerName === 'ISHA',
       },
     ];
@@ -265,8 +290,8 @@ export default function TopBar({
   return (
     <div className="bg-white w-full relative">
       {/* Mobile Layout - Below sm */}
-      <div className="sm:hidden py-3 px-4 sm:px-2">
-        <div className="flex flex-col gap-2">
+      <div className="sm:hidden py-1.5 px-2">
+        <div className="flex flex-col gap-1.5">
           <div className="flex items-center justify-center w-full px-2">
             <div className="flex items-center justify-center gap-8">
               {dates.map(date => (
@@ -279,7 +304,8 @@ export default function TopBar({
               ))}
             </div>
           </div>
-          <div className="flex items-center justify-evenly w-full px-8">
+          <div className="flex items-center justify-evenly w-full px-2">
+            <RowLabels variant="mobile" />
             {displayPrayerTimes.map(prayer => (
               <PrayerTime key={prayer.name} {...prayer} variant="mobile" />
             ))}
@@ -321,7 +347,8 @@ export default function TopBar({
             </Link>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-1 w-full">
+        <div className="flex items-center justify-center w-full">
+          <RowLabels variant="tablet" />
           {displayPrayerTimes.map(prayer => (
             <PrayerTime key={prayer.name} {...prayer} variant="tablet" />
           ))}
@@ -410,13 +437,14 @@ export default function TopBar({
         </div>
 
         {/* Right Section - Prayer Times & Calendar */}
-        <div className="flex gap-2 xl:gap-4 items-center shrink-0">
-          <div className="flex gap-0.5 xl:gap-1.75 items-center shrink-0">
+        <div className="flex gap-2 xl:gap-3 items-center shrink-0">
+          <div className="flex items-center shrink-0">
+            <RowLabels variant="desktop" />
             {displayPrayerTimes.map(prayer => (
               <PrayerTime key={prayer.name} {...prayer} variant="desktop" />
             ))}
           </div>
-          <div className="relative">
+          <div className="relative ml-2">
             <button
               onClick={() => setIsCalendarOpen(!isCalendarOpen)}
               className="bg-[#f4f4f5] flex gap-2.5 items-center px-2 py-1 rounded-full shrink-0 hover:bg-gray-200 transition-colors cursor-pointer"

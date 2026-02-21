@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const Popups: CollectionConfig = {
     slug: 'popups',
+  orderable: true,
     admin: {
         useAsTitle: 'title',
         defaultColumns: ['title', 'isActive', 'priority', 'type'],

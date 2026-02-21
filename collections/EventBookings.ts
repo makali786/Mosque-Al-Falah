@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 export const EventBookings: CollectionConfig = {
   slug: 'event-bookings',
+  orderable: true,
   admin: {
     useAsTitle: 'fullName',
     defaultColumns: [

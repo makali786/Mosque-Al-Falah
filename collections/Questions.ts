@@ -3,6 +3,7 @@ import { sendQuestionNotification } from '../lib/email/email-service';
 
 export const Questions: CollectionConfig = {
   slug: 'questions',
+  orderable: true,
   labels: {
     singular: 'Question',
     plural: 'Questions',

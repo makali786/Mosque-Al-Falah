@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 export const Donors: CollectionConfig = {
   slug: 'donors',
+  orderable: true,
   labels: {
     singular: 'Donor',
     plural: 'Donors',

@@ -18,9 +18,9 @@ export const revalidate = 60;
 
 export default async function AboutUsPage() {
   const aboutUs = await fetchGlobal({ slug: 'about-page' });
-  const coreValuesDocs = await fetchCoreValues({ sort: 'order' });
+  const coreValuesDocs = await fetchCoreValues({ sort: '_order' });
   const committeesDocs = await fetchCommittees<CommitteeMember>({
-    sort: 'order',
+    sort: '_order',
     where: { isActive: { equals: true } },
   });
   if (!aboutUs) return null;

@@ -4,6 +4,7 @@ import { createRevalidateHook } from '../lib/revalidation';
 
 export const DonationAppeals: CollectionConfig = {
   slug: 'donation-appeals',
+  orderable: true,
   admin: {
     useAsTitle: 'title',
     defaultColumns: [

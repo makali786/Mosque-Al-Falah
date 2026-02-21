@@ -26,7 +26,7 @@ export default async function Home() {
 
   const banners = await fetchBanners({
     depth: 1,
-    sort: 'order',
+    sort: '_order',
     where: { isActive: { equals: true } },
   });
 
@@ -78,28 +78,28 @@ export default async function Home() {
 
   const services = await fetchServices({
     depth: 1,
-    sort: 'order',
+    sort: '_order',
     where: { isActive: { equals: true } },
   });
   const imams = await fetchImams({
     limit: 4,
     depth: 1,
-    sort: 'order',
+    sort: '_order',
     where: { isActive: { equals: true } },
   });
   const ayatOfTheMonth = await fetchAyatOfTheMonth({
     depth: 1,
-    sort: 'order',
+    sort: '_order',
     where: { isActive: { equals: true } },
   });
   const sermons = await fetchSermons({
     depth: 1,
-    sort: 'order',
+    sort: '_order',
     where: { isPublished: { equals: true } },
   });
   const donationAppeal = await fetchDonationAppeals({
     depth: 1,
-    sort: 'order',
+    sort: '_order',
     where: { isActive: { equals: true } },
   });
   const notices = await fetchNotices({

@@ -4,6 +4,7 @@ import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 
 export const Sermons: CollectionConfig = {
   slug: 'sermons',
+  orderable: true,
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'speaker', 'sermonDate', 'isFeatured'],

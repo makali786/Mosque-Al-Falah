@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const CoreValues: CollectionConfig = {
   slug: 'core-values',
+  orderable: true,
   admin: {
     useAsTitle: 'question',
     defaultColumns: ['question', 'order', 'isActive'],

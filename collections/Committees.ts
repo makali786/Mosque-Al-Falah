@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const Committees: CollectionConfig = {
   slug: 'committees',
+  orderable: true,
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'role', 'committeeType', 'order'],

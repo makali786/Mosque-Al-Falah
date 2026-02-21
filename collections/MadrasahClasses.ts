@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const MadrasahClasses: CollectionConfig = {
   slug: 'madrasah-classes',
+  orderable: true,
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'classType', 'ageRange', 'order', 'isActive'],

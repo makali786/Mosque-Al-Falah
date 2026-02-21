@@ -4,6 +4,7 @@ import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 
 export const BlogPosts: CollectionConfig = {
   slug: 'blog-posts',
+  orderable: true,
   labels: {
     singular: 'Blog Post',
     plural: 'Blog Posts',

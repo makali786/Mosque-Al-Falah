@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 export const PageViews: CollectionConfig = {
     slug: 'page-views',
+  orderable: true,
     admin: {
         useAsTitle: 'path',
         defaultColumns: ['path', 'views', 'updatedAt'],

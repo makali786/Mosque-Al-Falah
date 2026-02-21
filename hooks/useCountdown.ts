@@ -1,4 +1,13 @@
 import { useState, useEffect } from "react";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+// Initialize plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+const TIMEZONE = "Europe/London";
 
 // ============================================================================
 // Types
@@ -15,26 +24,25 @@ export interface CountdownTime {
 // ============================================================================
 
 function calculateCountdown(targetTime: string): CountdownTime {
-  const now = new Date();
+  const now = dayjs().tz(TIMEZONE);
   const [hours, minutes] = targetTime.split(":").map(Number);
 
-  const target = new Date();
-  target.setHours(hours, minutes, 0, 0);
+  let target = dayjs().tz(TIMEZONE).hour(hours).minute(minutes).second(0).millisecond(0);
 
-  // If target time has passed today, set it for tomorrow
-  if (now > target) {
-    target.setDate(target.getDate() + 1);
+  // If target time has passed today (based on London time), set it for tomorrow
+  if (now.isAfter(target)) {
+    target = target.add(1, 'day');
   }
 
-  const diff = target.getTime() - now.getTime();
+  const diffMs = target.diff(now);
 
-  if (diff <= 0) {
+  if (diffMs <= 0) {
     return { hours: "00", minutes: "00", seconds: "00" };
   }
 
-  const h = Math.floor(diff / (1000 * 60 * 60));
-  const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const s = Math.floor((diff % (1000 * 60)) / 1000);
+  const h = Math.floor(diffMs / (1000 * 60 * 60));
+  const m = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  const s = Math.floor((diffMs % (1000 * 60)) / 1000);
 
   return {
     hours: h.toString().padStart(2, "0"),

@@ -153,8 +153,8 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: mongooseAdapter({
-    url: 'mongodb://admin:M%40sjid786@127.0.0.1:27017/mosque-al-falah?authSource=admin',
-    // url: 'mongodb://admin:M%40sjid786@89.167.55.212:27017/mosque-al-falah?authSource=admin',
+    // url: 'mongodb://admin:M%40sjid786@127.0.0.1:27017/mosque-al-falah?authSource=admin',
+    url: 'mongodb://admin:M%40sjid786@89.167.55.212:27017/mosque-al-falah?authSource=admin',
   }),
   sharp,
   plugins: [

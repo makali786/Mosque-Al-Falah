@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload';
 
 export const Donations: CollectionConfig = {
   slug: 'donations',
+  orderable: true,
   labels: {
     singular: 'Donation',
     plural: 'Donations',

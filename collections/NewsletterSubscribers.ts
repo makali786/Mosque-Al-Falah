@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 export const NewsletterSubscribers: CollectionConfig = {
   slug: 'newsletter-subscribers',
+  orderable: true,
   admin: {
     useAsTitle: 'email',
     defaultColumns: ['email', 'status', 'subscribedAt', 'source'],

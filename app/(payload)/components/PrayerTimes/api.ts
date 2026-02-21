@@ -47,9 +47,12 @@ export async function fetchPrayerTimes(
   month: number,
   year: number
 ): Promise<PrayerTimeData[]> {
-  // Calculate start and end dates for the month
-  const startDate = new Date(year, month - 1, 1).toISOString().split('T')[0];
-  const endDate = new Date(year, month, 0).toISOString().split('T')[0];
+  // Construct YYYY-MM-DD manually to prevent timezone offset shifts when using toISOString() on local dates
+  const paddedMonth = String(month).padStart(2, '0');
+  const dEnd = String(new Date(year, month, 0).getDate()).padStart(2, '0');
+
+  const startDate = `${year}-${paddedMonth}-01`;
+  const endDate = `${year}-${paddedMonth}-${dEnd}`;
 
   return fetchPrayerTimesByRange(startDate, endDate);
 }

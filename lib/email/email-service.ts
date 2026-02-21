@@ -50,6 +50,7 @@ export interface AdminNotificationData {
   donationType: string;
   frequency: string;
   giftAidAmount?: number;
+  platformFee?: number;
   totalAmount: number;
   donationId: string;
   date: Date;
@@ -291,21 +292,21 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
                         <td colspan="2" style="border-top: 1px solid #e5e7eb; padding-top: 16px; margin-top: 8px;"></td>
                       </tr>
                       <tr>
-                        <td style="padding: 8px 0; color: #666;">Donation Amount:</td>
-                        <td style="padding: 8px 0; color: #333; text-align: right;">${currencySymbol}${data.amount.toFixed(2)}</td>
+                        <td style="padding: 8px 0; color: #666;">Payment amount:</td>
+                        <td style="padding: 8px 0; color: #333; text-align: right;">${currencySymbol}${data.totalAmount.toFixed(2)}</td>
                       </tr>
                       ${data.platformFee && data.platformFee > 0
       ? `
                       <tr>
-                        <td style="padding: 8px 0; color: #666;">Platform Support:</td>
-                        <td style="padding: 8px 0; color: #333; text-align: right;">${currencySymbol}${data.platformFee.toFixed(2)}</td>
+                        <td style="padding: 8px 0; color: #666;">Stripe processing fees:</td>
+                        <td style="padding: 8px 0; color: #333; text-align: right;">-${currencySymbol}${data.platformFee.toFixed(2)}</td>
                       </tr>
                       `
       : ''
     }
                       <tr>
-                        <td style="padding: 12px 0; font-weight: 600; color: #333; font-size: 18px; border-top: 2px solid #0c478a;">Total Paid:</td>
-                        <td style="padding: 12px 0; font-weight: 600; color: #0c478a; text-align: right; font-size: 18px; border-top: 2px solid #0c478a;">${currencySymbol}${data.totalAmount.toFixed(2)}</td>
+                        <td style="padding: 12px 0; font-weight: 600; color: #333; font-size: 18px; border-top: 2px solid #e5e7eb;">Net amount:</td>
+                        <td style="padding: 12px 0; font-weight: 600; color: #333; text-align: right; font-size: 18px; border-top: 2px solid #e5e7eb;">${currencySymbol}${data.amount.toFixed(2)}</td>
                       </tr>
                     </table>
                   </td>
@@ -407,7 +408,7 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
                 123 Islamic Way, London, UK
               </p>
               <p style="margin: 0 0 20px; color: #9ca3af; font-size: 12px;">
-                Registered Charity No: 1234567
+                Registered Charity No: 1062761
               </p>
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                 <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}" style="color: #0c478a; text-decoration: none;">Website</a> • 
@@ -447,9 +448,9 @@ Date: ${formatDate(data.date)}
 Donation Type: ${getDonationTypeLabel(data.donationType)}
 Frequency: ${getFrequencyLabel(data.frequency)}
 
-Donation Amount: ${currencySymbol}${data.amount.toFixed(2)}
-${data.platformFee && data.platformFee > 0 ? `Platform Support: ${currencySymbol}${data.platformFee.toFixed(2)}` : ''}
-Total Paid: ${currencySymbol}${data.totalAmount.toFixed(2)}
+Payment Amount: ${currencySymbol}${data.totalAmount.toFixed(2)}
+${data.platformFee && data.platformFee > 0 ? `Stripe Processing Fees: -${currencySymbol}${data.platformFee.toFixed(2)}` : ''}
+Net Amount: ${currencySymbol}${data.amount.toFixed(2)}
 
 ${data.giftAidAmount && data.giftAidAmount > 0
       ? `
@@ -479,7 +480,7 @@ You can manage or cancel at any time.
 
 Masjid Al-Falah
 123 Islamic Way, London, UK
-Registered Charity No: 1234567
+Registered Charity No: 1062761
 
 Website: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}
 `;
@@ -665,8 +666,12 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
                   <td style="padding: 8px 0; color: #333; text-align: right;">${data.donorEmail}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 8px 0; color: #666;">Amount:</td>
-                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600; font-size: 18px;">${currencySymbol}${data.amount.toFixed(2)}</td>
+                  <td style="padding: 8px 0; color: #666;">Payment amount:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right; font-weight: 600; font-size: 18px;">${currencySymbol}${data.totalAmount.toFixed(2)}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #666;">Stripe processing fees:</td>
+                  <td style="padding: 8px 0; color: #333; text-align: right;">-${currencySymbol}${data.platformFee ? data.platformFee.toFixed(2) : '0.00'}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #666;">Type:</td>
@@ -686,8 +691,8 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
       : ''
     }
                 <tr>
-                  <td style="padding: 12px 0; font-weight: 600; color: #333; border-top: 2px solid #10b981;">Total:</td>
-                  <td style="padding: 12px 0; font-weight: 600; color: #10b981; text-align: right; font-size: 20px; border-top: 2px solid #10b981;">${currencySymbol}${data.totalAmount.toFixed(2)}</td>
+                  <td style="padding: 12px 0; font-weight: 600; color: #333; border-top: 2px solid #10b981;">Net to Mosque:</td>
+                  <td style="padding: 12px 0; font-weight: 600; color: #10b981; text-align: right; font-size: 20px; border-top: 2px solid #10b981;">${currencySymbol}${data.amount.toFixed(2)}</td>
                 </tr>
               </table>
               
@@ -1369,7 +1374,7 @@ function generateNewsletterWelcomeHTML(data: NewsletterSubscriberData): string {
                 97 Kensington Gardens, Ilford, Essex IG1 3EN
               </p>
               <p style="margin: 0 0 20px; color: #9ca3af; font-size: 12px;">
-                Registered Charity No: 1234567
+                Registered Charity No: 1062761
               </p>
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                 <a href="${siteUrl}" style="color: #0c478a; text-decoration: none;">Website</a> • 
@@ -1433,7 +1438,7 @@ ${siteUrl}/newsletter/preferences?token=${data.confirmationToken}
 Masjid Al-Falah
 North Ilford Islamic Centre
 97 Kensington Gardens, Ilford, Essex IG1 3EN
-Registered Charity No: 1234567
+Registered Charity No: 1062761
 
 Website: ${siteUrl}
 Unsubscribe: ${siteUrl}/newsletter/unsubscribe?token=${data.confirmationToken}

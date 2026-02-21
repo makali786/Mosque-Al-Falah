@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 
 export const PageSections: CollectionConfig = {
   slug: 'page-sections',
+  orderable: true,
   admin: {
     useAsTitle: 'sectionTitle',
     defaultColumns: ['sectionTitle', 'pageName', 'sectionType'],

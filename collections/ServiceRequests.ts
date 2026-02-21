@@ -3,6 +3,7 @@ import { sendServiceRequestNotification } from '../lib/email/email-service';
 
 export const ServiceRequests: CollectionConfig = {
   slug: 'service-requests',
+  orderable: true,
   labels: {
     singular: 'Service Request',
     plural: 'Service Requests',

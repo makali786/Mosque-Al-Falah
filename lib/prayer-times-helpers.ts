@@ -1,6 +1,16 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+// Initialize plugins
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+const TIMEZONE = "Europe/London";
+
 // Helper functions for prayer times
 
-interface PrayerTimeData {
+export interface PrayerTimeData {
   id: string;
   date: string;
   hijriDate: string;
@@ -21,9 +31,7 @@ interface PrayerTimeData {
 // Add minutes to a time string (format: "HH:MM")
 export function addMinutesToTime(time: string, minutes: number): string {
   const [hours, mins] = time.split(':').map(Number);
-  const date = new Date();
-  date.setHours(hours, mins + minutes, 0, 0);
-  return date.toTimeString().slice(0, 5);
+  return dayjs().tz(TIMEZONE).hour(hours).minute(mins + minutes).format("HH:mm");
 }
 
 // Get prayer times for a specific date
@@ -32,10 +40,11 @@ export function getPrayerTimesByDate(
   date: Date
 ): PrayerTimeData | null {
   if (!prayerTimes || prayerTimes.length === 0) return null;
-  // Use local date components to avoid timezone shifts (e.g., UTC+5 shifting 00:00 to previous day)
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  // Use dayjs with timezone to avoid browser local timezone shifts
+  const d = dayjs(date).tz(TIMEZONE);
+  const year = d.year();
+  const month = String(d.month() + 1).padStart(2, '0');
+  const day = String(d.date()).padStart(2, '0');
   const dateStr = `${year}-${month}-${day}`;
 
   return (
@@ -49,13 +58,8 @@ export function getPrayerTimesByDate(
 
 // Format date to readable string
 export function formatGregorianDate(date: Date): string {
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-  return date.toLocaleDateString('en-GB', options);
+  const d = dayjs(date).tz(TIMEZONE);
+  return d.format("dddd, MMMM D, YYYY");
 }
 
 // Format hijri date
@@ -96,23 +100,19 @@ export function findNextPrayer(
 ): { name: string; time: string } | null {
   if (!prayerTimeData) return null;
 
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const now = dayjs().tz(TIMEZONE);
+
   const selected = selectedDate
-    ? new Date(
-        selectedDate.getFullYear(),
-        selectedDate.getMonth(),
-        selectedDate.getDate()
-      )
-    : today;
+    ? dayjs(selectedDate).tz(TIMEZONE)
+    : now;
 
   // If selected date is not today, return first prayer (Fajr) with no countdown
-  if (selected.getTime() !== today.getTime()) {
+  if (selected.format("YYYY-MM-DD") !== now.format("YYYY-MM-DD")) {
     return { name: 'FAJR', time: prayerTimeData.fajr };
   }
 
   // Only calculate next prayer if viewing today
-  const currentTime = now.getHours() * 60 + now.getMinutes();
+  const currentTime = now.hour() * 60 + now.minute();
 
   const prayers = [
     { name: 'FAJR', time: prayerTimeData.fajr },
@@ -137,12 +137,9 @@ export function findNextPrayer(
 
 // Check if selected date is today
 export function isToday(date: Date): boolean {
-  const today = new Date();
-  return (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
-  );
+  const now = dayjs().tz(TIMEZONE);
+  const d = dayjs(date).tz(TIMEZONE);
+  return d.format("YYYY-MM-DD") === now.format("YYYY-MM-DD");
 }
 
 // Determine which prayer is currently active
@@ -151,8 +148,8 @@ export function getCurrentActivePrayer(
 ): string | null {
   if (!prayerTimeData) return null;
 
-  const now = new Date();
-  const currentTime = now.getHours() * 60 + now.getMinutes();
+  const now = dayjs().tz(TIMEZONE);
+  const currentTime = now.hour() * 60 + now.minute();
 
   const prayers = [
     { name: 'Fajr', time: prayerTimeData.fajr },

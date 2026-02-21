@@ -49,7 +49,7 @@ export default async function OurServicesPage() {
     }) as ServicesPageData;
 
     const servicesDocs = await fetchServices({
-        sort: "order",
+        sort: "_order",
     }) as any[];
 
     // Map Services Data

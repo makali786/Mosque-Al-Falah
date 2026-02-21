@@ -41,70 +41,67 @@ export default function MeetOurImams({ imams = [] }: { imams: RawImam[] }) {
   if (!hasImams) return null;
 
   return (
-    <section className="bg-white w-full pb-8 sm:py-22.5">
-      <div className="section-padding">
+    <section className="bg-white w-full pb-16 sm:py-20 md:py-24 lg:py-28 xl:py-33">
+      <div className="section-padding flex flex-col gap-8 sm:gap-10 md:gap-12 lg:gap-12">
         {/* Title */}
-        <h2 className="text-xl leading-7 font-bold sm:text-3xl sm:leading-9 md:text-4xl md:leading-10 lg:text-5xl lg:leading-none sm:font-semibold text-[#18181b] sm:text-black sm:pt-0 pt-12 mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+        <h2 className="text-2xl leading-8 font-bold sm:text-3xl sm:leading-9 md:text-[32px] md:leading-9 lg:text-[36px] lg:leading-10 text-[#27272a] sm:pt-0 pt-12">
           Meet Our Imams
         </h2>
 
-        {/* Imam Cards */}
-        <div className="flex flex-col items-center lg:justify-center xl:justify-between lg:flex-row lg:flex-wrap gap-10 sm:gap-10 md:gap-11 lg:gap-12 pb-8 sm:pb-0">
+        {/* Imam Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-6 w-full">
           {mappedImams.map((imam) => (
-            <div key={imam?.id} className="relative w-full aspect-square lg:w-136 lg:h-136 lg:aspect-auto">
-              {/* Card Container */}
-              <div className="relative w-full h-full rounded-xl overflow-hidden">
-                {/* Background Image */}
-                {imam?.image && (
-                  <Image
-                    src={imam.image}
-                    alt={imam.name}
-                    fill
-                    className={`object-cover ${imam.imageStyle || ""}`}
-                  />
-                )}
-
-                {/* Gradient Overlay */}
-                <div
-                  className="absolute inset-0 rounded-3.5 md:rounded-xl"
-                  style={{
-                    background:
-                      "linear-gradient(206.565deg, rgba(12, 11, 29, 0) 16.667%, rgb(10, 29, 38) 100%)",
-                  }}
+            <div key={imam?.id} className="flex flex-col gap-3 sm:gap-3.5 md:gap-4 lg:gap-4 bg-white border border-[#e4e4e7] rounded-lg sm:rounded-xl lg:rounded-xl p-4 sm:p-4.5 md:p-5 lg:p-5 shadow-sm overflow-hidden h-full">
+              {/* Image */}
+              <div
+                className="relative w-full rounded-md sm:rounded-lg lg:rounded-lg overflow-hidden shrink-0"
+                style={{ aspectRatio: "226 / 162" }}
+              >
+                <Image
+                  src={imam?.image || "/placeholder-image.png"}
+                  alt={imam?.name}
+                  fill
+                  className={`object-cover ${imam.imageStyle || ""}`}
                 />
-
-                {/* Name and Tagline - Bottom Left */}
-                <div className="absolute bottom-10.25 left-4 sm:left-5 md:left-6 lg:left-7.5 flex flex-col gap-1 sm:gap-1.5 lg:gap-2 w-80.75 sm:max-w-none lg:max-w-81.25">
-                  <h3 className="text-lg leading-7 font-bold md:text-xl lg:text-xl text-white">
-                    {imam?.name}
-                  </h3>
-                  <p className="text-base font-normal text-[#e4e4e7] leading-6 overflow-hidden text-ellipsis whitespace-nowrap w-full">
-                    {imam?.title}
-                  </p>
-                </div>
               </div>
 
-              {/* Ask Imam Button - Bottom Right (extends below card) */}
-              {imam.email ? (
-                <a
-                  href={`mailto:${imam.email}`}
-                  className="absolute -bottom-6 right-7.75 sm:right-7 bg-[#006fee] px-6 py-3 sm:px-5 lg:px-6 rounded-full flex items-center gap-2 hover:bg-[#0056cc] transition-colors shadow-lg z-10"
-                >
-                  <div className="w-5 h-5 relative shrink-0">
-                    <Image
-                      src="/assets/imams/messages-icon.svg"
-                      alt=""
-                      fill
-                      className="object-contain"
-                    />
+              {/* Name and Role */}
+              <div className="flex flex-col gap-1 lg:gap-1">
+                <h3 className="text-lg leading-6 font-semibold sm:text-[19px] sm:leading-7 md:text-xl md:leading-7 lg:text-[20px] lg:leading-7 text-[#18181b]">
+                  {imam?.name}
+                </h3>
+                <p className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-6 text-[#71717a] truncate">
+                  {imam?.title}
+                </p>
+              </div>
+
+              {/* Ask Imam Button */}
+              {imam.email && (
+                <>
+                  {/* Divider */}
+                  <div
+                    className="h-px w-full mt-auto"
+                    style={{ backgroundColor: "rgba(17, 17, 17, 0.15)" }}
+                  />
+                  <div className="flex gap-3 sm:gap-3.5 md:gap-4 lg:gap-4">
+                    <a
+                      href={`mailto:${imam.email}`}
+                      className="flex items-center justify-center gap-2 h-10 sm:h-11 md:h-12 lg:h-12 px-4 sm:px-5 md:px-6 lg:px-6 bg-[#006fee] hover:bg-[#0056cc] rounded-md sm:rounded-lg lg:rounded-lg transition-colors cursor-pointer w-full text-center"
+                    >
+                      <div className="w-4 h-4 sm:w-4.5 sm:h-4.5 lg:w-5 lg:h-5 relative shrink-0">
+                        <Image
+                          src="/assets/imams/messages-icon.svg"
+                          alt="Email"
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <span className="text-sm leading-5 sm:text-[15px] sm:leading-6 md:text-base md:leading-6 lg:text-[16px] lg:leading-6 text-white font-medium">
+                        Ask Imam
+                      </span>
+                    </a>
                   </div>
-                  <span className="text-base font-normal text-white leading-6">
-                    Ask Imam
-                  </span>
-                </a>
-              ) : (
-                /* Fallback if no email? Maybe just hide it or show simplified */
-                null
+                </>
               )}
             </div>
           ))}
