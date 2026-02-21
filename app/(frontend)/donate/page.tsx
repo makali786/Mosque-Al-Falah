@@ -18,6 +18,7 @@ export default function DonatePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const { toasts, removeToast, success, error } = useToast();
 
   // Get amount and appealId from URL parameters
@@ -56,6 +57,32 @@ export default function DonatePage() {
     giftAidEnabled: false,
     giftAidDeclaration: false,
   });
+
+  // Hydrate state from sessionStorage on mount
+  useEffect(() => {
+    const savedStateStr = sessionStorage.getItem('donationState');
+    if (savedStateStr) {
+      try {
+        const savedState = JSON.parse(savedStateStr);
+        if (savedState.formData) {
+          setFormData(savedState.formData);
+        }
+        if (savedState.currentStep) {
+          setCurrentStep(savedState.currentStep);
+        }
+      } catch (err) {
+        console.error('Failed to parse saved donation state:', err);
+      }
+    }
+    setIsHydrated(true);
+  }, []);
+
+  // Save state to sessionStorage whenever it changes after hydration
+  useEffect(() => {
+    if (isHydrated) {
+      sessionStorage.setItem('donationState', JSON.stringify({ formData, currentStep }));
+    }
+  }, [formData, currentStep, isHydrated]);
 
   // Fetch appeal details if appealId is in URL to set correct donation type
   useEffect(() => {
@@ -140,6 +167,10 @@ export default function DonatePage() {
   const handleBack = () => {
     setCurrentStep(prev => Math.max(1, prev - 1));
   };
+
+  if (!isHydrated) {
+    return null;
+  }
 
   return (
     <>
