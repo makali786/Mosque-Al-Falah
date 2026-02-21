@@ -103,7 +103,7 @@ export default function DonatePage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount: Math.round(totalAmount * 100), // Convert to pence
+          amount: Math.round(donationAmount * 100), // Convert to pence
           currency: 'gbp',
           frequency: formData.frequency,
           donationType: formData.donationType,
@@ -116,7 +116,7 @@ export default function DonatePage() {
           isAnonymous: formData.isAnonymous,
           displayName: formData.displayName,
           giftAid: formData.giftAidEnabled, // ✅ Now includes user's Gift Aid decision
-          platformFeePercentage: formData.platformFeePercentage,
+          platformFeePercentage: formData.platformFeeEnabled ? formData.platformFeePercentage : 0,
           marketingConsent: formData.marketingConsent,
         }),
       });
