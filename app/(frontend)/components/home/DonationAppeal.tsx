@@ -50,11 +50,11 @@ export default function DonationAppeal({
   const daysLeft =
     !isOngoing && endDate
       ? Math.max(
-          0,
-          Math.ceil(
-            (endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
-          )
+        0,
+        Math.ceil(
+          (endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
         )
+      )
       : null;
 
   const image1 = getMediaUrl(appeal.heroMedia?.heroImage);
@@ -115,7 +115,7 @@ export default function DonationAppeal({
                     src={image1}
                     alt={title}
                     fill
-                    className="object-contain"
+                    className=""
                   />
                 )}
 
@@ -134,7 +134,7 @@ export default function DonationAppeal({
             </div>
 
             {/* Right side - Content */}
-            <div className="flex flex-col gap-4 lg:gap-16.5 px-5 pt-4 pb-9">
+            <div className="flex flex-1 min-w-0 flex-col gap-4 lg:gap-16.5 px-5 pt-4 pb-9">
               {/* Top section */}
               <div className="flex flex-col gap-4 lg:gap-5 w-full">
                 {/* Organization and Title */}
@@ -156,7 +156,7 @@ export default function DonationAppeal({
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl lg:text-2xl font-semibold text-[#27272a] leading-7 lg:leading-8 overflow-hidden text-ellipsis whitespace-normal lg:whitespace-nowrap w-full">
+                  <h3 className="text-xl lg:text-2xl font-semibold text-[#27272a] leading-7 lg:leading-8 overflow-hidden text-ellipsis whitespace-normal w-full">
                     {title}
                   </h3>
                 </div>

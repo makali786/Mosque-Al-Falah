@@ -9,7 +9,7 @@ import {
   fetchSermons,
   fetchServices,
 } from '../../lib/fetcher';
-import { getNextOccurrence } from '../../lib/recurring-events';
+import { getNextOccurrence, isEventHappening } from '../../lib/recurring-events';
 import AyatOfTheMonth from './components/home/AyatOfTheMonth';
 import DonationAppeal from './components/home/DonationAppeal';
 import HeroBanner from './components/home/HeroBanner';
@@ -87,10 +87,17 @@ export default async function Home() {
     sort: '_order',
     where: { isActive: { equals: true } },
   });
-  const ayatOfTheMonth = await fetchAyatOfTheMonth({
+  const allAyats = await fetchAyatOfTheMonth({
     depth: 1,
     sort: '_order',
     where: { isActive: { equals: true } },
+  });
+
+  // Filter Ayat of the Month based on timing/recurrence, same as events
+  const ayatOfTheMonth = allAyats.filter((ayat: any) => {
+    // If it has no timing, it's likely a legacy record, show it
+    if (!ayat.timing?.startDate) return true;
+    return isEventHappening(ayat, now);
   });
   const sermons = await fetchSermons({
     depth: 1,

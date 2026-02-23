@@ -16,6 +16,10 @@ interface Ayat {
   videoUrl?: string;
   audioUrl?: string;
   audioFile?: { url?: string };
+  defaultTab?: 'audio' | 'video' | 'default';
+  arabicText?: string;
+  surahNumber?: number;
+  ayahNumber?: number;
 }
 
 type ViewMode = 'default' | 'video' | 'audio' | 'taraweeh';
@@ -37,7 +41,8 @@ export default function AyatOfTheMonth({
 }: {
   ayatOfTheMonth: Ayat[];
 }) {
-  const [viewMode, setViewMode] = useState<ViewMode>('default');
+  const initialMode = (ayatOfTheMonth[0]?.defaultTab as ViewMode) || 'audio';
+  const [viewMode, setViewMode] = useState<ViewMode>(initialMode);
   const [taraweehActive, setTaraweehActive] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
@@ -137,6 +142,14 @@ export default function AyatOfTheMonth({
   const arabicImage = data?.arabicCalligraphyImage?.url ?? null;
   const englishText = data?.englishTranslation || '';
   const citation = data?.surahName || '';
+  const arabicText = data?.arabicText || '';
+  const ayahNumber = data?.ayahNumber || 0;
+  const surahNumber = data?.surahNumber || 0;
+
+  // Dynamic label logic
+  const isSeries = surahNumber === 0;
+  const sectionLabel = isSeries ? citation.toUpperCase() : 'AYAT OF THE MONTH';
+
   const videoTitle = data?.videoTitle || '';
   const videoUrl = data?.videoUrl || '';
   const audioUrl = data.audioFile?.url || data.audioUrl || '';
@@ -206,11 +219,11 @@ export default function AyatOfTheMonth({
           <>
             <div className="flex flex-col items-center gap-4.5 sm:gap-8.25 w-full">
               <p className="text-base sm:text-xl font-medium sm:font-normal text-white leading-4 sm:leading-7 text-center">
-                AYAT OF THE MONTH
+                {sectionLabel}
               </p>
 
               <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-178.5 sm:max-w-full">
-                {arabicImage && (
+                {arabicImage ? (
                   <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
                     <Image
                       src={arabicImage}
@@ -220,13 +233,19 @@ export default function AyatOfTheMonth({
                       unoptimized
                     />
                   </div>
-                )}
+                ) : arabicText ? (
+                  <div className="text-3xl sm:text-6xl font-normal text-white text-center" style={{ fontFamily: "'Amiri', serif" }}>
+                    {arabicText}
+                  </div>
+                ) : null}
                 <p className="text-base sm:text-[35px] font-medium sm:font-bold text-white leading-6 sm:leading-13 tracking-normal text-center">
                   &quot;{englishText}&quot;
                 </p>
-                <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  {citation}
-                </p>
+                {!isSeries && (
+                  <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
+                    {citation}
+                  </p>
+                )}
               </div>
             </div>
           </>
@@ -264,10 +283,10 @@ export default function AyatOfTheMonth({
           <>
             <div className="flex flex-col items-center gap-4.5 sm:gap-8.25 w-full">
               <p className="text-base sm:text-xl font-medium sm:font-normal text-white leading-4 sm:leading-7 text-center">
-                AYAT OF THE MONTH
+                {sectionLabel}
               </p>
               <div className="flex flex-col items-center gap-2.5 sm:gap-7 w-full max-w-69 sm:max-w-full">
-                {arabicImage && (
+                {arabicImage ? (
                   <div className="w-45 h-13.5 sm:w-[477.66px] sm:h-[143.3px] relative">
                     <Image
                       src={arabicImage}
@@ -277,13 +296,19 @@ export default function AyatOfTheMonth({
                       unoptimized
                     />
                   </div>
-                )}
+                ) : arabicText ? (
+                  <div className="text-3xl sm:text-6xl font-normal text-white text-center" style={{ fontFamily: "'Amiri', serif" }}>
+                    {arabicText}
+                  </div>
+                ) : null}
                 <p className="text-base sm:text-4xl font-medium sm:font-bold text-white leading-6 sm:leading-13 text-center">
                   &quot;{englishText}&quot;
                 </p>
-                <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
-                  {citation}
-                </p>
+                {!isSeries && (
+                  <p className="text-xs sm:text-lg font-normal italic text-white leading-4 sm:leading-7 text-center">
+                    {citation}
+                  </p>
+                )}
               </div>
             </div>
             <AudioPlayer audioUrl={fullAudioUrl} variant="dark" />

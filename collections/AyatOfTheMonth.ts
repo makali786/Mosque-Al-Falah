@@ -6,16 +6,14 @@ export const AyatOfTheMonth: CollectionConfig = {
   orderable: true,
   admin: {
     useAsTitle: 'englishTranslation',
-    defaultColumns: ['surahName', 'ayahNumber', 'monthYear', 'isActive'],
-    description: 'Featured Quranic verses for each month',
+    defaultColumns: ['surahName', 'ayahNumber', 'isActive'],
+    description: 'Featured Quranic verses for each day/month',
   },
   access: {
     read: () => true,
   },
   hooks: {
-
     afterChange: [createRevalidateHook('ayat-of-the-month')],
-
   },
 
   fields: [
@@ -55,6 +53,143 @@ export const AyatOfTheMonth: CollectionConfig = {
       },
     },
     {
+      name: 'timing',
+      type: 'group',
+      label: 'Display Timing',
+      fields: [
+        {
+          name: 'startDate',
+          type: 'date',
+          required: true,
+          label: 'Start Date',
+          admin: {
+            date: {
+              pickerAppearance: 'dayOnly',
+            },
+          },
+        },
+        {
+          name: 'endDate',
+          type: 'date',
+          required: true,
+          label: 'End Date',
+          admin: {
+            date: {
+              pickerAppearance: 'dayOnly',
+            },
+          },
+        },
+      ],
+    },
+    {
+      name: 'recurrence',
+      type: 'group',
+      label: 'Display Recurrence',
+      fields: [
+        {
+          name: 'isRecurring',
+          type: 'checkbox',
+          defaultValue: false,
+          label: 'Recurring Item',
+          admin: {
+            description: 'Enable if this item repeats on a schedule',
+          },
+        },
+        {
+          name: 'frequency',
+          type: 'select',
+          options: [
+            { label: 'Weekly', value: 'weekly' },
+            { label: 'Monthly', value: 'monthly' },
+          ],
+          label: 'Repeat Frequency',
+          admin: {
+            condition: (data, siblingData) => siblingData?.isRecurring,
+            description: 'How often the item repeats',
+          },
+        },
+        {
+          name: 'weeklyPattern',
+          type: 'select',
+          options: [
+            { label: 'Sunday', value: '0' },
+            { label: 'Monday', value: '1' },
+            { label: 'Tuesday', value: '2' },
+            { label: 'Wednesday', value: '3' },
+            { label: 'Thursday', value: '4' },
+            { label: 'Friday', value: '5' },
+            { label: 'Saturday', value: '6' },
+          ],
+          hasMany: true,
+          label: 'Days of Week',
+          admin: {
+            condition: (data, siblingData) =>
+              siblingData?.isRecurring && siblingData?.frequency === 'weekly',
+            description: 'Select which days of the week the item repeats',
+          },
+        },
+        {
+          name: 'monthlyDay',
+          type: 'number',
+          min: 1,
+          max: 31,
+          label: 'Day of Month',
+          admin: {
+            description: 'Which day of the month (1-31)',
+            condition: (data, siblingData) =>
+              siblingData?.isRecurring && siblingData?.frequency === 'monthly',
+          },
+        },
+        {
+          name: 'recurrenceEnd',
+          type: 'group',
+          label: 'Recurrence End',
+          admin: {
+            condition: (data, siblingData) => siblingData?.isRecurring,
+            description: 'When should the recurring item stop',
+          },
+          fields: [
+            {
+              name: 'type',
+              type: 'select',
+              options: [
+                {
+                  label: 'No end date (continues indefinitely)',
+                  value: 'never',
+                },
+                { label: 'End on a specific date', value: 'date' },
+                { label: 'End after a number of occurrences', value: 'count' },
+              ],
+              defaultValue: 'never',
+              label: 'End Type',
+            },
+            {
+              name: 'endDate',
+              type: 'date',
+              label: 'End Date',
+              admin: {
+                date: {
+                  pickerAppearance: 'dayOnly',
+                },
+                condition: (data, siblingData) => siblingData?.type === 'date',
+                description: 'Last date the item will display',
+              },
+            },
+            {
+              name: 'occurrences',
+              type: 'number',
+              min: 1,
+              label: 'Number of Occurrences',
+              admin: {
+                condition: (data, siblingData) => siblingData?.type === 'count',
+                description: 'How many times the item will repeat',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'arabicCalligraphyImage',
       type: 'upload',
       relationTo: 'media',
@@ -83,15 +218,17 @@ export const AyatOfTheMonth: CollectionConfig = {
       },
     },
     {
-      name: 'monthYear',
-      type: 'date',
-      required: true,
-      label: 'Month & Year',
+      name: 'defaultTab',
+      type: 'select',
+      label: 'Default Tab to Show',
+      defaultValue: 'audio',
+      options: [
+        { label: 'Audio', value: 'audio' },
+        { label: 'Video', value: 'video' },
+        { label: 'Text/Image', value: 'default' },
+      ],
       admin: {
-        date: {
-          pickerAppearance: 'monthOnly',
-        },
-        description: 'The month this ayat should be featured',
+        description: 'Which tab should be open by default when this record is shown',
       },
     },
     {

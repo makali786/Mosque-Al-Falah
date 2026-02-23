@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { IoClose } from 'react-icons/io5';
 
 interface DonationData {
   id: string;
@@ -98,13 +99,21 @@ export default function DonationToast() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, x: -50, y: 50 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          exit={{ opacity: 0, x: -50, y: 50 }}
           transition={{ duration: 0.5 }}
-          className="fixed top-24 left-1/2 transform -translate-x-1/2 z-[9999]"
+          className="fixed bottom-8 left-4 sm:left-10 z-[9999]"
         >
-          <div className="w-[340px] sm:w-[380px] px-4 py-3 bg-blue-50/95 backdrop-blur-sm border border-blue-100 rounded-lg shadow-lg inline-flex justify-between items-center overflow-hidden">
+          <div className="relative w-[340px] sm:w-[380px] px-4 py-3 bg-blue-50/95 backdrop-blur-sm border border-blue-100 rounded-lg shadow-lg inline-flex justify-between items-center overflow-hidden">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsVisible(false)}
+              className="absolute top-1 right-1 p-1 text-blue-400 hover:text-blue-600 transition-colors"
+              title="Close"
+            >
+              <IoClose size={18} />
+            </button>
             <div className="flex-1 inline-flex flex-col justify-start items-start mr-3">
               <div className="self-stretch text-blue-600 text-base font-semibold font-['Inter'] leading-6">
                 {formatCurrency(donation.amount, donation.currency)} received
