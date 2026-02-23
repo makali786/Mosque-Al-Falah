@@ -1,0 +1,6935 @@
+[{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7b7"
+  },
+  "date": "2026-01-01T00:00:00.000Z",
+  "hijriDate": "12 Rajab",
+  "fajr": "06:26",
+  "sunrise": "08:06",
+  "dhuhr": "00:08",
+  "asr": "14:15",
+  "maghrib": "16:05",
+  "isha": "17:42",
+  "fajrIqamahDelay": 34,
+  "dhuhrIqamahDelay": 772,
+  "asrIqamahDelay": 30,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 108,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7b8"
+  },
+  "date": "2026-01-02T00:00:00.000Z",
+  "hijriDate": "13 Rajab",
+  "fajr": "06:26",
+  "sunrise": "08:06",
+  "dhuhr": "00:09",
+  "asr": "14:16",
+  "maghrib": "16:06",
+  "isha": "17:43",
+  "fajrIqamahDelay": 34,
+  "dhuhrIqamahDelay": 756,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 107,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7b9"
+  },
+  "date": "2026-01-03T00:00:00.000Z",
+  "hijriDate": "14 Rajab",
+  "fajr": "06:25",
+  "sunrise": "08:05",
+  "dhuhr": "00:09",
+  "asr": "14:17",
+  "maghrib": "16:07",
+  "isha": "17:44",
+  "fajrIqamahDelay": 35,
+  "dhuhrIqamahDelay": 771,
+  "asrIqamahDelay": 43,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 46,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ba"
+  },
+  "date": "2026-01-04T00:00:00.000Z",
+  "hijriDate": "15 Rajab",
+  "fajr": "06:25",
+  "sunrise": "08:05",
+  "dhuhr": "00:10",
+  "asr": "14:19",
+  "maghrib": "16:08",
+  "isha": "17:45",
+  "fajrIqamahDelay": 35,
+  "dhuhrIqamahDelay": 770,
+  "asrIqamahDelay": 41,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 45,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7bb"
+  },
+  "date": "2026-01-05T00:00:00.000Z",
+  "hijriDate": "16 Rajab",
+  "fajr": "06:25",
+  "sunrise": "08:05",
+  "dhuhr": "00:10",
+  "asr": "14:20",
+  "maghrib": "16:10",
+  "isha": "17:47",
+  "fajrIqamahDelay": 35,
+  "dhuhrIqamahDelay": 770,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 103,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7bc"
+  },
+  "date": "2026-01-06T00:00:00.000Z",
+  "hijriDate": "17 Rajab",
+  "fajr": "06:24",
+  "sunrise": "08:04",
+  "dhuhr": "00:11",
+  "asr": "14:21",
+  "maghrib": "16:11",
+  "isha": "17:48",
+  "fajrIqamahDelay": 36,
+  "dhuhrIqamahDelay": 769,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 102,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7bd"
+  },
+  "date": "2026-01-07T00:00:00.000Z",
+  "hijriDate": "18 Rajab",
+  "fajr": "06:24",
+  "sunrise": "08:04",
+  "dhuhr": "00:11",
+  "asr": "14:22",
+  "maghrib": "16:12",
+  "isha": "17:49",
+  "fajrIqamahDelay": 36,
+  "dhuhrIqamahDelay": 769,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 101,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7be"
+  },
+  "date": "2026-01-08T00:00:00.000Z",
+  "hijriDate": "19 Rajab",
+  "fajr": "06:24",
+  "sunrise": "08:04",
+  "dhuhr": "00:11",
+  "asr": "14:24",
+  "maghrib": "16:14",
+  "isha": "17:51",
+  "fajrIqamahDelay": 36,
+  "dhuhrIqamahDelay": 769,
+  "asrIqamahDelay": 36,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 99,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7bf"
+  },
+  "date": "2026-01-09T00:00:00.000Z",
+  "hijriDate": "20 Rajab",
+  "fajr": "06:23",
+  "sunrise": "08:03",
+  "dhuhr": "00:12",
+  "asr": "14:25",
+  "maghrib": "16:15",
+  "isha": "17:52",
+  "fajrIqamahDelay": 37,
+  "dhuhrIqamahDelay": 753,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 98,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c0"
+  },
+  "date": "2026-01-10T00:00:00.000Z",
+  "hijriDate": "21 Rajab",
+  "fajr": "06:23",
+  "sunrise": "08:03",
+  "dhuhr": "00:12",
+  "asr": "14:26",
+  "maghrib": "16:16",
+  "isha": "17:53",
+  "fajrIqamahDelay": 37,
+  "dhuhrIqamahDelay": 768,
+  "asrIqamahDelay": 49,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 37,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c1"
+  },
+  "date": "2026-01-11T00:00:00.000Z",
+  "hijriDate": "22 Rajab",
+  "fajr": "06:22",
+  "sunrise": "08:02",
+  "dhuhr": "00:13",
+  "asr": "14:27",
+  "maghrib": "16:18",
+  "isha": "17:55",
+  "fajrIqamahDelay": 38,
+  "dhuhrIqamahDelay": 767,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 35,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c2"
+  },
+  "date": "2026-01-12T00:00:00.000Z",
+  "hijriDate": "23 Rajab",
+  "fajr": "06:21",
+  "sunrise": "08:01",
+  "dhuhr": "00:13",
+  "asr": "14:29",
+  "maghrib": "16:19",
+  "isha": "17:56",
+  "fajrIqamahDelay": 39,
+  "dhuhrIqamahDelay": 767,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 94,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c3"
+  },
+  "date": "2026-01-13T00:00:00.000Z",
+  "hijriDate": "24 Rajab",
+  "fajr": "06:21",
+  "sunrise": "08:01",
+  "dhuhr": "00:13",
+  "asr": "14:30",
+  "maghrib": "16:21",
+  "isha": "17:58",
+  "fajrIqamahDelay": 39,
+  "dhuhrIqamahDelay": 767,
+  "asrIqamahDelay": 45,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 92,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c4"
+  },
+  "date": "2026-01-14T00:00:00.000Z",
+  "hijriDate": "25 Rajab",
+  "fajr": "06:20",
+  "sunrise": "08:00",
+  "dhuhr": "00:14",
+  "asr": "14:32",
+  "maghrib": "16:22",
+  "isha": "17:59",
+  "fajrIqamahDelay": 40,
+  "dhuhrIqamahDelay": 766,
+  "asrIqamahDelay": 43,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 91,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c5"
+  },
+  "date": "2026-01-15T00:00:00.000Z",
+  "hijriDate": "26 Rajab",
+  "fajr": "06:19",
+  "sunrise": "07:59",
+  "dhuhr": "00:14",
+  "asr": "14:33",
+  "maghrib": "16:24",
+  "isha": "18:01",
+  "fajrIqamahDelay": 41,
+  "dhuhrIqamahDelay": 766,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 89,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c6"
+  },
+  "date": "2026-01-16T00:00:00.000Z",
+  "hijriDate": "27 Rajab",
+  "fajr": "06:18",
+  "sunrise": "07:58",
+  "dhuhr": "00:14",
+  "asr": "14:35",
+  "maghrib": "16:25",
+  "isha": "18:02",
+  "fajrIqamahDelay": 42,
+  "dhuhrIqamahDelay": 751,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 88,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c7"
+  },
+  "date": "2026-01-17T00:00:00.000Z",
+  "hijriDate": "28 Rajab",
+  "fajr": "06:17",
+  "sunrise": "07:57",
+  "dhuhr": "00:15",
+  "asr": "14:36",
+  "maghrib": "16:27",
+  "isha": "18:04",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 765,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 26,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c8"
+  },
+  "date": "2026-01-18T00:00:00.000Z",
+  "hijriDate": "29 Rajab",
+  "fajr": "06:16",
+  "sunrise": "07:56",
+  "dhuhr": "00:15",
+  "asr": "14:38",
+  "maghrib": "16:29",
+  "isha": "18:06",
+  "fajrIqamahDelay": 44,
+  "dhuhrIqamahDelay": 765,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7c9"
+  },
+  "date": "2026-01-19T00:00:00.000Z",
+  "hijriDate": "30 Rajab",
+  "fajr": "06:15",
+  "sunrise": "07:55",
+  "dhuhr": "00:15",
+  "asr": "14:39",
+  "maghrib": "16:30",
+  "isha": "18:07",
+  "fajrIqamahDelay": 45,
+  "dhuhrIqamahDelay": 765,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 83,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ca"
+  },
+  "date": "2026-01-20T00:00:00.000Z",
+  "hijriDate": "1 Sha'baan",
+  "fajr": "06:14",
+  "sunrise": "07:54",
+  "dhuhr": "00:16",
+  "asr": "14:41",
+  "maghrib": "16:32",
+  "isha": "18:09",
+  "fajrIqamahDelay": 46,
+  "dhuhrIqamahDelay": 764,
+  "asrIqamahDelay": 49,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 81,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7cb"
+  },
+  "date": "2026-01-21T00:00:00.000Z",
+  "hijriDate": "2 Sha'baan",
+  "fajr": "06:13",
+  "sunrise": "07:53",
+  "dhuhr": "00:16",
+  "asr": "14:43",
+  "maghrib": "16:34",
+  "isha": "18:11",
+  "fajrIqamahDelay": 47,
+  "dhuhrIqamahDelay": 764,
+  "asrIqamahDelay": 47,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 79,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7cc"
+  },
+  "date": "2026-01-22T00:00:00.000Z",
+  "hijriDate": "3 Sha'baan",
+  "fajr": "06:12",
+  "sunrise": "07:52",
+  "dhuhr": "00:16",
+  "asr": "14:44",
+  "maghrib": "16:35",
+  "isha": "18:12",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 764,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 78,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7cd"
+  },
+  "date": "2026-01-23T00:00:00.000Z",
+  "hijriDate": "4 Sha'baan",
+  "fajr": "06:11",
+  "sunrise": "07:51",
+  "dhuhr": "00:17",
+  "asr": "14:46",
+  "maghrib": "16:37",
+  "isha": "18:14",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 748,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 76,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ce"
+  },
+  "date": "2026-01-24T00:00:00.000Z",
+  "hijriDate": "5 Sha'baan",
+  "fajr": "06:09",
+  "sunrise": "07:49",
+  "dhuhr": "00:17",
+  "asr": "14:47",
+  "maghrib": "16:39",
+  "isha": "18:16",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 763,
+  "asrIqamahDelay": 43,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7cf"
+  },
+  "date": "2026-01-25T00:00:00.000Z",
+  "hijriDate": "6 Sha'baan",
+  "fajr": "06:08",
+  "sunrise": "07:48",
+  "dhuhr": "00:17",
+  "asr": "14:49",
+  "maghrib": "16:40",
+  "isha": "18:17",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 763,
+  "asrIqamahDelay": 41,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 28,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d0"
+  },
+  "date": "2026-01-26T00:00:00.000Z",
+  "hijriDate": "7 Sha'baan",
+  "fajr": "06:07",
+  "sunrise": "07:47",
+  "dhuhr": "00:17",
+  "asr": "14:51",
+  "maghrib": "16:42",
+  "isha": "18:19",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 763,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 71,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d1"
+  },
+  "date": "2026-01-27T00:00:00.000Z",
+  "hijriDate": "8 Sha'baan",
+  "fajr": "06:06",
+  "sunrise": "07:46",
+  "dhuhr": "00:17",
+  "asr": "14:52",
+  "maghrib": "16:44",
+  "isha": "18:21",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 763,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 69,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d2"
+  },
+  "date": "2026-01-28T00:00:00.000Z",
+  "hijriDate": "9 Sha'baan",
+  "fajr": "06:04",
+  "sunrise": "07:44",
+  "dhuhr": "00:18",
+  "asr": "14:54",
+  "maghrib": "16:46",
+  "isha": "18:23",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 36,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 67,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d3"
+  },
+  "date": "2026-01-29T00:00:00.000Z",
+  "hijriDate": "10 Sha'baan",
+  "fajr": "06:03",
+  "sunrise": "07:43",
+  "dhuhr": "00:18",
+  "asr": "14:56",
+  "maghrib": "16:48",
+  "isha": "18:25",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 34,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 65,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d4"
+  },
+  "date": "2026-01-30T00:00:00.000Z",
+  "hijriDate": "11 Sha'baan",
+  "fajr": "06:01",
+  "sunrise": "07:41",
+  "dhuhr": "00:18",
+  "asr": "14:57",
+  "maghrib": "16:49",
+  "isha": "18:26",
+  "fajrIqamahDelay": 44,
+  "dhuhrIqamahDelay": 747,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 64,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d5"
+  },
+  "date": "2026-01-31T00:00:00.000Z",
+  "hijriDate": "12 Sha'baan",
+  "fajr": "06:00",
+  "sunrise": "07:40",
+  "dhuhr": "00:18",
+  "asr": "14:59",
+  "maghrib": "16:51",
+  "isha": "18:28",
+  "fajrIqamahDelay": 45,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d6"
+  },
+  "date": "2026-02-01T00:00:00.000Z",
+  "hijriDate": "13 Sha'baan",
+  "fajr": "05:58",
+  "sunrise": "07:38",
+  "dhuhr": "00:18",
+  "asr": "15:01",
+  "maghrib": "16:53",
+  "isha": "18:28",
+  "fajrIqamahDelay": 47,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d7"
+  },
+  "date": "2026-02-02T00:00:00.000Z",
+  "hijriDate": "14 Sha'baan",
+  "fajr": "05:57",
+  "sunrise": "07:37",
+  "dhuhr": "00:18",
+  "asr": "15:03",
+  "maghrib": "16:55",
+  "isha": "18:30",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 60,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d8"
+  },
+  "date": "2026-02-03T00:00:00.000Z",
+  "hijriDate": "15 Sha'baan",
+  "fajr": "05:55",
+  "sunrise": "07:35",
+  "dhuhr": "00:19",
+  "asr": "15:04",
+  "maghrib": "16:57",
+  "isha": "18:31",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 41,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 59,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7d9"
+  },
+  "date": "2026-02-04T00:00:00.000Z",
+  "hijriDate": "16 Sha'baan",
+  "fajr": "05:53",
+  "sunrise": "07:33",
+  "dhuhr": "00:19",
+  "asr": "15:06",
+  "maghrib": "16:58",
+  "isha": "18:32",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 58,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7da"
+  },
+  "date": "2026-02-05T00:00:00.000Z",
+  "hijriDate": "17 Sha'baan",
+  "fajr": "05:52",
+  "sunrise": "07:32",
+  "dhuhr": "00:19",
+  "asr": "15:08",
+  "maghrib": "17:00",
+  "isha": "18:33",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 57,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7db"
+  },
+  "date": "2026-02-06T00:00:00.000Z",
+  "hijriDate": "18 Sha'baan",
+  "fajr": "05:50",
+  "sunrise": "07:30",
+  "dhuhr": "00:19",
+  "asr": "15:09",
+  "maghrib": "17:02",
+  "isha": "18:35",
+  "fajrIqamahDelay": 40,
+  "dhuhrIqamahDelay": 746,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 55,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7dc"
+  },
+  "date": "2026-02-07T00:00:00.000Z",
+  "hijriDate": "19 Sha'baan",
+  "fajr": "05:48",
+  "sunrise": "07:28",
+  "dhuhr": "00:19",
+  "asr": "15:11",
+  "maghrib": "17:04",
+  "isha": "18:36",
+  "fajrIqamahDelay": 42,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 49,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7dd"
+  },
+  "date": "2026-02-08T00:00:00.000Z",
+  "hijriDate": "20 Sha'baan",
+  "fajr": "05:47",
+  "sunrise": "07:27",
+  "dhuhr": "00:19",
+  "asr": "15:13",
+  "maghrib": "17:06",
+  "isha": "18:38",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 47,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7de"
+  },
+  "date": "2026-02-09T00:00:00.000Z",
+  "hijriDate": "21 Sha'baan",
+  "fajr": "05:45",
+  "sunrise": "07:25",
+  "dhuhr": "00:19",
+  "asr": "15:15",
+  "maghrib": "17:08",
+  "isha": "18:39",
+  "fajrIqamahDelay": 45,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 45,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 51,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7df"
+  },
+  "date": "2026-02-10T00:00:00.000Z",
+  "hijriDate": "22 Sha'baan",
+  "fajr": "05:43",
+  "sunrise": "07:23",
+  "dhuhr": "00:19",
+  "asr": "15:16",
+  "maghrib": "17:09",
+  "isha": "18:40",
+  "fajrIqamahDelay": 47,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 50,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e0"
+  },
+  "date": "2026-02-11T00:00:00.000Z",
+  "hijriDate": "23 Sha'baan",
+  "fajr": "05:41",
+  "sunrise": "07:21",
+  "dhuhr": "00:19",
+  "asr": "15:18",
+  "maghrib": "17:11",
+  "isha": "18:42",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 48,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e1"
+  },
+  "date": "2026-02-12T00:00:00.000Z",
+  "hijriDate": "24 Sha'baan",
+  "fajr": "05:39",
+  "sunrise": "07:19",
+  "dhuhr": "00:19",
+  "asr": "15:20",
+  "maghrib": "17:13",
+  "isha": "18:44",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 46,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e2"
+  },
+  "date": "2026-02-13T00:00:00.000Z",
+  "hijriDate": "25 Sha'baan",
+  "fajr": "05:38",
+  "sunrise": "07:18",
+  "dhuhr": "00:19",
+  "asr": "15:21",
+  "maghrib": "17:15",
+  "isha": "18:45",
+  "fajrIqamahDelay": 37,
+  "dhuhrIqamahDelay": 746,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 45,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e3"
+  },
+  "date": "2026-02-14T00:00:00.000Z",
+  "hijriDate": "26 Sha'baan",
+  "fajr": "05:36",
+  "sunrise": "07:16",
+  "dhuhr": "00:19",
+  "asr": "15:23",
+  "maghrib": "17:17",
+  "isha": "18:47",
+  "fajrIqamahDelay": 39,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e4"
+  },
+  "date": "2026-02-15T00:00:00.000Z",
+  "hijriDate": "27 Sha'baan",
+  "fajr": "05:34",
+  "sunrise": "07:14",
+  "dhuhr": "00:19",
+  "asr": "15:25",
+  "maghrib": "17:19",
+  "isha": "18:49",
+  "fajrIqamahDelay": 41,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e5"
+  },
+  "date": "2026-02-16T00:00:00.000Z",
+  "hijriDate": "28 Sha'baan",
+  "fajr": "05:32",
+  "sunrise": "07:12",
+  "dhuhr": "00:19",
+  "asr": "15:27",
+  "maghrib": "17:20",
+  "isha": "18:50",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 40,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e6"
+  },
+  "date": "2026-02-17T00:00:00.000Z",
+  "hijriDate": "29 Sha'baan",
+  "fajr": "05:30",
+  "sunrise": "07:10",
+  "dhuhr": "00:19",
+  "asr": "15:28",
+  "maghrib": "17:22",
+  "isha": "18:51",
+  "fajrIqamahDelay": 45,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 47,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 39,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e7"
+  },
+  "date": "2026-02-18T00:00:00.000Z",
+  "hijriDate": "1 Ramadhan",
+  "fajr": "05:28",
+  "sunrise": "07:08",
+  "dhuhr": "00:19",
+  "asr": "15:30",
+  "maghrib": "17:24",
+  "isha": "18:53",
+  "fajrIqamahDelay": 17,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 45,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 37,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e8"
+  },
+  "date": "2026-02-19T00:00:00.000Z",
+  "hijriDate": "2 Ramadhan",
+  "fajr": "05:26",
+  "sunrise": "07:06",
+  "dhuhr": "00:19",
+  "asr": "15:31",
+  "maghrib": "17:26",
+  "isha": "18:55",
+  "fajrIqamahDelay": 19,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 35,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7e9"
+  },
+  "date": "2026-02-20T00:00:00.000Z",
+  "hijriDate": "3 Ramadhan",
+  "fajr": "05:24",
+  "sunrise": "07:04",
+  "dhuhr": "00:18",
+  "asr": "15:33",
+  "maghrib": "17:28",
+  "isha": "18:57",
+  "fajrIqamahDelay": 21,
+  "dhuhrIqamahDelay": 747,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 33,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ea"
+  },
+  "date": "2026-02-21T00:00:00.000Z",
+  "hijriDate": "4 Ramadhan",
+  "fajr": "05:22",
+  "sunrise": "07:02",
+  "dhuhr": "00:18",
+  "asr": "15:35",
+  "maghrib": "17:30",
+  "isha": "18:58",
+  "fajrIqamahDelay": 23,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 32,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7eb"
+  },
+  "date": "2026-02-22T00:00:00.000Z",
+  "hijriDate": "5 Ramadhan",
+  "fajr": "05:20",
+  "sunrise": "07:00",
+  "dhuhr": "00:18",
+  "asr": "15:36",
+  "maghrib": "17:31",
+  "isha": "18:59",
+  "fajrIqamahDelay": 25,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 31,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ec"
+  },
+  "date": "2026-02-23T00:00:00.000Z",
+  "hijriDate": "6 Ramadhan",
+  "fajr": "05:18",
+  "sunrise": "06:58",
+  "dhuhr": "00:18",
+  "asr": "15:38",
+  "maghrib": "17:33",
+  "isha": "19:01",
+  "fajrIqamahDelay": 17,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ed"
+  },
+  "date": "2026-02-24T00:00:00.000Z",
+  "hijriDate": "7 Ramadhan",
+  "fajr": "05:16",
+  "sunrise": "06:56",
+  "dhuhr": "00:18",
+  "asr": "15:40",
+  "maghrib": "17:35",
+  "isha": "19:03",
+  "fajrIqamahDelay": 19,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ee"
+  },
+  "date": "2026-02-25T00:00:00.000Z",
+  "hijriDate": "8 Ramadhan",
+  "fajr": "05:14",
+  "sunrise": "06:54",
+  "dhuhr": "00:18",
+  "asr": "15:41",
+  "maghrib": "17:37",
+  "isha": "19:04",
+  "fajrIqamahDelay": 21,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 49,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 26,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ef"
+  },
+  "date": "2026-02-26T00:00:00.000Z",
+  "hijriDate": "9 Ramadhan",
+  "fajr": "05:12",
+  "sunrise": "06:52",
+  "dhuhr": "00:18",
+  "asr": "15:43",
+  "maghrib": "17:39",
+  "isha": "19:06",
+  "fajrIqamahDelay": 23,
+  "dhuhrIqamahDelay": 762,
+  "asrIqamahDelay": 47,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f0"
+  },
+  "date": "2026-02-27T00:00:00.000Z",
+  "hijriDate": "10 Ramadhan",
+  "fajr": "05:09",
+  "sunrise": "06:49",
+  "dhuhr": "00:17",
+  "asr": "15:44",
+  "maghrib": "17:40",
+  "isha": "19:07",
+  "fajrIqamahDelay": 16,
+  "dhuhrIqamahDelay": 748,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 38,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f1"
+  },
+  "date": "2026-02-28T00:00:00.000Z",
+  "hijriDate": "11 Ramadhan",
+  "fajr": "05:07",
+  "sunrise": "06:47",
+  "dhuhr": "00:17",
+  "asr": "15:46",
+  "maghrib": "17:42",
+  "isha": "19:09",
+  "fajrIqamahDelay": 18,
+  "dhuhrIqamahDelay": 763,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 36,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f2"
+  },
+  "date": "2026-03-01T00:00:00.000Z",
+  "hijriDate": "12 Ramadhan",
+  "fajr": "05:05",
+  "sunrise": "06:45",
+  "dhuhr": "00:17",
+  "asr": "15:48",
+  "maghrib": "17:44",
+  "isha": "19:10",
+  "fajrIqamahDelay": 20,
+  "dhuhrIqamahDelay": 763,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 35,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f3"
+  },
+  "date": "2026-03-02T00:00:00.000Z",
+  "hijriDate": "13 Ramadhan",
+  "fajr": "05:03",
+  "sunrise": "06:43",
+  "dhuhr": "00:17",
+  "asr": "15:49",
+  "maghrib": "17:46",
+  "isha": "19:12",
+  "fajrIqamahDelay": 17,
+  "dhuhrIqamahDelay": 763,
+  "asrIqamahDelay": 41,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 33,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f4"
+  },
+  "date": "2026-03-03T00:00:00.000Z",
+  "hijriDate": "14 Ramadhan",
+  "fajr": "05:01",
+  "sunrise": "06:41",
+  "dhuhr": "00:17",
+  "asr": "15:51",
+  "maghrib": "17:47",
+  "isha": "19:12",
+  "fajrIqamahDelay": 19,
+  "dhuhrIqamahDelay": 763,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 33,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f5"
+  },
+  "date": "2026-03-04T00:00:00.000Z",
+  "hijriDate": "15 Ramadhan",
+  "fajr": "04:59",
+  "sunrise": "06:39",
+  "dhuhr": "00:16",
+  "asr": "15:52",
+  "maghrib": "17:49",
+  "isha": "19:14",
+  "fajrIqamahDelay": 21,
+  "dhuhrIqamahDelay": 764,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 31,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f6"
+  },
+  "date": "2026-03-05T00:00:00.000Z",
+  "hijriDate": "16 Ramadhan",
+  "fajr": "04:56",
+  "sunrise": "06:36",
+  "dhuhr": "00:16",
+  "asr": "15:54",
+  "maghrib": "17:51",
+  "isha": "19:15",
+  "fajrIqamahDelay": 24,
+  "dhuhrIqamahDelay": 764,
+  "asrIqamahDelay": 36,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 30,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f7"
+  },
+  "date": "2026-03-06T00:00:00.000Z",
+  "hijriDate": "17 Ramadhan",
+  "fajr": "04:54",
+  "sunrise": "06:34",
+  "dhuhr": "00:16",
+  "asr": "15:55",
+  "maghrib": "17:53",
+  "isha": "19:17",
+  "fajrIqamahDelay": 16,
+  "dhuhrIqamahDelay": 749,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 28,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f8"
+  },
+  "date": "2026-03-07T00:00:00.000Z",
+  "hijriDate": "18 Ramadhan",
+  "fajr": "04:52",
+  "sunrise": "06:32",
+  "dhuhr": "00:16",
+  "asr": "15:57",
+  "maghrib": "17:54",
+  "isha": "19:17",
+  "fajrIqamahDelay": 18,
+  "dhuhrIqamahDelay": 764,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 28,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7f9"
+  },
+  "date": "2026-03-08T00:00:00.000Z",
+  "hijriDate": "19 Ramadhan",
+  "fajr": "04:50",
+  "sunrise": "06:30",
+  "dhuhr": "00:15",
+  "asr": "15:58",
+  "maghrib": "17:56",
+  "isha": "19:19",
+  "fajrIqamahDelay": 20,
+  "dhuhrIqamahDelay": 765,
+  "asrIqamahDelay": 47,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 26,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7fa"
+  },
+  "date": "2026-03-09T00:00:00.000Z",
+  "hijriDate": "20 Ramadhan",
+  "fajr": "04:48",
+  "sunrise": "06:28",
+  "dhuhr": "00:15",
+  "asr": "16:00",
+  "maghrib": "17:58",
+  "isha": "19:20",
+  "fajrIqamahDelay": 17,
+  "dhuhrIqamahDelay": 765,
+  "asrIqamahDelay": 45,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7fb"
+  },
+  "date": "2026-03-10T00:00:00.000Z",
+  "hijriDate": "21 Ramadhan",
+  "fajr": "04:45",
+  "sunrise": "06:25",
+  "dhuhr": "00:15",
+  "asr": "16:01",
+  "maghrib": "18:00",
+  "isha": "19:22",
+  "fajrIqamahDelay": 20,
+  "dhuhrIqamahDelay": 765,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7fc"
+  },
+  "date": "2026-03-11T00:00:00.000Z",
+  "hijriDate": "22 Ramadhan",
+  "fajr": "04:43",
+  "sunrise": "06:23",
+  "dhuhr": "00:15",
+  "asr": "16:03",
+  "maghrib": "18:01",
+  "isha": "19:23",
+  "fajrIqamahDelay": 22,
+  "dhuhrIqamahDelay": 765,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7fd"
+  },
+  "date": "2026-03-12T00:00:00.000Z",
+  "hijriDate": "23 Ramadhan",
+  "fajr": "04:41",
+  "sunrise": "06:21",
+  "dhuhr": "00:14",
+  "asr": "16:04",
+  "maghrib": "18:03",
+  "isha": "19:25",
+  "fajrIqamahDelay": 24,
+  "dhuhrIqamahDelay": 766,
+  "asrIqamahDelay": 41,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7fe"
+  },
+  "date": "2026-03-13T00:00:00.000Z",
+  "hijriDate": "24 Ramadhan",
+  "fajr": "04:39",
+  "sunrise": "06:19",
+  "dhuhr": "00:14",
+  "asr": "16:05",
+  "maghrib": "18:05",
+  "isha": "19:26",
+  "fajrIqamahDelay": 16,
+  "dhuhrIqamahDelay": 751,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 34,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e7ff"
+  },
+  "date": "2026-03-14T00:00:00.000Z",
+  "hijriDate": "25 Ramadhan",
+  "fajr": "04:36",
+  "sunrise": "06:16",
+  "dhuhr": "00:14",
+  "asr": "16:07",
+  "maghrib": "18:06",
+  "isha": "19:27",
+  "fajrIqamahDelay": 19,
+  "dhuhrIqamahDelay": 766,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 33,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e800"
+  },
+  "date": "2026-03-15T00:00:00.000Z",
+  "hijriDate": "26 Ramadhan",
+  "fajr": "04:34",
+  "sunrise": "06:14",
+  "dhuhr": "00:14",
+  "asr": "16:08",
+  "maghrib": "18:08",
+  "isha": "19:29",
+  "fajrIqamahDelay": 21,
+  "dhuhrIqamahDelay": 766,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 31,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e801"
+  },
+  "date": "2026-03-16T00:00:00.000Z",
+  "hijriDate": "27 Ramadhan",
+  "fajr": "04:32",
+  "sunrise": "06:12",
+  "dhuhr": "00:13",
+  "asr": "16:10",
+  "maghrib": "18:10",
+  "isha": "19:31",
+  "fajrIqamahDelay": 18,
+  "dhuhrIqamahDelay": 767,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e802"
+  },
+  "date": "2026-03-17T00:00:00.000Z",
+  "hijriDate": "28 Ramadhan",
+  "fajr": "04:29",
+  "sunrise": "06:09",
+  "dhuhr": "00:13",
+  "asr": "16:11",
+  "maghrib": "18:12",
+  "isha": "19:32",
+  "fajrIqamahDelay": 21,
+  "dhuhrIqamahDelay": 767,
+  "asrIqamahDelay": 49,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 28,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e803"
+  },
+  "date": "2026-03-18T00:00:00.000Z",
+  "hijriDate": "29 Ramadhan",
+  "fajr": "04:27",
+  "sunrise": "06:07",
+  "dhuhr": "00:13",
+  "asr": "16:12",
+  "maghrib": "18:13",
+  "isha": "19:33",
+  "fajrIqamahDelay": 23,
+  "dhuhrIqamahDelay": 767,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e804"
+  },
+  "date": "2026-03-19T00:00:00.000Z",
+  "hijriDate": "30 Ramadhan",
+  "fajr": "04:25",
+  "sunrise": "06:05",
+  "dhuhr": "00:12",
+  "asr": "16:14",
+  "maghrib": "18:15",
+  "isha": "19:35",
+  "fajrIqamahDelay": 25,
+  "dhuhrIqamahDelay": 768,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e805"
+  },
+  "date": "2026-03-20T00:00:00.000Z",
+  "hijriDate": "1 Shaw'waal",
+  "fajr": "04:24",
+  "sunrise": "06:03",
+  "dhuhr": "00:12",
+  "asr": "16:15",
+  "maghrib": "18:17",
+  "isha": "19:37",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 753,
+  "asrIqamahDelay": 60,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e806"
+  },
+  "date": "2026-03-21T00:00:00.000Z",
+  "hijriDate": "2 Shaw'waal",
+  "fajr": "04:21",
+  "sunrise": "06:00",
+  "dhuhr": "00:12",
+  "asr": "16:16",
+  "maghrib": "18:18",
+  "isha": "19:37",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 768,
+  "asrIqamahDelay": 59,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e807"
+  },
+  "date": "2026-03-22T00:00:00.000Z",
+  "hijriDate": "3 Shaw'waal",
+  "fajr": "04:20",
+  "sunrise": "05:58",
+  "dhuhr": "00:12",
+  "asr": "16:18",
+  "maghrib": "18:20",
+  "isha": "19:39",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 768,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e808"
+  },
+  "date": "2026-03-23T00:00:00.000Z",
+  "hijriDate": "4 Shaw'waal",
+  "fajr": "04:18",
+  "sunrise": "05:56",
+  "dhuhr": "00:11",
+  "asr": "16:19",
+  "maghrib": "18:22",
+  "isha": "19:41",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 769,
+  "asrIqamahDelay": 56,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e809"
+  },
+  "date": "2026-03-24T00:00:00.000Z",
+  "hijriDate": "5 Shaw'waal",
+  "fajr": "04:15",
+  "sunrise": "05:53",
+  "dhuhr": "00:11",
+  "asr": "16:20",
+  "maghrib": "18:24",
+  "isha": "19:43",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 769,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e80a"
+  },
+  "date": "2026-03-25T00:00:00.000Z",
+  "hijriDate": "6 Shaw'waal",
+  "fajr": "04:13",
+  "sunrise": "05:51",
+  "dhuhr": "00:11",
+  "asr": "16:22",
+  "maghrib": "18:25",
+  "isha": "19:43",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 769,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e80b"
+  },
+  "date": "2026-03-26T00:00:00.000Z",
+  "hijriDate": "7 Shaw'waal",
+  "fajr": "04:12",
+  "sunrise": "05:49",
+  "dhuhr": "00:10",
+  "asr": "16:23",
+  "maghrib": "18:27",
+  "isha": "19:45",
+  "fajrIqamahDelay": 63,
+  "dhuhrIqamahDelay": 770,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e80c"
+  },
+  "date": "2026-03-27T00:00:00.000Z",
+  "hijriDate": "8 Shaw'waal",
+  "fajr": "04:10",
+  "sunrise": "05:47",
+  "dhuhr": "00:10",
+  "asr": "16:24",
+  "maghrib": "18:29",
+  "isha": "19:47",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 755,
+  "asrIqamahDelay": 66,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 28,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e80d"
+  },
+  "date": "2026-03-28T00:00:00.000Z",
+  "hijriDate": "9 Shaw'waal",
+  "fajr": "04:08",
+  "sunrise": "05:44",
+  "dhuhr": "00:10",
+  "asr": "16:26",
+  "maghrib": "18:30",
+  "isha": "19:48",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 770,
+  "asrIqamahDelay": 64,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e80e"
+  },
+  "date": "2026-03-29T00:00:00.000Z",
+  "hijriDate": "10 Shaw'waal",
+  "fajr": "05:06",
+  "sunrise": "06:42",
+  "dhuhr": "13:09",
+  "asr": "17:27",
+  "maghrib": "19:32",
+  "isha": "20:49",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 63,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 26,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e80f"
+  },
+  "date": "2026-03-30T00:00:00.000Z",
+  "hijriDate": "11 Shaw'waal",
+  "fajr": "05:04",
+  "sunrise": "06:40",
+  "dhuhr": "13:09",
+  "asr": "17:28",
+  "maghrib": "19:34",
+  "isha": "20:51",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 62,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e810"
+  },
+  "date": "2026-03-31T00:00:00.000Z",
+  "hijriDate": "12 Shaw'waal",
+  "fajr": "05:02",
+  "sunrise": "06:37",
+  "dhuhr": "13:09",
+  "asr": "17:29",
+  "maghrib": "19:35",
+  "isha": "20:52",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 61,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e811"
+  },
+  "date": "2026-04-01T00:00:00.000Z",
+  "hijriDate": "13 Shaw'waal",
+  "fajr": "05:00",
+  "sunrise": "06:35",
+  "dhuhr": "13:09",
+  "asr": "17:31",
+  "maghrib": "19:37",
+  "isha": "20:54",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 59,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e812"
+  },
+  "date": "2026-04-02T00:00:00.000Z",
+  "hijriDate": "14 Shaw'waal",
+  "fajr": "04:58",
+  "sunrise": "06:33",
+  "dhuhr": "13:08",
+  "asr": "17:32",
+  "maghrib": "19:39",
+  "isha": "20:56",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 58,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e813"
+  },
+  "date": "2026-04-03T00:00:00.000Z",
+  "hijriDate": "15 Shaw'waal",
+  "fajr": "04:56",
+  "sunrise": "06:31",
+  "dhuhr": "13:08",
+  "asr": "17:33",
+  "maghrib": "19:40",
+  "isha": "20:56",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e814"
+  },
+  "date": "2026-04-04T00:00:00.000Z",
+  "hijriDate": "16 Shaw'waal",
+  "fajr": "04:53",
+  "sunrise": "06:28",
+  "dhuhr": "13:08",
+  "asr": "17:34",
+  "maghrib": "19:42",
+  "isha": "20:58",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 56,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e815"
+  },
+  "date": "2026-04-05T00:00:00.000Z",
+  "hijriDate": "17 Shaw'waal",
+  "fajr": "04:51",
+  "sunrise": "06:26",
+  "dhuhr": "13:07",
+  "asr": "17:35",
+  "maghrib": "19:44",
+  "isha": "21:00",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e816"
+  },
+  "date": "2026-04-06T00:00:00.000Z",
+  "hijriDate": "18 Shaw'waal",
+  "fajr": "04:49",
+  "sunrise": "06:24",
+  "dhuhr": "13:07",
+  "asr": "17:37",
+  "maghrib": "19:45",
+  "isha": "21:01",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e817"
+  },
+  "date": "2026-04-07T00:00:00.000Z",
+  "hijriDate": "19 Shaw'waal",
+  "fajr": "04:47",
+  "sunrise": "06:22",
+  "dhuhr": "13:07",
+  "asr": "17:38",
+  "maghrib": "19:47",
+  "isha": "21:03",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 12,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e818"
+  },
+  "date": "2026-04-08T00:00:00.000Z",
+  "hijriDate": "20 Shaw'waal",
+  "fajr": "04:44",
+  "sunrise": "06:19",
+  "dhuhr": "13:07",
+  "asr": "17:39",
+  "maghrib": "19:49",
+  "isha": "21:05",
+  "fajrIqamahDelay": 61,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 10,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e819"
+  },
+  "date": "2026-04-09T00:00:00.000Z",
+  "hijriDate": "21 Shaw'waal",
+  "fajr": "04:42",
+  "sunrise": "06:17",
+  "dhuhr": "13:06",
+  "asr": "17:40",
+  "maghrib": "19:50",
+  "isha": "21:05",
+  "fajrIqamahDelay": 63,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 10,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e81a"
+  },
+  "date": "2026-04-10T00:00:00.000Z",
+  "hijriDate": "22 Shaw'waal",
+  "fajr": "04:40",
+  "sunrise": "06:15",
+  "dhuhr": "13:06",
+  "asr": "17:41",
+  "maghrib": "19:52",
+  "isha": "21:07",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 64,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e81b"
+  },
+  "date": "2026-04-11T00:00:00.000Z",
+  "hijriDate": "23 Shaw'waal",
+  "fajr": "04:38",
+  "sunrise": "06:13",
+  "dhuhr": "13:06",
+  "asr": "17:42",
+  "maghrib": "19:54",
+  "isha": "21:09",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 63,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e81c"
+  },
+  "date": "2026-04-12T00:00:00.000Z",
+  "hijriDate": "24 Shaw'waal",
+  "fajr": "04:36",
+  "sunrise": "06:11",
+  "dhuhr": "13:05",
+  "asr": "17:44",
+  "maghrib": "19:55",
+  "isha": "21:10",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 61,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e81d"
+  },
+  "date": "2026-04-13T00:00:00.000Z",
+  "hijriDate": "25 Shaw'waal",
+  "fajr": "04:33",
+  "sunrise": "06:08",
+  "dhuhr": "13:05",
+  "asr": "17:45",
+  "maghrib": "19:57",
+  "isha": "21:12",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 60,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e81e"
+  },
+  "date": "2026-04-14T00:00:00.000Z",
+  "hijriDate": "26 Shaw'waal",
+  "fajr": "04:31",
+  "sunrise": "06:06",
+  "dhuhr": "13:05",
+  "asr": "17:46",
+  "maghrib": "19:59",
+  "isha": "21:14",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 59,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e81f"
+  },
+  "date": "2026-04-15T00:00:00.000Z",
+  "hijriDate": "27 Shaw'waal",
+  "fajr": "04:29",
+  "sunrise": "06:04",
+  "dhuhr": "13:05",
+  "asr": "17:47",
+  "maghrib": "20:00",
+  "isha": "21:15",
+  "fajrIqamahDelay": 61,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 58,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e820"
+  },
+  "date": "2026-04-16T00:00:00.000Z",
+  "hijriDate": "28 Shaw'waal",
+  "fajr": "04:27",
+  "sunrise": "06:02",
+  "dhuhr": "13:05",
+  "asr": "17:48",
+  "maghrib": "20:02",
+  "isha": "21:17",
+  "fajrIqamahDelay": 63,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e821"
+  },
+  "date": "2026-04-17T00:00:00.000Z",
+  "hijriDate": "29 Shaw'waal",
+  "fajr": "04:25",
+  "sunrise": "06:00",
+  "dhuhr": "13:04",
+  "asr": "17:49",
+  "maghrib": "20:04",
+  "isha": "21:18",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 56,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e822"
+  },
+  "date": "2026-04-18T00:00:00.000Z",
+  "hijriDate": "1 Dhul",
+  "fajr": "04:22",
+  "sunrise": "05:58",
+  "dhuhr": "13:04",
+  "asr": "17:50",
+  "maghrib": "20:06",
+  "isha": "21:20",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e823"
+  },
+  "date": "2026-04-19T00:00:00.000Z",
+  "hijriDate": "2 Dhul",
+  "fajr": "04:20",
+  "sunrise": "05:56",
+  "dhuhr": "13:04",
+  "asr": "17:51",
+  "maghrib": "20:07",
+  "isha": "21:21",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e824"
+  },
+  "date": "2026-04-20T00:00:00.000Z",
+  "hijriDate": "3 Dhul",
+  "fajr": "04:17",
+  "sunrise": "05:53",
+  "dhuhr": "13:04",
+  "asr": "17:53",
+  "maghrib": "20:09",
+  "isha": "21:23",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e825"
+  },
+  "date": "2026-04-21T00:00:00.000Z",
+  "hijriDate": "4 Dhul",
+  "fajr": "04:14",
+  "sunrise": "05:51",
+  "dhuhr": "13:03",
+  "asr": "17:54",
+  "maghrib": "20:11",
+  "isha": "21:25",
+  "fajrIqamahDelay": 61,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e826"
+  },
+  "date": "2026-04-22T00:00:00.000Z",
+  "hijriDate": "5 Dhul",
+  "fajr": "04:12",
+  "sunrise": "05:49",
+  "dhuhr": "13:03",
+  "asr": "17:55",
+  "maghrib": "20:12",
+  "isha": "21:26",
+  "fajrIqamahDelay": 63,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e827"
+  },
+  "date": "2026-04-23T00:00:00.000Z",
+  "hijriDate": "6 Dhul",
+  "fajr": "04:10",
+  "sunrise": "05:47",
+  "dhuhr": "13:03",
+  "asr": "17:56",
+  "maghrib": "20:14",
+  "isha": "21:27",
+  "fajrIqamahDelay": 65,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 49,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e828"
+  },
+  "date": "2026-04-24T00:00:00.000Z",
+  "hijriDate": "7 Dhul",
+  "fajr": "04:07",
+  "sunrise": "05:45",
+  "dhuhr": "13:03",
+  "asr": "17:57",
+  "maghrib": "20:16",
+  "isha": "21:29",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 78,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e829"
+  },
+  "date": "2026-04-25T00:00:00.000Z",
+  "hijriDate": "8 Dhul",
+  "fajr": "04:05",
+  "sunrise": "05:43",
+  "dhuhr": "13:03",
+  "asr": "17:58",
+  "maghrib": "20:17",
+  "isha": "21:30",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 77,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e82a"
+  },
+  "date": "2026-04-26T00:00:00.000Z",
+  "hijriDate": "9 Dhul",
+  "fajr": "04:03",
+  "sunrise": "05:41",
+  "dhuhr": "13:03",
+  "asr": "17:59",
+  "maghrib": "20:19",
+  "isha": "21:31",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 76,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e82b"
+  },
+  "date": "2026-04-27T00:00:00.000Z",
+  "hijriDate": "10 Dhul",
+  "fajr": "04:00",
+  "sunrise": "05:39",
+  "dhuhr": "13:02",
+  "asr": "18:00",
+  "maghrib": "20:21",
+  "isha": "21:33",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 75,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 12,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e82c"
+  },
+  "date": "2026-04-28T00:00:00.000Z",
+  "hijriDate": "11 Dhul",
+  "fajr": "03:58",
+  "sunrise": "05:37",
+  "dhuhr": "13:02",
+  "asr": "18:01",
+  "maghrib": "20:22",
+  "isha": "21:34",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 74,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e82d"
+  },
+  "date": "2026-04-29T00:00:00.000Z",
+  "hijriDate": "12 Dhul",
+  "fajr": "03:56",
+  "sunrise": "05:35",
+  "dhuhr": "13:02",
+  "asr": "18:02",
+  "maghrib": "20:24",
+  "isha": "21:34",
+  "fajrIqamahDelay": 64,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 73,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e82e"
+  },
+  "date": "2026-04-30T00:00:00.000Z",
+  "hijriDate": "13 Dhul",
+  "fajr": "03:53",
+  "sunrise": "05:33",
+  "dhuhr": "13:02",
+  "asr": "18:03",
+  "maghrib": "20:26",
+  "isha": "21:36",
+  "fajrIqamahDelay": 67,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 72,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 9,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e82f"
+  },
+  "date": "2026-05-01T00:00:00.000Z",
+  "hijriDate": "14 Dhul",
+  "fajr": "03:51",
+  "sunrise": "05:32",
+  "dhuhr": "13:02",
+  "asr": "18:04",
+  "maghrib": "20:27",
+  "isha": "21:36",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 86,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e830"
+  },
+  "date": "2026-05-02T00:00:00.000Z",
+  "hijriDate": "15 Dhul",
+  "fajr": "03:49",
+  "sunrise": "05:30",
+  "dhuhr": "13:02",
+  "asr": "18:05",
+  "maghrib": "20:29",
+  "isha": "21:37",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 85,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e831"
+  },
+  "date": "2026-05-03T00:00:00.000Z",
+  "hijriDate": "16 Dhul",
+  "fajr": "03:46",
+  "sunrise": "05:28",
+  "dhuhr": "13:02",
+  "asr": "18:06",
+  "maghrib": "20:30",
+  "isha": "21:37",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 84,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e832"
+  },
+  "date": "2026-05-04T00:00:00.000Z",
+  "hijriDate": "17 Dhul",
+  "fajr": "03:44",
+  "sunrise": "05:26",
+  "dhuhr": "13:01",
+  "asr": "18:07",
+  "maghrib": "20:32",
+  "isha": "21:38",
+  "fajrIqamahDelay": 61,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 83,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e833"
+  },
+  "date": "2026-05-05T00:00:00.000Z",
+  "hijriDate": "18 Dhul",
+  "fajr": "03:41",
+  "sunrise": "05:24",
+  "dhuhr": "13:01",
+  "asr": "18:08",
+  "maghrib": "20:34",
+  "isha": "21:38",
+  "fajrIqamahDelay": 64,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 82,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e834"
+  },
+  "date": "2026-05-06T00:00:00.000Z",
+  "hijriDate": "19 Dhul",
+  "fajr": "03:39",
+  "sunrise": "05:22",
+  "dhuhr": "13:01",
+  "asr": "18:09",
+  "maghrib": "20:35",
+  "isha": "21:39",
+  "fajrIqamahDelay": 66,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 81,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e835"
+  },
+  "date": "2026-05-07T00:00:00.000Z",
+  "hijriDate": "20 Dhul",
+  "fajr": "03:37",
+  "sunrise": "05:21",
+  "dhuhr": "13:01",
+  "asr": "18:10",
+  "maghrib": "20:37",
+  "isha": "21:39",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 80,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e836"
+  },
+  "date": "2026-05-08T00:00:00.000Z",
+  "hijriDate": "21 Dhul",
+  "fajr": "03:35",
+  "sunrise": "05:19",
+  "dhuhr": "13:01",
+  "asr": "18:11",
+  "maghrib": "20:38",
+  "isha": "21:40",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 79,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 35,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e837"
+  },
+  "date": "2026-05-09T00:00:00.000Z",
+  "hijriDate": "22 Dhul",
+  "fajr": "03:32",
+  "sunrise": "05:17",
+  "dhuhr": "13:01",
+  "asr": "18:12",
+  "maghrib": "20:40",
+  "isha": "21:45",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 78,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 30,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e838"
+  },
+  "date": "2026-05-10T00:00:00.000Z",
+  "hijriDate": "23 Dhul",
+  "fajr": "03:31",
+  "sunrise": "05:16",
+  "dhuhr": "13:01",
+  "asr": "18:13",
+  "maghrib": "20:42",
+  "isha": "21:47",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 77,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 28,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e839"
+  },
+  "date": "2026-05-11T00:00:00.000Z",
+  "hijriDate": "24 Dhul",
+  "fajr": "03:28",
+  "sunrise": "05:14",
+  "dhuhr": "13:01",
+  "asr": "18:14",
+  "maghrib": "20:43",
+  "isha": "21:50",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 76,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e83a"
+  },
+  "date": "2026-05-12T00:00:00.000Z",
+  "hijriDate": "25 Dhul",
+  "fajr": "03:26",
+  "sunrise": "05:12",
+  "dhuhr": "13:01",
+  "asr": "18:15",
+  "maghrib": "20:45",
+  "isha": "21:52",
+  "fajrIqamahDelay": 64,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 75,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e83b"
+  },
+  "date": "2026-05-13T00:00:00.000Z",
+  "hijriDate": "26 Dhul",
+  "fajr": "03:24",
+  "sunrise": "05:11",
+  "dhuhr": "13:01",
+  "asr": "18:16",
+  "maghrib": "20:46",
+  "isha": "21:56",
+  "fajrIqamahDelay": 66,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 74,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e83c"
+  },
+  "date": "2026-05-14T00:00:00.000Z",
+  "hijriDate": "27 Dhul",
+  "fajr": "03:22",
+  "sunrise": "05:09",
+  "dhuhr": "13:01",
+  "asr": "18:17",
+  "maghrib": "20:48",
+  "isha": "21:58",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 73,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e83d"
+  },
+  "date": "2026-05-15T00:00:00.000Z",
+  "hijriDate": "28 Dhul",
+  "fajr": "03:20",
+  "sunrise": "05:08",
+  "dhuhr": "13:01",
+  "asr": "18:17",
+  "maghrib": "20:49",
+  "isha": "21:59",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 73,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e83e"
+  },
+  "date": "2026-05-16T00:00:00.000Z",
+  "hijriDate": "29 Dhul",
+  "fajr": "03:18",
+  "sunrise": "05:06",
+  "dhuhr": "13:01",
+  "asr": "18:18",
+  "maghrib": "20:51",
+  "isha": "22:00",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 72,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e83f"
+  },
+  "date": "2026-05-17T00:00:00.000Z",
+  "hijriDate": "30 Dhul",
+  "fajr": "03:16",
+  "sunrise": "05:05",
+  "dhuhr": "13:01",
+  "asr": "18:19",
+  "maghrib": "20:52",
+  "isha": "22:03",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 71,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 12,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e840"
+  },
+  "date": "2026-05-18T00:00:00.000Z",
+  "hijriDate": "1 Dhul",
+  "fajr": "03:14",
+  "sunrise": "05:03",
+  "dhuhr": "13:01",
+  "asr": "18:20",
+  "maghrib": "20:54",
+  "isha": "22:05",
+  "fajrIqamahDelay": 61,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 70,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 10,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e841"
+  },
+  "date": "2026-05-19T00:00:00.000Z",
+  "hijriDate": "2 Dhul",
+  "fajr": "03:12",
+  "sunrise": "05:02",
+  "dhuhr": "13:01",
+  "asr": "18:21",
+  "maghrib": "20:55",
+  "isha": "22:04",
+  "fajrIqamahDelay": 63,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 69,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e842"
+  },
+  "date": "2026-05-20T00:00:00.000Z",
+  "hijriDate": "3 Dhul",
+  "fajr": "03:11",
+  "sunrise": "05:01",
+  "dhuhr": "13:01",
+  "asr": "18:22",
+  "maghrib": "20:57",
+  "isha": "22:05",
+  "fajrIqamahDelay": 64,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 68,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 10,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e843"
+  },
+  "date": "2026-05-21T00:00:00.000Z",
+  "hijriDate": "4 Dhul",
+  "fajr": "03:08",
+  "sunrise": "04:59",
+  "dhuhr": "13:01",
+  "asr": "18:23",
+  "maghrib": "20:58",
+  "isha": "22:05",
+  "fajrIqamahDelay": 67,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 67,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 10,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e844"
+  },
+  "date": "2026-05-22T00:00:00.000Z",
+  "hijriDate": "5 Dhul",
+  "fajr": "03:07",
+  "sunrise": "04:58",
+  "dhuhr": "13:01",
+  "asr": "18:23",
+  "maghrib": "20:59",
+  "isha": "22:06",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 67,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e845"
+  },
+  "date": "2026-05-23T00:00:00.000Z",
+  "hijriDate": "6 Dhul",
+  "fajr": "03:05",
+  "sunrise": "04:57",
+  "dhuhr": "13:01",
+  "asr": "18:24",
+  "maghrib": "21:01",
+  "isha": "22:08",
+  "fajrIqamahDelay": 70,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 66,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e846"
+  },
+  "date": "2026-05-24T00:00:00.000Z",
+  "hijriDate": "7 Dhul",
+  "fajr": "03:03",
+  "sunrise": "04:56",
+  "dhuhr": "13:02",
+  "asr": "18:25",
+  "maghrib": "21:02",
+  "isha": "22:09",
+  "fajrIqamahDelay": 72,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 65,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e847"
+  },
+  "date": "2026-05-25T00:00:00.000Z",
+  "hijriDate": "8 Dhul",
+  "fajr": "03:01",
+  "sunrise": "04:55",
+  "dhuhr": "13:02",
+  "asr": "18:26",
+  "maghrib": "21:03",
+  "isha": "22:10",
+  "fajrIqamahDelay": 74,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 64,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e848"
+  },
+  "date": "2026-05-26T00:00:00.000Z",
+  "hijriDate": "9 Dhul",
+  "fajr": "03:00",
+  "sunrise": "04:54",
+  "dhuhr": "13:02",
+  "asr": "18:26",
+  "maghrib": "21:05",
+  "isha": "22:15",
+  "fajrIqamahDelay": 75,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 64,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e849"
+  },
+  "date": "2026-05-27T00:00:00.000Z",
+  "hijriDate": "10 Dhul",
+  "fajr": "02:58",
+  "sunrise": "04:53",
+  "dhuhr": "13:02",
+  "asr": "18:27",
+  "maghrib": "21:06",
+  "isha": "22:16",
+  "fajrIqamahDelay": 77,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 63,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e84a"
+  },
+  "date": "2026-05-28T00:00:00.000Z",
+  "hijriDate": "11 Dhul",
+  "fajr": "02:57",
+  "sunrise": "04:52",
+  "dhuhr": "13:02",
+  "asr": "18:28",
+  "maghrib": "21:07",
+  "isha": "22:16",
+  "fajrIqamahDelay": 78,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 62,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e84b"
+  },
+  "date": "2026-05-29T00:00:00.000Z",
+  "hijriDate": "12 Dhul",
+  "fajr": "02:55",
+  "sunrise": "04:51",
+  "dhuhr": "13:02",
+  "asr": "18:29",
+  "maghrib": "21:08",
+  "isha": "22:17",
+  "fajrIqamahDelay": 65,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 61,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e84c"
+  },
+  "date": "2026-05-30T00:00:00.000Z",
+  "hijriDate": "13 Dhul",
+  "fajr": "02:54",
+  "sunrise": "04:50",
+  "dhuhr": "13:02",
+  "asr": "18:29",
+  "maghrib": "21:10",
+  "isha": "22:17",
+  "fajrIqamahDelay": 66,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 61,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e84d"
+  },
+  "date": "2026-05-31T00:00:00.000Z",
+  "hijriDate": "14 Dhul",
+  "fajr": "02:52",
+  "sunrise": "04:49",
+  "dhuhr": "13:02",
+  "asr": "18:30",
+  "maghrib": "21:11",
+  "isha": "22:18",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 60,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e84e"
+  },
+  "date": "2026-06-01T00:00:00.000Z",
+  "hijriDate": "15 Dhul",
+  "fajr": "02:51",
+  "sunrise": "04:48",
+  "dhuhr": "13:03",
+  "asr": "18:31",
+  "maghrib": "21:12",
+  "isha": "22:19",
+  "fajrIqamahDelay": 69,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 59,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e84f"
+  },
+  "date": "2026-06-02T00:00:00.000Z",
+  "hijriDate": "16 Dhul",
+  "fajr": "02:49",
+  "sunrise": "04:47",
+  "dhuhr": "13:03",
+  "asr": "18:31",
+  "maghrib": "21:13",
+  "isha": "22:20",
+  "fajrIqamahDelay": 71,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 59,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e850"
+  },
+  "date": "2026-06-03T00:00:00.000Z",
+  "hijriDate": "17 Dhul",
+  "fajr": "02:48",
+  "sunrise": "04:46",
+  "dhuhr": "13:03",
+  "asr": "18:32",
+  "maghrib": "21:14",
+  "isha": "22:21",
+  "fajrIqamahDelay": 72,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 58,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e851"
+  },
+  "date": "2026-06-04T00:00:00.000Z",
+  "hijriDate": "18 Dhul",
+  "fajr": "02:47",
+  "sunrise": "04:46",
+  "dhuhr": "13:03",
+  "asr": "18:33",
+  "maghrib": "21:15",
+  "isha": "22:22",
+  "fajrIqamahDelay": 73,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e852"
+  },
+  "date": "2026-06-05T00:00:00.000Z",
+  "hijriDate": "19 Dhul",
+  "fajr": "02:46",
+  "sunrise": "04:45",
+  "dhuhr": "13:03",
+  "asr": "18:33",
+  "maghrib": "21:16",
+  "isha": "22:23",
+  "fajrIqamahDelay": 74,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e853"
+  },
+  "date": "2026-06-06T00:00:00.000Z",
+  "hijriDate": "20 Dhul",
+  "fajr": "02:45",
+  "sunrise": "04:45",
+  "dhuhr": "13:03",
+  "asr": "18:34",
+  "maghrib": "21:17",
+  "isha": "22:24",
+  "fajrIqamahDelay": 75,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 56,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e854"
+  },
+  "date": "2026-06-07T00:00:00.000Z",
+  "hijriDate": "21 Dhul",
+  "fajr": "02:44",
+  "sunrise": "04:44",
+  "dhuhr": "13:04",
+  "asr": "18:34",
+  "maghrib": "21:18",
+  "isha": "22:25",
+  "fajrIqamahDelay": 76,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 56,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e855"
+  },
+  "date": "2026-06-08T00:00:00.000Z",
+  "hijriDate": "22 Dhul",
+  "fajr": "02:43",
+  "sunrise": "04:44",
+  "dhuhr": "13:04",
+  "asr": "18:35",
+  "maghrib": "21:18",
+  "isha": "22:25",
+  "fajrIqamahDelay": 77,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e856"
+  },
+  "date": "2026-06-09T00:00:00.000Z",
+  "hijriDate": "23 Dhul",
+  "fajr": "02:42",
+  "sunrise": "04:43",
+  "dhuhr": "13:04",
+  "asr": "18:35",
+  "maghrib": "21:19",
+  "isha": "22:26",
+  "fajrIqamahDelay": 78,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e857"
+  },
+  "date": "2026-06-10T00:00:00.000Z",
+  "hijriDate": "24 Dhul",
+  "fajr": "02:41",
+  "sunrise": "04:43",
+  "dhuhr": "13:04",
+  "asr": "18:36",
+  "maghrib": "21:20",
+  "isha": "22:27",
+  "fajrIqamahDelay": 79,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e858"
+  },
+  "date": "2026-06-11T00:00:00.000Z",
+  "hijriDate": "25 Dhul",
+  "fajr": "02:40",
+  "sunrise": "04:42",
+  "dhuhr": "13:04",
+  "asr": "18:36",
+  "maghrib": "21:21",
+  "isha": "22:28",
+  "fajrIqamahDelay": 80,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 12,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e859"
+  },
+  "date": "2026-06-12T00:00:00.000Z",
+  "hijriDate": "26 Dhul",
+  "fajr": "02:39",
+  "sunrise": "04:42",
+  "dhuhr": "13:05",
+  "asr": "18:37",
+  "maghrib": "21:21",
+  "isha": "22:28",
+  "fajrIqamahDelay": 81,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e85a"
+  },
+  "date": "2026-06-13T00:00:00.000Z",
+  "hijriDate": "27 Dhul",
+  "fajr": "02:38",
+  "sunrise": "04:42",
+  "dhuhr": "13:05",
+  "asr": "18:37",
+  "maghrib": "21:22",
+  "isha": "22:29",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e85b"
+  },
+  "date": "2026-06-14T00:00:00.000Z",
+  "hijriDate": "28 Dhul",
+  "fajr": "02:38",
+  "sunrise": "04:42",
+  "dhuhr": "13:05",
+  "asr": "18:37",
+  "maghrib": "21:23",
+  "isha": "22:30",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e85c"
+  },
+  "date": "2026-06-15T00:00:00.000Z",
+  "hijriDate": "29 Dhul",
+  "fajr": "02:38",
+  "sunrise": "04:42",
+  "dhuhr": "13:05",
+  "asr": "18:38",
+  "maghrib": "21:23",
+  "isha": "22:30",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e85d"
+  },
+  "date": "2026-06-16T00:00:00.000Z",
+  "hijriDate": "1 Moharram",
+  "fajr": "02:38",
+  "sunrise": "04:42",
+  "dhuhr": "13:05",
+  "asr": "18:38",
+  "maghrib": "21:24",
+  "isha": "22:31",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e85e"
+  },
+  "date": "2026-06-17T00:00:00.000Z",
+  "hijriDate": "2 Moharram",
+  "fajr": "02:38",
+  "sunrise": "04:42",
+  "dhuhr": "13:06",
+  "asr": "18:39",
+  "maghrib": "21:24",
+  "isha": "22:31",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e85f"
+  },
+  "date": "2026-06-18T00:00:00.000Z",
+  "hijriDate": "3 Moharram",
+  "fajr": "02:38",
+  "sunrise": "04:42",
+  "dhuhr": "13:06",
+  "asr": "18:39",
+  "maghrib": "21:24",
+  "isha": "22:31",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e860"
+  },
+  "date": "2026-06-19T00:00:00.000Z",
+  "hijriDate": "4 Moharram",
+  "fajr": "02:38",
+  "sunrise": "04:42",
+  "dhuhr": "13:06",
+  "asr": "18:39",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e861"
+  },
+  "date": "2026-06-20T00:00:00.000Z",
+  "hijriDate": "5 Moharram",
+  "fajr": "02:39",
+  "sunrise": "04:42",
+  "dhuhr": "13:06",
+  "asr": "18:39",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 81,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e862"
+  },
+  "date": "2026-06-21T00:00:00.000Z",
+  "hijriDate": "6 Moharram",
+  "fajr": "02:39",
+  "sunrise": "04:42",
+  "dhuhr": "13:07",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 81,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e863"
+  },
+  "date": "2026-06-22T00:00:00.000Z",
+  "hijriDate": "7 Moharram",
+  "fajr": "02:39",
+  "sunrise": "04:42",
+  "dhuhr": "13:07",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 81,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e864"
+  },
+  "date": "2026-06-23T00:00:00.000Z",
+  "hijriDate": "8 Moharram",
+  "fajr": "02:40",
+  "sunrise": "04:42",
+  "dhuhr": "13:07",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 80,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e865"
+  },
+  "date": "2026-06-24T00:00:00.000Z",
+  "hijriDate": "9 Moharram",
+  "fajr": "02:41",
+  "sunrise": "04:43",
+  "dhuhr": "13:07",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 79,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e866"
+  },
+  "date": "2026-06-25T00:00:00.000Z",
+  "hijriDate": "10 Moharram",
+  "fajr": "02:41",
+  "sunrise": "04:43",
+  "dhuhr": "13:07",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 79,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e867"
+  },
+  "date": "2026-06-26T00:00:00.000Z",
+  "hijriDate": "11 Moharram",
+  "fajr": "02:43",
+  "sunrise": "04:44",
+  "dhuhr": "13:08",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 77,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e868"
+  },
+  "date": "2026-06-27T00:00:00.000Z",
+  "hijriDate": "12 Moharram",
+  "fajr": "02:43",
+  "sunrise": "04:44",
+  "dhuhr": "13:08",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 77,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e869"
+  },
+  "date": "2026-06-28T00:00:00.000Z",
+  "hijriDate": "13 Moharram",
+  "fajr": "02:45",
+  "sunrise": "04:45",
+  "dhuhr": "13:08",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 75,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e86a"
+  },
+  "date": "2026-06-29T00:00:00.000Z",
+  "hijriDate": "14 Moharram",
+  "fajr": "02:45",
+  "sunrise": "04:45",
+  "dhuhr": "13:08",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 75,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e86b"
+  },
+  "date": "2026-06-30T00:00:00.000Z",
+  "hijriDate": "15 Moharram",
+  "fajr": "02:46",
+  "sunrise": "04:46",
+  "dhuhr": "13:08",
+  "asr": "18:40",
+  "maghrib": "21:25",
+  "isha": "22:32",
+  "fajrIqamahDelay": 74,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e86c"
+  },
+  "date": "2026-07-01T00:00:00.000Z",
+  "hijriDate": "16 Moharram",
+  "fajr": "02:47",
+  "sunrise": "04:46",
+  "dhuhr": "13:09",
+  "asr": "18:40",
+  "maghrib": "21:24",
+  "isha": "22:31",
+  "fajrIqamahDelay": 73,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 0,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e86d"
+  },
+  "date": "2026-07-02T00:00:00.000Z",
+  "hijriDate": "17 Moharram",
+  "fajr": "02:49",
+  "sunrise": "04:47",
+  "dhuhr": "13:09",
+  "asr": "18:40",
+  "maghrib": "21:24",
+  "isha": "22:31",
+  "fajrIqamahDelay": 71,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e86e"
+  },
+  "date": "2026-07-03T00:00:00.000Z",
+  "hijriDate": "18 Moharram",
+  "fajr": "02:50",
+  "sunrise": "04:48",
+  "dhuhr": "13:09",
+  "asr": "18:40",
+  "maghrib": "21:24",
+  "isha": "22:31",
+  "fajrIqamahDelay": 85,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 9,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e86f"
+  },
+  "date": "2026-07-04T00:00:00.000Z",
+  "hijriDate": "19 Moharram",
+  "fajr": "02:52",
+  "sunrise": "04:49",
+  "dhuhr": "13:09",
+  "asr": "18:40",
+  "maghrib": "21:23",
+  "isha": "22:30",
+  "fajrIqamahDelay": 83,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 10,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e870"
+  },
+  "date": "2026-07-05T00:00:00.000Z",
+  "hijriDate": "20 Moharram",
+  "fajr": "02:53",
+  "sunrise": "04:50",
+  "dhuhr": "13:09",
+  "asr": "18:40",
+  "maghrib": "21:23",
+  "isha": "22:30",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 10,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e871"
+  },
+  "date": "2026-07-06T00:00:00.000Z",
+  "hijriDate": "21 Moharram",
+  "fajr": "02:53",
+  "sunrise": "04:50",
+  "dhuhr": "13:10",
+  "asr": "18:39",
+  "maghrib": "21:22",
+  "isha": "22:29",
+  "fajrIqamahDelay": 82,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e872"
+  },
+  "date": "2026-07-07T00:00:00.000Z",
+  "hijriDate": "22 Moharram",
+  "fajr": "02:55",
+  "sunrise": "04:51",
+  "dhuhr": "13:10",
+  "asr": "18:39",
+  "maghrib": "21:22",
+  "isha": "22:29",
+  "fajrIqamahDelay": 80,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e873"
+  },
+  "date": "2026-07-08T00:00:00.000Z",
+  "hijriDate": "23 Moharram",
+  "fajr": "02:56",
+  "sunrise": "04:52",
+  "dhuhr": "13:10",
+  "asr": "18:39",
+  "maghrib": "21:21",
+  "isha": "22:28",
+  "fajrIqamahDelay": 79,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 12,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e874"
+  },
+  "date": "2026-07-09T00:00:00.000Z",
+  "hijriDate": "24 Moharram",
+  "fajr": "02:58",
+  "sunrise": "04:53",
+  "dhuhr": "13:10",
+  "asr": "18:39",
+  "maghrib": "21:20",
+  "isha": "22:27",
+  "fajrIqamahDelay": 77,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e875"
+  },
+  "date": "2026-07-10T00:00:00.000Z",
+  "hijriDate": "25 Moharram",
+  "fajr": "02:59",
+  "sunrise": "04:54",
+  "dhuhr": "13:10",
+  "asr": "18:38",
+  "maghrib": "21:19",
+  "isha": "22:26",
+  "fajrIqamahDelay": 76,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e876"
+  },
+  "date": "2026-07-11T00:00:00.000Z",
+  "hijriDate": "26 Moharram",
+  "fajr": "03:00",
+  "sunrise": "04:55",
+  "dhuhr": "13:10",
+  "asr": "18:38",
+  "maghrib": "21:19",
+  "isha": "22:26",
+  "fajrIqamahDelay": 75,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e877"
+  },
+  "date": "2026-07-12T00:00:00.000Z",
+  "hijriDate": "27 Moharram",
+  "fajr": "03:02",
+  "sunrise": "04:56",
+  "dhuhr": "13:10",
+  "asr": "18:38",
+  "maghrib": "21:18",
+  "isha": "22:25",
+  "fajrIqamahDelay": 73,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e878"
+  },
+  "date": "2026-07-13T00:00:00.000Z",
+  "hijriDate": "28 Moharram",
+  "fajr": "03:03",
+  "sunrise": "04:57",
+  "dhuhr": "13:11",
+  "asr": "18:37",
+  "maghrib": "21:17",
+  "isha": "22:24",
+  "fajrIqamahDelay": 72,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e879"
+  },
+  "date": "2026-07-14T00:00:00.000Z",
+  "hijriDate": "29 Moharram",
+  "fajr": "03:06",
+  "sunrise": "04:59",
+  "dhuhr": "13:11",
+  "asr": "18:37",
+  "maghrib": "21:16",
+  "isha": "22:23",
+  "fajrIqamahDelay": 69,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e87a"
+  },
+  "date": "2026-07-15T00:00:00.000Z",
+  "hijriDate": "1 Safr",
+  "fajr": "03:07",
+  "sunrise": "05:00",
+  "dhuhr": "13:11",
+  "asr": "18:36",
+  "maghrib": "21:15",
+  "isha": "22:22",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e87b"
+  },
+  "date": "2026-07-16T00:00:00.000Z",
+  "hijriDate": "2 Safr",
+  "fajr": "03:08",
+  "sunrise": "05:01",
+  "dhuhr": "13:11",
+  "asr": "18:36",
+  "maghrib": "21:14",
+  "isha": "22:21",
+  "fajrIqamahDelay": 67,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e87c"
+  },
+  "date": "2026-07-17T00:00:00.000Z",
+  "hijriDate": "3 Safr",
+  "fajr": "03:10",
+  "sunrise": "05:02",
+  "dhuhr": "13:11",
+  "asr": "18:35",
+  "maghrib": "21:13",
+  "isha": "22:20",
+  "fajrIqamahDelay": 80,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 10,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e87d"
+  },
+  "date": "2026-07-18T00:00:00.000Z",
+  "hijriDate": "4 Safr",
+  "fajr": "03:11",
+  "sunrise": "05:03",
+  "dhuhr": "13:11",
+  "asr": "18:35",
+  "maghrib": "21:12",
+  "isha": "22:19",
+  "fajrIqamahDelay": 79,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e87e"
+  },
+  "date": "2026-07-19T00:00:00.000Z",
+  "hijriDate": "5 Safr",
+  "fajr": "03:14",
+  "sunrise": "05:05",
+  "dhuhr": "13:11",
+  "asr": "18:34",
+  "maghrib": "21:11",
+  "isha": "22:18",
+  "fajrIqamahDelay": 76,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 56,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 12,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e87f"
+  },
+  "date": "2026-07-20T00:00:00.000Z",
+  "hijriDate": "6 Safr",
+  "fajr": "03:15",
+  "sunrise": "05:06",
+  "dhuhr": "13:11",
+  "asr": "18:33",
+  "maghrib": "21:09",
+  "isha": "22:16",
+  "fajrIqamahDelay": 75,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e880"
+  },
+  "date": "2026-07-21T00:00:00.000Z",
+  "hijriDate": "7 Safr",
+  "fajr": "03:16",
+  "sunrise": "05:07",
+  "dhuhr": "13:11",
+  "asr": "18:33",
+  "maghrib": "21:08",
+  "isha": "22:14",
+  "fajrIqamahDelay": 74,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e881"
+  },
+  "date": "2026-07-22T00:00:00.000Z",
+  "hijriDate": "8 Safr",
+  "fajr": "03:19",
+  "sunrise": "05:09",
+  "dhuhr": "13:11",
+  "asr": "18:32",
+  "maghrib": "21:07",
+  "isha": "22:12",
+  "fajrIqamahDelay": 71,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 58,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e882"
+  },
+  "date": "2026-07-23T00:00:00.000Z",
+  "hijriDate": "9 Safr",
+  "fajr": "03:20",
+  "sunrise": "05:10",
+  "dhuhr": "13:11",
+  "asr": "18:31",
+  "maghrib": "21:06",
+  "isha": "22:11",
+  "fajrIqamahDelay": 70,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 59,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e883"
+  },
+  "date": "2026-07-24T00:00:00.000Z",
+  "hijriDate": "10 Safr",
+  "fajr": "03:22",
+  "sunrise": "05:11",
+  "dhuhr": "13:11",
+  "asr": "18:30",
+  "maghrib": "21:04",
+  "isha": "22:09",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 60,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e884"
+  },
+  "date": "2026-07-25T00:00:00.000Z",
+  "hijriDate": "11 Safr",
+  "fajr": "03:24",
+  "sunrise": "05:13",
+  "dhuhr": "13:11",
+  "asr": "18:30",
+  "maghrib": "21:03",
+  "isha": "22:07",
+  "fajrIqamahDelay": 66,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 60,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e885"
+  },
+  "date": "2026-07-26T00:00:00.000Z",
+  "hijriDate": "12 Safr",
+  "fajr": "03:26",
+  "sunrise": "05:14",
+  "dhuhr": "13:11",
+  "asr": "18:29",
+  "maghrib": "21:01",
+  "isha": "22:05",
+  "fajrIqamahDelay": 64,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 61,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e886"
+  },
+  "date": "2026-07-27T00:00:00.000Z",
+  "hijriDate": "13 Safr",
+  "fajr": "03:28",
+  "sunrise": "05:16",
+  "dhuhr": "13:11",
+  "asr": "18:28",
+  "maghrib": "21:00",
+  "isha": "22:04",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 62,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 26,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e887"
+  },
+  "date": "2026-07-28T00:00:00.000Z",
+  "hijriDate": "14 Safr",
+  "fajr": "03:30",
+  "sunrise": "05:17",
+  "dhuhr": "13:11",
+  "asr": "18:27",
+  "maghrib": "20:58",
+  "isha": "22:01",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 63,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e888"
+  },
+  "date": "2026-07-29T00:00:00.000Z",
+  "hijriDate": "15 Safr",
+  "fajr": "03:32",
+  "sunrise": "05:19",
+  "dhuhr": "13:11",
+  "asr": "18:26",
+  "maghrib": "20:57",
+  "isha": "22:00",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 64,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 30,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e889"
+  },
+  "date": "2026-07-30T00:00:00.000Z",
+  "hijriDate": "16 Safr",
+  "fajr": "03:34",
+  "sunrise": "05:20",
+  "dhuhr": "13:11",
+  "asr": "18:25",
+  "maghrib": "20:55",
+  "isha": "21:58",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 65,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 32,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e88a"
+  },
+  "date": "2026-07-31T00:00:00.000Z",
+  "hijriDate": "17 Safr",
+  "fajr": "03:36",
+  "sunrise": "05:22",
+  "dhuhr": "13:11",
+  "asr": "18:24",
+  "maghrib": "20:54",
+  "isha": "21:57",
+  "fajrIqamahDelay": 69,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e88b"
+  },
+  "date": "2026-08-01T00:00:00.000Z",
+  "hijriDate": "18 Safr",
+  "fajr": "03:38",
+  "sunrise": "05:23",
+  "dhuhr": "13:11",
+  "asr": "18:23",
+  "maghrib": "20:52",
+  "isha": "21:56",
+  "fajrIqamahDelay": 67,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 52,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e88c"
+  },
+  "date": "2026-08-02T00:00:00.000Z",
+  "hijriDate": "19 Safr",
+  "fajr": "03:40",
+  "sunrise": "05:25",
+  "dhuhr": "13:11",
+  "asr": "18:22",
+  "maghrib": "20:50",
+  "isha": "21:54",
+  "fajrIqamahDelay": 65,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 53,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e88d"
+  },
+  "date": "2026-08-03T00:00:00.000Z",
+  "hijriDate": "20 Safr",
+  "fajr": "03:42",
+  "sunrise": "05:26",
+  "dhuhr": "13:11",
+  "asr": "18:21",
+  "maghrib": "20:49",
+  "isha": "21:53",
+  "fajrIqamahDelay": 63,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 54,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e88e"
+  },
+  "date": "2026-08-04T00:00:00.000Z",
+  "hijriDate": "21 Safr",
+  "fajr": "03:44",
+  "sunrise": "05:28",
+  "dhuhr": "13:11",
+  "asr": "18:20",
+  "maghrib": "20:47",
+  "isha": "21:51",
+  "fajrIqamahDelay": 61,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 55,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e88f"
+  },
+  "date": "2026-08-05T00:00:00.000Z",
+  "hijriDate": "22 Safr",
+  "fajr": "03:46",
+  "sunrise": "05:29",
+  "dhuhr": "13:11",
+  "asr": "18:19",
+  "maghrib": "20:45",
+  "isha": "21:49",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 56,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 26,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e890"
+  },
+  "date": "2026-08-06T00:00:00.000Z",
+  "hijriDate": "23 Safr",
+  "fajr": "03:48",
+  "sunrise": "05:31",
+  "dhuhr": "13:11",
+  "asr": "18:18",
+  "maghrib": "20:43",
+  "isha": "21:48",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 57,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e891"
+  },
+  "date": "2026-08-07T00:00:00.000Z",
+  "hijriDate": "24 Safr",
+  "fajr": "03:49",
+  "sunrise": "05:32",
+  "dhuhr": "13:11",
+  "asr": "18:17",
+  "maghrib": "20:42",
+  "isha": "21:47",
+  "fajrIqamahDelay": 71,
+  "dhuhrIqamahDelay": 19,
+  "asrIqamahDelay": 43,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e892"
+  },
+  "date": "2026-08-08T00:00:00.000Z",
+  "hijriDate": "25 Safr",
+  "fajr": "03:52",
+  "sunrise": "05:34",
+  "dhuhr": "13:10",
+  "asr": "18:15",
+  "maghrib": "20:40",
+  "isha": "21:45",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 45,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e893"
+  },
+  "date": "2026-08-09T00:00:00.000Z",
+  "hijriDate": "26 Safr",
+  "fajr": "03:53",
+  "sunrise": "05:35",
+  "dhuhr": "13:10",
+  "asr": "18:14",
+  "maghrib": "20:38",
+  "isha": "21:43",
+  "fajrIqamahDelay": 67,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 17,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e894"
+  },
+  "date": "2026-08-10T00:00:00.000Z",
+  "hijriDate": "27 Safr",
+  "fajr": "03:55",
+  "sunrise": "05:37",
+  "dhuhr": "13:10",
+  "asr": "18:13",
+  "maghrib": "20:36",
+  "isha": "21:41",
+  "fajrIqamahDelay": 65,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 47,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e895"
+  },
+  "date": "2026-08-11T00:00:00.000Z",
+  "hijriDate": "28 Safr",
+  "fajr": "03:58",
+  "sunrise": "05:39",
+  "dhuhr": "13:10",
+  "asr": "18:12",
+  "maghrib": "20:34",
+  "isha": "21:40",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e896"
+  },
+  "date": "2026-08-12T00:00:00.000Z",
+  "hijriDate": "29 Safr",
+  "fajr": "03:59",
+  "sunrise": "05:40",
+  "dhuhr": "13:10",
+  "asr": "18:10",
+  "maghrib": "20:32",
+  "isha": "21:38",
+  "fajrIqamahDelay": 61,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e897"
+  },
+  "date": "2026-08-13T00:00:00.000Z",
+  "hijriDate": "30 Safr",
+  "fajr": "04:01",
+  "sunrise": "05:42",
+  "dhuhr": "13:10",
+  "asr": "18:09",
+  "maghrib": "20:30",
+  "isha": "21:36",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 20,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e898"
+  },
+  "date": "2026-08-14T00:00:00.000Z",
+  "hijriDate": "1 Rabi-Ul-Awwal",
+  "fajr": "04:03",
+  "sunrise": "05:43",
+  "dhuhr": "13:09",
+  "asr": "18:08",
+  "maghrib": "20:28",
+  "isha": "21:34",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e899"
+  },
+  "date": "2026-08-15T00:00:00.000Z",
+  "hijriDate": "2 Rabi-Ul-Awwal",
+  "fajr": "04:05",
+  "sunrise": "05:45",
+  "dhuhr": "13:09",
+  "asr": "18:06",
+  "maghrib": "20:26",
+  "isha": "21:32",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e89a"
+  },
+  "date": "2026-08-16T00:00:00.000Z",
+  "hijriDate": "3 Rabi-Ul-Awwal",
+  "fajr": "04:07",
+  "sunrise": "05:47",
+  "dhuhr": "13:09",
+  "asr": "18:05",
+  "maghrib": "20:24",
+  "isha": "21:31",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e89b"
+  },
+  "date": "2026-08-17T00:00:00.000Z",
+  "hijriDate": "4 Rabi-Ul-Awwal",
+  "fajr": "04:09",
+  "sunrise": "05:48",
+  "dhuhr": "13:09",
+  "asr": "18:03",
+  "maghrib": "20:22",
+  "isha": "21:29",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e89c"
+  },
+  "date": "2026-08-18T00:00:00.000Z",
+  "hijriDate": "5 Rabi-Ul-Awwal",
+  "fajr": "04:11",
+  "sunrise": "05:50",
+  "dhuhr": "13:09",
+  "asr": "18:02",
+  "maghrib": "20:20",
+  "isha": "21:27",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 21,
+  "asrIqamahDelay": 43,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e89d"
+  },
+  "date": "2026-08-19T00:00:00.000Z",
+  "hijriDate": "6 Rabi-Ul-Awwal",
+  "fajr": "04:12",
+  "sunrise": "05:51",
+  "dhuhr": "13:08",
+  "asr": "18:01",
+  "maghrib": "20:18",
+  "isha": "21:25",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e89e"
+  },
+  "date": "2026-08-20T00:00:00.000Z",
+  "hijriDate": "7 Rabi-Ul-Awwal",
+  "fajr": "04:15",
+  "sunrise": "05:53",
+  "dhuhr": "13:08",
+  "asr": "17:59",
+  "maghrib": "20:16",
+  "isha": "21:23",
+  "fajrIqamahDelay": 45,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e89f"
+  },
+  "date": "2026-08-21T00:00:00.000Z",
+  "hijriDate": "8 Rabi-Ul-Awwal",
+  "fajr": "04:17",
+  "sunrise": "05:55",
+  "dhuhr": "13:08",
+  "asr": "17:58",
+  "maghrib": "20:14",
+  "isha": "21:22",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 32,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a0"
+  },
+  "date": "2026-08-22T00:00:00.000Z",
+  "hijriDate": "9 Rabi-Ul-Awwal",
+  "fajr": "04:18",
+  "sunrise": "05:56",
+  "dhuhr": "13:08",
+  "asr": "17:56",
+  "maghrib": "20:12",
+  "isha": "21:20",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 22,
+  "asrIqamahDelay": 34,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a1"
+  },
+  "date": "2026-08-23T00:00:00.000Z",
+  "hijriDate": "10 Rabi-Ul-Awwal",
+  "fajr": "04:21",
+  "sunrise": "05:58",
+  "dhuhr": "13:07",
+  "asr": "17:55",
+  "maghrib": "20:10",
+  "isha": "21:18",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 35,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a2"
+  },
+  "date": "2026-08-24T00:00:00.000Z",
+  "hijriDate": "11 Rabi-Ul-Awwal",
+  "fajr": "04:22",
+  "sunrise": "05:59",
+  "dhuhr": "13:07",
+  "asr": "17:53",
+  "maghrib": "20:08",
+  "isha": "21:16",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a3"
+  },
+  "date": "2026-08-25T00:00:00.000Z",
+  "hijriDate": "12 Rabi-Ul-Awwal",
+  "fajr": "04:24",
+  "sunrise": "06:01",
+  "dhuhr": "13:07",
+  "asr": "17:51",
+  "maghrib": "20:06",
+  "isha": "21:15",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 30,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a4"
+  },
+  "date": "2026-08-26T00:00:00.000Z",
+  "hijriDate": "13 Rabi-Ul-Awwal",
+  "fajr": "04:27",
+  "sunrise": "06:03",
+  "dhuhr": "13:07",
+  "asr": "17:50",
+  "maghrib": "20:04",
+  "isha": "21:13",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 23,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 32,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a5"
+  },
+  "date": "2026-08-27T00:00:00.000Z",
+  "hijriDate": "14 Rabi-Ul-Awwal",
+  "fajr": "04:28",
+  "sunrise": "06:04",
+  "dhuhr": "13:06",
+  "asr": "17:48",
+  "maghrib": "20:01",
+  "isha": "21:10",
+  "fajrIqamahDelay": 47,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 35,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a6"
+  },
+  "date": "2026-08-28T00:00:00.000Z",
+  "hijriDate": "15 Rabi-Ul-Awwal",
+  "fajr": "04:30",
+  "sunrise": "06:06",
+  "dhuhr": "13:06",
+  "asr": "17:46",
+  "maghrib": "19:59",
+  "isha": "21:08",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 29,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a7"
+  },
+  "date": "2026-08-29T00:00:00.000Z",
+  "hijriDate": "16 Rabi-Ul-Awwal",
+  "fajr": "04:32",
+  "sunrise": "06:07",
+  "dhuhr": "13:06",
+  "asr": "17:45",
+  "maghrib": "19:57",
+  "isha": "21:07",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 24,
+  "asrIqamahDelay": 30,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a8"
+  },
+  "date": "2026-08-30T00:00:00.000Z",
+  "hijriDate": "17 Rabi-Ul-Awwal",
+  "fajr": "04:34",
+  "sunrise": "06:09",
+  "dhuhr": "13:05",
+  "asr": "17:43",
+  "maghrib": "19:55",
+  "isha": "21:05",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 32,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8a9"
+  },
+  "date": "2026-08-31T00:00:00.000Z",
+  "hijriDate": "18 Rabi-Ul-Awwal",
+  "fajr": "04:36",
+  "sunrise": "06:11",
+  "dhuhr": "13:05",
+  "asr": "17:41",
+  "maghrib": "19:53",
+  "isha": "21:03",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 34,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8aa"
+  },
+  "date": "2026-09-01T00:00:00.000Z",
+  "hijriDate": "19 Rabi-Ul-Awwal",
+  "fajr": "04:37",
+  "sunrise": "06:12",
+  "dhuhr": "13:05",
+  "asr": "17:40",
+  "maghrib": "19:50",
+  "isha": "21:01",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 25,
+  "asrIqamahDelay": 35,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ab"
+  },
+  "date": "2026-09-02T00:00:00.000Z",
+  "hijriDate": "20 Rabi-Ul-Awwal",
+  "fajr": "04:39",
+  "sunrise": "06:14",
+  "dhuhr": "13:04",
+  "asr": "17:38",
+  "maghrib": "19:48",
+  "isha": "20:59",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 31,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ac"
+  },
+  "date": "2026-09-03T00:00:00.000Z",
+  "hijriDate": "21 Rabi-Ul-Awwal",
+  "fajr": "04:40",
+  "sunrise": "06:15",
+  "dhuhr": "13:04",
+  "asr": "17:36",
+  "maghrib": "19:46",
+  "isha": "20:57",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 33,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ad"
+  },
+  "date": "2026-09-04T00:00:00.000Z",
+  "hijriDate": "22 Rabi-Ul-Awwal",
+  "fajr": "04:42",
+  "sunrise": "06:17",
+  "dhuhr": "13:04",
+  "asr": "17:34",
+  "maghrib": "19:44",
+  "isha": "20:56",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 26,
+  "asrIqamahDelay": 41,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ae"
+  },
+  "date": "2026-09-05T00:00:00.000Z",
+  "hijriDate": "23 Rabi-Ul-Awwal",
+  "fajr": "04:43",
+  "sunrise": "06:18",
+  "dhuhr": "13:03",
+  "asr": "17:33",
+  "maghrib": "19:41",
+  "isha": "20:53",
+  "fajrIqamahDelay": 47,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8af"
+  },
+  "date": "2026-09-06T00:00:00.000Z",
+  "hijriDate": "24 Rabi-Ul-Awwal",
+  "fajr": "04:45",
+  "sunrise": "06:20",
+  "dhuhr": "13:03",
+  "asr": "17:31",
+  "maghrib": "19:39",
+  "isha": "20:51",
+  "fajrIqamahDelay": 45,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b0"
+  },
+  "date": "2026-09-07T00:00:00.000Z",
+  "hijriDate": "25 Rabi-Ul-Awwal",
+  "fajr": "04:47",
+  "sunrise": "06:22",
+  "dhuhr": "13:03",
+  "asr": "17:29",
+  "maghrib": "19:37",
+  "isha": "20:50",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 27,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b1"
+  },
+  "date": "2026-09-08T00:00:00.000Z",
+  "hijriDate": "26 Rabi-Ul-Awwal",
+  "fajr": "04:48",
+  "sunrise": "06:23",
+  "dhuhr": "13:02",
+  "asr": "17:27",
+  "maghrib": "19:35",
+  "isha": "20:48",
+  "fajrIqamahDelay": 42,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b2"
+  },
+  "date": "2026-09-09T00:00:00.000Z",
+  "hijriDate": "27 Rabi-Ul-Awwal",
+  "fajr": "04:50",
+  "sunrise": "06:25",
+  "dhuhr": "13:02",
+  "asr": "17:25",
+  "maghrib": "19:32",
+  "isha": "20:45",
+  "fajrIqamahDelay": 40,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 30,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b3"
+  },
+  "date": "2026-09-10T00:00:00.000Z",
+  "hijriDate": "28 Rabi-Ul-Awwal",
+  "fajr": "04:51",
+  "sunrise": "06:26",
+  "dhuhr": "13:02",
+  "asr": "17:24",
+  "maghrib": "19:30",
+  "isha": "20:43",
+  "fajrIqamahDelay": 39,
+  "dhuhrIqamahDelay": 28,
+  "asrIqamahDelay": 51,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 32,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b4"
+  },
+  "date": "2026-09-11T00:00:00.000Z",
+  "hijriDate": "29 Rabi-Ul-Awwal",
+  "fajr": "04:53",
+  "sunrise": "06:28",
+  "dhuhr": "13:01",
+  "asr": "17:22",
+  "maghrib": "19:28",
+  "isha": "20:42",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b5"
+  },
+  "date": "2026-09-12T00:00:00.000Z",
+  "hijriDate": "1 Rabi-Ul-Thani",
+  "fajr": "04:55",
+  "sunrise": "06:30",
+  "dhuhr": "13:01",
+  "asr": "17:20",
+  "maghrib": "19:25",
+  "isha": "20:39",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b6"
+  },
+  "date": "2026-09-13T00:00:00.000Z",
+  "hijriDate": "2 Rabi-Ul-Thani",
+  "fajr": "04:56",
+  "sunrise": "06:31",
+  "dhuhr": "13:01",
+  "asr": "17:18",
+  "maghrib": "19:23",
+  "isha": "20:37",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 29,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b7"
+  },
+  "date": "2026-09-14T00:00:00.000Z",
+  "hijriDate": "3 Rabi-Ul-Thani",
+  "fajr": "04:58",
+  "sunrise": "06:33",
+  "dhuhr": "13:00",
+  "asr": "17:16",
+  "maghrib": "19:21",
+  "isha": "20:35",
+  "fajrIqamahDelay": 47,
+  "dhuhrIqamahDelay": 30,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 0,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b8"
+  },
+  "date": "2026-09-15T00:00:00.000Z",
+  "hijriDate": "4 Rabi-Ul-Thani",
+  "fajr": "04:59",
+  "sunrise": "06:34",
+  "dhuhr": "13:00",
+  "asr": "17:14",
+  "maghrib": "19:18",
+  "isha": "20:33",
+  "fajrIqamahDelay": 46,
+  "dhuhrIqamahDelay": 30,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8b9"
+  },
+  "date": "2026-09-16T00:00:00.000Z",
+  "hijriDate": "5 Rabi-Ul-Thani",
+  "fajr": "05:02",
+  "sunrise": "06:36",
+  "dhuhr": "13:00",
+  "asr": "17:12",
+  "maghrib": "19:16",
+  "isha": "20:31",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 30,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ba"
+  },
+  "date": "2026-09-17T00:00:00.000Z",
+  "hijriDate": "6 Rabi-Ul-Thani",
+  "fajr": "05:04",
+  "sunrise": "06:38",
+  "dhuhr": "00:59",
+  "asr": "17:10",
+  "maghrib": "19:14",
+  "isha": "20:29",
+  "fajrIqamahDelay": 41,
+  "dhuhrIqamahDelay": 751,
+  "asrIqamahDelay": 50,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 31,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8bb"
+  },
+  "date": "2026-09-18T00:00:00.000Z",
+  "hijriDate": "7 Rabi-Ul-Thani",
+  "fajr": "05:05",
+  "sunrise": "06:39",
+  "dhuhr": "00:59",
+  "asr": "17:08",
+  "maghrib": "19:11",
+  "isha": "20:26",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 751,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8bc"
+  },
+  "date": "2026-09-19T00:00:00.000Z",
+  "hijriDate": "8 Rabi-Ul-Thani",
+  "fajr": "05:08",
+  "sunrise": "06:41",
+  "dhuhr": "00:59",
+  "asr": "17:06",
+  "maghrib": "19:09",
+  "isha": "20:24",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 751,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8bd"
+  },
+  "date": "2026-09-20T00:00:00.000Z",
+  "hijriDate": "9 Rabi-Ul-Thani",
+  "fajr": "05:09",
+  "sunrise": "06:42",
+  "dhuhr": "00:58",
+  "asr": "17:05",
+  "maghrib": "19:07",
+  "isha": "20:22",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 752,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 23,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8be"
+  },
+  "date": "2026-09-21T00:00:00.000Z",
+  "hijriDate": "10 Rabi-Ul-Thani",
+  "fajr": "05:11",
+  "sunrise": "06:44",
+  "dhuhr": "00:58",
+  "asr": "17:03",
+  "maghrib": "19:05",
+  "isha": "20:21",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 752,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8bf"
+  },
+  "date": "2026-09-22T00:00:00.000Z",
+  "hijriDate": "11 Rabi-Ul-Thani",
+  "fajr": "05:14",
+  "sunrise": "06:46",
+  "dhuhr": "00:57",
+  "asr": "17:01",
+  "maghrib": "19:02",
+  "isha": "20:18",
+  "fajrIqamahDelay": 46,
+  "dhuhrIqamahDelay": 753,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c0"
+  },
+  "date": "2026-09-23T00:00:00.000Z",
+  "hijriDate": "12 Rabi-Ul-Thani",
+  "fajr": "05:15",
+  "sunrise": "06:47",
+  "dhuhr": "00:57",
+  "asr": "16:59",
+  "maghrib": "19:00",
+  "isha": "20:16",
+  "fajrIqamahDelay": 45,
+  "dhuhrIqamahDelay": 753,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c1"
+  },
+  "date": "2026-09-24T00:00:00.000Z",
+  "hijriDate": "13 Rabi-Ul-Thani",
+  "fajr": "05:17",
+  "sunrise": "06:49",
+  "dhuhr": "00:57",
+  "asr": "16:57",
+  "maghrib": "18:58",
+  "isha": "20:14",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 753,
+  "asrIqamahDelay": 48,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 31,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c2"
+  },
+  "date": "2026-09-25T00:00:00.000Z",
+  "hijriDate": "14 Rabi-Ul-Thani",
+  "fajr": "05:20",
+  "sunrise": "06:51",
+  "dhuhr": "00:56",
+  "asr": "16:55",
+  "maghrib": "18:55",
+  "isha": "20:12",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 754,
+  "asrIqamahDelay": 35,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c3"
+  },
+  "date": "2026-09-26T00:00:00.000Z",
+  "hijriDate": "15 Rabi-Ul-Thani",
+  "fajr": "05:21",
+  "sunrise": "06:52",
+  "dhuhr": "00:56",
+  "asr": "16:53",
+  "maghrib": "18:53",
+  "isha": "20:10",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 754,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c4"
+  },
+  "date": "2026-09-27T00:00:00.000Z",
+  "hijriDate": "16 Rabi-Ul-Thani",
+  "fajr": "05:23",
+  "sunrise": "06:54",
+  "dhuhr": "00:56",
+  "asr": "16:51",
+  "maghrib": "18:51",
+  "isha": "20:08",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 754,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c5"
+  },
+  "date": "2026-09-28T00:00:00.000Z",
+  "hijriDate": "17 Rabi-Ul-Thani",
+  "fajr": "05:25",
+  "sunrise": "06:55",
+  "dhuhr": "00:55",
+  "asr": "16:49",
+  "maghrib": "18:48",
+  "isha": "20:05",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 755,
+  "asrIqamahDelay": 41,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c6"
+  },
+  "date": "2026-09-29T00:00:00.000Z",
+  "hijriDate": "18 Rabi-Ul-Thani",
+  "fajr": "05:27",
+  "sunrise": "06:57",
+  "dhuhr": "00:55",
+  "asr": "16:47",
+  "maghrib": "18:46",
+  "isha": "20:03",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 755,
+  "asrIqamahDelay": 43,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c7"
+  },
+  "date": "2026-09-30T00:00:00.000Z",
+  "hijriDate": "19 Rabi-Ul-Thani",
+  "fajr": "05:29",
+  "sunrise": "06:59",
+  "dhuhr": "00:55",
+  "asr": "16:45",
+  "maghrib": "18:44",
+  "isha": "20:01",
+  "fajrIqamahDelay": 46,
+  "dhuhrIqamahDelay": 755,
+  "asrIqamahDelay": 45,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 29,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c8"
+  },
+  "date": "2026-10-01T00:00:00.000Z",
+  "hijriDate": "20 Rabi-Ul-Thani",
+  "fajr": "05:29",
+  "sunrise": "07:00",
+  "dhuhr": "00:54",
+  "asr": "16:43",
+  "maghrib": "18:42",
+  "isha": "20:00",
+  "fajrIqamahDelay": 46,
+  "dhuhrIqamahDelay": 756,
+  "asrIqamahDelay": 47,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 30,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8c9"
+  },
+  "date": "2026-10-02T00:00:00.000Z",
+  "hijriDate": "21 Rabi-Ul-Thani",
+  "fajr": "05:31",
+  "sunrise": "07:02",
+  "dhuhr": "00:54",
+  "asr": "16:41",
+  "maghrib": "18:39",
+  "isha": "19:57",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 756,
+  "asrIqamahDelay": 34,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ca"
+  },
+  "date": "2026-10-03T00:00:00.000Z",
+  "hijriDate": "22 Rabi-Ul-Thani",
+  "fajr": "05:33",
+  "sunrise": "07:04",
+  "dhuhr": "00:54",
+  "asr": "16:39",
+  "maghrib": "18:37",
+  "isha": "19:56",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 756,
+  "asrIqamahDelay": 36,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 19,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8cb"
+  },
+  "date": "2026-10-04T00:00:00.000Z",
+  "hijriDate": "23 Rabi-Ul-Thani",
+  "fajr": "05:34",
+  "sunrise": "07:05",
+  "dhuhr": "00:53",
+  "asr": "16:37",
+  "maghrib": "18:35",
+  "isha": "19:54",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 757,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 21,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8cc"
+  },
+  "date": "2026-10-05T00:00:00.000Z",
+  "hijriDate": "24 Rabi-Ul-Thani",
+  "fajr": "05:35",
+  "sunrise": "07:07",
+  "dhuhr": "00:53",
+  "asr": "16:35",
+  "maghrib": "18:32",
+  "isha": "19:51",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 757,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8cd"
+  },
+  "date": "2026-10-06T00:00:00.000Z",
+  "hijriDate": "25 Rabi-Ul-Thani",
+  "fajr": "05:37",
+  "sunrise": "07:09",
+  "dhuhr": "00:53",
+  "asr": "16:33",
+  "maghrib": "18:30",
+  "isha": "19:49",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 757,
+  "asrIqamahDelay": 42,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 26,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ce"
+  },
+  "date": "2026-10-07T00:00:00.000Z",
+  "hijriDate": "26 Rabi-Ul-Thani",
+  "fajr": "05:38",
+  "sunrise": "07:10",
+  "dhuhr": "00:53",
+  "asr": "16:31",
+  "maghrib": "18:28",
+  "isha": "19:49",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 757,
+  "asrIqamahDelay": 44,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 26,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8cf"
+  },
+  "date": "2026-10-08T00:00:00.000Z",
+  "hijriDate": "27 Rabi-Ul-Thani",
+  "fajr": "05:39",
+  "sunrise": "07:12",
+  "dhuhr": "00:52",
+  "asr": "16:29",
+  "maghrib": "18:26",
+  "isha": "19:47",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 758,
+  "asrIqamahDelay": 46,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 28,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d0"
+  },
+  "date": "2026-10-09T00:00:00.000Z",
+  "hijriDate": "28 Rabi-Ul-Thani",
+  "fajr": "05:41",
+  "sunrise": "07:14",
+  "dhuhr": "00:52",
+  "asr": "16:27",
+  "maghrib": "18:24",
+  "isha": "19:45",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 758,
+  "asrIqamahDelay": 18,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 15,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d1"
+  },
+  "date": "2026-10-10T00:00:00.000Z",
+  "hijriDate": "29 Rabi-Ul-Thani",
+  "fajr": "05:42",
+  "sunrise": "07:15",
+  "dhuhr": "00:52",
+  "asr": "16:25",
+  "maghrib": "18:21",
+  "isha": "19:42",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 758,
+  "asrIqamahDelay": 20,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d2"
+  },
+  "date": "2026-10-11T00:00:00.000Z",
+  "hijriDate": "30 Rabi-Ul-Thani",
+  "fajr": "05:43",
+  "sunrise": "07:17",
+  "dhuhr": "00:51",
+  "asr": "16:23",
+  "maghrib": "18:19",
+  "isha": "19:40",
+  "fajrIqamahDelay": 47,
+  "dhuhrIqamahDelay": 759,
+  "asrIqamahDelay": 22,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d3"
+  },
+  "date": "2026-10-12T00:00:00.000Z",
+  "hijriDate": "1 Jamadi-Ul-Ula",
+  "fajr": "05:45",
+  "sunrise": "07:19",
+  "dhuhr": "00:51",
+  "asr": "16:21",
+  "maghrib": "18:17",
+  "isha": "19:38",
+  "fajrIqamahDelay": 45,
+  "dhuhrIqamahDelay": 759,
+  "asrIqamahDelay": 24,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d4"
+  },
+  "date": "2026-10-13T00:00:00.000Z",
+  "hijriDate": "2 Jamadi-Ul-Ula",
+  "fajr": "05:46",
+  "sunrise": "07:20",
+  "dhuhr": "00:51",
+  "asr": "16:19",
+  "maghrib": "18:15",
+  "isha": "19:38",
+  "fajrIqamahDelay": 44,
+  "dhuhrIqamahDelay": 759,
+  "asrIqamahDelay": 26,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d5"
+  },
+  "date": "2026-10-14T00:00:00.000Z",
+  "hijriDate": "3 Jamadi-Ul-Ula",
+  "fajr": "05:47",
+  "sunrise": "07:22",
+  "dhuhr": "00:51",
+  "asr": "16:17",
+  "maghrib": "18:13",
+  "isha": "19:36",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 759,
+  "asrIqamahDelay": 28,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d6"
+  },
+  "date": "2026-10-15T00:00:00.000Z",
+  "hijriDate": "4 Jamadi-Ul-Ula",
+  "fajr": "05:49",
+  "sunrise": "07:24",
+  "dhuhr": "00:51",
+  "asr": "16:15",
+  "maghrib": "18:10",
+  "isha": "19:33",
+  "fajrIqamahDelay": 41,
+  "dhuhrIqamahDelay": 759,
+  "asrIqamahDelay": 30,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 27,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d7"
+  },
+  "date": "2026-10-16T00:00:00.000Z",
+  "hijriDate": "5 Jamadi-Ul-Ula",
+  "fajr": "05:50",
+  "sunrise": "07:25",
+  "dhuhr": "00:50",
+  "asr": "16:13",
+  "maghrib": "18:08",
+  "isha": "19:31",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 760,
+  "asrIqamahDelay": 17,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 14,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d8"
+  },
+  "date": "2026-10-17T00:00:00.000Z",
+  "hijriDate": "6 Jamadi-Ul-Ula",
+  "fajr": "05:51",
+  "sunrise": "07:27",
+  "dhuhr": "00:50",
+  "asr": "16:11",
+  "maghrib": "18:06",
+  "isha": "19:29",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 760,
+  "asrIqamahDelay": 19,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 16,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8d9"
+  },
+  "date": "2026-10-18T00:00:00.000Z",
+  "hijriDate": "7 Jamadi-Ul-Ula",
+  "fajr": "05:53",
+  "sunrise": "07:29",
+  "dhuhr": "00:50",
+  "asr": "16:09",
+  "maghrib": "18:04",
+  "isha": "19:27",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 760,
+  "asrIqamahDelay": 21,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 18,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8da"
+  },
+  "date": "2026-10-19T00:00:00.000Z",
+  "hijriDate": "8 Jamadi-Ul-Ula",
+  "fajr": "05:55",
+  "sunrise": "07:31",
+  "dhuhr": "00:50",
+  "asr": "16:07",
+  "maghrib": "18:02",
+  "isha": "19:25",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 760,
+  "asrIqamahDelay": 23,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 20,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8db"
+  },
+  "date": "2026-10-20T00:00:00.000Z",
+  "hijriDate": "9 Jamadi-Ul-Ula",
+  "fajr": "05:56",
+  "sunrise": "07:32",
+  "dhuhr": "00:50",
+  "asr": "16:05",
+  "maghrib": "18:00",
+  "isha": "19:23",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 760,
+  "asrIqamahDelay": 25,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8dc"
+  },
+  "date": "2026-10-21T00:00:00.000Z",
+  "hijriDate": "10 Jamadi-Ul-Ula",
+  "fajr": "05:57",
+  "sunrise": "07:34",
+  "dhuhr": "00:49",
+  "asr": "16:03",
+  "maghrib": "17:58",
+  "isha": "19:23",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 27,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 22,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8dd"
+  },
+  "date": "2026-10-22T00:00:00.000Z",
+  "hijriDate": "11 Jamadi-Ul-Ula",
+  "fajr": "05:59",
+  "sunrise": "07:36",
+  "dhuhr": "00:49",
+  "asr": "16:02",
+  "maghrib": "17:56",
+  "isha": "19:21",
+  "fajrIqamahDelay": 46,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 28,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 24,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8de"
+  },
+  "date": "2026-10-23T00:00:00.000Z",
+  "hijriDate": "12 Jamadi-Ul-Ula",
+  "fajr": "05:59",
+  "sunrise": "07:37",
+  "dhuhr": "00:49",
+  "asr": "16:00",
+  "maghrib": "17:54",
+  "isha": "19:19",
+  "fajrIqamahDelay": 61,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 15,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 11,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8df"
+  },
+  "date": "2026-10-24T00:00:00.000Z",
+  "hijriDate": "13 Jamadi-Ul-Ula",
+  "fajr": "06:01",
+  "sunrise": "07:39",
+  "dhuhr": "00:49",
+  "asr": "15:58",
+  "maghrib": "17:52",
+  "isha": "19:17",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 761,
+  "asrIqamahDelay": 17,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 13,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e0"
+  },
+  "date": "2026-10-25T00:00:00.000Z",
+  "hijriDate": "14 Jamadi-Ul-Ula",
+  "fajr": "05:03",
+  "sunrise": "06:41",
+  "dhuhr": "11:49",
+  "asr": "14:56",
+  "maghrib": "16:50",
+  "isha": "18:17",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 19,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 73,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e1"
+  },
+  "date": "2026-10-26T00:00:00.000Z",
+  "hijriDate": "15 Jamadi-Ul-Ula",
+  "fajr": "05:04",
+  "sunrise": "06:43",
+  "dhuhr": "11:49",
+  "asr": "14:54",
+  "maghrib": "16:48",
+  "isha": "18:15",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 21,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 75,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e2"
+  },
+  "date": "2026-10-27T00:00:00.000Z",
+  "hijriDate": "16 Jamadi-Ul-Ula",
+  "fajr": "05:05",
+  "sunrise": "06:44",
+  "dhuhr": "11:49",
+  "asr": "14:52",
+  "maghrib": "16:46",
+  "isha": "18:13",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 23,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 77,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e3"
+  },
+  "date": "2026-10-28T00:00:00.000Z",
+  "hijriDate": "17 Jamadi-Ul-Ula",
+  "fajr": "05:07",
+  "sunrise": "06:46",
+  "dhuhr": "11:49",
+  "asr": "14:51",
+  "maghrib": "16:44",
+  "isha": "18:11",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 24,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 79,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e4"
+  },
+  "date": "2026-10-29T00:00:00.000Z",
+  "hijriDate": "18 Jamadi-Ul-Ula",
+  "fajr": "05:08",
+  "sunrise": "06:48",
+  "dhuhr": "11:48",
+  "asr": "14:49",
+  "maghrib": "16:42",
+  "isha": "18:09",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 72,
+  "asrIqamahDelay": 26,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 81,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e5"
+  },
+  "date": "2026-10-30T00:00:00.000Z",
+  "hijriDate": "19 Jamadi-Ul-Ula",
+  "fajr": "05:10",
+  "sunrise": "06:50",
+  "dhuhr": "11:48",
+  "asr": "14:47",
+  "maghrib": "16:40",
+  "isha": "18:07",
+  "fajrIqamahDelay": 65,
+  "dhuhrIqamahDelay": 57,
+  "asrIqamahDelay": 13,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 83,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e6"
+  },
+  "date": "2026-10-31T00:00:00.000Z",
+  "hijriDate": "20 Jamadi-Ul-Ula",
+  "fajr": "05:12",
+  "sunrise": "06:52",
+  "dhuhr": "11:48",
+  "asr": "14:45",
+  "maghrib": "16:38",
+  "isha": "18:05",
+  "fajrIqamahDelay": 63,
+  "dhuhrIqamahDelay": 57,
+  "asrIqamahDelay": 15,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e7"
+  },
+  "date": "2026-11-01T00:00:00.000Z",
+  "hijriDate": "21 Jamadi-Ul-Ula",
+  "fajr": "05:13",
+  "sunrise": "06:53",
+  "dhuhr": "11:48",
+  "asr": "14:44",
+  "maghrib": "16:37",
+  "isha": "18:05",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 72,
+  "asrIqamahDelay": 16,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 25,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e8"
+  },
+  "date": "2026-11-02T00:00:00.000Z",
+  "hijriDate": "22 Jamadi-Ul-Ula",
+  "fajr": "05:15",
+  "sunrise": "06:55",
+  "dhuhr": "11:48",
+  "asr": "14:42",
+  "maghrib": "16:35",
+  "isha": "18:03",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 72,
+  "asrIqamahDelay": 18,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 87,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8e9"
+  },
+  "date": "2026-11-03T00:00:00.000Z",
+  "hijriDate": "23 Jamadi-Ul-Ula",
+  "fajr": "05:17",
+  "sunrise": "06:57",
+  "dhuhr": "11:48",
+  "asr": "14:40",
+  "maghrib": "16:33",
+  "isha": "18:02",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 72,
+  "asrIqamahDelay": 20,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 88,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ea"
+  },
+  "date": "2026-11-04T00:00:00.000Z",
+  "hijriDate": "24 Jamadi-Ul-Ula",
+  "fajr": "05:18",
+  "sunrise": "06:59",
+  "dhuhr": "11:48",
+  "asr": "14:39",
+  "maghrib": "16:31",
+  "isha": "18:00",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 72,
+  "asrIqamahDelay": 21,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 90,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8eb"
+  },
+  "date": "2026-11-05T00:00:00.000Z",
+  "hijriDate": "25 Jamadi-Ul-Ula",
+  "fajr": "05:19",
+  "sunrise": "07:00",
+  "dhuhr": "11:48",
+  "asr": "14:37",
+  "maghrib": "16:30",
+  "isha": "18:00",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 72,
+  "asrIqamahDelay": 23,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 90,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ec"
+  },
+  "date": "2026-11-06T00:00:00.000Z",
+  "hijriDate": "26 Jamadi-Ul-Ula",
+  "fajr": "05:21",
+  "sunrise": "07:02",
+  "dhuhr": "11:48",
+  "asr": "14:36",
+  "maghrib": "16:28",
+  "isha": "17:58",
+  "fajrIqamahDelay": 69,
+  "dhuhrIqamahDelay": 57,
+  "asrIqamahDelay": 9,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 92,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ed"
+  },
+  "date": "2026-11-07T00:00:00.000Z",
+  "hijriDate": "27 Jamadi-Ul-Ula",
+  "fajr": "05:22",
+  "sunrise": "07:04",
+  "dhuhr": "11:48",
+  "asr": "14:34",
+  "maghrib": "16:26",
+  "isha": "17:57",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 72,
+  "asrIqamahDelay": 11,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 33,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ee"
+  },
+  "date": "2026-11-08T00:00:00.000Z",
+  "hijriDate": "28 Jamadi-Ul-Ula",
+  "fajr": "05:24",
+  "sunrise": "07:06",
+  "dhuhr": "11:48",
+  "asr": "14:33",
+  "maghrib": "16:25",
+  "isha": "17:56",
+  "fajrIqamahDelay": 66,
+  "dhuhrIqamahDelay": 72,
+  "asrIqamahDelay": 12,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 34,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ef"
+  },
+  "date": "2026-11-09T00:00:00.000Z",
+  "hijriDate": "29 Jamadi-Ul-Ula",
+  "fajr": "05:25",
+  "sunrise": "07:07",
+  "dhuhr": "11:49",
+  "asr": "14:31",
+  "maghrib": "16:23",
+  "isha": "17:55",
+  "fajrIqamahDelay": 65,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 14,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 95,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f0"
+  },
+  "date": "2026-11-10T00:00:00.000Z",
+  "hijriDate": "30 Jamadi-Ul-Ula",
+  "fajr": "05:26",
+  "sunrise": "07:09",
+  "dhuhr": "11:49",
+  "asr": "14:30",
+  "maghrib": "16:21",
+  "isha": "17:53",
+  "fajrIqamahDelay": 64,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 15,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 97,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f1"
+  },
+  "date": "2026-11-11T00:00:00.000Z",
+  "hijriDate": "1 Jamadi-Ul-Ukhra",
+  "fajr": "05:28",
+  "sunrise": "07:11",
+  "dhuhr": "11:49",
+  "asr": "14:28",
+  "maghrib": "16:20",
+  "isha": "17:52",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 17,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 98,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f2"
+  },
+  "date": "2026-11-12T00:00:00.000Z",
+  "hijriDate": "2 Jamadi-Ul-Ukhra",
+  "fajr": "05:30",
+  "sunrise": "07:13",
+  "dhuhr": "11:49",
+  "asr": "14:27",
+  "maghrib": "16:18",
+  "isha": "17:50",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 18,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 100,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f3"
+  },
+  "date": "2026-11-13T00:00:00.000Z",
+  "hijriDate": "3 Jamadi-Ul-Ukhra",
+  "fajr": "05:30",
+  "sunrise": "07:14",
+  "dhuhr": "11:49",
+  "asr": "14:25",
+  "maghrib": "16:17",
+  "isha": "17:50",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 56,
+  "asrIqamahDelay": 20,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 100,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f4"
+  },
+  "date": "2026-11-14T00:00:00.000Z",
+  "hijriDate": "4 Jamadi-Ul-Ukhra",
+  "fajr": "05:32",
+  "sunrise": "07:16",
+  "dhuhr": "11:49",
+  "asr": "14:24",
+  "maghrib": "16:16",
+  "isha": "17:49",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 21,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 41,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f5"
+  },
+  "date": "2026-11-15T00:00:00.000Z",
+  "hijriDate": "5 Jamadi-Ul-Ukhra",
+  "fajr": "05:34",
+  "sunrise": "07:18",
+  "dhuhr": "11:49",
+  "asr": "14:23",
+  "maghrib": "16:14",
+  "isha": "17:47",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 71,
+  "asrIqamahDelay": 22,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 43,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f6"
+  },
+  "date": "2026-11-16T00:00:00.000Z",
+  "hijriDate": "6 Jamadi-Ul-Ukhra",
+  "fajr": "05:35",
+  "sunrise": "07:20",
+  "dhuhr": "11:50",
+  "asr": "14:21",
+  "maghrib": "16:13",
+  "isha": "17:46",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 70,
+  "asrIqamahDelay": 24,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 104,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f7"
+  },
+  "date": "2026-11-17T00:00:00.000Z",
+  "hijriDate": "7 Jamadi-Ul-Ukhra",
+  "fajr": "05:36",
+  "sunrise": "07:21",
+  "dhuhr": "11:50",
+  "asr": "14:20",
+  "maghrib": "16:12",
+  "isha": "17:46",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 70,
+  "asrIqamahDelay": 25,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 104,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f8"
+  },
+  "date": "2026-11-18T00:00:00.000Z",
+  "hijriDate": "8 Jamadi-Ul-Ukhra",
+  "fajr": "05:38",
+  "sunrise": "07:23",
+  "dhuhr": "11:50",
+  "asr": "14:19",
+  "maghrib": "16:10",
+  "isha": "17:44",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 70,
+  "asrIqamahDelay": 26,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 106,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8f9"
+  },
+  "date": "2026-11-19T00:00:00.000Z",
+  "hijriDate": "9 Jamadi-Ul-Ukhra",
+  "fajr": "05:40",
+  "sunrise": "07:25",
+  "dhuhr": "11:50",
+  "asr": "14:18",
+  "maghrib": "16:09",
+  "isha": "17:43",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 70,
+  "asrIqamahDelay": 27,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 107,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8fa"
+  },
+  "date": "2026-11-20T00:00:00.000Z",
+  "hijriDate": "10 Jamadi-Ul-Ukhra",
+  "fajr": "05:41",
+  "sunrise": "07:26",
+  "dhuhr": "11:50",
+  "asr": "14:17",
+  "maghrib": "16:08",
+  "isha": "17:42",
+  "fajrIqamahDelay": 64,
+  "dhuhrIqamahDelay": 55,
+  "asrIqamahDelay": 28,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 108,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8fb"
+  },
+  "date": "2026-11-21T00:00:00.000Z",
+  "hijriDate": "11 Jamadi-Ul-Ukhra",
+  "fajr": "05:43",
+  "sunrise": "07:28",
+  "dhuhr": "11:51",
+  "asr": "14:16",
+  "maghrib": "16:07",
+  "isha": "17:42",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 69,
+  "asrIqamahDelay": 29,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 48,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8fc"
+  },
+  "date": "2026-11-22T00:00:00.000Z",
+  "hijriDate": "12 Jamadi-Ul-Ukhra",
+  "fajr": "05:45",
+  "sunrise": "07:30",
+  "dhuhr": "11:51",
+  "asr": "14:15",
+  "maghrib": "16:06",
+  "isha": "17:41",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 69,
+  "asrIqamahDelay": 30,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 49,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8fd"
+  },
+  "date": "2026-11-23T00:00:00.000Z",
+  "hijriDate": "13 Jamadi-Ul-Ukhra",
+  "fajr": "05:46",
+  "sunrise": "07:31",
+  "dhuhr": "11:51",
+  "asr": "14:14",
+  "maghrib": "16:05",
+  "isha": "17:40",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 69,
+  "asrIqamahDelay": 31,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 110,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8fe"
+  },
+  "date": "2026-11-24T00:00:00.000Z",
+  "hijriDate": "14 Jamadi-Ul-Ukhra",
+  "fajr": "05:48",
+  "sunrise": "07:33",
+  "dhuhr": "11:51",
+  "asr": "14:13",
+  "maghrib": "16:04",
+  "isha": "17:39",
+  "fajrIqamahDelay": 57,
+  "dhuhrIqamahDelay": 69,
+  "asrIqamahDelay": 32,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 111,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e8ff"
+  },
+  "date": "2026-11-25T00:00:00.000Z",
+  "hijriDate": "15 Jamadi-Ul-Ukhra",
+  "fajr": "05:49",
+  "sunrise": "07:34",
+  "dhuhr": "11:52",
+  "asr": "14:12",
+  "maghrib": "16:03",
+  "isha": "17:39",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 68,
+  "asrIqamahDelay": 33,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 111,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e900"
+  },
+  "date": "2026-11-26T00:00:00.000Z",
+  "hijriDate": "16 Jamadi-Ul-Ukhra",
+  "fajr": "05:51",
+  "sunrise": "07:36",
+  "dhuhr": "11:52",
+  "asr": "14:11",
+  "maghrib": "16:02",
+  "isha": "17:38",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 68,
+  "asrIqamahDelay": 34,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 112,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e901"
+  },
+  "date": "2026-11-27T00:00:00.000Z",
+  "hijriDate": "17 Jamadi-Ul-Ukhra",
+  "fajr": "05:52",
+  "sunrise": "07:37",
+  "dhuhr": "11:52",
+  "asr": "14:10",
+  "maghrib": "16:01",
+  "isha": "17:37",
+  "fajrIqamahDelay": 68,
+  "dhuhrIqamahDelay": 53,
+  "asrIqamahDelay": 35,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 113,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e902"
+  },
+  "date": "2026-11-28T00:00:00.000Z",
+  "hijriDate": "18 Jamadi-Ul-Ukhra",
+  "fajr": "05:54",
+  "sunrise": "07:39",
+  "dhuhr": "11:53",
+  "asr": "14:10",
+  "maghrib": "16:00",
+  "isha": "17:36",
+  "fajrIqamahDelay": 66,
+  "dhuhrIqamahDelay": 67,
+  "asrIqamahDelay": 35,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 54,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e903"
+  },
+  "date": "2026-11-29T00:00:00.000Z",
+  "hijriDate": "19 Jamadi-Ul-Ukhra",
+  "fajr": "05:55",
+  "sunrise": "07:40",
+  "dhuhr": "11:53",
+  "asr": "14:09",
+  "maghrib": "15:59",
+  "isha": "17:36",
+  "fajrIqamahDelay": 65,
+  "dhuhrIqamahDelay": 67,
+  "asrIqamahDelay": 36,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 54,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e904"
+  },
+  "date": "2026-11-30T00:00:00.000Z",
+  "hijriDate": "20 Jamadi-Ul-Ukhra",
+  "fajr": "05:57",
+  "sunrise": "07:42",
+  "dhuhr": "11:53",
+  "asr": "14:08",
+  "maghrib": "15:59",
+  "isha": "17:36",
+  "fajrIqamahDelay": 63,
+  "dhuhrIqamahDelay": 67,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 114,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e905"
+  },
+  "date": "2026-12-01T00:00:00.000Z",
+  "hijriDate": "21 Jamadi-Ul-Ukhra",
+  "fajr": "05:58",
+  "sunrise": "07:43",
+  "dhuhr": "11:54",
+  "asr": "14:08",
+  "maghrib": "15:58",
+  "isha": "17:35",
+  "fajrIqamahDelay": 62,
+  "dhuhrIqamahDelay": 66,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 115,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e906"
+  },
+  "date": "2026-12-02T00:00:00.000Z",
+  "hijriDate": "22 Jamadi-Ul-Ukhra",
+  "fajr": "06:00",
+  "sunrise": "07:45",
+  "dhuhr": "11:54",
+  "asr": "14:07",
+  "maghrib": "15:57",
+  "isha": "17:34",
+  "fajrIqamahDelay": 60,
+  "dhuhrIqamahDelay": 66,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 116,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e907"
+  },
+  "date": "2026-12-03T00:00:00.000Z",
+  "hijriDate": "23 Jamadi-Ul-Ukhra",
+  "fajr": "06:01",
+  "sunrise": "07:46",
+  "dhuhr": "11:55",
+  "asr": "14:07",
+  "maghrib": "15:57",
+  "isha": "17:34",
+  "fajrIqamahDelay": 59,
+  "dhuhrIqamahDelay": 65,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 116,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e908"
+  },
+  "date": "2026-12-04T00:00:00.000Z",
+  "hijriDate": "24 Jamadi-Ul-Ukhra",
+  "fajr": "06:02",
+  "sunrise": "07:47",
+  "dhuhr": "11:55",
+  "asr": "14:06",
+  "maghrib": "15:56",
+  "isha": "17:33",
+  "fajrIqamahDelay": 58,
+  "dhuhrIqamahDelay": 50,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 117,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e909"
+  },
+  "date": "2026-12-05T00:00:00.000Z",
+  "hijriDate": "25 Jamadi-Ul-Ukhra",
+  "fajr": "06:04",
+  "sunrise": "07:49",
+  "dhuhr": "11:55",
+  "asr": "14:06",
+  "maghrib": "15:56",
+  "isha": "17:33",
+  "fajrIqamahDelay": 56,
+  "dhuhrIqamahDelay": 65,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 57,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e90a"
+  },
+  "date": "2026-12-06T00:00:00.000Z",
+  "hijriDate": "26 Jamadi-Ul-Ukhra",
+  "fajr": "06:05",
+  "sunrise": "07:50",
+  "dhuhr": "11:56",
+  "asr": "14:05",
+  "maghrib": "15:55",
+  "isha": "17:32",
+  "fajrIqamahDelay": 55,
+  "dhuhrIqamahDelay": 64,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 58,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e90b"
+  },
+  "date": "2026-12-07T00:00:00.000Z",
+  "hijriDate": "27 Jamadi-Ul-Ukhra",
+  "fajr": "06:06",
+  "sunrise": "07:51",
+  "dhuhr": "11:56",
+  "asr": "14:05",
+  "maghrib": "15:55",
+  "isha": "17:32",
+  "fajrIqamahDelay": 54,
+  "dhuhrIqamahDelay": 64,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 118,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e90c"
+  },
+  "date": "2026-12-08T00:00:00.000Z",
+  "hijriDate": "28 Jamadi-Ul-Ukhra",
+  "fajr": "06:07",
+  "sunrise": "07:52",
+  "dhuhr": "11:57",
+  "asr": "14:05",
+  "maghrib": "15:55",
+  "isha": "17:32",
+  "fajrIqamahDelay": 53,
+  "dhuhrIqamahDelay": 63,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 118,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e90d"
+  },
+  "date": "2026-12-09T00:00:00.000Z",
+  "hijriDate": "29 Jamadi-Ul-Ukhra",
+  "fajr": "06:08",
+  "sunrise": "07:53",
+  "dhuhr": "11:57",
+  "asr": "14:05",
+  "maghrib": "15:55",
+  "isha": "17:32",
+  "fajrIqamahDelay": 52,
+  "dhuhrIqamahDelay": 63,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 118,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e90e"
+  },
+  "date": "2026-12-10T00:00:00.000Z",
+  "hijriDate": "1 Rajab",
+  "fajr": "06:09",
+  "sunrise": "07:54",
+  "dhuhr": "11:58",
+  "asr": "14:05",
+  "maghrib": "15:54",
+  "isha": "17:31",
+  "fajrIqamahDelay": 51,
+  "dhuhrIqamahDelay": 62,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 119,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e90f"
+  },
+  "date": "2026-12-11T00:00:00.000Z",
+  "hijriDate": "2 Rajab",
+  "fajr": "06:10",
+  "sunrise": "07:55",
+  "dhuhr": "11:58",
+  "asr": "14:05",
+  "maghrib": "15:54",
+  "isha": "17:31",
+  "fajrIqamahDelay": 50,
+  "dhuhrIqamahDelay": 47,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 119,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e910"
+  },
+  "date": "2026-12-12T00:00:00.000Z",
+  "hijriDate": "3 Rajab",
+  "fajr": "06:11",
+  "sunrise": "07:56",
+  "dhuhr": "11:58",
+  "asr": "14:05",
+  "maghrib": "15:54",
+  "isha": "17:31",
+  "fajrIqamahDelay": 49,
+  "dhuhrIqamahDelay": 62,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 59,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e911"
+  },
+  "date": "2026-12-13T00:00:00.000Z",
+  "hijriDate": "4 Rajab",
+  "fajr": "06:12",
+  "sunrise": "07:57",
+  "dhuhr": "11:59",
+  "asr": "14:05",
+  "maghrib": "15:54",
+  "isha": "17:31",
+  "fajrIqamahDelay": 48,
+  "dhuhrIqamahDelay": 61,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 59,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e912"
+  },
+  "date": "2026-12-14T00:00:00.000Z",
+  "hijriDate": "5 Rajab",
+  "fajr": "06:13",
+  "sunrise": "07:58",
+  "dhuhr": "11:59",
+  "asr": "14:05",
+  "maghrib": "15:54",
+  "isha": "17:31",
+  "fajrIqamahDelay": 47,
+  "dhuhrIqamahDelay": 61,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 119,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e913"
+  },
+  "date": "2026-12-15T00:00:00.000Z",
+  "hijriDate": "6 Rajab",
+  "fajr": "06:14",
+  "sunrise": "07:59",
+  "dhuhr": "00:00",
+  "asr": "14:05",
+  "maghrib": "15:54",
+  "isha": "17:31",
+  "fajrIqamahDelay": 46,
+  "dhuhrIqamahDelay": 780,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 119,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e914"
+  },
+  "date": "2026-12-16T00:00:00.000Z",
+  "hijriDate": "7 Rajab",
+  "fajr": "06:16",
+  "sunrise": "08:00",
+  "dhuhr": "00:00",
+  "asr": "14:05",
+  "maghrib": "15:55",
+  "isha": "17:32",
+  "fajrIqamahDelay": 44,
+  "dhuhrIqamahDelay": 780,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 118,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e915"
+  },
+  "date": "2026-12-17T00:00:00.000Z",
+  "hijriDate": "8 Rajab",
+  "fajr": "06:17",
+  "sunrise": "08:01",
+  "dhuhr": "00:01",
+  "asr": "14:05",
+  "maghrib": "15:55",
+  "isha": "17:32",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 779,
+  "asrIqamahDelay": 40,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 118,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e916"
+  },
+  "date": "2026-12-18T00:00:00.000Z",
+  "hijriDate": "9 Rajab",
+  "fajr": "06:17",
+  "sunrise": "08:01",
+  "dhuhr": "00:01",
+  "asr": "14:06",
+  "maghrib": "15:55",
+  "isha": "17:32",
+  "fajrIqamahDelay": 43,
+  "dhuhrIqamahDelay": 764,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 118,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e917"
+  },
+  "date": "2026-12-19T00:00:00.000Z",
+  "hijriDate": "10 Rajab",
+  "fajr": "06:18",
+  "sunrise": "08:02",
+  "dhuhr": "00:02",
+  "asr": "14:06",
+  "maghrib": "15:55",
+  "isha": "17:32",
+  "fajrIqamahDelay": 42,
+  "dhuhrIqamahDelay": 778,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 58,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e918"
+  },
+  "date": "2026-12-20T00:00:00.000Z",
+  "hijriDate": "11 Rajab",
+  "fajr": "06:20",
+  "sunrise": "08:03",
+  "dhuhr": "00:02",
+  "asr": "14:06",
+  "maghrib": "15:56",
+  "isha": "17:33",
+  "fajrIqamahDelay": 40,
+  "dhuhrIqamahDelay": 778,
+  "asrIqamahDelay": 39,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 57,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e919"
+  },
+  "date": "2026-12-21T00:00:00.000Z",
+  "hijriDate": "12 Rajab",
+  "fajr": "06:20",
+  "sunrise": "08:03",
+  "dhuhr": "00:03",
+  "asr": "14:07",
+  "maghrib": "15:56",
+  "isha": "17:33",
+  "fajrIqamahDelay": 40,
+  "dhuhrIqamahDelay": 777,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 117,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e91a"
+  },
+  "date": "2026-12-22T00:00:00.000Z",
+  "hijriDate": "13 Rajab",
+  "fajr": "06:21",
+  "sunrise": "08:04",
+  "dhuhr": "00:03",
+  "asr": "14:07",
+  "maghrib": "15:57",
+  "isha": "17:34",
+  "fajrIqamahDelay": 39,
+  "dhuhrIqamahDelay": 777,
+  "asrIqamahDelay": 38,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 116,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e91b"
+  },
+  "date": "2026-12-23T00:00:00.000Z",
+  "hijriDate": "14 Rajab",
+  "fajr": "06:21",
+  "sunrise": "08:04",
+  "dhuhr": "00:04",
+  "asr": "14:08",
+  "maghrib": "15:57",
+  "isha": "17:34",
+  "fajrIqamahDelay": 39,
+  "dhuhrIqamahDelay": 776,
+  "asrIqamahDelay": 37,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 116,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e91c"
+  },
+  "date": "2026-12-24T00:00:00.000Z",
+  "hijriDate": "15 Rajab",
+  "fajr": "06:22",
+  "sunrise": "08:05",
+  "dhuhr": "00:04",
+  "asr": "14:09",
+  "maghrib": "15:58",
+  "isha": "17:35",
+  "fajrIqamahDelay": 38,
+  "dhuhrIqamahDelay": 776,
+  "asrIqamahDelay": 36,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 115,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e91d"
+  },
+  "date": "2026-12-25T00:00:00.000Z",
+  "hijriDate": "16 Rajab",
+  "fajr": "06:22",
+  "sunrise": "08:05",
+  "dhuhr": "00:05",
+  "asr": "14:09",
+  "maghrib": "15:59",
+  "isha": "17:36",
+  "fajrIqamahDelay": 38,
+  "dhuhrIqamahDelay": 760,
+  "asrIqamahDelay": 36,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 54,
+  "isJumuah": true
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e91e"
+  },
+  "date": "2026-12-26T00:00:00.000Z",
+  "hijriDate": "17 Rajab",
+  "fajr": "06:24",
+  "sunrise": "08:05",
+  "dhuhr": "00:05",
+  "asr": "14:10",
+  "maghrib": "15:59",
+  "isha": "17:36",
+  "fajrIqamahDelay": 36,
+  "dhuhrIqamahDelay": 775,
+  "asrIqamahDelay": 35,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 54,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e91f"
+  },
+  "date": "2026-12-27T00:00:00.000Z",
+  "hijriDate": "18 Rajab",
+  "fajr": "06:24",
+  "sunrise": "08:05",
+  "dhuhr": "00:06",
+  "asr": "14:11",
+  "maghrib": "16:00",
+  "isha": "17:37",
+  "fajrIqamahDelay": 36,
+  "dhuhrIqamahDelay": 774,
+  "asrIqamahDelay": 34,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 53,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e920"
+  },
+  "date": "2026-12-28T00:00:00.000Z",
+  "hijriDate": "19 Rajab",
+  "fajr": "06:25",
+  "sunrise": "08:06",
+  "dhuhr": "00:06",
+  "asr": "14:11",
+  "maghrib": "16:01",
+  "isha": "17:38",
+  "fajrIqamahDelay": 35,
+  "dhuhrIqamahDelay": 774,
+  "asrIqamahDelay": 34,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 52,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e921"
+  },
+  "date": "2026-12-29T00:00:00.000Z",
+  "hijriDate": "20 Rajab",
+  "fajr": "06:26",
+  "sunrise": "08:06",
+  "dhuhr": "00:07",
+  "asr": "14:12",
+  "maghrib": "16:02",
+  "isha": "17:39",
+  "fajrIqamahDelay": 34,
+  "dhuhrIqamahDelay": 773,
+  "asrIqamahDelay": 33,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 51,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e922"
+  },
+  "date": "2026-12-30T00:00:00.000Z",
+  "hijriDate": "21 Rajab",
+  "fajr": "06:26",
+  "sunrise": "08:06",
+  "dhuhr": "00:07",
+  "asr": "14:13",
+  "maghrib": "16:03",
+  "isha": "17:40",
+  "fajrIqamahDelay": 34,
+  "dhuhrIqamahDelay": 773,
+  "asrIqamahDelay": 32,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 50,
+  "isJumuah": false
+},
+{
+  "_id": {
+    "$oid": "6998cec04cb4e56942c5e923"
+  },
+  "date": "2026-12-31T00:00:00.000Z",
+  "hijriDate": "22 Rajab",
+  "fajr": "06:26",
+  "sunrise": "08:06",
+  "dhuhr": "00:08",
+  "asr": "14:14",
+  "maghrib": "16:04",
+  "isha": "17:41",
+  "fajrIqamahDelay": 34,
+  "dhuhrIqamahDelay": 772,
+  "asrIqamahDelay": 31,
+  "maghribIqamahDelay": 2,
+  "ishaIqamahDelay": 49,
+  "isJumuah": false
+}]

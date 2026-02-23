@@ -1,12 +1,12 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 
 // Initialize plugins
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const TIMEZONE = "Europe/London";
+const TIMEZONE = 'Europe/London';
 
 // Helper functions for prayer times
 
@@ -31,7 +31,11 @@ export interface PrayerTimeData {
 // Add minutes to a time string (format: "HH:MM")
 export function addMinutesToTime(time: string, minutes: number): string {
   const [hours, mins] = time.split(':').map(Number);
-  return dayjs().tz(TIMEZONE).hour(hours).minute(mins + minutes).format("HH:mm");
+  return dayjs()
+    .tz(TIMEZONE)
+    .hour(hours)
+    .minute(mins + minutes)
+    .format('HH:mm');
 }
 
 // Get prayer times for a specific date
@@ -59,20 +63,23 @@ export function getPrayerTimesByDate(
 // Format date to readable string
 export function formatGregorianDate(date: Date): string {
   const d = dayjs(date).tz(TIMEZONE);
-  return d.format("dddd, MMMM D, YYYY");
+  return d.format('dddd, MMMM D, YYYY');
 }
 
 // Format hijri date
 export function formatHijriDate(hijriDate: string): string {
-  // hijriDate format from API: "1 12 1441446" (day month year)
-  // Parse and format it properly
+  // hijriDate format from API can be:
+  // 1. "1 9 1447" (day monthIndex year)
+  // 2. "1 Ramadhan" (day monthName)
+  // 3. "10 Shaw'waal" (day monthName)
   if (!hijriDate) return '';
-  const parts = hijriDate.trim().split(' ');
-  if (parts.length < 3) return hijriDate;
+
+  const parts = hijriDate.trim().split(/\s+/);
+  if (parts.length < 2) return hijriDate;
 
   const day = parts[0];
-  const monthNum = parseInt(parts[1]);
-  const year = parts[2];
+  const secondPart = parts[1];
+  const year = parts[2] || '';
 
   const hijriMonths = [
     'Muharram',
@@ -89,8 +96,20 @@ export function formatHijriDate(hijriDate: string): string {
     'Dhul-Hijjah',
   ];
 
-  const monthName = hijriMonths[monthNum - 1] || `Month ${monthNum}`;
-  return `${monthName} ${day}, ${year} AH`;
+  // If second part is a number, map it to month name
+  if (/^\d+$/.test(secondPart)) {
+    const monthNum = parseInt(secondPart);
+    const monthName = hijriMonths[monthNum - 1] || `Month ${monthNum}`;
+    return `${monthName} ${day}${year ? `, ${year}` : ''} AH`;
+  }
+
+  // If second part is already a name, just return it formatted
+  // Some names might need normalization (e.g., Ramadhan -> Ramadan)
+  let monthName = secondPart;
+  if (monthName.toLowerCase() === 'ramadhan') monthName = 'Ramadan';
+  if (monthName.toLowerCase() === "shaw'waal") monthName = 'Shawwal';
+
+  return `${monthName} ${day}${year ? `, ${year}` : ''} AH`;
 }
 
 // Find next prayer - accepts selected date to determine if it's today
@@ -102,12 +121,10 @@ export function findNextPrayer(
 
   const now = dayjs().tz(TIMEZONE);
 
-  const selected = selectedDate
-    ? dayjs(selectedDate).tz(TIMEZONE)
-    : now;
+  const selected = selectedDate ? dayjs(selectedDate).tz(TIMEZONE) : now;
 
   // If selected date is not today, return first prayer (Fajr) with no countdown
-  if (selected.format("YYYY-MM-DD") !== now.format("YYYY-MM-DD")) {
+  if (selected.format('YYYY-MM-DD') !== now.format('YYYY-MM-DD')) {
     return { name: 'FAJR', time: prayerTimeData.fajr };
   }
 
@@ -139,7 +156,7 @@ export function findNextPrayer(
 export function isToday(date: Date): boolean {
   const now = dayjs().tz(TIMEZONE);
   const d = dayjs(date).tz(TIMEZONE);
-  return d.format("YYYY-MM-DD") === now.format("YYYY-MM-DD");
+  return d.format('YYYY-MM-DD') === now.format('YYYY-MM-DD');
 }
 
 // Determine which prayer is currently active

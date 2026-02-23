@@ -148,16 +148,26 @@ const NavItem = ({
                 href={dropdownItem.href}
                 className={
                   isMobile
-                    ? 'text-gray-400 hover:text-white py-2'
+                    ? 'block w-full text-gray-400 hover:text-white py-3 transition-colors'
                     : 'block px-6 py-3 text-black hover:bg-gray-100 transition-colors text-center'
                 }
                 onClick={() => {
-                  onDropdownToggle();
-                  onCloseMenu?.();
+                  if (isMobile) {
+                    // Only close manually if it's a hash link on the same page
+                    // Otherwise let the useEffect handle it after navigation
+                    if (
+                      dropdownItem.href.includes('#') &&
+                      dropdownItem.href.startsWith(pathname)
+                    ) {
+                      onCloseMenu?.();
+                    }
+                  }
                 }}
               >
                 {isMobile ? (
-                  dropdownItem.label
+                  <span className="text-base font-normal">
+                    {dropdownItem.label}
+                  </span>
                 ) : (
                   <p className="font-normal text-base leading-6 whitespace-nowrap">
                     {dropdownItem.label}
@@ -174,11 +184,17 @@ const NavItem = ({
   return (
     <Link
       href={item.href}
-      className={isMobile ? '' : 'flex gap-1 items-center shrink-0'}
-      onClick={onCloseMenu}
+      className={isMobile ? 'block w-full' : 'flex gap-1 items-center shrink-0'}
+      onClick={() => {
+        if (isMobile) {
+          if (item.href.includes('#') && item.href.startsWith(pathname)) {
+            onCloseMenu?.();
+          }
+        }
+      }}
     >
       <p
-        className={`font-normal ${isMobile ? 'text-base' : 'text-sm xl:text-base leading-6'} whitespace-nowrap ${activeClass}`}
+        className={`font-normal ${isMobile ? 'text-base py-3' : 'text-sm xl:text-base leading-6'} whitespace-nowrap ${activeClass}`}
       >
         {item.label}
       </p>
@@ -197,21 +213,22 @@ const HamburgerIcon = () => (
 
 export default function MainHeader() {
   const [aboutUsOpen, setAboutUsOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close dropdown whenever the route changes
+  // Close everything on route change
   useEffect(() => {
     setAboutUsOpen(false);
+    setMobileAboutOpen(false);
+    setMobileMenuOpen(false);
   }, [pathname]);
 
-  // Check if we're on the blog page
-  // const isBlogPage = pathname.startsWith('/blogs');
-  const isBlogPage = false
+  const isBlogPage = false;
   const headerBgClass = isBlogPage ? 'bg-[#e6f1fe]' : 'bg-black';
 
   return (
-    <header className={`${headerBgClass} w-full sticky top-0 z-40`}>
+    <header className={`${headerBgClass} w-full sticky top-0 z-50`}>
       <div className="flex items-center justify-between hn-container py-3 lg:py-0 w-full">
         {/* Hamburger Menu */}
         <button
@@ -245,7 +262,7 @@ export default function MainHeader() {
             {NAV_ITEMS.map(item => {
               const isActive = item.hasDropdown
                 ? pathname.startsWith('/about') ||
-                pathname.startsWith('/contact-us')
+                  pathname.startsWith('/contact-us')
                 : item.href === '/'
                   ? pathname === '/'
                   : pathname.startsWith(item.href);
@@ -315,11 +332,15 @@ export default function MainHeader() {
       {/* Mobile Menu */}
       <>
         <div
-          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-9998 ${mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'}`}
+          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-50 ${
+            mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
+          }`}
           onClick={() => setMobileMenuOpen(false)}
         />
         <div
-          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-9999 overflow-y-auto transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-[60] overflow-y-auto transition-transform duration-300 ease-in-out ${
+            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
         >
           <div className="flex justify-end p-4">
             <button
@@ -337,8 +358,8 @@ export default function MainHeader() {
                 <NavItem
                   item={item}
                   pathname={pathname}
-                  dropdownOpen={aboutUsOpen}
-                  onDropdownToggle={() => setAboutUsOpen(!aboutUsOpen)}
+                  dropdownOpen={item.hasDropdown ? mobileAboutOpen : false}
+                  onDropdownToggle={() => setMobileAboutOpen(!mobileAboutOpen)}
                   onCloseMenu={() => setMobileMenuOpen(false)}
                   isMobile
                   isBlogPage={isBlogPage}

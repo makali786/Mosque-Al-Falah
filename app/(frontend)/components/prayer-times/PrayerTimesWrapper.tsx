@@ -87,9 +87,23 @@ export default function PrayerTimesWrapper({
     // Filter for Ramadan
     const ramadanData = yearData.filter(pt => {
       if (!pt.hijriDate) return false;
-      const parts = pt.hijriDate.trim().split(' ');
-      // parts[1] is month index (1-based), Ramadan is the 9th month
-      return parseInt(parts[1]) === 9;
+      const hijriDateLower = pt.hijriDate.toLowerCase();
+
+      // Check for month name
+      if (
+        hijriDateLower.includes('ramadan') ||
+        hijriDateLower.includes('ramadhan')
+      ) {
+        return true;
+      }
+
+      // Check for numeric month index (1-based), Ramadan is the 9th month
+      const parts = pt.hijriDate.trim().split(/\s+/);
+      if (parts.length >= 2) {
+        return parseInt(parts[1]) === 9;
+      }
+
+      return false;
     });
 
     if (ramadanData.length === 0) {

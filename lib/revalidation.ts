@@ -44,6 +44,8 @@ const SLUG_TO_PATHS: Record<string, string[]> = {
  * Call this from afterChange hooks.
  */
 export function revalidateBySlug(slug: string) {
+  if (process.env.SKIP_REVALIDATION === 'true') return;
+
   const paths = SLUG_TO_PATHS[slug];
   if (!paths) return;
 
@@ -54,7 +56,10 @@ export function revalidateBySlug(slug: string) {
         `[Revalidation] ✅ Revalidated ${path} (triggered by ${slug})`
       );
     } catch (err) {
-      console.error(`[Revalidation] ❌ Failed to revalidate ${path}:`, err);
+      // Quietly log and continue in script/non-request contexts
+      console.warn(
+        `[Revalidation] 💡 Skipping ${path} (not in request context)`
+      );
     }
   }
 }

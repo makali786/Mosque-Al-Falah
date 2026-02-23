@@ -178,18 +178,20 @@ const importPrayerTimes = async () => {
         type: 'am' | 'pm' | 'dhuhr'
       ) => {
         if (!time) return '';
-        let [h, m] = time.replace('.', ':').split(':').map(Number); // Normalize separator here too
+        let [h, m] = time.replace('.', ':').split(':').map(Number);
         if (isNaN(h) || isNaN(m)) return '';
 
         if (type === 'am') {
           if (h === 12) h = 0; // 12 AM -> 00
         } else if (type === 'pm') {
-          if (h < 12) h += 12; // 1 PM -> 13, 11 PM -> 23
+          if (h < 12) h += 12; // 1 PM -> 13. 12 PM stays 12.
         } else if (type === 'dhuhr') {
-          // Dhuhr is tricky. 11:xx is AM. 12:xx is PM. 1:xx is PM.
-          // Assumes Dhuhr is between 11 AM and 3 PM.
-          if (h < 11) h += 12; // 1:00 -> 13:00.
-          // 11 stays 11. 12 stays 12.
+          // Dhuhr: 11:xx is AM, 12:xx is PM, 1:xx is PM.
+          if (h < 11 || h === 12) {
+            // 12 stays 12 (PM). 1, 2, 3 etc. become 13, 14, 15.
+            if (h < 11) h += 12;
+          }
+          // 11 stays 11 (AM).
         }
 
         return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
@@ -257,10 +259,12 @@ const importPrayerTimes = async () => {
       const maghribDelay = calcDelay(maghribStart, maghribJam);
       const ishaDelay = calcDelay(ishaStart, ishaJam);
 
+      const COLLECTION_SLUG = 'prayer-times' as any;
+
       // 6. DB Update
       try {
         const existing = await payload.find({
-          collection: 'prayer-times',
+          collection: COLLECTION_SLUG,
           where: { date: { equals: dateStr } },
         });
 
@@ -283,13 +287,13 @@ const importPrayerTimes = async () => {
 
         if (existing.totalDocs > 0) {
           await payload.update({
-            collection: 'prayer-times',
+            collection: COLLECTION_SLUG,
             id: existing.docs[0].id,
             data: data,
           });
         } else {
           await payload.create({
-            collection: 'prayer-times',
+            collection: COLLECTION_SLUG,
             data: data,
           });
         }

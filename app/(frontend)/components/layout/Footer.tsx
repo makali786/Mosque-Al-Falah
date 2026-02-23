@@ -579,7 +579,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row lg:flex-wrap xl:flex-nowrap items-start py-0 w-full hn-container-footer ">
           {/* Mobile: Logo */}
           <div className="flex flex-col items-center gap-6 py-8 lg:hidden w-full hn-container ">
-            <div className="w-24 h-24">
+            <Link href="/" className="w-24 h-24">
               <Image
                 src="/assets/footer/footer-logo.png"
                 alt="Masjid Al-Falah"
@@ -587,12 +587,12 @@ export default function Footer() {
                 height={96}
                 className="object-cover"
               />
-            </div>
+            </Link>
           </div>
 
           {/* Desktop: Logo & Copyright Section */}
           <div className="hidden lg:flex flex-col gap-9 items-center px-2 xl:px-4 py-9 lg:w-auto lg:min-w-[240px] xl:min-w-[352px] xl:max-w-[352px]">
-            <div className="w-32 h-32">
+            <Link href="/" className="w-32 h-32">
               <Image
                 src="/assets/footer/footer-logo.png"
                 alt="Masjid Al-Falah"
@@ -600,7 +600,7 @@ export default function Footer() {
                 height={128}
                 className="object-cover"
               />
-            </div>
+            </Link>
             <div className="flex gap-2 items-center justify-center flex-wrap">
               {FOOTER_LINKS.map((link, idx) => (
                 <React.Fragment key={link.href}>
