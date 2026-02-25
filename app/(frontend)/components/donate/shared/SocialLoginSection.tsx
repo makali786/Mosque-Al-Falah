@@ -100,14 +100,17 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
       <div className="flex gap-8 items-start w-full">
         <SocialLoginButton
           provider="apple"
+          disabled={false}
           onClick={handleAppleSignIn}
         />
         <SocialLoginButton
           provider="google"
+          disabled={false}
           onClick={handleGoogleSignIn}
         />
         <SocialLoginButton
           provider="facebook"
+          disabled={true}
           onClick={handleFacebookSignIn}
         />
       </div>
