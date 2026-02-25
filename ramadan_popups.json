@@ -1,0 +1,3542 @@
+[
+  {
+    "_id": {
+      "$oid": "caf7f7d20d324f22f8b431f7"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.288Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 1",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-17T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-17T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Welcome to the 1st day of Ramadan. Let us dedicate this time to self-discipline and reflection.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Set a clear intention for the whole month today.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54806f08a54e279a35f4"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "2548404463564f0bf1e95bc6"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "d4a2448849d76091b4ffe887"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 2",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-18T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-18T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "On this 2nd day, remember that fasting encompasses not just food, but also our words and actions.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Make a conscious effort to avoid idle talk today.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54826f08a54e279a35f8"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "1d7769e63508237109bd45cb"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "ea346d36a403a445c7e45fad"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 3",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-19T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-19T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "3rd day of Ramadan: The first 10 days are the days of Mercy.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Constantly seek Allah's mercy through the simple dua: 'O My Lord, forgive me and have mercy upon me.'",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54836f08a54e279a35fc"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "4588f66750e0395539bb0777"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "90099ac14a5e519f8c399f5d"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 4",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-20T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-20T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "4th day of Ramadan: Charity extinguishes sin as water extinguishes fire.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Donate a small amount to charity today, even if it's just a smile or helping hand.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54866f08a54e279a3600"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "3d8afa822d4637e31dd45e57"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "3a71bafba5b48aead1132051"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 5",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-21T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-21T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "5th day of Ramadan: Consistency is key. It's better to do small good deeds every day than a lot at once.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Commit to reading just 2 pages of Quran after every prayer.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54886f08a54e279a3604"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "a3061fbb8377e4b7c462e62a"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "690834d8bcdd5b097d708875"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 6",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-22T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-22T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "6th day of Ramadan: Patience is half of faith.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " When you feel tested today, take a deep breath and say 'Alhamdulillah'.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548a6f08a54e279a3608"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "f99a7f1999946d0d9ab2cbb5"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "953fae1a825b864caf1d1a67"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 7",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-23T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-23T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "7th day of Ramadan: Establish your prayers. Salah is the first thing we will be asked about.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Try to pray all sunnah prayers along with the fard prayers today.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548b6f08a54e279a360c"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "1fd4ff243b98c9f9c99ccfec"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "06bc93876edb1e39272224b7"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 8",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-24T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-24T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "8th day of Ramadan: Gratitude increases blessings. Be thankful for the food you break your fast with.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Make a list of 5 things you are deeply thankful for.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548d6f08a54e279a3610"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "7454700e6ead596fe2336f42"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "26eddc0fdb2c60e0a93369ba"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 9",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-25T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-25T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "9th day of Ramadan: Strengthen your ties of kinship.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Call a family member or relative you haven't spoken to in a while.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548f6f08a54e279a3614"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "6489bb7660fc355f0684cb53"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "6f1119016912b5917ffa37cc"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 10",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-26T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-26T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "10th day of Ramadan: As we conclude the days of Mercy, we enter the days of Forgiveness.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Reflect on your past mistakes and sincerely ask for forgiveness.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54806f08a54e279a35f4"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "44605f9a85f59d4f3f0b5ca1"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "124f7daa67fa31f181e73fb8"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 11",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-27T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-27T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "11th day of Ramadan: The Prophet (PBUH) was the most generous of people, especially in Ramadan.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Find an opportunity to be unexpectedly generous to someone today.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54826f08a54e279a35f8"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "e7c630fbecc3de4b91b817aa"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "ca12e2d57cdc351a27b0503f"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 12",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-02-28T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-02-28T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "12th day of Ramadan: Your health is a trust (amanah). Eat wholesome food for Suhoor and Iftar.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Break your fast with dates and water, and avoid overeating.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54836f08a54e279a35fc"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "04549ede7ea7302942f98c1e"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "b29de6bbc01a5790ad52e50b"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 13",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-01T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-01T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "13th day of Ramadan: Knowledge is light. Use this month to increase your Islamic knowledge.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Listen to an Islamic lecture or read a chapter from a beneficial book.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54866f08a54e279a3600"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "5a8216404623541b55de85d9"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "e18bc8eecbe2862aae8c39c7"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 14",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-02T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-02T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "14th day of Ramadan: A good word is a charity.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Compliment someone sincerely or encourage a fellow fasting brother/sister.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54886f08a54e279a3604"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "aeb679883c49c37a7d5bd786"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "df1d79dd627c62d179e04a0d"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 15",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-03T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-03T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "15th day of Ramadan: We are halfway through the blessed month. Renew your intentions.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Evaluate your goals from day 1 and adjust where necessary to finish strong.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548a6f08a54e279a3608"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "c0980853de349a4e4fd4d5ee"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "5a1ccf41889a9836f4e8913e"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 16",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-04T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-04T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "16th day of Ramadan: Dua is the weapon of the believer. The dua of a fasting person is not rejected.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Make a special dua just before breaking your fast.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548b6f08a54e279a360c"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "9a75b551ef196164cbac615c"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "c9d8b29e5c65df24efa87999"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 17",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-05T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-05T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "17th day of Ramadan: The Battle of Badr took place on this day. It's a reminder that Allah grants victory to those who strive.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Reflect on the struggles of the early Muslims and draw strength from them.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548d6f08a54e279a3610"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "e0e701130ad83e7349c09a14"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "185a005f99000b5051727b10"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 18",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-06T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-06T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "18th day of Ramadan: Be mindful of your time. Don't waste the precious remaining days.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Limit your social media usage to focus on spiritual connection.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548f6f08a54e279a3614"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "5edcb408511b17180aeb9cab"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "4cb669e28219bc71b0724e47"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 19",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-07T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-07T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "19th day of Ramadan: Prepare for the last ten nights. The best is yet to come.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Start adjusting your sleep schedule to ensure you can stay awake during the nights.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54806f08a54e279a35f4"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "5cdebae8d7fdb15dc434874b"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "b30d9c0aba1c20a32f064084"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 20",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-08T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-08T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "20th day of Ramadan: Entering the last 10 days—the days of seeking refuge from the Fire.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Increase your recitation of the Quran and your nighttime prayers.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54826f08a54e279a35f8"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "a75aa9c87b4d3b799c14cfea"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "8390ed4baa9706492b30495a"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 21",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-09T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-09T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "21st day of Ramadan: Seek Laylatul Qadr (The Night of Decree), better than a thousand months.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Recite the recommended dua for Laylatul Qadr abundantly.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54836f08a54e279a35fc"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "2fd501a1e01cbb245bf5fe8b"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "8729f7c9e022f32f2faa3be3"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 22",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-10T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-10T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "22nd day of Ramadan: I'tikaf is a beautiful sunnah of disconnecting from the world.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Even if you can't stay at the masjid, spend a dedicated hour in a quiet room for pure ibadah.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54866f08a54e279a3600"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "8267223ea2381ba979a1e3c6"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "befcdc82d823ac2ec90f8ff3"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 23",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-11T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-11T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "23rd day of Ramadan: Another odd night. Stay vigilant in prayer and supplication.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Donate a small amount tonight; if it is Laylatul Qadr, it's as if you donated for 83 years!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54886f08a54e279a3604"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "cb216aa20d76fbffe59f1a88"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "bf13ef6648c43425fc51cdaf"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 24",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-12T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-12T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "24th day of Ramadan: Forgive others, so that Allah may forgive you.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Let go of any grudges you hold in your heart today.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548a6f08a54e279a3608"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "6972fd3b5b923b2d587ff613"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "9be88e88280ec2c0fbb3618d"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 25",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-13T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-13T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "25th day of Ramadan: Keep pushing forward. Fatigue is normal, but the reward is eternal.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Remind yourself of the gates of Rayyan, reserved specifically for those who fast.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548b6f08a54e279a360c"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "7bfaf746c43e6376158d6eb2"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "49cf3bc65eec486a1297f808"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 26",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-14T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-14T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "26th day of Ramadan: Every moment is precious now. Less sleep, more prayer.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Make sincere dua for the global Muslim ummah who are facing hardships.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548d6f08a54e279a3610"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "08154b0ae5459e1f86533cf7"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "3a46a1fc6d5c07ca3a74fd2b"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 27",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-15T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-15T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "27th day of Ramadan: Often considered the most likely night for Laylatul Qadr.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Exhaust yourself in good deeds and sincere repentance tonight.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e548f6f08a54e279a3614"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "79ee80b0c24a2efe588f9d3a"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "b70b2f2284d0212d169c5ee4"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 28",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-16T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-16T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "28th day of Ramadan: As the month wraps up, reflect on your spiritual journey.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Write down the positive habits you've built and plan how to maintain them.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54806f08a54e279a35f4"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "6c533f4e5184413a27a6c1e4"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "23da147278ea088340ce27df"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 29",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-17T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-17T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "29th day of Ramadan: Zakat al-Fitr purifies our fasting. Ensure it is paid before the Eid prayer.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Pay your Zakat al-Fitr today if you haven't already.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54826f08a54e279a35f8"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "064378d8bfdcbb884642d650"
+      }
+    ],
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "77be7f7dbc3ccaf1000e4f54"
+    },
+    "createdAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-25T01:58:10.289Z"
+    },
+    "title": "Ramadan Day 30",
+    "isActive": true,
+    "priority": 10,
+    "type": "ramadan",
+    "frequency": "once_per_day",
+    "scheduling": {
+      "startDate": {
+        "$date": "2026-03-18T00:00:00.000Z"
+      },
+      "endDate": {
+        "$date": "2026-03-18T23:59:59.999Z"
+      }
+    },
+    "content": {
+      "message": {
+        "root": {
+          "children": [
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "30th day of Ramadan: We bid farewell to this blessed guest. May Allah accept from us all.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 1,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Tip for the Day:",
+                  "type": "text",
+                  "version": 1
+                },
+                {
+                  "detail": 0,
+                  "format": 0,
+                  "mode": "normal",
+                  "style": "",
+                  "text": " Look out for the Eid moon and prepare your heart for the joy of Eid.",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            },
+            {
+              "children": [
+                {
+                  "detail": 0,
+                  "format": 2,
+                  "mode": "normal",
+                  "style": "",
+                  "text": "Ramadan Mubarak to our community!",
+                  "type": "text",
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "format": "",
+              "indent": 0,
+              "type": "paragraph",
+              "version": 1,
+              "textFormat": 0,
+              "textStyle": ""
+            }
+          ],
+          "direction": null,
+          "format": "",
+          "indent": 0,
+          "type": "root",
+          "version": 1
+        }
+      },
+      "backgroundImage": {
+        "$oid": "699e54836f08a54e279a35fc"
+      }
+    },
+    "actions": [
+      {
+        "label": "Donate",
+        "link": "/donate",
+        "style": "primary",
+        "id": "c4221dbaafb8ba856579b00d"
+      }
+    ],
+    "__v": 0
+  }
+]

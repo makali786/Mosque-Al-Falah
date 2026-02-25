@@ -1,20 +1,10 @@
 import { fetchDonationAppeals, fetchGlobal } from '@lib/fetcher';
-import AppealCard from '../components/common/AppealCard';
 import BreadcrumbSearchSection from '../components/common/BreadcrumbSearchSection';
 import { QuoteSection } from '../components/common/QuoteSection';
 import { RichTextRenderer } from '../components/common/RichTextRenderer';
+import AppealsList from './AppealsList';
 
 export const revalidate = 60;
-
-// Helper to calculate days left
-const getDaysLeft = (dateString?: string) => {
-  if (!dateString) return 0;
-  const end = new Date(dateString);
-  const now = new Date();
-  const diffTime = end.getTime() - now.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return diffDays > 0 ? diffDays : 0;
-};
 
 export default async function AppealsPage() {
   // Use simple fallback data to debug 500 error
@@ -97,38 +87,7 @@ export default async function AppealsPage() {
           </div>
 
           {appealsData && appealsData.length > 0 ? (
-            <div
-              className={`grid grid-cols-1 md:grid-cols-2 ${gridClass} gap-6`}
-            >
-              {appealsData.map((appeal: any, index: number) => (
-                <AppealCard
-                  key={appeal.id || index}
-                  title={appeal?.title}
-                  description={appeal?.shortDescription}
-                  image={appeal?.heroMedia?.heroImage}
-                  organization={{
-                    name: 'Masjid Al-Falah',
-                    logo: '/assets/common/logo-small.svg',
-                  }}
-                  stats={{
-                    donors: appeal?.funding?.totalDonors || 0,
-                    daysLeft: appeal?.funding?.isOngoing
-                      ? 0
-                      : getDaysLeft(appeal?.timeline?.endDate),
-                  }}
-                  funding={{
-                    raised: appeal?.funding?.currentAmount || 0,
-                    goal: appeal?.funding?.targetAmount || 0,
-                    isOngoing: appeal?.funding?.isOngoing || false,
-                  }}
-                  links={{
-                    donate: `/donate?appealId=${appeal.id}`,
-                    details: `/appeals/${appeal.slug}`,
-                  }}
-                  buttonVariant="primary"
-                />
-              ))}
-            </div>
+            <AppealsList appealsData={appealsData} gridClass={gridClass} />
           ) : (
             <div className="py-12 text-center text-gray-500">
               {emptyStates?.noAppealsMessage ||

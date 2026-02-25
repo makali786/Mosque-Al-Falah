@@ -53,12 +53,11 @@ const SOCIAL_LINKS = [
     icon: '/assets/common/youtube-icon.svg',
     url: 'https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw',
   },
-  // Instagram - not available yet
-  // {
-  //   name: "Instagram",
-  //   icon: "/assets/common/instagram-icon.svg",
-  //   url: "https://instagram.com",
-  // },
+  {
+    name: "Instagram",
+    icon: "/assets/common/instagram-icon.svg",
+    url: "https://www.instagram.com/masjidalfalahilford/?hl=en",
+  },
   // { name: "Qibla", icon: "/assets/common/qibla.png", url: "" },
 ] as const;
 

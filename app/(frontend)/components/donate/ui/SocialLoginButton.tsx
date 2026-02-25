@@ -33,8 +33,9 @@ export default function SocialLoginButton({
   return (
     <button
       type="button"
-      onClick={onClick}
-      className="bg-white border border-[#E4E4E7] flex flex-1 items-center justify-center overflow-hidden px-0 sm:pl-0 sm:pr-3 rounded-lg cursor-pointer hover:bg-[#F4F4F5] transition-colors"
+      // onClick={onClick}
+      disabled={true}
+      className="bg-white border border-[#E4E4E7] flex flex-1 items-center justify-center overflow-hidden px-0 sm:pl-0 sm:pr-3 rounded-lg cursor-not-allowed hover:bg-[#F4F4F5] transition-colors"
     >
       <div className="bg-white overflow-hidden rounded-[1px] w-10 h-10">
         <div className="p-2">

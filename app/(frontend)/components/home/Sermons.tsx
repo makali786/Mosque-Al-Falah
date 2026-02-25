@@ -85,6 +85,7 @@ export default function Sermons({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(3);
 
   const checkScroll = () => {
     if (scrollContainerRef.current) {
@@ -201,15 +202,27 @@ export default function Sermons({
           className="flex flex-col sm:flex-row gap-9 sm:overflow-x-auto scrollbar-hide scroll-smooth"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {mappedSermons.map((sermon) => (
+          {mappedSermons.map((sermon, index) => (
             <div
               key={sermon.id}
-              className="shrink-0 w-full sm:w-88.75 lg:w-[calc((100%-72px)/3)]"
+              className={`shrink-0 w-full sm:w-88.75 lg:w-[calc((100%-72px)/3)] ${index >= visibleCount ? 'hidden sm:block' : ''}`}
             >
               <SermonCard sermon={sermon} layout="grid" />
             </div>
           ))}
         </div>
+
+        {/* Load More Button - Mobile Only */}
+        {visibleCount < mappedSermons.length && (
+          <div className="mt-8 flex justify-center sm:hidden">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 3)}
+              className="px-6 py-3 bg-[#F4F4F5] rounded-lg text-sm font-medium text-[#18181B] hover:bg-gray-200 transition-colors cursor-pointer"
+            >
+              Load More
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
