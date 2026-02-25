@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { donationTypes } from '../../types';
 
 interface Appeal {
@@ -8,6 +8,7 @@ interface Appeal {
   title: string;
   slug: string;
   category: string;
+  disableOnlineDonation?: boolean;
   funding?: {
     targetAmount?: number;
     currentAmount?: number;
@@ -28,14 +29,17 @@ export default function DonationTypeSelector({
   const [appeals, setAppeals] = useState<Appeal[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch active donation appeals
+  // Fetch active donation appeals (excluding those with online donation disabled)
   useEffect(() => {
     const fetchAppeals = async () => {
       try {
-        const response = await fetch('/api/donation-appeals?limit=100&where[isActive][equals]=true');
+        const response = await fetch(
+          '/api/donation-appeals?limit=100&where[isActive][equals]=true&where[disableOnlineDonation][not_equals]=true'
+        );
         const data = await response.json();
         if (data.docs) {
-          setAppeals(data.docs);
+          // Safety filter: ensure no appeals with disableOnlineDonation slip through
+          setAppeals(data.docs.filter((a: Appeal) => !a.disableOnlineDonation));
         }
       } catch (error) {
         console.error('Failed to fetch donation appeals:', error);

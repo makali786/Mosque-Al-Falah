@@ -80,7 +80,10 @@ export default function DonatePage() {
   // Save state to sessionStorage whenever it changes after hydration
   useEffect(() => {
     if (isHydrated) {
-      sessionStorage.setItem('donationState', JSON.stringify({ formData, currentStep }));
+      sessionStorage.setItem(
+        'donationState',
+        JSON.stringify({ formData, currentStep })
+      );
     }
   }, [formData, currentStep, isHydrated]);
 
@@ -91,6 +94,15 @@ export default function DonatePage() {
         .then(res => res.json())
         .then(appeal => {
           if (appeal && appeal.category) {
+            // If this appeal has online donations disabled, clear it and fall back to general
+            if (appeal.disableOnlineDonation) {
+              setFormData(prev => ({
+                ...prev,
+                appealId: undefined,
+                donationType: 'general',
+              }));
+              return;
+            }
             setFormData(prev => ({
               ...prev,
               appealId: urlAppealId,
@@ -143,7 +155,9 @@ export default function DonatePage() {
           isAnonymous: formData.isAnonymous,
           displayName: formData.displayName,
           giftAid: formData.giftAidEnabled, // ✅ Now includes user's Gift Aid decision
-          platformFeePercentage: formData.platformFeeEnabled ? formData.platformFeePercentage : 0,
+          platformFeePercentage: formData.platformFeeEnabled
+            ? formData.platformFeePercentage
+            : 0,
           marketingConsent: formData.marketingConsent,
         }),
       });

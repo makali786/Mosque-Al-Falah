@@ -1,11 +1,10 @@
-"use client";
+'use client';
 
-import Countdown from "react-countdown";
-import moment from "moment";
-import { useMemo, useState, useEffect } from "react";
+import moment from 'moment';
+import { useEffect, useMemo, useState } from 'react';
+import Countdown from 'react-countdown';
 
 interface ServiceEventBannerProps {
-
   title: string;
   description: string;
   cardMessage?: string;
@@ -19,10 +18,10 @@ interface ServiceEventBannerProps {
 export default function PrayerReminder({
   title,
   description,
-  cardMessage = "The time for Taraweeh begins after the Isha prayer",
+  cardMessage = 'The time for Taraweeh begins after the Isha prayer',
   countdownLabel,
   targetDate,
-  className = "",
+  className = '',
 }: ServiceEventBannerProps) {
   const [mounted, setMounted] = useState(false);
 
@@ -59,34 +58,33 @@ export default function PrayerReminder({
     return target;
   }, [targetDate]);
 
-
   // Current date formatting
   const dateString = useMemo(() => {
     if (moment(nextOccurrence).isValid()) {
-      return moment(nextOccurrence).format("dddd, MMMM D, YYYY");
+      return moment(nextOccurrence).format('dddd, MMMM D, YYYY');
     }
-    return "Invalid Date";
+    return 'Invalid Date';
   }, [nextOccurrence]);
 
   const timeString = useMemo(() => {
     if (moment(nextOccurrence).isValid()) {
-      return moment(nextOccurrence).format("HH:mm");
+      return moment(nextOccurrence).format('HH:mm');
     }
-    return "00:00";
+    return '00:00';
   }, [nextOccurrence]);
 
   const hijriString = useMemo(() => {
-    const parts = new Intl.DateTimeFormat("ar-SA-u-ca-islamic-nu-latn", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      weekday: "long",
+    const parts = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-nu-latn', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      weekday: 'long',
     }).formatToParts(nextOccurrence);
 
-    const weekday = parts.find((p) => p.type === "weekday")?.value;
-    const day = parts.find((p) => p.type === "day")?.value;
-    const month = parts.find((p) => p.type === "month")?.value;
-    const year = parts.find((p) => p.type === "year")?.value;
+    const weekday = parts.find(p => p.type === 'weekday')?.value;
+    const day = parts.find(p => p.type === 'day')?.value;
+    const month = parts.find(p => p.type === 'month')?.value;
+    const year = parts.find(p => p.type === 'year')?.value;
 
     return `${weekday} ${day} ${month} ${year}`;
   }, [nextOccurrence]);
@@ -111,100 +109,143 @@ export default function PrayerReminder({
       return (
         <div className="flex items-center">
           <div className="flex flex-col items-center">
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight">00</span>
-            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">Hours</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight">
+              00
+            </span>
+            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
+              Hours
+            </span>
           </div>
-          <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-8">:</span>
+          <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-8">
+            :
+          </span>
           <div className="flex flex-col items-center">
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight">00</span>
-            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">Minutes</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight">
+              00
+            </span>
+            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
+              Minutes
+            </span>
           </div>
-          <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-8">:</span>
+          <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-8">
+            :
+          </span>
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight">00</span>
-            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">Seconds</span>
+            <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight">
+              00
+            </span>
+            <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
+              Seconds
+            </span>
           </div>
         </div>
       );
     }
 
-    return (
-      <div className="flex items-center">
-        {/* Hours */}
-        <div className="flex flex-col items-center">
-          <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
-            {String(totalHours).padStart(2, "0")}
+    return (() => {
+      const showDays = totalHours > 42;
+
+      return (
+        <div className="flex items-center">
+          {/* Days — only shown when more than 42 hours remain */}
+          {showDays && (
+            <>
+              <div className="flex flex-col items-center">
+                <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
+                  {String(days).padStart(2, '0')}
+                </span>
+                <span className="text-xs sm:text-sm bg-[#00000033] px-2 py-1 rounded-lg mt-1">
+                  Days
+                </span>
+              </div>
+              <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black mb-8">
+                :
+              </span>
+            </>
+          )}
+
+          {/* Hours */}
+          <div className="flex flex-col items-center">
+            <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
+              {showDays
+                ? String(hours).padStart(2, '0')
+                : String(totalHours).padStart(2, '0')}
+            </span>
+            <span className="text-xs sm:text-sm bg-[#00000033] px-2 py-1 rounded-lg mt-1">
+              Hours
+            </span>
+          </div>
+
+          <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black mb-8">
+            :
           </span>
-          <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
-            Hours
+
+          {/* Minutes */}
+          <div className="flex flex-col items-center w-20 sm:w-24">
+            <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
+              {String(minutes).padStart(2, '0')}
+            </span>
+            <span className="text-xs sm:text-sm bg-[#00000033] px-2 py-1 rounded-lg mt-1">
+              Minutes
+            </span>
+          </div>
+
+          <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black mb-8">
+            :
           </span>
+
+          {/* Seconds */}
+          <div className="flex flex-col items-center w-20 sm:w-24">
+            <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
+              {String(seconds).padStart(2, '0')}
+            </span>
+            <span className="text-xs sm:text-sm bg-[#00000033] px-2 py-1 rounded-lg mt-1">
+              Seconds
+            </span>
+          </div>
         </div>
-
-        <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black mb-8">:</span>
-
-        {/* Minutes */}
-        <div className="flex flex-col items-center w-20 sm:w-24">
-          <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
-            {String(minutes).padStart(2, "0")}
-          </span>
-          <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
-            Minutes
-          </span>
-        </div>
-
-        <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black mb-8">:</span>
-
-        {/* Seconds */}
-        <div className="flex flex-col items-center w-20 sm:w-24">
-          <span className="text-4xl sm:text-5xl md:text-5xl font-bold text-black tracking-tight">
-            {String(seconds).padStart(2, "0")}
-          </span>
-          <span className="text-xs sm:text-sm  bg-[#00000033] px-2 py-1 rounded-lg mt-1">
-            Seconds
-          </span>
-        </div>
-      </div>
-    );
+      );
+    })();
   };
 
   /* Email Subscription State */
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [newsletterStatus, setNewsletterStatus] = useState<{
     loading: boolean;
     message: string;
-    type: "success" | "error" | null;
+    type: 'success' | 'error' | null;
   }>({
     loading: false,
-    message: "",
+    message: '',
     type: null,
   });
 
   // Handle newsletter subscription
   const handleNewsletterSubscribe = async () => {
     // Reset status
-    setNewsletterStatus({ loading: false, message: "", type: null });
+    setNewsletterStatus({ loading: false, message: '', type: null });
 
     // Validate email
-    if (!email || !email.includes("@")) {
+    if (!email || !email.includes('@')) {
       setNewsletterStatus({
         loading: false,
-        message: "Please enter a valid email address",
-        type: "error",
+        message: 'Please enter a valid email address',
+        type: 'error',
       });
       return;
     }
 
     try {
-      setNewsletterStatus({ loading: true, message: "", type: null });
+      setNewsletterStatus({ loading: true, message: '', type: null });
 
-      const response = await fetch("/api/newsletter/subscribe", {
-        method: "POST",
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email: email.trim(),
-          source: "prayer-reminder",
+          source: 'prayer-reminder',
         }),
       });
 
@@ -213,35 +254,35 @@ export default function PrayerReminder({
       if (data.success) {
         setNewsletterStatus({
           loading: false,
-          message: data.message || "Successfully subscribed!",
-          type: "success",
+          message: data.message || 'Successfully subscribed!',
+          type: 'success',
         });
-        setEmail(""); // Clear email input on success
+        setEmail(''); // Clear email input on success
 
         // Clear success message after 5 seconds
         setTimeout(() => {
-          setNewsletterStatus({ loading: false, message: "", type: null });
+          setNewsletterStatus({ loading: false, message: '', type: null });
         }, 5000);
       } else {
         setNewsletterStatus({
           loading: false,
-          message: data.error || "Failed to subscribe. Please try again.",
-          type: "error",
+          message: data.error || 'Failed to subscribe. Please try again.',
+          type: 'error',
         });
       }
     } catch (error) {
-      console.error("Newsletter subscription error:", error);
+      console.error('Newsletter subscription error:', error);
       setNewsletterStatus({
         loading: false,
-        message: "An error occurred. Please try again later.",
-        type: "error",
+        message: 'An error occurred. Please try again later.',
+        type: 'error',
       });
     }
   };
 
   // Handle Enter key press in email input
   const handleEmailKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleNewsletterSubscribe();
     }
   };
@@ -250,7 +291,6 @@ export default function PrayerReminder({
     <section className={`w-full bg-[#18181B] py-12 md:py-24 ${className}`}>
       <div className="section-padding">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
-
           {/* Left Side: Card */}
           <div className="w-full lg:max-w-[583px]">
             <div className="bg-white rounded-2xl shadow-2xl relative overflow-hidden pb-12">
@@ -259,7 +299,9 @@ export default function PrayerReminder({
                 <span className="font-medium text-xs">{dateString}</span>
                 <div className="flex gap-16">
                   <span className="font-medium text-xs">{timeString}</span>
-                  <span className="font-medium font-arabic text-xs">{hijriString}</span>
+                  <span className="font-medium font-arabic text-xs">
+                    {hijriString}
+                  </span>
                 </div>
               </div>
 
@@ -291,9 +333,7 @@ export default function PrayerReminder({
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8">
               {title}
             </h2>
-            <p className="text-lg mb-[58px]">
-              {description}
-            </p>
+            <p className="text-lg mb-[58px]">{description}</p>
 
             <div className="flex flex-col gap-3 w-full max-w-[503px]">
               <div className="flex flex-col sm:flex-row w-full">
@@ -301,7 +341,7 @@ export default function PrayerReminder({
                   type="email"
                   placeholder="Email Address"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   onKeyPress={handleEmailKeyPress}
                   disabled={newsletterStatus.loading}
                   className="flex-1 bg-[#222222] border border-[#333333] text-white px-3 py-2 placeholder-white disabled:opacity-50 disabled:cursor-not-allowed outline-none"
@@ -312,26 +352,24 @@ export default function PrayerReminder({
                   disabled={newsletterStatus.loading}
                   className="bg-[#333333] text-white px-4 py-3 font-medium transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {newsletterStatus.loading ? "Subscribing..." : "Subscribe"}
+                  {newsletterStatus.loading ? 'Subscribing...' : 'Subscribe'}
                 </button>
               </div>
 
               {/* Status Message */}
               {newsletterStatus.message && (
                 <div
-                  className={`text-sm px-3 py-2 rounded ${newsletterStatus.type === "success"
-                    ? "bg-green-900/50 text-green-200 border border-green-700"
-                    : "bg-red-900/50 text-red-200 border border-red-700"
-                    }`}
+                  className={`text-sm px-3 py-2 rounded ${
+                    newsletterStatus.type === 'success'
+                      ? 'bg-green-900/50 text-green-200 border border-green-700'
+                      : 'bg-red-900/50 text-red-200 border border-red-700'
+                  }`}
                 >
-                  <span className="text-white">
-                    {newsletterStatus.message}
-                  </span>
+                  <span className="text-white">{newsletterStatus.message}</span>
                 </div>
               )}
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useState } from "react";
-import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
-import BlogCard, { BlogCardProps } from "./BlogCard";
-import Tabs from "../common/Tabs";
+import Image from 'next/image';
+import { useState } from 'react';
+import BreadcrumbSearchSection from '../common/BreadcrumbSearchSection';
+import Tabs from '../common/Tabs';
+import BlogCard, { BlogCardProps } from './BlogCard';
 
 interface BlogsFeedProps {
   initialPosts: BlogCardProps[];
@@ -54,15 +54,24 @@ interface BlogsFeedProps {
   };
 }
 
-export default function BlogsFeed({ initialPosts, categories, config }: BlogsFeedProps) {
-  const [selectedCategory, setSelectedCategory] = useState(config.categoryFilter.allCategoriesLabel);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [visibleCount, setVisibleCount] = useState(3);
+export default function BlogsFeed({
+  initialPosts,
+  categories,
+  config,
+}: BlogsFeedProps) {
+  const [selectedCategory, setSelectedCategory] = useState(
+    config.categoryFilter.allCategoriesLabel
+  );
+  const [searchQuery, setSearchQuery] = useState('');
+  const itemsPerPage = config.gridSettings.itemsPerPage || 6;
+  const [visibleCount, setVisibleCount] = useState(itemsPerPage);
 
   const filteredPosts = initialPosts.filter(post => {
-    const matchesCategory = selectedCategory === config.categoryFilter.allCategoriesLabel ||
+    const matchesCategory =
+      selectedCategory === config.categoryFilter.allCategoriesLabel ||
       post.category.toLowerCase() === selectedCategory.toLowerCase();
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
@@ -70,7 +79,7 @@ export default function BlogsFeed({ initialPosts, categories, config }: BlogsFee
   const visiblePosts = filteredPosts.slice(0, visibleCount);
 
   const handleLoadMore = () => {
-    setVisibleCount(prev => prev + 3);
+    setVisibleCount(prev => prev + itemsPerPage);
   };
 
   return (
@@ -79,8 +88,8 @@ export default function BlogsFeed({ initialPosts, categories, config }: BlogsFee
       {config.pageHeader.showBreadcrumb && (
         <BreadcrumbSearchSection
           breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: config.pageHeader.pageTitle, href: "#" },
+            { label: 'Home', href: '/' },
+            { label: config.pageHeader.pageTitle, href: '#' },
           ]}
           showSearch={false}
           className="section-padding sm:pt-12!"
@@ -88,20 +97,22 @@ export default function BlogsFeed({ initialPosts, categories, config }: BlogsFee
       )}
 
       <div className="section-padding pb-8 sm:pb-12 flex flex-col gap-8">
-
         {/* Filters and Search */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           {/* Categories */}
           {config.categoryFilter.showCategoryFilter && (
             <Tabs
-              tabs={[config.categoryFilter.allCategoriesLabel, ...categories].map((cat) => ({
+              tabs={[
+                config.categoryFilter.allCategoriesLabel,
+                ...categories,
+              ].map(cat => ({
                 id: cat,
                 label: cat,
               }))}
               activeTab={selectedCategory}
-              onChange={(tabId) => {
+              onChange={tabId => {
                 setSelectedCategory(tabId);
-                setVisibleCount(3);
+                setVisibleCount(itemsPerPage);
               }}
               variant="pills"
               size="md"
@@ -112,13 +123,18 @@ export default function BlogsFeed({ initialPosts, categories, config }: BlogsFee
           {config.searchBar.showSearch && (
             <div className="relative w-full md:w-[320px]">
               <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <Image src="/assets/common/search-icon.svg" width={20} height={20} alt="Search" />
+                <Image
+                  src="/assets/common/search-icon.svg"
+                  width={20}
+                  height={20}
+                  alt="Search"
+                />
               </div>
               <input
                 type="text"
                 placeholder={config.searchBar.searchPlaceholder}
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={e => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-[#E4E4E7] text-sm text-[#18181B] placeholder:text-[#A1A1AA] outline-none focus:border-[#006FEE] focus:ring-1 focus:ring-[#006FEE] transition-all bg-[#FAFAFA]"
               />
             </div>
@@ -127,15 +143,22 @@ export default function BlogsFeed({ initialPosts, categories, config }: BlogsFee
 
         {/* Blog Grid */}
         {visiblePosts.length > 0 ? (
-          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${config.gridSettings.gridColumns || '3'} gap-x-8 gap-y-12 mt-4`}>
+          <div
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${config.gridSettings.gridColumns || '3'} gap-x-8 gap-y-12 mt-4`}
+          >
             {visiblePosts.map(post => (
-              <BlogCard key={post.id} {...post} appearance={config.cardAppearance} />
+              <BlogCard
+                key={post.id}
+                {...post}
+                appearance={config.cardAppearance}
+              />
             ))}
           </div>
         ) : (
           <div className="flex items-center justify-center py-20">
             <p className="text-[#71717A] text-lg">
-              {searchQuery || selectedCategory !== config.categoryFilter.allCategoriesLabel
+              {searchQuery ||
+              selectedCategory !== config.categoryFilter.allCategoriesLabel
                 ? config.emptyStates.noSearchResults
                 : config.emptyStates.noPostsMessage}
             </p>
@@ -143,17 +166,17 @@ export default function BlogsFeed({ initialPosts, categories, config }: BlogsFee
         )}
 
         {/* Load More */}
-        {config.gridSettings.showLoadMore && visiblePosts.length < filteredPosts.length && (
-          <div className="flex justify-center mt-8">
-            <button
-              onClick={handleLoadMore}
-              className="px-8 py-3 bg-[#F4F4F5] hover:bg-[#E4E4E7] text-[#18181B] font-medium rounded-xl transition-colors"
-            >
-              {config.gridSettings.loadMoreButtonText}
-            </button>
-          </div>
-        )}
-
+        {config.gridSettings.showLoadMore &&
+          visiblePosts.length < filteredPosts.length && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={handleLoadMore}
+                className="px-8 py-3 bg-[#F4F4F5] hover:bg-[#E4E4E7] text-[#18181B] font-medium rounded-xl transition-colors"
+              >
+                {config.gridSettings.loadMoreButtonText}
+              </button>
+            </div>
+          )}
       </div>
     </>
   );

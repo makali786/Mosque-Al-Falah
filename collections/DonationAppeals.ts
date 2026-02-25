@@ -852,6 +852,16 @@ export const DonationAppeals: CollectionConfig = {
     // Publishing & Display
     // ============================================================================
     {
+      name: 'disableOnlineDonation',
+      type: 'checkbox',
+      defaultValue: false,
+      label: 'Disable Online Donation',
+      admin: {
+        description:
+          'When enabled, hides the donate button, funding stats, and removes this appeal from the donation flow. The appeal page itself will still be visible.',
+      },
+    },
+    {
       name: 'isFeatured',
       type: 'checkbox',
       defaultValue: false,

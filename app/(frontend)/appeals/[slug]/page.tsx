@@ -65,6 +65,7 @@ export default async function AppealDetailPage({
 
   // Prepare Stats
   const isOngoing = (appeal.funding as any)?.isOngoing || false;
+  const disableOnlineDonation = (appeal as any).disableOnlineDonation || false;
   const stats = {
     raised: appeal.funding?.currentAmount || 0,
     donors: appeal.funding?.totalDonors || 0,
@@ -81,6 +82,7 @@ export default async function AppealDetailPage({
         description={appeal.shortDescription}
         heroImage={appeal.heroMedia?.heroImage}
         stats={stats}
+        disableOnlineDonation={disableOnlineDonation}
       />
 
       {/* Why Your Support Matters */}
@@ -148,7 +150,9 @@ export default async function AppealDetailPage({
             text: appeal.shortDescription,
             url: `https://masjidalfalah.org/appeals/${slug}`,
           }}
-          donateButtonUrl={`/donate?appealId=${appeal.id}`}
+          donateButtonUrl={
+            disableOnlineDonation ? undefined : `/donate?appealId=${appeal.id}`
+          }
         />
       )}
     </main>

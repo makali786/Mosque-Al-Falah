@@ -15,6 +15,7 @@ interface AppealHeroProps {
     daysLeft: number;
     isOngoing?: boolean;
   };
+  disableOnlineDonation?: boolean;
 }
 
 export function AppealHero({
@@ -22,6 +23,7 @@ export function AppealHero({
   description,
   heroImage,
   stats,
+  disableOnlineDonation = false,
 }: AppealHeroProps) {
   const imageUrl = getMediaUrl(heroImage);
   const imageAlt = getMediaAlt(heroImage) || title;
@@ -114,54 +116,56 @@ export function AppealHero({
               </p>
             </div>
 
-            {/* Stats Grid */}
-            <div
-              className={`grid gap-4 py-[22px] px-4 sm:px-8 bg-[#001731] rounded-xl backdrop-blur-sm ${
-                isOngoing
-                  ? 'grid-cols-1 sm:grid-cols-2'
-                  : 'grid-cols-2 md:grid-cols-4'
-              }`}
-            >
-              <div className="flex flex-col items-center justify-center text-center gap-1">
-                <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
-                  £{stats.raised.toLocaleString()}
-                </span>
-                <span className="text-sm sm:text-lg font-medium uppercase">
-                  {isOngoing ? 'Running Total' : 'Raised'}
-                </span>
+            {/* Stats Grid — hidden when online donation is disabled */}
+            {!disableOnlineDonation && (
+              <div
+                className={`grid gap-4 py-[22px] px-4 sm:px-8 bg-[#001731] rounded-xl backdrop-blur-sm ${
+                  isOngoing
+                    ? 'grid-cols-1 sm:grid-cols-2'
+                    : 'grid-cols-2 md:grid-cols-4'
+                }`}
+              >
+                <div className="flex flex-col items-center justify-center text-center gap-1">
+                  <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
+                    £{stats.raised.toLocaleString()}
+                  </span>
+                  <span className="text-sm sm:text-lg font-medium uppercase">
+                    {isOngoing ? 'Running Total' : 'Raised'}
+                  </span>
+                </div>
+                <div className="flex flex-col items-center justify-center text-center gap-1">
+                  <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
+                    {stats.donors}
+                  </span>
+                  <span className="text-sm sm:text-lg font-medium uppercase">
+                    Donations
+                  </span>
+                </div>
+                {!isOngoing && (
+                  <>
+                    <div className="flex flex-col items-center justify-center text-center gap-1">
+                      <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
+                        £{stats.goal.toLocaleString()}
+                      </span>
+                      <span className="text-sm sm:text-lg font-medium uppercase">
+                        Goal
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center justify-center text-center gap-1">
+                      <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
+                        {stats.daysLeft}
+                      </span>
+                      <span className="text-sm sm:text-lg font-medium uppercase">
+                        Days To Go
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
-              <div className="flex flex-col items-center justify-center text-center gap-1">
-                <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
-                  {stats.donors}
-                </span>
-                <span className="text-sm sm:text-lg font-medium uppercase">
-                  Donations
-                </span>
-              </div>
-              {!isOngoing && (
-                <>
-                  <div className="flex flex-col items-center justify-center text-center gap-1">
-                    <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
-                      £{stats.goal.toLocaleString()}
-                    </span>
-                    <span className="text-sm sm:text-lg font-medium uppercase">
-                      Goal
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center text-center gap-1">
-                    <span className="text-lg sm:text-2xl md:text-[30px] font-bold">
-                      {stats.daysLeft}
-                    </span>
-                    <span className="text-sm sm:text-lg font-medium uppercase">
-                      Days To Go
-                    </span>
-                  </div>
-                </>
-              )}
-            </div>
+            )}
 
-            {/* Progress Bar — hidden for ongoing campaigns */}
-            {!isOngoing && (
+            {/* Progress Bar — hidden for ongoing campaigns or when online donation is disabled */}
+            {!isOngoing && !disableOnlineDonation && (
               <div className="flex flex-col gap-3">
                 <div className="w-full h-3 bg-white rounded-full overflow-hidden">
                   <div

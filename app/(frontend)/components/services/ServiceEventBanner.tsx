@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Countdown from "react-countdown";
-import { useMemo } from "react";
-import Separator from "../common/Separator";
-import moment from "moment";
+import moment from 'moment';
+import { useMemo } from 'react';
+import Countdown from 'react-countdown';
+import Separator from '../common/Separator';
 
 interface ServiceEventBannerProps {
   /**
@@ -52,20 +52,20 @@ interface ServiceEventBannerProps {
    * @default true
    */
   autoCalculateNext?: boolean;
-  customStyleLeftSection?: any
+  customStyleLeftSection?: any;
 }
 
 export default function ServiceEventBanner({
   title,
   description,
-  updateLabel = "Update",
+  updateLabel = 'Update',
   updateDate,
   countdownLabel,
   targetDate,
-  className = "",
+  className = '',
   autoCalculateNext = true,
   rightContent,
-  customStyleLeftSection
+  customStyleLeftSection,
 }: ServiceEventBannerProps) {
   // Calculate the next occurrence of the target time
   const nextOccurrence = useMemo(() => {
@@ -112,7 +112,9 @@ export default function ServiceEventBanner({
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
               00
             </div>
-            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Hours</div>
+            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">
+              Hours
+            </div>
           </div>
           <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
             :
@@ -121,8 +123,11 @@ export default function ServiceEventBanner({
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
               00
             </div>
-            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Minutes</div>
-          </div>5
+            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">
+              Minutes
+            </div>
+          </div>
+          5
           <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
             :
           </span>
@@ -130,7 +135,9 @@ export default function ServiceEventBanner({
             <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
               00
             </div>
-            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Seconds</div>
+            <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">
+              Seconds
+            </div>
           </div>
         </div>
       );
@@ -138,32 +145,58 @@ export default function ServiceEventBanner({
 
     // Calculate total hours including days
     const totalHours = days * 24 + hours;
+    const showDays = totalHours > 42;
 
     return (
-      <div className="flex">
+      <div className="flex items-center gap-2">
+        {/* Days — only shown when more than 42 hours remain */}
+        {showDays && (
+          <>
+            <div className="text-center">
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
+                {String(days).padStart(2, '0')}
+              </div>
+              <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">
+                Days
+              </div>
+            </div>
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
+              :
+            </span>
+          </>
+        )}
+
         <div className="text-center">
           <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
-            {String(totalHours).padStart(2, "0")}
+            {showDays
+              ? String(hours).padStart(2, '0')
+              : String(totalHours).padStart(2, '0')}
           </div>
-          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Hours</div>
+          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">
+            Hours
+          </div>
         </div>
         <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
           :
         </span>
         <div className="text-center">
           <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
-            {String(minutes).padStart(2, "0")}
+            {String(minutes).padStart(2, '0')}
           </div>
-          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Minutes</div>
+          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">
+            Minutes
+          </div>
         </div>
         <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
           :
         </span>
         <div className="text-center">
           <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
-            {String(seconds).padStart(2, "0")}
+            {String(seconds).padStart(2, '0')}
           </div>
-          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">Seconds</div>
+          <div className="text-xs sm:text-sm text-[#99C7FB] mt-1 bg-[#00000033] px-3.5 py-0.75 rounded-lg">
+            Seconds
+          </div>
         </div>
       </div>
     );
@@ -178,14 +211,14 @@ export default function ServiceEventBanner({
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(170.61deg, rgb(12, 71, 138) 46.629%, rgb(0, 71, 151) 71.1%)",
+            'linear-gradient(170.61deg, rgb(12, 71, 138) 46.629%, rgb(0, 71, 151) 71.1%)',
         }}
       >
         <div
           className="absolute inset-0 opacity-30 bg-repeat"
           style={{
             backgroundImage: "url('/assets/services/bg-pattern.png')",
-            backgroundSize: "154px 154px",
+            backgroundSize: '154px 154px',
           }}
         />
       </div>
@@ -195,22 +228,26 @@ export default function ServiceEventBanner({
         <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 xl:gap-0">
           {/* Left Section - Title and Description */}
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center w-full xl:w-auto">
-            <div className={`w-full md:max-w-123.75 xl:min-w-123.75 ${customStyleLeftSection}`}>
+            <div
+              className={`w-full md:max-w-123.75 xl:min-w-123.75 ${customStyleLeftSection}`}
+            >
               <div className="flex items-center gap-3 mb-3 sm:mb-4">
                 {/* Update Badge */}
-                {updateDate && moment(updateDate).isValid() && !isNaN(new Date(updateDate).getTime()) && (
-                  <>
-                    <div className="flex items-center gap-1 bg-white px-3 py-1">
-                      <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
-                      <span className="text-xs sm:text-sm text-black">
-                        {updateLabel}
+                {updateDate &&
+                  moment(updateDate).isValid() &&
+                  !isNaN(new Date(updateDate).getTime()) && (
+                    <>
+                      <div className="flex items-center gap-1 bg-white px-3 py-1">
+                        <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
+                        <span className="text-xs sm:text-sm text-black">
+                          {updateLabel}
+                        </span>
+                      </div>
+                      <span className="text-xs sm:text-sm text-white">
+                        {moment(updateDate).format('D MMMM YYYY')}
                       </span>
-                    </div>
-                    <span className="text-xs sm:text-sm text-white">
-                      {moment(updateDate).format("D MMMM YYYY")}
-                    </span>
-                  </>
-                )}
+                    </>
+                  )}
               </div>
 
               {/* Title */}
@@ -223,16 +260,22 @@ export default function ServiceEventBanner({
             <p className="text-sm sm:text-base text-white w-full md:max-w-78.75 line-clamp-4">
               {description}
             </p>
-
           </div>
 
           {/* Separator - Only visible on XL screens */}
           <div className="hidden xl:flex xl:self-stretch px-8.5">
-            <Separator orientation="vertical" className="w-px h-full" color="#FFFFFF26" thickness={1} />
+            <Separator
+              orientation="vertical"
+              className="w-px h-full"
+              color="#FFFFFF26"
+              thickness={1}
+            />
           </div>
 
           {/* Right Section - Countdown Timer or Custom Content */}
-          <div className={`w-full md:w-auto ${rightContent ? '' : 'xl:max-w-[232.5px] xl:w-[232.5px]'}`}>
+          <div
+            className={`w-full md:w-auto ${rightContent ? '' : 'xl:max-w-[232.5px] xl:w-[232.5px]'}`}
+          >
             {rightContent ? (
               rightContent
             ) : (
@@ -242,7 +285,9 @@ export default function ServiceEventBanner({
                     {countdownLabel}
                   </p>
                 )}
-                {targetDate && <Countdown date={nextOccurrence} renderer={renderer} />}
+                {targetDate && (
+                  <Countdown date={nextOccurrence} renderer={renderer} />
+                )}
               </>
             )}
           </div>

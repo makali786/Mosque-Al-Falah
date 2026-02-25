@@ -27,6 +27,7 @@ interface AppealCardProps {
   };
   className?: string; // For adding custom classes like width
   buttonVariant?: 'primary' | 'secondary';
+  disableOnlineDonation?: boolean;
 }
 
 export default function AppealCard({
@@ -39,6 +40,7 @@ export default function AppealCard({
   links = { donate: '/donate', details: '/appeals' },
   className = '',
   buttonVariant = 'primary',
+  disableOnlineDonation = false,
 }: AppealCardProps) {
   const imageUrl = getMediaUrl(image);
   const imageAlt = getMediaAlt(image) || title;
@@ -96,51 +98,53 @@ export default function AppealCard({
           </Link>
         </div>
 
-        {/* Stats & Progress */}
-        <div className="flex flex-col gap-3">
-          {/* Stats: Donors & Days */}
-          <div className="flex items-center gap-4 text-[#71717a]">
-            {/* Donors */}
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 relative shrink-0">
-                <Image
-                  src="/assets/donation/users-icon.svg"
-                  alt="Donors"
-                  fill
-                  className="object-contain"
-                />
-              </div>
-              <span className="text-base text-[#71717A]">{donorsCount}</span>
-            </div>
-
-            {/* Days Left — hidden for ongoing campaigns */}
-            {!isOngoing && (
+        {/* Stats & Progress — hidden when online donation is disabled */}
+        {!disableOnlineDonation && (
+          <div className="flex flex-col gap-3">
+            {/* Stats: Donors & Days */}
+            <div className="flex items-center gap-4 text-[#71717a]">
+              {/* Donors */}
               <div className="flex items-center gap-2">
                 <div className="w-5 h-5 relative shrink-0">
                   <Image
-                    src="/assets/donation/clock-icon.svg"
-                    alt="Time Left"
+                    src="/assets/donation/users-icon.svg"
+                    alt="Donors"
                     fill
                     className="object-contain"
                   />
                 </div>
-                <span className="text-base text-[#71717A]">
-                  {daysLeft} days left
-                </span>
+                <span className="text-base text-[#71717A]">{donorsCount}</span>
+              </div>
+
+              {/* Days Left — hidden for ongoing campaigns */}
+              {!isOngoing && (
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 relative shrink-0">
+                    <Image
+                      src="/assets/donation/clock-icon.svg"
+                      alt="Time Left"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="text-base text-[#71717A]">
+                    {daysLeft} days left
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Progress Bar — hidden for ongoing campaigns */}
+            {!isOngoing && (
+              <div className="w-full h-1 bg-[#e4e4e7] rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#006fee] rounded-full transition-all duration-500 ease-out"
+                  style={{ width: `${progressPercentage}%` }}
+                />
               </div>
             )}
           </div>
-
-          {/* Progress Bar — hidden for ongoing campaigns */}
-          {!isOngoing && (
-            <div className="w-full h-1 bg-[#e4e4e7] rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#006fee] rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${progressPercentage}%` }}
-              />
-            </div>
-          )}
-        </div>
+        )}
 
         {/* Description (Optional) */}
         {description && (
@@ -157,34 +161,36 @@ export default function AppealCard({
           </div>
         )}
 
-        {/* Footer: Amount & Donate Button */}
-        <div className="flex items-center justify-between flex-wrap gap-4 mt-auto pt-2">
-          {/* Raised Amount */}
-          <div className="flex flex-col gap-1">
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-2xl font-semibold">
-                £{raised.toLocaleString()}
-              </span>
+        {/* Footer: Amount & Donate Button — hidden when online donation is disabled */}
+        {!disableOnlineDonation && (
+          <div className="flex items-center justify-between flex-wrap gap-4 mt-auto pt-2">
+            {/* Raised Amount */}
+            <div className="flex flex-col gap-1">
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-2xl font-semibold">
+                  £{raised.toLocaleString()}
+                </span>
+              </div>
+              <p className="text-sm font-normal text-[#71717a]">
+                {isOngoing
+                  ? 'Running Total'
+                  : `funded of £${target >= 1000 ? (target / 1000).toLocaleString() + 'K' : target.toLocaleString()}`}
+              </p>
             </div>
-            <p className="text-sm font-normal text-[#71717a]">
-              {isOngoing
-                ? 'Running Total'
-                : `funded of £${target >= 1000 ? (target / 1000).toLocaleString() + 'K' : target.toLocaleString()}`}
-            </p>
-          </div>
 
-          {/* Donate Button */}
-          <Link
-            href={links.donate || '/donate'}
-            className={`px-6 py-3 rounded-[12px] flex items-center justify-center text-sm font-medium transition-colors shrink-0 ${
-              buttonVariant === 'secondary'
-                ? 'bg-[#3F3F4666] text-white'
-                : 'bg-[#006FEE] text-white'
-            }`}
-          >
-            Donate Now
-          </Link>
-        </div>
+            {/* Donate Button */}
+            <Link
+              href={links.donate || '/donate'}
+              className={`px-6 py-3 rounded-[12px] flex items-center justify-center text-sm font-medium transition-colors shrink-0 ${
+                buttonVariant === 'secondary'
+                  ? 'bg-[#3F3F4666] text-white'
+                  : 'bg-[#006FEE] text-white'
+              }`}
+            >
+              Donate Now
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

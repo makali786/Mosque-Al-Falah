@@ -38,9 +38,9 @@ export default async function AppealsPage() {
       appealsPage = { ...appealsPage, ...fetchedPage };
     }
 
-    // Simplifed query syntax to be safer
+    // Fetch all active appeals — AppealsList handles the client-side "Load More" display
     appealsData = await fetchDonationAppeals({
-      limit: appealsPage.gridSettings?.itemsPerPage || 1000,
+      limit: 1000,
       depth: 1,
       where: { isActive: { equals: true } },
     });
