@@ -434,9 +434,9 @@ export default function RamadanCountdown() {
                     🌙
                   </div>
                   <p className="text-white text-lg max-w-md mx-auto leading-relaxed">
-                    We wish you and your family a blessed Ramadān. May this month
-                    bring you closer to Allah and fill your life with light and
-                    guidance.
+                    We wish you and your family a blessed Ramadān. May this
+                    month bring you closer to Allah and fill your life with
+                    light and guidance.
                   </p>
                 </div>
               )}
