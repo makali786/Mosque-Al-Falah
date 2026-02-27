@@ -321,6 +321,7 @@ export default function RamadanCountdown() {
                 href="/donate"
                 className="rc-donate-btn"
                 aria-label="Donate to Masjid Al-Falah"
+                onClick={handleClose}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <span>Donate to Masjid Al-Falah</span>
