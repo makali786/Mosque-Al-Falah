@@ -346,7 +346,7 @@ export default function TopBar({
             </Link>
           </div>
         </div>
-        <div className="flex items-center justify-center w-full">
+        <div className="flex items-center lg:justify-center justify-evenly w-full">
           <RowLabels variant="tablet" />
           {displayPrayerTimes.map(prayer => (
             <PrayerTime key={prayer.name} {...prayer} variant="tablet" />

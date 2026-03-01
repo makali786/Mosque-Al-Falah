@@ -157,7 +157,7 @@ export default function Step3GiftAid({
                 name="giftAid"
                 checked={formData.giftAidEnabled}
                 onChange={() =>
-                  setFormData({ ...formData, giftAidEnabled: true })
+                  setFormData({ ...formData, giftAidEnabled: true, giftAidDeclaration: true })
                 }
               />
               <span className="text-base font-normal leading-6 text-[#11181C]">
@@ -166,46 +166,7 @@ export default function Step3GiftAid({
             </label>
           </div>
 
-          {/* Declaration Box (shown when Yes is selected) */}
-          {formData.giftAidEnabled && (
-            <div className="bg-[#F4F4F5] flex flex-col gap-3 p-4 rounded-lg w-full">
-              <p className="text-base font-normal leading-6 text-black">
-                Please read and confirm the following statements:
-              </p>
-              <div className="flex flex-col gap-2 w-full">
-                <label className="flex gap-2 items-start p-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={formData.giftAidDeclaration}
-                    onChange={e =>
-                      setFormData({
-                        ...formData,
-                        giftAidDeclaration: e.target.checked,
-                      })
-                    }
-                    className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
-                  />
-                  <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
-                    This is my own money. I am not paying in donations made by a
-                    third party, e.g. money collected at an event, the pub, a
-                    company donation or a donation from a friend or family
-                    member.
-                  </span>
-                </label>
-                <label className="flex gap-2 items-start p-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="w-5 h-5 mt-0.5 rounded-md border-2 border-[#D4D4D8] text-[#006FEE] focus:ring-2 focus:ring-[#006FEE] cursor-pointer flex-shrink-0"
-                  />
-                  <span className="flex-1 text-base font-normal leading-6 text-[#11181C]">
-                    This donation is not made as part of a sweepstake, raffle or
-                    lottery and I am not receiving anything in return of it,
-                    e.g. book, auction prize, ticket to an event.
-                  </span>
-                </label>
-              </div>
-            </div>
-          )}
+
 
           {/* No Option */}
           <div className="flex gap-2 items-center p-2 w-full">
@@ -214,7 +175,7 @@ export default function Step3GiftAid({
                 name="giftAid"
                 checked={!formData.giftAidEnabled}
                 onChange={() =>
-                  setFormData({ ...formData, giftAidEnabled: false })
+                  setFormData({ ...formData, giftAidEnabled: false, giftAidDeclaration: false })
                 }
               />
               <span className="text-base font-normal leading-6 text-[#11181C]">
@@ -229,8 +190,7 @@ export default function Step3GiftAid({
       <div className="flex justify-start md:justify-end w-full">
         <button
           onClick={onNext}
-          disabled={formData.giftAidEnabled && !formData.giftAidDeclaration}
-          className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-full md:w-auto cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#0055CC] transition-colors"
+          className="bg-[#006FEE] flex h-12 items-center justify-center px-6 rounded-xl w-full md:w-auto cursor-pointer hover:bg-[#0055CC] transition-colors"
         >
           <span className="text-base font-normal leading-6 text-white">Next</span>
         </button>

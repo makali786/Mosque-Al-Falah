@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { FaPause } from "react-icons/fa6";
+import { useMediaPlayer } from "./MediaPlayerContext";
 
 interface AudioPlayerProps {
   audioUrl: string;
@@ -11,6 +12,8 @@ interface AudioPlayerProps {
   onPrevious?: () => void;
   onNext?: () => void;
   variant?: 'light' | 'dark'; // Add variant prop
+  onPlay?: () => void;   // Called when the user starts playback
+  onPause?: () => void;  // Called when the user pauses playback
 }
 
 export default function AudioPlayer({
@@ -20,6 +23,8 @@ export default function AudioPlayer({
   onPrevious,
   onNext,
   variant = 'light', // Default to light variant
+  onPlay,
+  onPause,
 }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [played, setPlayed] = useState(0);
@@ -29,6 +34,21 @@ export default function AudioPlayer({
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // ── Sync local playback state with global MediaPlayerContext ───────────────
+  const { showMiniPlayer, isPlaying: globalIsPlaying, mediaData, savedTimeRef } = useMediaPlayer();
+  const isMiniPlayerActive = showMiniPlayer;
+  const isGlobalActiveTrack = mediaData?.url === audioUrl;
+
+  useEffect(() => {
+    // If this AudioPlayer is the active track in the global Context,
+    // match our local playing state to the global one.
+    // This allows the MiniPlayer Pause/Play buttons to control this active player
+    // without interrupting playback on scroll.
+    if (isGlobalActiveTrack && isPlaying !== globalIsPlaying) {
+      setIsPlaying(globalIsPlaying);
+    }
+  }, [isGlobalActiveTrack, globalIsPlaying, isPlaying]);
 
   // Handle audio element events
   useEffect(() => {
@@ -45,6 +65,9 @@ export default function AudioPlayer({
       if (!seeking && audio.duration) {
         setCurrentTime(audio.currentTime);
         setPlayed(audio.currentTime / audio.duration);
+        if (isGlobalActiveTrack) {
+          savedTimeRef.current = audio.currentTime;
+        }
       }
     };
 
@@ -94,8 +117,15 @@ export default function AudioPlayer({
   }, [isPlaying]);
 
   const handlePlayPause = () => {
-    if (!isReady) return; // Don't allow play until ready
-    setIsPlaying(!isPlaying);
+    if (!isReady || isMiniPlayerActive) return; // Don't allow play until ready or if MiniPlayer is active
+    const willPlay = !isPlaying;
+    setIsPlaying(willPlay);
+    // Notify parent so it can sync with the MediaPlayerContext
+    if (willPlay) {
+      onPlay?.();
+    } else {
+      onPause?.();
+    }
   };
 
   const handleSeekMouseDown = () => {
@@ -161,13 +191,27 @@ export default function AudioPlayer({
         preload="metadata"
       />
 
+      {/* MiniPlayer active overlay — shown when MiniPlayer is open */}
+      {isMiniPlayerActive && (
+        <div className="absolute inset-0 z-20 rounded-[20px] bg-black/50 backdrop-blur-sm flex items-center justify-center pointer-events-none">
+          <div className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-center">
+            <p className="text-white text-sm font-medium">
+              Media is playing in the MiniPlayer
+            </p>
+            <p className="text-white/60 text-xs mt-1">
+              Close the MiniPlayer to use this player
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Controls */}
-      <div className="flex items-center justify-center gap-8 w-full">
+      <div className={`flex items-center justify-center gap-8 w-full ${isMiniPlayerActive ? 'opacity-40 pointer-events-none' : ''}`}>
         {showPreviousNext && (
           <div className="flex-1 flex justify-end gap-4">
             <button
               onClick={onPrevious}
-              disabled={!onPrevious}
+              disabled={!onPrevious || isMiniPlayerActive}
               className={`${navButtonStyles} flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full transition-all duration-200`}
             >
               <Image
@@ -183,8 +227,8 @@ export default function AudioPlayer({
 
         <button
           onClick={handlePlayPause}
-          disabled={!isReady}
-          className={`${buttonStyles} rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105 active:scale-95 ${!isReady ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={!isReady || isMiniPlayerActive}
+          className={`${buttonStyles} rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105 active:scale-95 ${(!isReady || isMiniPlayerActive) ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isPlaying ? (
             <FaPause className={variant === 'dark' ? 'text-black w-5 h-5 sm:w-6 sm:h-6' : 'text-white w-6 h-6 sm:w-7 sm:h-7'} />
@@ -212,7 +256,7 @@ export default function AudioPlayer({
           <div className="flex-1 flex gap-4">
             <button
               onClick={onNext}
-              disabled={!onNext}
+              disabled={!onNext || isMiniPlayerActive}
               className={`${navButtonStyles} flex items-center justify-center cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full transition-all duration-200`}
             >
               <Image
@@ -228,7 +272,7 @@ export default function AudioPlayer({
       </div>
 
       {/* Seekbar */}
-      <div className="flex items-center gap-4 sm:gap-5 w-full">
+      <div className={`flex items-center gap-4 sm:gap-5 w-full ${isMiniPlayerActive ? 'opacity-40 pointer-events-none' : ''}`}>
         <span className={`${timeStyles} min-w-[45px] text-left whitespace-nowrap tabular-nums`}>
           {formatTime(currentTime)}
         </span>
@@ -252,7 +296,8 @@ export default function AudioPlayer({
             onMouseDown={handleSeekMouseDown}
             onChange={handleSeekChange}
             onMouseUp={handleSeekMouseUp}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+            disabled={isMiniPlayerActive}
+            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 disabled:cursor-not-allowed"
           />
         </div>
         <span className={`${timeStyles} min-w-[45px] text-right whitespace-nowrap tabular-nums`}>
@@ -269,3 +314,4 @@ export default function AudioPlayer({
     </div>
   );
 }
+

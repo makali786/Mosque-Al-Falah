@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState, useRef } from 'react';
 
 export type MediaType = 'video' | 'audio';
 
@@ -24,6 +24,9 @@ interface MediaPlayerContextType {
   stop: () => void;
   setShowMiniPlayer: (show: boolean) => void;
   togglePlayPause: () => void;
+  isMainElementAlive: boolean;
+  setIsMainElementAlive: (alive: boolean) => void;
+  savedTimeRef: React.MutableRefObject<number>;
 }
 
 const MediaPlayerContext = createContext<MediaPlayerContextType | undefined>(
@@ -37,8 +40,15 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
   // Tracks whether the user explicitly closed the MiniPlayer via the ✕ button.
   // Reset to false whenever play() is called so the MiniPlayer can re-appear.
   const [userClosed, setUserClosed] = useState(false);
+  // Tracks if the main component playing the media is still explicitly mounted in the DOM.
+  const [isMainElementAlive, setIsMainElementAlive] = useState(false);
+  const savedTimeRef = useRef(0);
 
   const play = (media: MediaData) => {
+    // If playing a completely new URL, reset savedTime. Else, keep it.
+    if (mediaData?.url !== media.url) {
+      savedTimeRef.current = 0;
+    }
     setMediaData(media);
     setIsPlaying(true);
     setUserClosed(false); // allow MiniPlayer to show again after a close
@@ -76,6 +86,9 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
         stop,
         setShowMiniPlayer,
         togglePlayPause,
+        isMainElementAlive,
+        setIsMainElementAlive,
+        savedTimeRef,
       }}
     >
       {children}

@@ -7,11 +7,12 @@ import { getMediaUrl } from "@lib/helper";
 import { QuoteSection } from "../../components/common/QuoteSection";
 import Sermons from "../../components/home/Sermons";
 import { RichTextRenderer } from "../../components/common/RichTextRenderer";
+import MediaDetailPlayer from "../../components/media/MediaDetailPlayer";
 
 interface DetailedSermonPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function SermonDetailPage({ params }: DetailedSermonPageProps) {
@@ -151,13 +152,13 @@ export default async function SermonDetailPage({ params }: DetailedSermonPagePro
         <div className="relative w-full max-w-[1000px] mx-auto aspect-video bg-gray-900 rounded-[20px] overflow-hidden shadow-2xl group">
           {/* Video Player or Hero Image */}
           {embedUrl ? (
-            <iframe
-              src={embedUrl}
+            <MediaDetailPlayer
               title={title}
+              videoUrl={videoUrl || ""}
+              thumbnail={mediaUrl || undefined}
+              type="video"
+              description={description || ""}
               className="w-full h-full"
-              allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
             />
           ) : (
             <>

@@ -14,7 +14,7 @@ import {
 import { useMediaPlayer } from './MediaPlayerContext';
 
 export default function MiniPlayer() {
-  const { mediaData, isPlaying, showMiniPlayer, stop, togglePlayPause } =
+  const { mediaData, isPlaying, showMiniPlayer, stop, togglePlayPause, isMainElementAlive, savedTimeRef } =
     useMediaPlayer();
   const router = useRouter();
 
@@ -163,7 +163,7 @@ export default function MiniPlayer() {
         <div className="relative">
           {mediaData.type === 'video' ? (
             <div className="relative w-full aspect-video bg-black">
-              {embedUrl && (
+              {embedUrl && !isMainElementAlive && (
                 <iframe
                   ref={iframeRef}
                   src={embedUrl}
@@ -191,16 +191,24 @@ export default function MiniPlayer() {
                   </div>
                 )}
 
-                {/* Audio element — always mounted, controlled via ref */}
-                <audio
-                  ref={audioRef}
-                  src={mediaData.url}
-                  loop={false}
-                  className="w-full"
-                  onEnded={() => {
-                    if (isPlaying) togglePlayPause();
-                  }}
-                />
+                {/* Audio element — only mounted if main component isn't handling it */}
+                {!isMainElementAlive && (
+                  <audio
+                    ref={audioRef}
+                    src={mediaData.url}
+                    loop={false}
+                    className="w-full"
+                    onCanPlay={(e) => {
+                      if (savedTimeRef.current > 1) {
+                        e.currentTarget.currentTime = savedTimeRef.current;
+                        savedTimeRef.current = 0; // prevent re-seeking on pause/play
+                      }
+                    }}
+                    onEnded={() => {
+                      if (isPlaying) togglePlayPause();
+                    }}
+                  />
+                )}
 
                 {mediaData.citation && (
                   <p className="text-xs text-gray-400 text-center italic">

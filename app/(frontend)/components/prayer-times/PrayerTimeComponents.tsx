@@ -26,35 +26,35 @@ export const CountdownDisplay = ({
   const sizing =
     variant === 'large'
       ? {
-          container:
-            'xl:w-93.5 lg:w-85 sm:w-72 w-[calc(100%-2rem)] xl:p-6 lg:p-5 md:p-4 p-4',
-          titleText:
-            'xl:text-lg lg:text-base md:text-base text-sm xl:leading-7 lg:leading-6 md:leading-6 leading-5',
-          titleGap: 'xl:gap-2 lg:gap-1.5 gap-1',
-          countdownText:
-            'xl:text-5xl lg:text-4xl md:text-3xl text-2xl xl:leading-12 lg:leading-11 md:leading-10 leading-8',
-          digitWidth: 'xl:w-17 lg:w-15 md:w-12 w-10',
-          colonPadding: 'xl:px-1 lg:px-0.5 px-0.5',
-          labelGap: 'xl:gap-3.5 lg:gap-2.5 gap-1.5',
-          labelHeight: 'xl:h-6.25 lg:h-5.5 md:h-5 h-4',
-          labelWidth: 'xl:w-17 lg:w-15 md:w-12 w-10',
-          labelText:
-            'xl:text-sm lg:text-xs md:text-xs text-[10px] xl:leading-5 lg:leading-4 leading-3',
-        }
+        container:
+          'xl:w-93.5 lg:w-85 sm:w-72 w-[calc(100%-2rem)] xl:p-6 lg:p-5 md:p-4 p-4',
+        titleText:
+          'xl:text-lg lg:text-base md:text-base text-sm xl:leading-7 lg:leading-6 md:leading-6 leading-5',
+        titleGap: 'xl:gap-2 lg:gap-1.5 gap-1',
+        countdownText:
+          'xl:text-5xl lg:text-4xl md:text-3xl text-2xl xl:leading-12 lg:leading-11 md:leading-10 leading-8',
+        digitWidth: 'xl:w-17 lg:w-15 md:w-12 w-10',
+        colonPadding: 'xl:px-1 lg:px-0.5 px-0.5',
+        labelGap: 'xl:gap-3.5 lg:gap-2.5 gap-1.5',
+        labelHeight: 'xl:h-6.25 lg:h-5.5 md:h-5 h-4',
+        labelWidth: 'xl:w-17 lg:w-15 md:w-12 w-10',
+        labelText:
+          'xl:text-sm lg:text-xs md:text-xs text-[10px] xl:leading-5 lg:leading-4 leading-3',
+      }
       : {
-          container: 'lg:w-93.5 md:w-72 w-[calc(100%-2rem)] lg:p-6 md:p-4 p-4',
-          titleText:
-            'lg:text-lg md:text-base text-sm text-[#fafafa] text-center lg:leading-7 md:leading-6 leading-5',
-          titleGap: 'lg:gap-2 gap-1',
-          countdownText:
-            'lg:text-5xl md:text-3xl text-2xl lg:leading-12 md:leading-10 leading-8',
-          digitWidth: 'lg:w-17 md:w-12 w-10',
-          colonPadding: 'lg:px-1 px-0.5',
-          labelGap: 'lg:gap-3.5 gap-1.5',
-          labelHeight: 'lg:h-6.25 md:h-5 h-4',
-          labelWidth: 'lg:w-17 md:w-12 w-10',
-          labelText: 'lg:text-sm md:text-xs text-[10px] lg:leading-5 leading-3',
-        };
+        container: 'lg:w-93.5 md:w-72 w-[calc(100%-2rem)] lg:p-6 md:p-4 p-4',
+        titleText:
+          'lg:text-lg md:text-base text-sm text-[#fafafa] text-center lg:leading-7 md:leading-6 leading-5',
+        titleGap: 'lg:gap-2 gap-1',
+        countdownText:
+          'lg:text-5xl md:text-3xl text-2xl lg:leading-12 md:leading-10 leading-8',
+        digitWidth: 'lg:w-17 md:w-12 w-10',
+        colonPadding: 'lg:px-1 px-0.5',
+        labelGap: 'lg:gap-3.5 gap-1.5',
+        labelHeight: 'lg:h-6.25 md:h-5 h-4',
+        labelWidth: 'lg:w-17 md:w-12 w-10',
+        labelText: 'lg:text-sm md:text-xs text-[10px] lg:leading-5 leading-3',
+      };
 
   return (
     <div
@@ -211,7 +211,7 @@ export const PrayerTimeRow = ({
 }: PrayerTimeRowProps) => {
   const isActive = prayer.isActive;
   const bgColor = isActive
-    ? 'bg-[#006fee] border border-[#006fee]'
+    ? 'bg-[#18181b] border border-[#18181b]'
     : 'bg-[#fafafa]';
   const nameColor = isActive ? 'text-white' : 'text-black';
   const labelColor = isActive ? 'text-white' : 'text-[#71717a]';
@@ -243,9 +243,8 @@ export const PrayerTimeRow = ({
       </div>
 
       <div
-        className={`flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end ${
-          !prayer.jamaah ? 'opacity-0' : ''
-        }`}
+        className={`flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end ${!prayer.jamaah ? 'opacity-0' : ''
+          }`}
       >
         <p
           className={`md:text-xs text-[10px] font-normal ${labelColor} md:leading-4 leading-3`}
@@ -280,23 +279,20 @@ export const JumuahTimeRow = ({
 
   return (
     <div
-      className={`flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full ${spacing} ${
-        isActive ? 'bg-[#006fee] border border-[#006fee]' : 'bg-[#fafafa]'
-      }`}
+      className={`flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full ${spacing} ${isActive ? 'bg-[#006fee] border border-[#006fee]' : 'bg-[#fafafa]'
+        }`}
     >
       <p
-        className={`md:text-base text-sm font-bold md:leading-6 leading-5 md:w-24 w-16 ${
-          isActive ? 'text-white' : 'text-black'
-        }`}
+        className={`md:text-base text-sm font-bold md:leading-6 leading-5 md:w-24 w-16 ${isActive ? 'text-white' : 'text-black'
+          }`}
       >
         {jumuah.name}
       </p>
 
       <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
         <p
-          className={`md:text-xs text-[10px] font-normal md:leading-4 leading-3 ${
-            isActive ? 'text-white' : 'text-[#71717a]'
-          }`}
+          className={`md:text-xs text-[10px] font-normal md:leading-4 leading-3 ${isActive ? 'text-white' : 'text-[#71717a]'
+            }`}
         >
           Khutbah
         </p>
@@ -309,9 +305,8 @@ export const JumuahTimeRow = ({
 
       <div className="flex gap-1 items-center text-nowrap md:w-24 flex-1 justify-end">
         <p
-          className={`md:text-xs text-[10px] font-normal md:leading-4 leading-3 ${
-            isActive ? 'text-white' : 'text-[#71717a]'
-          }`}
+          className={`md:text-xs text-[10px] font-normal md:leading-4 leading-3 ${isActive ? 'text-white' : 'text-[#71717a]'
+            }`}
         >
           Jama&apos;ah
         </p>

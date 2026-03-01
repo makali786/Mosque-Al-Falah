@@ -48,16 +48,51 @@ export default function AyatOfTheMonth({
   const playerRef = useRef<HTMLDivElement>(null);
   const {
     play,
+    pause: contextPause,
     setShowMiniPlayer,
     showMiniPlayer,
     mediaData,
     stop,
     userClosed,
+    setIsMainElementAlive,
   } = useMediaPlayer();
   const isInView = useIntersectionObserver(
     sectionRef as React.RefObject<Element>,
     { threshold: 0.3 }
   );
+
+  // ── Refs to capture latest state for unmount cleanup ───────────────────────
+  const viewModeRef = useRef(viewMode);
+  viewModeRef.current = viewMode;
+  const userClosedRef = useRef(userClosed);
+  userClosedRef.current = userClosed;
+  const mediaDataRef = useRef(mediaData);
+  mediaDataRef.current = mediaData;
+
+  // ── Show MiniPlayer when this component unmounts (e.g. page navigation) ────
+  useEffect(() => {
+    return () => {
+      // On unmount: if media is loaded in the context and the user hasn't
+      // explicitly closed the MiniPlayer, show it so playback continues.
+      if (
+        mediaDataRef.current &&
+        !userClosedRef.current &&
+        viewModeRef.current !== 'default' &&
+        viewModeRef.current !== 'taraweeh'
+      ) {
+        setShowMiniPlayer(true);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty deps — runs only on unmount
+
+  // ── Notify context that the main element is mounted ─────────────────────────
+  useEffect(() => {
+    setIsMainElementAlive(true);
+    return () => {
+      setIsMainElementAlive(false);
+    };
+  }, [setIsMainElementAlive]);
 
   // ── Auto-detect Taraweeh window from today's prayer times ──────────────────
   useEffect(() => {
@@ -263,15 +298,23 @@ export default function AyatOfTheMonth({
               </h3>
               <div className="relative w-full aspect-735/413 bg-white rounded-xl overflow-hidden text-black/50">
                 {embedUrl && (
-                  <iframe
-                    src={showMiniPlayer ? 'about:blank' : embedUrl}
-                    title={videoTitle || 'Video player'}
-                    className="w-full h-full"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                  />
+                  <div
+                    className={
+                      showMiniPlayer
+                        ? 'fixed z-[60] w-[278px] sm:w-[318px] aspect-video bottom-[55px] sm:bottom-[63px] right-[17px] sm:right-[25px] transition-all duration-300'
+                        : 'w-full h-full'
+                    }
+                  >
+                    <iframe
+                      src={embedUrl}
+                      title={videoTitle || 'Video player'}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      allowFullScreen
+                    />
+                  </div>
                 )}
               </div>
             </div>
@@ -311,7 +354,22 @@ export default function AyatOfTheMonth({
                 )}
               </div>
             </div>
-            <AudioPlayer audioUrl={fullAudioUrl} variant="dark" />
+            <AudioPlayer
+              audioUrl={fullAudioUrl}
+              variant="dark"
+              onPlay={() => {
+                // When the user (re-)plays from the AudioPlayer, sync with the
+                // context so MiniPlayer can reappear on scroll / page nav.
+                play({
+                  type: 'audio',
+                  url: fullAudioUrl,
+                  title: videoTitle || 'AYAT OF THE MONTH',
+                  citation,
+                  arabicImage: arabicImage || undefined,
+                });
+              }}
+              onPause={() => contextPause()}
+            />
           </>
         )}
 

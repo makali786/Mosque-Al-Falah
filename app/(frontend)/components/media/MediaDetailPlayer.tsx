@@ -13,6 +13,7 @@ interface MediaDetailPlayerProps {
   isLive?: boolean;
   type: 'video' | 'audio' | 'podcast'; // Handling non-gallery types
   description?: string;
+  className?: string;
 }
 
 export default function MediaDetailPlayer({
@@ -22,8 +23,9 @@ export default function MediaDetailPlayer({
   isLive,
   type,
   description,
+  className,
 }: MediaDetailPlayerProps) {
-  const { play, stop, isPlaying, mediaData, setShowMiniPlayer, userClosed } =
+  const { play, stop, isPlaying, mediaData, setShowMiniPlayer, showMiniPlayer, userClosed, setIsMainElementAlive } =
     useMediaPlayer();
   const [localIsPlaying, setLocalIsPlaying] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,6 +36,29 @@ export default function MediaDetailPlayer({
     { threshold: 0.3 }
   );
 
+  // Refs to capture latest state for unmount cleanup
+  const userClosedRef = useRef(userClosed);
+  userClosedRef.current = userClosed;
+  const mediaDataRef = useRef(mediaData);
+  mediaDataRef.current = mediaData;
+  const videoUrlRef = useRef(videoUrl);
+  videoUrlRef.current = videoUrl;
+
+  // Show MiniPlayer when this component unmounts (e.g., page navigation)
+  useEffect(() => {
+    return () => {
+      // On unmount: if this media is loaded in the context and the user hasn't
+      // explicitly closed the MiniPlayer, show it so playback continues.
+      if (
+        mediaDataRef.current?.url === videoUrlRef.current &&
+        !userClosedRef.current
+      ) {
+        setShowMiniPlayer(true);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty deps — runs only on unmount
+
   // Sync local playing state with global context
   useEffect(() => {
     if (mediaData?.url === videoUrl) {
@@ -42,6 +67,14 @@ export default function MediaDetailPlayer({
       setLocalIsPlaying(false);
     }
   }, [isPlaying, mediaData, videoUrl]);
+
+  // Notify context that the main element is mounted
+  useEffect(() => {
+    setIsMainElementAlive(true);
+    return () => {
+      setIsMainElementAlive(false);
+    };
+  }, [setIsMainElementAlive]);
 
   // Handle MiniPlayer visibility — show when scrolled away, but NEVER auto-hide.
   // Respects userClosed — won't re-show until the user starts a new play().
@@ -100,27 +133,31 @@ export default function MediaDetailPlayer({
   return (
     <div
       ref={containerRef}
-      className="relative w-full aspect-video bg-black rounded-[14px] overflow-hidden mb-8 group lg:max-w-[735px] lg:max-h-[412px]"
+      className={`relative w-full aspect-video bg-black overflow-hidden group ${className || 'rounded-[14px] mb-8 lg:max-w-[735px] lg:max-h-[412px]'}`}
     >
-      {localIsPlaying &&
-      embedUrl &&
-      (!mediaData ||
-        mediaData.url !== videoUrl ||
-        !useMediaPlayer().showMiniPlayer) ? (
-        <iframe
-          src={embedUrl}
-          title={title}
-          className="w-full h-full"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-        />
+      {localIsPlaying && embedUrl ? (
+        <div
+          className={
+            showMiniPlayer
+              ? 'fixed z-[60] w-[278px] sm:w-[318px] aspect-video bottom-[55px] sm:bottom-[63px] right-[17px] sm:right-[25px] transition-all duration-300'
+              : 'w-full h-full'
+          }
+        >
+          <iframe
+            src={embedUrl}
+            title={title}
+            className="w-full h-full"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        </div>
       ) : (
         /* Thumbnail View */
         <div
-          className="relative w-full h-full cursor-pointer"
-          onClick={handlePlay}
+          className={`relative w-full h-full ${showMiniPlayer ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          onClick={() => { if (!showMiniPlayer) handlePlay(); }}
         >
           {thumbnail ? (
             <Image
@@ -133,14 +170,28 @@ export default function MediaDetailPlayer({
             <div className="absolute inset-0 bg-gray-900" />
           )}
 
-          {/* Play Button Overlay */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center">
-                <FaPlay className="text-black ml-1 text-xl sm:text-2xl" />
+          {/* MiniPlayer active overlay */}
+          {showMiniPlayer ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-10">
+              <div className="bg-white/10 border border-white/20 rounded-xl px-5 py-4 text-center">
+                <p className="text-white text-sm font-medium">
+                  Media is playing in the MiniPlayer
+                </p>
+                <p className="text-white/60 text-xs mt-1">
+                  Close the MiniPlayer to use this player
+                </p>
               </div>
             </div>
-          </div>
+          ) : (
+            /* Play Button Overlay — only when MiniPlayer is NOT active */
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center">
+                  <FaPlay className="text-black ml-1 text-xl sm:text-2xl" />
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Live Badge */}
           {isLive && (
@@ -156,3 +207,4 @@ export default function MediaDetailPlayer({
     </div>
   );
 }
+
