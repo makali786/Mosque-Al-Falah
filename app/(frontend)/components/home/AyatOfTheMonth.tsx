@@ -55,6 +55,8 @@ export default function AyatOfTheMonth({
     stop,
     userClosed,
     setIsMainElementAlive,
+    hasPlayed,
+    setSourceUrl,
   } = useMediaPlayer();
   const isInView = useIntersectionObserver(
     sectionRef as React.RefObject<Element>,
@@ -68,15 +70,19 @@ export default function AyatOfTheMonth({
   userClosedRef.current = userClosed;
   const mediaDataRef = useRef(mediaData);
   mediaDataRef.current = mediaData;
+  const hasPlayedRef = useRef(hasPlayed);
+  hasPlayedRef.current = hasPlayed;
 
   // ── Show MiniPlayer when this component unmounts (e.g. page navigation) ────
   useEffect(() => {
     return () => {
-      // On unmount: if media is loaded in the context and the user hasn't
-      // explicitly closed the MiniPlayer, show it so playback continues.
+      // On unmount: if media is loaded in the context, the user hasn't
+      // explicitly closed the MiniPlayer, AND media was actually played,
+      // show MiniPlayer so playback continues.
       if (
         mediaDataRef.current &&
         !userClosedRef.current &&
+        hasPlayedRef.current &&
         viewModeRef.current !== 'default' &&
         viewModeRef.current !== 'taraweeh'
       ) {
@@ -86,13 +92,35 @@ export default function AyatOfTheMonth({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty deps — runs only on unmount
 
+  // ── Compute local media URLs early (before hooks) ────────────────────────────
+  // These are AyatOfTheMonth's OWN URLs, derived from props — not from context.
+  const _data = ayatOfTheMonth?.[0];
+  const _localVideoUrl = _data?.videoUrl || '';
+  const _localAudioUrl = _data?.audioFile?.url || _data?.audioUrl || '';
+  const _localFullAudioUrl =
+    _localAudioUrl && _localAudioUrl.startsWith('/')
+      ? `${typeof window !== 'undefined' ? window.location.origin : ''}${_localAudioUrl}`
+      : _localAudioUrl;
+
   // ── Notify context that the main element is mounted ─────────────────────────
+  // Only claim ownership when THIS component's local URL matches what's in context
+  // (i.e., this component actually initiated the playback via play()).
+  // This prevents AyatOfTheMonth from blocking MiniPlayer when the user navigated
+  // here from a different page that was playing a different video.
+  const ownMediaUrl = viewMode === 'video' ? _localVideoUrl
+    : viewMode === 'audio' ? _localFullAudioUrl
+      : null;
+  const isOwner = ownMediaUrl && mediaData?.url === ownMediaUrl;
   useEffect(() => {
-    setIsMainElementAlive(true);
+    if (isOwner && ownMediaUrl) {
+      setIsMainElementAlive(ownMediaUrl);
+    } else {
+      setIsMainElementAlive(null);
+    }
     return () => {
-      setIsMainElementAlive(false);
+      setIsMainElementAlive(null);
     };
-  }, [setIsMainElementAlive]);
+  }, [setIsMainElementAlive, isOwner, ownMediaUrl]);
 
   // ── Auto-detect Taraweeh window from today's prayer times ──────────────────
   useEffect(() => {
@@ -210,6 +238,9 @@ export default function AyatOfTheMonth({
         title: videoTitle || 'AYAT OF THE MONTH',
         citation,
       });
+      if (typeof window !== 'undefined') {
+        setSourceUrl(window.location.pathname + '#ayat-of-the-month');
+      }
     } else if (tab === 'audio') {
       setViewMode('audio');
       play({
@@ -219,6 +250,9 @@ export default function AyatOfTheMonth({
         citation,
         arabicImage: arabicImage || undefined,
       });
+      if (typeof window !== 'undefined') {
+        setSourceUrl(window.location.pathname + '#ayat-of-the-month');
+      }
     } else if (tab === 'taraweeh') {
       setViewMode('taraweeh');
       stop(); // stop any playing media when switching to live

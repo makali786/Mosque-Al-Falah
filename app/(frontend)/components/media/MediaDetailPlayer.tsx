@@ -14,6 +14,7 @@ interface MediaDetailPlayerProps {
   type: 'video' | 'audio' | 'podcast'; // Handling non-gallery types
   description?: string;
   className?: string;
+  autoPlay?: boolean;
 }
 
 export default function MediaDetailPlayer({
@@ -24,10 +25,12 @@ export default function MediaDetailPlayer({
   type,
   description,
   className,
+  autoPlay,
 }: MediaDetailPlayerProps) {
-  const { play, stop, isPlaying, mediaData, setShowMiniPlayer, showMiniPlayer, userClosed, setIsMainElementAlive } =
+  const { play, stop, isPlaying, mediaData, setShowMiniPlayer, showMiniPlayer, userClosed, setIsMainElementAlive, hasPlayed, setSourceUrl } =
     useMediaPlayer();
   const [localIsPlaying, setLocalIsPlaying] = useState(false);
+  const [isReadyForScrollLogic, setIsReadyForScrollLogic] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Intersection Observer to detect when player is out of view
@@ -43,21 +46,47 @@ export default function MediaDetailPlayer({
   mediaDataRef.current = mediaData;
   const videoUrlRef = useRef(videoUrl);
   videoUrlRef.current = videoUrl;
+  const isPlayingRef = useRef(isPlaying);
+  isPlayingRef.current = isPlaying;
+  const hasPlayedRef = useRef(hasPlayed);
+  hasPlayedRef.current = hasPlayed;
 
   // Show MiniPlayer when this component unmounts (e.g., page navigation)
   useEffect(() => {
     return () => {
-      // On unmount: if this media is loaded in the context and the user hasn't
-      // explicitly closed the MiniPlayer, show it so playback continues.
+      // On unmount: if this media is loaded in the context, the user hasn't
+      // explicitly closed the MiniPlayer, AND media was actually played,
+      // show MiniPlayer so playback continues.
       if (
         mediaDataRef.current?.url === videoUrlRef.current &&
-        !userClosedRef.current
+        !userClosedRef.current &&
+        hasPlayedRef.current
       ) {
         setShowMiniPlayer(true);
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty deps — runs only on unmount
+
+  // Handle Autoplay from URL search params
+  useEffect(() => {
+    if (autoPlay) {
+      handlePlay();
+      // Use a small timeout to ensure the layout has settled before scrolling
+      setTimeout(() => {
+        containerRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+        // Give IntersectionObserver a moment to catch up after the scroll before enabling MiniPlayer
+        setTimeout(() => setIsReadyForScrollLogic(true), 100);
+      }, 300);
+    } else {
+      // If not autoplaying, we are ready for scroll logic immediately
+      setIsReadyForScrollLogic(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoPlay]); // Run when autoPlay prop changes/mounts
 
   // Sync local playing state with global context
   useEffect(() => {
@@ -68,24 +97,24 @@ export default function MediaDetailPlayer({
     }
   }, [isPlaying, mediaData, videoUrl]);
 
-  // Notify context that the main element is mounted
+  // Notify context that the main element is mounted (pass the media URL it handles)
   useEffect(() => {
-    setIsMainElementAlive(true);
+    setIsMainElementAlive(videoUrl);
     return () => {
-      setIsMainElementAlive(false);
+      setIsMainElementAlive(null);
     };
-  }, [setIsMainElementAlive]);
+  }, [setIsMainElementAlive, videoUrl]);
 
   // Handle MiniPlayer visibility — show when scrolled away, but NEVER auto-hide.
   // Respects userClosed — won't re-show until the user starts a new play().
   useEffect(() => {
-    if (mediaData?.url === videoUrl) {
+    if (mediaData?.url === videoUrl && isReadyForScrollLogic) {
       if (!isInView && isPlaying && !userClosed) {
         setShowMiniPlayer(true);
       }
       // Intentionally NOT calling setShowMiniPlayer(false) on scroll-back.
     }
-  }, [isInView, isPlaying, userClosed, setShowMiniPlayer, mediaData, videoUrl]);
+  }, [isInView, isPlaying, userClosed, setShowMiniPlayer, mediaData, videoUrl, isReadyForScrollLogic]);
 
   // Helper to get embed URL
   const getEmbedUrl = (url: string) => {
@@ -121,6 +150,10 @@ export default function MediaDetailPlayer({
       thumbnail: thumbnail,
       citation: description,
     });
+    // Store the current page URL so MiniPlayer can navigate back here
+    if (typeof window !== 'undefined') {
+      setSourceUrl(window.location.pathname);
+    }
     setLocalIsPlaying(true);
   };
 
@@ -156,8 +189,8 @@ export default function MediaDetailPlayer({
       ) : (
         /* Thumbnail View */
         <div
-          className={`relative w-full h-full ${showMiniPlayer ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-          onClick={() => { if (!showMiniPlayer) handlePlay(); }}
+          className={`relative w-full h-full ${showMiniPlayer && mediaData?.url === videoUrl ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          onClick={() => { if (!(showMiniPlayer && mediaData?.url === videoUrl)) handlePlay(); }}
         >
           {thumbnail ? (
             <Image
@@ -171,7 +204,7 @@ export default function MediaDetailPlayer({
           )}
 
           {/* MiniPlayer active overlay */}
-          {showMiniPlayer ? (
+          {showMiniPlayer && mediaData?.url === videoUrl ? (
             <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-10">
               <div className="bg-white/10 border border-white/20 rounded-xl px-5 py-4 text-center">
                 <p className="text-white text-sm font-medium">

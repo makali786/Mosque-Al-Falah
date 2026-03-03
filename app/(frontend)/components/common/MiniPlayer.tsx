@@ -14,7 +14,7 @@ import {
 import { useMediaPlayer } from './MediaPlayerContext';
 
 export default function MiniPlayer() {
-  const { mediaData, isPlaying, showMiniPlayer, stop, togglePlayPause, isMainElementAlive, savedTimeRef } =
+  const { mediaData, isPlaying, showMiniPlayer, stop, togglePlayPause, isMainElementAlive, savedTimeRef, sourceUrl } =
     useMediaPlayer();
   const router = useRouter();
 
@@ -69,7 +69,11 @@ export default function MiniPlayer() {
   if (!showMiniPlayer || !mediaData) return null;
 
   const handleExpand = () => {
-    router.push('/#ayat-of-the-month');
+    if (sourceUrl) {
+      router.push(sourceUrl);
+    } else {
+      router.push('/#ayat-of-the-month');
+    }
   };
 
   const handleClose = () => {
@@ -163,9 +167,10 @@ export default function MiniPlayer() {
         <div className="relative">
           {mediaData.type === 'video' ? (
             <div className="relative w-full aspect-video bg-black">
-              {embedUrl && !isMainElementAlive && (
+              {embedUrl && isMainElementAlive !== mediaData.url && (
                 <iframe
                   ref={iframeRef}
+                  key={embedUrl}
                   src={embedUrl}
                   title={mediaData.title || 'Video player'}
                   className="w-full h-full"
@@ -191,8 +196,8 @@ export default function MiniPlayer() {
                   </div>
                 )}
 
-                {/* Audio element — only mounted if main component isn't handling it */}
-                {!isMainElementAlive && (
+                {/* Audio element — only mounted if main component isn't handling the same media */}
+                {isMainElementAlive !== mediaData.url && (
                   <audio
                     ref={audioRef}
                     src={mediaData.url}

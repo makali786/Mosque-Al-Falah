@@ -17,16 +17,19 @@ interface MediaPlayerContextType {
   isPlaying: boolean;
   showMiniPlayer: boolean;
   userClosed: boolean;
+  hasPlayed: boolean;
   mediaData: MediaData | null;
+  sourceUrl: string | null;
   play: (media: MediaData) => void;
   pause: () => void;
   resume: () => void;
   stop: () => void;
   setShowMiniPlayer: (show: boolean) => void;
   togglePlayPause: () => void;
-  isMainElementAlive: boolean;
-  setIsMainElementAlive: (alive: boolean) => void;
+  isMainElementAlive: string | null;
+  setIsMainElementAlive: (aliveUrl: string | null) => void;
   savedTimeRef: React.MutableRefObject<number>;
+  setSourceUrl: (url: string) => void;
 }
 
 const MediaPlayerContext = createContext<MediaPlayerContextType | undefined>(
@@ -40,8 +43,12 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
   // Tracks whether the user explicitly closed the MiniPlayer via the ✕ button.
   // Reset to false whenever play() is called so the MiniPlayer can re-appear.
   const [userClosed, setUserClosed] = useState(false);
-  // Tracks if the main component playing the media is still explicitly mounted in the DOM.
-  const [isMainElementAlive, setIsMainElementAlive] = useState(false);
+  // Tracks whether play() has been called at least once (reset on stop()).
+  const [hasPlayed, setHasPlayed] = useState(false);
+  // Tracks the media URL that the main component is currently handling (null when no main component is mounted).
+  const [isMainElementAlive, setIsMainElementAlive] = useState<string | null>(null);
+  // Stores the page URL where the media was played from.
+  const [sourceUrl, setSourceUrl] = useState<string | null>(null);
   const savedTimeRef = useRef(0);
 
   const play = (media: MediaData) => {
@@ -51,6 +58,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     }
     setMediaData(media);
     setIsPlaying(true);
+    setHasPlayed(true);
     setUserClosed(false); // allow MiniPlayer to show again after a close
   };
 
@@ -66,6 +74,8 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     setIsPlaying(false);
     setShowMiniPlayer(false);
     setMediaData(null);
+    setHasPlayed(false);
+    setSourceUrl(null);
     setUserClosed(true); // user explicitly closed — suppress auto-show until next play()
   };
 
@@ -79,7 +89,9 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
         isPlaying,
         showMiniPlayer,
         userClosed,
+        hasPlayed,
         mediaData,
+        sourceUrl,
         play,
         pause,
         resume,
@@ -89,6 +101,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
         isMainElementAlive,
         setIsMainElementAlive,
         savedTimeRef,
+        setSourceUrl,
       }}
     >
       {children}

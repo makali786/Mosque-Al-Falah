@@ -181,8 +181,8 @@ export const DateNavigation = ({
       <div
         className={`flex flex-col gap-1 items-center text-center ${styles.dateWidth}`}
       >
-        <p className={`${styles.gregorianText} w-full`}>{dateInfo.gregorian}</p>
-        <p className={`${styles.hijriText} w-full`}>{dateInfo.hijri}</p>
+        <p className={`${styles.gregorianText} w-full mt-[50px] md:mt-0 `}>{dateInfo.gregorian}</p>
+        <p className={`${styles.hijriText} w-full mt-[10px] md:mt-0`}>{dateInfo.hijri}</p>
       </div>
 
       <button

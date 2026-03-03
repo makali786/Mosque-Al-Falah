@@ -2,6 +2,7 @@ import { useMediaPlayer } from "@/components/common/MediaPlayerContext";
 import React from "react";
 import Image from "@/components/common/CustomImage";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export interface MediaItem {
   id: string | number;
@@ -24,6 +25,7 @@ interface MediaCardProps {
 export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
   const { title, description, image, type, slug, videoUrl, audioUrl } = media;
   const { play } = useMediaPlayer();
+  const router = useRouter();
 
   // Determine icon and label based on type
   const getTypeStyle = () => {
@@ -59,16 +61,19 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
       e.preventDefault();
       e.stopPropagation();
 
-      const url = type === 'video' ? videoUrl : (audioUrl || videoUrl); // Fallback if audioUrl missing
-
-      if (url) {
-        play({
-          type: type === 'video' ? 'video' : 'audio',
-          url: url,
-          title: title,
-          thumbnail: image,
-          citation: description, // Use description as citation/subtitle
-        });
+      if (slug) {
+        router.push(`/media/${slug}?autoplay=true`);
+      } else {
+        const url = type === 'video' ? videoUrl : (audioUrl || videoUrl); // Fallback if audioUrl missing
+        if (url) {
+          play({
+            type: type === 'video' ? 'video' : 'audio',
+            url: url,
+            title: title,
+            thumbnail: image,
+            citation: description, // Use description as citation/subtitle
+          });
+        }
       }
     }
   };

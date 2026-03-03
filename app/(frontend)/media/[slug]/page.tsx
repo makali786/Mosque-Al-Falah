@@ -11,15 +11,18 @@ import GalleryCarousel from "../../components/common/GalleryCarousel";
 import MediaDetailPlayer from "../../components/media/MediaDetailPlayer";
 
 interface MediaDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 
 
-export default async function MediaDetailPage({ params }: MediaDetailPageProps) {
+export default async function MediaDetailPage({ params, searchParams }: MediaDetailPageProps) {
   const { slug } = await params;
+  const searchParamsData = await searchParams;
+  const isAutoplay = searchParamsData?.autoplay === 'true';
 
   // Fetch dynamic configuration from Payload global
   const mediaPageConfig: any = await fetchGlobal({
@@ -168,6 +171,7 @@ export default async function MediaDetailPage({ params }: MediaDetailPageProps) 
                 isLive={mediaContent?.isLive}
                 type={mediaType === 'audio_podcast' ? 'audio' : 'video'}
                 description={description}
+                autoPlay={isAutoplay}
               />
             )}
 

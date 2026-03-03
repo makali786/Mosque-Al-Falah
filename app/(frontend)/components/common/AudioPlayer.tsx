@@ -37,8 +37,8 @@ export default function AudioPlayer({
 
   // ── Sync local playback state with global MediaPlayerContext ───────────────
   const { showMiniPlayer, isPlaying: globalIsPlaying, mediaData, savedTimeRef } = useMediaPlayer();
-  const isMiniPlayerActive = showMiniPlayer;
   const isGlobalActiveTrack = mediaData?.url === audioUrl;
+  const isMiniPlayerActive = showMiniPlayer && isGlobalActiveTrack;
 
   useEffect(() => {
     // If this AudioPlayer is the active track in the global Context,
