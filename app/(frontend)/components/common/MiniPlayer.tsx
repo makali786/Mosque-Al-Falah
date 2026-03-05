@@ -14,8 +14,17 @@ import {
 import { useMediaPlayer } from './MediaPlayerContext';
 
 export default function MiniPlayer() {
-  const { mediaData, isPlaying, showMiniPlayer, stop, togglePlayPause, isMainElementAlive, savedTimeRef, sourceUrl } =
-    useMediaPlayer();
+  const {
+    mediaData,
+    isPlaying,
+    showMiniPlayer,
+    stop,
+    togglePlayPause,
+    savedTimeRef,
+    sourceUrl,
+    setShowMiniPlayer,
+    setUserClosed,
+  } = useMediaPlayer();
   const router = useRouter();
 
   // Whether the player body is collapsed to just the header bar
@@ -80,21 +89,30 @@ export default function MiniPlayer() {
     stop();
   };
 
+  const handleMinimize = () => {
+    setMinimized(prev => !prev);
+  };
+
   // Helper: convert watch URLs → embed URLs (with enablejsapi=1 for YouTube)
   const getEmbedUrl = (url: string) => {
     if (!url) return '';
 
+    const startParam =
+      savedTimeRef.current > 0 ? `&start=${savedTimeRef.current}` : '';
+
     if (url.includes('/embed/')) {
       if (url.includes('youtube') && !url.includes('enablejsapi')) {
-        return url + (url.includes('?') ? '&' : '?') + 'enablejsapi=1';
+        return (
+          url + (url.includes('?') ? '&' : '?') + 'enablejsapi=1' + startParam
+        );
       }
-      return url;
+      return url + startParam;
     }
 
     const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/;
     const youtubeMatch = url.match(youtubeRegex);
     if (youtubeMatch?.[1]) {
-      return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&enablejsapi=1`;
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&enablejsapi=1${startParam}`;
     }
 
     const vimeoRegex = /vimeo\.com\/(?:video\/)?(\d+)(?:\?h=([a-zA-Z0-9]+))?/;
@@ -113,16 +131,18 @@ export default function MiniPlayer() {
   const embedUrl = mediaData.type === 'video' ? getEmbedUrl(mediaData.url) : '';
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[280px] sm:w-[320px] bg-[#18181b] rounded-xl shadow-2xl overflow-hidden border border-gray-700 transition-all duration-300">
-      {/* Header — always visible */}
-      <div className="bg-[#27272a] px-3 py-2 flex items-center justify-between border-b border-gray-700">
+    <div className="fixed bottom-4 z-[999999999] right-4 sm:bottom-6 sm:right-6 w-[280px] sm:w-[320px] bg-[#18181b] rounded-xl shadow-2xl overflow-hidden border border-gray-700 transition-all duration-300">
+      {/* Header — always visible, z-20 keeps it above the iframe */}
+      <div
+        className={`bg-[#27272a]  px-3 py-2 flex items-center justify-between border-b border-gray-700 relative z-20`}
+      >
         <h4 className="text-white text-sm font-medium truncate flex-1 mr-2">
           {mediaData.title || 'AYAT OF THE MONTH'}
         </h4>
         <div className="flex gap-1 items-center">
           {/* Minimize / Expand toggle */}
           <button
-            onClick={() => setMinimized(prev => !prev)}
+            onClick={handleMinimize}
             className="text-gray-400 hover:text-white transition-colors p-1"
             aria-label={minimized ? 'Expand player' : 'Minimise player'}
           >
@@ -152,7 +172,6 @@ export default function MiniPlayer() {
           </button>
         </div>
       </div>
-
       {/*
         ── IMPORTANT: Content is ALWAYS mounted (never conditionally removed).
         We use CSS visibility/height to hide it when minimized.
@@ -160,14 +179,17 @@ export default function MiniPlayer() {
       ──────────────────────────────────────────────────────────────────────── */}
       <div
         className="transition-all duration-300 overflow-hidden"
-        style={{ maxHeight: minimized ? 0 : 600 }}
-        aria-hidden={minimized}
+        style={{
+          height: minimized ? 0 : 'auto',
+          opacity: minimized ? 0 : 1,
+          pointerEvents: minimized ? 'none' : 'auto',
+        }}
       >
         {/* Content */}
         <div className="relative">
           {mediaData.type === 'video' ? (
             <div className="relative w-full aspect-video bg-black">
-              {embedUrl && isMainElementAlive !== mediaData.url && (
+              {embedUrl && (
                 <iframe
                   ref={iframeRef}
                   key={embedUrl}
@@ -196,14 +218,14 @@ export default function MiniPlayer() {
                   </div>
                 )}
 
-                {/* Audio element — only mounted if main component isn't handling the same media */}
-                {isMainElementAlive !== mediaData.url && (
+                {/* Audio element */}
+                {mediaData.url && (
                   <audio
                     ref={audioRef}
                     src={mediaData.url}
                     loop={false}
                     className="w-full"
-                    onCanPlay={(e) => {
+                    onCanPlay={e => {
                       if (savedTimeRef.current > 1) {
                         e.currentTarget.currentTime = savedTimeRef.current;
                         savedTimeRef.current = 0; // prevent re-seeking on pause/play
@@ -225,7 +247,7 @@ export default function MiniPlayer() {
           )}
         </div>
 
-        {/* Play/Pause Control bar */}
+        {/* Play/Pause Control bar — hidden when main player is doing the work */}
         <div className="bg-[#27272a] px-3 py-2 flex items-center justify-center border-t border-gray-700">
           <button
             onClick={togglePlayPause}
@@ -246,8 +268,7 @@ export default function MiniPlayer() {
           </button>
         </div>
       </div>
-
-      {/* Minimized status bar — shown only when collapsed */}
+      {/* Minimized status bar — shown only when collapsed via minimize button */}
       {minimized && (
         <div className="bg-[#27272a] px-3 py-1.5 flex items-center justify-between border-t border-gray-700">
           <span className="text-[10px] text-gray-400 truncate flex-1 mr-2">

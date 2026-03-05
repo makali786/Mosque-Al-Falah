@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import Image from "@/components/common/CustomImage";
-import Link from "next/link";
-import ViewToggleButtons from "../common/ViewToggleButtons";
-import SermonCard from "../common/SermonCard";
+import Image from '@/components/common/CustomImage';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import SermonCard from '../common/SermonCard';
 
-import { getMediaUrl } from "../../../../lib/helper";
+import { getMediaUrl } from '../../../../lib/helper';
 
-import { Media } from "../../../../payload-types";
+import { Media } from '../../../../payload-types';
 
 interface Sermon {
   id: number | string;
@@ -31,7 +30,6 @@ interface Sermon {
 }
 
 // Remove hardcoded sermons constant
-
 
 interface RawSermon {
   id: number | string;
@@ -62,25 +60,26 @@ interface SermonsProps {
 
 export default function Sermons({
   sermons = [],
-  title = "Featured Sermons and Lectures",
-  subtitle = "POWERFUL & LIFE-CHANGING",
-  showDiscoverMore = true
+  title = 'Featured Sermons and Lectures',
+  subtitle = 'POWERFUL & LIFE-CHANGING',
+  showDiscoverMore = true,
 }: SermonsProps) {
-
-  const mappedSermons: Sermon[] = sermons.map((sermon) => ({
+  const mappedSermons: Sermon[] = sermons.map(sermon => ({
     id: sermon.id,
     slug: sermon.slug,
     image: getMediaUrl(sermon.image as unknown as Media),
-    date: sermon.sermonDate ? new Date(sermon.sermonDate).toLocaleDateString() : "No Date",
+    date: sermon.sermonDate
+      ? new Date(sermon.sermonDate).toLocaleDateString()
+      : 'No Date',
     title: sermon.title,
     guestSpeaker: sermon.guestSpeaker,
     author: sermon.author || {
-      name: "",
-      role: "",
+      name: '',
+      role: '',
       avatar: undefined,
-      initials: ""
+      initials: '',
     },
-    videoUrl: sermon.videoUrl
+    videoUrl: sermon.videoUrl,
   }));
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -89,7 +88,8 @@ export default function Sermons({
 
   const checkScroll = () => {
     if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current;
       setCanScrollLeft(scrollLeft > 0);
       setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
     }
@@ -99,20 +99,20 @@ export default function Sermons({
     checkScroll();
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      scrollContainer.addEventListener("scroll", checkScroll);
-      return () => scrollContainer.removeEventListener("scroll", checkScroll);
+      scrollContainer.addEventListener('scroll', checkScroll);
+      return () => scrollContainer.removeEventListener('scroll', checkScroll);
     }
   }, []);
 
-  const scroll = (direction: "left" | "right") => {
+  const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const scrollAmount = 400;
       const newScrollLeft =
         scrollContainerRef.current.scrollLeft +
-        (direction === "right" ? scrollAmount : -scrollAmount);
+        (direction === 'right' ? scrollAmount : -scrollAmount);
       scrollContainerRef.current.scrollTo({
         left: newScrollLeft,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -159,12 +159,13 @@ export default function Sermons({
               {/* Navigation Arrows - Hidden on mobile */}
               <div className="hidden lg:flex items-center gap-8">
                 <button
-                  onClick={() => scroll("left")}
+                  onClick={() => scroll('left')}
                   disabled={!canScrollLeft}
-                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${canScrollLeft
-                    ? "bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer"
-                    : "bg-[#d4d4d8] opacity-50 cursor-not-allowed"
-                    }`}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                    canScrollLeft
+                      ? 'bg-[#d4d4d8] hover:bg-[#c4c4c8] cursor-pointer'
+                      : 'bg-[#d4d4d8] opacity-50 cursor-not-allowed'
+                  }`}
                 >
                   <Image
                     src="/assets/sermons/arrow-left.svg"
@@ -176,12 +177,13 @@ export default function Sermons({
                 </button>
 
                 <button
-                  onClick={() => scroll("right")}
+                  onClick={() => scroll('right')}
                   disabled={!canScrollRight}
-                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${canScrollRight
-                    ? "bg-[rgba(0,111,238,0.2)] hover:bg-[rgba(0,111,238,0.3)] cursor-pointer"
-                    : "bg-[rgba(0,111,238,0.2)] opacity-50 cursor-not-allowed"
-                    }`}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                    canScrollRight
+                      ? 'bg-[rgba(0,111,238,0.2)] hover:bg-[rgba(0,111,238,0.3)] cursor-pointer'
+                      : 'bg-[rgba(0,111,238,0.2)] opacity-50 cursor-not-allowed'
+                  }`}
                 >
                   <Image
                     src="/assets/sermons/arrow-right.svg"
@@ -197,26 +199,51 @@ export default function Sermons({
         </div>
 
         {/* Sermons Container */}
-        <div
-          ref={scrollContainerRef}
-          className="flex flex-col sm:flex-row gap-9 sm:overflow-x-auto scrollbar-hide scroll-smooth"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          {mappedSermons.map((sermon, index) => (
-            <div
-              key={sermon.id}
-              className={`shrink-0 w-full sm:w-88.75 lg:w-[calc((100%-72px)/3)] ${index >= visibleCount ? 'hidden sm:block' : ''}`}
+        {mappedSermons.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16 text-center">
+            <svg
+              className="w-16 h-16 text-gray-300 mb-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.5}
             >
-              <SermonCard sermon={sermon} layout="grid" />
-            </div>
-          ))}
-        </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
+              />
+            </svg>
+            <h3 className="text-lg font-semibold text-gray-500 mb-1">
+              No sermons available
+            </h3>
+            <p className="text-sm text-gray-400 max-w-xs">
+              New sermons and lectures will appear here once they are published.
+              Please check back soon.
+            </p>
+          </div>
+        ) : (
+          <div
+            ref={scrollContainerRef}
+            className="flex flex-col sm:flex-row gap-9 sm:overflow-x-auto scrollbar-hide scroll-smooth"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {mappedSermons.map((sermon, index) => (
+              <div
+                key={sermon.id}
+                className={`shrink-0 w-full sm:w-88.75 lg:w-[calc((100%-72px)/3)] ${index >= visibleCount ? 'hidden sm:block' : ''}`}
+              >
+                <SermonCard sermon={sermon} layout="grid" />
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Load More Button - Mobile Only */}
         {visibleCount < mappedSermons.length && (
           <div className="mt-8 flex justify-center sm:hidden">
             <button
-              onClick={() => setVisibleCount((prev) => prev + 3)}
+              onClick={() => setVisibleCount(prev => prev + 3)}
               className="px-6 py-3 bg-[#F4F4F5] rounded-lg text-sm font-medium text-[#18181B] hover:bg-gray-200 transition-colors cursor-pointer"
             >
               Load More

@@ -1,6 +1,13 @@
 'use client';
 
-import { createContext, ReactNode, useContext, useState, useRef } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 export type MediaType = 'video' | 'audio';
 
@@ -25,9 +32,9 @@ interface MediaPlayerContextType {
   resume: () => void;
   stop: () => void;
   setShowMiniPlayer: (show: boolean) => void;
+  setUserClosed: (closed: boolean) => void;
   togglePlayPause: () => void;
-  isMainElementAlive: string | null;
-  setIsMainElementAlive: (aliveUrl: string | null) => void;
+
   savedTimeRef: React.MutableRefObject<number>;
   setSourceUrl: (url: string) => void;
 }
@@ -45,11 +52,49 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
   const [userClosed, setUserClosed] = useState(false);
   // Tracks whether play() has been called at least once (reset on stop()).
   const [hasPlayed, setHasPlayed] = useState(false);
-  // Tracks the media URL that the main component is currently handling (null when no main component is mounted).
-  const [isMainElementAlive, setIsMainElementAlive] = useState<string | null>(null);
+
   // Stores the page URL where the media was played from.
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
   const savedTimeRef = useRef(0);
+
+  // ── Global YouTube Time Tracking ───────────────────────────────────────────
+  // Listen for messages from ANY YouTube iframe on the page.
+  // We must send {"event": "listening"} to the iframe when it's ready,
+  // otherwise it won't broadcast "infoDelivery" events with the current time.
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      try {
+        const data =
+          typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+
+        // When a YouTube player is ready, tell it we are listening
+        if (data.event === 'initialDelivery' || data.event === 'onReady') {
+          if (
+            event.source &&
+            typeof (event.source as Window).postMessage === 'function'
+          ) {
+            (event.source as Window).postMessage(
+              JSON.stringify({ event: 'listening' }),
+              '*'
+            );
+          }
+        }
+
+        // Continuously track the playback time
+        if (
+          data.event === 'infoDelivery' &&
+          data.info?.currentTime !== undefined
+        ) {
+          savedTimeRef.current = Math.floor(data.info.currentTime);
+        }
+      } catch {
+        // ignore non-JSON messages
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   const play = (media: MediaData) => {
     // If playing a completely new URL, reset savedTime. Else, keep it.
@@ -89,6 +134,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
         isPlaying,
         showMiniPlayer,
         userClosed,
+        setUserClosed,
         hasPlayed,
         mediaData,
         sourceUrl,
@@ -98,8 +144,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
         stop,
         setShowMiniPlayer,
         togglePlayPause,
-        isMainElementAlive,
-        setIsMainElementAlive,
+
         savedTimeRef,
         setSourceUrl,
       }}

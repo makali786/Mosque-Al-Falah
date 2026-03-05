@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
-import { FaPause } from "react-icons/fa6";
-import { useMediaPlayer } from "./MediaPlayerContext";
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import { FaPause } from 'react-icons/fa6';
+import { useMediaPlayer } from './MediaPlayerContext';
 
 interface AudioPlayerProps {
   audioUrl: string;
@@ -12,13 +12,13 @@ interface AudioPlayerProps {
   onPrevious?: () => void;
   onNext?: () => void;
   variant?: 'light' | 'dark'; // Add variant prop
-  onPlay?: () => void;   // Called when the user starts playback
-  onPause?: () => void;  // Called when the user pauses playback
+  onPlay?: () => void; // Called when the user starts playback
+  onPause?: () => void; // Called when the user pauses playback
 }
 
 export default function AudioPlayer({
   audioUrl,
-  className = "",
+  className = '',
   showPreviousNext = true,
   onPrevious,
   onNext,
@@ -36,11 +36,23 @@ export default function AudioPlayer({
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // ── Sync local playback state with global MediaPlayerContext ───────────────
-  const { showMiniPlayer, isPlaying: globalIsPlaying, mediaData, savedTimeRef } = useMediaPlayer();
+  const {
+    showMiniPlayer,
+    isPlaying: globalIsPlaying,
+    mediaData,
+    savedTimeRef,
+  } = useMediaPlayer();
   const isGlobalActiveTrack = mediaData?.url === audioUrl;
   const isMiniPlayerActive = showMiniPlayer && isGlobalActiveTrack;
 
   useEffect(() => {
+    // When the MiniPlayer is handling this audio, pause our own <audio>
+    // to prevent double playback. Only the MiniPlayer's audio should play.
+    if (isMiniPlayerActive) {
+      audioRef.current?.pause();
+      setIsPlaying(false);
+      return;
+    }
     // If this AudioPlayer is the active track in the global Context,
     // match our local playing state to the global one.
     // This allows the MiniPlayer Pause/Play buttons to control this active player
@@ -48,7 +60,7 @@ export default function AudioPlayer({
     if (isGlobalActiveTrack && isPlaying !== globalIsPlaying) {
       setIsPlaying(globalIsPlaying);
     }
-  }, [isGlobalActiveTrack, globalIsPlaying, isPlaying]);
+  }, [isMiniPlayerActive, isGlobalActiveTrack, globalIsPlaying, isPlaying]);
 
   // Handle audio element events
   useEffect(() => {
@@ -107,7 +119,7 @@ export default function AudioPlayer({
     if (!audio) return;
 
     if (isPlaying) {
-      audio.play().catch((err) => {
+      audio.play().catch(err => {
         console.error('Play error:', err);
         setIsPlaying(false);
       });
@@ -144,52 +156,54 @@ export default function AudioPlayer({
   const handleSeekMouseUp = (e: React.MouseEvent<HTMLInputElement>) => {
     setSeeking(false);
     if (audioRef.current) {
-      audioRef.current.currentTime = parseFloat((e.target as HTMLInputElement).value) * duration;
+      audioRef.current.currentTime =
+        parseFloat((e.target as HTMLInputElement).value) * duration;
     }
   };
 
   const formatTime = (seconds: number) => {
-    if (!seconds) return "0:00";
+    if (!seconds) return '0:00';
     const min = Math.floor(seconds / 60);
     const sec = Math.floor(seconds % 60);
-    return `${min}:${sec < 10 ? "0" + sec : sec}`;
+    return `${min}:${sec < 10 ? '0' + sec : sec}`;
   };
 
   // Conditional styles based on variant
-  const containerStyles = variant === 'dark'
-    ? 'bg-black/30 border-0'
-    : 'bg-gradient-to-br from-white to-gray-50/50 border border-[#E4E4E7] shadow-lg';
+  const containerStyles =
+    variant === 'dark'
+      ? 'bg-black/30 border-0'
+      : 'bg-gradient-to-br from-white to-gray-50/50 border border-[#E4E4E7] shadow-lg';
 
-  const buttonStyles = variant === 'dark'
-    ? 'w-12 h-12 sm:w-14 sm:h-14 bg-white hover:bg-gray-100 shadow-lg'
-    : 'w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#006FEE] to-[#0062D1] hover:from-[#0062D1] hover:to-[#0052B1] shadow-xl hover:shadow-2xl';
+  const buttonStyles =
+    variant === 'dark'
+      ? 'w-12 h-12 sm:w-14 sm:h-14 bg-white hover:bg-gray-100 shadow-lg'
+      : 'w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-[#006FEE] to-[#0062D1] hover:from-[#0062D1] hover:to-[#0052B1] shadow-xl hover:shadow-2xl';
 
   const iconColor = variant === 'dark' ? 'black' : 'white';
 
-  const timeStyles = variant === 'dark'
-    ? 'text-xs text-[#a7a7a7]'
-    : 'text-sm font-semibold text-[#71717A]';
+  const timeStyles =
+    variant === 'dark'
+      ? 'text-xs text-[#a7a7a7]'
+      : 'text-sm font-semibold text-[#71717A]';
 
-  const seekbarBgStyles = variant === 'dark'
-    ? 'bg-white/30'
-    : 'bg-[#E4E4E7]';
+  const seekbarBgStyles = variant === 'dark' ? 'bg-white/30' : 'bg-[#E4E4E7]';
 
-  const seekbarProgressStyles = variant === 'dark'
-    ? 'bg-white'
-    : 'bg-gradient-to-r from-[#006FEE] to-[#0080FF]';
+  const seekbarProgressStyles =
+    variant === 'dark'
+      ? 'bg-white'
+      : 'bg-gradient-to-r from-[#006FEE] to-[#0080FF]';
 
-  const navButtonStyles = variant === 'dark'
-    ? 'w-8 h-8 hover:bg-white/10'
-    : 'w-10 h-10 hover:bg-gray-100';
+  const navButtonStyles =
+    variant === 'dark'
+      ? 'w-8 h-8 hover:bg-white/10'
+      : 'w-10 h-10 hover:bg-gray-100';
 
   return (
-    <div className={`${containerStyles} rounded-[20px] p-8 sm:p-10 flex flex-col gap-8 w-full relative ${className}`}>
+    <div
+      className={`${containerStyles} rounded-[20px] p-8 sm:p-10 flex flex-col gap-8 w-full relative ${className}`}
+    >
       {/* Hidden native audio element */}
-      <audio
-        ref={audioRef}
-        src={audioUrl}
-        preload="metadata"
-      />
+      <audio ref={audioRef} src={audioUrl} preload="metadata" />
 
       {/* MiniPlayer active overlay — shown when MiniPlayer is open */}
       {isMiniPlayerActive && (
@@ -206,7 +220,9 @@ export default function AudioPlayer({
       )}
 
       {/* Controls */}
-      <div className={`flex items-center justify-center gap-8 w-full ${isMiniPlayerActive ? 'opacity-40 pointer-events-none' : ''}`}>
+      <div
+        className={`flex items-center justify-center gap-8 w-full ${isMiniPlayerActive ? 'opacity-40 pointer-events-none' : ''}`}
+      >
         {showPreviousNext && (
           <div className="flex-1 flex justify-end gap-4">
             <button
@@ -228,10 +244,16 @@ export default function AudioPlayer({
         <button
           onClick={handlePlayPause}
           disabled={!isReady || isMiniPlayerActive}
-          className={`${buttonStyles} rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105 active:scale-95 ${(!isReady || isMiniPlayerActive) ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`${buttonStyles} rounded-full flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-105 active:scale-95 ${!isReady || isMiniPlayerActive ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isPlaying ? (
-            <FaPause className={variant === 'dark' ? 'text-black w-5 h-5 sm:w-6 sm:h-6' : 'text-white w-6 h-6 sm:w-7 sm:h-7'} />
+            <FaPause
+              className={
+                variant === 'dark'
+                  ? 'text-black w-5 h-5 sm:w-6 sm:h-6'
+                  : 'text-white w-6 h-6 sm:w-7 sm:h-7'
+              }
+            />
           ) : (
             <svg
               width={variant === 'dark' ? '20' : '24'}
@@ -272,11 +294,17 @@ export default function AudioPlayer({
       </div>
 
       {/* Seekbar */}
-      <div className={`flex items-center gap-4 sm:gap-5 w-full ${isMiniPlayerActive ? 'opacity-40 pointer-events-none' : ''}`}>
-        <span className={`${timeStyles} min-w-[45px] text-left whitespace-nowrap tabular-nums`}>
+      <div
+        className={`flex items-center gap-4 sm:gap-5 w-full ${isMiniPlayerActive ? 'opacity-40 pointer-events-none' : ''}`}
+      >
+        <span
+          className={`${timeStyles} min-w-[45px] text-left whitespace-nowrap tabular-nums`}
+        >
           {formatTime(currentTime)}
         </span>
-        <div className={`flex-1 h-2.5 ${seekbarBgStyles} rounded-full relative group cursor-pointer`}>
+        <div
+          className={`flex-1 h-2.5 ${seekbarBgStyles} rounded-full relative group cursor-pointer`}
+        >
           {/* Progress bar */}
           <div
             className={`absolute top-0 left-0 h-full ${seekbarProgressStyles} rounded-full pointer-events-none transition-all duration-150 shadow-sm`}
@@ -300,7 +328,9 @@ export default function AudioPlayer({
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 disabled:cursor-not-allowed"
           />
         </div>
-        <span className={`${timeStyles} min-w-[45px] text-right whitespace-nowrap tabular-nums`}>
+        <span
+          className={`${timeStyles} min-w-[45px] text-right whitespace-nowrap tabular-nums`}
+        >
           {formatTime(duration)}
         </span>
       </div>
@@ -314,4 +344,3 @@ export default function AudioPlayer({
     </div>
   );
 }
-

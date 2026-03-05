@@ -11,7 +11,7 @@ interface MediaDetailPlayerProps {
   videoUrl: string;
   thumbnail?: string;
   isLive?: boolean;
-  type: 'video' | 'audio' | 'podcast'; // Handling non-gallery types
+  type: 'video' | 'audio' | 'podcast';
   description?: string;
   className?: string;
   autoPlay?: boolean;
@@ -27,11 +27,25 @@ export default function MediaDetailPlayer({
   className,
   autoPlay,
 }: MediaDetailPlayerProps) {
-  const { play, stop, isPlaying, mediaData, setShowMiniPlayer, showMiniPlayer, userClosed, setIsMainElementAlive, hasPlayed, setSourceUrl } =
-    useMediaPlayer();
+  const {
+    play,
+    stop,
+    isPlaying,
+    mediaData,
+    setShowMiniPlayer,
+    showMiniPlayer,
+    userClosed,
+    hasPlayed,
+    setSourceUrl,
+    savedTimeRef,
+  } = useMediaPlayer();
   const [localIsPlaying, setLocalIsPlaying] = useState(false);
   const [isReadyForScrollLogic, setIsReadyForScrollLogic] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Whether the mini-player is currently active for THIS video
+  const isMiniActive = showMiniPlayer && mediaData?.url === videoUrl;
 
   // Intersection Observer to detect when player is out of view
   const isInView = useIntersectionObserver(
@@ -54,9 +68,6 @@ export default function MediaDetailPlayer({
   // Show MiniPlayer when this component unmounts (e.g., page navigation)
   useEffect(() => {
     return () => {
-      // On unmount: if this media is loaded in the context, the user hasn't
-      // explicitly closed the MiniPlayer, AND media was actually played,
-      // show MiniPlayer so playback continues.
       if (
         mediaDataRef.current?.url === videoUrlRef.current &&
         !userClosedRef.current &&
@@ -66,27 +77,24 @@ export default function MediaDetailPlayer({
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty deps — runs only on unmount
+  }, []);
 
   // Handle Autoplay from URL search params
   useEffect(() => {
     if (autoPlay) {
       handlePlay();
-      // Use a small timeout to ensure the layout has settled before scrolling
       setTimeout(() => {
         containerRef.current?.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
         });
-        // Give IntersectionObserver a moment to catch up after the scroll before enabling MiniPlayer
         setTimeout(() => setIsReadyForScrollLogic(true), 100);
       }, 300);
     } else {
-      // If not autoplaying, we are ready for scroll logic immediately
       setIsReadyForScrollLogic(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoPlay]); // Run when autoPlay prop changes/mounts
+  }, [autoPlay]);
 
   // Sync local playing state with global context
   useEffect(() => {
@@ -97,38 +105,82 @@ export default function MediaDetailPlayer({
     }
   }, [isPlaying, mediaData, videoUrl]);
 
-  // Notify context that the main element is mounted (pass the media URL it handles)
-  useEffect(() => {
-    setIsMainElementAlive(videoUrl);
-    return () => {
-      setIsMainElementAlive(null);
-    };
-  }, [setIsMainElementAlive, videoUrl]);
-
-  // Handle MiniPlayer visibility — show when scrolled away, but NEVER auto-hide.
-  // Respects userClosed — won't re-show until the user starts a new play().
+  // Handle MiniPlayer visibility — show when scrolled away, hide when scrolled back.
   useEffect(() => {
     if (mediaData?.url === videoUrl && isReadyForScrollLogic) {
       if (!isInView && isPlaying && !userClosed) {
         setShowMiniPlayer(true);
+      } else if (isInView && showMiniPlayer) {
+        setShowMiniPlayer(false);
       }
-      // Intentionally NOT calling setShowMiniPlayer(false) on scroll-back.
     }
-  }, [isInView, isPlaying, userClosed, setShowMiniPlayer, mediaData, videoUrl, isReadyForScrollLogic]);
+  }, [
+    isInView,
+    isPlaying,
+    userClosed,
+    showMiniPlayer,
+    setShowMiniPlayer,
+    mediaData,
+    videoUrl,
+    isReadyForScrollLogic,
+  ]);
+
+  // ── Pause/Resume page iframe when mini-player activates/deactivates ──────
+  const prevMiniActiveRef = useRef(false);
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    const wasActive = prevMiniActiveRef.current;
+    prevMiniActiveRef.current = isMiniActive;
+
+    if (!iframe?.contentWindow) return;
+
+    const isYouTube =
+      videoUrl.includes('youtube') || videoUrl.includes('youtu.be');
+
+    if (isMiniActive && !wasActive) {
+      // Mini-player just activated → pause page iframe
+      if (isYouTube) {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
+          '*'
+        );
+      }
+    } else if (!isMiniActive && wasActive) {
+      // Mini-player just deactivated (user scrolled back) → seek and resume
+      if (isYouTube && savedTimeRef.current > 0) {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({
+            event: 'command',
+            func: 'seekTo',
+            args: [savedTimeRef.current, true],
+          }),
+          '*'
+        );
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
+          '*'
+        );
+      }
+    }
+  }, [isMiniActive, videoUrl, savedTimeRef]);
 
   // Helper to get embed URL
   const getEmbedUrl = (url: string) => {
     if (!url) return '';
-    if (url.includes('/embed/')) return url;
 
-    // YouTube
+    if (url.includes('/embed/')) {
+      if (url.includes('youtube') && !url.includes('enablejsapi')) {
+        return url + (url.includes('?') ? '&' : '?') + 'enablejsapi=1';
+      }
+      return url;
+    }
+
     const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/;
     const youtubeMatch = url.match(youtubeRegex);
     if (youtubeMatch && youtubeMatch[1]) {
-      return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1`;
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&enablejsapi=1`;
     }
 
-    // Vimeo
     const vimeoRegex = /vimeo\.com\/(?:video\/)?(\d+)(?:\?h=([a-zA-Z0-9]+))?/;
     const vimeoMatch = url.match(vimeoRegex);
     if (vimeoMatch && vimeoMatch[1]) {
@@ -150,7 +202,6 @@ export default function MediaDetailPlayer({
       thumbnail: thumbnail,
       citation: description,
     });
-    // Store the current page URL so MiniPlayer can navigate back here
     if (typeof window !== 'undefined') {
       setSourceUrl(window.location.pathname);
     }
@@ -159,24 +210,23 @@ export default function MediaDetailPlayer({
 
   const embedUrl = getEmbedUrl(videoUrl);
 
-  // If localIsPlaying is true, show the iframe/player
-  // Otherwise show the thumbnail with play button
-  // Note: AyatOfTheMonth switches "Mode", here we just switch view.
-
   return (
     <div
       ref={containerRef}
       className={`relative w-full aspect-video bg-black overflow-hidden group ${className || 'rounded-[14px] mb-8 lg:max-w-[735px] lg:max-h-[412px]'}`}
     >
-      {localIsPlaying && embedUrl ? (
+      {/* ── Iframe: always mounted once playing, paused via postMessage ── */}
+      {localIsPlaying && embedUrl && (
         <div
-          className={
-            showMiniPlayer
-              ? 'fixed z-[60] w-[278px] sm:w-[318px] aspect-video bottom-[55px] sm:bottom-[63px] right-[17px] sm:right-[25px] transition-all duration-300'
-              : 'w-full h-full'
-          }
+          className="w-full h-full"
+          style={{
+            opacity: isMiniActive ? 0 : 1,
+            pointerEvents: isMiniActive ? 'none' : 'auto',
+            position: isMiniActive ? 'absolute' : 'relative',
+          }}
         >
           <iframe
+            ref={iframeRef}
             src={embedUrl}
             title={title}
             className="w-full h-full"
@@ -186,11 +236,15 @@ export default function MediaDetailPlayer({
             allowFullScreen
           />
         </div>
-      ) : (
-        /* Thumbnail View */
+      )}
+
+      {/* ── Thumbnail / Overlay when not playing or mini-player active ── */}
+      {(!localIsPlaying || !embedUrl || isMiniActive) && (
         <div
-          className={`relative w-full h-full ${showMiniPlayer && mediaData?.url === videoUrl ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-          onClick={() => { if (!(showMiniPlayer && mediaData?.url === videoUrl)) handlePlay(); }}
+          className={`absolute inset-0 w-full h-full ${isMiniActive ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+          onClick={() => {
+            if (!isMiniActive) handlePlay();
+          }}
         >
           {thumbnail ? (
             <Image
@@ -203,8 +257,7 @@ export default function MediaDetailPlayer({
             <div className="absolute inset-0 bg-gray-900" />
           )}
 
-          {/* MiniPlayer active overlay */}
-          {showMiniPlayer && mediaData?.url === videoUrl ? (
+          {isMiniActive ? (
             <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-10">
               <div className="bg-white/10 border border-white/20 rounded-xl px-5 py-4 text-center">
                 <p className="text-white text-sm font-medium">
@@ -216,17 +269,17 @@ export default function MediaDetailPlayer({
               </div>
             </div>
           ) : (
-            /* Play Button Overlay — only when MiniPlayer is NOT active */
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center">
-                  <FaPlay className="text-black ml-1 text-xl sm:text-2xl" />
+            !localIsPlaying && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full flex items-center justify-center">
+                    <FaPlay className="text-black ml-1 text-xl sm:text-2xl" />
+                  </div>
                 </div>
               </div>
-            </div>
+            )
           )}
 
-          {/* Live Badge */}
           {isLive && (
             <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full flex items-center gap-2 z-10">
               <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
@@ -240,4 +293,3 @@ export default function MediaDetailPlayer({
     </div>
   );
 }
-
