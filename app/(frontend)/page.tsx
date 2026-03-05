@@ -9,7 +9,7 @@ import {
   fetchSermons,
   fetchServices,
 } from '../../lib/fetcher';
-import { getNextOccurrence, isEventHappening } from '../../lib/recurring-events';
+import { getNextOccurrence } from '../../lib/recurring-events';
 import AyatOfTheMonth from './components/home/AyatOfTheMonth';
 import DonationAppeal from './components/home/DonationAppeal';
 import HeroBanner from './components/home/HeroBanner';
@@ -93,12 +93,8 @@ export default async function Home() {
     where: { isActive: { equals: true } },
   });
 
-  // Filter Ayat of the Month based on timing/recurrence, same as events
-  const ayatOfTheMonth = allAyats.filter((ayat: any) => {
-    // If it has no timing, it's likely a legacy record, show it
-    if (!ayat.timing?.startDate) return true;
-    return isEventHappening(ayat, now);
-  });
+  // Ayat of the Month — already filtered by isActive in the query above
+  const ayatOfTheMonth = allAyats;
   const sermons = await fetchSermons({
     depth: 1,
     sort: '_order',
@@ -136,9 +132,9 @@ export default async function Home() {
       )}
 
       {/* Ayat of the Month Section */}
-      {homePageConfig?.ayatSection?.enableSection && (
-        <AyatOfTheMonth ayatOfTheMonth={ayatOfTheMonth} />
-      )}
+      {/* {homePageConfig?.ayatSection?.enableSection && ( */}
+      <AyatOfTheMonth ayatOfTheMonth={ayatOfTheMonth} />
+      {/* )} */}
 
       {/* Sermons Section */}
       {homePageConfig?.sermonsSection?.enableSection && (

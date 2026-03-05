@@ -24,7 +24,8 @@ interface Ayat {
 
 type ViewMode = 'default' | 'video' | 'audio' | 'taraweeh';
 
-const TARAWEEH_URL = 'https://emasjidlive.co.uk/miniplayer/masjidalfalahilford?theme=dark';
+const TARAWEEH_URL =
+  'https://emasjidlive.co.uk/miniplayer/masjidalfalahilford?theme=dark';
 
 /** Returns true if current local time is within the Taraweeh window (after Isha until midnight). */
 function isInTaraweehWindow(ishaTime: string): boolean {
@@ -54,9 +55,9 @@ export default function AyatOfTheMonth({
     mediaData,
     stop,
     userClosed,
-    setIsMainElementAlive,
     hasPlayed,
     setSourceUrl,
+    savedTimeRef,
   } = useMediaPlayer();
   const isInView = useIntersectionObserver(
     sectionRef as React.RefObject<Element>,
@@ -101,26 +102,6 @@ export default function AyatOfTheMonth({
     _localAudioUrl && _localAudioUrl.startsWith('/')
       ? `${typeof window !== 'undefined' ? window.location.origin : ''}${_localAudioUrl}`
       : _localAudioUrl;
-
-  // ── Notify context that the main element is mounted ─────────────────────────
-  // Only claim ownership when THIS component's local URL matches what's in context
-  // (i.e., this component actually initiated the playback via play()).
-  // This prevents AyatOfTheMonth from blocking MiniPlayer when the user navigated
-  // here from a different page that was playing a different video.
-  const ownMediaUrl = viewMode === 'video' ? _localVideoUrl
-    : viewMode === 'audio' ? _localFullAudioUrl
-      : null;
-  const isOwner = ownMediaUrl && mediaData?.url === ownMediaUrl;
-  useEffect(() => {
-    if (isOwner && ownMediaUrl) {
-      setIsMainElementAlive(ownMediaUrl);
-    } else {
-      setIsMainElementAlive(null);
-    }
-    return () => {
-      setIsMainElementAlive(null);
-    };
-  }, [setIsMainElementAlive, isOwner, ownMediaUrl]);
 
   // ── Auto-detect Taraweeh window from today's prayer times ──────────────────
   useEffect(() => {
@@ -185,22 +166,60 @@ export default function AyatOfTheMonth({
   // ── Helpers ────────────────────────────────────────────────────────────────
   const getEmbedUrl = (url: string) => {
     if (!url) return '';
-    if (url.includes('/embed/')) return url;
+
+    const startParam =
+      savedTimeRef.current > 0 ? `&start=${savedTimeRef.current}` : '';
+
+    if (url.includes('/embed/')) {
+      if (url.includes('youtube') && !url.includes('enablejsapi')) {
+        return (
+          url + (url.includes('?') ? '&' : '?') + 'enablejsapi=1' + startParam
+        );
+      }
+      return url + startParam;
+    }
     const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/;
     const youtubeMatch = url.match(youtubeRegex);
     if (youtubeMatch?.[1])
-      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&enablejsapi=1${startParam}`;
     const vimeoRegex = /vimeo\.com\/(?:video\/)?(\d+)(?:\?h=([a-zA-Z0-9]+))?/;
     const vimeoMatch = url.match(vimeoRegex);
     if (vimeoMatch?.[1]) {
       return vimeoMatch[2]
-        ? `https://player.vimeo.com/video/${vimeoMatch[1]}?h=${vimeoMatch[2]}`
-        : `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+        ? `https://player.vimeo.com/video/${vimeoMatch[1]}?h=${vimeoMatch[2]}&autoplay=1`
+        : `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1`;
     }
     return url;
   };
 
-  if (!ayatOfTheMonth || ayatOfTheMonth.length === 0) return null;
+  if (!ayatOfTheMonth || ayatOfTheMonth.length === 0) {
+    return (
+      <section
+        id="ayat-of-the-month"
+        className="relative w-full py-8 pb-32 px-4 sm:py-18 sm:px-4 lg:px-8 xl:px-50 flex items-center justify-center min-h-112.5 sm:min-h-197.75"
+      >
+        {/* Background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <Image
+            src="/assets/ayat/background.png"
+            alt="Background"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        {/* Empty state */}
+        <div className="relative z-10 flex flex-col items-center gap-4 text-center">
+          <p className="text-base sm:text-xl font-medium text-white/80 uppercase tracking-widest">
+            Ayat of the Month
+          </p>
+          <p className="text-lg sm:text-2xl font-medium text-white/60 max-w-md">
+            A new featured verse will be shared soon. Please check back.
+          </p>
+        </div>
+      </section>
+    );
+  }
   const data = ayatOfTheMonth[0];
   const arabicImage = data?.arabicCalligraphyImage?.url ?? null;
   const englishText = data?.englishTranslation || '';
@@ -303,7 +322,10 @@ export default function AyatOfTheMonth({
                     />
                   </div>
                 ) : arabicText ? (
-                  <div className="text-3xl sm:text-6xl font-normal text-white text-center" style={{ fontFamily: "'Amiri', serif" }}>
+                  <div
+                    className="text-3xl sm:text-6xl font-normal text-white text-center"
+                    style={{ fontFamily: "'Amiri', serif" }}
+                  >
                     {arabicText}
                   </div>
                 ) : null}
@@ -331,14 +353,8 @@ export default function AyatOfTheMonth({
                 {videoTitle}
               </h3>
               <div className="relative w-full aspect-735/413 bg-white rounded-xl overflow-hidden text-black/50">
-                {embedUrl && (
-                  <div
-                    className={
-                      showMiniPlayer
-                        ? 'fixed z-[60] w-[278px] sm:w-[318px] aspect-video bottom-[55px] sm:bottom-[63px] right-[17px] sm:right-[25px] transition-all duration-300'
-                        : 'w-full h-full'
-                    }
-                  >
+                {embedUrl && !showMiniPlayer && (
+                  <div className="w-full h-full">
                     <iframe
                       src={embedUrl}
                       title={videoTitle || 'Video player'}
@@ -374,7 +390,10 @@ export default function AyatOfTheMonth({
                     />
                   </div>
                 ) : arabicText ? (
-                  <div className="text-3xl sm:text-6xl font-normal text-white text-center" style={{ fontFamily: "'Amiri', serif" }}>
+                  <div
+                    className="text-3xl sm:text-6xl font-normal text-white text-center"
+                    style={{ fontFamily: "'Amiri', serif" }}
+                  >
                     {arabicText}
                   </div>
                 ) : null}
@@ -431,7 +450,12 @@ export default function AyatOfTheMonth({
               <iframe
                 src={TARAWEEH_URL}
                 title="Live Taraweeh — Masjid Al-Falah Ilford"
-                style={{ border: 'none', width: '100%', height: '172px', overflow: 'hidden' }}
+                style={{
+                  border: 'none',
+                  width: '100%',
+                  height: '172px',
+                  overflow: 'hidden',
+                }}
                 allow="autoplay"
                 allowFullScreen
               />
@@ -460,7 +484,9 @@ export default function AyatOfTheMonth({
             title="Back to Ayat"
           >
             <FaArrowLeft size={14} className="text-white" />
-            <span className="text-white text-sm sm:text-base font-medium whitespace-nowrap">Back</span>
+            <span className="text-white text-sm sm:text-base font-medium whitespace-nowrap">
+              Back
+            </span>
           </button>
         )}
 
@@ -506,7 +532,9 @@ export default function AyatOfTheMonth({
             <span className="absolute top-0 right-0 -mr-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse" />
           )}
           <FaCircle size={10} className="text-white" />
-          <span className="text-white text-sm sm:text-base font-medium whitespace-nowrap">Live Taraweeh</span>
+          <span className="text-white text-sm sm:text-base font-medium whitespace-nowrap">
+            Live Taraweeh
+          </span>
         </button>
       </div>
     </section>
