@@ -66,13 +66,15 @@ interface WaysToGiveProps {
   description?: string;
   methods: GivingMethod[];
   image?: Media | string | any;
+  appealId?: string;
 }
 
 export function WaysToGive({
   title = "",
   description = "",
   methods,
-  image
+  image,
+  appealId
 }: WaysToGiveProps) {
 
 
@@ -127,29 +129,39 @@ export function WaysToGive({
             </div>
 
             <div className="flex flex-col gap-4">
-              {methods.map((method, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-[9px] bg-white rounded-[14px] px-4 py-3 sm:px-[22px] sm:py-[18px]  cursor-pointer lg:max-w-[528px]"
-                >
-                  {/* Icon */}
-                  <div className="w-[57px] h-[57px] shrink-0 rounded-lg bg-black text-white flex items-center justify-center">
-                    {renderIcon(method.icon)}
-                  </div>
+              {methods.map((method, index) => {
+                let href = method.link || '/donate';
 
-                  {/* Text */}
-                  <div className="flex flex-col gap-1">
-                    <h3 className="text-base sm:text-lg font-semibold">
-                      {method.methodName}
-                    </h3>
-                    {method.description && (
-                      <p className="text-base text-[#52525B]">
-                        {method.description}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
+                // Override incorrect CMS links (e.g., "/donation") or append appealId to internal links
+                if (href === '/donation' || href === '/donate' || (!href.startsWith('http') && appealId)) {
+                  href = appealId ? `/donate?appealId=${appealId}` : '/donate';
+                }
+
+                return (
+                  <Link
+                    key={index}
+                    href={href}
+                    className="flex items-center gap-[9px] bg-white rounded-[14px] px-4 py-3 sm:px-[22px] sm:py-[18px] cursor-pointer lg:max-w-[528px] hover:bg-gray-50 transition-colors w-full"
+                  >
+                    {/* Icon */}
+                    <div className="w-[57px] h-[57px] shrink-0 rounded-lg bg-black text-white flex items-center justify-center">
+                      {renderIcon(method.icon)}
+                    </div>
+
+                    {/* Text */}
+                    <div className="flex flex-col gap-1">
+                      <h3 className="text-base sm:text-lg font-semibold text-black">
+                        {method.methodName}
+                      </h3>
+                      {method.description && (
+                        <p className="text-base text-[#52525B]">
+                          {method.description}
+                        </p>
+                      )}
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

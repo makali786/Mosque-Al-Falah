@@ -134,6 +134,7 @@ export default async function AppealDetailPage({
           description={appeal?.waysToGive?.sectionDescription}
           methods={appeal?.waysToGive?.givingMethods || []}
           image={appeal?.waysToGive?.sectionImage?.url || ''}
+          appealId={appeal.id}
         />
       )}
 

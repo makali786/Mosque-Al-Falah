@@ -11,12 +11,14 @@ interface Step1SelectProps {
   formData: DonationFormData;
   setFormData: (data: DonationFormData) => void;
   onNext: () => void;
+  appealEndDate?: string | null;
 }
 
 export default function Step1Select({
   formData,
   setFormData,
   onNext,
+  appealEndDate,
 }: Step1SelectProps) {
   const selectedAmount = formData.amount || 0;
   const isCustom = !(quickAmounts as readonly number[]).includes(selectedAmount) && selectedAmount > 0;
@@ -48,6 +50,7 @@ export default function Step1Select({
             onFrequencyChange={frequency =>
               setFormData({ ...formData, frequency })
             }
+            appealEndDate={appealEndDate}
           />
 
           {/* Donation Type Selector */}

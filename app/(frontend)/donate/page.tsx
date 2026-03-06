@@ -87,27 +87,34 @@ export default function DonatePage() {
     }
   }, [formData, currentStep, isHydrated]);
 
+  const [appealEndDate, setAppealEndDate] = useState<string | null>(null);
+
   // Fetch appeal details if appealId is in URL to set correct donation type
   useEffect(() => {
     if (urlAppealId) {
       fetch(`/api/donation-appeals/${urlAppealId}`)
         .then(res => res.json())
         .then(appeal => {
-          if (appeal && appeal.category) {
-            // If this appeal has online donations disabled, clear it and fall back to general
-            if (appeal.disableOnlineDonation) {
+          if (appeal) {
+            if (appeal.timeline?.endDate) {
+              setAppealEndDate(appeal.timeline.endDate);
+            }
+            if (appeal.category) {
+              // If this appeal has online donations disabled, clear it and fall back to general
+              if (appeal.disableOnlineDonation) {
+                setFormData(prev => ({
+                  ...prev,
+                  appealId: undefined,
+                  donationType: 'general',
+                }));
+                return;
+              }
               setFormData(prev => ({
                 ...prev,
-                appealId: undefined,
-                donationType: 'general',
+                appealId: urlAppealId,
+                donationType: appeal.category || 'general',
               }));
-              return;
             }
-            setFormData(prev => ({
-              ...prev,
-              appealId: urlAppealId,
-              donationType: appeal.category || 'general',
-            }));
           }
         })
         .catch(err => console.error('Failed to fetch appeal:', err));
@@ -197,6 +204,7 @@ export default function DonatePage() {
             formData={formData}
             setFormData={setFormData}
             onNext={handleStep1Next}
+            appealEndDate={appealEndDate}
           />
         )}
 
