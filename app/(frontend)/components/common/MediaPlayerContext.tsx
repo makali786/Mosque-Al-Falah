@@ -10,6 +10,7 @@ import {
 } from 'react';
 
 export type MediaType = 'video' | 'audio';
+export type PlayerMode = 'HIDDEN' | 'MINI' | 'ANCHORED';
 
 export interface MediaData {
   type: MediaType;
@@ -22,17 +23,14 @@ export interface MediaData {
 
 interface MediaPlayerContextType {
   isPlaying: boolean;
-  showMiniPlayer: boolean;
-  userClosed: boolean;
-  hasPlayed: boolean;
+  playerMode: PlayerMode;
   mediaData: MediaData | null;
   sourceUrl: string | null;
   play: (media: MediaData) => void;
   pause: () => void;
   resume: () => void;
   stop: () => void;
-  setShowMiniPlayer: (show: boolean) => void;
-  setUserClosed: (closed: boolean) => void;
+  setPlayerMode: (mode: PlayerMode) => void;
   togglePlayPause: () => void;
 
   savedTimeRef: React.MutableRefObject<number>;
@@ -45,22 +43,14 @@ const MediaPlayerContext = createContext<MediaPlayerContextType | undefined>(
 
 export function MediaPlayerProvider({ children }: { children: ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showMiniPlayer, setShowMiniPlayer] = useState(false);
+  const [playerMode, setPlayerMode] = useState<PlayerMode>('HIDDEN');
   const [mediaData, setMediaData] = useState<MediaData | null>(null);
-  // Tracks whether the user explicitly closed the MiniPlayer via the ✕ button.
-  // Reset to false whenever play() is called so the MiniPlayer can re-appear.
-  const [userClosed, setUserClosed] = useState(false);
-  // Tracks whether play() has been called at least once (reset on stop()).
-  const [hasPlayed, setHasPlayed] = useState(false);
 
   // Stores the page URL where the media was played from.
   const [sourceUrl, setSourceUrl] = useState<string | null>(null);
   const savedTimeRef = useRef(0);
 
   // ── Global YouTube Time Tracking ───────────────────────────────────────────
-  // Listen for messages from ANY YouTube iframe on the page.
-  // We must send {"event": "listening"} to the iframe when it's ready,
-  // otherwise it won't broadcast "infoDelivery" events with the current time.
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       try {
@@ -103,8 +93,7 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     }
     setMediaData(media);
     setIsPlaying(true);
-    setHasPlayed(true);
-    setUserClosed(false); // allow MiniPlayer to show again after a close
+    setPlayerMode(prev => (prev === 'HIDDEN' ? 'MINI' : prev));
   };
 
   const pause = () => {
@@ -117,11 +106,10 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
 
   const stop = () => {
     setIsPlaying(false);
-    setShowMiniPlayer(false);
+    setPlayerMode('HIDDEN');
     setMediaData(null);
-    setHasPlayed(false);
     setSourceUrl(null);
-    setUserClosed(true); // user explicitly closed — suppress auto-show until next play()
+    savedTimeRef.current = 0;
   };
 
   const togglePlayPause = () => {
@@ -132,19 +120,15 @@ export function MediaPlayerProvider({ children }: { children: ReactNode }) {
     <MediaPlayerContext.Provider
       value={{
         isPlaying,
-        showMiniPlayer,
-        userClosed,
-        setUserClosed,
-        hasPlayed,
+        playerMode,
         mediaData,
         sourceUrl,
         play,
         pause,
         resume,
         stop,
-        setShowMiniPlayer,
+        setPlayerMode,
         togglePlayPause,
-
         savedTimeRef,
         setSourceUrl,
       }}

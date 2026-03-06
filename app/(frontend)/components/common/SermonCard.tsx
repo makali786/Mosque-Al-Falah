@@ -5,7 +5,6 @@ import Link from 'next/link';
 import React from 'react';
 import { getMediaUrl } from '../../../../lib/helper';
 import { Media } from '../../../../payload-types';
-import { useMediaPlayer } from './MediaPlayerContext';
 import ViewToggleButtons from './ViewToggleButtons';
 
 export interface SermonCardProps {
@@ -37,7 +36,6 @@ export default function SermonCard({
   sermon,
   layout = 'grid',
 }: SermonCardProps) {
-  const { play } = useMediaPlayer();
   const imageUrl =
     typeof sermon.image === 'string'
       ? sermon.image
@@ -101,7 +99,7 @@ export default function SermonCard({
   if (layout === 'list') {
     return (
       <CardWrapper className="flex flex-col md:flex-row w-full gap-6 bg-white rounded-[14px] overflow-hidden relative group">
-        <div className="relative w-full md:w-[300px] lg:w-[350px] aspect-video md:h-auto shrink-0">
+        <div className="relative w-full md:w-[300px] lg:w-[350px] aspect-video md:h-auto shrink-0 pointer-events-none md:pointer-events-auto">
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -111,36 +109,10 @@ export default function SermonCard({
             />
           )}
           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none" />
-          <div onClick={e => e.stopPropagation()}>
+          <div className="pointer-events-none">
             <ViewToggleButtons
-              onAudioClick={
-                audioUrl
-                  ? e => {
-                    e?.preventDefault();
-                    play({
-                      type: 'audio',
-                      url: audioUrl,
-                      title: title,
-                      citation: authorName,
-                      thumbnail: imageUrl || undefined,
-                    });
-                  }
-                  : undefined
-              }
-              onVideoClick={
-                videoUrl
-                  ? e => {
-                    e?.preventDefault();
-                    play({
-                      type: 'video',
-                      url: videoUrl,
-                      title: title,
-                      citation: authorName,
-                      thumbnail: imageUrl || undefined,
-                    });
-                  }
-                  : undefined
-              }
+              onAudioClick={audioUrl ? () => { } : undefined}
+              onVideoClick={videoUrl ? () => { } : undefined}
               className="absolute bottom-3 right-3"
             />
           </div>
@@ -199,7 +171,7 @@ export default function SermonCard({
 
   return (
     <CardWrapper className="flex flex-col gap-6.25 w-full group relative">
-      <div className="relative w-full aspect-video lg:aspect-auto lg:w-[355px] lg:h-[199.5px] rounded-[14px] overflow-visible">
+      <div className="relative w-full aspect-video lg:aspect-auto lg:w-[355px] lg:h-[199.5px] rounded-[14px] overflow-visible pointer-events-none md:pointer-events-auto">
         <div className="relative w-full h-full rounded-[14px] overflow-hidden">
           {imageUrl && (
             <Image src={imageUrl} alt={title} fill className="object-cover" />
@@ -207,36 +179,10 @@ export default function SermonCard({
           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
         </div>
 
-        <div onClick={e => e.stopPropagation()}>
+        <div className="pointer-events-none">
           <ViewToggleButtons
-            onAudioClick={
-              audioUrl
-                ? e => {
-                  e?.preventDefault();
-                  play({
-                    type: 'audio',
-                    url: audioUrl,
-                    title: title,
-                    citation: authorName,
-                    thumbnail: imageUrl || undefined,
-                  });
-                }
-                : undefined
-            }
-            onVideoClick={
-              videoUrl
-                ? e => {
-                  e?.preventDefault();
-                  play({
-                    type: 'video',
-                    url: videoUrl,
-                    title: title,
-                    citation: authorName,
-                    thumbnail: imageUrl || undefined,
-                  });
-                }
-                : undefined
-            }
+            onAudioClick={audioUrl ? () => { } : undefined}
+            onVideoClick={videoUrl ? () => { } : undefined}
             className="absolute -bottom-6 right-4 lg:-bottom-6 lg:right-3.75"
           />
         </div>
