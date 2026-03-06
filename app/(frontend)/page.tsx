@@ -6,10 +6,11 @@ import {
   fetchGlobal,
   fetchImams,
   fetchNotices,
+  fetchPrayerTimes,
   fetchSermons,
   fetchServices,
 } from '../../lib/fetcher';
-import { getNextOccurrence } from '../../lib/recurring-events';
+import { getNextOccurrence, isEventHappening } from '../../lib/recurring-events';
 import AyatOfTheMonth from './components/home/AyatOfTheMonth';
 import DonationAppeal from './components/home/DonationAppeal';
 import HeroBanner from './components/home/HeroBanner';
@@ -90,11 +91,42 @@ export default async function Home() {
   const allAyats = await fetchAyatOfTheMonth({
     depth: 1,
     sort: '_order',
+    limit: 100,
     where: { isActive: { equals: true } },
   });
 
-  // Ayat of the Month — already filtered by isActive in the query above
-  const ayatOfTheMonth = allAyats;
+  // Fetch official mosque Hijri date from prayer-times
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  const dateStr = `${yyyy}-${mm}-${dd}`;
+
+  const todayPrayers = await fetchPrayerTimes({
+    limit: 1,
+    where: { date: { equals: dateStr } },
+  });
+
+  const rawHijri = todayPrayers?.[0]?.hijriDate || '';
+  const hijriDay = parseInt(rawHijri.split(' ')[0], 10) - 1;
+  const isRamadan = rawHijri.toLowerCase().includes('ramadan') || rawHijri.toLowerCase().includes('ramadhan');
+
+  // Smart Selection Logic:
+  // 1. If today is Ramadan, try to find the Juz that matches the Hijri day
+  let todayAyat = null;
+  if (isRamadan && !isNaN(hijriDay)) {
+    todayAyat = allAyats.find((ayat: any) =>
+      ayat.surahNumber === 0 && ayat.ayahNumber === hijriDay
+    );
+  }
+
+  // 2. Fallback to Gregorian timing if no Hijri match or not Ramadan
+  if (!todayAyat) {
+    todayAyat = allAyats.find((ayat: any) => isEventHappening(ayat, now));
+  }
+
+  // Ayat of the Month — prefer today's Ayat, fallback to all (component takes first)
+  const ayatOfTheMonth = todayAyat ? [todayAyat] : allAyats;
+
   const sermons = await fetchSermons({
     depth: 1,
     sort: '_order',

@@ -159,8 +159,8 @@ export default function RamadanCountdown() {
     }
   }, [isOpen]);
 
-  // Show "Ramadan Mubarak" for 10 days after start
-  const DAYS_TO_SHOW_MUBARAK = 10;
+  // Show "Ramadan Mubarak" for 35 days (the entire month + a few extra buffer days) after start
+  const DAYS_TO_SHOW_MUBARAK = 35;
   const RAMADAN_MUBARAK_END =
     TARGET + DAYS_TO_SHOW_MUBARAK * 24 * 60 * 60 * 1000;
 

@@ -124,6 +124,7 @@ interface DateNavigationProps {
   onPrevious: () => void;
   onNext: () => void;
   variant?: 'default' | 'large' | 'compact';
+  className?: string;
 }
 
 export const DateNavigation = ({
@@ -131,11 +132,12 @@ export const DateNavigation = ({
   onPrevious,
   onNext,
   variant = 'default',
+  className = '',
 }: DateNavigationProps) => {
   const variants = {
     default: {
       container:
-        'absolute lg:top-31.75 md:top-24 top-4 left-1/2 -translate-x-1/2 flex items-center justify-between lg:w-81.5 md:w-72 w-[calc(100%-2rem)] z-10',
+        'absolute lg:top-31.75 md:top-24 top-4 left-1/2 -translate-x-1/2 flex items-center justify-between lg:w-81.5 md:w-72 w-[calc(100%-6rem)] z-10',
       buttonSize: 'md:w-8 md:h-8 w-6 h-6',
       iconSize: 'md:w-6 md:h-6 w-5 h-5',
       textColor: 'text-white',
@@ -169,7 +171,7 @@ export const DateNavigation = ({
   const styles = variants[variant];
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${className}`}>
       <button
         onClick={onPrevious}
         className={`${styles.buttonSize} shrink-0 flex items-center justify-center ${styles.textColor} hover:text-[#006fee] transition-colors cursor-pointer`}
@@ -181,8 +183,8 @@ export const DateNavigation = ({
       <div
         className={`flex flex-col gap-1 items-center text-center ${styles.dateWidth}`}
       >
-        <p className={`${styles.gregorianText} w-full mt-[50px] md:mt-0 `}>{dateInfo.gregorian}</p>
-        <p className={`${styles.hijriText} w-full mt-[10px] md:mt-0`}>{dateInfo.hijri}</p>
+        <p className={`${styles.gregorianText} w-full mt-[30px] md:mt-0 `}>{dateInfo.gregorian}</p>
+        <p className={`${styles.hijriText} w-full mt-[0px] md:mt-0`}>{dateInfo.hijri}</p>
       </div>
 
       <button
@@ -224,7 +226,7 @@ export const PrayerTimeRow = ({
       className={`${bgColor} flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full ${spacing}`}
     >
       <p
-        className={`md:text-base text-sm font-bold ${nameColor} md:leading-6 leading-5 md:w-24 w-16`}
+        className={`md:text-base text-sm font-bold ${nameColor} md:leading-6 leading-5 md:w-24 w-20 whitespace-nowrap`}
       >
         {prayer.name}
       </p>
@@ -279,11 +281,11 @@ export const JumuahTimeRow = ({
 
   return (
     <div
-      className={`flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full ${spacing} ${isActive ? 'bg-[#006fee] border border-[#006fee]' : 'bg-[#fafafa]'
+      className={`flex items-center justify-between overflow-hidden md:px-4 px-3 md:py-3.5 py-3 rounded-lg w-full ${spacing} ${isActive ? 'bg-[#18181b] border border-[#18181b]' : 'bg-[#fafafa]'
         }`}
     >
       <p
-        className={`md:text-base text-sm font-bold md:leading-6 leading-5 md:w-24 w-16 ${isActive ? 'text-white' : 'text-black'
+        className={`md:text-base text-sm font-bold md:leading-6 leading-5 md:w-24 w-20 whitespace-nowrap ${isActive ? 'text-white' : 'text-black'
           }`}
       >
         {jumuah.name}

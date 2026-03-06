@@ -1,0 +1,12 @@
+﻿[
+  {
+    "title": "Friday Prayer Notice",
+    "priority": 11,
+    "frequency": "once_per_day"
+  },
+  {
+    "title": "Ramadan Day 18",
+    "priority": 10,
+    "frequency": "once_per_day"
+  }
+]

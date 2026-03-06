@@ -39,7 +39,7 @@ export default function PopupManager() {
     useEffect(() => {
         const fetchPopups = async () => {
             try {
-                const res = await fetch('/api/popups?where[isActive][equals]=true&depth=1');
+                const res = await fetch('/api/popups?where[isActive][equals]=true&depth=1&limit=100');
                 const data = await res.json();
                 if (data.docs) {
                     setPopups(data.docs);
@@ -53,50 +53,88 @@ export default function PopupManager() {
     }, []);
 
     useEffect(() => {
-        // 1. Filter active popups based on date
-        const now = new Date();
-        const validPopups = popups.filter(popup => {
-            if (!popup.isActive) return false;
-            if (popup.scheduling?.startDate && new Date(popup.scheduling.startDate) > now) return false;
-            if (popup.scheduling?.endDate && new Date(popup.scheduling.endDate) < now) return false;
+        const syncAndFilter = async () => {
+            // 1. Fetch Hijri info from prayer times
+            const now = new Date();
+            const yyyy = now.getFullYear();
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
 
-            if (popup.scheduling?.daysOfWeek && popup.scheduling.daysOfWeek.length > 0) {
-                const currentDayIndex = now.getDay().toString();
-                if (!popup.scheduling.daysOfWeek.includes(currentDayIndex)) return false;
+            let hijriInfo = { isRamadan: false, day: 0 };
+            try {
+                const pRes = await fetch(`/api/prayer-times?where[date][equals]=${yyyy}-${mm}-${dd}&limit=1`);
+                const pData = await pRes.json();
+                const hijriDate = pData.docs?.[0]?.hijriDate || '';
+                if (hijriDate) {
+                    const detectedDay = parseInt(hijriDate.split(' ')[0], 10);
+                    // Adjust as per user request (showing one day previous if it seems ahead)
+                    hijriInfo.day = detectedDay - 1;
+                    hijriInfo.isRamadan = hijriDate.toLowerCase().includes('ramadan') || hijriDate.toLowerCase().includes('ramadhan');
+                }
+            } catch (e) {
+                console.error('Failed to sync Hijri date for popups', e);
             }
 
-            return true;
-        });
+            // 2. Filter active popups based on date
+            const validPopups = popups.filter(popup => {
+                if (!popup.isActive) return false;
 
-        // 2. Sort by priority (descending)
-        validPopups.sort((a, b) => (b.priority || 0) - (a.priority || 0));
+                // If it's a specific Ramadan Day popup, we handle it via Smart Selection below
+                // But we still check if it's within its broad scheduled range if needed
+                if (popup.scheduling?.startDate && new Date(popup.scheduling.startDate) > now) return false;
+                if (popup.scheduling?.endDate && new Date(popup.scheduling.endDate) < now) return false;
 
-        // 3. Find the first popup that meets frequency criteria
-        const popupToShow = validPopups.find(popup => {
-            const storageKey = `popup-shown-${popup.id}`;
-            const lastShown = localStorage.getItem(storageKey);
+                if (popup.scheduling?.daysOfWeek && popup.scheduling.daysOfWeek.length > 0) {
+                    const currentDayIndex = now.getDay().toString();
+                    if (!popup.scheduling.daysOfWeek.includes(currentDayIndex)) return false;
+                }
+                return true;
+            });
 
-            if (popup.frequency === 'once_ever' && lastShown) return false;
-            if (popup.frequency === 'once_per_day' && lastShown) {
-                const lastShownDate = new Date(lastShown).toDateString();
-                const today = new Date().toDateString();
-                if (lastShownDate === today) return false;
+            // 3. Smart Selection for Ramadan
+            let selectedPopup = null;
+            if (hijriInfo.isRamadan && hijriInfo.day > 0) {
+                // Look for "Ramadan Day X" in title
+                selectedPopup = validPopups.find(p =>
+                    p.title.toLowerCase().includes(`ramadan day ${hijriInfo.day}`) ||
+                    p.title.toLowerCase().includes(`ramadhan day ${hijriInfo.day}`)
+                );
             }
-            // 'always' shows every time active
-            return true;
-        });
 
-        if (popupToShow) {
-            // Small delay to let page render
-            const timer = setTimeout(() => {
-                setActivePopup(popupToShow);
-                setIsOpen(true);
+            // 4. Fallback to priority sorting if no specific Hijri match
+            if (!selectedPopup && validPopups.length > 0) {
+                validPopups.sort((a, b) => (b.priority || 0) - (a.priority || 0));
 
-                // Mark as shown
-                const storageKey = `popup-shown-${popupToShow.id}`;
-                localStorage.setItem(storageKey, new Date().toISOString());
-            }, 1000);
-            return () => clearTimeout(timer);
+                selectedPopup = validPopups.find(popup => {
+                    const storageKey = `popup-shown-${popup.id}`;
+                    const lastShown = localStorage.getItem(storageKey);
+
+                    if (popup.frequency === 'once_ever' && lastShown) return false;
+                    if (popup.frequency === 'once_per_day' && lastShown) {
+                        const lastShownDate = new Date(lastShown).toDateString();
+                        const today = new Date().toDateString();
+                        if (lastShownDate === today) return false;
+                    }
+                    return true;
+                });
+            }
+
+            if (selectedPopup) {
+                // Small delay to let page render
+                const timer = setTimeout(() => {
+                    setActivePopup(selectedPopup);
+                    setIsOpen(true);
+
+                    // Mark as shown
+                    const storageKey = `popup-shown-${selectedPopup.id}`;
+                    localStorage.setItem(storageKey, new Date().toISOString());
+                }, 1000);
+                return () => clearTimeout(timer);
+            }
+        };
+
+        if (popups.length > 0) {
+            syncAndFilter();
         }
     }, [popups]);
 
