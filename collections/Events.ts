@@ -303,16 +303,16 @@ export const Events: CollectionConfig = {
           name: 'name',
           type: 'text',
           label: 'Venue Name',
-          defaultValue: 'London Central Mosque',
+          defaultValue: 'Masjid Al Falah',
           admin: {
-            description: 'e.g., "London Muslim Centre, Ground Floor Hall"',
+            description: 'e.g., "Masjid Al Falah, Main Hall"',
           },
         },
         {
           name: 'fullAddress',
           type: 'textarea',
           label: 'Full Address',
-          defaultValue: '146 Park Rd, London NW8 7RG', // Address for London Central Mosque
+          defaultValue: 'Masjid Al Falah, Ilford IG1 3EN',
           admin: {
             description: 'Complete address with postcode',
           },
@@ -325,12 +325,12 @@ export const Events: CollectionConfig = {
             {
               name: 'latitude',
               type: 'number',
-              defaultValue: 51.528938,
+              defaultValue: 51.563795040478006,
             },
             {
               name: 'longitude',
               type: 'number',
-              defaultValue: -0.1650437,
+              defaultValue: 0.05737356006436694,
             },
           ],
         },
@@ -339,7 +339,7 @@ export const Events: CollectionConfig = {
           type: 'text',
           label: 'Google Maps Link',
           defaultValue:
-            'https://www.google.com/maps/place/London+Central+Mosque/@51.6041892,-0.1691641,29353m/data=!3m1!1e3!4m10!1m2!2m1!1slondon+mosque!3m6!1s0x48761b2558395ef3:0x124e691956844ac2!8m2!3d51.528938!4d-0.1650437!15sCg1sb25kb24gbW9zcXVlWg8iDWxvbmRvbiBtb3NxdWWSAQZtb3NxdWWaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVTlhiRFJ5Y2s5M0VBReABAPoBBAgVEEI!16zL20vMDU3ODAz?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D',
+            'https://www.google.com/maps/place/Masjid+al-Falah/@51.563806,0.0574431,88m/data=!3m1!1e3!4m14!1m7!3m6!1s0x47d8a6fa41d25b75:0xd86791fb8e907094!2sMasjid+al-Falah!8m2!3d51.5638059!4d0.0573901!16s%2Fg%2F1w04jc6h!3m5!1s0x47d8a6fa41d25b75:0xd86791fb8e907094!8m2!3d51.5638059!4d0.0573901!16s%2Fg%2F1w04jc6h?entry=ttu&g_ep=EgoyMDI2MDMwNS4wIKXMDSoASAFQAw%3D%3D',
         },
       ],
     },
