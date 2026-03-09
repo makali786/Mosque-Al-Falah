@@ -33,7 +33,8 @@ export interface ContactPageData {
     };
     phone: string;
     email: string;
-    mapEmbed: string;
+    latitude?: number;
+    longitude?: number;
     showMap: boolean;
   };
   brothersEntrance: EntranceData;

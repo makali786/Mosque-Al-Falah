@@ -110,11 +110,19 @@ export const ContactPage: GlobalConfig = {
           },
         },
         {
-          name: 'mapEmbed',
-          type: 'textarea',
-          label: 'Google Maps Embed URL or Coordinates',
+          name: 'latitude',
+          type: 'number',
+          label: 'Latitude',
           admin: {
-            description: 'Paste Google Maps embed iframe or coordinates',
+            description: 'e.g. 51.560411',
+          },
+        },
+        {
+          name: 'longitude',
+          type: 'number',
+          label: 'Longitude',
+          admin: {
+            description: 'e.g. 0.081190',
           },
         },
         {

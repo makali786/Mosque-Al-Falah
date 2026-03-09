@@ -68,6 +68,8 @@ const ContactUsPage = async () => {
         address={contactUs.contactInfo.mainAddress}
         phone={contactUs.contactInfo.phone}
         email={contactUs.contactInfo.email}
+        latitude={contactUs.contactInfo.latitude}
+        longitude={contactUs.contactInfo.longitude}
         showMap={contactUs.contactInfo.showMap}
       />
 

@@ -59,10 +59,10 @@ export default function NewsAndUpdates({
         title: notice?.title,
         date: notice?.noticeDate
           ? new Date(notice.noticeDate).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-            })
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          })
           : '',
         tag: notice?.category
           ? notice?.category.charAt(0).toUpperCase() + notice?.category.slice(1)
@@ -148,7 +148,7 @@ export default function NewsAndUpdates({
             {typedEvents.slice(0, 1).map(event => {
               const imageUrl =
                 typeof event.media?.featuredImage === 'object' &&
-                event.media?.featuredImage?.url
+                  event.media?.featuredImage?.url
                   ? event.media.featuredImage.url
                   : null;
 
@@ -189,7 +189,7 @@ export default function NewsAndUpdates({
             {typedEvents.map(event => {
               const imageUrl =
                 typeof event.media?.featuredImage === 'object' &&
-                event.media?.featuredImage?.url
+                  event.media?.featuredImage?.url
                   ? event.media.featuredImage.url
                   : null;
 
@@ -211,14 +211,14 @@ export default function NewsAndUpdates({
                     )}
                     {/* Play Button Overlay - Optional, keeping as per original design */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-11 h-11 relative">
+                      {/* <div className="w-11 h-11 relative">
                         <Image
                           src="/assets/news/play-icon.svg"
                           alt="Play"
                           fill
                           className="object-contain"
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
