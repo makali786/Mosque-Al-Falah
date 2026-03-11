@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { popupCoordinator } from './PopupCoordinator';
 
 // Ramadan 2026 target date: 1st Ramadan 1447 is expected Feb 18, 2026.
 // Islamic day starts at Maghrib (sunset) on the previous day (Feb 17).
@@ -31,8 +32,10 @@ export default function RamadanCountdown() {
   useEffect(() => {
     const dismissed = sessionStorage.getItem('ramadan-countdown-dismissed');
     if (!dismissed) {
-      // Small delay to let page render first
-      const timer = setTimeout(() => setIsOpen(true), 800);
+      // Defer to coordinator
+      const timer = setTimeout(() => {
+        popupCoordinator.requestShow('ramadan-countdown', () => setIsOpen(true));
+      }, 800);
       return () => clearTimeout(timer);
     } else {
       setHasShown(true);
@@ -43,6 +46,7 @@ export default function RamadanCountdown() {
     setIsOpen(false);
     setHasShown(true);
     sessionStorage.setItem('ramadan-countdown-dismissed', 'true');
+    popupCoordinator.popupClosed('ramadan-countdown');
   }, []);
 
   const handleOpen = useCallback(() => {

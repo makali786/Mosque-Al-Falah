@@ -146,7 +146,13 @@ export default async function Home() {
   return (
     <div className="bg-white">
       {/* Hero Banner Carousel */}
-      {homePageConfig?.hero?.enableHero && <HeroBanner banners={banners} />}
+      {homePageConfig?.hero?.enableHero && (
+        <HeroBanner
+          banners={banners}
+          animationStyle={homePageConfig.hero.animationStyle}
+          animationSpeed={homePageConfig.hero.animationSpeed}
+        />
+      )}
 
       {/* News and Updates Section */}
       {homePageConfig?.upcomingEvents?.enableSection && (

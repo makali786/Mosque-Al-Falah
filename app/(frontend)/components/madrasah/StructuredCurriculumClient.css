@@ -1,0 +1,577 @@
+/* ===================================================
+   Structured Curriculum — Custom CSS
+   Replaces all Tailwind color-token classes with
+   concrete hex / property values that always render.
+   =================================================== */
+
+/* ── Design tokens ─────────────────────────────────── */
+:root {
+    --sc-primary: #2563eb;
+    /* colors-base-primary (blue-600) */
+    --sc-primary-fg: #ffffff;
+    /* colors-base-primary-foreground */
+    --sc-yellow-400: #facc15;
+    /* colors-common-yellow-400 */
+    --sc-yellow-300: #fde047;
+    /* colors-common-yellow-300 */
+    --sc-yellow-50: #fefce8;
+    /* colors-common-yellow-50 */
+    --sc-blue-100: #bfdbfe;
+    /* colors-common-blue-100  */
+    --sc-white: #ffffff;
+    --sc-warning: #f97316;
+    /* colors-base-warning (orange-500) */
+    --sc-title-color: #0b3c5d;
+    /* colors-content-content2-foreground */
+    --sc-body-color: #52525b;
+    /* colors-content-content3-foreground */
+    --sc-muted-color: #3f3f46;
+    /* colors-layout-foreground-700 */
+    --sc-bg: #ffffff;
+    /* colors-layout-background */
+    --sc-card-bg: #f4f4f5;
+    /* neutral-100 / foreground-100 */
+    --sc-card-border: #e4e4e7;
+    /* colors-layout-foreground-200 */
+    --sc-icon-navy: #0b3c5d;
+    /* colors-content-content1-foreground */
+    --sc-close-bg: #f4f4f5;
+    /* colors-base-default-100 */
+    --sc-close-bg-islamic: #e4e4e7;
+    /* colors-base-default-200 */
+    --sc-divider: rgba(161, 161, 170, 0.2);
+    /* colors-layout-divider/20 */
+}
+
+/* ── Section wrapper ───────────────────────────────── */
+.sc-section {
+    width: 100%;
+    background-color: var(--sc-bg);
+    padding-top: 80px;
+    padding-bottom: 80px;
+    overflow: hidden;
+}
+
+/* Inner wrapper — uses section-padding for consistent horizontal margins */
+.sc-section-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+}
+
+/* ── Header block ──────────────────────────────────── */
+.sc-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    /* gap-7 */
+    width: 100%;
+}
+
+.sc-title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.sc-title {
+    text-align: center;
+    color: var(--sc-title-color);
+    font-size: 48px;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    line-height: 48px;
+}
+
+.sc-underline-wrap {
+    width: 96px;
+    height: 28px;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sc-underline {
+    width: 96px;
+    height: 6px;
+    background-color: #F5A524;
+    border-radius: 9999px;
+}
+
+.sc-desc-wrap {
+    width: 100%;
+    max-width: 700px;
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sc-desc-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sc-desc-text {
+    width: 100%;
+    height: 56px;
+    text-align: center;
+    color: var(--sc-muted-color);
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    line-height: 28px;
+}
+
+/* ── Info box ──────────────────────────────────────── */
+.sc-infobox {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background-color: var(--sc-yellow-50);
+    border-radius: 16px;
+}
+
+.sc-infobox-icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.sc-infobox-icon-inner {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--sc-warning);
+}
+
+.sc-infobox-text {
+    text-align: center;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    line-height: 24px;
+}
+
+/* ── Cards row ─────────────────────────────────────── */
+.sc-cards-row {
+    display: inline-flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 48px;
+    /* gap-12 */
+    width: 100%;
+}
+
+/* ── Shared card base ──────────────────────────────── */
+.sc-card {
+    padding: 48px;
+    /* p-12 */
+    border-radius: 40px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+    /* gap-10 */
+}
+
+.sc-card-quran {
+    flex: 1;
+    min-width: 0;
+    background-color: #f4f4f5;
+    /* neutral-100 */
+}
+
+.sc-card-islamic {
+    flex: 1;
+    min-width: 0;
+    background-color: var(--sc-card-bg);
+    outline: 1px solid var(--sc-card-border);
+    outline-offset: -1px;
+}
+
+/* ── Card header ───────────────────────────────────── */
+.sc-card-header {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.sc-card-title-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* gap-5 */
+    flex: 1;
+}
+
+/* Icon badge */
+.sc-icon-badge {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sc-icon-badge-navy {
+    background-color: var(--sc-icon-navy);
+}
+
+.sc-icon-badge-yellow {
+    background-color: var(--sc-yellow-400);
+}
+
+.sc-icon-badge-shadow {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-color: var(--sc-white);
+}
+
+.sc-icon-badge-navy .sc-icon-badge-shadow {
+    box-shadow:
+        0px 4px 6px -4px rgba(11, 60, 93, 0.20),
+        0px 10px 15px -3px rgba(11, 60, 93, 0.20);
+}
+
+.sc-icon-badge-yellow .sc-icon-badge-shadow {
+    box-shadow:
+        0px 4px 6px -4px rgba(212, 175, 55, 0.20),
+        0px 10px 15px -3px rgba(212, 175, 55, 0.20);
+}
+
+.sc-icon-badge-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sc-title-color);
+}
+
+.sc-card-title {
+    color: var(--sc-title-color);
+    font-size: 30px;
+    /* text-3xl */
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    line-height: 36px;
+}
+
+/* View all button */
+.sc-view-btn {
+    height: 48px;
+    padding: 0 24px;
+    background-color: var(--sc-primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.sc-view-btn:hover {
+    opacity: 0.9;
+}
+
+.sc-view-btn-label {
+    color: var(--sc-primary-fg);
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    line-height: 24px;
+}
+
+/* ── Item list ─────────────────────────────────────── */
+.sc-item-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    /* gap-8 */
+    width: 100%;
+}
+
+.sc-item-row {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 24px;
+    /* gap-6 */
+    width: 100%;
+}
+
+.sc-item-number {
+    font-size: 36px;
+    /* text-4xl */
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    line-height: 40px;
+    flex-shrink: 0;
+}
+
+.sc-num-blue {
+    color: var(--sc-blue-100);
+}
+
+.sc-num-yellow {
+    color: #F9C97C;
+}
+
+.sc-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.sc-item-title {
+    color: var(--sc-title-color);
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    line-height: 28px;
+}
+
+.sc-item-desc {
+    color: var(--sc-body-color);
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    line-height: 24px;
+    width: 100%;
+}
+
+/* ══════════════════════════════════════════════════════
+   POPUP styles
+   ══════════════════════════════════════════════════════ */
+
+.sc-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 16px;
+}
+
+/* Quran popup */
+.sc-popup-quran {
+    padding: 48px;
+    background-color: #f4f4f5;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+    width: 860px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow: auto;
+}
+
+/* Islamic popup */
+.sc-popup-islamic {
+    width: 860px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow: auto;
+    padding: 48px;
+    background-color: #ffffff;
+    border-radius: 40px;
+    outline: 1px solid var(--sc-card-border);
+    outline-offset: -1px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+/* Popup header shared */
+.sc-popup-header {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+/* Close button */
+.sc-close-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    flex-shrink: 0;
+}
+
+.sc-close-btn-quran {
+    background-color: var(--sc-close-bg);
+}
+
+.sc-close-btn-quran:hover {
+    background-color: #e4e4e7;
+}
+
+.sc-close-btn-islamic {
+    background-color: var(--sc-close-bg-islamic);
+}
+
+.sc-close-btn-islamic:hover {
+    background-color: #d4d4d8;
+}
+
+.sc-close-icon-wrap {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #27272a;
+}
+
+/* ── Popup body: two vertical columns (used by both Quran and Islamic) ── */
+.sc-popup-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+}
+
+.sc-popup-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    min-width: 0;
+}
+
+.sc-popup-divider {
+    width: 1px;
+    align-self: stretch;
+    background-color: var(--sc-divider);
+    flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .sc-cards-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sc-popup-body {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sc-popup-divider {
+        width: 100%;
+        height: 1px;
+    }
+
+    .sc-title {
+        font-size: 36px;
+        line-height: 44px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sc-title {
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    .sc-desc-text {
+        font-size: 16px;
+        line-height: 24px;
+        height: auto;
+    }
+
+    .sc-infobox {
+        padding: 16px;
+    }
+
+    .sc-infobox-text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .sc-card {
+        padding: 20px 16px;
+        gap: 24px;
+    }
+
+    .sc-card-title-group {
+        gap: 12px;
+    }
+
+    .sc-popup-quran,
+    .sc-popup-islamic {
+        padding: 24px 16px;
+        gap: 24px;
+    }
+
+    .sc-card-title {
+        font-size: 20px;
+        line-height: 26px;
+    }
+
+    .sc-view-btn {
+        height: 40px;
+        padding: 0 16px;
+    }
+
+    .sc-view-btn-label {
+        font-size: 14px;
+    }
+
+    .sc-item-number {
+        font-size: 24px;
+        line-height: 28px;
+    }
+
+    .sc-item-title {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .sc-item-desc {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .sc-header {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

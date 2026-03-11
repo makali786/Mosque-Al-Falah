@@ -1,6 +1,6 @@
 'use client';
 
-import { Inter } from 'next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LoadingProvider } from './components/common/LoadingProvider';
@@ -23,6 +23,13 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  variable: '--font-poppins',
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 });
 
@@ -77,7 +84,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased`}
+        className={`${inter.variable} ${poppins.variable} font-sans antialiased`}
         suppressHydrationWarning={true}
       >
         <GoogleMapsScript />

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // const defaultGalleryImages = [
 //   "/assets/madrasah/gallery-1.jpg",
@@ -65,12 +66,16 @@ export default function MadrasahGallery({
             {description}
           </p>
           <div className="flex flex-wrap gap-6 mt-16">
-            <a href={contactButtonUrl} className="bg-[#3F3F46] w-full sm:w-auto text-white px-6 py-3 rounded-lg font-medium hover:bg-black transition-colors text-center">
+            {/* Contact Button */}
+            <Link
+              href={contactButtonUrl || '#contact'}
+              className="bg-[#3F3F46] w-full sm:w-auto text-white px-6 py-3 rounded-lg font-medium hover:bg-black transition-colors text-center"
+            >
               {contactButtonText}
-            </a>
-            <a href={enrollButtonUrl} className="bg-[#006FEE] w-full sm:w-auto text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors text-center">
+            </Link>
+            <Link href={enrollButtonUrl || '#enroll'} className="bg-[#006FEE] w-full sm:w-auto text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors text-center">
               {enrollButtonText}
-            </a>
+            </Link>
           </div>
         </div>
 

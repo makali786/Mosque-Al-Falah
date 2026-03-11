@@ -27,7 +27,7 @@ const ABOUT_DROPDOWN = [
   { label: 'About Us', href: '/about' },
   { label: 'History', href: '/about#history' },
   { label: 'Mission', href: '/about#mission' },
-  { label: 'Staff', href: '/about#committees' },
+  { label: 'Trustees', href: '/about#committees' },
   { label: 'Contact Us', href: '/contact-us' },
 ] as const;
 
@@ -262,7 +262,7 @@ export default function MainHeader() {
             {NAV_ITEMS.map(item => {
               const isActive = item.hasDropdown
                 ? pathname.startsWith('/about') ||
-                  pathname.startsWith('/contact-us')
+                pathname.startsWith('/contact-us')
                 : item.href === '/'
                   ? pathname === '/'
                   : pathname.startsWith(item.href);
@@ -332,15 +332,13 @@ export default function MainHeader() {
       {/* Mobile Menu */}
       <>
         <div
-          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-50 ${
-            mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
-          }`}
+          className={`lg:hidden fixed inset-0 bg-black transition-opacity duration-300 z-50 ${mobileMenuOpen ? 'opacity-50' : 'opacity-0 pointer-events-none'
+            }`}
           onClick={() => setMobileMenuOpen(false)}
         />
         <div
-          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-[60] overflow-y-auto transition-transform duration-300 ease-in-out ${
-            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className={`lg:hidden fixed top-0 left-0 h-full w-full bg-black z-[60] overflow-y-auto transition-transform duration-300 ease-in-out ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
         >
           <div className="flex justify-end p-4">
             <button

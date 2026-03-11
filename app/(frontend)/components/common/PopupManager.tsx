@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Media } from '@/payload-types';
 import { RichTextRenderer } from './RichTextRenderer';
+import { popupCoordinator } from './PopupCoordinator';
 
 // Loose type definition until generation works
 interface Popup {
@@ -120,14 +121,16 @@ export default function PopupManager() {
             }
 
             if (selectedPopup) {
-                // Small delay to let page render
+                // Submit request to the queue to show popup
                 const timer = setTimeout(() => {
-                    setActivePopup(selectedPopup);
-                    setIsOpen(true);
+                    popupCoordinator.requestShow(`popup-${selectedPopup.id}`, () => {
+                        setActivePopup(selectedPopup);
+                        setIsOpen(true);
 
-                    // Mark as shown
-                    const storageKey = `popup-shown-${selectedPopup.id}`;
-                    localStorage.setItem(storageKey, new Date().toISOString());
+                        // Mark as shown
+                        const storageKey = `popup-shown-${selectedPopup.id}`;
+                        localStorage.setItem(storageKey, new Date().toISOString());
+                    });
                 }, 1000);
                 return () => clearTimeout(timer);
             }
@@ -140,7 +143,10 @@ export default function PopupManager() {
 
     const handleClose = useCallback(() => {
         setIsOpen(false);
-    }, []);
+        if (activePopup) {
+            popupCoordinator.popupClosed(`popup-${activePopup.id}`);
+        }
+    }, [activePopup]);
 
     if (!activePopup || !isOpen) return null;
 

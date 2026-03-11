@@ -1,0 +1,176 @@
+/* ===================================================
+   Madrasah Journey CTA Section — Custom CSS
+   =================================================== */
+
+.journey-section {
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.journey-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+}
+
+/* ── Content wrap ────────────────────────────────── */
+.journey-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 32px;
+}
+
+/* ── Title ───────────────────────────────────────── */
+.journey-title {
+    text-align: center;
+    color: #ffffff;
+    font-size: 60px;
+    font-weight: 800;
+    font-family: 'Inter', sans-serif;
+    line-height: 60px;
+}
+
+/* ── Description ─────────────────────────────────── */
+.journey-desc-wrap {
+    width: 100%;
+    max-width: 672px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.8;
+}
+
+.journey-desc {
+    text-align: center;
+    color: #d4d4d8;
+    /* zinc-300 / content3 proxy */
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    line-height: 28px;
+}
+
+/* ── Buttons Row ─────────────────────────────────── */
+.journey-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    padding-top: 16px;
+    width: 100%;
+}
+
+/* Base button styles */
+.journey-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9999px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* White "Apply Now" Button */
+.journey-btn-primary {
+    position: relative;
+    background-color: #ffffff;
+    padding: 20px 48px;
+}
+
+.journey-btn-primary:hover {
+    background-color: #f4f4f5;
+}
+
+/* Custom shadow backplate for primary button */
+.journey-btn-shadow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border-radius: 9999px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+.journey-btn-primary-text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    line-height: 28px;
+}
+
+/* Blue "Submit Admissions Enquiry" Button */
+.journey-btn-secondary {
+    background-color: #2563eb;
+    /* blue-600 */
+    padding: 20px 48px;
+    outline: 2px solid rgba(22, 78, 99, 0.2);
+    /* cyan-900/20 */
+    outline-offset: -2px;
+}
+
+.journey-btn-secondary:hover {
+    background-color: #1d4ed8;
+}
+
+.journey-btn-secondary-text {
+    text-align: center;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    line-height: 28px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .journey-buttons {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .journey-btn {
+        width: 100%;
+    }
+}
+
+/* Typography responsiveness */
+@media (max-width: 768px) {
+    .journey-title {
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    .journey-desc {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .journey-btn-primary,
+    .journey-btn-secondary {
+        padding: 16px 24px;
+    }
+
+    .journey-btn-primary-text,
+    .journey-btn-secondary-text {
+        font-size: 16px;
+    }
+
+    .journey-inner {
+        gap: 32px;
+    }
+}

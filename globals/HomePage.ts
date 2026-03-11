@@ -121,6 +121,33 @@ export const HomePage: GlobalConfig = {
               siblingData?.heroSource === 'collection',
           },
         },
+        {
+          name: 'animationStyle',
+          type: 'select',
+          options: [
+            { label: 'Fade In', value: 'fade' },
+            { label: 'Slide Up', value: 'slideUp' },
+            { label: 'Slide Right', value: 'slideRight' },
+            { label: 'Zoom In', value: 'zoom' },
+            { label: 'None', value: 'none' },
+          ],
+          defaultValue: 'fade',
+          label: 'Animation Style',
+          admin: {
+            description: 'Global animation style for Hero Banner transitions.',
+            condition: (data, siblingData) => siblingData?.heroSource === 'collection',
+          },
+        },
+        {
+          name: 'animationSpeed',
+          type: 'number',
+          defaultValue: 5000,
+          label: 'Slide Display Duration (ms)',
+          admin: {
+            description: 'How long each slide stays on screen before automatically rotating to the next one (e.g. 5000 for 5 seconds).',
+            condition: (data, siblingData) => siblingData?.heroSource === 'collection',
+          },
+        },
       ],
     },
 
