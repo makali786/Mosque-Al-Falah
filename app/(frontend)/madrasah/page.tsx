@@ -7,6 +7,7 @@ import MadrasahCoreAims from '../components/madrasah/MadrasahCoreAims';
 import MadrasahFAQs from '../components/madrasah/MadrasahFAQs';
 import MadrasahGallery from '../components/madrasah/MadrasahGallery';
 import MadrasahJourneyCTA from '../components/madrasah/MadrasahJourneyCTA';
+import MadrasahLeadership from '../components/madrasah/MadrasahLeadership';
 import MadrasahVisitCentre from '../components/madrasah/MadrasahVisitCentre';
 import ParentReviews from '../components/madrasah/ParentReviews';
 import StructuredCurriculumClient from '../components/madrasah/StructuredCurriculumClient';
@@ -183,7 +184,7 @@ interface MadrasahPageGlobal {
       name: string;
       role: string;
       bio: string;
-      photo?: { url: string } | null;
+      photo?: { id: string; url: string; alt?: string } | null;
       whatsappUrl?: string | null;
       emailUrl?: string | null;
     }>;
@@ -214,14 +215,37 @@ export default async function MadrasahPage() {
     collection: 'madrasah-testimonials',
   });
 
-  const committeeMembers = await fetchCommittees<CommitteeMember>({
-    limit: 10,
-    sort: '_order',
-  });
-
   if (!pageData) {
     return <div>Loading...</div>;
   }
+
+  // Map Leadership Section members to CommitteeMember format
+  const mappedLeadershipMembers: CommitteeMember[] = (pageData.leadershipSection?.members || []).map((m, idx) => ({
+    id: m.id || idx.toString(),
+    name: m.name,
+    role: m.role,
+    bio: m.bio,
+    committeeType: 'education',
+    photo: {
+      id: m.photo?.id || '',
+      url: m.photo?.url || '',
+      alt: m.name,
+      filename: '',
+      mimeType: '',
+      filesize: 0,
+      width: 0,
+      height: 0,
+    } as any,
+    contact: {
+      enableWhatsApp: !!m.whatsappUrl,
+      whatsappNumber: m.whatsappUrl || '',
+      enableEmail: !!m.emailUrl,
+      email: m.emailUrl || '',
+    },
+    order: idx,
+    isFeatured: true,
+    isActive: true,
+  }));
 
   // Server Action for form submission
   async function handleMadrasahQuestionSubmit(data: any) {
@@ -476,15 +500,15 @@ export default async function MadrasahPage() {
       {/* 4. Core Aims Section */}
 
 
-      {/* 5. Leadership / Committee Section */}
-      <CommitteesSection
-        title={pageData.committeeSection?.sectionTitle || 'Our Leadership'}
-        description={pageData.committeeSection?.description}
-        members={committeeMembers as any}
-        className="bg-[#E6F1FE]!"
-        headerStyle="!lg:max-w-full lg:min-w-full"
-        committesStyle={'section-padding'}
-      />
+      {/* 5. Leadership Section */}
+      {pageData.leadershipSection?.enableSection && (
+        <MadrasahLeadership
+          title={pageData.leadershipSection.title || 'Our Leadership'}
+          description={pageData.leadershipSection.description}
+          members={mappedLeadershipMembers}
+          className="bg-[#E6F1FE]!"
+        />
+      )}
       {pageData.coreAimsSection?.enableSection && (
         <MadrasahCoreAims data={pageData.coreAimsSection as any} />
       )}

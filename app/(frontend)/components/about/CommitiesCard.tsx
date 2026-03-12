@@ -49,7 +49,7 @@ export function TeamMemberCard({ member }: { member: CommitteeMember }) {
         style={{ aspectRatio: "226 / 162" }}
       >
         <Image
-          src={member?.photo?.url || "/placeholder-image.png"}
+          src={member?.photo?.url || "/assets/common/leadership-avatar.svg"}
           alt={member?.photo?.alt || member.name}
           fill
           className="object-cover"
