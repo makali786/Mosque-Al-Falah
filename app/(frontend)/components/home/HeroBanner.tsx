@@ -240,6 +240,20 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
           <div className="relative flex items-center">
             <div className="w-full section-padding py-4">
               <div className="max-w-full flex flex-col gap-3">
+                {/* Carousel Navigation Dots - Centered above content on mobile */}
+                <div className="flex items-center justify-center gap-1.5 h-2 mb-1">
+                  {slides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`transition-all duration-300 rounded-full cursor-pointer ${index === currentSlide
+                        ? 'bg-white w-4 h-1.5'
+                        : 'bg-white/40 hover:bg-white/60 w-1.5 h-1.5'
+                        }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
 
                 {/* Text Content */}
                 <div className="flex flex-col gap-4 text-white">
@@ -274,20 +288,6 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
           </div>
         </div>
 
-        {/* Carousel Navigation Dots - Overlaid statically below image on mobile */}
-        <div className="absolute bottom-4 left-0 w-full flex items-center justify-center gap-1.5 h-2 z-10 pointer-events-none">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full cursor-pointer pointer-events-auto ${index === currentSlide
-                ? 'bg-white w-4 h-1.5'
-                : 'bg-white/40 hover:bg-white/60 w-1.5 h-1.5'
-                }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
       </section>
     </>
   );
