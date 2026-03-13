@@ -26,8 +26,8 @@ const SOCIAL_LINKS = [
 
 const FOOTER_LINKS = [
   { label: 'Copyright', href: '/copyright' },
-  { label: 'Terms of use', href: '/terms' },
-  { label: 'Privacy policy', href: '/privacy' },
+  { label: 'Terms of use', href: '/terms-of-services' },
+  { label: 'Privacy policy', href: '/privacy-policy' },
 ] as const;
 
 const EDUCATIONS_COLUMN = {

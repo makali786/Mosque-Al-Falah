@@ -1,5 +1,6 @@
 import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const Banners: CollectionConfig = {
   slug: 'banners',
@@ -24,6 +25,19 @@ export const Banners: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Banner Title',
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
+      admin: {
+        description: 'URL-friendly version of the title',
+      },
     },
     {
       name: 'description',

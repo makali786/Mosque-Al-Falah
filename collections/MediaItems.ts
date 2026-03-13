@@ -1,5 +1,6 @@
 import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const MediaItems: CollectionConfig = {
   slug: 'media-items',
@@ -44,6 +45,9 @@ export const MediaItems: CollectionConfig = {
       required: true,
       unique: true,
       label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
       admin: {
         description: 'URL-friendly version of the title',
       },

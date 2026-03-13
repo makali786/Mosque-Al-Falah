@@ -27,16 +27,16 @@ export default function WhatsAppButton() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 lg:bottom-8 lg:right-8 z-50 flex flex-col gap-3 items-center">
+    <div className="fixed bottom-24 right-6 lg:bottom-28 lg:right-8 z-50 flex flex-col gap-3 items-center">
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className={`group relative bg-[#18181B] hover:bg-[#27272A] w-12 h-12 lg:w-14 lg:h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+        className={`group relative bg-[#18181B] hover:bg-[#27272A] w-10 h-10 lg:w-12 lg:h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
           }`}
         aria-label="Scroll to top"
       >
         <svg
-          className="w-6 h-6 text-white"
+          className="w-5 h-5 lg:w-6 lg:h-6 text-white"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -55,18 +55,15 @@ export default function WhatsAppButton() {
 
       {/* WhatsApp Button Wrapper */}
       <div className="relative">
-        {/* Pulse ring effect */}
-        <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20"></div>
-
         {/* Main button */}
         <a
           href="https://chat.whatsapp.com/Gyc3WxXRHG6IqoL3FFDraP"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Contact us on WhatsApp"
-          className="group relative bg-[#25D366] hover:bg-[#20BA5A] w-14 h-14 lg:w-16 lg:h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110"
+          className="group relative bg-[#25D366] hover:bg-[#20BA5A] w-10 h-10 lg:w-12 lg:h-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110"
         >
-          <div className="relative w-8 h-8">
+          <div className="relative w-6 h-6 lg:w-7 lg:h-7">
             <Image
               src="/assets/common/whatsapp.png"
               alt="WhatsApp"

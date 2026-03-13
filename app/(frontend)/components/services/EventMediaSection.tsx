@@ -53,7 +53,7 @@ export default function EventMediaSection({
   containerStyle,
   leftColumnStyle
 }: EventMediaSectionProps) {
-  const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Video");
+  const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Photos");
   const [donationAmount, setDonationAmount] = useState<number | "Other">(10);
 
   const tabs = ["Video", "Photos", "Audio"] as const;
@@ -126,7 +126,7 @@ export default function EventMediaSection({
                     title={title || "Video player"}
                     className="w-full h-full"
                     frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    allow="fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
                   />

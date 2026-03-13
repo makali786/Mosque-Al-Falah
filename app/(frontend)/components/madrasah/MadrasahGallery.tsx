@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 
 // const defaultGalleryImages = [
 //   "/assets/madrasah/gallery-1.jpg",
@@ -25,30 +25,35 @@ interface GalleryProps {
   contactButtonUrl?: string;
   enrollButtonText?: string;
   enrollButtonUrl?: string;
+  target?: string;
+  rel?: string;
 }
 
 export default function MadrasahGallery({
   galleryImages = [],
-  sectionLabel = "",
-  sectionTitle = "",
-  description = "",
-  contactButtonText = "Contact Us",
-  contactButtonUrl = "/contact",
-  enrollButtonText = "Book Your Tour",
-  enrollButtonUrl = "/contact"
+  sectionLabel = '',
+  sectionTitle = '',
+  description = '',
+  contactButtonText = 'Contact Us',
+  contactButtonUrl = '/contact',
+  enrollButtonText = 'Book Your Tour',
+  enrollButtonUrl = '/contact',
+  target,
+  rel,
 }: GalleryProps) {
-  const images = galleryImages.length > 0 ? galleryImages.map((img: any) => img?.image?.url) : [];
-
-
+  const images =
+    galleryImages.length > 0
+      ? galleryImages.map((img: any) => img?.image?.url)
+      : [];
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   const nextImage = () => {
-    setActiveIndex((prev) => (prev + 1) % images.length);
+    setActiveIndex(prev => (prev + 1) % images.length);
   };
 
   const prevImage = () => {
-    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+    setActiveIndex(prev => (prev - 1 + images.length) % images.length);
   };
 
   return (
@@ -57,14 +62,14 @@ export default function MadrasahGallery({
         {/* Left Content */}
         <div className="flex flex-col lg:w-1/2 justify-center">
           <div className="flex flex-col gap-3">
-            <h4 className="text-[#006FEE] font-medium text-lg uppercase">{sectionLabel}</h4>
+            <h4 className="text-[#006FEE] font-medium text-lg uppercase">
+              {sectionLabel}
+            </h4>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#27272a] gallery-section-heading">
               {sectionTitle}
             </h2>
           </div>
-          <p className="text-base sm:text-lg mt-8">
-            {description}
-          </p>
+          <p className="text-base sm:text-lg mt-8">{description}</p>
           <div className="flex flex-wrap gap-6 mt-16">
             {/* Contact Button */}
             <Link
@@ -73,7 +78,12 @@ export default function MadrasahGallery({
             >
               {contactButtonText}
             </Link>
-            <Link href={enrollButtonUrl || '#enroll'} className="bg-[#006FEE] w-full sm:w-auto text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors text-center">
+            <Link
+              href={enrollButtonUrl || '#enroll'}
+              target={target}
+              rel={rel || (target === '_blank' ? 'noopener noreferrer' : undefined)}
+              className="bg-[#006FEE] w-full sm:w-auto text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors text-center"
+            >
               {enrollButtonText}
             </Link>
           </div>
@@ -123,10 +133,11 @@ export default function MadrasahGallery({
                 <button
                   key={idx}
                   onClick={() => setActiveIndex(idx)}
-                  className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${idx === activeIndex
-                    ? "bg-white scale-110"
-                    : "bg-white/50 hover:bg-white/75"
-                    }`}
+                  className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${
+                    idx === activeIndex
+                      ? 'bg-white scale-110'
+                      : 'bg-white/50 hover:bg-white/75'
+                  }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}

@@ -1,6 +1,7 @@
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 import type { CollectionConfig } from 'payload';
 import { createRevalidateHook } from '../lib/revalidation';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const DonationAppeals: CollectionConfig = {
   slug: 'donation-appeals',
@@ -38,6 +39,9 @@ export const DonationAppeals: CollectionConfig = {
       required: true,
       unique: true,
       label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
       admin: {
         description: 'e.g., "help-build-lasting-legacy"',
       },

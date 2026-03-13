@@ -1,5 +1,6 @@
 import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const MadrasahTestimonials: CollectionConfig = {
   slug: 'madrasah-testimonials',
@@ -19,6 +20,19 @@ export const MadrasahTestimonials: CollectionConfig = {
   },
 
   fields: [
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('authorName')],
+      },
+      admin: {
+        description: 'URL-friendly version of the author name',
+      },
+    },
     // ============================================================================
     // Testimonial Content
     // ============================================================================

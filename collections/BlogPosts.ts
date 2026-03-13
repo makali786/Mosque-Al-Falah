@@ -1,6 +1,7 @@
 import { createRevalidateHook } from '../lib/revalidation';
-import type { CollectionConfig } from 'payload';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
+import type { CollectionConfig } from 'payload';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const BlogPosts: CollectionConfig = {
   slug: 'blog-posts',
@@ -40,6 +41,9 @@ export const BlogPosts: CollectionConfig = {
       required: true,
       unique: true,
       label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
       admin: {
         description: 'URL-friendly version of the title',
       },

@@ -1,6 +1,7 @@
 import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -34,6 +35,9 @@ export const Services: CollectionConfig = {
       required: true,
       unique: true,
       label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
       admin: {
         description: 'e.g., "five-daily-prayers", "nikaah-marriage"',
       },

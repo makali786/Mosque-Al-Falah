@@ -1,6 +1,7 @@
 import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const Sermons: CollectionConfig = {
   slug: 'sermons',
@@ -19,6 +20,19 @@ export const Sermons: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Sermon Title',
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
+      admin: {
+        description: 'URL-friendly version of the title',
+      },
     },
     {
       name: 'speaker',
