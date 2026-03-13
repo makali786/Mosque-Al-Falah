@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import CustomImage from "./CustomImage";
+import NextImage from "next/image";
 import { useState } from "react";
 
 interface GalleryCarouselProps {
@@ -37,11 +38,20 @@ export default function GalleryCarousel({
         <div className={`flex flex-col gap-4 w-full ${className}`}>
             {/* Main Image */}
             <div className={`relative w-full ${aspectRatio} rounded-2xl overflow-hidden bg-gray-100`}>
-                <Image
+                {/* Blurred background fill */}
+                <NextImage
+                    src={images[activeIndex]}
+                    alt=""
+                    fill
+                    className="object-cover scale-110 blur-2xl brightness-75 transition-opacity duration-300"
+                    aria-hidden="true"
+                />
+                {/* Main image — fully visible, no cropping */}
+                <NextImage
                     src={images[activeIndex]}
                     alt={`Gallery image ${activeIndex + 1}`}
                     fill
-                    className="object-cover transition-opacity duration-300"
+                    className="object-contain z-10 transition-opacity duration-300"
                 />
 
                 {/* Arrows - Only show if more than 1 image */}
@@ -49,10 +59,10 @@ export default function GalleryCarousel({
                     <>
                         <button
                             onClick={prevImage}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white/80 hover:bg-white rounded-xl flex items-center justify-center cursor-pointer transition-colors backdrop-blur-sm z-10"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white/80 hover:bg-white rounded-xl flex items-center justify-center cursor-pointer transition-colors backdrop-blur-sm z-20"
                             aria-label="Previous image"
                         >
-                            <Image
+                            <CustomImage
                                 src="/assets/sermons/arrow-left.svg"
                                 alt="Previous"
                                 width={20}
@@ -62,10 +72,10 @@ export default function GalleryCarousel({
                         </button>
                         <button
                             onClick={nextImage}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white/80 hover:bg-white rounded-xl flex items-center justify-center cursor-pointer transition-colors backdrop-blur-sm z-10"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 bg-white/80 hover:bg-white rounded-xl flex items-center justify-center cursor-pointer transition-colors backdrop-blur-sm z-20"
                             aria-label="Next image"
                         >
-                            <Image
+                            <CustomImage
                                 src="/assets/sermons/arrow-left.svg"
                                 alt="Next"
                                 width={20}
@@ -75,7 +85,7 @@ export default function GalleryCarousel({
                         </button>
 
                         {/* Dots */}
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10 p-2 rounded-full backdrop-blur-[2px]">
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 p-2 rounded-full backdrop-blur-[2px]">
                             {images.map((_, idx) => (
                                 <button
                                     key={idx}
@@ -105,7 +115,7 @@ export default function GalleryCarousel({
                                 }`}
                         >
                             <div className="absolute inset-0 bg-gray-200" />
-                            <Image src={img} alt={`Thumbnail ${idx + 1}`} fill className="object-cover" />
+                            <CustomImage src={img} alt={`Thumbnail ${idx + 1}`} fill className="object-cover" />
                         </button>
                     ))}
                 </div>

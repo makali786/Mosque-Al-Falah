@@ -1,6 +1,7 @@
 'use client';
 
-import Image from '@/components/common/CustomImage';
+import CustomImage from '@/components/common/CustomImage';
+import NextImage from 'next/image';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -133,7 +134,7 @@ export default function NewsAndUpdates({
               <span className="text-base text-[#27272a] group-hover:text-[#006fee] leading-6 transition-colors">
                 See all
               </span>
-              <Image
+              <CustomImage
                 src={'/assets/news/arrow-icon.svg'}
                 alt={'Arrow Right'}
                 height={6}
@@ -158,18 +159,27 @@ export default function NewsAndUpdates({
                   href={`/events/${event.id}`}
                   className="flex flex-col gap-4 sm:hidden"
                 >
-                  {/* Event Image with Gradient Overlay (Mobile only) */}
-                  <div className="relative w-full h-50.5 overflow-hidden">
+                  {/* Event Image with Blurred Background (Mobile only) */}
+                  <div className="relative w-full h-50.5 overflow-hidden rounded-xl">
                     {imageUrl && (
-                      <Image
-                        src={imageUrl}
-                        alt={event?.title}
-                        fill
-                        className="object-cover"
-                      />
+                      <>
+                        {/* Blurred background fill */}
+                        <NextImage
+                          src={imageUrl}
+                          alt=""
+                          fill
+                          className="object-cover scale-110 blur-2xl brightness-75"
+                          aria-hidden="true"
+                        />
+                        {/* Main image — fully visible, no cropping */}
+                        <NextImage
+                          src={imageUrl}
+                          alt={event?.title}
+                          fill
+                          className="object-contain z-10"
+                        />
+                      </>
                     )}
-                    {/* Gradient Overlay */}
-                    {/* <div className="absolute inset-0 bg-linear-to-t from-black via-[rgba(0,0,0,0.68)] to-transparent" /> */}
                   </div>
 
                   {/* Event Info */}
@@ -199,27 +209,27 @@ export default function NewsAndUpdates({
                   href={`/events/${event.id}`}
                   className="hidden sm:flex flex-col gap-4"
                 >
-                  {/* Event Image with Play Button */}
-                  <div className="relative w-full h-45.25 overflow-hidden">
+                  {/* Event Image with Blurred Background */}
+                  <div className="relative w-full h-45.25 overflow-hidden rounded-xl">
                     {imageUrl && (
-                      <Image
-                        src={imageUrl}
-                        alt={event?.title}
-                        fill
-                        className="object-cover"
-                      />
-                    )}
-                    {/* Play Button Overlay - Optional, keeping as per original design */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      {/* <div className="w-11 h-11 relative">
-                        <Image
-                          src="/assets/news/play-icon.svg"
-                          alt="Play"
+                      <>
+                        {/* Blurred background fill */}
+                        <NextImage
+                          src={imageUrl}
+                          alt=""
                           fill
-                          className="object-contain"
+                          className="object-cover scale-110 blur-2xl brightness-75"
+                          aria-hidden="true"
                         />
-                      </div> */}
-                    </div>
+                        {/* Main image — fully visible, no cropping */}
+                        <NextImage
+                          src={imageUrl}
+                          alt={event?.title}
+                          fill
+                          className="object-contain z-10"
+                        />
+                      </>
+                    )}
                   </div>
 
                   {/* Event Info */}
@@ -257,7 +267,7 @@ export default function NewsAndUpdates({
                 <div className="flex items-center justify-between">
                   {/* Date */}
                   <div className="flex items-center gap-2">
-                    <Image
+                    <CustomImage
                       src="/assets/topbar/calendar-icon.svg"
                       alt="Calendar Icon"
                       height={16}
@@ -315,7 +325,7 @@ export default function NewsAndUpdates({
                 <div className="flex items-center justify-between">
                   {/* Date */}
                   <div className="flex items-center gap-2">
-                    <Image
+                    <CustomImage
                       src="/assets/topbar/calendar-icon.svg"
                       alt="Calendar Icon"
                       height={16}
