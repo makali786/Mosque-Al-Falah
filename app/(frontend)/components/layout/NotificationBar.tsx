@@ -83,8 +83,7 @@ export default function NotificationBar({
     const { fundraising } = notification;
     if (fundraising?.source === 'appeal' && fundraising.relatedAppeal) {
       return {
-        title: fundraising.relatedAppeal.title, // Use appeal title or fallback? User asked for title override in design?
-        // Actually design shows "Friday Giving" or "Zakat", likely want to keep the manual title if provided, or use appeal title.
+        // Design shows "Friday Giving" or "Zakat", likely want to keep the manual title if provided, or use appeal title.
         // Let's stick to the notification's title override if possible, or fallback to appeal title.
         // In the schema, 'title' field is conditional on 'manual'.
         // If 'appeal' selected, we might want to use the appeal's title OR allow an override.
@@ -360,110 +359,149 @@ export default function NotificationBar({
   // 3. Eid Schedule
   if (notification.type === 'eid') {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-[9999] bg-yellow-500 md:bg-orange-500 shadow-lg transform transition-transform duration-500 ease-in-out translate-y-0">
-        <div className="w-full max-w-[1536px] mx-auto relative flex flex-col xl:flex-row md:px-4 lg:px-24 md:py-0 xl:gap-6">
-          {/* Close Button */}
-          <button
-            onClick={handleDismiss}
-            className="absolute top-2 right-2 md:top-[18px] md:right-5 text-black/50 md:text-white/80 hover:text-black md:hover:text-white z-10"
-          >
-            <IoClose size={24} />
-          </button>
-
-          {/* Greeting */}
-          <div className="pl-4 pr-11 pt-8 pb-6 md:p-4 text-center xl:text-left text-black md:text-white text-base md:text-xl font-normal md:font-bold font-['Inter'] leading-6 md:leading-7 max-w-2xl bg-yellow-500 md:bg-transparent">
+      <div className="fixed bottom-0 left-0 right-0 z-[9999] bg-[#F5A524] shadow-lg transform transition-transform duration-500 ease-in-out translate-y-0">
+        {/* Figma Container: w-[1536px] max, px-24, gap-6 */}
+        <div className="w-full max-w-[1536px] min-h-[140px] mx-auto px-4 md:px-24 relative flex flex-col xl:flex-row justify-start items-center gap-6 overflow-hidden">
+          {/* Message Area: flex-1, Inter Bold, text-xl */}
+          <div className="flex-1 py-8 xl:py-0 text-white text-xl font-bold font-['Inter'] leading-7">
             {notification.eidMessage}
           </div>
 
-          {/* Jamaats Container - Mobile: Flex Row (Horizontal Scroll) */}
-          <div className="flex flex-row md:flex-row items-stretch overflow-x-auto pb-0 md:pb-0 gap-0 w-full xl:w-auto scrollbar-hide md:overflow-visible">
-            {notification.eidJamaats?.map((jamaat: any, idx: number) => (
-              <div
-                key={idx}
-                className={`flex-1 min-w-[45%] md:min-w-0 w-48 md:w-56 p-3 md:px-4 md:py-3 shrink-0 flex flex-col justify-start items-center gap-2.5 ${idx % 2 === 0 ? 'bg-yellow-400' : 'bg-orange-100'}`}
-              >
-                {/* Mobile Header */}
-                <div className="md:hidden flex flex-row items-center gap-1">
-                  <div className="text-center text-black text-xs font-medium font-['Inter'] leading-4">
-                    JAMAAH {idx + 1}
-                  </div>
-                  <div className="text-center text-black text-xs font-medium font-['Inter'] leading-4">
-                    {jamaat.time}
-                  </div>
-                </div>
+          <div className="w-full xl:w-auto flex flex-col md:flex-row justify-end items-stretch md:items-center">
+            {/* Jamaats Container */}
+            {notification.eidJamaats
+              ?.slice(0, 3)
+              .map((jamaat: any, idx: number) => (
+                <div
+                  key={jamaat.id || idx}
+                  className={`w-full md:w-56 min-h-[204px] px-5 py-6 flex flex-col justify-start items-center gap-2.5 overflow-hidden
+                  ${idx === 0 ? 'bg-[#F7B750]' : 'bg-[#FFEDD5]'} 
+                `}
+                >
+                  {/* Mosque Icon: size-12. The SVG already has the blue background and white mosque. */}
+                  <img
+                    src="/assets/common/eid-mosque.svg"
+                    alt="Mosque"
+                    className="size-12 rounded-2xl"
+                  />
 
-                {/* Desktop Header */}
-                <div className="hidden md:flex p-2 bg-blue-900 rounded-2xl justify-center items-center">
-                  <span className="text-2xl">🕌</span>
-                </div>
-                <div className="hidden md:block text-center text-black text-sm font-medium">
-                  JAMAAH {idx + 1}
-                </div>
-                <div className="hidden md:block text-center text-black font-bold">
-                  {jamaat.time}
-                </div>
-
-                {/* Details */}
-                <div className="flex flex-col gap-1 w-full md:w-auto">
-                  {/* Athan Logic if available, else standard fields */}
-                  <div className="flex justify-center items-center gap-1">
-                    <span className="text-[10px] md:text-xs text-yellow-900 uppercase">
-                      IMAM:
-                    </span>
-                    <span className="text-[10px] md:text-xs text-yellow-900 uppercase truncate max-w-[80px] md:max-w-none">
-                      {jamaat.imam}
-                    </span>
-                  </div>
-                  {/* Notes/Khutbah */}
-                  {jamaat.notes && (
-                    <div className="flex justify-center items-center gap-1">
-                      <span className="text-[10px] md:text-xs text-yellow-900 uppercase">
-                        NOTES:
-                      </span>
-                      <span className="text-[10px] md:text-xs text-yellow-900 uppercase truncate max-w-[80px] md:max-w-none">
-                        {jamaat.notes}
-                      </span>
+                  {/* SALAH NAME and TIME: md:text-sm, Inter Medium */}
+                  <div className="self-stretch inline-flex justify-center items-center gap-1">
+                    <div
+                      className={`text-center text-sm font-medium font-['Inter'] leading-5 ${idx === 0 ? 'text-black' : 'text-[#1D4ED8]'}`}
+                    >
+                      EID PRAYER {idx + 1}
                     </div>
-                  )}
+                    <div
+                      className={`text-center text-sm font-medium font-['Inter'] leading-5 ${idx === 0 ? 'text-black' : 'text-[#1D4ED8]'}`}
+                    >
+                      {jamaat.time}
+                    </div>
+                  </div>
+
+                  {/* Details Area */}
+                  <div className="flex flex-col gap-0.5">
+                    {jamaat.athan && (
+                      <div className="inline-flex justify-start items-center gap-1 text-[11px]">
+                        <div
+                          className={`text-center font-normal font-['Inter'] leading-4 ${idx === 0 ? 'text-[#713F12]' : 'text-black opacity-80'}`}
+                        >
+                          ATHAN:
+                        </div>
+                        <div
+                          className={`text-center font-normal font-['Inter'] leading-4 ${idx === 0 ? 'text-[#713F12]' : 'text-black opacity-80'}`}
+                        >
+                          {jamaat.athan}
+                        </div>
+                      </div>
+                    )}
+                    <div className="inline-flex justify-center items-start gap-1 text-[11px]">
+                      <div
+                        className={`text-center font-normal font-['Inter'] leading-4 ${idx === 0 ? 'text-[#713F12]' : 'text-black opacity-80'}`}
+                      >
+                        IMAM:
+                      </div>
+                      <div
+                        className={`font-normal font-['Inter'] leading-4 uppercase text-left ${idx === 0 ? 'text-[#713F12]' : 'text-black opacity-80'}`}
+                      >
+                        {jamaat.imam || 'TBC'}
+                      </div>
+                    </div>
+                    {jamaat.notes && (
+                      <div className="inline-flex justify-center items-start gap-1 text-[11px]">
+                        <div
+                          className={`text-center font-normal font-['Inter'] leading-4 ${idx === 0 ? 'text-[#713F12]' : 'text-black opacity-80'}`}
+                        >
+                          KHUTBAH:
+                        </div>
+                        <div
+                          className={` font-normal font-['Inter'] leading-4 uppercase text-left ${idx === 0 ? 'text-[#713F12]' : 'text-black opacity-80'}`}
+                        >
+                          {jamaat.notes}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-            {/* Zakat/Donation Block - Mobile: Specific User Design */}
-            <div className="flex-1 min-w-[50%] md:min-w-0 md:w-52 px-3 py-3 md:px-6 md:py-3 bg-yellow-800 md:bg-yellow-900 flex flex-col justify-center items-start gap-2">
-              <div className="w-full text-center md:text-left text-white text-xs md:text-base font-normal md:font-bold truncate">
-                {fundraisingStats.title}
+            {/* Zakat Donation Box: w-52, bg-warning-800 */}
+            <div className="w-full md:w-52 self-stretch px-6 py-6 bg-[#62420E] inline-flex flex-col justify-center items-start gap-2">
+              <div className="self-stretch text-white text-base font-bold font-['Inter'] leading-6">
+                {fundraisingStats.title || 'Help Build a Lasting Legacy'}
               </div>
-
-              {/* Mobile Stats Layout matching User Snippet */}
-              <div className="w-full flex justify-between items-center gap-2">
-                <div className="flex-1 rounded-lg flex flex-col justify-start items-center">
-                  <div className="text-white text-sm font-semibold font-['Inter'] leading-5">
+              <div className="self-stretch inline-flex justify-between items-center">
+                <div className="inline-flex flex-col justify-start items-center gap-1">
+                  <div className="text-white text-xl font-bold font-['Inter'] leading-7">
                     {fundraisingStats.donorCount}
                   </div>
-                  <div className="text-white text-[8px] font-normal leading-4">
+                  <div className="text-white text-sm font-normal font-['Inter'] leading-5 opacity-80">
                     Donors
                   </div>
                 </div>
-                <div className="flex-1 rounded-lg flex flex-col justify-start items-center">
-                  <div className="text-white text-sm font-semibold font-['Inter'] leading-5">
+                <div className="inline-flex flex-col justify-start items-center gap-1">
+                  <div className="text-white text-xl font-bold font-['Inter'] leading-7">
                     £{fundraisingStats.amountRaised.toLocaleString()}
                   </div>
-                  <div className="text-white text-[8px] font-normal leading-4">
-                    Funds
+                  <div className="text-white text-sm font-normal font-['Inter'] leading-5 opacity-80">
+                    Raised
                   </div>
                 </div>
               </div>
-
-              {/* Button */}
+              {/* Donate Button: white, bg-default-50 */}
               <Link
                 href={fundraisingStats.link}
-                className="w-full h-8 md:h-10 px-3 md:px-4 bg-white md:bg-white/10 hover:bg-white/90 md:hover:bg-white/20 rounded-lg flex justify-center items-center gap-2 text-black md:text-white text-xs md:text-sm transition-colors"
-                style={{ color: 'var(--colors-base-default-foreground)' }} // Using var for mobile text color from snippet
+                className="self-stretch h-10 px-4 bg-[#F8FAFC] rounded-lg inline-flex justify-center items-center gap-2 group hover:bg-white transition-all shadow-sm"
               >
-                Donate Now <span className="hidden md:inline text-lg">›</span>
+                <div className="flex-1 flex justify-between items-center">
+                  <span className="text-[#171717] text-sm font-normal font-['Inter'] leading-5">
+                    Donate Now
+                  </span>
+                  <div className="w-5 h-5 flex items-center justify-center transition-transform group-hover:translate-x-1">
+                    <svg width="6" height="10" viewBox="0 0 6 10" fill="none">
+                      <path
+                        d="M1 9L5 5L1 1"
+                        stroke="#171717"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
               </Link>
             </div>
+          </div>
+
+          {/* Close Button: absolute, right-0, size-6 etc */}
+          <div className="absolute right-4 top-4 xl:right-6 xl:top-2">
+            <button
+              onClick={handleDismiss}
+              className="text-white/80 hover:text-white transition-colors"
+              aria-label="Close"
+            >
+              <IoClose size={24} />
+            </button>
           </div>
         </div>
       </div>

@@ -244,9 +244,10 @@ export const Notifications: CollectionConfig = {
         condition: (_, siblingData) => siblingData.type === 'eid',
       },
       fields: [
-        { name: 'time', type: 'text', required: true },
+        { name: 'time', type: 'text', required: true, admin: { description: 'Jamaat Time' } },
+        { name: 'athan', type: 'text', admin: { description: 'Athan Time' } },
         { name: 'imam', type: 'text' },
-        { name: 'notes', type: 'text' },
+        { name: 'notes', type: 'text', label: 'Khutbah/Notes' },
       ],
     },
   ],
