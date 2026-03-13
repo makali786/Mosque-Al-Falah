@@ -659,17 +659,9 @@ export default async function MadrasahPage() {
 
                 {/* Button */}
                 <Link
-                  href={session.buttonUrl || '#'}
-                  target={
-                    session.buttonUrl?.includes('forms.gle')
-                      ? '_blank'
-                      : undefined
-                  }
-                  rel={
-                    session.buttonUrl?.includes('forms.gle')
-                      ? 'noopener noreferrer'
-                      : undefined
-                  }
+                  href="https://forms.gle/BcwMzWAkpcaVCQY29"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`w-full py-4 mt-auto rounded-xl inline-flex justify-center items-center transition-transform hover:scale-[1.02] ${session.theme === 'gold' ? 'bg-[#d6a938] hover:bg-[#c29831] text-cyan-950' : 'bg-white hover:bg-slate-100 text-cyan-950'}`}
                 >
                   <span className="text-center text-base font-bold font-poppins leading-6">

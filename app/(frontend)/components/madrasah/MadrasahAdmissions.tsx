@@ -132,9 +132,9 @@ export default function MadrasahAdmissions({ data, target, rel }: MadrasahAdmiss
 
             {/* CTA */}
             <Link
-              href={data.feesCtaUrl || 'https://forms.gle/BcwMzWAkpcaVCQY29'}
-              target={target}
-              rel={rel || (target === '_blank' ? 'noopener noreferrer' : undefined)}
+              href="mailto:masjid@masjid-alfalah.org.uk?subject=Admissions%20Enquiry"
+              target="_blank"
+              rel="noopener noreferrer"
               className="adm-cta-btn"
             >
               <span className="adm-cta-btn-text">

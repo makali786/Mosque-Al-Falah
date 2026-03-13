@@ -229,7 +229,7 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-            <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+            <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
 
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Thank You for Your Donation</h1>
               <p style="color: #e0e0e0; margin: 10px 0 0; font-size: 16px;">JazakAllahu Khairan</p>
@@ -510,7 +510,7 @@ function generateWelcomeEmailHTML(donor: DonorData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0c478a 0%, #004797 100%); padding: 40px 20px;">
     <tr>
       <td align="center">
-        <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
+        <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
         <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Welcome to Masjid Al-Falah</h1>
       </td>
     </tr>
@@ -574,7 +574,7 @@ function generateReminderEmailHTML(data: {
         <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 40px;">
           <tr>
             <td>
-              <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
+              <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
               <h2 style="color: #333; margin: 0 0 20px;">Upcoming Donation Reminder</h2>
               <p style="font-size: 16px; color: #555; line-height: 1.6;">
                 Assalamu Alaikum ${data.name},
@@ -650,7 +650,7 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 30px 20px;">
     <tr>
       <td align="center">
-        <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 15px;">
+        <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 15px;">
         <h1 style="color: #ffffff; margin: 0; font-size: 24px;">🎉 New Donation Received!</h1>
       </td>
     </tr>
@@ -764,7 +764,7 @@ export async function sendEventRequestNotification(
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-             <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+             <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
 
             </td>
           </tr>
@@ -889,7 +889,7 @@ export async function sendServiceRequestNotification(
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-          <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
+          <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
 
 
             </td>
@@ -1015,7 +1015,7 @@ export async function sendQuestionNotification(
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-           <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
+           <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
 
             </td>
           </tr>
@@ -1204,7 +1204,7 @@ function generateNewsletterWelcomeHTML(data: NewsletterSubscriberData): string {
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-             <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+             <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
 
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Welcome to Our Newsletter!</h1>
               <p style="color: #e0e0e0; margin: 10px 0 0; font-size: 16px;">Assalamu Alaikum wa Rahmatullahi wa Barakatuh</p>
@@ -1473,7 +1473,7 @@ function generateNewsletterCampaignHTML(data: NewsletterCampaignData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0c478a 0%, #004797 100%); padding: 30px 20px;">
     <tr>
       <td align="center">
-      <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+      <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
 
       </td>
     </tr>

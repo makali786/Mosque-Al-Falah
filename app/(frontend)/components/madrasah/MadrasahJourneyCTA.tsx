@@ -55,9 +55,9 @@ export default function MadrasahJourneyCTA({ data }: MadrasahJourneyCTAProps) {
           {/* Buttons */}
           <div className="journey-buttons">
             <Link
-              href={data.primaryButtonUrl || '#'}
-              target={data.target}
-              rel={data.rel || (data.target === '_blank' ? 'noopener noreferrer' : undefined)}
+              href="https://forms.gle/BcwMzWAkpcaVCQY29"
+              target="_blank"
+              rel="noopener noreferrer"
               className="journey-btn journey-btn-primary"
             >
               <div className="journey-btn-shadow" />
@@ -67,9 +67,9 @@ export default function MadrasahJourneyCTA({ data }: MadrasahJourneyCTAProps) {
             </Link>
 
             <Link
-              href={data.secondaryButtonUrl || '#'}
-              target={data.target}
-              rel={data.rel || (data.target === '_blank' ? 'noopener noreferrer' : undefined)}
+              href="mailto:masjid@masjid-alfalah.org.uk?subject=Admissions%20Enquiry"
+              target="_blank"
+              rel="noopener noreferrer"
               className="journey-btn journey-btn-secondary"
             >
               <span className="journey-btn-secondary-text">

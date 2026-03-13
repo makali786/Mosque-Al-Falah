@@ -18,9 +18,9 @@ const SOCIAL_LINKS = [
     url: 'https://www.youtube.com/channel/UCB-Ux707yantEZ3FDUqQiyw',
   },
   {
-    name: "Instagram",
-    icon: "/assets/common/instagram-icon.svg",
-    url: "https://www.instagram.com/masjidalfalahilford/?hl=en",
+    name: 'Instagram',
+    icon: '/assets/common/instagram-icon.svg',
+    url: 'https://www.instagram.com/masjidalfalahilford/?hl=en',
   },
 ] as const;
 
@@ -33,10 +33,13 @@ const FOOTER_LINKS = [
 const EDUCATIONS_COLUMN = {
   title: 'Educations',
   links: [
-    { label: 'Adult Classes', href: '/education/adult-classes' },
-    { label: "Children's Madrasah", href: '/education/madrasah' },
-    { label: 'Educational Events', href: '/education/events' },
-    { label: 'Youth Activities', href: '/education/youth' },
+    {
+      label: 'Adult Classes',
+      href: '/our-services/adult-classes',
+    },
+    { label: "Children's Madrasah", href: '/madrasah' },
+    { label: 'Educational Events', href: '/events' },
+    { label: 'Youth Activities', href: '/our-services/youth-activities' },
   ],
 };
 
@@ -133,8 +136,9 @@ const SocialIcon = ({
 
 const ChevronIcon = ({ isOpen }: { isOpen: boolean }) => (
   <svg
-    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${isOpen ? 'rotate-90' : ''
-      }`}
+    className={`lg:hidden w-5 h-5 text-white transition-transform duration-300 ${
+      isOpen ? 'rotate-90' : ''
+    }`}
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -172,8 +176,9 @@ const FooterColumn = ({
       <ChevronIcon isOpen={isOpen} />
     </div>
     <div
-      className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 mt-4' : 'max-h-0 lg:max-h-none'
-        }`}
+      className={`lg:flex flex-col gap-6 w-full mt-0 lg:mt-6 overflow-hidden transition-all duration-300 ${
+        isOpen ? 'max-h-96 mt-4' : 'max-h-0 lg:max-h-none'
+      }`}
     >
       <div className="flex flex-col gap-2 w-full">
         {links.map(link => (
@@ -458,10 +463,11 @@ export default function Footer() {
                 {/* Status Message */}
                 {newsletterStatus.message && (
                   <div
-                    className={`text-sm px-3 py-2 rounded ${newsletterStatus.type === 'success'
+                    className={`text-sm px-3 py-2 rounded ${
+                      newsletterStatus.type === 'success'
                         ? 'bg-green-900/50 text-green-200 border border-green-700'
                         : 'bg-red-900/50 text-red-200 border border-red-700'
-                      }`}
+                    }`}
                   >
                     <span className="text-white">
                       {newsletterStatus.message}
