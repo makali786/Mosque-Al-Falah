@@ -89,18 +89,31 @@ export default function EventsFeed({ initialEvents, pageData, onSubmit }: Events
   const speakers = Array.from(new Set(initialEvents?.flatMap(e => e.speakers?.map(s => s.guestSpeaker?.name || "") || []))).filter(Boolean) as string[];
   const categories = Array.from(new Set(initialEvents?.map(e => e.category).filter(Boolean))) as string[];
 
-  // Filter Logic
-  const filteredEvents = initialEvents.filter(event => {
+  // Process events to find their true "upcoming" date for sorting and display
+  const eventsWithNextOccurrence = initialEvents.map(event => {
     const now = new Date();
-    const eventDate = new Date(event.timing.startDate);
+    let nextDate = event.recurrence?.isRecurring
+      ? getNextOccurrence(event as any, now)
+      : new Date(event.timing.startDate);
+
+    // If it's a one-time event that has already ended, or a recurring event with no future occurrences
+    // we still keep the original start date for the "Archived" tab logic
+    return {
+      ...event,
+      _nextOccurrence: nextDate || new Date(event.timing.startDate),
+      _isUpcoming: event.timing.startDate >= now.toISOString() ||
+        (event.recurrence?.isRecurring && !!getNextOccurrence(event as any, now)) ||
+        isEventHappening(event as any, now)
+    };
+  });
+
+  // Filter Logic using processed data
+  const filteredEvents = eventsWithNextOccurrence.filter(event => {
+    const now = new Date();
 
     // Tab Filter
-    const isUpcoming = event.timing.startDate >= now.toISOString() ||
-      (event.recurrence?.isRecurring && !!getNextOccurrence(event as any, now)) ||
-      isEventHappening(event as any, now);
-
-    if (activeTab === "upcoming" && !isUpcoming) return false;
-    if (activeTab === "archived" && isUpcoming) return false;
+    if (activeTab === "upcoming" && !event._isUpcoming) return false;
+    if (activeTab === "archived" && event._isUpcoming) return false;
 
     // Speaker Filter
     if (selectedSpeaker && !event.speakers?.some(s => s.guestSpeaker?.name === selectedSpeaker)) return false;
@@ -111,18 +124,22 @@ export default function EventsFeed({ initialEvents, pageData, onSubmit }: Events
     // Date Filter
     if (selectedDate) {
       const filterDateStr = new Date(selectedDate).toDateString();
-      const eventDateStr = new Date(event.timing.startDate).toDateString();
+      const eventDateStr = event._nextOccurrence.toDateString();
       if (filterDateStr !== eventDateStr) return false;
     }
 
     return true;
   });
 
-  // Sort: Upcoming (Ascending), Archived (Descending)
+  // Sort: Upcoming (Ascending by next occurrence), Archived (Descending by original start date)
   filteredEvents.sort((a, b) => {
-    const dateA = new Date(a.timing.startDate).getTime();
-    const dateB = new Date(b.timing.startDate).getTime();
-    return activeTab === "upcoming" ? dateA - dateB : dateB - dateA;
+    if (activeTab === "upcoming") {
+      return a._nextOccurrence.getTime() - b._nextOccurrence.getTime();
+    } else {
+      const dateA = new Date(a.timing.startDate).getTime();
+      const dateB = new Date(b.timing.startDate).getTime();
+      return dateB - dateA;
+    }
   });
 
   const displayedEvents = filteredEvents.slice(0, visibleCount);

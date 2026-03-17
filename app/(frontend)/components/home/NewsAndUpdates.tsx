@@ -45,6 +45,21 @@ interface RawNotice {
   isCancelled?: boolean;
 }
 
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+  });
+};
+
+const formatTime = (date: Date) => {
+  return date.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  });
+};
+
 export default function NewsAndUpdates({
   events = [],
   notices = [],
@@ -237,6 +252,13 @@ export default function NewsAndUpdates({
                     <h3 className="text-lg font-semibold text-black line-clamp-1">
                       {event?.title}
                     </h3>
+                    {event.displayDate && (
+                      <div className="flex items-center gap-1.5 text-sm text-[#71717A] mb-1">
+                        <span>{formatDate(event.displayDate)}</span>
+                        <span className="w-1 h-1 rounded-full bg-[#A1A1AA]"></span>
+                        <span>{formatTime(event.displayDate)}</span>
+                      </div>
+                    )}
                     <p className="text-sm text-[#27272a] line-clamp-2 leading-5">
                       {event?.shortDescription || event?.title}
                     </p>

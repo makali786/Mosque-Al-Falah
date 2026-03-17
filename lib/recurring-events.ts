@@ -35,6 +35,28 @@ export function getNextOccurrence(
   }
 
   const startDate = new Date(event.timing.startDate);
+  const instanceEndDate = event.timing.endDate ? new Date(event.timing.endDate) : null;
+
+  let currentFromDate = fromDate;
+
+  // If the occurrence for today has already ended, start looking from tomorrow
+  if (event.recurrence?.isRecurring && instanceEndDate) {
+    const todayOccurrenceStart = new Date(fromDate);
+    todayOccurrenceStart.setHours(
+      startDate.getHours(),
+      startDate.getMinutes(),
+      startDate.getSeconds(),
+      0
+    );
+
+    const duration = instanceEndDate.getTime() - startDate.getTime();
+    const todayOccurrenceEnd = new Date(todayOccurrenceStart.getTime() + duration);
+
+    if (fromDate > todayOccurrenceEnd) {
+      currentFromDate = new Date(fromDate.getTime() + 24 * 60 * 60 * 1000);
+      currentFromDate.setHours(0, 0, 0, 0);
+    }
+  }
 
   // Check recurrence end conditions
   if (
@@ -42,7 +64,7 @@ export function getNextOccurrence(
     event.recurrence.recurrenceEnd.endDate
   ) {
     const endDate = new Date(event.recurrence.recurrenceEnd.endDate);
-    if (fromDate > endDate) return null;
+    if (currentFromDate > endDate) return null;
   }
 
   let nextOccurrence: Date | null = null;
@@ -54,7 +76,7 @@ export function getNextOccurrence(
     nextOccurrence = findNextWeeklyOccurrence(
       startDate,
       event.recurrence.weeklyPattern,
-      fromDate
+      currentFromDate
     );
   } else if (
     event.recurrence.frequency === 'monthly' &&
@@ -63,7 +85,7 @@ export function getNextOccurrence(
     nextOccurrence = findNextMonthlyOccurrence(
       startDate,
       event.recurrence.monthlyDay,
-      fromDate
+      currentFromDate
     );
   }
 

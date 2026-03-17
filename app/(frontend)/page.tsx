@@ -58,11 +58,12 @@ export default async function Home() {
         return null;
       } else {
         // For one-time events, check if they haven't ended yet
-        const endDate = new Date(event.timing.endDate);
-        if (endDate >= now) {
+        const startDate = new Date(event.timing.startDate);
+        const endDate = event.timing.endDate ? new Date(event.timing.endDate) : null;
+        if (!endDate || endDate >= now) {
           return {
             ...event,
-            displayDate: new Date(event.timing.startDate),
+            displayDate: startDate,
           };
         }
         return null;

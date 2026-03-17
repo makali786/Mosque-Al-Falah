@@ -269,7 +269,7 @@ export default function EventDetailClient({
             </div>
 
             {/* Platforms */}
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-1.5 mb-4">
               <span className="text-[#A1A1AA] text-xs">Platform:</span>
               <div className="flex flex-wrap items-center gap-3">
                 {event?.platforms?.map((p: any, i: number) => {
