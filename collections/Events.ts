@@ -110,7 +110,7 @@ export const Events: CollectionConfig = {
           label: 'Start Date',
           admin: {
             date: {
-              pickerAppearance: 'dayAndTime',
+              pickerAppearance: 'dayOnly',
             },
           },
         },
@@ -121,9 +121,27 @@ export const Events: CollectionConfig = {
           label: 'End Date',
           admin: {
             date: {
-              pickerAppearance: 'dayAndTime',
+              pickerAppearance: 'dayOnly',
             },
             description: 'Optional. If left blank, recurring events will be treated as "Indefinite".',
+          },
+        },
+        {
+          name: 'startTime',
+          type: 'text',
+          required: true,
+          label: 'Start Time',
+          admin: {
+            description: 'Format: HH:MM (24-hour format, e.g., "09:00" or "14:30")',
+          },
+        },
+        {
+          name: 'endTime',
+          type: 'text',
+          required: true,
+          label: 'End Time',
+          admin: {
+            description: 'Format: HH:MM (24-hour format, e.g., "11:00" or "16:45")',
           },
         },
         {

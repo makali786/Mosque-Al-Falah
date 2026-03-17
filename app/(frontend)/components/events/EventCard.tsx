@@ -15,6 +15,8 @@ export interface EventInterface {
   timing: {
     startDate: string;
     endDate?: string;
+    startTime: string;
+    endTime: string;
     timezone: string;
   };
   platforms: {
@@ -81,7 +83,11 @@ export default function EventCard({ event, layout = 'grid' }: EventCardProps) {
   });
 
   // Format Time: "9:00 AM - 11:00 AM"
-  const formatTime = (date: Date) => {
+  const formatTimeString = (time: string) => {
+    if (!time) return '';
+    const [hours, minutes] = time.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
     return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
@@ -89,7 +95,9 @@ export default function EventCard({ event, layout = 'grid' }: EventCardProps) {
     });
   };
 
-  const timeRange = `${formatTime(startDate)} - ${endDate ? formatTime(endDate) : 'Indefinite'}`;
+  const timeRange = timing.startTime && timing.endTime
+    ? `${formatTimeString(timing.startTime)} - ${formatTimeString(timing.endTime)}`
+    : timing.startTime || ''
 
   const isLive = media?.isLive;
 

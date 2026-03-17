@@ -33,7 +33,11 @@ interface HeroBannerProps {
   animationSpeed?: number | null;
 }
 
-export default function HeroBanner({ banners = [], animationStyle, animationSpeed }: HeroBannerProps) {
+export default function HeroBanner({
+  banners = [],
+  animationStyle,
+  animationSpeed,
+}: HeroBannerProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -152,8 +156,9 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
           return (
             <div
               key={slide.id}
-              className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
+              className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
               style={{
                 backgroundImage: desktopImg ? `url('${desktopImg}')` : 'none',
               }}
@@ -162,7 +167,9 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
               <div className="absolute inset-0 bg-linear-to-r from-[#001731] to-transparent" />
 
               {/* Desktop Content */}
-              <div className={`relative h-full flex items-center ${isActive ? animClass : ''}`}>
+              <div
+                className={`relative h-full flex items-center ${isActive ? animClass : ''}`}
+              >
                 <div className="w-full section-padding py-8 md:py-10 lg:py-12">
                   <div className="max-w-full flex flex-col gap-8 md:gap-10 lg:gap-12">
                     {/* Text Content */}
@@ -199,15 +206,16 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
         })}
 
         {/* Carousel Navigation Dots - Bottom right on desktop */}
-        <div className="absolute bottom-5 right-5 md:bottom-6 md:right-6 flex items-center gap-2 md:gap-3 lg:gap-4 z-20">
+        <div className="absolute bottom-10  left-1/2 transform -translate-x-1/2   flex items-center gap-2 md:gap-3 lg:gap-4 z-20">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full border-2 md:border-3 w-5.5 h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 cursor-pointer ${index === currentSlide
-                ? 'bg-[#006fee] border-white'
-                : 'bg-transparent border-white/50 hover:border-white'
-                }`}
+              className={`transition-all duration-300 rounded-full border-2 md:border-3 w-5.5 h-5.5 md:w-6 md:h-6 lg:w-7 lg:h-7 cursor-pointer ${
+                index === currentSlide
+                  ? 'bg-[#006fee] border-white'
+                  : 'bg-transparent border-white/50 hover:border-white'
+              }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
@@ -229,8 +237,9 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
           return (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
             >
               {/* Full gradient background on mobile */}
               <div className="absolute inset-0 bg-linear-to-r from-[#001731] from-[2.344%] to-[#004797]" />
@@ -252,7 +261,9 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
               </div>
 
               {/* Mobile Content */}
-              <div className={`relative flex items-center ${isActive ? animClass : ''}`}>
+              <div
+                className={`relative flex items-center ${isActive ? animClass : ''}`}
+              >
                 <div className="w-full section-padding py-4">
                   <div className="max-w-full flex flex-col gap-3">
                     {/* Carousel Navigation Dots - Centered above content on mobile */}
@@ -261,10 +272,11 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
                         <button
                           key={dotIndex}
                           onClick={() => goToSlide(dotIndex)}
-                          className={`transition-all duration-300 rounded-full cursor-pointer ${dotIndex === currentSlide
-                            ? 'bg-white w-4 h-1.5'
-                            : 'bg-white/40 hover:bg-white/60 w-1.5 h-1.5'
-                            }`}
+                          className={`transition-all duration-300 rounded-full cursor-pointer ${
+                            dotIndex === currentSlide
+                              ? 'bg-white w-4 h-1.5'
+                              : 'bg-white/40 hover:bg-white/60 w-1.5 h-1.5'
+                          }`}
                           aria-label={`Go to slide ${dotIndex + 1}`}
                         />
                       ))}

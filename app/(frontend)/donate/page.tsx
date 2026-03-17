@@ -21,14 +21,21 @@ export default function DonatePage() {
   const [isHydrated, setIsHydrated] = useState(false);
   const { toasts, removeToast, success, error } = useToast();
 
-  // Get amount and appealId from URL parameters
+  // Get amount, appealId, and frequency from URL parameters
   const urlAmount = searchParams.get('amount');
   const urlAppealId = searchParams.get('appealId');
+  const urlFrequency = searchParams.get('frequency');
   const initialAmount = urlAmount ? parseFloat(urlAmount) : 20;
+
+  // Validate and set frequency from URL, fallback to 'one-time'
+  const validFrequencies: DonationFormData['frequency'][] = ['one-time', 'weekly', 'monthly', 'quarterly', 'yearly'];
+  const initialFrequency = urlFrequency && validFrequencies.includes(urlFrequency as DonationFormData['frequency'])
+    ? (urlFrequency as DonationFormData['frequency'])
+    : 'one-time';
 
   const [formData, setFormData] = useState<DonationFormData>({
     // Step 1: Select
-    frequency: 'one-time',
+    frequency: initialFrequency,
     donationType: 'general',
     appealId: urlAppealId || undefined, // Pre-select appeal from URL if present
     amount: initialAmount,
@@ -65,7 +72,18 @@ export default function DonatePage() {
       try {
         const savedState = JSON.parse(savedStateStr);
         if (savedState.formData) {
-          setFormData(savedState.formData);
+          // If URL has a frequency param, override the saved state with URL frequency
+          const mergedFormData = {
+            ...savedState.formData,
+            ...(urlFrequency && validFrequencies.includes(urlFrequency as DonationFormData['frequency']) && {
+              frequency: urlFrequency as DonationFormData['frequency']
+            }),
+            // Also override appealId if present in URL
+            ...(urlAppealId && { appealId: urlAppealId }),
+            // Also override amount if present in URL
+            ...(urlAmount && { amount: parseFloat(urlAmount) }),
+          };
+          setFormData(mergedFormData);
         }
         if (savedState.currentStep) {
           setCurrentStep(savedState.currentStep);
@@ -75,7 +93,7 @@ export default function DonatePage() {
       }
     }
     setIsHydrated(true);
-  }, []);
+  }, [urlFrequency, urlAppealId, urlAmount]);
 
   // Save state to sessionStorage whenever it changes after hydration
   useEffect(() => {

@@ -15,7 +15,8 @@
   /* Custom Animations for HeroBanner */
   --animate-fadeIn: fadeIn var(--animation-duration, 1s) ease-in-out forwards;
   --animate-slideUp: slideUp var(--animation-duration, 1s) ease-out forwards;
-  --animate-slideRight: slideRight var(--animation-duration, 1s) ease-out forwards;
+  --animate-slideRight: slideRight var(--animation-duration, 1s) ease-out
+    forwards;
   --animate-zoomIn: zoomIn var(--animation-duration, 1s) ease-out forwards;
 
   @keyframes fadeIn {
@@ -259,18 +260,18 @@ article.prose blockquote .quote-source {
 }
 
 /* Image container height for blog - Responsive */
-article.prose>div>div[class*='rounded'] {
+article.prose > div > div[class*='rounded'] {
   height: 240px !important;
 }
 
 @media (min-width: 768px) {
-  article.prose>div>div[class*='rounded'] {
+  article.prose > div > div[class*='rounded'] {
     height: 400px !important;
   }
 }
 
 @media (min-width: 1024px) {
-  article.prose>div>div[class*='rounded'] {
+  article.prose > div > div[class*='rounded'] {
     height: 565px !important;
   }
 }
@@ -304,8 +305,8 @@ article.prose>div>div[class*='rounded'] {
 /* ── Floating Button ── */
 .rc-floating-btn {
   position: fixed;
-  bottom: 24px;
-  left: 24px;
+  bottom: 20px;
+  left: 20px;
   z-index: 50;
   width: 56px;
   height: 56px;
@@ -422,9 +423,11 @@ article.prose>div>div[class*='rounded'] {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(to bottom,
-      rgba(10, 10, 26, 0.4) 0%,
-      rgba(10, 10, 26, 0.7) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 26, 0.4) 0%,
+    rgba(10, 10, 26, 0.7) 100%
+  );
 }
 
 /* ── Effects Layer ── */
@@ -447,9 +450,11 @@ article.prose>div>div[class*='rounded'] {
 .rc-nebula-1 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle,
-      rgba(139, 92, 246, 0.3) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.3) 0%,
+    transparent 70%
+  );
   top: -50px;
   left: -50px;
 }
@@ -457,9 +462,11 @@ article.prose>div>div[class*='rounded'] {
 .rc-nebula-2 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle,
-      rgba(56, 189, 248, 0.2) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.2) 0%,
+    transparent 70%
+  );
   bottom: -100px;
   right: -100px;
   animation-delay: 5s;
@@ -518,9 +525,11 @@ article.prose>div>div[class*='rounded'] {
 .rc-logo-glow {
   position: absolute;
   inset: -20px;
-  background: radial-gradient(circle,
-      rgba(56, 189, 248, 0.4) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.4) 0%,
+    transparent 70%
+  );
   filter: blur(20px);
 }
 
@@ -585,10 +594,12 @@ article.prose>div>div[class*='rounded'] {
 .rc-line-accent {
   height: 1px;
   width: 40px;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(139, 195, 74, 0.8),
-      transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 195, 74, 0.8),
+    transparent
+  );
 }
 
 .rc-subtitle {
@@ -643,10 +654,12 @@ article.prose>div>div[class*='rounded'] {
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.4),
-      transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
   transform: skewX(-25deg);
   animation: shine 3s infinite;
 }
@@ -765,9 +778,11 @@ article.prose>div>div[class*='rounded'] {
   right: 0;
   top: 0;
   height: 50%;
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0.05),
-      transparent);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
   border-radius: 6px 6px 0 0;
   z-index: 0;
 }
@@ -966,7 +981,6 @@ article.prose>div>div[class*='rounded'] {
 }
 
 @keyframes rcNebula {
-
   0%,
   100% {
     transform: scale(1);
@@ -978,7 +992,6 @@ article.prose>div>div[class*='rounded'] {
 }
 
 @keyframes rcTwinkle {
-
   0%,
   100% {
     opacity: 0.3;
@@ -992,7 +1005,6 @@ article.prose>div>div[class*='rounded'] {
 }
 
 @keyframes rcFloat {
-
   0%,
   100% {
     transform: translateY(0);

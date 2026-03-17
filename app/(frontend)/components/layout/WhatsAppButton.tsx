@@ -27,11 +27,11 @@ export default function WhatsAppButton() {
   };
 
   return (
-    <div className="fixed bottom-24 right-6 lg:bottom-28 lg:right-8 z-50 flex flex-col gap-3 items-center">
+    <div className="fixed bottom-6 right-2 lg:bottom-6 lg:right-4 z-50 flex flex-col gap-3 items-center">
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className={`group relative bg-[#18181B] hover:bg-[#27272A] w-14 h-14 lg:w-16 lg:h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 ${
+        className={`group relative border border-[#bcbbbb] bg-[#18181B] hover:bg-[#27272A] w-14 h-14 lg:w-16 lg:h-16 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 ${
           isVisible
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-4 pointer-events-none'

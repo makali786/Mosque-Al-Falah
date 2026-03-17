@@ -6,6 +6,8 @@ export interface RecurringEvent {
   timing: {
     startDate: string;
     endDate?: string;
+    startTime?: string;
+    endTime?: string;
   };
   recurrence?: {
     isRecurring: boolean;
@@ -36,6 +38,15 @@ export function getNextOccurrence(
 
   const startDate = new Date(event.timing.startDate);
   const instanceEndDate = event.timing.endDate ? new Date(event.timing.endDate) : null;
+  
+  // Parse start time if available (format: "HH:MM")
+  let startHours = startDate.getHours();
+  let startMinutes = startDate.getMinutes();
+  if (event.timing.startTime) {
+    const [h, m] = event.timing.startTime.split(':').map(Number);
+    startHours = h;
+    startMinutes = m;
+  }
 
   let currentFromDate = fromDate;
 
@@ -43,9 +54,9 @@ export function getNextOccurrence(
   if (event.recurrence?.isRecurring && instanceEndDate) {
     const todayOccurrenceStart = new Date(fromDate);
     todayOccurrenceStart.setHours(
-      startDate.getHours(),
-      startDate.getMinutes(),
-      startDate.getSeconds(),
+      startHours,
+      startMinutes,
+      0,
       0
     );
 
@@ -76,7 +87,9 @@ export function getNextOccurrence(
     nextOccurrence = findNextWeeklyOccurrence(
       startDate,
       event.recurrence.weeklyPattern,
-      currentFromDate
+      currentFromDate,
+      startHours,
+      startMinutes
     );
   } else if (
     event.recurrence.frequency === 'monthly' &&
@@ -85,7 +98,9 @@ export function getNextOccurrence(
     nextOccurrence = findNextMonthlyOccurrence(
       startDate,
       event.recurrence.monthlyDay,
-      currentFromDate
+      currentFromDate,
+      startHours,
+      startMinutes
     );
   }
 
@@ -110,16 +125,18 @@ export function getNextOccurrence(
 function findNextWeeklyOccurrence(
   startDate: Date,
   daysOfWeek: string[],
-  fromDate: Date
+  fromDate: Date,
+  startHours: number,
+  startMinutes: number
 ): Date | null {
   const daysAsNumbers = daysOfWeek.map(d => parseInt(d, 10));
   const current = new Date(fromDate);
 
   // Set to start time
   current.setHours(
-    startDate.getHours(),
-    startDate.getMinutes(),
-    startDate.getSeconds(),
+    startHours,
+    startMinutes,
+    0,
     0
   );
 
@@ -134,9 +151,9 @@ function findNextWeeklyOccurrence(
     const checkDate = new Date(fromDate);
     checkDate.setDate(fromDate.getDate() + i);
     checkDate.setHours(
-      startDate.getHours(),
-      startDate.getMinutes(),
-      startDate.getSeconds(),
+      startHours,
+      startMinutes,
+      0,
       0
     );
 
@@ -155,16 +172,18 @@ function findNextWeeklyOccurrence(
 function findNextMonthlyOccurrence(
   startDate: Date,
   dayOfMonth: number,
-  fromDate: Date
+  fromDate: Date,
+  startHours: number,
+  startMinutes: number
 ): Date | null {
   const current = new Date(fromDate);
 
   // Try current month
   current.setDate(dayOfMonth);
   current.setHours(
-    startDate.getHours(),
-    startDate.getMinutes(),
-    startDate.getSeconds(),
+    startHours,
+    startMinutes,
+    0,
     0
   );
 
@@ -178,9 +197,9 @@ function findNextMonthlyOccurrence(
   current.setDate(1); // Reset to 1st to avoid date overflow
   current.setDate(dayOfMonth);
   current.setHours(
-    startDate.getHours(),
-    startDate.getMinutes(),
-    startDate.getSeconds(),
+    startHours,
+    startMinutes,
+    0,
     0
   );
 
@@ -194,9 +213,9 @@ function findNextMonthlyOccurrence(
   current.setDate(1);
   current.setDate(dayOfMonth);
   current.setHours(
-    startDate.getHours(),
-    startDate.getMinutes(),
-    startDate.getSeconds(),
+    startHours,
+    startMinutes,
+    0,
     0
   );
 

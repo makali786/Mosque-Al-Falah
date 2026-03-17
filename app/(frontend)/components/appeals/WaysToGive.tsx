@@ -137,6 +137,27 @@ export function WaysToGive({
                   href = appealId ? `/donate?appealId=${appealId}` : '/donate';
                 }
 
+                // Map method name to frequency parameter
+                const methodNameLower = method.methodName.toLowerCase();
+                let frequency = '';
+                if (methodNameLower.includes('one time') || methodNameLower.includes('one-time') || methodNameLower.includes('one-off')) {
+                  frequency = 'one-time';
+                } else if (methodNameLower.includes('friday') || methodNameLower.includes('weekly') || methodNameLower.includes('jumuah')) {
+                  frequency = 'weekly';
+                } else if (methodNameLower.includes('monthly')) {
+                  frequency = 'monthly';
+                } else if (methodNameLower.includes('quarterly')) {
+                  frequency = 'quarterly';
+                } else if (methodNameLower.includes('yearly') || methodNameLower.includes('annual')) {
+                  frequency = 'yearly';
+                }
+
+                // Append frequency to URL if mapped
+                if (frequency) {
+                  const separator = href.includes('?') ? '&' : '?';
+                  href = `${href}${separator}frequency=${frequency}`;
+                }
+
                 return (
                   <Link
                     key={index}

@@ -122,6 +122,8 @@ export default function EventDetailClient({
   const subtitle = event?.subtitle || '';
   const startDate = event?.timing?.startDate;
   const endDate = event?.timing?.endDate;
+  const startTime = event?.timing?.startTime;
+  const endTime = event?.timing?.endTime;
   const venue = event?.venue?.name || 'Masjid Al-Falah';
   const address = event?.venue?.fullAddress || '';
   const description = event?.description;
@@ -175,6 +177,17 @@ export default function EventDetailClient({
 
   const embedUrl = getEmbedUrl(videoUrl);
 
+  // Helper to combine date and time into a Date object
+  const combineDateAndTime = (dateStr: string, timeStr?: string) => {
+    if (!dateStr) return null;
+    const date = new Date(dateStr);
+    if (timeStr) {
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      date.setHours(hours, minutes, 0, 0);
+    }
+    return date;
+  };
+
   // Format Helpers for Display
   const now = new Date();
   const nextDate = event.recurrence?.isRecurring
@@ -182,32 +195,41 @@ export default function EventDetailClient({
     : (startDate ? new Date(startDate) : null);
 
   const displayDate = nextDate || (startDate ? new Date(startDate) : null);
-  const sDate = displayDate;
+  
+  // Combine date with time for accurate start/end Date objects
+  const sDate = combineDateAndTime(
+    displayDate ? displayDate.toISOString().split('T')[0] : startDate,
+    startTime
+  );
 
-  // Calculate end date based on duration
-  const originalStart = startDate ? new Date(startDate) : null;
-  const originalEnd = endDate ? new Date(endDate) : null;
-  const eDate = originalEnd && originalStart && displayDate
-    ? new Date(displayDate.getTime() + (originalEnd.getTime() - originalStart.getTime()))
-    : null;
+  // For end date, use endDate if different from startDate, otherwise same day
+  const eDate = endDate && endTime
+    ? combineDateAndTime(endDate, endTime)
+    : endTime && sDate
+      ? combineDateAndTime(sDate.toISOString().split('T')[0], endTime)
+      : null;
 
   const dateFormatted = sDate?.toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
   });
 
-  // Use unique formatting for time to match EventCard exactly
-  const formatTimeHelper = (d: Date) =>
-    d.toLocaleTimeString('en-US', {
+  // Format time strings to display format
+  const formatTimeHelper = (time: string) => {
+    if (!time) return '';
+    const [hours, minutes] = time.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
+    return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
       hour12: true,
     });
+  };
 
-  const timeRange =
-    sDate
-      ? `${formatTimeHelper(sDate)} - ${eDate ? formatTimeHelper(eDate) : 'Indefinite'}`
-      : '';
+  const timeRange = startTime && endTime
+    ? `${formatTimeHelper(startTime)} - ${formatTimeHelper(endTime)}`
+    : startTime || ''
 
   // Whether the event dates have already passed
   const isEventPast = eDate ? eDate.getTime() < Date.now() : false;
@@ -550,11 +572,11 @@ export default function EventDetailClient({
                   <div className="space-y-4 text-sm text-[#3F3F46]">
                     <p>
                       <span className="font-semibold">Start:</span>{' '}
-                      {formatDate(startDate)} at {formatTime(startDate)}
+                      {formatDate(startDate)} at {startTime ? formatTimeHelper(startTime) : 'TBD'}
                     </p>
                     <p>
                       <span className="font-semibold">End:</span>{' '}
-                      {endDate ? `${formatDate(endDate)} at ${formatTime(endDate)}` : 'Indefinite'}
+                      {endDate && endTime ? `${formatDate(endDate)} at ${formatTimeHelper(endTime)}` : `${formatDate(startDate)} at ${formatTimeHelper(endTime)}`}
                     </p>
                   </div>
                   <AddToCalendar

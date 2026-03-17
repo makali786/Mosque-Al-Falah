@@ -17,6 +17,8 @@ interface Event {
   timing?: {
     startDate: string;
     endDate: string;
+    startTime: string;
+    endTime: string;
   };
   recurrence?: {
     isRecurring: boolean;
@@ -26,6 +28,7 @@ interface Event {
   };
   nextOccurrenceDate?: Date;
   displayDate?: Date;
+  displayTime?: string;
 }
 
 interface Notice {
@@ -52,7 +55,11 @@ const formatDate = (date: Date) => {
   });
 };
 
-const formatTime = (date: Date) => {
+const formatTime = (time: string) => {
+  if (!time) return '';
+  const [hours, minutes] = time.split(':').map(Number);
+  const date = new Date();
+  date.setHours(hours, minutes, 0, 0);
   return date.toLocaleTimeString('en-US', {
     hour: 'numeric',
     minute: '2-digit',
@@ -256,7 +263,7 @@ export default function NewsAndUpdates({
                       <div className="flex items-center gap-1.5 text-sm text-[#71717A] mb-1">
                         <span>{formatDate(event.displayDate)}</span>
                         <span className="w-1 h-1 rounded-full bg-[#A1A1AA]"></span>
-                        <span>{formatTime(event.displayDate)}</span>
+                        <span>{event.timing?.startTime ? formatTime(event.timing.startTime) : ''}</span>
                       </div>
                     )}
                     <p className="text-sm text-[#27272a] line-clamp-2 leading-5">
