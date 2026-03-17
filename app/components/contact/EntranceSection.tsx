@@ -28,8 +28,7 @@ const EntranceSection: React.FC<EntranceSectionProps> = ({
 }) => {
   const fullAddress = `${address.line1}, ${address.line2}`;
   const mapsUrl =
-    directionsUrl ||
-    `https://maps.google.com/?q=${encodeURIComponent(fullAddress)}`;
+    directionsUrl
 
   return (
     <section className="lg:w-[48%]">

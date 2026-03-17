@@ -59,7 +59,7 @@ const ContactInformation = ({
             {/* Contact Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-8">
               {/* Phone Button */}
-              <button
+              {/* <button
                 onClick={() => (window.location.href = `tel:${phone.replace(/\s/g, "")}`)}
                 className="inline-flex items-center justify-center gap-2 lg:gap-1.5 xl:gap-2 px-6 lg:px-3 xl:px-6 py-3 bg-[#D4D4D866] cursor-pointer"
               >
@@ -72,7 +72,7 @@ const ContactInformation = ({
                 <span className="text-sm sm:text-base lg:text-sm xl:text-base text-black">
                   {phone}
                 </span>
-              </button>
+              </button> */}
 
               {/* Email Button */}
               <button

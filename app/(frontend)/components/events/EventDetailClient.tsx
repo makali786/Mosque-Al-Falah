@@ -17,6 +17,7 @@ import DonorProfileCard from '../donate/shared/DonorProfileCard';
 import AddToCalendar from './AddToCalendar';
 import EventBookingForm from './EventBookingForm';
 import EventCard from './EventCard';
+import { getNextOccurrence } from "../../../../lib/recurring-events";
 
 // Helper to format date
 const formatDate = (dateString: string) => {
@@ -175,13 +176,26 @@ export default function EventDetailClient({
   const embedUrl = getEmbedUrl(videoUrl);
 
   // Format Helpers for Display
-  const sDate = startDate ? new Date(startDate) : null;
-  const eDate = endDate ? new Date(endDate) : null;
+  const now = new Date();
+  const nextDate = event.recurrence?.isRecurring
+    ? getNextOccurrence(event as any, now)
+    : (startDate ? new Date(startDate) : null);
+
+  const displayDate = nextDate || (startDate ? new Date(startDate) : null);
+  const sDate = displayDate;
+
+  // Calculate end date based on duration
+  const originalStart = startDate ? new Date(startDate) : null;
+  const originalEnd = endDate ? new Date(endDate) : null;
+  const eDate = originalEnd && originalStart && displayDate
+    ? new Date(displayDate.getTime() + (originalEnd.getTime() - originalStart.getTime()))
+    : null;
 
   const dateFormatted = sDate?.toLocaleDateString('en-GB', {
     day: 'numeric',
     month: 'short',
   });
+
   // Use unique formatting for time to match EventCard exactly
   const formatTimeHelper = (d: Date) =>
     d.toLocaleTimeString('en-US', {
@@ -191,8 +205,8 @@ export default function EventDetailClient({
     });
 
   const timeRange =
-    sDate && eDate
-      ? `${formatTimeHelper(sDate)} - ${formatTimeHelper(eDate)}`
+    sDate
+      ? `${formatTimeHelper(sDate)} - ${eDate ? formatTimeHelper(eDate) : 'Indefinite'}`
       : '';
 
   // Whether the event dates have already passed
@@ -540,7 +554,7 @@ export default function EventDetailClient({
                     </p>
                     <p>
                       <span className="font-semibold">End:</span>{' '}
-                      {formatDate(endDate)} at {formatTime(endDate)}
+                      {endDate ? `${formatDate(endDate)} at ${formatTime(endDate)}` : 'Indefinite'}
                     </p>
                   </div>
                   <AddToCalendar
@@ -577,22 +591,20 @@ export default function EventDetailClient({
                     <button
                       key={amount}
                       onClick={() => setDonationAmount(amount)}
-                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
-                        donationAmount === amount
-                          ? 'bg-black text-white'
-                          : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
-                      }`}
+                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === amount
+                        ? 'bg-black text-white'
+                        : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
+                        }`}
                     >
                       £{amount}
                     </button>
                   ))}
                   <button
                     onClick={() => setDonationAmount('Other')}
-                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
-                      donationAmount === 'Other'
-                        ? 'bg-black text-white'
-                        : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
-                    }`}
+                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === 'Other'
+                      ? 'bg-black text-white'
+                      : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
+                      }`}
                   >
                     Other
                   </button>

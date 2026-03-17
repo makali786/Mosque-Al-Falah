@@ -113,12 +113,13 @@ export const Events: CollectionConfig = {
         {
           name: 'endDate',
           type: 'date',
-          required: true,
+          required: false,
           label: 'End Date',
           admin: {
             date: {
               pickerAppearance: 'dayAndTime',
             },
+            description: 'Optional. If left blank, recurring events will be treated as "Indefinite".',
           },
         },
         {

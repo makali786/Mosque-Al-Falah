@@ -4,6 +4,7 @@ import React from "react";
 import Image from "@/components/common/CustomImage";
 import Link from "next/link";
 import { getMediaUrl } from "../../../../lib/helper";
+import { getNextOccurrence } from "../../../../lib/recurring-events";
 
 export interface EventInterface {
   id: string;
@@ -11,7 +12,7 @@ export interface EventInterface {
   slug: string;
   timing: {
     startDate: string;
-    endDate: string;
+    endDate?: string;
     timezone: string;
   };
   platforms: {
@@ -33,6 +34,17 @@ export interface EventInterface {
     };
   }[];
   category?: string;
+  recurrence?: {
+    isRecurring: boolean;
+    frequency?: 'weekly' | 'monthly';
+    weeklyPattern?: string[];
+    monthlyDay?: number;
+    recurrenceEnd?: {
+      type: 'never' | 'date' | 'count';
+      endDate?: string;
+      occurrences?: number;
+    };
+  };
 }
 
 export interface EventCardProps {
@@ -46,9 +58,21 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
 
   const imageUrl = getMediaUrl(media?.featuredImage);
 
-  // Format Date: "26 Jan"
-  const startDate = new Date(timing.startDate);
-  const endDate = new Date(timing.endDate);
+  // For recurring events, show the next occurrence instead of the initial start date
+  const now = new Date();
+  const nextDate = event.recurrence?.isRecurring
+    ? getNextOccurrence(event as any, now)
+    : new Date(timing.startDate);
+
+  const displayDate = nextDate || new Date(timing.startDate);
+  const startDate = displayDate;
+
+  // Calculate end date based on duration
+  const originalStart = new Date(timing.startDate);
+  const originalEnd = timing.endDate ? new Date(timing.endDate) : null;
+  const endDate = originalEnd && displayDate
+    ? new Date(displayDate.getTime() + (originalEnd.getTime() - originalStart.getTime()))
+    : null;
 
   const dateFormatted = startDate.toLocaleDateString("en-GB", {
     day: "numeric",
@@ -64,7 +88,7 @@ export default function EventCard({ event, layout = "grid" }: EventCardProps) {
     });
   };
 
-  const timeRange = `${formatTime(startDate)} - ${formatTime(endDate)}`;
+  const timeRange = `${formatTime(startDate)} - ${endDate ? formatTime(endDate) : 'Indefinite'}`;
 
   const isLive = media?.isLive;
 

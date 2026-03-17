@@ -9,6 +9,7 @@ export interface EntranceData {
     line1: string;
     line2: string;
   };
+  googleMapsLink: string;
   whatsappGroup: {
     enableButton: boolean;
     buttonText: string;

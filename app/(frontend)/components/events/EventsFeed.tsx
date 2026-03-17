@@ -6,6 +6,7 @@ import EventCard, { EventInterface } from "./EventCard";
 import BreadcrumbSearchSection from "../common/BreadcrumbSearchSection";
 import RequestServiceForm from "../common/RequestServiceForm";
 import Tabs from "../common/Tabs";
+import { getNextOccurrence, isEventHappening } from "../../../../lib/recurring-events";
 
 interface EventsFeedProps {
   initialEvents: EventInterface[];
@@ -94,8 +95,12 @@ export default function EventsFeed({ initialEvents, pageData, onSubmit }: Events
     const eventDate = new Date(event.timing.startDate);
 
     // Tab Filter
-    if (activeTab === "upcoming" && eventDate < now) return false;
-    if (activeTab === "archived" && eventDate >= now) return false;
+    const isUpcoming = event.timing.startDate >= now.toISOString() ||
+      (event.recurrence?.isRecurring && !!getNextOccurrence(event as any, now)) ||
+      isEventHappening(event as any, now);
+
+    if (activeTab === "upcoming" && !isUpcoming) return false;
+    if (activeTab === "archived" && isUpcoming) return false;
 
     // Speaker Filter
     if (selectedSpeaker && !event.speakers?.some(s => s.guestSpeaker?.name === selectedSpeaker)) return false;

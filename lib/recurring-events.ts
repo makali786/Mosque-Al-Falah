@@ -5,7 +5,7 @@
 export interface RecurringEvent {
   timing: {
     startDate: string;
-    endDate: string;
+    endDate?: string;
   };
   recurrence?: {
     isRecurring: boolean;
@@ -101,12 +101,10 @@ function findNextWeeklyOccurrence(
     0
   );
 
-  // If current time is before the start time today, check if today is a valid day
-  if (current >= fromDate) {
-    const currentDayOfWeek = current.getDay();
-    if (daysAsNumbers.includes(currentDayOfWeek)) {
-      return current;
-    }
+  // Check if today is a valid day
+  const currentDayOfWeek = current.getDay();
+  if (daysAsNumbers.includes(currentDayOfWeek)) {
+    return current;
   }
 
   // Look for the next occurrence in the next 14 days
@@ -148,12 +146,9 @@ function findNextMonthlyOccurrence(
     0
   );
 
-  // If this month's occurrence hasn't happened yet and is valid
-  if (current >= fromDate) {
-    // Check if the day exists in this month (e.g., 31st in February)
-    if (current.getDate() === dayOfMonth) {
-      return current;
-    }
+  // Check if today matches the day of month
+  if (current.getDate() === dayOfMonth) {
+    return current;
   }
 
   // Try next month
@@ -200,8 +195,8 @@ export function isEventHappening(
   if (!event.recurrence?.isRecurring) {
     // One-time event
     const start = new Date(event.timing.startDate);
-    const end = new Date(event.timing.endDate);
-    return checkDate >= start && checkDate <= end;
+    const end = event.timing.endDate ? new Date(event.timing.endDate) : null;
+    return checkDate >= start && (!end || checkDate <= end);
   }
 
   // For recurring events, check if today is an occurrence day
@@ -210,9 +205,14 @@ export function isEventHappening(
 
   // Check if we're within the event duration
   const startDate = new Date(event.timing.startDate);
-  const endDate = new Date(event.timing.endDate);
-  const eventDuration = endDate.getTime() - startDate.getTime();
+  const endDate = event.timing.endDate ? new Date(event.timing.endDate) : null;
 
+  if (!endDate) {
+    // If no end date, it's indefinite once it starts
+    return checkDate >= nextOccurrence;
+  }
+
+  const eventDuration = endDate.getTime() - startDate.getTime();
   const occurrenceEnd = new Date(nextOccurrence.getTime() + eventDuration);
 
   return checkDate >= nextOccurrence && checkDate <= occurrenceEnd;

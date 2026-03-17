@@ -78,6 +78,7 @@ const ContactUsPage = async () => {
           <EntranceSection
             title={contactUs.brothersEntrance.title}
             address={contactUs.brothersEntrance.address}
+            directionsUrl={contactUs?.brothersEntrance?.googleMapsLink}
             imageSrc={contactUs.brothersEntrance.image?.url || ''}
             imageAlt={
               contactUs.brothersEntrance.image?.alt || 'Brothers Entrance'
@@ -93,6 +94,7 @@ const ContactUsPage = async () => {
           <EntranceSection
             title={contactUs.sistersEntrance.title}
             address={contactUs.sistersEntrance.address}
+            directionsUrl={contactUs?.sistersEntrance?.googleMapsLink}
             imageSrc={contactUs.sistersEntrance.image?.url || ''}
             imageAlt={
               contactUs.sistersEntrance.image?.alt || 'Sisters Entrance'
