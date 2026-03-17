@@ -1,5 +1,6 @@
 import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const MadrasahClasses: CollectionConfig = {
   slug: 'madrasah-classes',
@@ -37,6 +38,9 @@ export const MadrasahClasses: CollectionConfig = {
       required: true,
       unique: true,
       label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
       admin: {
         description: 'e.g., "madrasah-boys", "hifz-children"',
       },

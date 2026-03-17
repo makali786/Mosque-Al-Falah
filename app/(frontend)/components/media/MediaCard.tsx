@@ -1,6 +1,7 @@
 import { useMediaPlayer } from "@/components/common/MediaPlayerContext";
 import React from "react";
-import Image from "@/components/common/CustomImage";
+import CustomImage from "@/components/common/CustomImage";
+import NextImage from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -101,18 +102,29 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
         {/* Image Section */}
         <div className="relative w-full md:w-75 lg:w-87.5 aspect-video md:h-auto shrink-0" onClick={handlePlay}>
           {image && (
-            <Image
-              src={image}
-              alt={title}
-              fill
-              className="object-cover rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none"
-            />
+            <>
+              {/* Blurred background fill */}
+              <NextImage
+                src={image}
+                alt=""
+                fill
+                className="object-cover scale-110 blur-2xl brightness-75 rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none"
+                aria-hidden="true"
+              />
+              {/* Main image — fully visible, no cropping */}
+              <NextImage
+                src={image}
+                alt={title}
+                fill
+                className="object-contain z-10"
+              />
+            </>
           )}
           {/* Centered Play Button Overlay */}
           {(type === "video" || type === "audio" || type === "podcast") && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors z-20">
               <div className="w-14 h-14 rounded-full flex items-center justify-center transition-colors hover:scale-110 duration-200">
-                <Image
+                <CustomImage
                   src="/assets/common/play-icon.svg"
                   alt="Play"
                   width={28}
@@ -128,7 +140,7 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
           {/* Type Badge */}
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center w-5 h-5 bg-[#E6F1FE] rounded-full shrink-0">
-              <Image src={icon} alt={label} width={14} height={14} className="object-contain" />
+              <CustomImage src={icon} alt={label} width={14} height={14} className="object-contain" />
             </div>
             <span className="text-sm font-medium text-[#3F3F46]">{label}</span>
           </div>
@@ -155,19 +167,30 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
       {/* Image Container */}
       <div className="relative w-full aspect-square overflow-hidden" onClick={handlePlay}>
         {image && (
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover"
-          />
+          <>
+            {/* Blurred background fill */}
+            <NextImage
+              src={image}
+              alt=""
+              fill
+              className="object-cover scale-110 blur-2xl brightness-75"
+              aria-hidden="true"
+            />
+            {/* Main image — fully visible, no cropping */}
+            <NextImage
+              src={image}
+              alt={title}
+              fill
+              className="object-contain z-10"
+            />
+          </>
         )}
 
         {/* Centered Play Button Overlay for Video/Podcast */}
         {(type === "video" || type === "audio" || type === "podcast") && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors z-20">
             <div className="w-16 h-16 flex items-center justify-center hover:scale-110 duration-200">
-              <Image
+              <CustomImage
                 src="/assets/common/play-icon.svg"
                 alt="Play"
                 width={40}
@@ -184,7 +207,7 @@ export default function MediaCard({ media, layout = "grid" }: MediaCardProps) {
         {/* Type Badge */}
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center w-5 h-5 bg-[#E6F1FE] rounded-full shrink-0">
-            <Image src={icon} alt={label} width={18} height={18} />
+            <CustomImage src={icon} alt={label} width={18} height={18} />
           </div>
           <span className="text-sm font-medium text-[#3F3F46]">{label}</span>
         </div>

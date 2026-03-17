@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import CustomImage from "@/components/common/CustomImage";
+import NextImage from "next/image";
 
 interface LiveStreamingProps {
   /**
@@ -104,7 +105,7 @@ export default function LiveStreaming({
                     <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
                   </span>
-                  <span className="text-sm font-semibold">Live</span>
+                  <span className="text-sm font-semibold text-black">Live</span>
                 </div>
               )}
             </>
@@ -112,14 +113,23 @@ export default function LiveStreaming({
             <>
               {/* Thumbnail */}
               <div className="relative w-full h-full lg:w-[741px] lg:h-[416px]">
-                <Image
+                {/* Blurred background fill */}
+                <NextImage
+                  src={thumbnailUrl}
+                  alt=""
+                  fill
+                  className="object-cover scale-110 blur-2xl brightness-75 opacity-90"
+                  aria-hidden="true"
+                />
+                {/* Main image — fully visible, no cropping */}
+                <NextImage
                   src={thumbnailUrl}
                   alt={thumbnailAlt}
                   fill
-                  className="object-cover opacity-90"
+                  className="object-contain z-10"
                 />
                 {/* Gradient Overlay for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-60"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-60 z-20"></div>
               </div>
 
               {/* Live Badge */}
@@ -129,7 +139,7 @@ export default function LiveStreaming({
                     <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
                   </span>
-                  <span className="text-sm font-semibold">Live</span>
+                  <span className="text-sm font-semibold text-black">Live</span>
                 </div>
               )}
 
@@ -142,7 +152,7 @@ export default function LiveStreaming({
                   className="rounded-full flex items-center justify-center"
                   aria-label="Play Video"
                 >
-                  <Image
+                  <CustomImage
                     src="/assets/common/play-icon.svg"
                     alt="Play Button"
                     width={56}

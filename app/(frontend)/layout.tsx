@@ -4,6 +4,7 @@ import { Inter, Poppins } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { LoadingProvider } from './components/common/LoadingProvider';
+import HashScrollHandler from './components/common/HashScrollHandler';
 import { MediaPlayerProvider } from './components/common/MediaPlayerContext';
 import AuthProvider from './components/common/AuthProvider';
 import MiniPlayer from './components/common/MiniPlayer';
@@ -76,10 +77,7 @@ export default function RootLayout({
     fetchData();
   }, []);
 
-  // Scroll to top on every route change — prevents new pages starting mid-scroll
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  }, [pathname]);
+  // Scroll management is handled by HashScrollHandler component
 
   return (
     <html lang="en">
@@ -88,6 +86,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <GoogleMapsScript />
+        <HashScrollHandler />
         <AuthProvider>
           <LoadingProvider>
             <MediaPlayerProvider>

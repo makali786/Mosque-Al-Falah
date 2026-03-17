@@ -1,5 +1,6 @@
 import { createRevalidateHook } from '../lib/revalidation';
 import type { CollectionConfig } from 'payload';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const Imams: CollectionConfig = {
   slug: 'imams',
@@ -24,6 +25,19 @@ export const Imams: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Full Name',
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      required: true,
+      unique: true,
+      label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('name')],
+      },
+      admin: {
+        description: 'URL-friendly version of the name',
+      },
     },
     {
       name: 'title',

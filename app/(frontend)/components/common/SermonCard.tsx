@@ -1,6 +1,7 @@
 'use client';
 
-import Image from '@/components/common/CustomImage';
+import CustomImage from '@/components/common/CustomImage';
+import NextImage from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { getMediaUrl } from '../../../../lib/helper';
@@ -101,12 +102,23 @@ export default function SermonCard({
       <CardWrapper className="flex flex-col md:flex-row w-full gap-6 bg-white rounded-[14px] overflow-hidden relative group">
         <div className="relative w-full md:w-[300px] lg:w-[350px] aspect-video md:h-auto shrink-0 pointer-events-none md:pointer-events-auto">
           {imageUrl && (
-            <Image
-              src={imageUrl}
-              alt={title}
-              fill
-              className="object-cover rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none"
-            />
+            <>
+              {/* Blurred background fill */}
+              <NextImage
+                src={imageUrl}
+                alt=""
+                fill
+                className="object-cover scale-110 blur-2xl brightness-75 rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none"
+                aria-hidden="true"
+              />
+              {/* Main image — fully visible, no cropping */}
+              <NextImage
+                src={imageUrl}
+                alt={title}
+                fill
+                className="object-contain z-10"
+              />
+            </>
           )}
           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none" />
           <div className="pointer-events-none">
@@ -121,7 +133,7 @@ export default function SermonCard({
         <div className="flex flex-col flex-1 p-4 md:py-6 md:pr-6 justify-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 relative">
-              <Image
+              <CustomImage
                 src={'/assets/topbar/calendar-icon.svg'}
                 alt={'calendar'}
                 fill
@@ -144,7 +156,7 @@ export default function SermonCard({
           <div className="flex items-center gap-3 mt-auto">
             {authorAvatar ? (
               <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 relative">
-                <Image
+                <CustomImage
                   src={authorAvatar}
                   alt={authorName}
                   fill
@@ -174,9 +186,25 @@ export default function SermonCard({
       <div className="relative w-full aspect-video lg:aspect-auto lg:w-[355px] lg:h-[199.5px] rounded-[14px] overflow-visible pointer-events-none md:pointer-events-auto">
         <div className="relative w-full h-full rounded-[14px] overflow-hidden">
           {imageUrl && (
-            <Image src={imageUrl} alt={title} fill className="object-cover" />
+            <>
+              {/* Blurred background fill */}
+              <NextImage
+                src={imageUrl}
+                alt=""
+                fill
+                className="object-cover scale-110 blur-2xl brightness-75"
+                aria-hidden="true"
+              />
+              {/* Main image — fully visible, no cropping */}
+              <NextImage
+                src={imageUrl}
+                alt={title}
+                fill
+                className="object-contain z-10"
+              />
+            </>
           )}
-          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+          <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors z-20" />
         </div>
 
         <div className="pointer-events-none">
@@ -191,7 +219,7 @@ export default function SermonCard({
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 relative">
-            <Image
+            <CustomImage
               src={'/assets/topbar/calendar-icon.svg'}
               alt={'calendar'}
               fill
@@ -209,7 +237,7 @@ export default function SermonCard({
           <div className="flex items-center gap-2">
             {authorAvatar ? (
               <div className="w-10 h-10 rounded-full overflow-hidden bg-[#a1a1aa] relative">
-                <Image
+                <CustomImage
                   src={authorAvatar}
                   alt={authorName}
                   fill

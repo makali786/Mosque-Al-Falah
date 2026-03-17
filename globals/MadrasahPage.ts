@@ -541,7 +541,7 @@ export const MadrasahPage: GlobalConfig = {
         {
           name: 'title',
           type: 'text',
-          defaultValue: 'Our Leadership',
+          defaultValue: 'Teachers/Staff',
           label: 'Section Title',
         },
         {
@@ -726,7 +726,7 @@ export const MadrasahPage: GlobalConfig = {
         {
           name: 'feesCtaUrl',
           type: 'text',
-          defaultValue: '#inquire',
+          defaultValue: 'https://forms.gle/BcwMzWAkpcaVCQY29',
           label: 'Fees: CTA Button URL',
         },
       ],
@@ -922,7 +922,7 @@ export const MadrasahPage: GlobalConfig = {
           name: 'description',
           type: 'textarea',
           defaultValue:
-            'Give your child the gift of sacred knowledge and a community\nthat cares. Admissions for the 2024 intake are now open.',
+            'Give your child the gift of sacred knowledge and a community\nthat cares. Admissions for the 2026 intake are now open.',
           label: 'Description',
         },
         {
@@ -934,7 +934,7 @@ export const MadrasahPage: GlobalConfig = {
         {
           name: 'primaryButtonUrl',
           type: 'text',
-          defaultValue: '#apply',
+          defaultValue: 'https://forms.gle/BcwMzWAkpcaVCQY29',
           label: 'Primary Button URL',
         },
         {
@@ -1234,7 +1234,7 @@ export const MadrasahPage: GlobalConfig = {
           type: 'textarea',
           required: true,
           defaultValue:
-            'Whoever guides someone to goodness will have a reward like the one who did it.',
+            '“The best of you are those who learn the Qur’an and teach it.”',
           label: 'Quote Text',
         },
         {

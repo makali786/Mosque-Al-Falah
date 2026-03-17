@@ -1,6 +1,7 @@
 import { createRevalidateHook } from '../lib/revalidation';
 import { createNewsletterHook } from '@lib/email/newsletter-notifier';
 import type { CollectionConfig } from 'payload';
+import formatSlug from '../lib/utils/formatSlug';
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -77,6 +78,9 @@ export const Events: CollectionConfig = {
       required: true,
       unique: true,
       label: 'URL Slug',
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
       admin: {
         description:
           'URL-friendly version of title (e.g., "quran-path-to-paradise")',

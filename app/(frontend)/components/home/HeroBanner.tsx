@@ -144,57 +144,62 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
     <>
       {/* Desktop Hero Section */}
       <section className="relative w-full hidden sm:block sm:h-125 md:h-137.5 overflow-hidden lg:h-[calc(100vh-155px)] bg-[#001731]">
+        {slides.map((slide, index) => {
+          const isActive = index === currentSlide;
+          const desktopImg = getImageUrl(slide.image);
+          const animClass = getAnimationClasses(styleType);
 
-        {/* Animated Slide Wrapper (Background Image + Content) */}
-        <div
-          key={animKey}
-          className={`absolute inset-0 bg-cover bg-center bg-no-repeat ${animBaseClass}`}
-          style={{
-            backgroundImage: desktopImage ? `url('${desktopImage}')` : 'none',
-          }}
-        >
-          {/* Gradient overlay for desktop */}
-          <div className="absolute inset-0 bg-linear-to-r from-[#001731] to-transparent" />
+          return (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              style={{
+                backgroundImage: desktopImg ? `url('${desktopImg}')` : 'none',
+              }}
+            >
+              {/* Gradient overlay for desktop */}
+              <div className="absolute inset-0 bg-linear-to-r from-[#001731] to-transparent" />
 
-          {/* Desktop Content */}
-          <div className="relative h-full flex items-center">
-            <div className="w-full section-padding py-8 md:py-10 lg:py-12">
-              <div className="max-w-full flex flex-col gap-8 md:gap-10 lg:gap-12">
-                {/* Text Content */}
-                <div className="flex flex-col gap-5 md:gap-6 lg:gap-8 xl:gap-10 text-white lg:max-w-160.25">
-                  <h1 className="font-bold text-3xl leading-9 md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight xl:font-extrabold xl:text-[60px] xl:leading-15">
-                    {currentSlideData?.title}
-                  </h1>
-                  <p className="font-medium text-base leading-6 md:text-lg md:leading-7 lg:text-xl lg:leading-relaxed xl:text-2xl xl:leading-8">
-                    {currentSlideData?.description}
-                  </p>
-                </div>
+              {/* Desktop Content */}
+              <div className={`relative h-full flex items-center ${isActive ? animClass : ''}`}>
+                <div className="w-full section-padding py-8 md:py-10 lg:py-12">
+                  <div className="max-w-full flex flex-col gap-8 md:gap-10 lg:gap-12">
+                    {/* Text Content */}
+                    <div className="flex flex-col gap-5 md:gap-6 lg:gap-8 xl:gap-10 text-white lg:max-w-160.25">
+                      <h1 className="font-bold text-3xl leading-9 md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight xl:font-extrabold xl:text-[60px] xl:leading-15">
+                        {slide.title}
+                      </h1>
+                      <p className="font-medium text-base leading-6 md:text-lg md:leading-7 lg:text-xl lg:leading-relaxed xl:text-2xl xl:leading-8">
+                        {slide.description}
+                      </p>
+                    </div>
 
-                {/* Buttons */}
-                <div className="flex items-start gap-4 md:gap-5 lg:gap-6 xl:gap-7">
-                  {/* Secondary Button - Learn More */}
-                  <Link
-                    href={currentSlideData?.secondaryButton?.href || '#'}
-                    className="bg-[#fafafa] hover:bg-white text-black font-normal text-sm leading-5 px-5 h-11 md:text-base md:leading-6 md:px-5.5 md:h-11.5 lg:px-6 lg:h-12 xl:text-base xl:leading-6 xl:px-6 xl:h-12 flex items-center justify-center rounded-lg md:rounded-xl transition-colors"
-                  >
-                    {currentSlideData?.secondaryButton?.text}
-                  </Link>
+                    {/* Buttons */}
+                    <div className="flex items-start gap-4 md:gap-5 lg:gap-6 xl:gap-7">
+                      <Link
+                        href={slide.secondaryButton?.href || '#'}
+                        className="bg-[#fafafa] hover:bg-white text-black font-normal text-sm leading-5 px-5 h-11 md:text-base md:leading-6 md:px-5.5 md:h-11.5 lg:px-6 lg:h-12 xl:text-base xl:leading-6 xl:px-6 xl:h-12 flex items-center justify-center rounded-lg md:rounded-xl transition-colors"
+                      >
+                        {slide.secondaryButton?.text}
+                      </Link>
 
-                  {/* Primary Button - Donate */}
-                  <Link
-                    href={currentSlideData?.primaryButton?.href || '#'}
-                    className="bg-[#006fee] hover:bg-[#0056cc] text-white font-normal text-sm leading-5 px-5 h-11 md:text-base md:leading-6 md:px-5.5 md:h-11.5 lg:px-6 lg:h-12 xl:text-base xl:leading-6 xl:px-6 xl:h-12 flex items-center justify-center rounded-lg md:rounded-xl transition-colors"
-                  >
-                    {currentSlideData?.primaryButton?.text}
-                  </Link>
+                      <Link
+                        href={slide.primaryButton?.href || '#'}
+                        className="bg-[#006fee] hover:bg-[#0056cc] text-white font-normal text-sm leading-5 px-5 h-11 md:text-base md:leading-6 md:px-5.5 md:h-11.5 lg:px-6 lg:h-12 xl:text-base xl:leading-6 xl:px-6 xl:h-12 flex items-center justify-center rounded-lg md:rounded-xl transition-colors"
+                      >
+                        {slide.primaryButton?.text}
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          );
+        })}
 
         {/* Carousel Navigation Dots - Bottom right on desktop */}
-        <div className="absolute bottom-5 right-5 md:bottom-6 md:right-6 flex items-center gap-2 md:gap-3 lg:gap-4 z-10">
+        <div className="absolute bottom-5 right-5 md:bottom-6 md:right-6 flex items-center gap-2 md:gap-3 lg:gap-4 z-20">
           {slides.map((_, index) => (
             <button
               key={index}
@@ -211,83 +216,92 @@ export default function HeroBanner({ banners = [], animationStyle, animationSpee
 
       {/* Mobile Hero Section — touch swipe enabled */}
       <section
-        className="relative w-full h-auto overflow-hidden sm:hidden bg-[#001731]"
+        className="relative w-full h-[600px] overflow-hidden sm:hidden bg-[#001731]"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Animated Slide Wrapper (Background Image + Content) */}
-        <div key={animKey} className={`relative w-full h-full ${animBaseClass}`}>
-          {/* Full gradient background on mobile */}
-          <div className="absolute inset-0 bg-linear-to-r from-[#001731] from-[2.344%] to-[#004797]" />
+        {slides.map((slide, index) => {
+          const isActive = index === currentSlide;
+          const desktopImg = getImageUrl(slide.image);
+          const mobileImg = getImageUrl(slide.bannerImage) || desktopImg;
+          const animClass = getAnimationClasses(styleType);
 
-          {/* Mobile Banner Image */}
-          <div className="relative w-full">
-            <div className="relative w-full aspect-392/260">
-              {mobileImage && (
-                <Image
-                  src={mobileImage}
-                  alt={currentSlideData.title}
-                  fill
-                  className="object-cover object-center"
-                  priority
-                  quality={100}
-                />
-              )}
-            </div>
-          </div>
+          return (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+            >
+              {/* Full gradient background on mobile */}
+              <div className="absolute inset-0 bg-linear-to-r from-[#001731] from-[2.344%] to-[#004797]" />
 
-          {/* Mobile Content */}
-          <div className="relative flex items-center">
-            <div className="w-full section-padding py-4">
-              <div className="max-w-full flex flex-col gap-3">
-                {/* Carousel Navigation Dots - Centered above content on mobile */}
-                <div className="flex items-center justify-center gap-1.5 h-2 mb-1">
-                  {slides.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => goToSlide(index)}
-                      className={`transition-all duration-300 rounded-full cursor-pointer ${index === currentSlide
-                        ? 'bg-white w-4 h-1.5'
-                        : 'bg-white/40 hover:bg-white/60 w-1.5 h-1.5'
-                        }`}
-                      aria-label={`Go to slide ${index + 1}`}
+              {/* Mobile Banner Image */}
+              <div className="relative w-full">
+                <div className="relative w-full aspect-392/260">
+                  {mobileImg && (
+                    <Image
+                      src={mobileImg}
+                      alt={slide.title}
+                      fill
+                      className="object-cover object-center"
+                      priority={index === 0}
+                      quality={100}
                     />
-                  ))}
+                  )}
                 </div>
+              </div>
 
-                {/* Text Content */}
-                <div className="flex flex-col gap-4 text-white">
-                  <h1 className="font-bold text-2xl leading-8">
-                    {currentSlideData?.title}
-                  </h1>
-                  <p className="font-medium text-sm leading-5">
-                    {currentSlideData?.description}
-                  </p>
-                </div>
+              {/* Mobile Content */}
+              <div className={`relative flex items-center ${isActive ? animClass : ''}`}>
+                <div className="w-full section-padding py-4">
+                  <div className="max-w-full flex flex-col gap-3">
+                    {/* Carousel Navigation Dots - Centered above content on mobile */}
+                    <div className="flex items-center justify-center gap-1.5 h-2 mb-1">
+                      {slides.map((_, dotIndex) => (
+                        <button
+                          key={dotIndex}
+                          onClick={() => goToSlide(dotIndex)}
+                          className={`transition-all duration-300 rounded-full cursor-pointer ${dotIndex === currentSlide
+                            ? 'bg-white w-4 h-1.5'
+                            : 'bg-white/40 hover:bg-white/60 w-1.5 h-1.5'
+                            }`}
+                          aria-label={`Go to slide ${dotIndex + 1}`}
+                        />
+                      ))}
+                    </div>
 
-                {/* Buttons */}
-                <div className="flex items-start gap-4">
-                  {/* Secondary Button - Learn More */}
-                  <Link
-                    href={currentSlideData?.secondaryButton?.href || '#'}
-                    className="bg-[#fafafa] hover:bg-white text-black font-normal text-sm leading-5 px-4 h-10.5 flex items-center justify-center rounded-lg transition-colors"
-                  >
-                    {currentSlideData?.secondaryButton?.text}
-                  </Link>
+                    {/* Text Content */}
+                    <div className="flex flex-col gap-4 text-white">
+                      <h1 className="font-bold text-2xl leading-8">
+                        {slide.title}
+                      </h1>
+                      <p className="font-medium text-sm leading-5">
+                        {slide.description}
+                      </p>
+                    </div>
 
-                  {/* Primary Button - Donate */}
-                  <Link
-                    href={currentSlideData?.primaryButton?.href || '#'}
-                    className="bg-[#006fee] hover:bg-[#0056cc] text-white font-normal text-sm leading-5 px-4 h-10.5 flex items-center justify-center rounded-lg transition-colors"
-                  >
-                    {currentSlideData?.primaryButton?.text}
-                  </Link>
+                    {/* Buttons */}
+                    <div className="flex items-start gap-4">
+                      <Link
+                        href={slide.secondaryButton?.href || '#'}
+                        className="bg-[#fafafa] hover:bg-white text-black font-normal text-sm leading-5 px-4 h-10.5 flex items-center justify-center rounded-lg transition-colors"
+                      >
+                        {slide.secondaryButton?.text}
+                      </Link>
+
+                      <Link
+                        href={slide.primaryButton?.href || '#'}
+                        className="bg-[#006fee] hover:bg-[#0056cc] text-white font-normal text-sm leading-5 px-4 h-10.5 flex items-center justify-center rounded-lg transition-colors"
+                      >
+                        {slide.primaryButton?.text}
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
+          );
+        })}
       </section>
     </>
   );

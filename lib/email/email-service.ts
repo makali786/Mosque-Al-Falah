@@ -95,7 +95,7 @@ export async function sendDonationReceipt(
     const text = generateReceiptEmailText(data);
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'donations@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'donations@masjid-alfalah.org.uk'}>`,
       to: data.donorEmail,
       subject: `Thank you for your donation - Receipt #${data.donationId}`,
       text,
@@ -118,7 +118,7 @@ export async function sendWelcomeEmail(donor: DonorData): Promise<boolean> {
     const html = generateWelcomeEmailHTML(donor);
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'info@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'info@masjid-alfalah.org.uk'}>`,
       to: donor.email,
       subject: 'Welcome to Masjid Al-Falah - Thank you for your support!',
       html,
@@ -145,7 +145,7 @@ export async function sendRecurringDonationReminder(data: {
     const html = generateReminderEmailHTML(data);
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'donations@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'donations@masjid-alfalah.org.uk'}>`,
       to: data.email,
       subject: `Upcoming donation reminder - ${formatCurrency(data.amount, data.currency)}`,
       html,
@@ -209,7 +209,7 @@ function getDonationTypeLabel(type: string): string {
  */
 function generateReceiptEmailHTML(data: DonationReceiptData): string {
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
   const currencySymbol =
     data.currency === 'GBP' ? '£' : data.currency === 'USD' ? '$' : '€';
 
@@ -229,7 +229,7 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-            <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+            <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
 
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Thank You for Your Donation</h1>
               <p style="color: #e0e0e0; margin: 10px 0 0; font-size: 16px;">JazakAllahu Khairan</p>
@@ -275,15 +275,16 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
                         <td style="padding: 8px 0; color: #666;">Donation Type:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${getDonationTypeLabel(data.donationType)}</td>
                       </tr>
-                      ${data.appealTitle
-      ? `
+                      ${
+                        data.appealTitle
+                          ? `
                       <tr>
                         <td style="padding: 8px 0; color: #666;">Appeal:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${data.appealTitle}</td>
                       </tr>
                       `
-      : ''
-    }
+                          : ''
+                      }
                       <tr>
                         <td style="padding: 8px 0; color: #666;">Frequency:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${getFrequencyLabel(data.frequency)}</td>
@@ -295,15 +296,16 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
                         <td style="padding: 8px 0; color: #666;">Payment amount:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">${currencySymbol}${data.totalAmount.toFixed(2)}</td>
                       </tr>
-                      ${data.platformFee && data.platformFee > 0
-      ? `
+                      ${
+                        data.platformFee && data.platformFee > 0
+                          ? `
                       <tr>
                         <td style="padding: 8px 0; color: #666;">Stripe processing fees:</td>
                         <td style="padding: 8px 0; color: #333; text-align: right;">-${currencySymbol}${data.platformFee.toFixed(2)}</td>
                       </tr>
                       `
-      : ''
-    }
+                          : ''
+                      }
                       <tr>
                         <td style="padding: 12px 0; font-weight: 600; color: #333; font-size: 18px; border-top: 2px solid #e5e7eb;">Net amount:</td>
                         <td style="padding: 12px 0; font-weight: 600; color: #333; text-align: right; font-size: 18px; border-top: 2px solid #e5e7eb;">${currencySymbol}${data.amount.toFixed(2)}</td>
@@ -315,8 +317,9 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
             </td>
           </tr>
 
-          ${data.giftAidAmount && data.giftAidAmount > 0
-      ? `
+          ${
+            data.giftAidAmount && data.giftAidAmount > 0
+              ? `
           <!-- Gift Aid Section -->
           <tr>
             <td style="padding: 0 40px 20px;">
@@ -335,11 +338,12 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
             </td>
           </tr>
           `
-      : ''
-    }
+              : ''
+          }
 
-          ${data.isRecurring
-      ? `
+          ${
+            data.isRecurring
+              ? `
           <!-- Recurring Notice -->
           <tr>
             <td style="padding: 0 40px 20px;">
@@ -359,8 +363,8 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
             </td>
           </tr>
           `
-      : ''
-    }
+              : ''
+          }
 
           <!-- Hadith Quote -->
           <tr>
@@ -383,10 +387,10 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
           <!-- CTA Buttons -->
           <tr>
             <td style="padding: 20px 40px 30px; text-align: center;">
-              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/donate" style="display: inline-block; background: #0c478a; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-right: 10px;">
+              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}/donate" style="display: inline-block; background: #0c478a; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; margin-right: 10px;">
                 Donate Again
               </a>
-              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/appeals" style="display: inline-block; background: #e5e7eb; color: #374151; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}/appeals" style="display: inline-block; background: #e5e7eb; color: #374151; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;">
                 View Appeals
               </a>
             </td>
@@ -405,15 +409,15 @@ function generateReceiptEmailHTML(data: DonationReceiptData): string {
             <td style="text-align: center; padding: 20px;">
               <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
                 <strong>Masjid Al-Falah</strong><br>
-                123 Islamic Way, London, UK
+                North Ilford Islamic Centre, 97 Kensington Gardens, Ilford, Essex IG1 3EN
               </p>
               <p style="margin: 0 0 20px; color: #9ca3af; font-size: 12px;">
                 Registered Charity No: 1062761
               </p>
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}" style="color: #0c478a; text-decoration: none;">Website</a> • 
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/unsubscribe" style="color: #0c478a; text-decoration: none;">Unsubscribe</a> • 
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/privacy" style="color: #0c478a; text-decoration: none;">Privacy Policy</a>
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}" style="color: #0c478a; text-decoration: none;">Website</a> • 
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}/unsubscribe" style="color: #0c478a; text-decoration: none;">Unsubscribe</a> • 
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}/privacy" style="color: #0c478a; text-decoration: none;">Privacy Policy</a>
               </p>
             </td>
           </tr>
@@ -452,24 +456,26 @@ Payment Amount: ${currencySymbol}${data.totalAmount.toFixed(2)}
 ${data.platformFee && data.platformFee > 0 ? `Stripe Processing Fees: -${currencySymbol}${data.platformFee.toFixed(2)}` : ''}
 Net Amount: ${currencySymbol}${data.amount.toFixed(2)}
 
-${data.giftAidAmount && data.giftAidAmount > 0
-      ? `
+${
+  data.giftAidAmount && data.giftAidAmount > 0
+    ? `
 GIFT AID
 --------
 Thanks to your Gift Aid declaration, we can claim an extra ${currencySymbol}${data.giftAidAmount.toFixed(2)} from HMRC!
 `
-      : ''
-    }
+    : ''
+}
 
-${data.isRecurring
-      ? `
+${
+  data.isRecurring
+    ? `
 RECURRING DONATION
 ------------------
 Your ${getFrequencyLabel(data.frequency).toLowerCase()} donation will continue automatically.
 You can manage or cancel at any time.
 `
-      : ''
-    }
+    : ''
+}
 
 ---
 
@@ -479,10 +485,10 @@ You can manage or cancel at any time.
 ---
 
 Masjid Al-Falah
-123 Islamic Way, London, UK
+North Ilford Islamic Centre, 97 Kensington Gardens, Ilford, Essex IG1 3EN
 Registered Charity No: 1062761
 
-Website: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}
+Website: ${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}
 `;
 }
 
@@ -504,7 +510,7 @@ function generateWelcomeEmailHTML(donor: DonorData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0c478a 0%, #004797 100%); padding: 40px 20px;">
     <tr>
       <td align="center">
-        <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
+        <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
         <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Welcome to Masjid Al-Falah</h1>
       </td>
     </tr>
@@ -530,7 +536,7 @@ function generateWelcomeEmailHTML(donor: DonorData): string {
                 <li>Download tax receipts</li>
               </ul>
               <p style="text-align: center; margin-top: 30px;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/donate" style="display: inline-block; background: #0c478a; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}/donate" style="display: inline-block; background: #0c478a; color: #ffffff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: 600;">
                   Make a Donation
                 </a>
               </p>
@@ -568,7 +574,7 @@ function generateReminderEmailHTML(data: {
         <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 12px; padding: 40px;">
           <tr>
             <td>
-              <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
+              <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 20px;">
               <h2 style="color: #333; margin: 0 0 20px;">Upcoming Donation Reminder</h2>
               <p style="font-size: 16px; color: #555; line-height: 1.6;">
                 Assalamu Alaikum ${data.name},
@@ -582,7 +588,7 @@ function generateReminderEmailHTML(data: {
                 May Allah reward you for your continued support.
               </p>
               <p style="margin-top: 30px;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/account/donations" style="color: #0c478a; text-decoration: none;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}/account/donations" style="color: #0c478a; text-decoration: none;">
                   Manage your donations →
                 </a>
               </p>
@@ -606,13 +612,13 @@ export async function sendAdminNotification(
   const adminEmails =
     process.env.ADMIN_NOTIFICATION_EMAILS ||
     process.env.EMAIL_FROM ||
-    'admin@masjid-al-falah.org';
+    'admin@masjid-alfalah.org.uk';
 
   try {
     const html = generateAdminNotificationHTML(data);
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah Donations" <${process.env.EMAIL_FROM || 'donations@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah Donations" <${process.env.EMAIL_FROM || 'donations@masjid-alfalah.org.uk'}>`,
       to: adminEmails,
       subject: `🎉 New Donation: ${formatCurrency(data.totalAmount, data.currency)} from ${data.donorName}`,
       html,
@@ -644,7 +650,7 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 30px 20px;">
     <tr>
       <td align="center">
-        <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 15px;">
+        <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto 15px;">
         <h1 style="color: #ffffff; margin: 0; font-size: 24px;">🎉 New Donation Received!</h1>
       </td>
     </tr>
@@ -681,15 +687,16 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
                   <td style="padding: 8px 0; color: #666;">Frequency:</td>
                   <td style="padding: 8px 0; color: #333; text-align: right;">${getFrequencyLabel(data.frequency)}</td>
                 </tr>
-                ${data.giftAidAmount && data.giftAidAmount > 0
-      ? `
+                ${
+                  data.giftAidAmount && data.giftAidAmount > 0
+                    ? `
                 <tr>
                   <td style="padding: 8px 0; color: #666;">Gift Aid:</td>
                   <td style="padding: 8px 0; color: #10b981; text-align: right;">+${currencySymbol}${data.giftAidAmount.toFixed(2)}</td>
                 </tr>
                 `
-      : ''
-    }
+                    : ''
+                }
                 <tr>
                   <td style="padding: 12px 0; font-weight: 600; color: #333; border-top: 2px solid #10b981;">Net to Mosque:</td>
                   <td style="padding: 12px 0; font-weight: 600; color: #10b981; text-align: right; font-size: 20px; border-top: 2px solid #10b981;">${currencySymbol}${data.amount.toFixed(2)}</td>
@@ -697,7 +704,7 @@ function generateAdminNotificationHTML(data: AdminNotificationData): string {
               </table>
               
               <p style="margin-top: 20px; text-align: center;">
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org'}/admin/collections/donations/${data.donationId}" style="display: inline-block; background: #0c478a; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk'}/admin/collections/donations/${data.donationId}" style="display: inline-block; background: #0c478a; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
                   View in Admin Panel
                 </a>
               </p>
@@ -737,11 +744,11 @@ export async function sendEventRequestNotification(
   const adminEmails =
     process.env.ADMIN_NOTIFICATION_EMAILS ||
     process.env.EMAIL_FROM ||
-    'admin@masjid-al-falah.org';
+    'admin@masjid-alfalah.org.uk';
 
   try {
     const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
     const html = `
 <!DOCTYPE html>
 <html>
@@ -757,7 +764,7 @@ export async function sendEventRequestNotification(
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-             <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+             <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
 
             </td>
           </tr>
@@ -837,7 +844,7 @@ export async function sendEventRequestNotification(
 `;
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah Requests" <${process.env.EMAIL_FROM || 'requests@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah Requests" <${process.env.EMAIL_FROM || 'requests@masjid-alfalah.org.uk'}>`,
       to: adminEmails,
       subject: `New Event/Lecture Request from ${data.fullName}`,
       html,
@@ -862,11 +869,11 @@ export async function sendServiceRequestNotification(
   const adminEmails =
     process.env.ADMIN_NOTIFICATION_EMAILS ||
     process.env.EMAIL_FROM ||
-    'admin@masjid-al-falah.org';
+    'admin@masjid-alfalah.org.uk';
 
   try {
     const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
     const html = `
 <!DOCTYPE html>
 <html>
@@ -882,7 +889,7 @@ export async function sendServiceRequestNotification(
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-          <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
+          <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
 
 
             </td>
@@ -963,7 +970,7 @@ export async function sendServiceRequestNotification(
 `;
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah Requests" <${process.env.EMAIL_FROM || 'requests@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah Requests" <${process.env.EMAIL_FROM || 'requests@masjid-alfalah.org.uk'}>`,
       to: adminEmails,
       subject: `New Service Request from ${data.fullName}`,
       html,
@@ -988,11 +995,11 @@ export async function sendQuestionNotification(
   const adminEmails =
     process.env.ADMIN_NOTIFICATION_EMAILS ||
     process.env.EMAIL_FROM ||
-    'admin@masjid-al-falah.org';
+    'admin@masjid-alfalah.org.uk';
 
   try {
     const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
     const html = `
 <!DOCTYPE html>
 <html>
@@ -1008,7 +1015,7 @@ export async function sendQuestionNotification(
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-           <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
+           <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
 
             </td>
           </tr>
@@ -1088,7 +1095,7 @@ export async function sendQuestionNotification(
 `;
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah Questions" <${process.env.EMAIL_FROM || 'questions@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah Questions" <${process.env.EMAIL_FROM || 'questions@masjid-alfalah.org.uk'}>`,
       to: adminEmails,
       subject: `New Question: ${getTopicLabel(data.topic)} from ${data.name}`,
       html,
@@ -1135,7 +1142,7 @@ export async function sendNewsletterWelcomeEmail(
     const text = generateNewsletterWelcomeText(data);
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'newsletter@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'newsletter@masjid-alfalah.org.uk'}>`,
       to: data.email,
       subject: 'Welcome to Masjid Al-Falah Newsletter! 🕌',
       text,
@@ -1160,7 +1167,7 @@ export async function sendNewsletterCampaign(
     const html = generateNewsletterCampaignHTML(data);
 
     await transporter.sendMail({
-      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'newsletter@masjid-al-falah.org'}>`,
+      from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'newsletter@masjid-alfalah.org.uk'}>`,
       to: data.email,
       subject: data.subject,
       html,
@@ -1179,7 +1186,7 @@ export async function sendNewsletterCampaign(
 function generateNewsletterWelcomeHTML(data: NewsletterSubscriberData): string {
   const name = data.firstName || 'Friend';
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
 
   return `
 <!DOCTYPE html>
@@ -1197,7 +1204,7 @@ function generateNewsletterWelcomeHTML(data: NewsletterSubscriberData): string {
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-             <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+             <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
 
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600;">Welcome to Our Newsletter!</h1>
               <p style="color: #e0e0e0; margin: 10px 0 0; font-size: 16px;">Assalamu Alaikum wa Rahmatullahi wa Barakatuh</p>
@@ -1398,7 +1405,7 @@ function generateNewsletterWelcomeHTML(data: NewsletterSubscriberData): string {
 function generateNewsletterWelcomeText(data: NewsletterSubscriberData): string {
   const name = data.firstName || 'Friend';
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
 
   return `
 WELCOME TO MASJID AL-FALAH NEWSLETTER
@@ -1451,7 +1458,7 @@ Unsubscribe: ${siteUrl}/newsletter/unsubscribe?token=${data.confirmationToken}
 function generateNewsletterCampaignHTML(data: NewsletterCampaignData): string {
   const name = data.firstName || 'Friend';
   const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
 
   return `
 <!DOCTYPE html>
@@ -1466,7 +1473,7 @@ function generateNewsletterCampaignHTML(data: NewsletterCampaignData): string {
   <table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(135deg, #0c478a 0%, #004797 100%); padding: 30px 20px;">
     <tr>
       <td align="center">
-      <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
+      <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="52" style="display: block; margin: 0 auto;">
 
       </td>
     </tr>
@@ -1499,6 +1506,7 @@ function generateNewsletterCampaignHTML(data: NewsletterCampaignData): string {
             <td style="text-align: center; padding: 20px;">
               <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
                 <strong>Masjid Al-Falah</strong><br>
+                North Ilford Islamic Centre<br>
                 97 Kensington Gardens, Ilford, Essex IG1 3EN
               </p>
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">

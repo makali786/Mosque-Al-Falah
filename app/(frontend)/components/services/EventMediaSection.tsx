@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import CustomImage from "@/components/common/CustomImage";
+import NextImage from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import GoogleMap from "../common/GoogleMap";
@@ -132,12 +133,23 @@ export default function EventMediaSection({
                   />
                 ) : (
                   <>
-                    <Image
+                  <>
+                    {/* Blurred background fill */}
+                    <NextImage
+                      src={videoThumbnail}
+                      alt=""
+                      fill
+                      className="object-cover scale-110 blur-2xl brightness-75"
+                      aria-hidden="true"
+                    />
+                    {/* Main image — fully visible, no cropping */}
+                    <NextImage
                       src={videoThumbnail}
                       alt={title}
                       fill
-                      className="object-cover"
+                      className="object-contain z-10"
                     />
+                  </>
 
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/20" />
