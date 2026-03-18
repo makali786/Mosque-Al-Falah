@@ -1,17 +1,24 @@
 'use client';
 
+import { initializeAppleSignIn, signInWithApple } from '@lib/utils/appleAuth';
+import {
+  initializeFacebookSDK,
+  signInWithFacebook,
+} from '@lib/utils/facebookAuth';
+import {
+  initializeGoogleSignIn,
+  signInWithGoogle,
+} from '@lib/utils/googleAuth';
 import { useEffect } from 'react';
 import { SocialLoginButton } from '../ui';
-import { initializeGoogleSignIn, signInWithGoogle } from '@lib/utils/googleAuth';
-import { initializeFacebookSDK, signInWithFacebook } from '@lib/utils/facebookAuth';
-import { initializeAppleSignIn, signInWithApple } from '@lib/utils/appleAuth';
 
 interface SocialLoginSectionProps {
   onUserDataLoaded?: () => void;
 }
 
-export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSectionProps) {
-
+export default function SocialLoginSection({
+  onUserDataLoaded,
+}: SocialLoginSectionProps) {
   // Initialize Google Sign-In, Facebook, and Apple on mount
   useEffect(() => {
     initializeGoogleSignIn(
@@ -21,7 +28,7 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
           onUserDataLoaded();
         }
       },
-      (error) => {
+      error => {
         // Error callback
         console.error('Google sign-in error:', error);
       }
@@ -34,7 +41,7 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
           onUserDataLoaded();
         }
       },
-      (error) => {
+      error => {
         // Error callback
         console.error('Facebook sign-in error:', error);
       }
@@ -47,7 +54,7 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
           onUserDataLoaded();
         }
       },
-      (error) => {
+      error => {
         // Error callback
         console.error('Apple sign-in error:', error);
       }
@@ -66,7 +73,7 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
           onUserDataLoaded();
         }
       },
-      (error) => {
+      error => {
         // Error callback
         console.error('Facebook sign-in error:', error);
       }
@@ -81,7 +88,7 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
           onUserDataLoaded();
         }
       },
-      (error) => {
+      error => {
         // Error callback
         console.error('Apple sign-in error:', error);
       }
@@ -108,11 +115,11 @@ export default function SocialLoginSection({ onUserDataLoaded }: SocialLoginSect
           disabled={false}
           onClick={handleGoogleSignIn}
         />
-        <SocialLoginButton
+        {/* <SocialLoginButton
           provider="facebook"
           disabled={true}
           onClick={handleFacebookSignIn}
-        />
+        /> */}
       </div>
     </div>
   );

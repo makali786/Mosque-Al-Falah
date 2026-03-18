@@ -5,73 +5,73 @@
  * is published. Respects subscriber preferences and runs asynchronously.
  */
 
-import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import nodemailer from 'nodemailer';
+import { getPayload } from 'payload';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type ContentType =
-    | 'event'
-    | 'notice'
-    | 'blog'
-    | 'sermon'
-    | 'service'
-    | 'donation-appeal';
+  | 'event'
+  | 'notice'
+  | 'blog'
+  | 'sermon'
+  | 'service'
+  | 'donation-appeal';
 
 export interface ContentNotification {
-    type: ContentType;
-    title: string;
-    description?: string;
-    slug?: string;
-    date?: string;
-    imageUrl?: string;
+  type: ContentType;
+  title: string;
+  description?: string;
+  slug?: string;
+  date?: string;
+  imageUrl?: string;
 }
 
 // Maps content types to their subscriber preference field
 const PREFERENCE_MAP: Record<ContentType, string> = {
-    event: 'receiveEventNotifications',
-    notice: 'receiveWeeklyUpdates',
-    blog: 'receiveWeeklyUpdates',
-    sermon: 'receiveWeeklyUpdates',
-    service: 'receiveWeeklyUpdates',
-    'donation-appeal': 'receiveDonationAppeals',
+  event: 'receiveEventNotifications',
+  notice: 'receiveWeeklyUpdates',
+  blog: 'receiveWeeklyUpdates',
+  sermon: 'receiveWeeklyUpdates',
+  service: 'receiveWeeklyUpdates',
+  'donation-appeal': 'receiveDonationAppeals',
 };
 
 // Maps content types to their frontend URL path
 const URL_PATH_MAP: Record<ContentType, string> = {
-    event: '/events',
-    notice: '/',
-    blog: '/blog',
-    sermon: '/sermons',
-    service: '/services',
-    'donation-appeal': '/donate',
+  event: '/events',
+  notice: '/',
+  blog: '/blog',
+  sermon: '/sermons',
+  service: '/services',
+  'donation-appeal': '/donate',
 };
 
 // Maps content types to a human-readable label
 const LABEL_MAP: Record<ContentType, string> = {
-    event: '📅 New Event',
-    notice: '📢 New Notice',
-    blog: '📝 New Blog Post',
-    sermon: '🎙 New Sermon',
-    service: '🕌 New Service',
-    'donation-appeal': '💝 New Donation Appeal',
+  event: '📅 New Event',
+  notice: '📢 New Notice',
+  blog: '📝 New Blog Post',
+  sermon: '🎙 New Sermon',
+  service: '🕌 New Service',
+  'donation-appeal': '💝 New Donation Appeal',
 };
 
 // ─── Email Transporter ──────────────────────────────────────────────────────
 
 const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_SERVER_HOST || 'smtp.gmail.com',
-    port: Number(process.env.EMAIL_SERVER_PORT) || 587,
-    secure: Number(process.env.EMAIL_SERVER_PORT) === 465,
-    auth: {
-        user: process.env.EMAIL_SERVER_USER,
-        pass: process.env.EMAIL_SERVER_PASSWORD,
-    },
-    name: 'masjid-alfalah.org.uk',
-    tls: {
-        rejectUnauthorized: false,
-    },
+  host: process.env.EMAIL_SERVER_HOST || 'smtp.gmail.com',
+  port: Number(process.env.EMAIL_SERVER_PORT) || 587,
+  secure: Number(process.env.EMAIL_SERVER_PORT) === 465,
+  auth: {
+    user: process.env.EMAIL_SERVER_USER,
+    pass: process.env.EMAIL_SERVER_PASSWORD,
+  },
+  name: 'masjid-alfalah.org.uk',
+  tls: {
+    rejectUnauthorized: false,
+  },
 });
 
 // ─── Core ────────────────────────────────────────────────────────────────────
@@ -81,87 +81,93 @@ const transporter = nodemailer.createTransport({
  * Runs fire-and-forget so it doesn't block the admin save.
  */
 export function notifySubscribers(content: ContentNotification): void {
-    // Fire-and-forget — don't await
-    _sendNotifications(content).catch((err) => {
-        console.error(`[Newsletter] Failed to send notifications for "${content.title}":`, err);
-    });
+  // Fire-and-forget — don't await
+  _sendNotifications(content).catch(err => {
+    console.error(
+      `[Newsletter] Failed to send notifications for "${content.title}":`,
+      err
+    );
+  });
 }
 
 async function _sendNotifications(content: ContentNotification): Promise<void> {
-    const preferenceField = PREFERENCE_MAP[content.type];
+  const preferenceField = PREFERENCE_MAP[content.type];
 
-    try {
-        const payload = await getPayload({ config: configPromise });
+  try {
+    const payload = await getPayload({ config: configPromise });
 
-        // Fetch all active subscribers who opted into this content type
-        const { docs: subscribers } = await payload.find({
-            collection: 'newsletter-subscribers' as any,
-            where: {
-                status: { equals: 'active' },
-                [`preferences.${preferenceField}`]: { equals: true },
-            },
-            limit: 1000, // Process up to 1000 subscribers
-            depth: 0,
+    // Fetch all active subscribers who opted into this content type
+    const { docs: subscribers } = await payload.find({
+      collection: 'newsletter-subscribers' as any,
+      where: {
+        status: { equals: 'active' },
+        [`preferences.${preferenceField}`]: { equals: true },
+      },
+      limit: 1000, // Process up to 1000 subscribers
+      depth: 0,
+    });
+
+    if (subscribers.length === 0) {
+      console.log(
+        `[Newsletter] No subscribers opted into ${content.type}. Skipping.`
+      );
+      return;
+    }
+
+    console.log(
+      `[Newsletter] Sending "${content.title}" (${content.type}) to ${subscribers.length} subscribers...`
+    );
+
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
+    const contentUrl = content.slug
+      ? `${siteUrl}${URL_PATH_MAP[content.type]}/${content.slug}`
+      : `${siteUrl}${URL_PATH_MAP[content.type]}`;
+
+    let successCount = 0;
+    let failCount = 0;
+
+    for (const subscriber of subscribers) {
+      try {
+        const email = (subscriber as any).email;
+        const firstName = (subscriber as any).firstName;
+        const token = (subscriber as any).confirmationToken;
+
+        const html = generateNotificationHTML({
+          content,
+          recipientName: firstName || 'Friend',
+          contentUrl,
+          unsubscribeUrl: `${siteUrl}/newsletter/unsubscribe?token=${token || ''}`,
+          siteUrl,
         });
 
-        if (subscribers.length === 0) {
-            console.log(`[Newsletter] No subscribers opted into ${content.type}. Skipping.`);
-            return;
-        }
+        await transporter.sendMail({
+          from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'masjid@masjid-alfalah.org.uk'}>`,
+          to: email,
+          subject: `${LABEL_MAP[content.type]}: ${content.title}`,
+          html,
+        });
 
-        console.log(
-            `[Newsletter] Sending "${content.title}" (${content.type}) to ${subscribers.length} subscribers...`
+        successCount++;
+
+        // Rate limiting — 100ms between emails to avoid overwhelming the SMTP server
+        await new Promise(resolve => setTimeout(resolve, 100));
+      } catch (emailErr) {
+        failCount++;
+        console.error(
+          `[Newsletter] Failed to send to ${(subscriber as any).email}:`,
+          emailErr
         );
-
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
-        const contentUrl = content.slug
-            ? `${siteUrl}${URL_PATH_MAP[content.type]}/${content.slug}`
-            : `${siteUrl}${URL_PATH_MAP[content.type]}`;
-
-        let successCount = 0;
-        let failCount = 0;
-
-        for (const subscriber of subscribers) {
-            try {
-                const email = (subscriber as any).email;
-                const firstName = (subscriber as any).firstName;
-                const token = (subscriber as any).confirmationToken;
-
-                const html = generateNotificationHTML({
-                    content,
-                    recipientName: firstName || 'Friend',
-                    contentUrl,
-                    unsubscribeUrl: `${siteUrl}/newsletter/unsubscribe?token=${token || ''}`,
-                    siteUrl,
-                });
-
-                await transporter.sendMail({
-                    from: `"Masjid Al-Falah" <${process.env.EMAIL_FROM || 'masjid@masjid-alfalah.org.uk'}>`,
-                    to: email,
-                    subject: `${LABEL_MAP[content.type]}: ${content.title}`,
-                    html,
-                });
-
-                successCount++;
-
-                // Rate limiting — 100ms between emails to avoid overwhelming the SMTP server
-                await new Promise((resolve) => setTimeout(resolve, 100));
-            } catch (emailErr) {
-                failCount++;
-                console.error(
-                    `[Newsletter] Failed to send to ${(subscriber as any).email}:`,
-                    emailErr
-                );
-            }
-        }
-
-        // Update the emailsSent count for all successfully notified subscribers
-        console.log(
-            `[Newsletter] ✅ Done: ${successCount} sent, ${failCount} failed for "${content.title}"`
-        );
-    } catch (err) {
-        console.error('[Newsletter] Error fetching subscribers:', err);
+      }
     }
+
+    // Update the emailsSent count for all successfully notified subscribers
+    console.log(
+      `[Newsletter] ✅ Done: ${successCount} sent, ${failCount} failed for "${content.title}"`
+    );
+  } catch (err) {
+    console.error('[Newsletter] Error fetching subscribers:', err);
+  }
 }
 
 // ─── Payload Hook Helper ─────────────────────────────────────────────────────
@@ -172,84 +178,91 @@ async function _sendNotifications(content: ContentNotification): Promise<void> {
  * or when `publishField` changes from false → true.
  */
 export function createNewsletterHook(
-    contentType: ContentType,
-    publishField: 'isPublished' | 'isActive',
-    options?: {
-        getSlug?: (doc: any) => string | undefined;
-        getDescription?: (doc: any) => string | undefined;
-        getDate?: (doc: any) => string | undefined;
-    }
+  contentType: ContentType,
+  publishField: 'isPublished' | 'isActive',
+  options?: {
+    getSlug?: (doc: any) => string | undefined;
+    getDescription?: (doc: any) => string | undefined;
+    getDate?: (doc: any) => string | undefined;
+  }
 ) {
-    return async ({
-        doc,
-        previousDoc,
-        operation,
-    }: {
-        doc: any;
-        previousDoc?: any;
-        operation: 'create' | 'update';
-    }) => {
-        const isNowPublished = doc[publishField] === true;
-        const wasPreviouslyPublished = previousDoc?.[publishField] === true;
+  return async ({
+    doc,
+    previousDoc,
+    operation,
+  }: {
+    doc: any;
+    previousDoc?: any;
+    operation: 'create' | 'update';
+  }) => {
+    const isNowPublished = doc[publishField] === true;
+    const wasPreviouslyPublished = previousDoc?.[publishField] === true;
 
-        // Notify only when:
-        // 1. New content created as published
-        // 2. Existing content flipped from unpublished → published
-        const shouldNotify =
-            (operation === 'create' && isNowPublished) ||
-            (operation === 'update' && isNowPublished && !wasPreviouslyPublished);
+    // Notify only when:
+    // 1. New content created as published
+    // 2. Existing content flipped from unpublished → published
+    const shouldNotify =
+      (operation === 'create' && isNowPublished) ||
+      (operation === 'update' && isNowPublished && !wasPreviouslyPublished);
 
-        if (!shouldNotify) return doc;
+    if (!shouldNotify) return doc;
 
-        const title = doc.title || doc.name || 'Untitled';
-        const slug = options?.getSlug?.(doc) || doc.slug;
-        const description = options?.getDescription?.(doc) || doc.subtitle || doc.description || doc.excerpt || '';
-        const date = options?.getDate?.(doc) || doc.startDate || doc.date || doc.noticeDate;
+    const title = doc.title || doc.name || 'Untitled';
+    const slug = options?.getSlug?.(doc) || doc.slug;
+    const description =
+      options?.getDescription?.(doc) ||
+      doc.subtitle ||
+      doc.description ||
+      doc.excerpt ||
+      '';
+    const date =
+      options?.getDate?.(doc) || doc.startDate || doc.date || doc.noticeDate;
 
-        notifySubscribers({
-            type: contentType,
-            title,
-            slug,
-            description: typeof description === 'string' ? description.substring(0, 200) : '',
-            date,
-        });
+    notifySubscribers({
+      type: contentType,
+      title,
+      slug,
+      description:
+        typeof description === 'string' ? description.substring(0, 200) : '',
+      date,
+    });
 
-        return doc;
-    };
+    return doc;
+  };
 }
 
 // ─── Email Template ──────────────────────────────────────────────────────────
 
 function generateNotificationHTML(opts: {
-    content: ContentNotification;
-    recipientName: string;
-    contentUrl: string;
-    unsubscribeUrl: string;
-    siteUrl: string;
+  content: ContentNotification;
+  recipientName: string;
+  contentUrl: string;
+  unsubscribeUrl: string;
+  siteUrl: string;
 }): string {
-    const { content, recipientName, contentUrl, unsubscribeUrl, siteUrl } = opts;
-    const label = LABEL_MAP[content.type];
-    const dateStr = content.date
-        ? new Date(content.date).toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-        })
-        : '';
+  const { content, recipientName, contentUrl, unsubscribeUrl, siteUrl } = opts;
+  const label = LABEL_MAP[content.type];
+  const dateStr = content.date
+    ? new Date(content.date).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : '';
 
-    // Badge color based on content type
-    const badgeColors: Record<ContentType, { bg: string; text: string }> = {
-        event: { bg: '#dbeafe', text: '#1d4ed8' },
-        notice: { bg: '#fef3c7', text: '#92400e' },
-        blog: { bg: '#e0e7ff', text: '#4338ca' },
-        sermon: { bg: '#d1fae5', text: '#065f46' },
-        service: { bg: '#f3e8ff', text: '#6b21a8' },
-        'donation-appeal': { bg: '#fce7f3', text: '#9d174d' },
-    };
+  // Badge color based on content type
+  const badgeColors: Record<ContentType, { bg: string; text: string }> = {
+    event: { bg: '#dbeafe', text: '#1d4ed8' },
+    notice: { bg: '#fef3c7', text: '#92400e' },
+    blog: { bg: '#e0e7ff', text: '#4338ca' },
+    sermon: { bg: '#d1fae5', text: '#065f46' },
+    service: { bg: '#f3e8ff', text: '#6b21a8' },
+    'donation-appeal': { bg: '#fce7f3', text: '#9d174d' },
+  };
 
-    const badge = badgeColors[content.type];
+  const badge = badgeColors[content.type];
 
-    return `
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -303,7 +316,9 @@ function generateNotificationHTML(opts: {
             </td>
           </tr>
 
-          ${dateStr ? `
+          ${
+            dateStr
+              ? `
           <!-- Date -->
           <tr>
             <td style="padding: 4px 40px 8px;">
@@ -312,9 +327,13 @@ function generateNotificationHTML(opts: {
               </p>
             </td>
           </tr>
-          ` : ''}
+          `
+              : ''
+          }
 
-          ${content.description ? `
+          ${
+            content.description
+              ? `
           <!-- Description -->
           <tr>
             <td style="padding: 8px 40px 16px;">
@@ -323,7 +342,9 @@ function generateNotificationHTML(opts: {
               </p>
             </td>
           </tr>
-          ` : ''}
+          `
+              : ''
+          }
 
           <!-- CTA Button -->
           <tr>
@@ -373,7 +394,7 @@ function generateNotificationHTML(opts: {
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                 <a href="${siteUrl}" style="color: #0c478a; text-decoration: none;">Website</a> • 
                 <a href="${unsubscribeUrl}" style="color: #0c478a; text-decoration: none;">Unsubscribe</a> • 
-                <a href="${siteUrl}/privacy" style="color: #0c478a; text-decoration: none;">Privacy Policy</a>
+                <a href="${siteUrl}/privacy-policy" style="color: #0c478a; text-decoration: none;">Privacy Policy</a>
               </p>
             </td>
           </tr>
