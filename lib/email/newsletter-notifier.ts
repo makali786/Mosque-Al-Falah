@@ -113,7 +113,7 @@ async function _sendNotifications(content: ContentNotification): Promise<void> {
             `[Newsletter] Sending "${content.title}" (${content.type}) to ${subscribers.length} subscribers...`
         );
 
-        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-al-falah.org';
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://masjid-alfalah.org.uk';
         const contentUrl = content.slug
             ? `${siteUrl}${URL_PATH_MAP[content.type]}/${content.slug}`
             : `${siteUrl}${URL_PATH_MAP[content.type]}`;
@@ -265,7 +265,7 @@ function generateNotificationHTML(opts: {
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td align="center">
-              <img src="https://i.ibb.co/VYJ3ztwy/footer-logo.png" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
+              <img src="https://i.ibb.co/6035QkPV/logo.jpg" alt="Masjid Al-Falah" height="48" style="display: block; margin: 0 auto;">
             </td>
           </tr>
         </table>
@@ -363,14 +363,17 @@ function generateNotificationHTML(opts: {
         <table width="600" cellpadding="0" cellspacing="0">
           <tr>
             <td style="text-align: center; padding: 20px;">
-              <p style="margin: 0 0 8px; color: #6b7280; font-size: 13px;">
+              <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
                 <strong>Masjid Al-Falah</strong><br>
-                North Ilford Islamic Centre, 97 Kensington Gardens, Ilford IG1 3EN
+                North Ilford Islamic Centre, 97 Kensington Gardens, Ilford, Essex IG1 3EN
+              </p>
+              <p style="margin: 0 0 20px; color: #9ca3af; font-size: 12px;">
+                Registered Charity No: 1062761
               </p>
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
-                <a href="${siteUrl}" style="color: #0c478a; text-decoration: none;">Website</a> •
-                <a href="${unsubscribeUrl}" style="color: #0c478a; text-decoration: none;">Unsubscribe</a> •
-                <a href="${siteUrl}/privacy" style="color: #0c478a; text-decoration: none;">Privacy</a>
+                <a href="${siteUrl}" style="color: #0c478a; text-decoration: none;">Website</a> • 
+                <a href="${unsubscribeUrl}" style="color: #0c478a; text-decoration: none;">Unsubscribe</a> • 
+                <a href="${siteUrl}/privacy" style="color: #0c478a; text-decoration: none;">Privacy Policy</a>
               </p>
             </td>
           </tr>
