@@ -3,13 +3,12 @@
 import { Inter, Poppins } from 'next/font/google';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { LoadingProvider } from './components/common/LoadingProvider';
-import HashScrollHandler from './components/common/HashScrollHandler';
-import { MediaPlayerProvider } from './components/common/MediaPlayerContext';
 import AuthProvider from './components/common/AuthProvider';
+import HashScrollHandler from './components/common/HashScrollHandler';
+import { LoadingProvider } from './components/common/LoadingProvider';
+import { MediaPlayerProvider } from './components/common/MediaPlayerContext';
 import MiniPlayer from './components/common/MiniPlayer';
 import PopupManager from './components/common/PopupManager';
-import RamadanCountdown from './components/common/RamadanCountdown';
 import DonationToast from './components/donation/DonationToast';
 import GoogleMapsScript from './components/GoogleMapsScript';
 import AccessibilityButton from './components/layout/AccessibilityButton';
@@ -99,7 +98,7 @@ export default function RootLayout({
               <WhatsAppButton />
               <AccessibilityButton />
               <MiniPlayer />
-              <RamadanCountdown />
+              {/* <RamadanCountdown /> */}
               <PopupManager />
             </MediaPlayerProvider>
           </LoadingProvider>

@@ -34,7 +34,9 @@ export default function RamadanCountdown() {
     if (!dismissed) {
       // Defer to coordinator
       const timer = setTimeout(() => {
-        popupCoordinator.requestShow('ramadan-countdown', () => setIsOpen(true));
+        popupCoordinator.requestShow('ramadan-countdown', () =>
+          setIsOpen(true)
+        );
       }, 800);
       return () => clearTimeout(timer);
     } else {
@@ -164,7 +166,7 @@ export default function RamadanCountdown() {
   }, [isOpen]);
 
   // Show "Ramadan Mubarak" for 35 days (the entire month + a few extra buffer days) after start
-  const DAYS_TO_SHOW_MUBARAK = 35;
+  const DAYS_TO_SHOW_MUBARAK = 10;
   const RAMADAN_MUBARAK_END =
     TARGET + DAYS_TO_SHOW_MUBARAK * 24 * 60 * 60 * 1000;
 

@@ -59,8 +59,10 @@ export default function SermonCard({
   const title = sermon.title;
   const guestSpeaker = sermon.guestSpeaker;
   const useGuest = !!guestSpeaker?.name;
-  const authorName = (useGuest ? guestSpeaker!.name : sermon.author?.name) || '';
-  const authorRole = (useGuest ? guestSpeaker!.title : sermon.author?.role) || '';
+  const authorName =
+    (useGuest ? guestSpeaker!.name : sermon.author?.name) || '';
+  const authorRole =
+    (useGuest ? guestSpeaker!.title : sermon.author?.role) || '';
 
   const rawAuthorAvatar = useGuest
     ? sermon.guestSpeaker?.avatar
@@ -123,8 +125,8 @@ export default function SermonCard({
           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors rounded-t-[14px] md:rounded-l-[14px] md:rounded-tr-none" />
           <div className="pointer-events-none">
             <ViewToggleButtons
-              onAudioClick={audioUrl ? () => { } : undefined}
-              onVideoClick={videoUrl ? () => { } : undefined}
+              onAudioClick={audioUrl ? () => {} : undefined}
+              onVideoClick={videoUrl ? () => {} : undefined}
               className="absolute bottom-3 right-3"
             />
           </div>
@@ -209,9 +211,9 @@ export default function SermonCard({
 
         <div className="pointer-events-none">
           <ViewToggleButtons
-            onAudioClick={audioUrl ? () => { } : undefined}
-            onVideoClick={videoUrl ? () => { } : undefined}
-            className="absolute -bottom-6 right-4 lg:-bottom-6 lg:right-3.75"
+            onAudioClick={audioUrl ? () => {} : undefined}
+            onVideoClick={videoUrl ? () => {} : undefined}
+            className="absolute z-20 -bottom-6 right-4 lg:-bottom-6 lg:right-3.75"
           />
         </div>
       </div>
