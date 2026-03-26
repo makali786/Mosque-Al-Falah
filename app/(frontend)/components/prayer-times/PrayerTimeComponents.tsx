@@ -1,4 +1,4 @@
-import { CountdownTime } from '@hooks/useCountdown';
+import { PrayerCountdownState } from '@hooks/usePrayerCountdown';
 import { DateInfo, PrayerTime } from '@hooks/usePrayerTimes';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 
@@ -7,15 +7,17 @@ import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
 // ============================================================================
 
 interface CountdownDisplayProps {
-  countdown: CountdownTime;
+  countdown: PrayerCountdownState;
   prayerName: string;
   variant?: 'default' | 'large';
+  countdownType?: 'athan' | 'iqamah';
 }
 
 export const CountdownDisplay = ({
   countdown,
   prayerName,
   variant = 'default',
+  countdownType = 'athan',
 }: CountdownDisplayProps) => {
   const timeUnits = [
     { value: countdown.hours, label: 'Hours' },
@@ -66,7 +68,7 @@ export const CountdownDisplay = ({
         <div
           className={`flex ${sizing.titleGap} items-center ${sizing.titleText} text-[#fafafa] text-center`}
         >
-          <p className="font-normal">The Athan of</p>
+          <p className="font-normal">The {countdownType === 'iqamah' ? 'Iqamah' : 'Athan'} of</p>
           <p className="font-semibold">{prayerName}</p>
           <p className="font-normal">is in</p>
         </div>

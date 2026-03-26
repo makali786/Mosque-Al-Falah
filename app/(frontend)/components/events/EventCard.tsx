@@ -5,6 +5,7 @@ import Image from "@/components/common/CustomImage";
 import Link from "next/link";
 import { getMediaUrl } from "../../../../lib/helper";
 import { getNextOccurrence } from "../../../../lib/recurring-events";
+import { formatEventDate, formatEventTime, createLocalDate } from "../../../../lib/event-date-utils";
 import CustomImage from '@/components/common/CustomImage';
 import NextImage from 'next/image';
 
@@ -65,11 +66,10 @@ export default function EventCard({ event, layout = 'grid' }: EventCardProps) {
   const now = new Date();
   const nextDate = event.recurrence?.isRecurring
     ? getNextOccurrence(event as any, now)
-    : new Date(timing.startDate);
+    : createLocalDate(timing.startDate);
 
-  const displayDate = nextDate || new Date(timing.startDate);
-  const startDate = displayDate;
-
+  const displayDate = nextDate || createLocalDate(timing.startDate);
+  
   // Calculate end date based on duration
   const originalStart = new Date(timing.startDate);
   const originalEnd = timing.endDate ? new Date(timing.endDate) : null;
@@ -77,27 +77,15 @@ export default function EventCard({ event, layout = 'grid' }: EventCardProps) {
     ? new Date(displayDate.getTime() + (originalEnd.getTime() - originalStart.getTime()))
     : null;
 
-  const dateFormatted = startDate.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-  });
+  // Use the local date for formatting (preserves the stored date without timezone shift)
+  const dateFormatted = displayDate 
+    ? displayDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+    : formatEventDate(timing.startDate);
 
   // Format Time: "9:00 AM - 11:00 AM"
-  const formatTimeString = (time: string) => {
-    if (!time) return '';
-    const [hours, minutes] = time.split(':').map(Number);
-    const date = new Date();
-    date.setHours(hours, minutes, 0, 0);
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
-  };
-
   const timeRange = timing.startTime && timing.endTime
-    ? `${formatTimeString(timing.startTime)} - ${formatTimeString(timing.endTime)}`
-    : timing.startTime || ''
+    ? `${formatEventTime(timing.startTime)} - ${formatEventTime(timing.endTime)}`
+    : formatEventTime(timing.startTime) || ''
 
   const isLive = media?.isLive;
 

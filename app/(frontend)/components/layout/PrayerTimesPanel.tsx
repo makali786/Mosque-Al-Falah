@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { usePrayerTimesNavigation } from "@hooks/usePrayerTimesNavigation";
 import { usePrayerTimes } from "@hooks/usePrayerTimes";
-import { useCountdown } from "@hooks/useCountdown";
+import { usePrayerCountdown, transformToPrayerInfo } from "@hooks/usePrayerCountdown";
 import {
   CountdownDisplay,
   DateNavigation,
@@ -56,9 +56,12 @@ export default function PrayerTimesPanel({
   });
 
 
-  // Countdown timer - only count down when viewing today and panel is open
-  const countdown = useCountdown({
-    targetTime: nextPrayer.time,
+  // Transform prayer times for countdown hook
+  const prayerInfo = useMemo(() => transformToPrayerInfo(prayerTimes), [prayerTimes]);
+  
+  // Countdown timer - shows Athan → Iqamah → Next Prayer
+  const countdown = usePrayerCountdown({
+    prayers: prayerInfo,
     isActive: isOpen && isViewingToday,
   });
 
@@ -110,7 +113,11 @@ export default function PrayerTimesPanel({
             />
 
             {/* Countdown Timer */}
-            <CountdownDisplay countdown={countdown} prayerName={nextPrayer.name} />
+            <CountdownDisplay 
+              countdown={countdown} 
+              prayerName={countdown.prayerName} 
+              countdownType={countdown.type}
+            />
           </div>
 
           {/* Right side - Prayer Times List */}

@@ -6,7 +6,7 @@ import {
   JumuahTimeRow,
   PrayerTimeRow,
 } from '@/components/prayer-times/PrayerTimeComponents';
-import { useCountdown } from '@hooks/useCountdown';
+import { usePrayerCountdown, transformToPrayerInfo } from '@hooks/usePrayerCountdown';
 import { usePrayerTimes } from '@hooks/usePrayerTimes';
 import { usePrayerTimesNavigation } from '@hooks/usePrayerTimesNavigation';
 import { addMinutesToTime } from '@lib/prayer-times-helpers';
@@ -593,9 +593,12 @@ export default function PrayerTimesSection({
     currentDate,
   });
 
-  // Countdown timer - only count down when viewing today
-  const countdown = useCountdown({
-    targetTime: nextPrayer.time,
+  // Transform prayer times for countdown hook
+  const prayerInfo = useMemo(() => transformToPrayerInfo(prayerTimes), [prayerTimes]);
+  
+  // Countdown timer - shows Athan → Iqamah → Next Prayer
+  const countdown = usePrayerCountdown({
+    prayers: prayerInfo,
     isActive: isViewingToday,
   });
 
@@ -635,7 +638,8 @@ export default function PrayerTimesSection({
             {/* Countdown Timer */}
             <CountdownDisplay
               countdown={countdown}
-              prayerName={nextPrayer.name}
+              prayerName={countdown.prayerName}
+              countdownType={countdown.type}
               variant="large"
             />
 

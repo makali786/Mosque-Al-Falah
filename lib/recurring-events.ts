@@ -2,6 +2,17 @@
  * Utility functions for handling recurring events
  */
 
+/**
+ * Create a local Date object from an ISO date string without timezone shift
+ * This ensures the date matches what was stored
+ */
+function createLocalDate(dateString: string | undefined | null): Date | null {
+  if (!dateString) return null;
+  const [year, month, day] = dateString.slice(0, 10).split('-').map(Number);
+  if (!year || !month || !day) return null;
+  return new Date(year, month - 1, day);
+}
+
 export interface RecurringEvent {
   timing: {
     startDate: string;
@@ -36,46 +47,49 @@ export function getNextOccurrence(
     return null;
   }
 
-  const startDate = new Date(event.timing.startDate);
-  const instanceEndDate = event.timing.endDate ? new Date(event.timing.endDate) : null;
+  // Use local date creation to avoid timezone shifts
+  const startDate = createLocalDate(event.timing.startDate);
+  if (!startDate) return null;
+  const instanceEndDate = event.timing.endDate 
+    ? createLocalDate(event.timing.endDate) 
+    : null;
   
   // Parse start time if available (format: "HH:MM")
-  let startHours = startDate.getHours();
-  let startMinutes = startDate.getMinutes();
+  // Default to 0 if no time specified
+  let startHours = 0;
+  let startMinutes = 0;
   if (event.timing.startTime) {
     const [h, m] = event.timing.startTime.split(':').map(Number);
-    startHours = h;
-    startMinutes = m;
-  }
-
-  let currentFromDate = fromDate;
-
-  // If the occurrence for today has already ended, start looking from tomorrow
-  if (event.recurrence?.isRecurring && instanceEndDate) {
-    const todayOccurrenceStart = new Date(fromDate);
-    todayOccurrenceStart.setHours(
-      startHours,
-      startMinutes,
-      0,
-      0
-    );
-
-    const duration = instanceEndDate.getTime() - startDate.getTime();
-    const todayOccurrenceEnd = new Date(todayOccurrenceStart.getTime() + duration);
-
-    if (fromDate > todayOccurrenceEnd) {
-      currentFromDate = new Date(fromDate.getTime() + 24 * 60 * 60 * 1000);
-      currentFromDate.setHours(0, 0, 0, 0);
+    if (!isNaN(h) && !isNaN(m)) {
+      startHours = h;
+      startMinutes = m;
     }
   }
+
+  // IMPORTANT: The startDate is always the FIRST occurrence, regardless of pattern.
+  // If we're before the startDate, return the startDate itself.
+  // If we're on or after the startDate, find the next occurrence following the pattern.
+  const startDateWithTime = new Date(startDate);
+  startDateWithTime.setHours(startHours, startMinutes, 0, 0);
+  
+  // If fromDate is before or on the start date, the first occurrence is the startDate itself
+  const fromDateOnly = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+  const startDateOnly = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+  
+  if (fromDateOnly <= startDateOnly) {
+    return startDateWithTime;
+  }
+  
+  // Otherwise, find the next occurrence following the recurrence pattern
+  let currentFromDate = fromDate;
 
   // Check recurrence end conditions
   if (
     event.recurrence.recurrenceEnd?.type === 'date' &&
     event.recurrence.recurrenceEnd.endDate
   ) {
-    const endDate = new Date(event.recurrence.recurrenceEnd.endDate);
-    if (currentFromDate > endDate) return null;
+    const recurrenceEndDate = createLocalDate(event.recurrence.recurrenceEnd.endDate);
+    if (recurrenceEndDate && currentFromDate > recurrenceEndDate) return null;
   }
 
   let nextOccurrence: Date | null = null;
@@ -110,8 +124,8 @@ export function getNextOccurrence(
     event.recurrence.recurrenceEnd?.type === 'date' &&
     event.recurrence.recurrenceEnd.endDate
   ) {
-    const endDate = new Date(event.recurrence.recurrenceEnd.endDate);
-    if (nextOccurrence > endDate) {
+    const recurrenceEndDate = createLocalDate(event.recurrence.recurrenceEnd.endDate);
+    if (recurrenceEndDate && nextOccurrence > recurrenceEndDate) {
       return null;
     }
   }
@@ -130,37 +144,19 @@ function findNextWeeklyOccurrence(
   startMinutes: number
 ): Date | null {
   const daysAsNumbers = daysOfWeek.map(d => parseInt(d, 10));
-  const current = new Date(fromDate);
-
-  // Set to start time
-  current.setHours(
-    startHours,
-    startMinutes,
-    0,
-    0
-  );
-
-  // Check if today is a valid day
-  const currentDayOfWeek = current.getDay();
-  if (daysAsNumbers.includes(currentDayOfWeek)) {
-    return current;
-  }
-
-  // Look for the next occurrence in the next 14 days
-  for (let i = 1; i <= 14; i++) {
-    const checkDate = new Date(fromDate);
-    checkDate.setDate(fromDate.getDate() + i);
-    checkDate.setHours(
-      startHours,
-      startMinutes,
-      0,
-      0
-    );
-
+  
+  // Start checking from fromDate
+  let checkDate = new Date(fromDate);
+  checkDate.setHours(startHours, startMinutes, 0, 0);
+  
+  // Look for the next occurrence (including today) in the next 14 days
+  for (let i = 0; i <= 14; i++) {
     const dayOfWeek = checkDate.getDay();
     if (daysAsNumbers.includes(dayOfWeek)) {
-      return checkDate;
+      return new Date(checkDate);
     }
+    // Move to next day
+    checkDate.setDate(checkDate.getDate() + 1);
   }
 
   return null;
@@ -235,8 +231,9 @@ export function isEventHappening(
 ): boolean {
   if (!event.recurrence?.isRecurring) {
     // One-time event
-    const start = new Date(event.timing.startDate);
-    const end = event.timing.endDate ? new Date(event.timing.endDate) : null;
+    const start = createLocalDate(event.timing.startDate);
+    const end = event.timing.endDate ? createLocalDate(event.timing.endDate) : null;
+    if (!start) return false;
     return checkDate >= start && (!end || checkDate <= end);
   }
 
@@ -245,15 +242,15 @@ export function isEventHappening(
   if (!nextOccurrence) return false;
 
   // Check if we're within the event duration
-  const startDate = new Date(event.timing.startDate);
-  const endDate = event.timing.endDate ? new Date(event.timing.endDate) : null;
+  const eventStartDate = createLocalDate(event.timing.startDate);
+  const eventEndDate = event.timing.endDate ? createLocalDate(event.timing.endDate) : null;
 
-  if (!endDate) {
+  if (!eventEndDate || !eventStartDate) {
     // If no end date, it's indefinite once it starts
     return checkDate >= nextOccurrence;
   }
 
-  const eventDuration = endDate.getTime() - startDate.getTime();
+  const eventDuration = eventEndDate.getTime() - eventStartDate.getTime();
   const occurrenceEnd = new Date(nextOccurrence.getTime() + eventDuration);
 
   return checkDate >= nextOccurrence && checkDate <= occurrenceEnd;

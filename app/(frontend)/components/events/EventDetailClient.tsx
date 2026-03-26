@@ -5,6 +5,13 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { FiMic, FiUser, FiVideo } from 'react-icons/fi';
 import { MdOutlineOndemandVideo } from 'react-icons/md';
+import {
+  combineEventDateTime,
+  createLocalDate,
+  formatEventDateWithYear,
+  formatEventTime,
+} from '../../../../lib/event-date-utils';
+import { getNextOccurrence } from '../../../../lib/recurring-events';
 import AudioPlayer from '../common/AudioPlayer';
 import BreadcrumbSearchSection from '../common/BreadcrumbSearchSection';
 import GalleryCarousel from '../common/GalleryCarousel';
@@ -17,27 +24,10 @@ import DonorProfileCard from '../donate/shared/DonorProfileCard';
 import AddToCalendar from './AddToCalendar';
 import EventBookingForm from './EventBookingForm';
 import EventCard from './EventCard';
-import { getNextOccurrence } from "../../../../lib/recurring-events";
 
-// Helper to format date
+// Helper to format date using local date utils
 const formatDate = (dateString: string) => {
-  if (!dateString) return '';
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  });
-};
-
-const formatTime = (dateString: string) => {
-  if (!dateString) return '';
-  const date = new Date(dateString);
-  return date.toLocaleTimeString('en-GB', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  });
+  return formatEventDateWithYear(dateString);
 };
 
 // Define props interface if not already (or just use any)
@@ -177,59 +167,40 @@ export default function EventDetailClient({
 
   const embedUrl = getEmbedUrl(videoUrl);
 
-  // Helper to combine date and time into a Date object
-  const combineDateAndTime = (dateStr: string, timeStr?: string) => {
-    if (!dateStr) return null;
-    const date = new Date(dateStr);
-    if (timeStr) {
-      const [hours, minutes] = timeStr.split(':').map(Number);
-      date.setHours(hours, minutes, 0, 0);
-    }
-    return date;
-  };
-
   // Format Helpers for Display
   const now = new Date();
   const nextDate = event.recurrence?.isRecurring
     ? getNextOccurrence(event as any, now)
-    : (startDate ? new Date(startDate) : null);
+    : createLocalDate(startDate);
+  console.log(nextDate, 'nextDate');
 
-  const displayDate = nextDate || (startDate ? new Date(startDate) : null);
-  
+  const displayDate = nextDate || createLocalDate(startDate);
+
   // Combine date with time for accurate start/end Date objects
-  const sDate = combineDateAndTime(
-    displayDate ? displayDate.toISOString().split('T')[0] : startDate,
-    startTime
-  );
+  const occurrenceDateStr = displayDate
+    ? `${displayDate.getFullYear()}-${String(displayDate.getMonth() + 1).padStart(2, '0')}-${String(displayDate.getDate()).padStart(2, '0')}`
+    : startDate;
+
+  const sDate = combineEventDateTime(occurrenceDateStr, startTime);
 
   // For end date, use endDate if different from startDate, otherwise same day
-  const eDate = endDate && endTime
-    ? combineDateAndTime(endDate, endTime)
-    : endTime && sDate
-      ? combineDateAndTime(sDate.toISOString().split('T')[0], endTime)
-      : null;
+  const eDate =
+    endDate && endTime
+      ? combineEventDateTime(endDate, endTime)
+      : endTime && sDate
+        ? combineEventDateTime(occurrenceDateStr, endTime)
+        : null;
 
-  const dateFormatted = sDate?.toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-  });
+  const dateFormatted =
+    displayDate?.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+    }) || formatEventDateWithYear(startDate);
 
-  // Format time strings to display format
-  const formatTimeHelper = (time: string) => {
-    if (!time) return '';
-    const [hours, minutes] = time.split(':').map(Number);
-    const date = new Date();
-    date.setHours(hours, minutes, 0, 0);
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
-  };
-
-  const timeRange = startTime && endTime
-    ? `${formatTimeHelper(startTime)} - ${formatTimeHelper(endTime)}`
-    : startTime || ''
+  const timeRange =
+    startTime && endTime
+      ? `${formatEventTime(startTime)} - ${formatEventTime(endTime)}`
+      : formatEventTime(startTime) || '';
 
   // Whether the event dates have already passed
   const isEventPast = eDate ? eDate.getTime() < Date.now() : false;
@@ -285,6 +256,7 @@ export default function EventDetailClient({
             {/* {subtitle && <p className="text-lg text-gray-600 mb-4">{subtitle}</p>} */}
 
             <div className="flex items-center gap-1.5 text-sm text-[#71717A] mb-3">
+              {console.log(event?.timing?.startDate, 'eventevent')}
               <span>{dateFormatted}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#71717A]"></span>
               <span>{timeRange}</span>
@@ -572,11 +544,14 @@ export default function EventDetailClient({
                   <div className="space-y-4 text-sm text-[#3F3F46]">
                     <p>
                       <span className="font-semibold">Start:</span>{' '}
-                      {formatDate(startDate)} at {startTime ? formatTimeHelper(startTime) : 'TBD'}
+                      {formatDate(startDate)} at{' '}
+                      {startTime ? formatEventTime(startTime) : 'TBD'}
                     </p>
                     <p>
                       <span className="font-semibold">End:</span>{' '}
-                      {endDate && endTime ? `${formatDate(endDate)} at ${formatTimeHelper(endTime)}` : `${formatDate(startDate)} at ${formatTimeHelper(endTime)}`}
+                      {endDate && endTime
+                        ? `${formatDate(endDate)} at ${formatEventTime(endTime)}`
+                        : `${formatDate(startDate)} at ${formatEventTime(endTime)}`}
                     </p>
                   </div>
                   <AddToCalendar
@@ -613,20 +588,22 @@ export default function EventDetailClient({
                     <button
                       key={amount}
                       onClick={() => setDonationAmount(amount)}
-                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === amount
-                        ? 'bg-black text-white'
-                        : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
-                        }`}
+                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
+                        donationAmount === amount
+                          ? 'bg-black text-white'
+                          : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
+                      }`}
                     >
                       £{amount}
                     </button>
                   ))}
                   <button
                     onClick={() => setDonationAmount('Other')}
-                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === 'Other'
-                      ? 'bg-black text-white'
-                      : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
-                      }`}
+                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
+                      donationAmount === 'Other'
+                        ? 'bg-black text-white'
+                        : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
+                    }`}
                   >
                     Other
                   </button>

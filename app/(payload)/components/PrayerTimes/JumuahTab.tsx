@@ -23,6 +23,8 @@ const JumuahTab: React.FC = () => {
           setSecondJumuah(settings.jumuahSettings.enableSecondJumuah ?? false);
           setKhutbahTime(settings.jumuahSettings.khutbahTime ?? '13:00');
           setIqamahTime(settings.jumuahSettings.iqamahTime ?? '13:30');
+          setSecondKhutbahTime(settings.jumuahSettings.secondKhutbahTime ?? '14:00');
+          setSecondIqamahTime(settings.jumuahSettings.secondIqamahTime ?? '14:30');
         }
       } catch (error) {
         console.error('Failed to load Jumuah settings:', error);
@@ -44,6 +46,8 @@ const JumuahTab: React.FC = () => {
           khutbahTime,
           iqamahTime,
           enableSecondJumuah: secondJumuah,
+          secondKhutbahTime,
+          secondIqamahTime,
         },
       });
       alert("Jumu'ah settings saved successfully!");
