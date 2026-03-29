@@ -54,7 +54,20 @@ export default function EventMediaSection({
   containerStyle,
   leftColumnStyle
 }: EventMediaSectionProps) {
-  const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Photos");
+  const hasVideo = !!videoUrl;
+  const hasPhotos = photos.length > 0;
+  const hasAudio = !!audioUrl;
+  const hasMedia = hasVideo || hasPhotos || hasAudio;
+
+  const availableTabs = [
+    hasPhotos && { id: 'Photos', label: 'Photos' },
+    hasVideo && { id: 'Video', label: 'Video' },
+    hasAudio && { id: 'Audio', label: 'Audio' },
+  ].filter(Boolean) as { id: 'Video' | 'Photos' | 'Audio'; label: string }[];
+
+  const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">(
+    availableTabs[0]?.id || 'Photos'
+  );
   const [donationAmount, setDonationAmount] = useState<number | "Other">(10);
 
   const tabs = ["Video", "Photos", "Audio"] as const;
@@ -108,78 +121,85 @@ export default function EventMediaSection({
           {/* Left Column: Media & Description */}
           <div className={`w-full xl:max-w-[735px] xl:max-h[412px] space-y-6 ${leftColumnStyle}`}>
 
-            {/* Tabs */}
-            <Tabs
-              tabs={tabs.map((tab) => ({ id: tab, label: tab }))}
-              activeTab={activeTab}
-              onChange={(tabId) => setActiveTab(tabId as any)}
-              variant="pills"
-              size="md"
-              className="w-fit !mb-9"
-            />
-
-            {/* Media Player Container */}
-            {activeTab === 'Video' && (
-              <div className="relative w-full aspect-video rounded-[14px] overflow-hidden">
-                {embedUrl ? (
-                  <iframe
-                    src={embedUrl}
-                    title={title || "Video player"}
-                    className="w-full h-full"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
+            {/* Media Tabs & Player */}
+            {hasMedia && (
+              <div className="space-y-6">
+                {/* Tabs */}
+                {availableTabs.length > 1 && (
+                  <Tabs
+                    tabs={availableTabs}
+                    activeTab={activeTab}
+                    onChange={(tabId) => setActiveTab(tabId as any)}
+                    variant="pills"
+                    size="md"
+                    className="w-fit !mb-9"
                   />
-                ) : (
-                  <>
-                    <>
-                      {/* Blurred background fill */}
-                      <NextImage
-                        src={videoThumbnail}
-                        alt=""
-                        fill
-                        className="object-cover scale-110 blur-2xl brightness-75"
-                        aria-hidden="true"
-                      />
-                      {/* Main image — fully visible, no cropping */}
-                      <NextImage
-                        src={videoThumbnail}
-                        alt={title}
-                        fill
-                        className="object-contain z-10"
-                      />
-                    </>
+                )}
 
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/20" />
+                {/* Media Player Container */}
+                {activeTab === 'Video' && (
+                  <div className="relative w-full aspect-video rounded-[14px] overflow-hidden">
+                    {embedUrl ? (
+                      <iframe
+                        src={embedUrl}
+                        title={title || "Video player"}
+                        className="w-full h-full"
+                        frameBorder="0"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                      />
+                    ) : (
+                      <>
+                        <>
+                          {/* Blurred background fill */}
+                          <NextImage
+                            src={videoThumbnail}
+                            alt=""
+                            fill
+                            className="object-cover scale-110 blur-2xl brightness-75"
+                            aria-hidden="true"
+                          />
+                          {/* Main image — fully visible, no cropping */}
+                          <NextImage
+                            src={videoThumbnail}
+                            alt={title}
+                            fill
+                            className="object-contain z-10"
+                          />
+                        </>
 
-                    {/* Live Badge */}
-                    {isLive && (
-                      <div className="absolute top-4 right-4 bg-white backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm z-10">
-                        <span className="relative flex h-2.5 w-2.5">
-                          <span className="absolute inline-flex h-full w-full rounded-lg bg-red-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
-                        </span>
-                        <span className="text-sm font-semibold text-[#18181B]">Live</span>
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-black/20" />
+
+                        {/* Live Badge */}
+                        {isLive && (
+                          <div className="absolute top-4 right-4 bg-white backdrop-blur-md px-2 py-1 rounded-lg flex items-center gap-1 shadow-sm z-10">
+                            <span className="relative flex h-2.5 w-2.5">
+                              <span className="absolute inline-flex h-full w-full rounded-lg bg-red-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#F31260]"></span>
+                            </span>
+                            <span className="text-sm font-semibold text-[#18181B]">Live</span>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                )}
+
+                {activeTab === 'Photos' && (
+                  <GalleryCarousel images={photos} />
+                )}
+
+                {activeTab === 'Audio' && (
+                  <div className="w-full">
+                    {fullAudioUrl ? (
+                      <AudioPlayer audioUrl={fullAudioUrl} showPreviousNext={false} />
+                    ) : (
+                      <div className="relative w-full aspect-video rounded-[14px] overflow-hidden bg-gray-100 flex items-center justify-center">
+                        <p className="text-gray-400">Audio not available</p>
                       </div>
                     )}
-                  </>
-                )}
-              </div>
-            )}
-
-            {activeTab === 'Photos' && (
-              <GalleryCarousel images={photos} />
-            )}
-
-            {activeTab === 'Audio' && (
-              <div className="w-full">
-                {fullAudioUrl ? (
-                  <AudioPlayer audioUrl={fullAudioUrl} showPreviousNext={false} />
-                ) : (
-                  <div className="relative w-full aspect-video rounded-[14px] overflow-hidden bg-gray-100 flex items-center justify-center">
-                    <p className="text-gray-400">Audio not available</p>
                   </div>
                 )}
               </div>

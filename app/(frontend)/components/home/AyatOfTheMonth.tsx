@@ -434,7 +434,7 @@ export default function AyatOfTheMonth({
         </button>
 
         {/* Live Taraweeh */}
-        <button
+        {/* <button
           onClick={() => handleTabClick('taraweeh')}
           className="h-10 sm:h-12 px-4 sm:px-5 bg-[#0e793c] rounded-full flex items-center justify-center gap-2 shadow-lg hover:bg-[#0c6632] transition-colors cursor-pointer shrink-0 relative"
           title="Live Taraweeh"
@@ -446,7 +446,7 @@ export default function AyatOfTheMonth({
           <span className="text-white text-sm sm:text-base font-medium whitespace-nowrap">
             Live Taraweeh
           </span>
-        </button>
+        </button> */}
       </div>
     </section>
   );

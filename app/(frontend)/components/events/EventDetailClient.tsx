@@ -167,6 +167,23 @@ export default function EventDetailClient({
 
   const embedUrl = getEmbedUrl(videoUrl);
 
+  const hasVideo = !!embedUrl;
+  const hasPhotos = photos.length > 0;
+  const hasAudio = !!fullAudioUrl;
+  const hasMedia = hasVideo || hasPhotos || hasAudio;
+
+  const availableTabs = [
+    hasPhotos && { id: 'photos' as const, label: 'Photos' },
+    hasVideo && { id: 'video' as const, label: 'Video' },
+    hasAudio && { id: 'audio' as const, label: 'Audio' },
+  ].filter(Boolean) as { id: 'video' | 'photos' | 'audio'; label: string }[];
+
+  useEffect(() => {
+    if (availableTabs.length > 0 && !availableTabs.find(t => t.id === activeTab)) {
+      setActiveTab(availableTabs[0].id);
+    }
+  }, [availableTabs, activeTab]);
+
   // Format Helpers for Display
   const now = new Date();
   const nextDate = event.recurrence?.isRecurring
@@ -391,77 +408,77 @@ export default function EventDetailClient({
           {/* Left Column: 2/3 */}
           <div className="lg:col-span-2 space-y-12">
             {/* Media Tabs & Player */}
-            <div className="space-y-6">
-              {/* Tabs */}
-              <Tabs
-                tabs={[
-                  { id: 'video', label: 'Video' },
-                  { id: 'photos', label: 'Photos' },
-                  { id: 'audio', label: 'Audio' },
-                ]}
-                activeTab={activeTab}
-                onChange={tabId => setActiveTab(tabId as any)}
-                variant="pills"
-                size="md"
-                className="w-full sm:w-fit overflow-x-auto scrollbar-hide lg:!mb-8"
-              />
+            {hasMedia && (
+              <div className="space-y-6">
+                {/* Tabs */}
+                {availableTabs.length > 1 && (
+                  <Tabs
+                    tabs={availableTabs}
+                    activeTab={activeTab}
+                    onChange={tabId => setActiveTab(tabId as any)}
+                    variant="pills"
+                    size="md"
+                    className="w-full sm:w-fit overflow-x-auto scrollbar-hide lg:!mb-8"
+                  />
+                )}
 
-              {/* Content */}
-              {activeTab === 'video' && (
-                <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
-                  {embedUrl ? (
-                    <div className="w-full h-full flex items-center justify-center relative bg-black group">
-                      <iframe
-                        src={embedUrl}
-                        title={title || 'Video player'}
-                        className="w-full h-full lg:max-w-183.75 lg:h-103"
-                        frameBorder="0"
-                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        allowFullScreen
-                      />
-                      {event?.media?.isLive && (
-                        <div className="absolute top-4 right-4 bg-[#FAFAFA] backdrop-blur px-2.5 py-1 rounded-md flex items-center gap-1.5 text-sm text-[#11181C] z-10 pointer-events-none">
-                          <span className="w-2 h-2 rounded-full bg-[#F31260]" />
-                          Live
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
-                      <div className="text-center">
-                        <FiVideo className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                        <p className="text-sm">No video available</p>
+                {/* Content */}
+                {activeTab === 'video' && (
+                  <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                    {embedUrl ? (
+                      <div className="w-full h-full flex items-center justify-center relative bg-black group">
+                        <iframe
+                          src={embedUrl}
+                          title={title || 'Video player'}
+                          className="w-full h-full lg:max-w-183.75 lg:h-103"
+                          frameBorder="0"
+                          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                        />
+                        {event?.media?.isLive && (
+                          <div className="absolute top-4 right-4 bg-[#FAFAFA] backdrop-blur px-2.5 py-1 rounded-md flex items-center gap-1.5 text-sm text-[#11181C] z-10 pointer-events-none">
+                            <span className="w-2 h-2 rounded-full bg-[#F31260]" />
+                            Live
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {activeTab === 'photos' && <GalleryCarousel images={photos} />}
-
-              {activeTab === 'audio' && (
-                <div className="w-full">
-                  {fullAudioUrl ? (
-                    <AudioPlayer
-                      audioUrl={fullAudioUrl}
-                      showPreviousNext={false}
-                    />
-                  ) : (
-                    <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                    ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
                         <div className="text-center">
-                          <FiMic className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                          <p className="text-sm">
-                            No audio recordings available
-                          </p>
+                          <FiVideo className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                          <p className="text-sm">No video available</p>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+                    )}
+                  </div>
+                )}
+
+                {activeTab === 'photos' && <GalleryCarousel images={photos} />}
+
+                {activeTab === 'audio' && (
+                  <div className="w-full">
+                    {fullAudioUrl ? (
+                      <AudioPlayer
+                        audioUrl={fullAudioUrl}
+                        showPreviousNext={false}
+                      />
+                    ) : (
+                      <div className="relative aspect-video w-full bg-gray-100 rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                        <div className="w-full h-full flex items-center justify-center text-gray-400 bg-gray-50">
+                          <div className="text-center">
+                            <FiMic className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                            <p className="text-sm">
+                              No audio recordings available
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Description */}
             <div className="prose prose-blue max-w-none text-[#52525B]">
@@ -589,8 +606,8 @@ export default function EventDetailClient({
                       key={amount}
                       onClick={() => setDonationAmount(amount)}
                       className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === amount
-                          ? 'bg-black text-white'
-                          : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
+                        ? 'bg-black text-white'
+                        : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
                         }`}
                     >
                       £{amount}
@@ -599,8 +616,8 @@ export default function EventDetailClient({
                   <button
                     onClick={() => setDonationAmount('Other')}
                     className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === 'Other'
-                        ? 'bg-black text-white'
-                        : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
+                      ? 'bg-black text-white'
+                      : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
                       }`}
                   >
                     Other
