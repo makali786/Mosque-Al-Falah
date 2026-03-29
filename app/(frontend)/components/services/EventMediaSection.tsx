@@ -54,7 +54,7 @@ export default function EventMediaSection({
   containerStyle,
   leftColumnStyle
 }: EventMediaSectionProps) {
-  const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Video");
+  const [activeTab, setActiveTab] = useState<"Video" | "Photos" | "Audio">("Photos");
   const [donationAmount, setDonationAmount] = useState<number | "Other">(10);
 
   const tabs = ["Video", "Photos", "Audio"] as const;
@@ -133,23 +133,23 @@ export default function EventMediaSection({
                   />
                 ) : (
                   <>
-                  <>
-                    {/* Blurred background fill */}
-                    <NextImage
-                      src={videoThumbnail}
-                      alt=""
-                      fill
-                      className="object-cover scale-110 blur-2xl brightness-75"
-                      aria-hidden="true"
-                    />
-                    {/* Main image — fully visible, no cropping */}
-                    <NextImage
-                      src={videoThumbnail}
-                      alt={title}
-                      fill
-                      className="object-contain z-10"
-                    />
-                  </>
+                    <>
+                      {/* Blurred background fill */}
+                      <NextImage
+                        src={videoThumbnail}
+                        alt=""
+                        fill
+                        className="object-cover scale-110 blur-2xl brightness-75"
+                        aria-hidden="true"
+                      />
+                      {/* Main image — fully visible, no cropping */}
+                      <NextImage
+                        src={videoThumbnail}
+                        alt={title}
+                        fill
+                        className="object-contain z-10"
+                      />
+                    </>
 
                     {/* Overlay */}
                     <div className="absolute inset-0 bg-black/20" />

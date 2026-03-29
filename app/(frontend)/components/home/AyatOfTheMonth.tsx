@@ -101,7 +101,7 @@ export default function AyatOfTheMonth({
         const ishaTime: string | undefined = data?.docs?.[0]?.isha;
         if (ishaTime && isInTaraweehWindow(ishaTime)) {
           setTaraweehActive(true);
-          setViewMode('taraweeh');
+          // setViewMode('taraweeh');
         }
       } catch {
         // Fail silently — Taraweeh tab still shows, just not auto-selected

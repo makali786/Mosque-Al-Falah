@@ -10,7 +10,7 @@ export interface Tab {
 
 interface TabsProps {
   tabs: Tab[];
-  activeTab: string;
+  activeTab?: string;
   onChange: (tabId: string) => void;
   variant?: "default" | "pills" | "underline" | "clean";
   size?: "sm" | "md" | "lg";
@@ -20,7 +20,7 @@ interface TabsProps {
 
 export default function Tabs({
   tabs,
-  activeTab,
+  activeTab = "Photo",
   onChange,
   variant = "default",
   size = "md",

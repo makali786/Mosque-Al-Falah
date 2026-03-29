@@ -45,7 +45,7 @@ export default function EventDetailClient({
   onBookingSubmit,
 }: EventDetailClientProps) {
   const [activeTab, setActiveTab] = useState<'video' | 'photos' | 'audio'>(
-    'video'
+    'photos'
   );
   const [donationAmount, setDonationAmount] = useState<number | string | null>(
     null
@@ -588,22 +588,20 @@ export default function EventDetailClient({
                     <button
                       key={amount}
                       onClick={() => setDonationAmount(amount)}
-                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
-                        donationAmount === amount
+                      className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === amount
                           ? 'bg-black text-white'
                           : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
-                      }`}
+                        }`}
                     >
                       £{amount}
                     </button>
                   ))}
                   <button
                     onClick={() => setDonationAmount('Other')}
-                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${
-                      donationAmount === 'Other'
+                    className={`w-auto px-3.5 py-2 rounded-lg text-base font-medium transition-colors cursor-pointer ${donationAmount === 'Other'
                         ? 'bg-black text-white'
                         : 'bg-[#E4E4E7] text-black hover:bg-gray-300'
-                    }`}
+                      }`}
                   >
                     Other
                   </button>

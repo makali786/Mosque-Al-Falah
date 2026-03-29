@@ -161,21 +161,19 @@ export default function PrayerTimesWrapper({
         <div className="bg-[#FAFAFA] p-1 rounded-lg flex w-full flex-wrap md:w-auto">
           <button
             onClick={() => setActiveTab('prayer-time')}
-            className={`flex-1 md:flex-none px-4 md:px-10 py-2.5 rounded-md text-sm md:text-base font-medium transition-all md:min-w-[174px] md:max-w-[174px] cursor-pointer text-center whitespace-nowrap ${
-              activeTab === 'prayer-time'
-                ? 'bg-white text-[#18181B] shadow-sm'
-                : 'text-[#71717A] hover:text-[#18181B]'
-            }`}
+            className={`flex-1 md:flex-none px-4 md:px-10 py-2.5 rounded-md text-sm md:text-base font-medium transition-all md:min-w-[174px] md:max-w-[174px] cursor-pointer text-center whitespace-nowrap ${activeTab === 'prayer-time'
+              ? 'bg-white text-[#18181B] shadow-sm'
+              : 'text-[#71717A] hover:text-[#18181B]'
+              }`}
           >
             Prayer Time
           </button>
           <button
             onClick={() => setActiveTab('calendar')}
-            className={`flex-1 md:flex-none px-4 md:px-10 py-2.5 rounded-md text-sm md:text-base font-medium transition-all md:min-w-[174px] md:max-w-[174px] cursor-pointer text-center whitespace-nowrap ${
-              activeTab === 'calendar'
-                ? 'bg-white text-[#18181B] shadow-sm'
-                : 'text-[#71717A] hover:text-[#18181B]'
-            }`}
+            className={`flex-1 md:flex-none px-4 md:px-10 py-2.5 rounded-md text-sm md:text-base font-medium transition-all md:min-w-[174px] md:max-w-[174px] cursor-pointer text-center whitespace-nowrap ${activeTab === 'calendar'
+              ? 'bg-white text-[#18181B] shadow-sm'
+              : 'text-[#71717A] hover:text-[#18181B]'
+              }`}
           >
             Calendar
           </button>
@@ -191,9 +189,8 @@ export default function PrayerTimesWrapper({
             >
               <span>Download {displayYear} timetable</span>
               <IoChevronDown
-                className={`w-4 h-4 transition-transform ${
-                  isDownloadOpen ? 'rotate-180' : ''
-                }`}
+                className={`w-4 h-4 transition-transform ${isDownloadOpen ? 'rotate-180' : ''
+                  }`}
               />
             </button>
 
@@ -226,7 +223,7 @@ export default function PrayerTimesWrapper({
           </div>
 
           <div className="relative">
-            <button
+            {/* <button
               onClick={() => setIsRamadanDownloadOpen(!isRamadanDownloadOpen)}
               className="bg-[#27272A] w-full sm:w-auto text-white px-6 py-3 rounded-lg text-sm sm:text-base cursor-pointer hover:bg-[#18181B] transition-colors flex items-center gap-2"
             >
@@ -236,7 +233,7 @@ export default function PrayerTimesWrapper({
                   isRamadanDownloadOpen ? 'rotate-180' : ''
                 }`}
               />
-            </button>
+            </button> */}
 
             {/* Ramadan Dropdown Menu */}
             {isRamadanDownloadOpen && (
