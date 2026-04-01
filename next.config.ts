@@ -23,8 +23,20 @@ const nextConfig: NextConfig = {
         pathname: "/**",
         search: "",
       },
+      // Cloudinary - RE-ENABLED with optimizations
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
     ],
-    unoptimized: true
+    // Keep unoptimized to avoid Next.js image optimization costs
+    // Cloudinary handles optimization via f_auto, q_auto params
+    unoptimized: true,
+    // Cache images for 24 hours to reduce repeated requests
+    minimumCacheTTL: 86400,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   async headers() {
     return [

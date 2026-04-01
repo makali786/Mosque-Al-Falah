@@ -45,3 +45,13 @@ next-env.d.ts
 
 # MCP configuration with secrets
 .mcp.json
+
+# Local media storage (temporary while Cloudinary is disabled)
+/media
+
+# Cloudinary backup folder
+/cloudinary-backup
+
+# Export files
+media-urls-export.json
+migrated-media-urls.json

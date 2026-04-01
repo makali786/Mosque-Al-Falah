@@ -7,6 +7,8 @@ export const Media: CollectionConfig = {
   },
 
   upload: {
+    // Cloudinary storage enabled - files uploaded to Cloudinary
+    // Local caching optimizations applied in lib/cloudinaryAdapter.ts
     disableLocalStorage: true,
   },
   hooks: {

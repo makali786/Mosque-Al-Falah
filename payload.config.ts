@@ -158,6 +158,8 @@ export default buildConfig({
   }),
   sharp,
   plugins: [
+    // Cloudinary Storage - RE-ENABLED with optimizations
+    // Optimizations added: f_auto, q_auto:good, dpr_auto for reduced bandwidth
     cloudStoragePlugin({
       collections: {
         media: {

@@ -36,7 +36,14 @@ export const cloudinaryAdapter = ({
         const publicId = path.posix
           .join(filePrefix || baseFolder, filename)
           .replace(/\.[^/.]+$/, '');
-        return cloudinary.url(publicId, { secure: true });
+        // Add optimization parameters to reduce bandwidth and credits
+        return cloudinary.url(publicId, { 
+          secure: true,
+          // Add these to reduce credit usage:
+          fetch_format: 'auto',  // Serve WebP/AVIF when supported
+          quality: 'auto:good',  // Automatic quality optimization
+          dpr: 'auto',           // Automatic device pixel ratio
+        });
       },
 
       handleDelete: async ({ filename }) => {
@@ -59,6 +66,14 @@ export const cloudinaryAdapter = ({
             overwrite: true,
             use_filename: true,
             unique_filename: false,
+            // Add these to reduce storage and bandwidth:
+            eager: [
+              // Generate optimized versions on upload
+              { width: 1920, crop: 'limit', quality: 'auto:good', fetch_format: 'auto' },
+              { width: 1200, crop: 'limit', quality: 'auto:good', fetch_format: 'auto' },
+              { width: 800, crop: 'limit', quality: 'auto:good', fetch_format: 'auto' },
+            ],
+            eager_async: true, // Don't block upload for eager transformations
           };
 
           const uploadStream = cloudinary.uploader.upload_stream(
@@ -86,7 +101,11 @@ export const cloudinaryAdapter = ({
         const publicId = path.posix
           .join(baseFolder, filename)
           .replace(/\.[^/.]+$/, '');
-        const url = cloudinary.url(publicId, { secure: true });
+        const url = cloudinary.url(publicId, { 
+          secure: true,
+          fetch_format: 'auto',
+          quality: 'auto:good',
+        });
         return Response.redirect(url);
       },
     };
