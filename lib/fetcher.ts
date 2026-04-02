@@ -110,4 +110,8 @@ export const fetchPrayerTimes = <T = any>(
   options: Omit<FindOptions, "collection"> = {}
 ) => findFromPayload<T>({ collection: "prayer-times", ...options });
 
+export const fetchDonationSettings = async <T = any>(): Promise<T> => {
+  return fetchGlobal<T>({ slug: 'donation-settings' });
+};
+
 

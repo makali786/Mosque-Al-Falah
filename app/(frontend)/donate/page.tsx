@@ -9,7 +9,7 @@ import Step1Select from '../components/donate/steps/Step1Select';
 import Step2Details from '../components/donate/steps/Step2Details';
 import Step3GiftAid from '../components/donate/steps/Step3GiftAid';
 import Step4Payment from '../components/donate/steps/Step4Payment';
-import { DonationFormData } from '../components/donate/types';
+import { DonationFormData, DonationSettings } from '../components/donate/types';
 import GoogleMapsScript from '../components/GoogleMapsScript';
 import { useToast } from '../hooks/useToast';
 
@@ -19,13 +19,39 @@ export default function DonatePage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [donationSettings, setDonationSettings] = useState<DonationSettings | undefined>(undefined);
+  const [settingsLoading, setSettingsLoading] = useState(true);
   const { toasts, removeToast, success, error } = useToast();
 
   // Get amount, appealId, and frequency from URL parameters
   const urlAmount = searchParams.get('amount');
   const urlAppealId = searchParams.get('appealId');
   const urlFrequency = searchParams.get('frequency');
-  const initialAmount = urlAmount ? parseFloat(urlAmount) : 20;
+
+  // Fetch donation settings on mount
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch('/api/donation-settings');
+        if (response.ok) {
+          const settings = await response.json();
+          setDonationSettings(settings);
+        } else {
+          console.error('Failed to fetch donation settings');
+        }
+      } catch (err) {
+        console.error('Error fetching donation settings:', err);
+      } finally {
+        setSettingsLoading(false);
+      }
+    };
+
+    fetchSettings();
+  }, []);
+
+  // Get default amount from settings or fall back to 20
+  const defaultSelectedAmount = donationSettings?.defaultAmount?.defaultSelectedAmount ?? 20;
+  const initialAmount = urlAmount ? parseFloat(urlAmount) : defaultSelectedAmount;
 
   // Validate and set frequency from URL, fallback to 'one-time'
   const validFrequencies: DonationFormData['frequency'][] = ['one-time', 'weekly', 'monthly', 'quarterly', 'yearly'];
@@ -33,15 +59,19 @@ export default function DonatePage() {
     ? (urlFrequency as DonationFormData['frequency'])
     : 'one-time';
 
+  // Get platform fee defaults from settings
+  const platformFeeEnabledDefault = donationSettings?.platformFee?.enabledByDefault ?? true;
+  const platformFeePercentageDefault = donationSettings?.platformFee?.defaultPercentage ?? 12.5;
+
   const [formData, setFormData] = useState<DonationFormData>({
     // Step 1: Select
     frequency: initialFrequency,
     donationType: 'general',
-    appealId: urlAppealId || undefined, // Pre-select appeal from URL if present
+    appealId: urlAppealId || undefined,
     amount: initialAmount,
     customAmount: '',
-    platformFeeEnabled: true,
-    platformFeePercentage: 12.5,
+    platformFeeEnabled: platformFeeEnabledDefault,
+    platformFeePercentage: platformFeePercentageDefault,
 
     // Step 2: Details
     email: '',
@@ -64,6 +94,22 @@ export default function DonatePage() {
     giftAidEnabled: false,
     giftAidDeclaration: false,
   });
+
+  // Update form data when settings are loaded (only if no URL amount override)
+  useEffect(() => {
+    if (donationSettings && !urlAmount) {
+      const newDefaultAmount = donationSettings.defaultAmount?.defaultSelectedAmount ?? 20;
+      const newPlatformFeeEnabled = donationSettings.platformFee?.enabledByDefault ?? true;
+      const newPlatformFeePercentage = donationSettings.platformFee?.defaultPercentage ?? 12.5;
+      
+      setFormData(prev => ({
+        ...prev,
+        amount: newDefaultAmount,
+        platformFeeEnabled: newPlatformFeeEnabled,
+        platformFeePercentage: newPlatformFeePercentage,
+      }));
+    }
+  }, [donationSettings, urlAmount]);
 
   // Hydrate state from sessionStorage on mount
   useEffect(() => {
@@ -179,7 +225,7 @@ export default function DonatePage() {
           address: formData.address,
           isAnonymous: formData.isAnonymous,
           displayName: formData.displayName,
-          giftAid: formData.giftAidEnabled, // ✅ Now includes user's Gift Aid decision
+          giftAid: formData.giftAidEnabled,
           platformFeePercentage: formData.platformFeeEnabled
             ? formData.platformFeePercentage
             : 0,
@@ -207,7 +253,7 @@ export default function DonatePage() {
     setCurrentStep(prev => Math.max(1, prev - 1));
   };
 
-  if (!isHydrated) {
+  if (!isHydrated || settingsLoading) {
     return null;
   }
 
@@ -223,6 +269,7 @@ export default function DonatePage() {
             setFormData={setFormData}
             onNext={handleStep1Next}
             appealEndDate={appealEndDate}
+            settings={donationSettings}
           />
         )}
 

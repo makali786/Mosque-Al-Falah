@@ -62,6 +62,9 @@ import { Notifications } from './collections/Notifications';
 import { PrayerTimeSettings } from './globals/PrayerTimeSettings';
 import { PrayerTimesPage } from './globals/PrayerTimesPage';
 
+// Donation Settings
+import { DonationSettings } from './globals/DonationSettings';
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -144,6 +147,9 @@ export default buildConfig({
 
     // Prayer Time Settings
     PrayerTimeSettings,
+
+    // Donation Settings
+    DonationSettings,
   ],
   editor: lexicalEditor(),
   secret:

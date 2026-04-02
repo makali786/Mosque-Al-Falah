@@ -1,18 +1,26 @@
 'use client';
 
-import { DonationFormData, frequencies } from '../../types';
+import { DonationFormData, defaultFrequencies, DonationSettings } from '../../types';
 
 interface FrequencySelectorProps {
   selectedFrequency: DonationFormData['frequency'];
   onFrequencyChange: (frequency: DonationFormData['frequency']) => void;
   appealEndDate?: string | null;
+  settings?: DonationSettings;
 }
 
 export default function FrequencySelector({
   selectedFrequency,
   onFrequencyChange,
   appealEndDate,
+  settings,
 }: FrequencySelectorProps) {
+  // Use frequencies from settings or fall back to defaults
+  const frequencies = settings?.frequencies?.map(f => ({
+    value: f.value,
+    label: f.label,
+  })) || (defaultFrequencies as unknown as Array<{ value: string; label: string }>);
+
   // Format the endDate properly if it exists
   const formattedEndDate = appealEndDate
     ? new Date(appealEndDate).toLocaleDateString('en-US', {

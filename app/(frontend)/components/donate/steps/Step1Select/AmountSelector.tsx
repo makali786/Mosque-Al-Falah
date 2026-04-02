@@ -1,13 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { DonationFormData, quickAmounts, frequencies } from '../../types';
+import { DonationFormData, defaultQuickAmounts, defaultFrequencies, DonationSettings } from '../../types';
 
 interface AmountSelectorProps {
   selectedAmount: number;
   customAmount: string;
   frequency: DonationFormData['frequency'];
   onAmountChange: (amount: number, customAmount: string) => void;
+  settings?: DonationSettings;
 }
 
 export default function AmountSelector({
@@ -15,17 +16,35 @@ export default function AmountSelector({
   customAmount,
   frequency,
   onAmountChange,
+  settings,
 }: AmountSelectorProps) {
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [customValue, setCustomValue] = useState('');
   const isCustom = customAmount !== '';
+
+  // Use settings from CMS or fall back to defaults
+  const quickAmounts = settings?.quickAmounts?.map(qa => qa.amount) || 
+    (defaultQuickAmounts as unknown as number[]);
+  
+  const frequencies = settings?.frequencies?.map(f => ({ 
+    value: f.value, 
+    label: f.label 
+  })) || (defaultFrequencies as unknown as Array<{ value: string; label: string }>);
+
+  const uiText = settings?.uiText || {
+    amountSelectorLabel: 'Your giving amount',
+    customAmountButtonText: 'Custom',
+    customAmountPlaceholder: 'Enter amount',
+    applyButtonText: 'Apply',
+  };
+
   const frequencyLabel = frequencies.find(f => f.value === frequency)?.label.toLowerCase();
 
   return (
     <div className="flex flex-col items-start w-full">
       <div className="flex flex-col gap-4 items-start w-full">
         <p className="text-sm font-normal leading-5 text-black">
-          Your giving amount
+          {uiText.amountSelectorLabel}
         </p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full">
           {quickAmounts.map(amount => {
@@ -87,7 +106,7 @@ export default function AmountSelector({
                 <p className={`text-base sm:text-lg font-semibold leading-tight ${
                   showCustomInput || isCustom ? 'text-[#18181B]' : 'text-[#3F3F46]'
                 }`}>
-                  Custom
+                  {uiText.customAmountButtonText}
                 </p>
               </div>
             </div>
@@ -110,7 +129,7 @@ export default function AmountSelector({
                       setCustomValue(value);
                     }
                   }}
-                  placeholder="Enter amount"
+                  placeholder={uiText.customAmountPlaceholder}
                   className="flex-1 bg-transparent text-sm sm:text-base font-normal text-[#11181C] placeholder:text-[#71717A] border-none outline-none"
                   inputMode="decimal"
                 />
@@ -127,7 +146,7 @@ export default function AmountSelector({
                 disabled={!customValue || parseFloat(customValue) <= 0}
                 className="bg-[#006FEE] text-white px-4 sm:px-6 py-3 sm:py-2 rounded-xl hover:bg-[#0055CC] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base font-normal w-full sm:w-auto min-h-[44px]"
               >
-                Apply
+                {uiText.applyButtonText}
               </button>
             </div>
           </div>

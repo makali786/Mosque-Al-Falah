@@ -18,6 +18,7 @@ const SLUG_TO_PATHS: Record<string, string[]> = {
   'madrasah-page': ['/madrasah'],
   'prayer-times-page': ['/prayer-time'],
   'prayer-time-settings': ['/prayer-time'],
+  'donation-settings': ['/donate'],
 
   // ── Collections ──────────────────────────────────────
   banners: ['/'],

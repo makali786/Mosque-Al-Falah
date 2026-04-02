@@ -1,4 +1,4 @@
-import { DonationFormData, quickAmounts } from '../../types';
+import { DonationFormData, DonationSettings } from '../../types';
 import { Card } from '../../ui';
 import { DonationHeader, ReviewSection, NavigationButtons } from '../../shared';
 import FrequencySelector from './FrequencySelector';
@@ -12,6 +12,7 @@ interface Step1SelectProps {
   setFormData: (data: DonationFormData) => void;
   onNext: () => void;
   appealEndDate?: string | null;
+  settings?: DonationSettings;
 }
 
 export default function Step1Select({
@@ -19,7 +20,11 @@ export default function Step1Select({
   setFormData,
   onNext,
   appealEndDate,
+  settings,
 }: Step1SelectProps) {
+  // Get quick amounts from settings or use defaults
+  const quickAmounts = settings?.quickAmounts?.map(qa => qa.amount) || [15, 20, 45];
+  
   const selectedAmount = formData.amount || 0;
   const isCustom = !(quickAmounts as readonly number[]).includes(selectedAmount) && selectedAmount > 0;
 
@@ -51,6 +56,7 @@ export default function Step1Select({
               setFormData({ ...formData, frequency })
             }
             appealEndDate={appealEndDate}
+            settings={settings}
           />
 
           {/* Donation Type Selector */}
@@ -60,6 +66,7 @@ export default function Step1Select({
             onTypeChange={(donationType, appealId) =>
               setFormData({ ...formData, donationType, appealId })
             }
+            settings={settings}
           />
 
           {/* Amount Selector */}
@@ -70,6 +77,7 @@ export default function Step1Select({
             onAmountChange={(amount, customAmount) =>
               setFormData({ ...formData, amount, customAmount })
             }
+            settings={settings}
           />
         </Card>
 
@@ -93,6 +101,7 @@ export default function Step1Select({
               platformFeePercentage: percentage,
             })
           }
+          settings={settings}
         />
 
         {/* Review Section */}

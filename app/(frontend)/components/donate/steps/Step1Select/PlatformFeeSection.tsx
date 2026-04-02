@@ -2,54 +2,56 @@
 
 import Image from 'next/image';
 import { Card } from '../../ui';
+import { DonationSettings } from '../../types';
 
 interface PlatformFeeSectionProps {
   platformFeeEnabled: boolean;
   platformFeePercentage: number;
   donationAmount: number;
   onPlatformFeeChange: (enabled: boolean, percentage: number) => void;
+  settings?: DonationSettings;
 }
+
+// Default slider points configuration
+const DEFAULT_SLIDER_POINTS = [
+  { pos: 0, val: 0 },
+  { pos: 25, val: 7.5 },
+  { pos: 50, val: 12.5 },
+  { pos: 75, val: 17.5 },
+  { pos: 100, val: 20 },
+];
 
 export default function PlatformFeeSection({
   platformFeeEnabled,
   platformFeePercentage,
   donationAmount,
   onPlatformFeeChange,
+  settings,
 }: PlatformFeeSectionProps) {
-  const platformFeeOptions = [
-    { percentage: 0, label: '0%' },
-    { percentage: 7.5, label: '7.5%' },
-    { percentage: 12.5, label: '12.5%', recommended: true },
-    { percentage: 17.5, label: '17.5%' },
-    { percentage: 20, label: '20%' },
-  ];
+  // Use settings from CMS or fall back to defaults
+  const platformFeeSettings = settings?.platformFee;
+  
+  // Build slider points from settings or use defaults
+  const sliderPoints = platformFeeSettings?.sliderPoints?.length 
+    ? platformFeeSettings.sliderPoints.map(sp => ({
+        pos: sp.visualPosition,
+        val: sp.percentageValue,
+      })).sort((a, b) => a.pos - b.pos)
+    : DEFAULT_SLIDER_POINTS;
 
-  // Points configuration for the slider
-  // Visual % -> Value %
-  // 0 -> 0
-  // 25 -> 7.5
-  // 50 -> 12.5
-  // 75 -> 17.5
-  // 100 -> 20
-  const SLIDER_POINTS = [
-    { pos: 0, val: 0 },
-    { pos: 25, val: 7.5 },
-    { pos: 50, val: 12.5 },
-    { pos: 75, val: 17.5 },
-    { pos: 100, val: 20 },
-  ];
+  const recommendedPosition = platformFeeSettings?.recommendedPosition ?? 50;
+  const infoText = platformFeeSettings?.infoText ?? '75% of donors';
+  const infoSubtext = platformFeeSettings?.infoSubtext ?? 'have helped keep Masjid System free for our charity in last the 24 hours';
 
   // Helper to get visual position (0-100) from fee value
   const getPositionFromValue = (value: number) => {
-    // If value > max point, cap at 100 or extrapolate?
-    // Requirement is usually within this range for slider, custom for outside.
-    if (value >= 20) return 100;
+    if (value >= Math.max(...sliderPoints.map(p => p.val))) return 100;
     if (value <= 0) return 0;
 
     // Find the segment this value belongs to
-    for (let i = 0; i < SLIDER_POINTS.length - 1; i++) {
-      const p1 = SLIDER_POINTS[i];
-      const p2 = SLIDER_POINTS[i + 1];
+    for (let i = 0; i < sliderPoints.length - 1; i++) {
+      const p1 = sliderPoints[i];
+      const p2 = sliderPoints[i + 1];
       if (value >= p1.val && value <= p2.val) {
         // Interpolate
         const rangeVal = p2.val - p1.val;
@@ -63,19 +65,18 @@ export default function PlatformFeeSection({
 
   // Helper to get fee value from visual position (0-100)
   const getValueFromPosition = (pos: number) => {
-    if (pos >= 100) return 20;
+    if (pos >= 100) return Math.max(...sliderPoints.map(p => p.val));
     if (pos <= 0) return 0;
 
-    for (let i = 0; i < SLIDER_POINTS.length - 1; i++) {
-      const p1 = SLIDER_POINTS[i];
-      const p2 = SLIDER_POINTS[i + 1];
+    for (let i = 0; i < sliderPoints.length - 1; i++) {
+      const p1 = sliderPoints[i];
+      const p2 = sliderPoints[i + 1];
       if (pos >= p1.pos && pos <= p2.pos) {
         // Interpolate
         const rangePos = p2.pos - p1.pos;
         const rangeVal = p2.val - p1.val;
         const percentInRange = (pos - p1.pos) / rangePos;
         const rawValue = p1.val + percentInRange * rangeVal;
-        // Return with 1 decimal place precision if needed, or raw
         return Math.round(rawValue * 10) / 10;
       }
     }
@@ -91,13 +92,13 @@ export default function PlatformFeeSection({
   };
 
   // Helper to determine if we are "on" a dot for styling (visually close)
-  // Check if current position is close to a standard dot position (within 2%)
   const isNearDot = (pos: number, targetPos: number) =>
     Math.abs(pos - targetPos) < 2;
 
   const handleCustomAmount = () => {
+    const maxValue = Math.max(...sliderPoints.map(p => p.val));
     const customPercentage = prompt(
-      'Enter custom platform fee percentage (0-100):',
+      `Enter custom platform fee percentage (0-${maxValue}):`,
       platformFeePercentage.toString()
     );
     if (customPercentage !== null) {
@@ -177,22 +178,20 @@ export default function PlatformFeeSection({
         {/* Slider Container */}
         <div className="flex flex-col items-center justify-center w-full relative h-24 mb-4">
           {/* Tooltip - Absolute positioned above thumb */}
-          {/* Always visible or only when dragging? Requirement implies "professional", typically always visible or hover. 
-              Let's keep it visible since it shows the value. */}
           <div
             className="absolute z-20 flex flex-col items-center transition-all duration-75 ease-out pointer-events-none"
             style={{
               left: `${sliderPosition}%`,
               transform: `translateX(-50%)`,
-              bottom: '30px', // Lift above the track
+              bottom: '30px',
               opacity: 1,
             }}
           >
             {/* Tooltip Content */}
             <div className="flex flex-col items-center w-[140px] relative filter drop-shadow-md">
               <div className="bg-[#FAFAFA] w-full rounded-lg overflow-hidden flex flex-col items-center shadow-sm border border-gray-100">
-                {/* RECOMMENDED Badge - Show only near 50% (12.5% value) position */}
-                {isNearDot(sliderPosition, 50) && (
+                {/* RECOMMENDED Badge - Show only near recommended position */}
+                {isNearDot(sliderPosition, recommendedPosition) && (
                   <div className="bg-[#F5A524] w-full py-1 flex items-center justify-center">
                     <p className="text-[10px] font-bold text-white tracking-wider">
                       RECOMMENDED
@@ -231,9 +230,9 @@ export default function PlatformFeeSection({
               />
             </div>
 
-            {/* Dots - Positioned visually at 0, 25, 50, 75, 100 */}
+            {/* Dots - Positioned based on slider points */}
             <div className="absolute w-full h-full pointer-events-none">
-              {SLIDER_POINTS.map((pt, i) => {
+              {sliderPoints.map((pt, i) => {
                 const isActive = sliderPosition >= pt.pos;
 
                 return (
@@ -243,7 +242,7 @@ export default function PlatformFeeSection({
                       }`}
                     style={{
                       left: `${pt.pos}%`,
-                      transform: `translate(-50%, -3%)`, // Center the dot
+                      transform: `translate(-50%, -3%)`,
                     }}
                   />
                 );
@@ -251,12 +250,11 @@ export default function PlatformFeeSection({
             </div>
 
             {/* Functional Range Input */}
-            {/* Uses 0-100 range for the visual position */}
             <input
               type="range"
               min="0"
               max="100"
-              step="0.5" // visual step
+              step="0.5"
               value={sliderPosition}
               onChange={handleSliderChange}
               className="absolute w-full h-full opacity-0 cursor-pointer z-30"
@@ -290,11 +288,8 @@ export default function PlatformFeeSection({
         {/* Green info box */}
         <div className="bg-[#0E793C] rounded-lg px-4 py-3 flex items-center justify-center overflow-hidden w-full mt-2">
           <p className="text-xs leading-4 text-[#E8FAF0] text-center">
-            <span className="font-bold">75% of donors</span>
-            {' have helped keep Masjid System '}
-            <span className="font-bold">
-              free for our charity in last the 24 hours
-            </span>
+            <span className="font-bold">{infoText}</span>
+            {' '}{infoSubtext}
           </p>
         </div>
       </div>

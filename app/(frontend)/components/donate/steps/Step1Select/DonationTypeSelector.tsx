@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { donationTypes } from '../../types';
+import { defaultDonationTypes, DonationSettings } from '../../types';
 
 interface Appeal {
   id: string;
@@ -19,15 +19,23 @@ interface DonationTypeSelectorProps {
   selectedType: string;
   selectedAppealId?: string;
   onTypeChange: (type: string, appealId?: string) => void;
+  settings?: DonationSettings;
 }
 
 export default function DonationTypeSelector({
   selectedType,
   selectedAppealId,
   onTypeChange,
+  settings,
 }: DonationTypeSelectorProps) {
   const [appeals, setAppeals] = useState<Appeal[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Use donation types from settings or fall back to defaults
+  const donationTypes = settings?.donationTypes?.map(dt => ({
+    value: dt.value,
+    label: dt.label,
+  })) || (defaultDonationTypes as unknown as Array<{ value: string; label: string }>);
 
   // Fetch active donation appeals (excluding those with online donation disabled)
   useEffect(() => {

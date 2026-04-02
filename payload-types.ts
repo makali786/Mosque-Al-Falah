@@ -97,8 +97,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'donation-settings': DonationSetting;
+  };
+  globalsSelect: {
+    'donation-settings': DonationSettingsSelect<false> | DonationSettingsSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -108,6 +112,83 @@ export interface Config {
     workflows: unknown;
   };
 }
+/**
+ * Donation Settings Global
+ */
+export interface DonationSetting {
+  id?: string;
+  quickAmounts?: {
+    amount: number;
+    id?: string | null;
+  }[];
+  defaultAmount?: {
+    defaultSelectedAmount?: number;
+    minimumDonation?: number;
+  };
+  platformFee?: {
+    enabledByDefault?: boolean;
+    defaultPercentage?: number;
+    sliderPoints?: {
+      visualPosition: number;
+      percentageValue: number;
+      id?: string | null;
+    }[];
+    recommendedPosition?: number;
+    infoText?: string;
+    infoSubtext?: string;
+  };
+  donationTypes?: {
+    value: string;
+    label: string;
+    id?: string | null;
+  }[];
+  frequencies?: {
+    value: 'one-time' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
+    label: string;
+    id?: string | null;
+  }[];
+  uiText?: {
+    amountSelectorLabel?: string;
+    customAmountButtonText?: string;
+    customAmountPlaceholder?: string;
+    applyButtonText?: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+  globalType?: string;
+}
+
+export interface DonationSettingsSelect<T extends boolean = true> {
+  quickAmounts?: T;
+  'quickAmounts.amount'?: T;
+  defaultAmount?: T;
+  'defaultAmount.defaultSelectedAmount'?: T;
+  'defaultAmount.minimumDonation'?: T;
+  platformFee?: T;
+  'platformFee.enabledByDefault'?: T;
+  'platformFee.defaultPercentage'?: T;
+  'platformFee.sliderPoints'?: T;
+  'platformFee.sliderPoints.visualPosition'?: T;
+  'platformFee.sliderPoints.percentageValue'?: T;
+  'platformFee.recommendedPosition'?: T;
+  'platformFee.infoText'?: T;
+  'platformFee.infoSubtext'?: T;
+  donationTypes?: T;
+  'donationTypes.value'?: T;
+  'donationTypes.label'?: T;
+  frequencies?: T;
+  'frequencies.value'?: T;
+  'frequencies.label'?: T;
+  uiText?: T;
+  'uiText.amountSelectorLabel'?: T;
+  'uiText.customAmountButtonText'?: T;
+  'uiText.customAmountPlaceholder'?: T;
+  'uiText.applyButtonText'?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+
 export interface UserAuthOperations {
   forgotPassword: {
     email: string;

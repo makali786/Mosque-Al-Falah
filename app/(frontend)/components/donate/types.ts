@@ -30,7 +30,8 @@ export interface DonationFormData {
   giftAidDeclaration: boolean;
 }
 
-export const frequencies = [
+// Default values - used as fallbacks when CMS settings are not available
+export const defaultFrequencies = [
   { value: 'one-time', label: 'One-off' },
   { value: 'weekly', label: 'Every Friday' },
   { value: 'monthly', label: 'Monthly' },
@@ -38,7 +39,7 @@ export const frequencies = [
   { value: 'yearly', label: 'Yearly' },
 ] as const;
 
-export const donationTypes = [
+export const defaultDonationTypes = [
   { value: 'general', label: 'General Fund' },
   { value: 'zakat', label: 'Zakat' },
   { value: 'sadaqah', label: 'Sadaqah' },
@@ -49,4 +50,67 @@ export const donationTypes = [
   { value: 'education', label: 'Education' },
 ] as const;
 
-export const quickAmounts = [15, 20, 45] as const;
+export const defaultQuickAmounts = [15, 20, 45] as const;
+
+// Keep old exports for backward compatibility during migration
+export const frequencies = defaultFrequencies;
+export const donationTypes = defaultDonationTypes;
+export const quickAmounts = defaultQuickAmounts;
+
+// Donation Settings from CMS
+export interface QuickAmount {
+  amount: number;
+  id?: string;
+}
+
+export interface DonationType {
+  value: string;
+  label: string;
+  id?: string;
+}
+
+export interface FrequencyOption {
+  value: 'one-time' | 'weekly' | 'monthly' | 'quarterly' | 'yearly';
+  label: string;
+  id?: string;
+}
+
+export interface SliderPoint {
+  visualPosition: number;
+  percentageValue: number;
+  id?: string;
+}
+
+export interface PlatformFeeSettings {
+  enabledByDefault: boolean;
+  defaultPercentage: number;
+  sliderPoints: SliderPoint[];
+  recommendedPosition: number;
+  infoText: string;
+  infoSubtext: string;
+}
+
+export interface DefaultAmountSettings {
+  defaultSelectedAmount: number;
+  minimumDonation: number;
+}
+
+export interface UITextSettings {
+  amountSelectorLabel: string;
+  customAmountButtonText: string;
+  customAmountPlaceholder: string;
+  applyButtonText: string;
+}
+
+export interface DonationSettings {
+  quickAmounts: QuickAmount[];
+  defaultAmount: DefaultAmountSettings;
+  platformFee: PlatformFeeSettings;
+  donationTypes: DonationType[];
+  frequencies: FrequencyOption[];
+  uiText: UITextSettings;
+  id?: string;
+  globalType?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
