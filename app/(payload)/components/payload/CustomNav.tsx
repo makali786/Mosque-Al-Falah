@@ -2,8 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import logo from '../../../../public/assets/header/logo.svg';
 
 interface NavItemProps {
@@ -139,7 +138,31 @@ const CollapsibleNav: React.FC<CollapsibleNavProps> = ({
 };
 
 const CustomNav: React.FC = () => {
-  const pathname = usePathname();
+  // Use state to track pathname for components rendered via createRoot
+  const [pathname, setPathname] = useState(
+    typeof window !== 'undefined' ? window.location.pathname : ''
+  );
+
+  // Listen for browser navigation (back/forward buttons)
+  useEffect(() => {
+    const handlePopState = () => {
+      setPathname(window.location.pathname);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    
+    // Also check periodically for path changes (for in-app navigation)
+    const interval = setInterval(() => {
+      if (window.location.pathname !== pathname) {
+        setPathname(window.location.pathname);
+      }
+    }, 100);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      clearInterval(interval);
+    };
+  }, [pathname]);
 
   const iconStyle = {
     height: '1rem',

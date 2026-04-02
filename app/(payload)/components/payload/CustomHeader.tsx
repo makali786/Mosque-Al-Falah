@@ -86,7 +86,7 @@ const CustomHeader: React.FC = () => {
     return (
         <div
             style={{
-                position: 'relative',
+                position: 'fixed',
                 top: 0,
                 left: '16rem',
                 right: 0,

@@ -43,7 +43,7 @@ export default function RootLayout({
   const [prayerTimes, setPrayerTimes] = useState<any[]>([]);
   const [settings, setSettings] = useState<any>(null);
 
-  const [notification, setNotification] = useState<any>(null);
+  const [notifications, setNotifications] = useState<any[]>([]);
 
   // Fetch prayer times data for TopBar
   useEffect(() => {
@@ -59,15 +59,15 @@ export default function RootLayout({
         const settingsRes = await fetch('/api/globals/prayer-time-settings');
         const settingsData = await settingsRes.json();
 
-        // Fetch active notification
+        // Fetch all active notifications
         const notificationRes = await fetch(
-          '/api/notifications?where[isActive][equals]=true&limit=1'
+          '/api/notifications?where[isActive][equals]=true&limit=100'
         );
         const notificationData = await notificationRes.json();
 
         setPrayerTimes(prayerTimesData.docs || []);
         setSettings(settingsData);
-        setNotification(notificationData.docs?.[0] || null);
+        setNotifications(notificationData.docs || []);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       }
@@ -93,7 +93,7 @@ export default function RootLayout({
               <MainHeader />
               <main className="min-h-screen">{children}</main>
               {!hideFooter && <Footer />}
-              {notification && <NotificationBar notification={notification} />}
+              {notifications.length > 0 && <NotificationBar notifications={notifications} />}
               <DonationToast />
               <WhatsAppButton />
               <AccessibilityButton />

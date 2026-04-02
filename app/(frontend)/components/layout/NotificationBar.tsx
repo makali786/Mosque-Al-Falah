@@ -2,71 +2,117 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { IoClose } from 'react-icons/io5';
 
 interface NotificationBarProps {
-  notification: any;
+  notifications: any[];
+}
+
+interface DismissedInfo {
+  id: string;
+  updatedAt: string;
+  displayRule: string;
 }
 
 export default function NotificationBar({
-  notification,
+  notifications,
 }: NotificationBarProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
 
+  // Filter notifications based on display rules
+  const getValidNotifications = useCallback(() => {
+    return notifications.filter((notification) => {
+      const dismissedKey = `dismissed_${notification.id}`;
+      const dismissedVersion = localStorage.getItem(dismissedKey);
+
+      // Check if already dismissed (for until_dismissed rule)
+      if (
+        dismissedVersion === notification.updatedAt &&
+        notification.displayRule === 'until_dismissed'
+      ) {
+        return false;
+      }
+
+      // Check session rule
+      const sessionKey = `seenSession_${notification.id}_${notification.updatedAt}`;
+      if (
+        notification.displayRule === 'once_per_session' &&
+        sessionStorage.getItem(sessionKey)
+      ) {
+        return false;
+      }
+
+      // Also check if this notification is in our dismissedIds state
+      if (dismissedIds.has(notification.id)) {
+        return false;
+      }
+
+      return true;
+    });
+  }, [notifications, dismissedIds]);
+
+  const validNotifications = getValidNotifications();
+  const currentNotification = validNotifications[currentIndex];
+
+  // Reset current index when notifications change
   useEffect(() => {
-    if (!notification) return;
+    setCurrentIndex(0);
+  }, [notifications]);
 
-    // Check if dismissed (using ID + updatedAt to allow re-showing on updates)
-    const dismissedKey = `dismissed_${notification.id}`;
-    const dismissedVersion = localStorage.getItem(dismissedKey);
-
-    if (
-      dismissedVersion === notification.updatedAt &&
-      notification.displayRule === 'until_dismissed'
-    ) {
-      return;
-    }
-
-    // Check session rule
-    // We also append updatedAt to session key to reset if updated mid-session
-    const sessionKey = `seenSession_${notification.id}_${notification.updatedAt}`;
-    if (
-      notification.displayRule === 'once_per_session' &&
-      sessionStorage.getItem(sessionKey)
-    ) {
+  // Handle visibility when current notification changes
+  useEffect(() => {
+    if (!currentNotification) {
+      setIsVisible(false);
       return;
     }
 
     // Show after slight delay for effect
     const timer = setTimeout(() => setIsVisible(true), 1000);
     return () => clearTimeout(timer);
-  }, [notification]);
-
-  if (!notification || !isVisible) return null;
+  }, [currentNotification]);
 
   const handleDismiss = () => {
+    if (!currentNotification) return;
+
     setIsVisible(false);
-    if (notification.displayRule === 'until_dismissed') {
+
+    // Mark as dismissed based on display rule
+    if (currentNotification.displayRule === 'until_dismissed') {
       localStorage.setItem(
-        `dismissed_${notification.id}`,
-        notification.updatedAt
+        `dismissed_${currentNotification.id}`,
+        currentNotification.updatedAt
       );
     }
-    if (notification.displayRule === 'once_per_session') {
+    if (currentNotification.displayRule === 'once_per_session') {
       sessionStorage.setItem(
-        `seenSession_${notification.id}_${notification.updatedAt}`,
+        `seenSession_${currentNotification.id}_${currentNotification.updatedAt}`,
         'true'
       );
     }
+
+    // Add to dismissed IDs
+    setDismissedIds((prev) => new Set(prev).add(currentNotification.id));
+
+    // Wait for animation then show next notification
+    setTimeout(() => {
+      const nextIndex = currentIndex + 1;
+      const remainingNotifications = getValidNotifications().slice(nextIndex);
+      
+      if (remainingNotifications.length > 0) {
+        setCurrentIndex(nextIndex);
+      }
+    }, 500);
   };
 
-  // Map custom colors to Tailwind equivalents
-  // bg-colors-common-yellow-500 -> bg-yellow-500
-  // bg-colors-common-yellow-400 -> bg-yellow-400
-  // bg-colors-common-yellow-900 -> text-yellow-900
-  // bg-colors-base-warning-500 -> bg-orange-500 (approx)
-  // bg-colors-base-primary-700 -> bg-blue-700
+  // If no valid notifications to show
+  if (!currentNotification || validNotifications.length === 0) {
+    return null;
+  }
+
+  const notification = currentNotification;
 
   // Helper to resolve link URL
   const resolveLinkUrl = (link: any) => {
@@ -84,13 +130,6 @@ export default function NotificationBar({
     const { fundraising } = notification;
     if (fundraising?.source === 'appeal' && fundraising.relatedAppeal) {
       return {
-        // Design shows "Friday Giving" or "Zakat", likely want to keep the manual title if provided, or use appeal title.
-        // Let's stick to the notification's title override if possible, or fallback to appeal title.
-        // In the schema, 'title' field is conditional on 'manual'.
-        // If 'appeal' selected, we might want to use the appeal's title OR allow an override.
-        // For now, let's use the appeal's title if source is appeal.
-        // Wait, the schema strictly hides 'title' if source is 'appeal'.
-        // So we strictly use relevantAppeal.title.
         title: fundraising.relatedAppeal.title,
         donorCount: fundraising.relatedAppeal.funding?.totalDonors || 0,
         amountRaised: fundraising.relatedAppeal.funding?.currentAmount || 0,
@@ -112,7 +151,11 @@ export default function NotificationBar({
   // 1. Simple Announcement
   if (notification.type === 'simple') {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-[9999] bg-yellow-500 shadow-lg transform transition-transform duration-500 ease-in-out translate-y-0">
+      <div 
+        className={`fixed bottom-0 left-0 right-0 z-[9999] bg-yellow-500 shadow-lg transform transition-all duration-500 ease-in-out ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+        }`}
+      >
         <div className="w-full max-w-[1536px] mx-auto px-4 pt-8 pb-6 md:px-28 md:py-5 relative flex flex-col md:flex-row justify-start md:justify-between items-start md:items-center gap-4 md:gap-9">
           {/* Close Button - Mobile: Top Right (Absolute), Desktop: Right (Relative/Flex) */}
           <button
@@ -135,23 +178,16 @@ export default function NotificationBar({
                 href={resolveLinkUrl(link)}
                 className={`h-10 md:h-12 px-4 md:px-6 rounded-lg flex justify-center items-center gap-2 text-sm md:text-base font-normal font-['Inter'] leading-5 md:leading-6 transition-colors
                   ${link.style === 'secondary'
-                    ? 'bg-orange-50 text-black hover:bg-white/90 md:bg-[#1919195c] md:text-white md:hover:bg-white/30' // Mobile specific styling for secondary? User snippet shows lighter bg
-                    : 'bg-white/40 text-black hover:bg-white/50 md:bg-white md:text-yellow-900 md:hover:bg-gray-100' // Matches user snippet structure somewhat
+                    ? 'bg-orange-50 text-black hover:bg-white/90 md:bg-[#1919195c] md:text-white md:hover:bg-white/30'
+                    : 'bg-white/40 text-black hover:bg-white/50 md:bg-white md:text-yellow-900 md:hover:bg-gray-100'
                   }
                   ${
-                  // Override styles based on user snippet for mobile 'Donate' vs 'View Event'
-                  // User snippet: Donate (bg-colors-flat-default-flat/40), View Event (bg-colors-base-default-50)
                   idx === 0
                     ? 'bg-black/10 text-black'
                     : 'bg-white/50 text-black'
                   }
                   md:!bg-white md:!text-yellow-900 md:first:!bg-[#1919195c] md:first:!text-white
                   `}
-              // Note: The user snippet styles are quite specific custom colors.
-              // I'm approximating:
-              // Link 1: bg-black/10 (flat-default-flat/40 approx)
-              // Link 2: bg-white/50 (base-default-50 approx)
-              // Desktop overrides allow preserving the previous accepted desktop design.
               >
                 {link.label}
               </Link>
@@ -165,8 +201,12 @@ export default function NotificationBar({
   // 2. Jumu'ah Schedule
   if (notification.type === 'jummah') {
     return (
-      <div className="fixed bg-[#F5A524] bottom-0 left-0 right-0 z-[9999]  shadow-lg transform transition-transform duration-500 ease-in-out translate-y-0 border-t-0 ">
-        <div className="w-full bg-[#F5A524] max-w-[1536px] mx-auto relative flex flex-col xl:flex-row md:pl-4 lg:px-24  xl:gap-16 ">
+      <div 
+        className={`fixed bg-[#F5A524] bottom-0 left-0 right-0 z-[9999] shadow-lg transform transition-all duration-500 ease-in-out border-t-0 ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+        }`}
+      >
+        <div className="w-full bg-[#F5A524] max-w-[1536px] mx-auto relative flex flex-col xl:flex-row md:pl-4 lg:px-24 xl:gap-16">
           {/* Close Button */}
           <button
             onClick={handleDismiss}
@@ -176,9 +216,9 @@ export default function NotificationBar({
           </button>
 
           {/* Greeting / Message */}
-          <div className="pl-4 pr-11 pt-4 pb-6m m-auto md:p-0 md:block flex-1 text-black md:text-white text-base md:text-xl font-normal md:font-bold font-['Inter'] leading-6 md:leading-7">
+          <div className="pl-4 pr-11 pt-4 pb-6 m-auto md:p-0 md:block flex-1 text-black md:text-white text-base md:text-xl font-normal md:font-bold font-['Inter'] leading-6 md:leading-7">
             {notification.jummahDate ||
-              "A blessed Jumu'ah to you. May today’s prayers be answered!"}
+              "A blessed Jumu'ah to you. May today's prayers be answered!"}
           </div>
 
           {/* Content Wrapper - Mobile: Horizontal Stack, Desktop: Flex Row */}
@@ -188,7 +228,7 @@ export default function NotificationBar({
               {/* Mobile Header */}
               <div className="flex md:hidden flex-col items-center">
                 <div className="text-center text-black text-xs font-medium font-['Inter'] leading-4">
-                  JUMU’AH 1
+                  JUMU'AH 1
                 </div>
                 <div className="text-center text-black text-xs font-medium font-['Inter'] leading-4">
                   {notification.jummah1?.time || '12:30 PM'}
@@ -196,9 +236,6 @@ export default function NotificationBar({
               </div>
 
               {/* Desktop Header */}
-              {/* <div className="hidden md:flex p-2 bg-blue-900 rounded-2xl justify-center items-center">
-                <span className="text-2xl">🕌</span>
-              </div> */}
               <Image
                 alt="mosque-noti"
                 width={48}
@@ -206,7 +243,7 @@ export default function NotificationBar({
                 src={'/assets/mosque-noti.svg'} />
               <div className="hidden md:flex justify-center items-center gap-1">
                 <div className="text-center text-black text-sm font-medium">
-                  JUMU’AH 1
+                  JUMU'AH 1
                 </div>
                 <div className="text-center text-black text-sm font-medium">
                   {notification.jummah1?.time || '12:30 PM'}
@@ -248,7 +285,7 @@ export default function NotificationBar({
               {/* Mobile Header */}
               <div className="flex md:hidden flex-col items-center">
                 <div className="text-center text-black text-xs font-medium font-['Inter'] leading-4">
-                  JUMU’AH 2
+                  JUMU'AH 2
                 </div>
                 <div className="text-center text-black text-xs font-medium font-['Inter'] leading-4">
                   {notification.jummah2?.time || '1:30 PM'}
@@ -263,7 +300,7 @@ export default function NotificationBar({
                 src={'/assets/mosque-noti.svg'} />
               <div className="hidden md:flex justify-center items-center gap-1">
                 <div className="text-center text-blue-700 text-sm font-medium">
-                  JUMU’AH 2
+                  JUMU'AH 2
                 </div>
                 <div className="text-center text-blue-700 text-sm font-medium">
                   {notification.jummah2?.time || '1:30 PM'}
@@ -301,16 +338,6 @@ export default function NotificationBar({
 
             {/* Fundraising Stats - Mobile: 3rd column, Desktop: Box */}
             <div className="flex-1 min-w-[33%] md:min-w-0 md:w-52 p-3 md:px-6 md:py-4 bg-[#62420E] flex flex-col justify-center items-center md:items-start gap-2 border-l md:border-none border-dashed border-gray-300 md:border-transparent h-[100%] min-h-[168px]">
-              {/* Mobile uses different layout for fundraising to fit in the row? 
-                  User snippet had a row of 3 identical Jummah blocks, but usually fundraising is distinct.
-                  Wait, the user's Eid snippet has a specific MOBILE fundraising block. 
-                  Let's assume Jummah Mobile also wants the fundraising info but maybe compact. 
-                  Or maybe strictly follow the user's 'Eid' structure for 'Jummah' too if it fits better?
-                  Actually, user's Jumu'ah snippet purely showed 3 Jummah blocks (1 duplicated). 
-                  I will render the Fundraising Stats here, adapted to match the style of the sibling blocks for Mobile 
-                  so it looks cohesive, but pull the correct data.
-              */}
-
               {/* Mobile Header: "Friday Giving" */}
               <div className="flex md:hidden flex-col items-center">
                 <div className="text-center text-black text-xs font-medium font-['Inter'] leading-4">
@@ -366,7 +393,11 @@ export default function NotificationBar({
   // 3. Eid Schedule
   if (notification.type === 'eid') {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-[9999] bg-[#F5A524] shadow-lg transform transition-transform duration-500 ease-in-out translate-y-0">
+      <div 
+        className={`fixed bottom-0 left-0 right-0 z-[9999] bg-[#F5A524] shadow-lg transform transition-all duration-500 ease-in-out ${
+          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+        }`}
+      >
         {/* Figma Container: w-[1536px] max, px-24, gap-6 */}
         <div className="w-full max-w-[1536px] min-h-[140px] mx-auto px-4 md:px-24 relative flex flex-col xl:flex-row justify-start items-center gap-6 overflow-hidden">
           {/* Message Area: flex-1, Inter Bold, text-xl */}
