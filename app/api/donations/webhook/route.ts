@@ -103,6 +103,12 @@ export async function POST(req: NextRequest) {
           if (donations.docs.length > 0) {
             const donation = donations.docs[0];
 
+            // Skip if already completed (idempotency check)
+            if (donation.status === 'completed') {
+              console.log(`Donation ${donation.id} already completed, skipping webhook processing`);
+              return;
+            }
+
             // Update donation status
             await payload.update({
               collection: 'donations',
@@ -146,6 +152,23 @@ export async function POST(req: NextRequest) {
               });
 
               if (appeal) {
+                // Check if this donor has already donated to this appeal
+                // Only count them as a new donor if this is their first donation to this appeal
+                const existingDonationsFromThisDonor = await payload.find({
+                  collection: 'donations',
+                  where: {
+                    and: [
+                      { appeal: { equals: appealId } },
+                      { donorEmail: { equals: donation.donorEmail } },
+                      { status: { equals: 'completed' } },
+                      { id: { not_equals: donation.id } }, // Exclude current donation
+                    ],
+                  },
+                  limit: 1,
+                });
+
+                const isNewDonorToAppeal = existingDonationsFromThisDonor.docs.length === 0;
+
                 await payload.update({
                   collection: 'donation-appeals',
                   id: appealId,
@@ -155,10 +178,15 @@ export async function POST(req: NextRequest) {
                       currentAmount:
                         (appeal.funding?.currentAmount || 0) +
                         (donation.amount || 0),
-                      totalDonors: (appeal.funding?.totalDonors || 0) + 1,
+                      // Only increment donor count if this is their first donation to this appeal
+                      totalDonors: isNewDonorToAppeal 
+                        ? (appeal.funding?.totalDonors || 0) + 1 
+                        : (appeal.funding?.totalDonors || 0),
                     },
                   },
                 });
+
+                console.log(`Updated appeal ${appealId}: currentAmount=${(appeal.funding?.currentAmount || 0) + (donation.amount || 0)}, totalDonors=${isNewDonorToAppeal ? (appeal.funding?.totalDonors || 0) + 1 : (appeal.funding?.totalDonors || 0)} (newDonor=${isNewDonorToAppeal})`);
               }
             }
 
@@ -245,76 +273,123 @@ export async function POST(req: NextRequest) {
       case 'invoice.paid': {
         // Handle recurring subscription payments
         const invoice = event.data.object as Stripe.Invoice;
+        
+        console.log(`📧 invoice.paid event received:`, {
+          invoiceId: invoice.id,
+          subscription: invoice.subscription,
+          amountPaid: invoice.amount_paid,
+          customer: invoice.customer,
+        });
 
-        if (invoice.subscription) {
-          const subscriptionId =
-            typeof invoice.subscription === 'string'
-              ? invoice.subscription
-              : invoice.subscription.id;
+        if (!invoice.subscription) {
+          console.log('⚠️ Invoice has no subscription, skipping');
+          break;
+        }
 
-          await runWithRetry(async () => {
-            // Find donor by subscription
-            const donors = await payload.find({
+        const subscriptionId =
+          typeof invoice.subscription === 'string'
+            ? invoice.subscription
+            : invoice.subscription.id;
+
+        await runWithRetry(async () => {
+          // Find donor by subscription
+          let donors = await payload.find({
+            collection: 'donors',
+            where: {
+              'activeSubscriptions.stripeSubscriptionId': {
+                equals: subscriptionId,
+              },
+            },
+            limit: 1,
+          });
+
+          // Fallback: Try finding by Stripe customer ID if subscription lookup fails
+          if (donors.docs.length === 0 && invoice.customer) {
+            console.log(`⚠️ Donor not found by subscription ${subscriptionId}, trying customer ID...`);
+            const customerId = typeof invoice.customer === 'string' 
+              ? invoice.customer 
+              : invoice.customer.id;
+            
+            donors = await payload.find({
               collection: 'donors',
               where: {
-                'activeSubscriptions.stripeSubscriptionId': {
-                  equals: subscriptionId,
-                },
+                stripeCustomerId: { equals: customerId },
               },
               limit: 1,
             });
+          }
 
-            if (donors.docs.length > 0) {
-              const donor = donors.docs[0];
+          if (donors.docs.length === 0) {
+            console.error(`❌ Donor not found for subscription ${subscriptionId} or customer ${invoice.customer}`);
+            return;
+          }
 
-              // Create a new donation record for this payment
-              const subscription = donor.activeSubscriptions?.find(
-                (s: { stripeSubscriptionId: string }) =>
-                  s.stripeSubscriptionId === subscriptionId
-              );
+          const donor = donors.docs[0];
+          console.log(`✅ Found donor: ${donor.email} (${donor.id})`);
 
-              if (subscription) {
-                await payload.create({
-                  collection: 'donations',
-                  data: {
-                    amount: (invoice.amount_paid || 0) / 100,
-                    currency: invoice.currency?.toUpperCase() || 'GBP',
-                    frequency: subscription.frequency,
-                    donationType: subscription.donationType,
-                    donorEmail: donor.email,
-                    donorFirstName: donor.firstName,
-                    donorLastName: donor.lastName,
-                    payment: {
-                      method: 'card',
-                      stripeSubscriptionId: subscriptionId,
-                      stripePaymentIntentId: invoice.payment_intent as string,
-                      stripeCustomerId: donor.stripeCustomerId,
-                    },
-                    status: 'completed',
-                    totalAmount: (invoice.amount_paid || 0) / 100,
-                  },
-                });
+          // Create a new donation record for this payment
+          const subscription = donor.activeSubscriptions?.find(
+            (s: { stripeSubscriptionId: string }) =>
+              s.stripeSubscriptionId === subscriptionId
+          );
 
-                // Update donor statistics
-                await payload.update({
-                  collection: 'donors',
-                  id: donor.id,
-                  data: {
-                    totalDonated:
-                      (donor.totalDonated || 0) +
-                      (invoice.amount_paid || 0) / 100,
-                    donationCount: (donor.donationCount || 0) + 1,
-                    lastDonationDate: new Date().toISOString(),
-                  },
-                });
+          if (!subscription) {
+            console.error(`❌ Subscription ${subscriptionId} not found in donor's activeSubscriptions`);
+            console.log(`   Donor subscriptions:`, JSON.stringify(donor.activeSubscriptions));
+          }
 
-                console.log(
-                  `✅ Recurring donation processed for ${donor.email}`
-                );
-              }
-            }
-          });
-        }
+          // Create donation record even if subscription metadata not found
+          const donationData = {
+            amount: (invoice.amount_paid || 0) / 100,
+            currency: invoice.currency?.toUpperCase() || 'GBP',
+            frequency: subscription?.frequency || 'monthly',
+            donationType: subscription?.donationType || 'general',
+            donorEmail: donor.email,
+            donorFirstName: donor.firstName,
+            donorLastName: donor.lastName,
+            isAnonymous: donor.preferAnonymous || false,
+            payment: {
+              method: 'card',
+              stripeSubscriptionId: subscriptionId,
+              stripePaymentIntentId: invoice.payment_intent as string,
+              stripeCustomerId: donor.stripeCustomerId,
+            },
+            status: 'completed',
+            totalAmount: (invoice.amount_paid || 0) / 100,
+          };
+
+          console.log(`📝 Creating donation record:`, donationData);
+
+          try {
+            const newDonation = await payload.create({
+              collection: 'donations',
+              data: donationData,
+            });
+
+            console.log(`✅ Donation record created: ${newDonation.id}`);
+
+            // Update donor statistics
+            const newTotalDonated = (donor.totalDonated || 0) + (invoice.amount_paid || 0) / 100;
+            const newDonationCount = (donor.donationCount || 0) + 1;
+
+            await payload.update({
+              collection: 'donors',
+              id: donor.id,
+              data: {
+                totalDonated: newTotalDonated,
+                donationCount: newDonationCount,
+                lastDonationDate: new Date().toISOString(),
+              },
+            });
+
+            console.log(
+              `✅ Recurring donation processed for ${donor.email}: £${(invoice.amount_paid || 0) / 100}. Total donated: £${newTotalDonated.toFixed(2)} (${newDonationCount} donations)`
+            );
+          } catch (error) {
+            console.error(`❌ Failed to create donation record:`, error);
+            throw error;
+          }
+        });
         break;
       }
 

@@ -116,44 +116,9 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        // Update appeal statistics if appeal is linked
-        if (donation.appeal) {
-            const appealId = typeof donation.appeal === 'string'
-                ? donation.appeal
-                : donation.appeal.id;
-
-            try {
-                // Get current appeal data
-                const appeal = await payload.findByID({
-                    collection: 'donation-appeals' as any,
-                    id: appealId,
-                }) as any;
-
-                if (appeal) {
-                    const currentAmount = appeal.funding?.currentAmount || 0;
-                    const totalDonors = appeal.funding?.totalDonors || 0;
-                    const donationAmount = donation.amount || 0;
-
-                    // Update appeal with new totals
-                    await payload.update({
-                        collection: 'donation-appeals' as any,
-                        id: appealId,
-                        data: {
-                            funding: {
-                                ...appeal.funding,
-                                currentAmount: currentAmount + donationAmount,
-                                totalDonors: totalDonors + 1,
-                            },
-                        },
-                    });
-
-                    console.log(`Updated appeal ${appealId}: currentAmount=${currentAmount + donationAmount}, totalDonors=${totalDonors + 1}`);
-                }
-            } catch (error) {
-                console.error('Error updating appeal:', error);
-                // Don't fail the whole request if appeal update fails
-            }
-        }
+        // NOTE: Appeal statistics are updated by the webhook handler
+        // to avoid double-counting when both webhook and confirmation run
+        // The webhook is the source of truth for appeal statistics
 
         // Send emails if not already sent (e.g. by webhook)
         // We check receiptSent flag again to be sure, although we just checked status
