@@ -1,10 +1,10 @@
 /**
- * Webhook Test Endpoint
+ * Webhook Diagnostic Endpoint
  * 
  * Use this to verify your webhook configuration is working
  * 
- * 1. Check if env vars are set: GET /api/donations/webhook-test
- * 2. Simulate webhook: POST /api/donations/webhook-test
+ * GET /api/webhook-diagnostic - Check if env vars are set
+ * POST /api/webhook-diagnostic - Simulate webhook
  */
 
 import { NextRequest, NextResponse } from 'next/server';

@@ -4,7 +4,7 @@
 
 Test your configuration by visiting:
 ```
-https://masjid-alfalah.org.uk/api/donations/webhook-test
+https://masjid-alfalah.org.uk/api/webhook-diagnostic
 ```
 
 You should see a JSON response showing your Stripe configuration status.
@@ -68,7 +68,7 @@ docker-compose restart
 
 From your local machine:
 ```bash
-curl https://masjid-alfalah.org.uk/api/donations/webhook-test
+curl https://masjid-alfalah.org.uk/api/webhook-diagnostic
 ```
 
 Should return:
@@ -138,6 +138,13 @@ pm2 logs --lines 100
 # Look for error messages in the webhook handler
 ```
 
+### Issue: "Donation not found" error on webhook-test
+**Cause**: Route conflict with [id] dynamic route
+**Fix**: Use the new endpoint:
+```
+https://masjid-alfalah.org.uk/api/webhook-diagnostic
+```
+
 ---
 
 ## Important: HTTPS Required
@@ -146,7 +153,7 @@ Stripe webhooks **only work with HTTPS**. If your site is HTTP-only, webhooks wi
 
 Check SSL:
 ```bash
-curl -v https://masjid-alfalah.org.uk/api/donations/webhook-test 2>&1 | grep "SSL"
+curl -v https://masjid-alfalah.org.uk/api/webhook-diagnostic 2>&1 | grep "SSL"
 ```
 
 ---
