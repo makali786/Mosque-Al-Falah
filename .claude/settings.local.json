@@ -29,7 +29,10 @@
       "Bash(openssl rand:*)",
       "Bash(npm uninstall:*)",
       "Bash(ren:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(npx tsc *)",
+      "Bash(git -C /Users/Macbookpro/Documents/Mosque-Al-Falah stash)",
+      "Bash(git -C /Users/Macbookpro/Documents/Mosque-Al-Falah stash pop)"
     ]
   },
   "enableAllProjectMcpServers": true,

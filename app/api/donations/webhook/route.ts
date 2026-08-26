@@ -109,7 +109,9 @@ export async function POST(req: NextRequest) {
               return;
             }
 
-            // Update donation status
+            // Update donation status. The Donations afterChange hook will
+            // recompute donor totals from completed donations only —
+            // do NOT increment donor stats manually here (would double-count).
             await payload.update({
               collection: 'donations',
               id: donation.id,
@@ -118,27 +120,6 @@ export async function POST(req: NextRequest) {
                 receiptSent: true, // Stripe sends receipt automatically
               },
             });
-
-            // Update donor statistics
-            const donors = await payload.find({
-              collection: 'donors',
-              where: { email: { equals: donation.donorEmail } },
-              limit: 1,
-            });
-
-            if (donors.docs.length > 0) {
-              const donor = donors.docs[0];
-              await payload.update({
-                collection: 'donors',
-                id: donor.id,
-                data: {
-                  totalDonated:
-                    (donor.totalDonated || 0) + (donation.amount || 0),
-                  donationCount: (donor.donationCount || 0) + 1,
-                  lastDonationDate: new Date().toISOString(),
-                },
-              });
-            }
 
             // Update appeal statistics if linked
             if (donation.appeal) {
@@ -361,29 +342,15 @@ export async function POST(req: NextRequest) {
           console.log(`📝 Creating donation record:`, donationData);
 
           try {
+            // Donor totals get recomputed by the Donations afterChange hook
+            // (only completed donations counted), so no manual increment here.
             const newDonation = await payload.create({
               collection: 'donations',
               data: donationData,
             });
 
-            console.log(`✅ Donation record created: ${newDonation.id}`);
-
-            // Update donor statistics
-            const newTotalDonated = (donor.totalDonated || 0) + (invoice.amount_paid || 0) / 100;
-            const newDonationCount = (donor.donationCount || 0) + 1;
-
-            await payload.update({
-              collection: 'donors',
-              id: donor.id,
-              data: {
-                totalDonated: newTotalDonated,
-                donationCount: newDonationCount,
-                lastDonationDate: new Date().toISOString(),
-              },
-            });
-
             console.log(
-              `✅ Recurring donation processed for ${donor.email}: £${(invoice.amount_paid || 0) / 100}. Total donated: £${newTotalDonated.toFixed(2)} (${newDonationCount} donations)`
+              `✅ Recurring donation processed for ${donor.email}: £${(invoice.amount_paid || 0) / 100} (donation ${newDonation.id})`
             );
           } catch (error) {
             console.error(`❌ Failed to create donation record:`, error);

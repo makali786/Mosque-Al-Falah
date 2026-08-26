@@ -2,7 +2,7 @@
 
 import Image from '@/components/common/CustomImage';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const SUPPORTERS: any[] = [];
 
@@ -389,45 +389,61 @@ export default function Footer() {
     fetchFooterData();
   }, []);
 
-  // Fetch donation data
-  useEffect(() => {
-    const fetchDonations = async () => {
-      try {
-        setIsLoadingDonations(true);
-        const response = await fetch('/api/donations/recent?limit=4');
+  // Fetch donation data — also re-runs after any successful donation
+  // (via the 'donation-completed' event dispatched from /donate/complete),
+  // and when the tab regains focus.
+  const fetchDonations = useCallback(async () => {
+    try {
+      setIsLoadingDonations(true);
+      const response = await fetch('/api/donations/recent?limit=4', {
+        cache: 'no-store',
+      });
 
-        if (response.ok) {
-          const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
 
-          if (data.success) {
-            // Update recent donors
-            if (data.recentDonors) {
-              setRecentDonors(data.recentDonors);
-            }
+        if (data.success) {
+          if (data.recentDonors) {
+            setRecentDonors(data.recentDonors);
+          }
 
-            // Update stats
-            if (data.stats) {
-              setDonationStats([
-                {
-                  value: String(data.stats.campaigns).padStart(2, '0'),
-                  label: 'Campaigns',
-                },
-                { value: String(data.stats.donors), label: 'Donors' },
-                { value: data.stats.fundsRaised, label: 'Funds Raised' },
-              ]);
-            }
+          if (data.stats) {
+            setDonationStats([
+              {
+                value: String(data.stats.campaigns).padStart(2, '0'),
+                label: 'Campaigns',
+              },
+              { value: String(data.stats.donors), label: 'Donors' },
+              { value: data.stats.fundsRaised, label: 'Funds Raised' },
+            ]);
           }
         }
-      } catch (error) {
-        console.error('Failed to fetch donations:', error);
-        // Keep using default SUPPORTERS and STATS on error
-      } finally {
-        setIsLoadingDonations(false);
       }
+    } catch (error) {
+      console.error('Failed to fetch donations:', error);
+    } finally {
+      setIsLoadingDonations(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchDonations();
+
+    const handleDonationCompleted = () => {
+      fetchDonations();
+    };
+    const handleFocus = () => {
+      fetchDonations();
     };
 
-    fetchDonations();
-  }, []);
+    window.addEventListener('donation-completed', handleDonationCompleted);
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('donation-completed', handleDonationCompleted);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [fetchDonations]);
 
   return (
     <>

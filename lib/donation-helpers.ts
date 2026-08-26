@@ -21,17 +21,33 @@ export async function getRecentDonationData(limit: number = 4) {
       },
     });
 
-    // Fetch all donors to calculate total count
-    const allDonors = await payload.find({
-      collection: 'donors' as any,
-      limit: 10000,
-    });
+    // Fetch ALL completed donations for accurate stats
+    // (pending/failed/refunded/cancelled must NOT contribute to totals)
+    const completedDonations = await payload.find({
+      collection: 'donations' as any,
+      limit: 100000,
+      where: {
+        status: {
+          equals: 'completed',
+        },
+      },
+      pagination: false,
+    } as any);
 
-    // Calculate total funds raised from all donors
-    const totalFundsRaised = allDonors.docs.reduce(
-      (sum: number, donor: any) => sum + (donor.totalDonated || 0),
+    // Total funds raised = sum of completed donation amounts
+    const totalFundsRaised = completedDonations.docs.reduce(
+      (sum: number, donation: any) => sum + (donation.amount || 0),
       0
     );
+
+    // Unique donors = distinct donor emails among completed donations
+    const uniqueDonorEmails = new Set<string>();
+    for (const donation of completedDonations.docs as any[]) {
+      if (donation.donorEmail) {
+        uniqueDonorEmails.add(String(donation.donorEmail).toLowerCase());
+      }
+    }
+    const totalDonorsCount = uniqueDonorEmails.size;
 
     // Count active campaigns (donation appeals)
     const campaigns = await payload.find({
@@ -94,7 +110,7 @@ export async function getRecentDonationData(limit: number = 4) {
       recentDonors: formattedDonors,
       stats: {
         campaigns: campaigns.totalDocs,
-        donors: allDonors.totalDocs,
+        donors: totalDonorsCount,
         fundsRaised: `£${totalFundsRaised.toLocaleString('en-GB', {
           minimumFractionDigits: 0,
           maximumFractionDigits: 0,

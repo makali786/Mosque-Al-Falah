@@ -443,14 +443,21 @@ export const Donations: CollectionConfig = {
                 },
               });
             }
-            const allDonations = await payload.find({
+            // Only count COMPLETED donations toward donor stats.
+            // Pending / failed / refunded / cancelled must NOT inflate totals.
+            const completedDonations = await payload.find({
               collection: "donations",
-              where: { donorEmail: { equals: doc.donorEmail } },
+              where: {
+                and: [
+                  { donorEmail: { equals: doc.donorEmail } },
+                  { status: { equals: "completed" } },
+                ],
+              },
               limit: 1000,
             });
-            const totalDonated = allDonations.docs.reduce((sum, donation) => sum + (donation.amount || 0), 0);
-            const donationCount = allDonations.docs.length;
-            const sortedDonations = allDonations.docs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            const totalDonated = completedDonations.docs.reduce((sum, donation) => sum + (donation.amount || 0), 0);
+            const donationCount = completedDonations.docs.length;
+            const sortedDonations = completedDonations.docs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
             const lastDonationDate = sortedDonations[0]?.createdAt;
             await payload.update({
               collection: "donors",

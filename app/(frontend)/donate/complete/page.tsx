@@ -39,6 +39,10 @@ function DonationCompleteContent() {
             console.error('Failed to confirm payment:', await response.json());
           } else {
             console.log('Payment confirmed successfully');
+            // Tell any mounted listeners (footer stats, etc.) to refetch
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new Event('donation-completed'));
+            }
           }
         } catch (error) {
           console.error('Error confirming payment:', error);
