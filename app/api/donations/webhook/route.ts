@@ -121,55 +121,8 @@ export async function POST(req: NextRequest) {
               },
             });
 
-            // Update appeal statistics if linked
-            if (donation.appeal) {
-              const appealId =
-                typeof donation.appeal === 'string'
-                  ? donation.appeal
-                  : donation.appeal.id;
-              const appeal = await payload.findByID({
-                collection: 'donation-appeals',
-                id: appealId,
-              });
-
-              if (appeal) {
-                // Check if this donor has already donated to this appeal
-                // Only count them as a new donor if this is their first donation to this appeal
-                const existingDonationsFromThisDonor = await payload.find({
-                  collection: 'donations',
-                  where: {
-                    and: [
-                      { appeal: { equals: appealId } },
-                      { donorEmail: { equals: donation.donorEmail } },
-                      { status: { equals: 'completed' } },
-                      { id: { not_equals: donation.id } }, // Exclude current donation
-                    ],
-                  },
-                  limit: 1,
-                });
-
-                const isNewDonorToAppeal = existingDonationsFromThisDonor.docs.length === 0;
-
-                await payload.update({
-                  collection: 'donation-appeals',
-                  id: appealId,
-                  data: {
-                    funding: {
-                      ...appeal.funding,
-                      currentAmount:
-                        (appeal.funding?.currentAmount || 0) +
-                        (donation.amount || 0),
-                      // Only increment donor count if this is their first donation to this appeal
-                      totalDonors: isNewDonorToAppeal 
-                        ? (appeal.funding?.totalDonors || 0) + 1 
-                        : (appeal.funding?.totalDonors || 0),
-                    },
-                  },
-                });
-
-                console.log(`Updated appeal ${appealId}: currentAmount=${(appeal.funding?.currentAmount || 0) + (donation.amount || 0)}, totalDonors=${isNewDonorToAppeal ? (appeal.funding?.totalDonors || 0) + 1 : (appeal.funding?.totalDonors || 0)} (newDonor=${isNewDonorToAppeal})`);
-              }
-            }
+            // Appeal statistics are recomputed by the Donations afterChange hook
+            // (from completed donations) — no manual increment needed here.
 
             // Send donation receipt email
             try {

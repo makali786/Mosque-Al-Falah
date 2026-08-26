@@ -32,7 +32,11 @@
       "Bash(npm run dev:*)",
       "Bash(npx tsc *)",
       "Bash(git -C /Users/Macbookpro/Documents/Mosque-Al-Falah stash)",
-      "Bash(git -C /Users/Macbookpro/Documents/Mosque-Al-Falah stash pop)"
+      "Bash(git -C /Users/Macbookpro/Documents/Mosque-Al-Falah stash pop)",
+      "Bash(git log *)",
+      "Bash(command -v sshpass)",
+      "Bash(sshpass -V)",
+      "Bash(sshpass *)"
     ]
   },
   "enableAllProjectMcpServers": true,

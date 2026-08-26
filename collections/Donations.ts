@@ -475,6 +475,62 @@ export const Donations: CollectionConfig = {
             console.error("Error updating donor statistics:", error);
           }
         }
+
+        // ─────────────────────────────────────────────────────────────
+        // Recompute linked appeal stats from completed donations.
+        // Idempotent — safe if webhook + confirm-payment both fire, and
+        // also fixes appeals whose total never moved because confirm-payment
+        // flipped status to completed before the webhook could increment.
+        // ─────────────────────────────────────────────────────────────
+        if (doc.appeal) {
+          try {
+            const { payload } = req;
+            const appealId =
+              typeof doc.appeal === "string" ? doc.appeal : (doc.appeal as any).id;
+
+            const appealDonations = await payload.find({
+              collection: "donations",
+              where: {
+                and: [
+                  { appeal: { equals: appealId } },
+                  { status: { equals: "completed" } },
+                ],
+              },
+              limit: 10000,
+            });
+
+            const currentAmount = appealDonations.docs.reduce(
+              (sum: number, d: any) => sum + (d.amount || 0),
+              0
+            );
+
+            const donorEmails = new Set<string>();
+            for (const d of appealDonations.docs as any[]) {
+              if (d.donorEmail) donorEmails.add(String(d.donorEmail).toLowerCase());
+            }
+            const totalDonors = donorEmails.size;
+
+            const appeal = await payload.findByID({
+              collection: "donation-appeals",
+              id: appealId,
+            });
+
+            await payload.update({
+              collection: "donation-appeals",
+              id: appealId,
+              data: {
+                funding: {
+                  ...((appeal as any)?.funding || {}),
+                  currentAmount,
+                  totalDonors,
+                },
+              },
+            });
+          } catch (error) {
+            console.error("Error recomputing appeal statistics:", error);
+          }
+        }
+
         return doc;
       },
     ],
